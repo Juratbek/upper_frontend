@@ -1,17 +1,23 @@
 {
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json"],
+    "sourceType": "module"
+  },
   "plugins": ["@typescript-eslint/eslint-plugin", "react", "simple-import-sort"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
-    "plugin:react/jsx-runtime"
+    "plugin:react/jsx-runtime",
+    "plugin:@next/next/recommended"
   ],
   "root": true,
   "env": {
     "node": true,
     "jest": true
   },
-  "ignorePatterns": [".eslintrc.json", "tsconfig.json"],
+  "ignorePatterns": ["*.js"],
   "rules": {
     "@typescript-eslint/naming-convention": [
       "error",
@@ -61,5 +67,10 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "warn",
     "simple-import-sort/imports": "error"
+  },
+  "settings": {
+    "react": {
+      "vesrion": "detect"
+    }
   }
 }
