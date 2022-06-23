@@ -4,7 +4,7 @@
     "project": ["packages/api/tsconfig.json", "packages/web/tsconfig.json"],
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin", "react"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "react", "simple-import-sort"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -64,6 +64,7 @@
     "no-underscore-dangle": "error",
     "no-lonely-if": "error",
     "@typescript-eslint/explicit-function-return-type": "error",
-    "@typescript-eslint/no-explicit-any": "warn"
+    "@typescript-eslint/no-explicit-any": "warn",
+    "simple-import-sort/imports": "error"
   }
 }
