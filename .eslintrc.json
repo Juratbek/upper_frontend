@@ -1,9 +1,4 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": ["packages/api/tsconfig.json", "packages/web/tsconfig.json"],
-    "sourceType": "module"
-  },
   "plugins": ["@typescript-eslint/eslint-plugin", "react", "simple-import-sort"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
@@ -16,7 +11,7 @@
     "node": true,
     "jest": true
   },
-  "ignorePatterns": [".eslintrc.json"],
+  "ignorePatterns": [".eslintrc.json", "tsconfig.json"],
   "rules": {
     "@typescript-eslint/naming-convention": [
       "error",
