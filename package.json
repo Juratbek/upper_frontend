@@ -6,11 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
+    "lint": "eslint \"**/*.{ts,tsx}\" --fix",
+    "prettier": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install"
   },
   "lint-staged": {
-    "**/*.{ts, tsx}": ["lint"]
+    "**/*.{ts,tsx}": [
+      "npm run prettier",
+      "npm run lint"
+    ]
   },
   "dependencies": {
     "husky": "^8.0.1",
@@ -31,6 +35,7 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
     "typescript": "4.7.4"
   }
 }
