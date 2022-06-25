@@ -10,8 +10,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint && git add ."
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*": "lint"
   },
   "dependencies": {
     "husky": "^8.0.1",
