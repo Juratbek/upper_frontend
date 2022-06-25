@@ -18,6 +18,11 @@
     "jest": true
   },
   "ignorePatterns": ["*.js"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
     "@typescript-eslint/naming-convention": [
       "error",
@@ -72,10 +77,5 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/no-explicit-any": "warn",
     "simple-import-sort/imports": "error"
-  },
-  "settings": {
-    "react": {
-      "vesrion": "detect"
-    }
   }
 }
