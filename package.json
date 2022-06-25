@@ -9,6 +9,9 @@
     "lint": "next lint --fix",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "**/*.{ts, tsx}": ["lint"]
+  },
   "dependencies": {
     "husky": "^8.0.1",
     "next": "12.1.6",
@@ -26,7 +29,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "typescript": "4.7.4",
-    "husky": "^8.0.0"
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
+    "typescript": "4.7.4"
   }
 }
