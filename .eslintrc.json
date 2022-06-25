@@ -33,7 +33,8 @@
       },
       {
         "selector": "typeAlias",
-        "format": ["PascalCase"]
+        "format": ["PascalCase"],
+        "prefix": ["T"]
       },
       {
         "selector": ["enum", "enumMember"],
@@ -42,11 +43,15 @@
       {
         "selector": "interface",
         "format": ["PascalCase"],
-        "prefix": ["I"]
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
       },
       {
         "selector": "typeParameter",
-        "format": ["PascalCase"]
+        "format": ["PascalCase"],
+        "prefix": ["T"]
       }
     ],
     "react/jsx-filename-extension": [
