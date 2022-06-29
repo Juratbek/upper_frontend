@@ -1,0 +1,4 @@
+.sidebar {
+    border-left: 1px solid var(--lightBlack);
+    min-width: 380px;
+}

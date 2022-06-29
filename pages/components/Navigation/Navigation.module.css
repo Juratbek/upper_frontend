@@ -1,0 +1,13 @@
+.navigation{
+    border-right: 1px solid var(--lightBlack);
+    min-width: 90px;
+    width: 6vw;
+    position: relative;
+}
+
+.positioned {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
