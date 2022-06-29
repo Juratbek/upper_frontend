@@ -1,0 +1,18 @@
+.button {
+    border-radius: 100rem;
+    padding: 0.4em 1em;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.dark {
+    background-color: black;
+    color: white;
+}
+
+.outline-dark {
+    background-color: white;
+    border: 1px solid black;
+    color: white;
+}
