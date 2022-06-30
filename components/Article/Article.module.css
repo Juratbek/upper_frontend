@@ -1,0 +1,19 @@
+.title {
+    margin: 0;
+}
+
+.content {
+    margin: 0;
+}
+
+.body {
+    display: flex;
+}
+
+.text-content {
+    margin-right: 1rem;
+}
+
+.article-img {
+    background-color: red;
+}
