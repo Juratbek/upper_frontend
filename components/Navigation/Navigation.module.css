@@ -1,0 +1,25 @@
+.navigation{
+    border-right: 1px solid var(--lightBlack);
+    min-width: 90px;
+    width: 6vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigation>div {
+    margin-bottom: .6rem;
+}
+
+.navigation>div:last-child {
+    margin-bottom: 0;
+}
+
+.positioned {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+}
