@@ -1,3 +1,3 @@
-import { ITab } from './common';
+import { ITabHeader } from './common';
 
-export type { ITab };
+export type { ITabHeader };

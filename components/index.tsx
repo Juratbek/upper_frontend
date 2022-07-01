@@ -1,5 +1,5 @@
 import { Navigation } from './Navigation/Navigation';
 import { Sidebar } from './Sidebar/Sidebar';
-import { Tabs } from './Tabs/Tabs';
+import { TabsHeader } from './TabsHeader/TabsHeader';
 
-export { Navigation, Sidebar, Tabs };
+export { Navigation, Sidebar, TabsHeader };
