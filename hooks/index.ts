@@ -1,3 +1,1 @@
-import { useUrlParams } from './useUrlParams/useUrlParams';
-
-export { useUrlParams };
+export * from './useUrlParams/useUrlParams';

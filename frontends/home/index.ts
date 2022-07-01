@@ -1,4 +1,2 @@
-import { ArticlesTab } from './ArticlesTab/ArticlesTab';
-import { BlogsTab } from './BlogsTab/BlogsTab';
-
-export { ArticlesTab, BlogsTab };
+export * from './ArticlesTab/ArticlesTab';
+export * from './BlogsTab/BlogsTab';

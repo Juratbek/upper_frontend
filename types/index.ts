@@ -1,3 +1,1 @@
-import { ITabHeader } from './common';
-
-export type { ITabHeader };
+export * from './common';

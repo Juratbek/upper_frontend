@@ -1,10 +1,12 @@
 import { ArticlesTab, BlogsTab } from 'frontends/home';
-import { ITabHeader } from 'types';
+import { ITabBody, ITabHeader } from 'types';
 
 const TAB_IDS = {
   articles: 'articles',
   blogs: 'blogs',
 };
+
+export const HOME_TAB_PARAM = 'tab';
 
 export const HOME_TAB_MENUS: ITabHeader[] = [
   {
@@ -17,13 +19,7 @@ export const HOME_TAB_MENUS: ITabHeader[] = [
   },
 ];
 
-export const HOME_TABS = [
-  {
-    Tab: ArticlesTab,
-    id: TAB_IDS.articles,
-  },
-  {
-    Tab: BlogsTab,
-    id: TAB_IDS.blogs,
-  },
-];
+export const HOME_TABS: ITabBody = {
+  [TAB_IDS.articles]: ArticlesTab,
+  [TAB_IDS.blogs]: BlogsTab,
+};
