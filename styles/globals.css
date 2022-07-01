@@ -11,3 +11,10 @@
 .app>.main{
   flex: 1 1 auto;
 }
+
+.container {
+  max-width: 1000px;
+  min-width: 900px;
+  width: 85%;
+  margin: 0 auto;
+}
