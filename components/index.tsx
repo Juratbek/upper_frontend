@@ -1,5 +1,3 @@
-import { Navigation } from './Navigation/Navigation';
-import { Sidebar } from './Sidebar/Sidebar';
-import { TabsHeader } from './TabsHeader/TabsHeader';
-
-export { Navigation, Sidebar, TabsHeader };
+export * from './Navigation/Navigation';
+export * from './Sidebar/Sidebar';
+export * from './TabsHeader/TabsHeader';
