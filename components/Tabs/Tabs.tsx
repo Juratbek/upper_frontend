@@ -1,31 +1,37 @@
 import { useUrlParams } from 'hooks';
-import { FC } from 'react';
+import { FC, useEffect, useMemo } from 'react';
+import { ITab } from 'types';
 
 import { TAB_PARAM_NAME } from './Tabs.constants';
 import classes from './Tabs.module.css';
 import { ITabsProps } from './Tabs.types';
 
-export const Tabs: FC<ITabsProps> = ({ tabs = [] }) => {
+export const Tabs: FC<ITabsProps> = (props) => {
   const { getParam, setParam } = useUrlParams();
-
-  const checkTabStatus = (id: string): boolean => {
-    const activeTab = getParam(TAB_PARAM_NAME);
-    if (typeof activeTab === 'string') {
-      return activeTab === id;
-    }
-    return false;
-  };
+  const activeTabId = getParam(TAB_PARAM_NAME);
 
   const changeActiveTab = (id: string): void => {
     setParam(TAB_PARAM_NAME, id);
   };
 
+  const getTabs = (): ITab[] => {
+    const tabs = props.tabs || [];
+    if (typeof activeTabId !== 'string') return tabs;
+    return tabs.map((tab) => ({ ...tab, active: tab.id === activeTabId }));
+  };
+
+  useEffect(() => {
+    if (!activeTabId) {
+      changeActiveTab('articles');
+    }
+  }, []);
+
   return (
     <div className={classes.tabs}>
-      {tabs.map((tab, index) => (
+      {getTabs().map((tab, index) => (
         <span
           onClick={(): void => changeActiveTab(tab.id)}
-          className={`${classes.tab} ${checkTabStatus(tab.id) && classes.active}`}
+          className={`${classes.tab} ${tab.active && classes.active}`}
           key={index}
         >
           {tab.name}
