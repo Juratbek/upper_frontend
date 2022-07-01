@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import classes from 'styles/Home.module.css';
-import { HOME_TABS } from 'variables';
+import { HOME_TAB_MENUS } from 'variables';
 
 const Home: NextPage = () => {
   return (
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
       <main className={`${classes.main} container`}>
         <h1>Qidirish</h1>
-        <Tabs tabs={HOME_TABS} />
+        <Tabs tabs={HOME_TAB_MENUS} />
       </main>
 
       <footer className={classes.footer}>

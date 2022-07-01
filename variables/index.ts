@@ -1,3 +1,3 @@
-import { HOME_TABS } from './Home.constants';
+import { HOME_TAB_MENUS, HOME_TABS } from './Home.constants';
 
-export { HOME_TABS };
+export { HOME_TAB_MENUS, HOME_TABS };

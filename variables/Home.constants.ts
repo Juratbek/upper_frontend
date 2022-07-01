@@ -1,12 +1,29 @@
+import { ArticlesTab, BlogsTab } from 'frontends/home';
 import { ITab } from 'types';
 
-export const HOME_TABS: ITab[] = [
+const TAB_IDS = {
+  articles: 'articles',
+  blogs: 'blogs',
+};
+
+export const HOME_TAB_MENUS: ITab[] = [
   {
     name: 'Maqolalar',
-    id: 'articles',
+    id: TAB_IDS.articles,
   },
   {
     name: 'Bloglar',
-    id: 'blogs',
+    id: TAB_IDS.blogs,
+  },
+];
+
+export const HOME_TABS = [
+  {
+    Tab: ArticlesTab,
+    id: TAB_IDS.articles,
+  },
+  {
+    Tab: BlogsTab,
+    id: TAB_IDS.blogs,
   },
 ];
