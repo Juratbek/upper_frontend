@@ -1,7 +1,4 @@
-interface ITab {
-  name: string;
-  id: string;
-}
+import { ITab } from 'types';
 
 export interface ITabsProps {
   tabs?: ITab[];
