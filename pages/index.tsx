@@ -1,4 +1,4 @@
-import { Tabs } from 'components';
+import { TabsHeader } from 'components';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
       <main className={`${classes.main} container`}>
         <h1>Qidirish</h1>
-        <Tabs tabs={HOME_TAB_MENUS} />
+        <TabsHeader tabs={HOME_TAB_MENUS} />
       </main>
 
       <footer className={classes.footer}>

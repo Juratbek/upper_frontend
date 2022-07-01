@@ -1,12 +1,12 @@
 import { ArticlesTab, BlogsTab } from 'frontends/home';
-import { ITab } from 'types';
+import { ITabHeader } from 'types';
 
 const TAB_IDS = {
   articles: 'articles',
   blogs: 'blogs',
 };
 
-export const HOME_TAB_MENUS: ITab[] = [
+export const HOME_TAB_MENUS: ITabHeader[] = [
   {
     name: 'Maqolalar',
     id: TAB_IDS.articles,
