@@ -1,16 +1,19 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+:root {
+  --lightBlack: rgba(0, 0, 0, 0.25);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.app {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
 }
 
-* {
-  box-sizing: border-box;
+.app>.main{
+  flex: 1 1 auto;
+}
+
+.container {
+  max-width: 1000px;
+  width: 90%;
+  margin: 0 auto;
 }
