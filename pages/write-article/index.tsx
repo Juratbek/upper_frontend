@@ -12,15 +12,15 @@ export default function WriteArticlePage(): JSX.Element {
     const editorContent = await (await Editor).save();
 
     // Do something with editor output
-    console.log(editorContent);
+    // console.log(editorContent);
   };
 
   return (
     <>
       <div id='editorjs' className={styles.editorContainer}></div>
-      <button typeof={'button'} onClick={publishHandler}>
-        Publish your story!
-      </button>
+      {/*<button typeof={'button'} onClick={publishHandler}>*/}
+      {/*  Publish your story!*/}
+      {/*</button>*/}
     </>
   );
 }
