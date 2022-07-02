@@ -1,3 +1,11 @@
+import { useMemo } from 'react';
+
+import { createEditor } from './editor.service';
+
 export default function WriteArticlePage(): JSX.Element {
-  return <h1>Write Article Page</h1>;
+  const Editor = useMemo(async () => {
+    return await createEditor();
+  }, []);
+
+  return <div id='editorjs'></div>;
 }
