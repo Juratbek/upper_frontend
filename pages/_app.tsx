@@ -1,4 +1,4 @@
-import '../styles/index.css';
+import '../styles/index.scss';
 
 import { Navigation, Sidebar } from 'components';
 import type { AppProps } from 'next/app';

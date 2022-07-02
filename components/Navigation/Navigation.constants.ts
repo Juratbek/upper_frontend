@@ -21,6 +21,6 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   },
   {
     Icon: WriteArticleIcon,
-    href: 'write_article',
+    href: 'write-article',
   },
 ];
