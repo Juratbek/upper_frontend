@@ -1,9 +1,10 @@
 import { useUrlParams } from 'hooks';
 import { FC, useMemo } from 'react';
+import { TAB_PARAM_NAME } from 'variables';
 
 import { ITabBodyProps } from './TabBody.types';
 
-export const TabBody: FC<ITabBodyProps> = ({ tabs, param, ...props }) => {
+export const TabBody: FC<ITabBodyProps> = ({ tabs, param = TAB_PARAM_NAME, ...props }) => {
   const { getParam } = useUrlParams();
 
   const getActiveTab = (): FC => {

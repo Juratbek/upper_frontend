@@ -1,16 +1,17 @@
 import { useUrlParams } from 'hooks';
 import { FC, useEffect } from 'react';
 import { ITabHeader } from 'types';
+import { TAB_PARAM_NAME } from 'variables';
 
 import classes from './TabsHeader.module.css';
 import { ITabsHeaderProps } from './TabsHeader.types';
 
-export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
+export const TabsHeader: FC<ITabsHeaderProps> = ({ param = TAB_PARAM_NAME, ...props }) => {
   const { getParam, setParam } = useUrlParams();
-  const activeTabId = getParam(props.param);
+  const activeTabId = getParam(param);
 
   const changeActiveTab = (id: string): void => {
-    setParam(props.param, id);
+    setParam(param, id);
   };
 
   const getTabs = (): ITabHeader[] => {

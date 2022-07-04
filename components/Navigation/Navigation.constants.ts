@@ -8,6 +8,10 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     href: '/',
   },
   {
+    icon: ICON_TYPES.search,
+    href: '/search',
+  },
+  {
     icon: ICON_TYPES.user,
     href: 'profile',
   },

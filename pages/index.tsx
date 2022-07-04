@@ -1,10 +1,7 @@
-import { TabsHeader } from 'components';
-import { TabBody } from 'components/TabBody/TabBody';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import classes from 'styles/Home.module.css';
-import { HOME_TAB_MENUS, HOME_TAB_PARAM, HOME_TABS } from 'variables';
 
 const Home: NextPage = () => {
   return (
@@ -16,9 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={`${classes.main} container`}>
-        <h1>Qidirish</h1>
-        <TabsHeader tabs={HOME_TAB_MENUS} param={HOME_TAB_PARAM} />
-        <TabBody tabs={HOME_TABS} param={HOME_TAB_PARAM} />
+        <h1>Home Page</h1>
       </main>
 
       <footer className={classes.footer}>
