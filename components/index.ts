@@ -5,3 +5,4 @@ export * from './Article/Article';
 export * from './Actions/Actions';
 export * from './Label/Label';
 export * from './Blog/Blog';
+export * from './SearchInput/SearchInput';

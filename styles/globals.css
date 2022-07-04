@@ -23,8 +23,20 @@
 }
 
 /* margins */
-.m-0{
+.m-0 {
   margin: 0;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-1 {
+  margin-bottom: .5rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
 }
 
 /* displays */
