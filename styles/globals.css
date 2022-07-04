@@ -2,6 +2,10 @@
   --lightBlack: rgba(0, 0, 0, 0.25);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .app {
   display: flex;
   width: 100%;
@@ -16,4 +20,22 @@
   max-width: 1000px;
   width: 90%;
   margin: 0 auto;
+}
+
+/* margins */
+.m-0{
+  margin: 0;
+}
+
+/* displays */
+.d-block {
+  display: block;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-flex {
+  display: flex;
 }

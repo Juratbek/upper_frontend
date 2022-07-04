@@ -1,9 +1,3 @@
-import {
-  HomeIcon,
-  MenuListIcon,
-  NotificationIcon,
-  UserIcon,
-  WriteArticleIcon,
-} from './navigation-icons';
-
-export { HomeIcon, UserIcon, NotificationIcon, MenuListIcon, WriteArticleIcon };
+export * from './navigation-icons';
+export * from './action-icons';
+export * from './common-icons';

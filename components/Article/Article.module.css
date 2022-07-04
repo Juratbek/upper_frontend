@@ -1,13 +1,23 @@
+.article {
+    width: 100%;
+    padding: .8rem 1rem;
+}
+
 .title {
     margin: 0;
+    font-size: 1.6rem;
 }
 
 .content {
     margin: 0;
+    font-size: 1.2rem;
 }
 
 .body {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+    margin-bottom: .8rem;
 }
 
 .text-content {
@@ -15,5 +25,15 @@
 }
 
 .article-img {
+    margin-top: 1rem;
     background-color: red;
+    min-width: 170px;
+    max-width: 30%;
+    height: 100px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
