@@ -13,18 +13,18 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   },
   {
     icon: ICON_TYPES.user,
-    href: 'profile',
+    href: '/profile',
   },
   {
     icon: ICON_TYPES.notification,
-    href: 'notifications',
+    href: '/notifications',
   },
   {
     icon: ICON_TYPES.menuList,
-    href: 'articles',
+    href: '/articles',
   },
   {
     icon: ICON_TYPES.pen,
-    href: 'write_article',
+    href: '/write_article',
   },
 ];
