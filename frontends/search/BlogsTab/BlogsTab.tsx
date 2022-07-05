@@ -5,9 +5,9 @@ import { IBlog } from 'types';
 const blogs: IBlog[] = [
   {
     id: 1,
-    name: 'Blog 1',
+    name: 'Samandar Boymurodov',
     imgUrl: 'url',
-    bio: 'Blog bio will be here',
+    bio: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
     articles: 100,
     followers: 20,
   },

@@ -10,7 +10,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, followers, articles })
     <div className={classes.blog}>
       <Avatar imgUrl={imgUrl} size={AVATAR_SIZES.medium} />
       <div>
-        <div className='d-flex align-items-center'>
+        <div className='d-flex align-items-end'>
           <h2 className={`${classes.name} my-1`}>{name}</h2>
           <p className='my-1'>
             {followers && <span>{followers} kuzatuvchilar</span>}{' '}

@@ -13,7 +13,7 @@ export const Navigation = (): JSX.Element => {
           return (
             <div key={index}>
               <Link href={href}>
-                <a>
+                <a className={classes.icon}>
                   <Icon {...props} />
                 </a>
               </Link>

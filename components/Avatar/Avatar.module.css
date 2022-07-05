@@ -6,11 +6,11 @@
 }
 
 .avatar--small {
-    width: 32px;
+    min-width: 32px;
     height: 32px;
 }
 
 .avatar--medium {
-    width: 52px;
-    height: 52px;
+    min-width: 60px;
+    height: 60px;
 }
