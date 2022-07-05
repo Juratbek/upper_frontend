@@ -4,4 +4,6 @@ export * from './TabsHeader/TabsHeader';
 export * from './Article/Article';
 export * from './Actions/Actions';
 export * from './Label/Label';
+export * from './Author/Author';
 export * from './Blog/Blog';
+export * from './Button/Button';

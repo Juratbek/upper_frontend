@@ -1,4 +1,4 @@
-import { ArticlesTab, BlogsTab } from 'frontends/home';
+import { ArticlesTab, BlogsTab } from 'frontends/search';
 import { ITabBody, ITabHeader } from 'types';
 
 const TAB_IDS = {
