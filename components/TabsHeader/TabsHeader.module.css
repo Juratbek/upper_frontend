@@ -1,0 +1,30 @@
+.tabs {
+    border-bottom: .5px solid black;
+}
+
+.tab {
+    padding: .5rem .8rem;
+    display: inline-block;
+    min-width: max(80px, 8vw);
+    text-align: center;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    cursor: pointer;
+    position: relative;
+}
+
+.tab::after {
+    transition: all 300ms;
+    position: absolute;
+    content: ' ';
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1.5px;
+    background-color: black;
+}
+
+.tab.active::after {
+    width: 100%;
+}

@@ -1,26 +1,30 @@
-import { HomeIcon, MenuListIcon, NotificationIcon, UserIcon, WriteArticleIcon } from 'assets';
+import { ICON_TYPES } from 'variables';
 
 import { INavigationIcon } from './Navigation.types';
 
 export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
-    Icon: HomeIcon,
+    icon: ICON_TYPES.home,
     href: '/',
   },
   {
-    Icon: UserIcon,
+    icon: ICON_TYPES.search,
+    href: '/search',
+  },
+  {
+    icon: ICON_TYPES.user,
     href: 'profile',
   },
   {
-    Icon: NotificationIcon,
+    icon: ICON_TYPES.notification,
     href: 'notifications',
   },
   {
-    Icon: MenuListIcon,
+    icon: ICON_TYPES.menuList,
     href: 'articles',
   },
   {
-    Icon: WriteArticleIcon,
+    icon: ICON_TYPES.pen,
     href: 'write_article',
   },
 ];

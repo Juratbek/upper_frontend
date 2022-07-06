@@ -1,0 +1,13 @@
+.blog {
+    display: flex;
+    align-items: center;
+    margin-right: 2rem;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 100rem;
+    background-color: red;
+    margin-right: .6rem;
+}
