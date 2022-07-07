@@ -11,3 +11,5 @@ export * from './Divider/Divider';
 export * from './SidebarArticle/SidebarArticle';
 export * from './ArticleImg/ArticleImg';
 export * from './SearchInput/SearchInput';
+export * from './SidebarBlog/SidebarBlog';
+export * from './Avatar/Avatar';
