@@ -6,8 +6,9 @@ import { TAB_PARAM_NAME } from 'variables';
 import classes from './TabsHeader.module.css';
 import { ITabsHeaderProps } from './TabsHeader.types';
 
-export const TabsHeader: FC<ITabsHeaderProps> = ({ param = TAB_PARAM_NAME, ...props }) => {
-  const { getParam, setParam } = useUrlParams();
+export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
+  const { param = TAB_PARAM_NAME, tabs = [] } = props;
+  const { getParam, setParam, isReady } = useUrlParams();
   const activeTabId = getParam(param);
 
   const changeActiveTab = (id: string): void => {
@@ -15,14 +16,13 @@ export const TabsHeader: FC<ITabsHeaderProps> = ({ param = TAB_PARAM_NAME, ...pr
   };
 
   const getTabs = (): ITabHeader[] => {
-    const tabs = props.tabs || [];
     if (typeof activeTabId !== 'string') return tabs;
     return tabs.map((tab) => ({ ...tab, active: tab.id === activeTabId }));
   };
 
   useEffect(() => {
-    if (!activeTabId) {
-      changeActiveTab('articles');
+    if (!activeTabId && isReady) {
+      changeActiveTab(tabs[0].id);
     }
   }, []);
 

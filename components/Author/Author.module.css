@@ -1,12 +1,5 @@
 .blog {
     display: flex;
     align-items: center;
-}
-
-.name {
     margin-right: 2rem;
-}
-
-.bio {
-    font-size: 1.1rem;
 }

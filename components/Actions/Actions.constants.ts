@@ -1,9 +1,5 @@
 import { DeleteIcon, EyeIcon } from 'assets';
-
-export const ACTION_TYPES = {
-  delete: 'delete',
-  markAsRead: 'markAsRead',
-};
+import { ACTION_TYPES } from 'variables';
 
 export const ACTIONS = {
   [ACTION_TYPES.delete]: {

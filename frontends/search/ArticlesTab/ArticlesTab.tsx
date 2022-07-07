@@ -32,7 +32,7 @@ const articles: IArticle[] = [
     viewCount: 12000,
   },
   {
-    id: 1,
+    id: 2,
     title: 'Article title',
     author,
     content:
@@ -43,7 +43,7 @@ const articles: IArticle[] = [
     viewCount: 12000,
   },
   {
-    id: 1,
+    id: 3,
     title: 'Article title',
     author,
     content:
@@ -54,7 +54,7 @@ const articles: IArticle[] = [
     viewCount: 12000,
   },
   {
-    id: 1,
+    id: 4,
     title: 'Article title',
     author,
     content:
@@ -68,9 +68,9 @@ const articles: IArticle[] = [
 
 export const ArticlesTab: FC = () => {
   return (
-    <div>
+    <div className='tab'>
       {articles.map((article) => (
-        <Article key={article.id} {...article} />
+        <Article className='mx-2 mb-3' key={article.id} {...article} />
       ))}
     </div>
   );

@@ -1,27 +1,24 @@
-import { Blog, Label } from 'components';
-import { Actions } from 'components/Actions/Actions';
-import Image from 'next/image';
+import { Actions, ArticleImg, Author, Label } from 'components';
 import { FC } from 'react';
-import { formatToKMB, toDateString } from 'utils';
+import { formatToKMB, getClassName, toDateString } from 'utils';
 import { ICONS } from 'variables';
 
 import { ARTICLE_ACTIONS, ARTICLE_ICONS } from './Article.constants';
 import classes from './Article.module.css';
 import { IArticleProps } from './Article.types';
 
-export const Article: FC<IArticleProps> = (props) => {
+export const Article: FC<IArticleProps> = ({ className = '', ...props }) => {
   const { title, content, publishedDate, updatedDate, viewCount, labels = [], author } = props;
+  const rootClassName = getClassName(classes.article, className);
 
   return (
-    <div className={classes.article}>
+    <div className={rootClassName}>
       <div className={classes.body}>
         <div className={classes['text-content']}>
           <h2 className={classes.title}>{title}</h2>
           <p className={classes.content}>{content}</p>
         </div>
-        <div className={classes['article-img']}>
-          <Image src='/vercel.svg' alt='Vercel Logo' width={170} height={100} />
-        </div>
+        <ArticleImg imgUrl='' />
       </div>
       <div className={classes.footer}>
         <div>
@@ -37,7 +34,7 @@ export const Article: FC<IArticleProps> = (props) => {
           &nbsp; &nbsp;
           {viewCount && (
             <span>
-              <strong>{formatToKMB(viewCount)}</strong> martta ko`rilgan
+              <strong>{formatToKMB(viewCount)}</strong> martta o`qilgan
             </span>
           )}
         </div>
@@ -50,7 +47,7 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
       </div>
       <div className={classes.footer} style={{ marginTop: '.5rem' }}>
-        <Blog {...author} />
+        <Author {...author} />
         <div className='d-flex'>
           {ARTICLE_ICONS.map((icon) => {
             const Icon = ICONS[icon];

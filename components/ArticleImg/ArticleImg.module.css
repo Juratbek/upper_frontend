@@ -1,0 +1,16 @@
+.article-img {
+    background-color: #D9D9D9;
+    position: relative;
+}
+
+.article-img--small {
+    min-width: 80px;
+    max-width: 20%;
+    height: 60px;
+}
+
+.article-img--medium {
+    min-width: 150px;
+    max-width: 30%;
+    height: 100px;
+}
