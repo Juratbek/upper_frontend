@@ -1,0 +1,14 @@
+@import 'variables';
+
+@function toRem($value) {
+  $remValue: (strip-unit($value) / strip-unit($rem)) + rem;
+  @return $remValue;
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
