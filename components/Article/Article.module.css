@@ -19,14 +19,6 @@
     margin-right: 1rem;
 }
 
-.article-img {
-    margin-top: 1rem;
-    background-color: red;
-    min-width: 170px;
-    max-width: 30%;
-    height: 100px;
-}
-
 .footer {
     display: flex;
     align-items: center;
