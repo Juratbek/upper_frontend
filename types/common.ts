@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { ACTION_TYPES, AVATAR_SIZES, ICON_TYPES } from 'variables';
+import { ACTION_TYPES, ICON_TYPES } from 'variables';
 
 export interface ITabHeader {
   name: string;
@@ -26,4 +26,4 @@ export interface IIcon {
   [name: TIcon]: FC<{ color?: string }>;
 }
 
-export type TAvatarSize = typeof AVATAR_SIZES.small | typeof AVATAR_SIZES.medium;
+export type TClassName = string | undefined;

@@ -1,5 +1,6 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
+  --lightGray: #C4C4C4;
 }
 
 * {
@@ -72,6 +73,11 @@
   margin-left: 1.7rem;
 }
 
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 /* displays */
 .d-block {
   display: block;
@@ -104,4 +110,9 @@
 
 .float-firgt {
   float: right;
+}
+
+/* widths */
+.w-75 {
+  width: 75%;
 }
