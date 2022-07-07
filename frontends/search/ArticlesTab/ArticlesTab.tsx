@@ -1,6 +1,7 @@
 import { Article } from 'components';
 import { FC } from 'react';
 import { IArticle, IBlog, ILabel } from 'types';
+import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
 
 const author: IBlog = {
   id: 1,
@@ -70,7 +71,13 @@ export const ArticlesTab: FC = () => {
   return (
     <div className='tab'>
       {articles.map((article) => (
-        <Article className='mx-2 mb-3' key={article.id} {...article} />
+        <Article
+          className='mx-2 mb-3'
+          key={article.id}
+          {...article}
+          actions={SEARCH_PAGE_ARTICLE_ACTIONS}
+          icons={SEARCH_PAGE_ARTICLE_ICONS}
+        />
       ))}
     </div>
   );

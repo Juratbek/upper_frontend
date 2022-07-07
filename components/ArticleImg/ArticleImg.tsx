@@ -5,8 +5,12 @@ import { getClassName } from 'utils';
 import classes from './ArticleImg.module.css';
 import { IArticleImgProps } from './ArticleImg.types';
 
-export const ArticleImg: FC<IArticleImgProps> = ({ size = 'medium' }) => {
-  const rootClassName = getClassName(classes['article-img'], classes[`article-img--${size}`]);
+export const ArticleImg: FC<IArticleImgProps> = ({ className, size = 'medium' }) => {
+  const rootClassName = getClassName(
+    className,
+    classes['article-img'],
+    classes[`article-img--${size}`],
+  );
 
   return (
     <div className={rootClassName}>

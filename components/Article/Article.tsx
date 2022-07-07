@@ -3,12 +3,22 @@ import { FC } from 'react';
 import { formatToKMB, getClassName, toDateString } from 'utils';
 import { ICONS } from 'variables';
 
-import { ARTICLE_ACTIONS, ARTICLE_ICONS } from './Article.constants';
 import classes from './Article.module.css';
 import { IArticleProps } from './Article.types';
 
-export const Article: FC<IArticleProps> = ({ className = '', ...props }) => {
-  const { title, content, publishedDate, updatedDate, viewCount, labels = [], author } = props;
+export const Article: FC<IArticleProps> = (props) => {
+  const {
+    title,
+    className,
+    content,
+    publishedDate,
+    updatedDate,
+    viewCount,
+    labels = [],
+    author,
+    actions,
+    icons,
+  } = props;
   const rootClassName = getClassName(classes.article, className);
 
   return (
@@ -18,7 +28,7 @@ export const Article: FC<IArticleProps> = ({ className = '', ...props }) => {
           <h2 className={classes.title}>{title}</h2>
           <p className={classes.content}>{content}</p>
         </div>
-        <ArticleImg imgUrl='' />
+        <ArticleImg imgUrl='' className='mt-2' />
       </div>
       <div className={classes.footer}>
         <div>
@@ -49,15 +59,16 @@ export const Article: FC<IArticleProps> = ({ className = '', ...props }) => {
       <div className={classes.footer} style={{ marginTop: '.5rem' }}>
         {author ? <Author {...author} /> : <div />}
         <div className='d-flex'>
-          {ARTICLE_ICONS.map((icon) => {
-            const Icon = ICONS[icon];
-            return (
-              <span key={icon} style={{ marginRight: '.8rem' }}>
-                <Icon />
-              </span>
-            );
-          })}
-          <Actions actions={ARTICLE_ACTIONS} />
+          {icons &&
+            icons.map((icon) => {
+              const Icon = ICONS[icon];
+              return (
+                <span key={icon} style={{ marginRight: '.8rem' }}>
+                  <Icon />
+                </span>
+              );
+            })}
+          {actions && <Actions actions={actions} />}
         </div>
       </div>
     </div>
