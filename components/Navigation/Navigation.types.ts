@@ -1,11 +1,7 @@
-import { FC } from 'react';
-
-interface IIconProp {
-  color?: string;
-}
+import { TIcon } from 'types';
 
 export interface INavigationIcon {
-  Icon: FC<IIconProp>;
+  icon: TIcon;
   href: string;
   color?: string;
 }
