@@ -13,3 +13,4 @@ export * from './ArticleImg/ArticleImg';
 export * from './SearchInput/SearchInput';
 export * from './SidebarBlog/SidebarBlog';
 export * from './Avatar/Avatar';
+export * from './TabBody/TabBody';
