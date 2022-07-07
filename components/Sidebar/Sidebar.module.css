@@ -1,4 +1,5 @@
 .sidebar {
     border-left: 1px solid var(--lightBlack);
-    min-width: 380px;
+    min-width: 350px;
+    padding: 1rem 1.3rem;
 }
