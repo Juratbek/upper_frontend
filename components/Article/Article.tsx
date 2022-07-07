@@ -47,7 +47,7 @@ export const Article: FC<IArticleProps> = ({ className = '', ...props }) => {
         </div>
       </div>
       <div className={classes.footer} style={{ marginTop: '.5rem' }}>
-        <Author {...author} />
+        {author ? <Author {...author} /> : <div />}
         <div className='d-flex'>
           {ARTICLE_ICONS.map((icon) => {
             const Icon = ICONS[icon];

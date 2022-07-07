@@ -6,7 +6,7 @@ export interface IArticle {
   title: string;
   content: string;
   imgUrl?: string;
-  author: IBlog;
+  author?: IBlog;
   labels: ILabel[];
   publishedDate: Date;
   updatedDate?: Date;
