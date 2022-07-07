@@ -10,3 +10,4 @@ export * from './Button/Button';
 export * from './Divider/Divider';
 export * from './SidebarArticle/SidebarArticle';
 export * from './ArticleImg/ArticleImg';
+export * from './SearchInput/SearchInput';
