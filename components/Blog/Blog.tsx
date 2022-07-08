@@ -19,17 +19,17 @@ export const Blog: FC<IBlogProps> = (props) => {
 
   return (
     <div className={rootClassName}>
-      <Avatar imgUrl={imgUrl} size={avaratSize} />
-      <div>
-        <div className='mb-1'>
+      <div className='d-flex align-items-center mb-1'>
+        <Avatar imgUrl={imgUrl} size={avaratSize} />
+        <div>
           <h2 className='m-0'>{name}</h2>
           <p className='m-0'>
             {followersCount && <span>{followersCount} kuzatuvchilar</span>}{' '}
             {articlesCount && <span>{articlesCount} maqolalar</span>}
           </p>
         </div>
-        {bio && <p className={`${classes.bio} m-0`}>{bio}</p>}
       </div>
+      <div>{bio && <p className={`${classes.bio} m-0`}>{bio}</p>}</div>
     </div>
   );
 };
