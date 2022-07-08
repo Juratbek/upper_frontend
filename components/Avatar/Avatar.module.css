@@ -23,3 +23,10 @@
     width: 60px;
     height: 60px;
 }
+
+.avatar--extra-large {
+    --diametr: 80px;
+    min-width: var(--diametr);
+    width: var(--diametr);
+    height: var(--diametr);
+}
