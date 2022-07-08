@@ -1,6 +1,5 @@
 import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
-import { useDispatch } from 'react-redux';
-import { useAppDispatch, useAppSelector } from 'store';
+import { useAppDispatch } from 'store';
 import { open } from 'store/slices/loginModalSlice';
 import { IArticle, IBlog, ILabel } from 'types';
 
@@ -87,7 +86,7 @@ const blogs: IBlog[] = [
 ];
 
 export const Sidebar = (): JSX.Element => {
-  const dispath = useDispatch();
+  const dispath = useAppDispatch();
 
   const loginHandler = (): void => {
     dispath(open());
