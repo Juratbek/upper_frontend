@@ -56,11 +56,11 @@ export const articles: IArticle[] = [
   },
 ];
 
-export const PublishedArticlesTab: FC = () => {
+export const ArticlesTab: FC = () => {
   return (
     <div className='tab'>
       {articles.map((article) => (
-        <Article className='mx-2 mb-3' key={article.id} {...article} />
+        <Article className='px-2 py-2' key={article.id} article={article} />
       ))}
     </div>
   );

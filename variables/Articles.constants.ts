@@ -1,9 +1,4 @@
-import {
-  DraftArticlesTab,
-  OtherArticlesTab,
-  PublishedArticlesTab,
-  SavedArticlesTab,
-} from 'frontends/articles';
+import { ArticlesTab } from 'frontends/articles';
 import { ITabBody, ITabHeader } from 'types';
 
 const TAB_IDS = {
@@ -33,8 +28,8 @@ export const ARTICLES_TAB_MENUS: ITabHeader[] = [
 ];
 
 export const ARTICLES_TABS: ITabBody = {
-  [TAB_IDS.published]: PublishedArticlesTab,
-  [TAB_IDS.draft]: DraftArticlesTab,
-  [TAB_IDS.saved]: SavedArticlesTab,
-  [TAB_IDS.others]: OtherArticlesTab,
+  [TAB_IDS.published]: ArticlesTab,
+  [TAB_IDS.draft]: ArticlesTab,
+  [TAB_IDS.saved]: ArticlesTab,
+  [TAB_IDS.others]: ArticlesTab,
 };

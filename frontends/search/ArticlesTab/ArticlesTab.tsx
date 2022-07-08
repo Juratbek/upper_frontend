@@ -72,9 +72,9 @@ export const ArticlesTab: FC = () => {
     <div className='tab'>
       {articles.map((article) => (
         <Article
-          className='mx-2 mb-3'
+          className='px-2 py-2'
           key={article.id}
-          {...article}
+          article={article}
           actions={SEARCH_PAGE_ARTICLE_ACTIONS}
           icons={SEARCH_PAGE_ARTICLE_ICONS}
         />

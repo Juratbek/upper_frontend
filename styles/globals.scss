@@ -1,6 +1,6 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
-  --lightGray: #C4C4C4;
+  --lightGray: rgba(196, 196, 196, 0.35);
 }
 
 * {
@@ -24,7 +24,11 @@
 }
 
 .tab {
-  padding-top: 1rem;
+  // padding-top: 1rem;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 /* margins */
@@ -33,7 +37,7 @@
 }
 
 .m-1 {
-  margin: .5rem
+  margin: $m1
 }
 
 .mt-0 {
@@ -49,7 +53,11 @@
 }
 
 .mt-1 {
-  margin-top: .5rem;
+  margin-top: $m1;
+}
+
+.me-1 {
+  margin-right: $m1;
 }
 
 .mb-0 {
@@ -57,7 +65,7 @@
 }
 
 .mb-1 {
-  margin-bottom: .5rem;
+  margin-bottom: $m1;
 }
 
 .mb-2 {
@@ -69,8 +77,8 @@
 }
 
 .my-1 {
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+  margin-top: $m1;
+  margin-bottom: $m1;
 }
 
 .my-2 {
@@ -96,6 +104,22 @@
 .mx-auto {
   margin-right: auto;
   margin-left: auto;
+}
+
+// paddings
+.py-2 {
+  padding-top: $m2;
+  padding-bottom: $m2;
+}
+
+.px-2 {
+  padding-right: $m2;
+  padding-left: $m2;
+}
+
+.px-3 {
+  padding-right: $m3;
+  padding-left: $m3;
 }
 
 /* displays */

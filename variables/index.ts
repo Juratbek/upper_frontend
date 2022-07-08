@@ -1,3 +1,4 @@
+export * from './notification';
 export * from './common';
 export * from './icons';
 export * from './Home.constants';

@@ -6,19 +6,8 @@ import { ICONS } from 'variables';
 import classes from './Article.module.css';
 import { IArticleProps } from './Article.types';
 
-export const Article: FC<IArticleProps> = (props) => {
-  const {
-    title,
-    className,
-    content,
-    publishedDate,
-    updatedDate,
-    viewCount,
-    labels = [],
-    author,
-    actions,
-    icons,
-  } = props;
+export const Article: FC<IArticleProps> = ({ className, actions, icons, article, author }) => {
+  const { title, content, updatedDate, publishedDate, viewCount, labels = [] } = article;
   const rootClassName = getClassName(classes.article, className);
 
   return (
@@ -51,7 +40,7 @@ export const Article: FC<IArticleProps> = (props) => {
         <div>
           {labels.map((label) => (
             <span key={label.id} style={{ marginLeft: '.3rem' }}>
-              <Label {...label} />
+              <Label>{label.name}</Label>
             </span>
           ))}
         </div>

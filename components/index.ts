@@ -14,3 +14,5 @@ export * from './SearchInput/SearchInput';
 export * from './SidebarBlog/SidebarBlog';
 export * from './Avatar/Avatar';
 export * from './TabBody/TabBody';
+export * from './CommentNotification/CommentNotification';
+export * from './LikeNotification/LikeNotification';
