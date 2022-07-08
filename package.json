@@ -22,6 +22,7 @@
     "@editorjs/header": "^2.6.2",
     "@editorjs/image": "^2.6.2",
     "@editorjs/list": "^1.7.0",
+    "@reduxjs/toolkit": "^1.8.3",
     "husky": "^8.0.1",
     "next": "12.1.6",
     "react": "18.2.0",
