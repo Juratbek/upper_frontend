@@ -18,6 +18,7 @@ export const createEditor = async ({
   const Header = (await import('@editorjs/header')).default;
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
+
   return new EditorJs({
     holder: holder,
     onChange: onChangeHandler,
