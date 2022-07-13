@@ -1,5 +1,7 @@
 import EditorJs from '@editorjs/editorjs';
 
+import { EDITOR_HOLDER } from './editor.constants';
+
 export interface ICreateEditorProps {
   holder?: string;
   onChangeHandler?(...args: any[]): void;
@@ -8,7 +10,7 @@ export interface ICreateEditorProps {
 }
 
 export const createEditor = async ({
-  holder = 'editorjs',
+  holder = EDITOR_HOLDER,
   onChangeHandler,
   isReadOnly = false,
   data = { blocks: [] },
