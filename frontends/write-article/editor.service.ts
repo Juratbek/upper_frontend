@@ -1,12 +1,13 @@
 import EditorJs from '@editorjs/editorjs';
 
-import { EDITOR_HOLDER } from './editor.constants';
+import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from './editor.constants';
 
 export interface ICreateEditorProps {
   holder?: string;
   onChangeHandler?(...args: any[]): void;
   isReadOnly?: boolean;
   data?: any;
+  placeholder?: string;
 }
 
 export const createEditor = async ({
@@ -14,6 +15,7 @@ export const createEditor = async ({
   onChangeHandler,
   isReadOnly = false,
   data = { blocks: [] },
+  placeholder = EDITOR_PLACEHOLDER,
 }: ICreateEditorProps = {}): Promise<EditorJs> => {
   const EditorJs = (await import('@editorjs/editorjs')).default;
   const Embed = (await import('@editorjs/embed')).default;
@@ -24,6 +26,7 @@ export const createEditor = async ({
     holder: holder,
     onChange: onChangeHandler,
     readOnly: isReadOnly,
+    placeholder: placeholder,
     data: data,
     tools: {
       header: {
