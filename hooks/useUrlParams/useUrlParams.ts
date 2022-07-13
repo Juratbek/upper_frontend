@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { IUseUrlParams, TParamValue } from './useUrlParams.types';
 
 export const useUrlParams = (): IUseUrlParams => {
-  const { query, push, pathname } = useRouter();
+  const { query, push, pathname, isReady } = useRouter();
 
   const getParam = (name: string): TParamValue => {
     return query[name];
@@ -19,5 +19,6 @@ export const useUrlParams = (): IUseUrlParams => {
   return {
     getParam,
     setParam,
+    isReady,
   };
 };

@@ -16,3 +16,8 @@
     border: 1px solid black;
     color: black;
 }
+
+.outline-dark:hover {
+    background-color: black;
+    color: white;
+}

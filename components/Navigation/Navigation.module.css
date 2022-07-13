@@ -23,3 +23,8 @@
     left: 0;
     bottom: 0;
 }
+
+.icon svg {
+    width: 30px;
+    height: 30px;
+}

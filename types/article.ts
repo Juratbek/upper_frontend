@@ -5,9 +5,11 @@ export interface IArticle {
   id: number;
   title: string;
   content: string;
-  author: IBlog;
+  imgUrl?: string;
+  author?: IBlog;
   labels: ILabel[];
   publishedDate: Date;
   updatedDate?: Date;
-  viewCount: number;
+  viewCount?: number;
+  likes?: number;
 }

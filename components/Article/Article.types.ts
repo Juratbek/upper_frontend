@@ -1,5 +1,6 @@
-import { IArticle } from 'types';
+import { INotificationComponentProps, TIcon } from 'types';
 
-export interface IArticleProps extends IArticle {
+export interface IArticleProps extends INotificationComponentProps {
   className?: string;
+  icons?: TIcon[];
 }
