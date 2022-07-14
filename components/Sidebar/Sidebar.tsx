@@ -1,6 +1,6 @@
 import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
 import { useAppDispatch } from 'store';
-import { open } from 'store/slices/loginModalSlice';
+import { open } from 'store/loginModal/loginModalSlice';
 import { IArticle, IBlog, ILabel } from 'types';
 
 import classes from './Sidebar.module.css';

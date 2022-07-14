@@ -21,3 +21,9 @@
     background-color: black;
     color: white;
 }
+
+.light {
+    background-color: transparent;
+    border: transparent;
+    color: black;
+}

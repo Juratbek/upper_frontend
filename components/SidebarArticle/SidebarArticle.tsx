@@ -12,7 +12,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({ className, title, aut
     <div className={rootClassName}>
       <div className={classes.title}>
         <h4 className='m-0 mb-1'>{title}</h4>
-        <Author {...author} />
+        {author && <Author {...author} />}
       </div>
       <ArticleImg imgUrl={''} size='small' />
     </div>

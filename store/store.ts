@@ -1,6 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
 
-import loginModalReducer from './slices/loginModalSlice';
+import loginModalReducer from './loginModal/loginModalSlice';
 
 export const store = configureStore({
   reducer: {
@@ -8,5 +9,9 @@ export const store = configureStore({
   },
 });
 
+const makeStore = (): EnhancedStore => store;
+
 export type TDispatch = typeof store.dispatch;
 export type TRootState = ReturnType<typeof store.getState>;
+
+export const wrapper = createWrapper(makeStore);

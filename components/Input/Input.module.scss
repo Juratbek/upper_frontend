@@ -1,0 +1,11 @@
+.input {
+    border-radius: var(--smallBorderRadius);
+    border: 1px solid var(--lightBlack);
+    outline: transparent solid 1px;
+    padding: .4em;
+    width: 100%;
+}
+
+.input:focus {
+    outline: rgba(90, 130, 235, 0.7) solid 1px;
+}
