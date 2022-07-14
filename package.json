@@ -26,6 +26,7 @@
     "@types/events": "^3.0.0",
     "husky": "^8.0.1",
     "next": "12.1.6",
+    "next-auth": "^4.10.0",
     "next-redux-wrapper": "^7.0.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
