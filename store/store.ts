@@ -1,7 +1,7 @@
 import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
-import loginModalReducer from './slices/loginModalSlice';
+import loginModalReducer from './loginModal/loginModalSlice';
 
 export const store = configureStore({
   reducer: {
