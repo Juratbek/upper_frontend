@@ -75,6 +75,7 @@ export const ArticlesTab: FC = () => {
           className='px-2 py-2'
           key={article.id}
           article={article}
+          author={article.author}
           actions={SEARCH_PAGE_ARTICLE_ACTIONS}
           icons={SEARCH_PAGE_ARTICLE_ICONS}
         />

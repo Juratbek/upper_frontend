@@ -37,7 +37,7 @@
 }
 
 .m-1 {
-  margin: $m1
+  margin: $size1
 }
 
 .mt-0 {
@@ -53,11 +53,11 @@
 }
 
 .mt-1 {
-  margin-top: $m1;
+  margin-top: $size1;
 }
 
 .me-1 {
-  margin-right: $m1;
+  margin-right: $size1;
 }
 
 .mb-0 {
@@ -65,7 +65,7 @@
 }
 
 .mb-1 {
-  margin-bottom: $m1;
+  margin-bottom: $size1;
 }
 
 .mb-2 {
@@ -77,8 +77,8 @@
 }
 
 .my-1 {
-  margin-top: $m1;
-  margin-bottom: $m1;
+  margin-top: $size1;
+  margin-bottom: $size1;
 }
 
 .my-2 {
@@ -107,19 +107,23 @@
 }
 
 // paddings
+.p-2 {
+  padding: $size2;
+}
+
 .py-2 {
-  padding-top: $m2;
-  padding-bottom: $m2;
+  padding-top: $size2;
+  padding-bottom: $size2;
 }
 
 .px-2 {
-  padding-right: $m2;
-  padding-left: $m2;
+  padding-right: $size2;
+  padding-left: $size2;
 }
 
 .px-3 {
-  padding-right: $m3;
-  padding-left: $m3;
+  padding-right: $size3;
+  padding-left: $size3;
 }
 
 /* displays */

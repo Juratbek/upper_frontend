@@ -1,4 +1,6 @@
 import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
+import { useAppDispatch } from 'store';
+import { open } from 'store/slices/loginModalSlice';
 import { IArticle, IBlog, ILabel } from 'types';
 
 import classes from './Sidebar.module.css';
@@ -84,10 +86,18 @@ const blogs: IBlog[] = [
 ];
 
 export const Sidebar = (): JSX.Element => {
+  const dispath = useAppDispatch();
+
+  const loginHandler = (): void => {
+    dispath(open());
+  };
+
   return (
     <div className={classes.sidebar}>
       <div className='d-flex justify-content-around'>
-        <Button color='outline-dark'>Kirish</Button>
+        <Button color='outline-dark' onClick={loginHandler}>
+          Kirish
+        </Button>
         <Button className='float-right'>Ro`yxatdan o`tish</Button>
       </div>
       <Divider className='my-2' />
