@@ -1,4 +1,4 @@
-import EditorJs from '@editorjs/editorjs';
+import EditorJs, { OutputData } from '@editorjs/editorjs';
 
 import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from './editor.constants';
 
@@ -6,7 +6,7 @@ export interface ICreateEditorProps {
   holder?: string;
   onChangeHandler?(...args: any[]): void;
   isReadOnly?: boolean;
-  data?: any;
+  data?: OutputData;
   placeholder?: string;
 }
 

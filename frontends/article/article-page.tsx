@@ -1,33 +1,25 @@
-import { createEditor } from 'frontends/write-article/editor.service';
-import { FC, useEffect, useMemo } from 'react';
-
-import { articleData } from './sample-article';
+import { OutputData } from '@editorjs/editorjs';
+import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
+import { useEffect } from 'react';
 
 interface IArticleProps {
-  articleId: string;
+  articleData: OutputData;
 }
 
-export const Article: FC<IArticleProps> = ({ articleId }) => {
-  const Editor = useMemo(async () => {
-    return await createEditor({
-      data: articleData,
-      isReadOnly: true,
-      holder: 'editorjs-read',
-    });
-  }, []);
-
-  // useEffect(() => {
-  //   (async (): Promise<void> => {
-  //     const editor = await Editor;
-  //     await editor.isReady;
-  //
-  //     console.log(editor.blocks);
-  //   })();
-  // }, [Editor]);
+export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps) => {
+  useEffect(() => {
+    if (articleData) {
+      createEditor({
+        holder: EDITOR_HOLDER__READ,
+        data: articleData,
+        isReadOnly: true,
+      });
+    }
+  }, [articleData]);
 
   return (
     <>
-      <div id={'editorjs-read'}></div>
+      <div id={EDITOR_HOLDER__READ}></div>
     </>
   );
 };
