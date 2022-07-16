@@ -1,4 +1,4 @@
-import { ICON_TYPES } from 'variables';
+import { ICON_TYPES } from 'variables/icons';
 
 import { INavigationIcon } from './Navigation.types';
 

@@ -1,23 +1,35 @@
 import { Button, Input } from 'components';
+import { signIn } from 'next-auth/react';
 import { FC } from 'react';
-import { useAppSelector } from 'store';
+import { useAppDispatch, useAppSelector } from 'store';
 import { getIsModalOpen } from 'store/loginModal';
-import { ICON_TYPES, ICONS } from 'variables';
+import { close } from 'store/loginModal/loginModalSlice';
+import { ICONS } from 'variables';
 
+import { AUTH_TYPES, SOCIAL_MEDIA_LOGIN_OPTIONS } from './LoginModal.constants';
 import classes from './LoginModal.module.scss';
-
-const TelegramIcon = ICONS[ICON_TYPES.telegram];
-const GoogleIcon = ICONS[ICON_TYPES.google];
+import { ISocialMediaLoginOption } from './LoginModal.types';
 
 export const LoginModal: FC = () => {
   const isOpen = useAppSelector(getIsModalOpen);
+  const dispatch = useAppDispatch();
 
-  const googleClickHandler = (): void => {
-    // google login
+  const mediaIconClickHandler = (option: ISocialMediaLoginOption): void => {
+    if (option.type === AUTH_TYPES.nextAuth) {
+      // debugger;
+      signIn(option.id);
+    } else if (option.type === AUTH_TYPES.telegram) {
+      console.log('login with telegram');
+    }
+  };
+
+  const closeModal = (): void => {
+    dispatch(close());
   };
 
   return (
     <div className={`modal ${isOpen && 'modal--open'}`}>
+      <div className='modal-bg' onClick={closeModal} />
       <div className='modal-dialog'>
         <form className='modal-body'>
           <div className='form-element'>
@@ -37,22 +49,22 @@ export const LoginModal: FC = () => {
             Ro`yxatdan o`tish
           </Button>
           <div className='d-flex justify-content-around mt-1'>
-            <Button
-              type='button'
-              color='light'
-              data-onsuccess='onSignIn'
-              className={classes['social-media-icon']}
-            >
-              <TelegramIcon />
-            </Button>
-            <Button
-              type='button'
-              color='light'
-              onClick={googleClickHandler}
-              className={classes['social-media-icon']}
-            >
-              <GoogleIcon />
-            </Button>
+            {SOCIAL_MEDIA_LOGIN_OPTIONS.map((option, index) => {
+              const MediaIcon = ICONS[option.icon];
+              return (
+                <div key={index} className={classes['social-media']}>
+                  <Button
+                    type='button'
+                    color='light'
+                    onClick={(): void => mediaIconClickHandler(option)}
+                    className={classes['social-media-icon']}
+                  >
+                    <MediaIcon />
+                  </Button>
+                  <div>{option.label}</div>
+                </div>
+              );
+            })}
           </div>
         </form>
       </div>

@@ -1,6 +1,8 @@
 import {
   DeleteIcon,
   EyeIcon,
+  FacebookIcon,
+  GitHubIcon,
   GoogleIcon,
   HomeIcon,
   MenuListIcon,
@@ -25,6 +27,8 @@ export const ICON_TYPES = {
   eye: 'eye',
   telegram: 'telegram',
   google: 'google',
+  facebook: 'facebook',
+  github: 'github',
 };
 
 export const ICONS: IIcon = {
@@ -39,4 +43,6 @@ export const ICONS: IIcon = {
   [ICON_TYPES.eye]: EyeIcon,
   [ICON_TYPES.telegram]: TelegramIcon,
   [ICON_TYPES.google]: GoogleIcon,
+  [ICON_TYPES.facebook]: FacebookIcon,
+  [ICON_TYPES.github]: GitHubIcon,
 };
