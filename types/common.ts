@@ -25,3 +25,5 @@ export type TIcon =
 export interface IIcon {
   [name: TIcon]: FC<{ color?: string }>;
 }
+
+export type TClassName = string | undefined;

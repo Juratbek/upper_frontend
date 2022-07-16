@@ -1,5 +1,5 @@
-import { ILabel } from 'types';
+import { ButtonHTMLAttributes } from 'react';
 
-export interface ILabelProps extends ILabel {
-  className?: string;
+export interface ILabelProps extends ButtonHTMLAttributes<HTMLSpanElement> {
+  href?: number;
 }

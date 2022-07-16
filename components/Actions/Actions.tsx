@@ -31,7 +31,12 @@ export const Actions: FC<IActinosProps> = (props) => {
         <div className={`${classes.popup} ${!isPopupOpen && 'd-none'}`}>
           {actions.map(({ Icon, label }, index) => (
             <div className={classes['popup__item']} key={index}>
-              <Icon /> &nbsp;<span>{label}</span>
+              {Icon && (
+                <>
+                  <Icon /> &nbsp;
+                </>
+              )}
+              <span>{label}</span>
             </div>
           ))}
         </div>

@@ -1,0 +1,9 @@
+.like-notification {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.like-notification--unread {
+    background-color: var(--lightGray);
+}
