@@ -3,9 +3,13 @@ import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
 import { useEffect, useState } from 'react';
 import { ICON_TYPES, ICONS } from 'variables';
 
+import { DislikeIcon, ShareIcon } from '../../assets';
 import styles from './article.module.scss';
 
 const CommentIcon = ICONS[ICON_TYPES.comment];
+const LikeIcon = ICONS[ICON_TYPES.like];
+const dislike = ICONS[ICON_TYPES.dislike];
+const share = ICONS[ICON_TYPES.share];
 
 interface IArticleProps {
   articleData: OutputData;
@@ -50,6 +54,10 @@ export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps)
 
       <div className={styles.articleActions}>
         <CommentIcon />
+        <LikeIcon />
+        +14k
+        <DislikeIcon />
+        <ShareIcon />
       </div>
     </div>
   );
