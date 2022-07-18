@@ -1,25 +1,21 @@
 import EditorJs, { OutputData } from '@editorjs/editorjs';
+import { ArticleActions } from 'components';
 import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
-import { useEffect, useState } from 'react';
-import { ICON_TYPES, ICONS } from 'variables';
+import { useEffect, useRef, useState } from 'react';
 
-import { DislikeIcon, ShareIcon } from '../../assets';
 import styles from './article.module.scss';
-
-const CommentIcon = ICONS[ICON_TYPES.comment];
-const LikeIcon = ICONS[ICON_TYPES.like];
-const dislike = ICONS[ICON_TYPES.dislike];
-const share = ICONS[ICON_TYPES.share];
 
 interface IArticleProps {
   articleData: OutputData;
 }
 
-let lastScrollTop = 0;
-lastScrollTop = 9;
+// let lastScrollTop = 0;
+// lastScrollTop = 9;
 
 export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
+  const articleContainer = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (articleData) {
       createEditor({
@@ -44,21 +40,14 @@ export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps)
   }, [editor]);
 
   return (
-    <div className={styles.articleContainer}>
+    <div className={styles.articleContainer} ref={articleContainer}>
       <div id={EDITOR_HOLDER__READ}></div>
       <div className={styles.articleDetail}>
         <div></div>
 
         <div></div>
       </div>
-
-      <div className={styles.articleActions}>
-        <CommentIcon />
-        <LikeIcon />
-        +14k
-        <DislikeIcon />
-        <ShareIcon />
-      </div>
+      <ArticleActions containerRef={articleContainer} />
     </div>
   );
 };
