@@ -1,9 +1,8 @@
 import { OutputData } from '@editorjs/editorjs';
 import { Article } from 'frontends/article';
+import { articleData } from 'frontends/EditorJs/sample-article';
 import { NextPage } from 'next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-
-import { articleData } from './sample-article';
 
 interface IArticlePageProps {
   articleData: OutputData;
