@@ -1,0 +1,31 @@
+
+.modal {
+    position: absolute;
+    inset: 0;
+    display: none;
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-bg {
+    position: absolute;
+    inset: 0;
+    background-color: var(--lightBlack);
+  }
+  
+  .modal--open {
+    display: flex;
+  }
+  
+  .modal-dialog {
+    z-index: 1000;
+    min-width: 300px;
+    background-color: white;
+    border-radius: var(--mediumBorderRadius);
+  }
+  
+  .modal-body {
+    padding: 2rem;
+  }
+  

@@ -21,11 +21,9 @@ export default NextAuth({
   ],
   callbacks: {
     async signIn({ account, profile }) {
-      // const provider = account.provider;
-      // const providerUtil = AUTH_PROVIDERS[provider];
-      // providerUtil(profile);
-      console.log('🚀 ~ file: [...nextauth].ts ~ line 34 ~ signIn ~ account', account, profile);
-      return true; // Do different verification for other providers that don't have `email_verified`
+      const provider = account.provider;
+      const providerUtil = AUTH_PROVIDERS[provider];
+      return providerUtil(profile);
     },
   },
 });

@@ -12,7 +12,7 @@ export type TAuthProviderTypes =
   | typeof AUTH_PROVIDER_TYPES.facebook
   | typeof AUTH_PROVIDER_TYPES.github;
 
-export type TAuthProvider = Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
+export type TAuthProviders = Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
 
 export interface IAuthProvider {
   [name: string]: (profile: TAuthProviderProp) => boolean;
@@ -82,4 +82,14 @@ export interface IFacebookUser {
       width: number;
     };
   };
+}
+
+export interface ITelegramUser {
+  auth_date: number;
+  first_name: string;
+  last_name?: string;
+  photo_url: string;
+  hash: string;
+  id: number;
+  username: string;
 }
