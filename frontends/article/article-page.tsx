@@ -1,4 +1,13 @@
 import EditorJs, { OutputData } from '@editorjs/editorjs';
+import {
+  DislikeIcon,
+  DotsIcon,
+  LikeIcon,
+  NextIcon,
+  PrevIcon,
+  SaveArticleIcon,
+  ShareIcon,
+} from 'assets';
 import { ArticleActions } from 'components';
 import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
 import { useEffect, useRef, useState } from 'react';
@@ -8,9 +17,6 @@ import styles from './article.module.scss';
 interface IArticleProps {
   articleData: OutputData;
 }
-
-// let lastScrollTop = 0;
-// lastScrollTop = 9;
 
 export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
@@ -43,11 +49,32 @@ export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps)
     <div className={styles.articleContainer} ref={articleContainer}>
       <div id={EDITOR_HOLDER__READ}></div>
       <div className={styles.articleDetail}>
-        <div></div>
+        <div className={styles.reactions}>
+          <span>20 k. ko&apos;rilgan</span>
+          <div className={styles.reactionButtons}>
+            <LikeIcon />
+            <span>+14 k</span>
+            <DislikeIcon />
+          </div>
+        </div>
 
-        <div></div>
+        <div className={styles.navigation}>
+          <div className={styles.navIcon}>
+            <PrevIcon />
+          </div>
+          <span>Oldingi</span>
+          <ShareIcon />
+          <span>Bo&apos;lishish</span>
+          <SaveArticleIcon />
+          <span>Saqlash</span>
+          <span>Keyingi</span>
+          <div className={styles.navIcon}>
+            <NextIcon />
+          </div>
+          <DotsIcon />
+        </div>
       </div>
-      <ArticleActions containerRef={articleContainer} />
+      <ArticleActions containerRef={articleContainer} editor={editor} />
     </div>
   );
 };

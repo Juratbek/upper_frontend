@@ -1,3 +1,4 @@
+import EditorJS from '@editorjs/editorjs';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { ICON_TYPES, ICONS } from 'variables';
 
@@ -9,11 +10,15 @@ const ShareIcon = ICONS[ICON_TYPES.share];
 
 interface IArticleActions {
   containerRef: RefObject<HTMLDivElement>;
+  editor: EditorJS | null;
 }
 
 let lastScrollTop = 0;
 
-export const ArticleActions: React.FC<IArticleActions> = ({ containerRef }: IArticleActions) => {
+export const ArticleActions: React.FC<IArticleActions> = ({
+  containerRef,
+  editor,
+}: IArticleActions) => {
   const [actionsBarLeft, setActionsBarLeft] = useState<number>(0);
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
 
@@ -21,11 +26,10 @@ export const ArticleActions: React.FC<IArticleActions> = ({ containerRef }: IArt
 
   const positionActionsBar = useCallback((): void => {
     if (containerRef.current && actionsContainer.current) {
-      const containerWith = containerRef.current.offsetWidth;
+      const containerCoords = containerRef.current.getBoundingClientRect();
       const actionsWith = actionsContainer.current.offsetWidth;
 
-      const actionsBarLeft =
-        (containerWith - actionsWith) / 2 + containerRef.current.getBoundingClientRect().left;
+      const actionsBarLeft = (containerCoords.width - actionsWith) / 2 + containerCoords.left;
 
       setActionsBarLeft(actionsBarLeft);
     }
@@ -47,6 +51,10 @@ export const ArticleActions: React.FC<IArticleActions> = ({ containerRef }: IArt
     window.addEventListener('resize', positionActionsBar);
     window.addEventListener('scroll', detectScrollDirection);
   }, [containerRef]);
+
+  useEffect(() => {
+    editor?.isReady.then(() => setIsScrollingUp(true));
+  }, [editor]);
 
   return (
     <div

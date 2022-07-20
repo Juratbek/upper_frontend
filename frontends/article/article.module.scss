@@ -1,6 +1,53 @@
 .articleContainer {
-  position: relative;
-
   .articleDetail {
+    display: flex;
+    justify-content: space-between;
+
+    margin-left: 5rem;
+    margin-right: 5rem;
+    margin-top: 2rem;
+
+    .reactions {
+      display: flex;
+      align-items: center;
+
+      .reactionButtons {
+        margin-left: 11px;
+
+        svg {
+          margin-left: 6px;
+          margin-right: 6px;
+        }
+      }
+    }
+
+    .navigation {
+      display: flex;
+      align-items: center;
+
+      span:not(:last-of-type) {
+        margin-right: 1rem;
+      }
+
+      svg {
+        margin-right: 4px;
+        width: 16px;
+
+        &:last-child {
+          margin-left: 12px;
+          width: 19px;
+        }
+      }
+
+      .navIcon svg {
+        width: 10px;
+        margin-left: 6px;
+        margin-right: 6px;
+        margin-top: 5px;
+      }
+    }
+    svg {
+      width: 15px;
+    }
   }
 }
