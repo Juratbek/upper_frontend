@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import styles from './write-artice.module.scss';
 
 export default function WriteArticlePage(): JSX.Element {
-  const [editor, setEditor] = useState<EditorJs | null>(null);
+  const [, setEditor] = useState<EditorJs | null>(null);
 
   useEffect(() => {
     createEditor().then((editor) => setEditor(editor));
