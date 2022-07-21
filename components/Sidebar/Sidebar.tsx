@@ -1,7 +1,7 @@
 import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
-import { IArticle, IBlog, ILabel } from 'types';
+import { IArticleResult, IBlog, ILabel } from 'types';
 
 import classes from './Sidebar.module.css';
 
@@ -22,7 +22,7 @@ const labels: ILabel[] = [
   },
 ];
 
-const articles: IArticle[] = [
+const articles: IArticleResult[] = [
   {
     id: 1,
     title: 'Article title Lorem Ipsum is simply dummy',

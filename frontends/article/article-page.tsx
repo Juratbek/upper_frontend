@@ -1,14 +1,12 @@
-import EditorJs, { OutputData } from '@editorjs/editorjs';
-import { Actions, ArticleActions } from 'components';
+import EditorJs from '@editorjs/editorjs';
 import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
+import { formatToKMB } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables';
 
 import styles from './article.module.scss';
-
-interface IArticleProps {
-  articleData: OutputData;
-}
+import { IArticleProps } from './article.types';
+import { ArticleActions } from './article-actions';
 
 const LikeIcon = ICONS[ICON_TYPES.like];
 const DislikeIcon = ICONS[ICON_TYPES.dislike];
@@ -17,19 +15,20 @@ const PrevIcon = ICONS[ICON_TYPES.prev];
 const SaveIcon = ICONS[ICON_TYPES.save];
 const ShareIcon = ICONS[ICON_TYPES.share];
 
-export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps) => {
+export const Article: FC<IArticleProps> = (props) => {
+  const { content, nextArticleId, prevArticleId, viewCount } = props;
   const [editor, setEditor] = useState<null | EditorJs>(null);
   const articleContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (articleData) {
+    if (content) {
       createEditor({
         holder: EDITOR_HOLDER__READ,
-        data: articleData,
+        data: content,
         isReadOnly: true,
       }).then((res) => setEditor(res));
     }
-  }, [articleData]);
+  }, [content]);
 
   // Caption cleanup
   useEffect(() => {
@@ -49,7 +48,7 @@ export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps)
       <div id={EDITOR_HOLDER__READ}></div>
       <div className={styles.articleDetail}>
         <div className={styles.reactions}>
-          <span>20 k. ko&apos;rilgan</span>
+          {viewCount && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
           <div className={styles.reactionButtons}>
             <LikeIcon />
             <span>+14 k</span>
@@ -58,19 +57,26 @@ export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps)
         </div>
 
         <div className={styles.navigation}>
-          <div className={styles.navIcon}>
-            <PrevIcon />
-          </div>
-          <span>Oldingi</span>
+          {prevArticleId && (
+            <>
+              <div className={styles.navIcon}>
+                <PrevIcon />
+              </div>
+              <span>Oldingi</span>
+            </>
+          )}
           <ShareIcon />
           <span>Bo&apos;lishish</span>
           <SaveIcon />
           <span>Saqlash</span>
-          <span>Keyingi</span>
-          <div className={styles.navIcon}>
-            <NextIcon />
-          </div>
-          <Actions actions={[]} />
+          {nextArticleId && (
+            <>
+              <span>Keyingi</span>
+              <div className={styles.navIcon}>
+                <NextIcon />
+              </div>
+            </>
+          )}
         </div>
       </div>
       <ArticleActions containerRef={articleContainer} editor={editor} />

@@ -1,6 +1,6 @@
 import { Article } from 'components';
 import { FC } from 'react';
-import { IArticle, IBlog, ILabel } from 'types';
+import { IArticleResult, IBlog, ILabel } from 'types';
 import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
 
 const author: IBlog = {
@@ -20,7 +20,7 @@ const labels: ILabel[] = [
   },
 ];
 
-const articles: IArticle[] = [
+const articles: IArticleResult[] = [
   {
     id: 1,
     title: 'Article title',

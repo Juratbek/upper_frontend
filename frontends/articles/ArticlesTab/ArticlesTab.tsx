@@ -1,6 +1,6 @@
 import { Article } from 'components';
 import { FC } from 'react';
-import { IArticle, ILabel } from 'types';
+import { IArticleResult, ILabel } from 'types';
 
 const labels: ILabel[] = [
   {
@@ -13,7 +13,7 @@ const labels: ILabel[] = [
   },
 ];
 
-export const articles: IArticle[] = [
+export const articles: IArticleResult[] = [
   {
     id: 1,
     title: 'Article title',

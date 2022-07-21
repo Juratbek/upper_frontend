@@ -1,24 +1,23 @@
 import EditorJS from '@editorjs/editorjs';
+import { FC } from 'react';
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { ICON_TYPES, ICONS } from 'variables';
 
-import styles from './ArticleActions.module.scss';
+import styles from './article.module.scss';
+
 const CommentIcon = ICONS[ICON_TYPES.comment];
 const LikeIcon = ICONS[ICON_TYPES.like];
 const DislikeIcon = ICONS[ICON_TYPES.dislike];
 const ShareIcon = ICONS[ICON_TYPES.share];
 
-interface IArticleActions {
+interface IArticleActionsProps {
   containerRef: RefObject<HTMLDivElement>;
   editor: EditorJS | null;
 }
 
 let lastScrollTop = 0;
 
-export const ArticleActions: React.FC<IArticleActions> = ({
-  containerRef,
-  editor,
-}: IArticleActions) => {
+export const ArticleActions: FC<IArticleActionsProps> = ({ containerRef, editor }) => {
   const [actionsBarLeft, setActionsBarLeft] = useState<number>(0);
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
 
