@@ -17,19 +17,13 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
   context: GetServerSidePropsContext,
 ) => {
   const articleId = context.query.id; // Do something with this
-  // if (!articleId) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //     },
-  //   };
-  // }
   const article: IArticle = {
     content: articleData,
     id: +articleId!,
     viewCount: 3000,
     labels: [{ id: 1, name: 'JavaScript' }],
     publishedDate: toDateString(new Date()),
+    updatedDate: toDateString(new Date()),
     title: 'Article Title',
   };
   return {

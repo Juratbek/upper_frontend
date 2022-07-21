@@ -16,7 +16,7 @@ const SaveIcon = ICONS[ICON_TYPES.save];
 const ShareIcon = ICONS[ICON_TYPES.share];
 
 export const Article: FC<IArticleProps> = (props) => {
-  const { content, nextArticleId, prevArticleId, viewCount } = props;
+  const { content, nextArticleId, prevArticleId, viewCount, publishedDate, updatedDate } = props;
   const [editor, setEditor] = useState<null | EditorJs>(null);
   const articleContainer = useRef<HTMLDivElement>(null);
 
@@ -47,36 +47,42 @@ export const Article: FC<IArticleProps> = (props) => {
     <div className={styles.articleContainer} ref={articleContainer}>
       <div id={EDITOR_HOLDER__READ}></div>
       <div className={styles.articleDetail}>
-        <div className={styles.reactions}>
-          {viewCount && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
-          <div className={styles.reactionButtons}>
-            <LikeIcon />
-            <span>+14 k</span>
-            <DislikeIcon />
-          </div>
+        <div className='mb-1'>
+          <span>{publishedDate} da chop etilgan</span>
+          {updatedDate && <span className='ms-2'>{updatedDate} da yangilangan</span>}
         </div>
+        <div className='d-flex justify-content-between'>
+          <div className={styles.reactions}>
+            {viewCount && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
+            <div className={styles.reactionButtons}>
+              <LikeIcon />
+              <span>+14 k</span>
+              <DislikeIcon />
+            </div>
+          </div>
 
-        <div className={styles.navigation}>
-          {prevArticleId && (
-            <>
-              <div className={styles.navIcon}>
-                <PrevIcon />
-              </div>
-              <span>Oldingi</span>
-            </>
-          )}
-          <ShareIcon />
-          <span>Bo&apos;lishish</span>
-          <SaveIcon />
-          <span>Saqlash</span>
-          {nextArticleId && (
-            <>
-              <span>Keyingi</span>
-              <div className={styles.navIcon}>
-                <NextIcon />
-              </div>
-            </>
-          )}
+          <div className={styles.navigation}>
+            {prevArticleId && (
+              <>
+                <div className={styles.navIcon}>
+                  <PrevIcon />
+                </div>
+                <span>Oldingi</span>
+              </>
+            )}
+            <ShareIcon />
+            <span>Bo&apos;lishish</span>
+            <SaveIcon />
+            <span>Saqlash</span>
+            {nextArticleId && (
+              <>
+                <span>Keyingi</span>
+                <div className={styles.navIcon}>
+                  <NextIcon />
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
       <ArticleActions containerRef={articleContainer} editor={editor} />

@@ -1,15 +1,14 @@
 .articleContainer {
   .articleDetail {
-    display: flex;
-    justify-content: space-between;
-
-    margin-left: 5rem;
-    margin-right: 5rem;
-    margin-top: 2rem;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-top: 1rem;
+    padding: 0 .3rem;
 
     .reactions {
       display: flex;
       align-items: center;
+      justify-content: space-between;
 
       .reactionButtons {
         margin-left: 11px;
@@ -107,6 +106,7 @@
     opacity: 1;
   }
 }
+
 @keyframes fade-in-bottom {
   0% {
     transform: translateY(50px);
