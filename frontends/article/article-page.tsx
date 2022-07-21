@@ -1,22 +1,21 @@
 import EditorJs, { OutputData } from '@editorjs/editorjs';
-import {
-  DislikeIcon,
-  DotsIcon,
-  LikeIcon,
-  NextIcon,
-  PrevIcon,
-  SaveArticleIcon,
-  ShareIcon,
-} from 'assets';
-import { ArticleActions } from 'components';
+import { Actions, ArticleActions } from 'components';
 import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
 import { useEffect, useRef, useState } from 'react';
+import { ICON_TYPES, ICONS } from 'variables';
 
 import styles from './article.module.scss';
 
 interface IArticleProps {
   articleData: OutputData;
 }
+
+const LikeIcon = ICONS[ICON_TYPES.like];
+const DislikeIcon = ICONS[ICON_TYPES.dislike];
+const NextIcon = ICONS[ICON_TYPES.next];
+const PrevIcon = ICONS[ICON_TYPES.prev];
+const SaveIcon = ICONS[ICON_TYPES.save];
+const ShareIcon = ICONS[ICON_TYPES.share];
 
 export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
@@ -65,13 +64,13 @@ export const Article: React.FC<IArticleProps> = ({ articleData }: IArticleProps)
           <span>Oldingi</span>
           <ShareIcon />
           <span>Bo&apos;lishish</span>
-          <SaveArticleIcon />
+          <SaveIcon />
           <span>Saqlash</span>
           <span>Keyingi</span>
           <div className={styles.navIcon}>
             <NextIcon />
           </div>
-          <DotsIcon />
+          <Actions actions={[]} />
         </div>
       </div>
       <ArticleActions containerRef={articleContainer} editor={editor} />

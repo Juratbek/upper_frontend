@@ -7,8 +7,10 @@ import {
   HomeIcon,
   LikeIcon,
   MenuListIcon,
+  NextIcon,
   NotificationIcon,
   PenIcon,
+  PrevIcon,
   SaveIcon,
   SearchIcon,
   ShareIcon,
@@ -33,6 +35,8 @@ export const ICON_TYPES = {
   like: 'like',
   dislike: 'dislike',
   share: 'share',
+  next: 'next',
+  prev: 'prev',
 };
 
 export const ICONS: IIcon = {
@@ -51,4 +55,6 @@ export const ICONS: IIcon = {
   [ICON_TYPES.like]: LikeIcon,
   [ICON_TYPES.dislike]: DislikeIcon,
   [ICON_TYPES.share]: ShareIcon,
+  [ICON_TYPES.next]: NextIcon,
+  [ICON_TYPES.prev]: PrevIcon,
 };

@@ -266,21 +266,6 @@ export const PrevIcon = () => (
   </svg>
 );
 
-export const SaveArticleIcon = () => (
-  <svg viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    <path
-      d='M3.125 13.75V1.875C3.125 1.52982 3.40482 1.25 3.75 1.25H11.25C11.5952 1.25 11.875 1.52982 11.875 1.875V13.75L7.5 9.93056L3.125 13.75Z'
-      stroke='black'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    />
-    <path
-      d='M9.92188 5.06934V6.2168H5.04883V5.06934H9.92188ZM8.10547 3.11133V8.28711H6.87012V3.11133H8.10547Z'
-      fill='black'
-    />
-  </svg>
-);
-
 export const NextIcon = () => (
   <svg viewBox='0 0 9 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <path
