@@ -1,10 +1,11 @@
-import { Button, Divider, Select, SidebarArticle, SidebarBlog } from 'components';
+import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
 import { IArticle, IBlog, ILabel } from 'types';
 
+import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
 
 const author: IBlog = {
@@ -87,25 +88,6 @@ const blogs: IBlog[] = [
   },
 ];
 
-const options = [
-  {
-    label: 'JavaScript',
-    value: 1,
-  },
-  {
-    label: 'TypeScript',
-    value: 2,
-  },
-  {
-    label: 'HTML',
-    value: 3,
-  },
-  {
-    label: 'CSS',
-    value: 4,
-  },
-];
-
 export const Sidebar = (): JSX.Element => {
   const dispath = useAppDispatch();
   const { pathname } = useRouter();
@@ -115,17 +97,9 @@ export const Sidebar = (): JSX.Element => {
   };
 
   const content: JSX.Element = useMemo(() => {
-    if (pathname === '/write-article') {
-      return (
-        <>
-          <Button className='w-100'>Chop Etish</Button>
-          <Divider className='my-2' />
-          <h2>Sozlamalar</h2>
-          <label htmlFor='labels'>Teglar</label>
-          <Select options={options} />
-        </>
-      );
-    }
+    const ContentComponent = SIDEBAR_CONTENTS[pathname];
+    if (ContentComponent) return <ContentComponent />;
+
     return (
       <>
         <div className='d-flex justify-content-around'>
