@@ -7,8 +7,11 @@ const NotFoundImg = IMAGES[IMAGE_TYPES.notFound];
 export const NotFound = (): JSX.Element => {
   return (
     <div className={classes['not-found']}>
-      <div className={classes.img}>
-        <NotFoundImg />
+      <div>
+        <div className={classes.img}>
+          <NotFoundImg />
+        </div>
+        <h1 className='text-center'>Sahifa topilmadi</h1>
       </div>
     </div>
   );
