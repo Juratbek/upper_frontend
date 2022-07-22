@@ -26,7 +26,9 @@ export const SidebarContent: FC = () => {
       <Button className='w-100'>Chop Etish</Button>
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
-      <label htmlFor='labels'>Teglar</label>
+      <label htmlFor='labels' className='mb-1 d-block'>
+        Teglar
+      </label>
       <Select options={options} />
     </>
   );
