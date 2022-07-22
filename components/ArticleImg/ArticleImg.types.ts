@@ -4,4 +4,4 @@ export interface IArticleImgProps {
   className?: string;
 }
 
-export type TArticleImgSize = 'small' | 'medium';
+export type TArticleImgSize = 'small' | 'medium' | 'micro';

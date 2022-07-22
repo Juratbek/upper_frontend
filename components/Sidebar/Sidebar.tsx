@@ -1,4 +1,4 @@
-import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
+import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
@@ -109,6 +109,7 @@ export const Sidebar = (): JSX.Element => {
           <Button className='float-right'>Ro`yxatdan o`tish</Button>
         </div>
         <Divider className='my-2' />
+        <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>
         {articles.map((article, index) => (
           <div key={article.id}>
