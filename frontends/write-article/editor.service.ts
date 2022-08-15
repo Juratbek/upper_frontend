@@ -22,6 +22,8 @@ export const createEditor = async ({
   const Header = (await import('@editorjs/header')).default;
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
+  const Quote = (await import('@editorjs/quote')).default;
+
   return new EditorJs({
     holder: holder,
     onChange: onChangeHandler,
@@ -43,6 +45,7 @@ export const createEditor = async ({
         class: Embed,
         inlineToolbar: true,
       },
+      quote: Quote,
     },
   });
 };
