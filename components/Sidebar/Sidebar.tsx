@@ -1,8 +1,11 @@
 import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
 import { IArticle, IBlog, ILabel } from 'types';
 
+import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
 
 const author: IBlog = {
@@ -87,35 +90,43 @@ const blogs: IBlog[] = [
 
 export const Sidebar = (): JSX.Element => {
   const dispath = useAppDispatch();
+  const { pathname } = useRouter();
 
   const loginHandler = (): void => {
     dispath(open());
   };
 
-  return (
-    <div className={classes.sidebar}>
-      <div className='d-flex justify-content-around'>
-        <Button color='outline-dark' onClick={loginHandler}>
-          Kirish
-        </Button>
-        <Button className='float-right'>Ro`yxatdan o`tish</Button>
-      </div>
-      <Divider className='my-2' />
-      <h2>Siz uchun maqolalar</h2>
-      {articles.map((article, index) => (
-        <div key={article.id}>
-          <SidebarArticle {...article} />
-          {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+  const content: JSX.Element = useMemo(() => {
+    const ContentComponent = SIDEBAR_CONTENTS[pathname];
+    if (ContentComponent) return <ContentComponent />;
+
+    return (
+      <>
+        <div className='d-flex justify-content-around'>
+          <Button color='outline-dark' onClick={loginHandler}>
+            Kirish
+          </Button>
+          <Button className='float-right'>Ro`yxatdan o`tish</Button>
         </div>
-      ))}
-      <Divider className='my-2' />
-      <h2>Kuzatib boring</h2>
-      {blogs.map((blog, index) => (
-        <div key={blog.id}>
-          <SidebarBlog {...blog} />
-          {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-        </div>
-      ))}
-    </div>
-  );
+        <Divider className='my-2' />
+        <h2>Siz uchun maqolalar</h2>
+        {articles.map((article, index) => (
+          <div key={article.id}>
+            <SidebarArticle {...article} />
+            {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+          </div>
+        ))}
+        <Divider className='my-2' />
+        <h2>Kuzatib boring</h2>
+        {blogs.map((blog, index) => (
+          <div key={blog.id}>
+            <SidebarBlog {...blog} />
+            {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+          </div>
+        ))}
+      </>
+    );
+  }, [pathname]);
+
+  return <div className={classes.sidebar}>{content}</div>;
 };
