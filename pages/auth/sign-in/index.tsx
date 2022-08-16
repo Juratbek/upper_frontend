@@ -1,9 +1,8 @@
 import { Button } from 'components';
-import { getProviders, getSession, signIn } from 'next-auth/react';
-import { IGetServerSideProps, TAuthProvider } from 'types';
+import { getProviders, signIn } from 'next-auth/react';
+import { IGetServerSideProps, TAuthProviders } from 'types';
 
-const SignInPage = ({ providers }: { providers: TAuthProvider }): JSX.Element => {
-  console.log('🚀 ~ file: index.tsx ~ line 6 ~ providers', providers);
+const SignInPage = ({ providers }: { providers: TAuthProviders }): JSX.Element => {
   return (
     <form>
       {Object.values(providers).map((provider) => (
@@ -21,19 +20,9 @@ const SignInPage = ({ providers }: { providers: TAuthProvider }): JSX.Element =>
   );
 };
 
-export async function getServerSideProps(
-  context,
-): Promise<IGetServerSideProps<{ providers: TAuthProvider | null }>> {
-  // const { req } = context;
-  // const session = await getSession({ req });
-  // console.log('🚀 ~ file: index.tsx ~ line 28 ~ session', session);
-  // if (session) {
-  //   return {
-  //     redirect: {
-  //       destination: '/',
-  //     },
-  //   };
-  // }
+export async function getServerSideProps(): Promise<
+  IGetServerSideProps<{ providers: TAuthProviders | null }>
+> {
   const providers = await getProviders();
 
   return {
