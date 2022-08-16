@@ -1,5 +1,5 @@
 import EditorJs from '@editorjs/editorjs';
-import { createEditor, EDITOR_HOLDER__READ } from 'frontends/EditorJs';
+import { createEditor, EDITOR_HOLDER__READ } from 'frontends/write-article';
 import { FC, useEffect, useRef, useState } from 'react';
 import { formatToKMB } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables';
