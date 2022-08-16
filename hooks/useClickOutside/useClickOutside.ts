@@ -7,7 +7,6 @@ export const useClickOutside = (callBack: () => void): LegacyRef<HTMLDivElement>
   const clickHandler: MouseEventHandler = (event: MouseEvent<HTMLElement>) => {
     const clickedTarget = event.target;
     const currentTarget = ref.current;
-
     // @ts-ignore
     const doesElementContain = currentTarget?.contains(clickedTarget);
     if (doesElementContain) return;

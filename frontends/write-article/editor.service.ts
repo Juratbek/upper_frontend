@@ -1,4 +1,4 @@
-import EditorJs from '@editorjs/editorjs';
+import EditorJs, { OutputData } from '@editorjs/editorjs';
 
 import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from './editor.constants';
 
@@ -6,7 +6,7 @@ export interface ICreateEditorProps {
   holder?: string;
   onChangeHandler?(...args: any[]): void;
   isReadOnly?: boolean;
-  data?: any;
+  data?: OutputData;
   placeholder?: string;
 }
 
@@ -22,6 +22,7 @@ export const createEditor = async ({
   const Header = (await import('@editorjs/header')).default;
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
+
   return new EditorJs({
     holder: holder,
     onChange: onChangeHandler,

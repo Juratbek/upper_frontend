@@ -26,7 +26,13 @@ export type TIcon =
   | typeof ICON_TYPES.eye
   | typeof ICON_TYPES.telegram
   | typeof ICON_TYPES.google
-  | typeof ICON_TYPES.github;
+  | typeof ICON_TYPES.github
+  | typeof ICON_TYPES.comment
+  | typeof ICON_TYPES.like
+  | typeof ICON_TYPES.dislike
+  | typeof ICON_TYPES.share
+  | typeof ICON_TYPES.next
+  | typeof ICON_TYPES.prev;
 
 export interface IIcon {
   [name: TIcon]: FC<{ color?: string }>;

@@ -1,15 +1,21 @@
 import {
+  CommentIcon,
   DeleteIcon,
+  DislikeIcon,
   EyeIcon,
   FacebookIcon,
   GitHubIcon,
   GoogleIcon,
   HomeIcon,
+  LikeIcon,
   MenuListIcon,
+  NextIcon,
   NotificationIcon,
   PenIcon,
+  PrevIcon,
   SaveIcon,
   SearchIcon,
+  ShareIcon,
   TelegramIcon,
   UserIcon,
 } from 'assets';
@@ -29,6 +35,12 @@ export const ICON_TYPES = {
   google: 'google',
   facebook: 'facebook',
   github: 'github',
+  comment: 'comment',
+  like: 'like',
+  dislike: 'dislike',
+  share: 'share',
+  next: 'next',
+  prev: 'prev',
 };
 
 export const ICONS: IIcon = {
@@ -45,4 +57,10 @@ export const ICONS: IIcon = {
   [ICON_TYPES.google]: GoogleIcon,
   [ICON_TYPES.facebook]: FacebookIcon,
   [ICON_TYPES.github]: GitHubIcon,
+  [ICON_TYPES.comment]: CommentIcon,
+  [ICON_TYPES.like]: LikeIcon,
+  [ICON_TYPES.dislike]: DislikeIcon,
+  [ICON_TYPES.share]: ShareIcon,
+  [ICON_TYPES.next]: NextIcon,
+  [ICON_TYPES.prev]: PrevIcon,
 };
