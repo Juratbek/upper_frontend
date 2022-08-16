@@ -1,61 +1,74 @@
-import { Button, Input } from 'components';
-import { FC } from 'react';
-import { useAppSelector } from 'store';
-import { getIsModalOpen } from 'store/loginModal';
-import { ICON_TYPES, ICONS } from 'variables';
+import { Button, Input, Modal, TelegramLoginButton } from 'components';
+import { signIn } from 'next-auth/react';
+import { getProviders } from 'next-auth/react';
+import { FC, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'store';
+import { close, getIsModalOpen } from 'store/loginModal';
+import { TAuthProviders } from 'types';
+import { telegramSignIn } from 'utils';
+import { ICONS } from 'variables';
 
 import classes from './LoginModal.module.scss';
 
-const TelegramIcon = ICONS[ICON_TYPES.telegram];
-const GoogleIcon = ICONS[ICON_TYPES.google];
-
 export const LoginModal: FC = () => {
+  const [providers, setProviders] = useState<TAuthProviders | null>();
   const isOpen = useAppSelector(getIsModalOpen);
+  const dispatch = useAppDispatch();
 
-  const googleClickHandler = (): void => {
-    // google login
+  const closeModal = (): void => {
+    dispatch(close());
   };
 
+  useEffect(() => {
+    getProviders().then(setProviders);
+  }, []);
+
   return (
-    <div className={`modal ${isOpen && 'modal--open'}`}>
-      <div className='modal-dialog'>
-        <form className='modal-body'>
-          <div className='form-element'>
-            <label htmlFor='login' className='d-block mb-1'>
-              Loginni kiriting
-            </label>
-            <Input name='login' id='login' />
-          </div>
-          <div className='form-element'>
-            <label htmlFor='password' className='d-block mb-1'>
-              Parolni kiriting
-            </label>
-            <Input type='password' id='password' name='password' />
-          </div>
-          <Button className='d-block w-100 mb-1'>Kirish</Button>
-          <Button className='d-block w-100' color='outline-dark'>
-            Ro`yxatdan o`tish
-          </Button>
-          <div className='d-flex justify-content-around mt-1'>
-            <Button
-              type='button'
-              color='light'
-              data-onsuccess='onSignIn'
-              className={classes['social-media-icon']}
-            >
-              <TelegramIcon />
-            </Button>
-            <Button
-              type='button'
-              color='light'
-              onClick={googleClickHandler}
-              className={classes['social-media-icon']}
-            >
-              <GoogleIcon />
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Modal isOpen={isOpen} close={closeModal}>
+      <form>
+        <div className='form-element'>
+          <label htmlFor='login' className='d-block mb-1'>
+            Loginni kiriting
+          </label>
+          <Input name='login' id='login' />
+        </div>
+        <div className='form-element'>
+          <label htmlFor='password' className='d-block mb-1'>
+            Parolni kiriting
+          </label>
+          <Input type='password' id='password' name='password' />
+        </div>
+        <Button className='d-block w-100 mb-1'>Kirish</Button>
+        <Button className='d-block w-100' color='outline-dark'>
+          Ro`yxatdan o`tish
+        </Button>
+        <div className='d-flex justify-content-around mt-1'>
+          {providers &&
+            Object.values(providers).map((provider, index) => {
+              const MediaIcon = ICONS[provider.id];
+              return (
+                <div key={index} className={classes['social-media']}>
+                  <Button
+                    type='button'
+                    color='light'
+                    onClick={(): void => {
+                      signIn(provider.id);
+                    }}
+                    className={classes['social-media-icon']}
+                  >
+                    <MediaIcon />
+                  </Button>
+                  <div>{provider.name}</div>
+                </div>
+              );
+            })}
+        </div>
+        <TelegramLoginButton
+          className='mt-2 text-center'
+          botName='udas_bot'
+          onAuth={telegramSignIn}
+        />
+      </form>
+    </Modal>
   );
 };

@@ -21,6 +21,12 @@ export type TIcon =
   | typeof ICON_TYPES.menuList
   | typeof ICON_TYPES.notification
   | typeof ICON_TYPES.pen
+  | typeof ICON_TYPES.facebook
+  | typeof ICON_TYPES.search
+  | typeof ICON_TYPES.eye
+  | typeof ICON_TYPES.telegram
+  | typeof ICON_TYPES.google
+  | typeof ICON_TYPES.github
   | typeof ICON_TYPES.comment
   | typeof ICON_TYPES.like
   | typeof ICON_TYPES.dislike
@@ -33,3 +39,10 @@ export interface IIcon {
 }
 
 export type TClassName = string | undefined;
+
+export interface IGetServerSideProps<T = Record<string, never>> {
+  props?: T;
+  redirect?: {
+    destination: string;
+  };
+}

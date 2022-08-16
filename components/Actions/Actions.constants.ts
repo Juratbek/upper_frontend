@@ -1,5 +1,5 @@
 import { DeleteIcon, EyeIcon } from 'assets';
-import { ACTION_TYPES } from 'variables';
+import { ACTION_TYPES } from 'variables/common';
 
 import { IActions } from './Actions.types';
 
