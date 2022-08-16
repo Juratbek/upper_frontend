@@ -1,4 +1,5 @@
 import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
+import { Author } from 'frontends/article';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
 import { IArticleResult, IBlog, ILabel } from 'types';
@@ -94,12 +95,13 @@ export const Sidebar = (): JSX.Element => {
 
   return (
     <div className={classes.sidebar}>
-      <div className='d-flex justify-content-around'>
-        <Button color='outline-dark' onClick={loginHandler}>
+      <div className='d-flex justify-content-between'>
+        <Button color='outline-dark' className='flex-auto me-1' onClick={loginHandler}>
           Kirish
         </Button>
-        <Button className='float-right'>Ro`yxatdan o`tish</Button>
+        <Button className='flex-auto'>Ro`yxatdan o`tish</Button>
       </div>
+      <Author className='mt-2' />
       <Divider className='my-2' />
       <h2>Siz uchun maqolalar</h2>
       {articles.map((article, index) => (
