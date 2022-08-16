@@ -1,5 +1,5 @@
-import { IArticle } from 'types';
+import { IArticleResult } from 'types';
 
-export interface ISidebarArticleProps extends IArticle {
+export interface ISidebarArticleProps extends IArticleResult {
   className?: string;
 }

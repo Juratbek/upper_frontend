@@ -1,6 +1,6 @@
 import { Divider } from 'components';
 import { FC } from 'react';
-import { IArticle, INotification } from 'types';
+import { IArticleResult, INotification } from 'types';
 import { NOTIFICATIONS } from 'variables';
 
 import { getNotificationComponent } from './util';
@@ -22,7 +22,7 @@ const labels = [
   },
 ];
 
-const article: IArticle = {
+const article: IArticleResult = {
   id: 1,
   title: 'Article title',
   content:

@@ -79,6 +79,14 @@
   margin-top: $size1;
 }
 
+.ms-1 {
+  margin-left: $size1;
+}
+
+.ms-2 {
+  margin-left: $size2;
+}
+
 .me-1 {
   margin-right: $size1;
 }
@@ -193,4 +201,8 @@
 }
 .w-100 {
   width: 100%;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
 }

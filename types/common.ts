@@ -20,7 +20,13 @@ export type TIcon =
   | typeof ICON_TYPES.user
   | typeof ICON_TYPES.menuList
   | typeof ICON_TYPES.notification
-  | typeof ICON_TYPES.pen;
+  | typeof ICON_TYPES.pen
+  | typeof ICON_TYPES.comment
+  | typeof ICON_TYPES.like
+  | typeof ICON_TYPES.dislike
+  | typeof ICON_TYPES.share
+  | typeof ICON_TYPES.next
+  | typeof ICON_TYPES.prev;
 
 export interface IIcon {
   [name: TIcon]: FC<{ color?: string }>;
