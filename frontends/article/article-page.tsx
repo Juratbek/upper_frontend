@@ -85,7 +85,7 @@ export const Article: FC<IArticleProps> = (props) => {
           </div>
         </div>
       </div>
-      <ArticleActions containerRef={articleContainer} editor={editor} />
+      <ArticleActions editor={editor} />
     </div>
   );
 };
