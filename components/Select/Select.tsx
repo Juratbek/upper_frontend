@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Select.module.scss';
@@ -8,10 +8,19 @@ function filterOptions(options: IOption[], option: IOption): IOption[] {
   return options.filter((item) => item.value !== option.value);
 }
 
-export const Select: FC<ISelectProps> = ({ className, ...props }) => {
-  const [selectedOptions, setSelectedOptions] = useState<IOption[]>([]);
-  const [options, setOptions] = useState<IOption[]>(props.options || []);
-  const [unselectedOptions, setUnselectedOptions] = useState<IOption[]>(props.options || []);
+function getAvailableOptions(options: IOption[] | undefined, defaultValues: IOption[]): IOption[] {
+  if (defaultValues && options) return options.filter((option) => !defaultValues.includes(option));
+  return options || [];
+}
+
+export const Select: FC<ISelectProps> = ({ className, defaultValues = [], ...props }) => {
+  const defaultNotSelectedOptions = useMemo(
+    () => getAvailableOptions(props.options, defaultValues),
+    [props.options, defaultValues],
+  );
+  const [selectedOptions, setSelectedOptions] = useState<IOption[]>(defaultValues);
+  const [options, setOptions] = useState<IOption[]>(defaultNotSelectedOptions);
+  const [unselectedOptions, setUnselectedOptions] = useState<IOption[]>(defaultNotSelectedOptions);
   const [isOptionsConteinerOpen, setIsOptionsConteinerOpen] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const selectClassName = getClassName(classes.select, className);
