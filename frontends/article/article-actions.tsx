@@ -1,7 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
 import { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { ICON_TYPES, ICONS } from 'variables';
+import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
 

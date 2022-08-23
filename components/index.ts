@@ -20,3 +20,4 @@ export * from './Input/Input';
 export * from './TelegramLoginButton/TelegramLoginButton';
 export * from './Modal/Modal';
 export * from './Select/Select';
+export * from './ArticleStatus/ArticleStatus';

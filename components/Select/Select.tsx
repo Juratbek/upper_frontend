@@ -13,7 +13,12 @@ function getAvailableOptions(options: IOption[] | undefined, defaultValues: IOpt
   return options || [];
 }
 
-export const Select: FC<ISelectProps> = ({ className, defaultValues = [], ...props }) => {
+export const Select: FC<ISelectProps> = ({
+  className,
+  defaultValues = [],
+  disabled = false,
+  ...props
+}) => {
   const defaultNotSelectedOptions = useMemo(
     () => getAvailableOptions(props.options, defaultValues),
     [props.options, defaultValues],
@@ -38,6 +43,7 @@ export const Select: FC<ISelectProps> = ({ className, defaultValues = [], ...pro
   };
 
   const unselectOption = (option: IOption): void => {
+    if (disabled) return;
     const filteredOptions = filterOptions(selectedOptions, option);
     const newUnselectedOptions = [...unselectedOptions, option];
     setUnselectedOptions(newUnselectedOptions);
@@ -103,17 +109,19 @@ export const Select: FC<ISelectProps> = ({ className, defaultValues = [], ...pro
             {option.label}
           </span>
         ))}
-        <input
-          type='text'
-          value={inputValue}
-          onFocus={onInputFocus}
-          className={classes.input}
-          onChange={onInputChange}
-        />
+        {!disabled && (
+          <input
+            type='text'
+            value={inputValue}
+            onFocus={onInputFocus}
+            className={classes.input}
+            onChange={onInputChange}
+          />
+        )}
       </div>
       <div
         className={`${classes['option-container']} ${
-          isOptionsConteinerOpen ? 'd-block' : 'd-none'
+          isOptionsConteinerOpen && !disabled ? 'd-block' : 'd-none'
         }`}
       >
         {getOptions()}

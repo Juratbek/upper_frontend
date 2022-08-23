@@ -10,7 +10,7 @@ const TAB_IDS = {
 
 export const ARTICLES_TAB_MENUS: ITabHeader[] = [
   {
-    name: 'Chop etilgan',
+    name: 'Nashr etilgan',
     id: TAB_IDS.published,
   },
   {
