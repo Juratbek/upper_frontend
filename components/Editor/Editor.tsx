@@ -6,7 +6,6 @@ import { createEditor, EDITOR_HOLDER__READ } from 'utils';
 import { IEditorProps } from './Editor.types';
 
 export const Editor: FC<IEditorProps> = ({ readOnly }) => {
-  console.log('🚀 ~ file: Editor.tsx ~ line 42 ~ readOnly', readOnly);
   const { content } = { content: articleData };
   const [editor, setEditor] = useState<null | EditorJs>(null);
   const articleContainer = useRef<HTMLDivElement>(null);
