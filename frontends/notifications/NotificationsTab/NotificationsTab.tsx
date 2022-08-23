@@ -1,7 +1,7 @@
 import { Divider } from 'components';
 import { FC } from 'react';
 import { IArticleResult, INotification } from 'types';
-import { NOTIFICATIONS } from 'variables';
+import { ARTICLE_STATUSES, NOTIFICATIONS } from 'variables';
 
 import { getNotificationComponent } from './util';
 
@@ -29,6 +29,7 @@ const article: IArticleResult = {
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
   labels,
   publishedDate: new Date(),
+  status: ARTICLE_STATUSES.PUBLISHED,
 };
 
 const notifications: INotification[] = [
