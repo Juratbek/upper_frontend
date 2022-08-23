@@ -2,7 +2,7 @@ import { ArticleStatus, Button, Divider, Select } from 'components';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { TArticleStatus } from 'types';
-import { ARTICLE_STATUSES } from 'variables';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 import { ARTICLE_SIDEBAR_CONTENTS } from './UserArticlesSidebar.constants';
 

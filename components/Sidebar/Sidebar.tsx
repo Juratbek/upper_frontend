@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
 import { IArticleResult, IBlog, ILabel } from 'types';
-import { ARTICLE_STATUSES } from 'variables';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';

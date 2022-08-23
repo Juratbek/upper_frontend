@@ -1,7 +1,8 @@
 import { Divider } from 'components';
 import { FC } from 'react';
 import { IArticleResult, INotification } from 'types';
-import { ARTICLE_STATUSES, NOTIFICATIONS } from 'variables';
+import { NOTIFICATIONS } from 'variables';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 import { getNotificationComponent } from './util';
 

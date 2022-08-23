@@ -1,5 +1,5 @@
 import { OutputData } from '@editorjs/editorjs';
-import { ARTICLE_STATUSES } from 'variables';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 import { IBlog } from './blog';
 import { ILabel } from './label';

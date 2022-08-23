@@ -1,11 +1,8 @@
 import { Article } from 'components';
 import { FC } from 'react';
 import { IArticleResult, IBlog, ILabel } from 'types';
-import {
-  ARTICLE_STATUSES,
-  SEARCH_PAGE_ARTICLE_ACTIONS,
-  SEARCH_PAGE_ARTICLE_ICONS,
-} from 'variables';
+import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 const author: IBlog = {
   id: 1,
