@@ -1,9 +1,10 @@
 import EditorJs, { OutputData } from '@editorjs/editorjs';
 
-import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from '../../utils/editor/editor.constants';
+import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from './editor.constants';
 
 export interface ICreateEditorProps {
   holder?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeHandler?(...args: any[]): void;
   isReadOnly?: boolean;
   data?: OutputData;
