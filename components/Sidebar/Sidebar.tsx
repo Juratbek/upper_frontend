@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
 import { IArticleResult, IBlog, ILabel } from 'types';
+import { ARTICLE_STATUSES } from 'variables';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
@@ -37,6 +38,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 2,
@@ -48,6 +50,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 3,
@@ -59,6 +62,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
 ];
 
