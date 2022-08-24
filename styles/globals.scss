@@ -1,6 +1,7 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
   --lightGray: rgba(196, 196, 196, 0.35);
+  --red: hsl(0, 76%, 47%);
   --smallBorderRadius: .3rem;
   --mediumBorderRadius: .6rem;
 }
@@ -101,6 +102,11 @@
   margin-bottom: 1.7rem;
 }
 
+.mx-1 {
+  margin-right: $size1;
+  margin-left: $size1;
+}
+
 .mx-2 {
   margin-right: 1rem;
   margin-left: 1rem;
@@ -184,4 +190,9 @@
 
 .flex-auto {
   flex: 1 1 auto;
+}
+
+// flex
+.flex-1 {
+  flex: 1;
 }

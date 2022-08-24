@@ -2,7 +2,7 @@ import EditorJs from '@editorjs/editorjs';
 import { createEditor, EDITOR_HOLDER__READ } from 'frontends/write-article';
 import { FC, useEffect, useRef, useState } from 'react';
 import { formatToKMB } from 'utils';
-import { ICON_TYPES, ICONS } from 'variables';
+import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';

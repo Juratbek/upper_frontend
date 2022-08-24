@@ -7,13 +7,20 @@ import { ICONS } from 'variables';
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
 
-export const Article: FC<IArticleProps> = ({ className, actions, icons, article, author }) => {
-  const { title, content, updatedDate, publishedDate, viewCount, labels = [] } = article;
+export const Article: FC<IArticleProps> = ({
+  className,
+  actions,
+  icons,
+  article,
+  author,
+  redirectUrl,
+}) => {
+  const { title, content, updatedDate, publishedDate, viewCount, labels = [], status } = article;
   const rootClassName = getClassName(classes.article, className);
 
   return (
     <div className={rootClassName}>
-      <Link href={`/articles/${1}`}>
+      <Link href={`${redirectUrl || '/articles'}/${1}?status=${status}`}>
         <div className={classes.body}>
           <div className={classes['text-content']}>
             <h2 className={classes.title}>{title}</h2>
@@ -30,7 +37,7 @@ export const Article: FC<IArticleProps> = ({ className, actions, icons, article,
             </span>
           ) : (
             <span>
-              <strong>{toDateString(publishedDate)}</strong> da chop etilgan
+              <strong>{toDateString(publishedDate)}</strong> da nashr etilgan
             </span>
           )}
           &nbsp; &nbsp;

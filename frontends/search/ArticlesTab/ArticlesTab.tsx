@@ -2,6 +2,7 @@ import { Article } from 'components';
 import { FC } from 'react';
 import { IArticleResult, IBlog, ILabel } from 'types';
 import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 const author: IBlog = {
   id: 1,
@@ -31,6 +32,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 2,
@@ -42,6 +44,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 3,
@@ -53,6 +56,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 4,
@@ -64,6 +68,7 @@ const articles: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
+    status: ARTICLE_STATUSES.PUBLISHED,
   },
 ];
 

@@ -1,16 +1,16 @@
 import { ArticlesTab } from 'frontends/articles';
 import { ITabBody, ITabHeader } from 'types';
 
-const TAB_IDS = {
+export const TAB_IDS = {
   published: 'published',
   draft: 'draft',
   saved: 'saved',
-  others: 'deleted',
+  deleted: 'deleted',
 };
 
 export const ARTICLES_TAB_MENUS: ITabHeader[] = [
   {
-    name: 'Chop etilgan',
+    name: 'Nashr etilgan',
     id: TAB_IDS.published,
   },
   {
@@ -18,12 +18,12 @@ export const ARTICLES_TAB_MENUS: ITabHeader[] = [
     id: TAB_IDS.draft,
   },
   {
-    name: 'Saqlanganlar',
+    name: 'Saqlangan',
     id: TAB_IDS.saved,
   },
   {
-    name: 'Boshqalar',
-    id: TAB_IDS.others,
+    name: 'O`chirilgan',
+    id: TAB_IDS.deleted,
   },
 ];
 
@@ -31,5 +31,5 @@ export const ARTICLES_TABS: ITabBody = {
   [TAB_IDS.published]: ArticlesTab,
   [TAB_IDS.draft]: ArticlesTab,
   [TAB_IDS.saved]: ArticlesTab,
-  [TAB_IDS.others]: ArticlesTab,
+  [TAB_IDS.deleted]: ArticlesTab,
 };
