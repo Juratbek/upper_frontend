@@ -1,9 +1,10 @@
 import { Actions, ArticleImg, Author, Label } from 'components';
+import Link from 'next/link';
 import { FC } from 'react';
 import { formatToKMB, getClassName, toDateString } from 'utils';
 import { ICONS } from 'variables';
 
-import classes from './Article.module.css';
+import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
 
 export const Article: FC<IArticleProps> = ({ className, actions, icons, article, author }) => {
@@ -12,13 +13,15 @@ export const Article: FC<IArticleProps> = ({ className, actions, icons, article,
 
   return (
     <div className={rootClassName}>
-      <div className={classes.body}>
-        <div className={classes['text-content']}>
-          <h2 className={classes.title}>{title}</h2>
-          <p className={classes.content}>{content}</p>
+      <Link href={`/articles/${1}`}>
+        <div className={classes.body}>
+          <div className={classes['text-content']}>
+            <h2 className={classes.title}>{title}</h2>
+            <p className={classes.content}>{content}</p>
+          </div>
+          <ArticleImg imgUrl='' className='mt-2' />
         </div>
-        <ArticleImg imgUrl='' className='mt-2' />
-      </div>
+      </Link>
       <div className={classes.footer}>
         <div>
           {updatedDate ? (
