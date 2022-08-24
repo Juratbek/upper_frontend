@@ -23,6 +23,7 @@ export const createEditor = async ({
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
   const Tooltip = (await import('editorjs-tooltip')).default;
+  const TextColor = (await import('editorjs-text-color-plugin')).default;
 
   return new EditorJs({
     holder: holder,
@@ -51,6 +52,10 @@ export const createEditor = async ({
         config: {
           underline: true,
         },
+      },
+      textColor: {
+        class: TextColor,
+        inlineToolbar: true,
       },
     },
   });

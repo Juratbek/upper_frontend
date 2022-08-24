@@ -39,6 +39,7 @@
     "@types/react": "18.0.14",
     "@types/react-dom": "18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "editorjs-text-color-plugin": "^1.13.1",
     "editorjs-tooltip": "^1.1.7",
     "eslint": "8.18.0",
     "eslint-config-next": "12.1.6",
