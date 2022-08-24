@@ -1,5 +1,15 @@
-.social-media-icon {
-    $size: 4rem;
-    width: $size;
-    height: $size;
+.social-media {
+    margin-left: 1rem;
+    text-align: center;
+    margin-top: .5rem;
+
+    &:first-child{
+        margin-left: 0;
+    }
+
+    &-icon {
+        width: 4rem;
+        height: 3rem;
+    }
+
 }

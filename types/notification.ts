@@ -4,7 +4,7 @@ import { ILikeNotificationProps } from 'components/LikeNotification/LikeNotifica
 import { FC } from 'react';
 import { NOTIFICATION_TYPES } from 'variables';
 
-import { IArticle } from './article';
+import { IArticleResult } from './article';
 import { TAction } from './common';
 
 export type TNotification =
@@ -21,7 +21,7 @@ interface IBlog {
 export interface INotification {
   id: number;
   type: TNotification;
-  article: IArticle;
+  article: IArticleResult;
   author: IBlog;
 }
 
@@ -31,7 +31,7 @@ export type TNotificationComponent =
   | FC<ILikeNotificationProps>;
 
 export interface INotificationComponentProps {
-  article: IArticle;
+  article: IArticleResult;
   author?: IBlog;
   actions?: TAction[];
 }

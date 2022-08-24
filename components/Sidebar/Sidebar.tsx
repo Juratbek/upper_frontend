@@ -1,9 +1,10 @@
 import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
+import { Author } from 'frontends/article';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
-import { IArticle, IBlog, ILabel } from 'types';
+import { IArticleResult, IBlog, ILabel } from 'types';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
@@ -25,7 +26,7 @@ const labels: ILabel[] = [
   },
 ];
 
-const articles: IArticle[] = [
+const articles: IArticleResult[] = [
   {
     id: 1,
     title: 'Article title Lorem Ipsum is simply dummy',
@@ -108,6 +109,7 @@ export const Sidebar = (): JSX.Element => {
           </Button>
           <Button className='float-right'>Ro`yxatdan o`tish</Button>
         </div>
+        {author && <Author className='mt-2' />}
         <Divider className='my-2' />
         <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>

@@ -17,5 +17,7 @@ export * from './TabBody/TabBody';
 export * from './CommentNotification/CommentNotification';
 export * from './LikeNotification/LikeNotification';
 export * from './Input/Input';
+export * from './TelegramLoginButton/TelegramLoginButton';
+export * from './Modal/Modal';
 export * from './Select/Select';
 export * from './SidebarSearch/SidebarSearch';
