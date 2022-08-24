@@ -1,4 +1,5 @@
 .navigation{
+    padding: 1rem 0;
     border-right: 1px solid var(--lightBlack);
     min-width: 90px;
     width: 6vw;
@@ -6,11 +7,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.navigation>div {
-    margin-bottom: .6rem;
+.icons>div {
+    margin-bottom: 1.2rem;
 }
 
 .navigation>div:last-child {
@@ -25,6 +26,7 @@
 }
 
 .icon svg {
-    width: 30px;
-    height: 30px;
+    $size: 1.6rem;
+    width: $size;
+    height: $size;
 }

@@ -1,4 +1,5 @@
 import { OutputData } from '@editorjs/editorjs';
+import { ARTICLE_STATUSES } from 'variables/article';
 
 import { IBlog } from './blog';
 import { ILabel } from './label';
@@ -7,6 +8,7 @@ export interface IArticleResult {
   id: number;
   title: string;
   content: string;
+  status: TArticleStatus;
   imgUrl?: string;
   author?: IBlog;
   labels: ILabel[];
@@ -30,3 +32,9 @@ export interface IArticle {
   prevArticleId?: number;
   nextArticleId?: number;
 }
+
+export type TArticleStatus =
+  | typeof ARTICLE_STATUSES.PUBLISHED
+  | typeof ARTICLE_STATUSES.UNPUBLISHED
+  | typeof ARTICLE_STATUSES.DRAFT
+  | typeof ARTICLE_STATUSES.DELETED;

@@ -7,4 +7,6 @@ export interface IOption {
 
 export interface ISelectProps extends HTMLAttributes<HTMLDivElement> {
   options?: IOption[];
+  defaultValues?: IOption[];
+  disabled?: boolean;
 }

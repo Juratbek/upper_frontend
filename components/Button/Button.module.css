@@ -27,3 +27,14 @@
     border: transparent;
     color: black;
 }
+
+.outline-red {
+    background-color: white;
+    border: 1px solid var(--red);
+    color: var(--red);
+}
+
+.outline-red:hover {
+    background-color: var(--red);
+    color: white;
+}
