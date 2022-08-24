@@ -24,6 +24,8 @@ export const createEditor = async ({
   const List = (await import('@editorjs/list')).default;
   const Tooltip = (await import('editorjs-tooltip')).default;
   const TextColor = (await import('editorjs-text-color-plugin')).default;
+  const Alert = (await import('editorjs-alert')).default;
+  const InclineCode = (await import('@editorjs/inline-code')).default;
 
   return new EditorJs({
     holder: holder,
@@ -40,6 +42,7 @@ export const createEditor = async ({
           defaultLevel: 1,
         },
       },
+      alert: Alert,
       list: List,
       image: ImageTool,
       embed: {
@@ -55,6 +58,10 @@ export const createEditor = async ({
       },
       textColor: {
         class: TextColor,
+        inlineToolbar: true,
+      },
+      inlineCode: {
+        class: InclineCode,
         inlineToolbar: true,
       },
     },
