@@ -42,6 +42,7 @@
     "@types/react-dom": "18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.29.0",
     "editorjs-alert": "^1.0.3",
+    "editorjs-inline-image": "^1.1.3",
     "editorjs-text-color-plugin": "^1.13.1",
     "editorjs-tooltip": "^1.1.7",
     "eslint": "8.18.0",

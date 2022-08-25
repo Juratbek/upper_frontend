@@ -28,6 +28,7 @@ export const createEditor = async ({
   const Alert = (await import('editorjs-alert')).default;
   const InclineCode = (await import('@editorjs/inline-code')).default;
   const CodeFlask = (await import('@calumk/editorjs-codeflask')).default;
+  const Unsplash = (await import('editorjs-inline-image')).default;
 
   return new EditorJs({
     holder: holder,
@@ -46,6 +47,19 @@ export const createEditor = async ({
       },
       alert: Alert,
       list: List,
+      unsplash: {
+        class: Unsplash,
+        // inlineToolbar: true,
+        config: {
+          embed: {
+            display: false,
+          },
+          unsplash: {
+            appName: 'udas',
+            clientId: 'YUiELidZbnKRhMEECKChvST2BMHOfCR6X3mPia5ZdbU',
+          },
+        },
+      },
       image: ImageTool,
       code: CodeFlask,
       embed: {
