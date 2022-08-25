@@ -22,6 +22,7 @@ export const createEditor = async ({
   const Header = (await import('@editorjs/header')).default;
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
+  const Tooltip = (await import('editorjs-tooltip')).default;
   const Delimeter = (await import('@editorjs/delimiter')).default;
 
   return new EditorJs({
@@ -45,6 +46,13 @@ export const createEditor = async ({
       embed: {
         class: Embed,
         inlineToolbar: true,
+      },
+      tooltip: {
+        class: Tooltip,
+        inlineToolbar: true,
+        config: {
+          underline: true,
+        },
       },
     },
   });
