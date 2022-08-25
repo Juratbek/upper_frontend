@@ -27,6 +27,7 @@ export const createEditor = async ({
   const TextColor = (await import('editorjs-text-color-plugin')).default;
   const Alert = (await import('editorjs-alert')).default;
   const InclineCode = (await import('@editorjs/inline-code')).default;
+  const CodeFlask = (await import('@calumk/editorjs-codeflask')).default;
 
   return new EditorJs({
     holder: holder,
@@ -46,6 +47,7 @@ export const createEditor = async ({
       alert: Alert,
       list: List,
       image: ImageTool,
+      code: CodeFlask,
       embed: {
         class: Embed,
         inlineToolbar: true,

@@ -6,3 +6,4 @@ declare module '@editorjs/header';
 declare module 'editorjs-text-color-plugin';
 declare module 'editorjs-alert';
 declare module '@editorjs/inline-code';
+declare module '@calumk/editorjs-codeflask';
