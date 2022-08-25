@@ -67,6 +67,13 @@ export const createEditor = async ({
               height: 500,
               width: 600,
             },
+            jsfiddle: {
+              regex: /https?:\/\/jsfiddle.net\/(.*)/,
+              embedUrl: 'https://jsfiddle.net/<%= remote_id %>embedded/',
+              html: "<iframe width='100%' height='300' allowfullscreen='allowfullscreen' allowpaymentrequest frameborder='0'></iframe>",
+              height: 500,
+              width: 600,
+            },
           },
         },
       },
@@ -88,11 +95,8 @@ export const createEditor = async ({
     },
   });
 };
-// https://codesandbox.io/s/frosty-snowflake-4lbhkx?file=/src/App.js
 
-//  <iframe src="https://codesandbox.io/embed/frosty-snowflake-4lbhkx?fontsize=14&hidenavigation=1&theme=dark"
-//      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-//      title="frosty-snowflake-4lbhkx"
-//      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-//      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-//    ></iframe>
+// https://jsfiddle.net/juratbek/gn9afw4q/1/
+
+// <script async src="//jsfiddle.net/juratbek/gn9afw4q/2/embed/"></script>
+// <iframe width="100%" height="300" src="//jsfiddle.net/juratbek/gn9afw4q/3/embedded/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
