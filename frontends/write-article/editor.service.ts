@@ -29,6 +29,7 @@ export const createEditor = async ({
   const InclineCode = (await import('@editorjs/inline-code')).default;
   const CodeFlask = (await import('@calumk/editorjs-codeflask')).default;
   const Unsplash = (await import('editorjs-inline-image')).default;
+  const Delimeter = (await import('@editorjs/delimiter')).default;
 
   return new EditorJs({
     holder: holder,
@@ -46,6 +47,7 @@ export const createEditor = async ({
         },
       },
       alert: Alert,
+      delimeter: Delimeter,
       list: List,
       unsplash: {
         class: Unsplash,

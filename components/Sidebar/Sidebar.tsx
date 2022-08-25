@@ -1,4 +1,4 @@
-import { Button, Divider, SidebarArticle, SidebarBlog } from 'components';
+import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
 import { Author } from 'frontends/article';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -115,6 +115,7 @@ export const Sidebar = (): JSX.Element => {
         </div>
         {author && <Author className='mt-2' />}
         <Divider className='my-2' />
+        <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>
         {articles.map((article, index) => (
           <div key={article.id}>
