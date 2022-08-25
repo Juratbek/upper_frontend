@@ -4,6 +4,7 @@ import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from '../../utils/editor/editor.con
 
 export interface ICreateEditorProps {
   holder?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChangeHandler?(...args: any[]): void;
   isReadOnly?: boolean;
   data?: OutputData;
@@ -59,6 +60,13 @@ export const createEditor = async ({
               height: 350,
               width: 600,
             },
+            codesandbox: {
+              regex: /https?:\/\/codesandbox.io\/s\/(.*)/,
+              embedUrl: 'https://codesandbox.io/embed/<%= remote_id %>',
+              html: "<iframe style='width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;' title='frosty-snowflake-4lbhkx' allow='accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking' sandbox='allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts'></iframe>",
+              height: 500,
+              width: 600,
+            },
           },
         },
       },
@@ -80,9 +88,11 @@ export const createEditor = async ({
     },
   });
 };
+// https://codesandbox.io/s/frosty-snowflake-4lbhkx?file=/src/App.js
 
-// <iframe
-//   src="https://carbon.now.sh/embed?bg=rgba%28171%2C+184%2C+195%2C+1%29&t=seti&wt=none&l=auto&width=680&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false"
-//   style="width: 875px; height: 391px; border:0; transform: scale(1); overflow:hidden;"
-//   sandbox="allow-scripts allow-same-origin">
-// </iframe>
+//  <iframe src="https://codesandbox.io/embed/frosty-snowflake-4lbhkx?fontsize=14&hidenavigation=1&theme=dark"
+//      style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+//      title="frosty-snowflake-4lbhkx"
+//      allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+//      sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+//    ></iframe>
