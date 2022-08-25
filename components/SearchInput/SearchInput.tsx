@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ICON_TYPES, ICONS } from 'variables';
 
-import classes from './SearchInput.module.css';
+import classes from './SearchInput.module.scss';
 import { ISearchInputProps } from './SearchInput.types';
 
 export const SearchInput: FC<ISearchInputProps> = ({ className, ...props }) => {
@@ -12,7 +12,7 @@ export const SearchInput: FC<ISearchInputProps> = ({ className, ...props }) => {
       <span className={classes.icon}>
         <Icon />
       </span>
-      <input type='text' placeholder='Qidirish uchun yozing' {...props} />
+      <input type='text' {...props} />
     </div>
   );
 };

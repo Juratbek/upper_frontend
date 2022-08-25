@@ -23,6 +23,7 @@ export const createEditor = async ({
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
   const Tooltip = (await import('editorjs-tooltip')).default;
+  const Delimeter = (await import('@editorjs/delimiter')).default;
 
   return new EditorJs({
     holder: holder,
@@ -39,6 +40,7 @@ export const createEditor = async ({
           defaultLevel: 1,
         },
       },
+      delimeter: Delimeter,
       list: List,
       image: ImageTool,
       embed: {
