@@ -48,6 +48,19 @@ export const createEditor = async ({
       embed: {
         class: Embed,
         inlineToolbar: true,
+        config: {
+          services: {
+            youtube: true,
+            codepen: true,
+            carbon: {
+              regex: /https?:\/\/carbon.now.sh\/(.*)/,
+              embedUrl: 'https://carbon.now.sh/embed<%= remote_id %>',
+              html: "<iframe height='350' scrolling='yes' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%'></iframe>",
+              height: 350,
+              width: 600,
+            },
+          },
+        },
       },
       tooltip: {
         class: Tooltip,
@@ -67,3 +80,9 @@ export const createEditor = async ({
     },
   });
 };
+
+// <iframe
+//   src="https://carbon.now.sh/embed?bg=rgba%28171%2C+184%2C+195%2C+1%29&t=seti&wt=none&l=auto&width=680&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=56px&ph=56px&ln=false&fl=1&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false"
+//   style="width: 875px; height: 391px; border:0; transform: scale(1); overflow:hidden;"
+//   sandbox="allow-scripts allow-same-origin">
+// </iframe>
