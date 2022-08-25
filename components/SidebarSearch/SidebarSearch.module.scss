@@ -1,0 +1,36 @@
+$margin: .8rem;
+
+.container {
+    position: relative;
+}
+
+.results-container {
+    z-index: 1;
+    position: absolute;
+    bottom: -.2rem;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    background-color: white;
+    border-radius: var(--mediumBorderRadius);
+    border: 1px solid var(--lightBlack);
+    overflow: hidden;
+    padding: .7rem;
+}
+
+.blog {
+    margin-top: $margin;
+    margin-bottom: $margin;
+}
+
+.article {
+    display: flex;
+    align-items: center;
+    margin-top: $margin;
+    margin-bottom: $margin;
+    cursor: pointer;
+
+    & .img {
+        margin-right: .5rem;
+    }
+}
