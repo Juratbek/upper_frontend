@@ -55,6 +55,13 @@ export const createEditor = async ({
           services: {
             youtube: true,
             codepen: true,
+            pinterest: {
+              regex: /https:\/\/www\.pinterest.com\/pin\/(.*)\//,
+              embedUrl: 'https://assets.pinterest.com/ext/embed.html?id=<%= remote_id %>',
+              html: '<iframe scrolling="yes" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%; min-height: 500px; max-height: 1000px;" class="embed-tool__content"></iframe>',
+              height: 500,
+              width: 600,
+            },
             carbon: {
               regex: /https?:\/\/carbon.now.sh\/(.*)/,
               embedUrl: 'https://carbon.now.sh/embed<%= remote_id %>',
@@ -97,8 +104,3 @@ export const createEditor = async ({
     },
   });
 };
-
-// https://jsfiddle.net/juratbek/gn9afw4q/1/
-
-// <script async src="//jsfiddle.net/juratbek/gn9afw4q/2/embed/"></script>
-// <iframe width="100%" height="300" src="//jsfiddle.net/juratbek/gn9afw4q/3/embedded/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
