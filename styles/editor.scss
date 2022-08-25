@@ -1,0 +1,9 @@
+.inline-code {
+    background: rgba(240, 240, 240, 0.7)!important;
+    color: black!important;
+    padding: 3px 6px!important;
+}
+
+.codeflask__lines, .codeflask.codeflask--has-line-numbers:before {
+    z-index: unset!important;
+}
