@@ -37,7 +37,7 @@ export const FollowersTab: FC = () => {
     <div>
       {followers.map((follower) => (
         <Fragment key={follower.id}>
-          <Blog {...follower} className='px-3 py-2' />
+          <Blog {...follower} className='px-3 py-2' isLink />
         </Fragment>
       ))}
     </div>

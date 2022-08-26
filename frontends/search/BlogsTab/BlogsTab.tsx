@@ -42,7 +42,7 @@ export const BlogsTab: FC = () => {
     <div className='tab'>
       {blogs.map((blog) => (
         <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
-          <Blog {...blog} />
+          <Blog {...blog} isLink />
           <Button color='outline-dark'>Follow</Button>
         </div>
       ))}
