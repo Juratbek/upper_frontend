@@ -1,8 +1,8 @@
 import { Blog, Button, TabBody, TabsHeader } from 'components';
 import { BLOG_TAB_MENUS, BLOG_TABS } from 'frontends/blog';
-import { IBlog } from 'types';
+import { IBlogSmall } from 'types';
 
-export const blog: IBlog = {
+export const blog: IBlogSmall = {
   id: 1,
   name: 'Boymurodov Samandar',
   imgUrl: '',

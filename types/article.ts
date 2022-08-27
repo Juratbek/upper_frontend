@@ -1,7 +1,7 @@
 import { OutputData } from '@editorjs/editorjs';
 import { ARTICLE_STATUSES } from 'variables/article';
 
-import { IBlog } from './blog';
+import { IBlogSmall } from './blog';
 import { ILabel } from './label';
 
 export interface IArticleResult {
@@ -10,7 +10,7 @@ export interface IArticleResult {
   content: string;
   status: TArticleStatus;
   imgUrl?: string;
-  author?: IBlog;
+  author?: IBlogSmall;
   labels: ILabel[];
   publishedDate: Date;
   updatedDate?: Date;
@@ -23,7 +23,7 @@ export interface IArticle {
   title: string;
   content: OutputData;
   imgUrl?: string;
-  author?: IBlog;
+  author?: IBlogSmall;
   labels: ILabel[];
   publishedDate: string;
   updatedDate?: string;

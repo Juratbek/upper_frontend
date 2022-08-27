@@ -1,8 +1,8 @@
 import { Blog } from 'components';
 import { FC, Fragment } from 'react';
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 
-const followers: IBlog[] = [
+const followers: IBlogMedium[] = [
   {
     id: 1,
     name: 'Boymurodov Samandar',

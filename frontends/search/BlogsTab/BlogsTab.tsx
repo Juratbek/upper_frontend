@@ -1,8 +1,8 @@
 import { Blog, Button } from 'components';
 import { FC } from 'react';
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 
-const blogs: IBlog[] = [
+const blogs: IBlogMedium[] = [
   {
     id: 1,
     name: 'Samandar Boymurodov',

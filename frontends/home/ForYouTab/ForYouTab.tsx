@@ -1,10 +1,10 @@
 import { Article } from 'components';
 import { FC } from 'react';
-import { IArticleResult, IBlog, ILabel } from 'types';
+import { IArticleResult, IBlogSmall, ILabel } from 'types';
 import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
-const author: IBlog = {
+const author: IBlogSmall = {
   id: 1,
   name: 'Samandar',
   imgUrl: 'awda',

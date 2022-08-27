@@ -1,7 +1,7 @@
 import { TAvatarSize } from 'components/Avatar/Avatar.types';
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 
-export interface IBlogProps extends IBlog {
+export interface IBlogProps extends IBlogMedium {
   className?: string;
   avaratSize?: TAvatarSize;
   isLink?: boolean;

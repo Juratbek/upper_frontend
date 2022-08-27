@@ -4,13 +4,13 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
-import { IArticleResult, IBlog, ILabel } from 'types';
+import { IArticleResult, IBlogMedium, IBlogSmall, ILabel } from 'types';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
 
-const author: IBlog = {
+const author: IBlogSmall = {
   id: 1,
   name: 'Samandar',
   imgUrl: 'awda',
@@ -66,7 +66,7 @@ const articles: IArticleResult[] = [
   },
 ];
 
-const blogs: IBlog[] = [
+const blogs: IBlogMedium[] = [
   {
     id: 1,
     name: 'Samandar Boymurodov',
