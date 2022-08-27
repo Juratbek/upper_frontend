@@ -1,4 +1,4 @@
-export * from './date';
+export * from './date/date';
 export * from './number';
 export * from './common';
 export * from './auth';

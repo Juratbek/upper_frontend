@@ -1,5 +1,5 @@
-import { IBlog } from 'types';
+import { IBlogSmall } from 'types';
 
-export interface IAuthorProps extends IBlog {
+export interface IAuthorProps extends IBlogSmall {
   className?: string;
 }

@@ -1,0 +1,13 @@
+.social-media {
+    display: flex;
+
+    &-link {
+        margin: 1rem;
+        height: 30px;
+            width: 30px;
+        & svg {
+            height: 30px;
+            width: 30px;
+        }
+    }
+}

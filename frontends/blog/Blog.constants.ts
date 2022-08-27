@@ -1,11 +1,13 @@
 import { ITabBody, ITabHeader } from 'types';
 
+import { AboutTab } from './AboutTab/AboutTab';
 import { ArticlesTab } from './ArticlesTab/ArticlesTab';
+import { FollowersTab } from './FollowersTab/FollowersTab';
 
 const TAB_IDS = {
   articles: 'articles',
   followers: 'followers',
-  top: 'top',
+  about: 'about',
 };
 
 export const BLOG_TAB_MENUS: ITabHeader[] = [
@@ -18,13 +20,13 @@ export const BLOG_TAB_MENUS: ITabHeader[] = [
     id: TAB_IDS.followers,
   },
   {
-    name: 'Top',
-    id: TAB_IDS.top,
+    name: 'Blog haqida',
+    id: TAB_IDS.about,
   },
 ];
 
 export const BLOG_TABS: ITabBody = {
   [TAB_IDS.articles]: ArticlesTab,
-  [TAB_IDS.followers]: ArticlesTab,
-  [TAB_IDS.top]: ArticlesTab,
+  [TAB_IDS.followers]: FollowersTab,
+  [TAB_IDS.about]: AboutTab,
 };

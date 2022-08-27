@@ -8,7 +8,7 @@ export const blog: IBlog = {
   imgUrl: '',
 };
 
-const isBeeingFollowed = true;
+const isBeeingFollowed = false;
 
 export default function BlogPage(): JSX.Element {
   return (
