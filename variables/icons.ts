@@ -19,6 +19,7 @@ import {
   SearchIcon,
   ShareIcon,
   TelegramIcon,
+  TringleIcon,
   UserIcon,
   YouTubeIcon,
 } from 'assets';
@@ -47,6 +48,7 @@ export const ICON_TYPES = {
   instagram: 'instagram',
   linkedIn: 'linkedIn',
   youtube: 'youtube',
+  triangle: 'triangle',
 };
 
 export const SOCIAL_MEAI_ICONS = [
@@ -81,4 +83,5 @@ export const ICONS: IIcon = {
   [ICON_TYPES.instagram]: InstagramIcon,
   [ICON_TYPES.linkedIn]: LinkedInIcon,
   [ICON_TYPES.youtube]: YouTubeIcon,
+  [ICON_TYPES.triangle]: TringleIcon,
 };

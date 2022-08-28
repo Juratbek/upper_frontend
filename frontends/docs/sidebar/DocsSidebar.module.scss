@@ -1,0 +1,16 @@
+.container {
+    margin: -1rem -1.3rem;
+}
+
+.link {
+    padding: 1rem;
+
+    &:hover {
+        background-color: var(--lightGray);
+        cursor: pointer;
+    }
+}
+
+.dropdown {
+    padding-left: 1rem;
+}

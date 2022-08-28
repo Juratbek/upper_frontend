@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
 import { IArticleResult, IBlogMedium, IBlogSmall, ILabel } from 'types';
+import { replaceAll } from 'utils';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -104,6 +105,17 @@ export const Sidebar = (): JSX.Element => {
   const content: JSX.Element = useMemo(() => {
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
     if (ContentComponent) return <ContentComponent />;
+
+    const key = Object.keys(SIDEBAR_CONTENTS).find((key) => {
+      if (!key.includes('*')) return false;
+      const match = replaceAll(key, '*', '');
+      return pathname.startsWith(match);
+    });
+
+    if (key) {
+      const ContentComponent = SIDEBAR_CONTENTS[key];
+      return <ContentComponent />;
+    }
 
     return (
       <>
