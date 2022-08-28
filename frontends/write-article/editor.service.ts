@@ -23,13 +23,14 @@ export const createEditor = async ({
   const Header = (await import('@editorjs/header')).default;
   const ImageTool = (await import('@editorjs/image')).default;
   const List = (await import('@editorjs/list')).default;
+  const Quote = (await import('@editorjs/quote')).default;
+  const Delimeter = (await import('@editorjs/delimiter')).default;
   const Tooltip = (await import('editorjs-tooltip')).default;
   const TextColor = (await import('editorjs-text-color-plugin')).default;
   const Alert = (await import('editorjs-alert')).default;
+  const Unsplash = (await import('editorjs-inline-image')).default;
   const InclineCode = (await import('@editorjs/inline-code')).default;
   const CodeFlask = (await import('@calumk/editorjs-codeflask')).default;
-  const Unsplash = (await import('editorjs-inline-image')).default;
-  const Delimeter = (await import('@editorjs/delimiter')).default;
 
   return new EditorJs({
     holder: holder,
@@ -47,11 +48,11 @@ export const createEditor = async ({
         },
       },
       alert: Alert,
+      quote: Quote,
       delimeter: Delimeter,
       list: List,
       unsplash: {
         class: Unsplash,
-        // inlineToolbar: true,
         config: {
           embed: {
             display: false,
