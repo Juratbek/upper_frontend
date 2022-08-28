@@ -8,7 +8,7 @@ import { IDropdownProps } from './Dropdown.types';
 const Triangle = ICONS[ICON_TYPES.triangle];
 
 export const Dropdown: FC<IDropdownProps> = (props) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(props.isOpen || false);
   const { title, children, className, titleClassName } = props;
 
   const rootClassName = useMemo(() => getClassName(classes.container, className), [className]);

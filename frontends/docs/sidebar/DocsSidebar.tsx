@@ -19,7 +19,7 @@ export const DocsSidebar: FC = () => {
           {getLinks(link.children, url + link.url)}
         </Dropdown>
       ) : (
-        <Link href={`/docs/${url}/${link.url}`}>
+        <Link href={`/docs${url}${link.url}`} key={index}>
           <div className={classes.link}>{link.name}</div>
         </Link>
       ),
