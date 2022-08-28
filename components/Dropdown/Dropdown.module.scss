@@ -1,0 +1,29 @@
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.open {
+    display: block;
+}
+
+.closed {
+    display: none;
+}
+
+.icon {
+    transition: all 300ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    &-open {
+        transform: rotate(90deg);
+    }
+}

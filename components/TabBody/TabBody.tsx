@@ -17,5 +17,5 @@ export const TabBody: FC<ITabBodyProps> = ({ tabs, param = TAB_PARAM_NAME, ...pr
 
   const ActiveTab = useMemo(getActiveTab, [getParam(param)]);
 
-  return <ActiveTab {...props} />;
+  return ActiveTab ? <ActiveTab {...props} /> : <></>;
 };
