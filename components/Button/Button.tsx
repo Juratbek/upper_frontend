@@ -1,11 +1,17 @@
 import { FC, useMemo } from 'react';
+import { getClassName } from 'utils';
 
-import classes from './Button.module.css';
+import classes from './Button.module.scss';
 import { IButtonProps } from './Button.types';
 
 export const Button: FC<IButtonProps> = ({ children, color = 'dark', ...props }) => {
   const className = useMemo(
-    () => `${classes.button} ${classes[color]} ${props.className}`,
+    () =>
+      getClassName(
+        classes.button,
+        props.disabled ? `${classes[`${color}-disabled`]}` : classes[color],
+        props.className,
+      ),
     [props.className, color],
   );
 

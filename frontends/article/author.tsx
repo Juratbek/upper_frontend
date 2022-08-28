@@ -1,10 +1,10 @@
 import { SidebarBlog } from 'components';
 import { FC } from 'react';
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 
 import { IAuthorProps } from './article.types';
 
-const blog: IBlog = {
+const blog: IBlogMedium = {
   id: 1,
   name: 'Blog name',
   imgUrl: '',

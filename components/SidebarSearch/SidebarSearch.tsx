@@ -2,12 +2,12 @@ import { ArticleImg, Divider, SearchInput } from 'components';
 import { Author } from 'components/Author/Author';
 import { useClickOutside } from 'hooks';
 import { FC, useState } from 'react';
-import { IBlog } from 'types';
+import { IBlogSmall } from 'types';
 
 import classes from './SidebarSearch.module.scss';
 import { IArticle } from './SidebarSearch.types';
 
-const blogs: IBlog[] = [
+const blogs: IBlogSmall[] = [
   {
     id: 1,
     name: 'Blog',

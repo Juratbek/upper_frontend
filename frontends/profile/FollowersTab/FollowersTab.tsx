@@ -1,8 +1,8 @@
 import { Blog } from 'components';
 import { FC, Fragment } from 'react';
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 
-const followers: IBlog[] = [
+const followers: IBlogMedium[] = [
   {
     id: 1,
     name: 'Boymurodov Samandar',
@@ -37,7 +37,7 @@ export const FollowersTab: FC = () => {
     <div>
       {followers.map((follower) => (
         <Fragment key={follower.id}>
-          <Blog {...follower} className='px-3 py-2' />
+          <Blog {...follower} className='px-3 py-2' isLink />
         </Fragment>
       ))}
     </div>

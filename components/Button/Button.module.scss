@@ -18,6 +18,12 @@
     color: black;
 }
 
+.outline-dark-disabled {
+    border: 1px solid var(--gray);
+    color: var(--gray);
+    cursor: unset;
+}
+
 .outline-dark:hover {
     background-color: black;
     color: white;

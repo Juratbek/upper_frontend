@@ -7,7 +7,9 @@ import {
   GitHubIcon,
   GoogleIcon,
   HomeIcon,
+  InstagramIcon,
   LikeIcon,
+  LinkedInIcon,
   MenuListIcon,
   NextIcon,
   NotificationIcon,
@@ -18,6 +20,7 @@ import {
   ShareIcon,
   TelegramIcon,
   UserIcon,
+  YouTubeIcon,
 } from 'assets';
 import { IIcon } from 'types';
 
@@ -41,6 +44,9 @@ export const ICON_TYPES = {
   share: 'share',
   next: 'next',
   prev: 'prev',
+  instagram: 'instagram',
+  linkedIn: 'linkedIn',
+  youtube: 'youtube',
 };
 
 export const ICONS: IIcon = {
@@ -63,4 +69,7 @@ export const ICONS: IIcon = {
   [ICON_TYPES.share]: ShareIcon,
   [ICON_TYPES.next]: NextIcon,
   [ICON_TYPES.prev]: PrevIcon,
+  [ICON_TYPES.instagram]: InstagramIcon,
+  [ICON_TYPES.linkedIn]: LinkedInIcon,
+  [ICON_TYPES.youtube]: YouTubeIcon,
 };

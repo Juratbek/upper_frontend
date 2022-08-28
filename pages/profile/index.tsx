@@ -1,8 +1,8 @@
 import { Blog, TabBody, TabsHeader } from 'components';
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 import { PROFILE_TAB_MENUS, PROFILE_TABS } from 'variables/Profile.constants';
 
-export const blog: IBlog = {
+export const blog: IBlogMedium = {
   id: 1,
   name: 'Boymurodov Samandar',
   imgUrl: '',

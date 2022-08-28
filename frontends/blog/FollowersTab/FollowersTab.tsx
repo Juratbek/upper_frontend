@@ -1,4 +1,4 @@
-import { Blog, Button } from 'components';
+import { Blog } from 'components';
 import { FC } from 'react';
 import { IBlogMedium } from 'types';
 
@@ -37,13 +37,12 @@ const blogs: IBlogMedium[] = [
   },
 ];
 
-export const BlogsTab: FC = () => {
+export const FollowersTab: FC = () => {
   return (
     <div className='tab'>
       {blogs.map((blog) => (
         <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
           <Blog {...blog} isLink />
-          <Button color='outline-dark'>Follow</Button>
         </div>
       ))}
     </div>
