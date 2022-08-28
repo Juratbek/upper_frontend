@@ -17,6 +17,7 @@ import {
   SearchIcon,
   ShareIcon,
   TelegramIcon,
+  TringleIcon,
   UserIcon,
 } from 'assets';
 import { IIcon } from 'types';
@@ -41,6 +42,7 @@ export const ICON_TYPES = {
   share: 'share',
   next: 'next',
   prev: 'prev',
+  triangle: 'triangle',
 };
 
 export const ICONS: IIcon = {
@@ -63,4 +65,5 @@ export const ICONS: IIcon = {
   [ICON_TYPES.share]: ShareIcon,
   [ICON_TYPES.next]: NextIcon,
   [ICON_TYPES.prev]: PrevIcon,
+  [ICON_TYPES.triangle]: TringleIcon,
 };
