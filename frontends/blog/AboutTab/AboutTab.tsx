@@ -11,14 +11,14 @@ const blog: IBlog = {
   name: "Jur'atbek",
   imgUrl: '',
   bio: 'Lorem ipsum dolor sit amet',
-  links: [
-    { icon: 'telegram', link: 'https://t.me/JuratbekBahodirovich' },
-    { icon: 'facebook', link: 'https://facebook.com' },
-    { icon: 'github', link: 'https://github.com/juratbek' },
-    { icon: 'linkedIn', link: 'https://linkedin.com' },
-    { icon: 'youtube', link: 'https://www.youtube.com/channel/UCCQ5c4lS04lCdf_HWecRaBA' },
-    { icon: 'instagram', link: 'https://www.instagram.com/mahammadaliyevj' },
-  ],
+  links: {
+    telegram: 'https://t.me/JuratbekBahodirovich',
+    facebook: 'https://facebook.com',
+    github: 'https://github.com/juratbek',
+    linkedIn: 'https://linkedin.com',
+    youtube: 'https://www.youtube.com/channel/UCCQ5c4lS04lCdf_HWecRaBA',
+    instagram: 'https://www.instagram.com/mahammadaliyevj',
+  },
   createdDate: new Date(),
 };
 
@@ -41,11 +41,11 @@ export const AboutTab: FC = () => {
       <Divider />
       {links && (
         <div className={classes['social-media']}>
-          {links?.map((link) => {
-            const Icon = ICONS[link.icon];
+          {Object.entries(links).map(([icon, link]) => {
+            const Icon = ICONS[icon];
             return (
-              <div className={classes['social-media-link']} key={link.icon}>
-                <a href={link.link} target='_blank' rel='noreferrer'>
+              <div className={classes['social-media-link']} key={icon}>
+                <a href={link} target='_blank' rel='noreferrer'>
                   <Icon />
                 </a>
               </div>

@@ -49,6 +49,15 @@ export const ICON_TYPES = {
   youtube: 'youtube',
 };
 
+export const SOCIAL_MEAI_ICONS = [
+  ICON_TYPES.telegram,
+  ICON_TYPES.facebook,
+  ICON_TYPES.github,
+  ICON_TYPES.linkedIn,
+  ICON_TYPES.youtube,
+  ICON_TYPES.instagram,
+];
+
 export const ICONS: IIcon = {
   [ICON_TYPES.delete]: DeleteIcon,
   [ICON_TYPES.save]: SaveIcon,

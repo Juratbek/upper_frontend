@@ -1,10 +1,3 @@
-import { TIcon } from './common';
-
-interface ILink {
-  icon: TIcon;
-  link: string;
-}
-
 export interface IBlogSmall {
   id: number;
   imgUrl: string;
@@ -17,6 +10,6 @@ export interface IBlogMedium extends IBlogSmall {
 }
 
 export interface IBlog extends IBlogMedium {
-  links?: ILink[];
+  links: Record<string, string>;
   createdDate: Date;
 }
