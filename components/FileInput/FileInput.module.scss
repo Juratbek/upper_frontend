@@ -1,0 +1,17 @@
+.container {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--smallBorderRadius);
+    border: 1px solid var(--lightBlack);
+    outline: transparent solid 1px;
+    padding: .2em .4rem;
+}
+
+.input {
+    flex: 1;
+    border: none;
+    outline: none;
+    overflow-x: scroll;
+}

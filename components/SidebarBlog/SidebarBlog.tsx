@@ -12,7 +12,7 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
   return (
     <div className={rootClassName}>
       <div className='d-flex align-items-center'>
-        <Avatar imgUrl='' size='medium' />
+        <Avatar imgUrl='' size='medium' className={classes.avatar} />
         <div>
           <h4 className='m-0'>{name}</h4>
           <p className={`m-0 ${classes['details']}`}>

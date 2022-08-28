@@ -43,6 +43,10 @@
   margin: $size1
 }
 
+.m-2 {
+  margin: $size2
+}
+
 .mt-0 {
   margin-top: 0;
 }
@@ -69,6 +73,10 @@
 
 .me-1 {
   margin-right: $size1;
+}
+
+.me-2 {
+  margin-right: $size2;
 }
 
 .mb-0 {
@@ -181,6 +189,9 @@
 }
 
 /* widths */
+.w-50 {
+  width: 50%;
+}
 .w-75 {
   width: 75%;
 }

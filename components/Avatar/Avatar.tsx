@@ -5,8 +5,8 @@ import { getClassName } from 'utils';
 import classes from './Avatar.module.css';
 import { IAvatarProps } from './Avatar.types';
 
-export const Avatar: FC<IAvatarProps> = ({ size = 'medium' }) => {
-  const className = getClassName(classes.avatar, classes[`avatar--${size}`]);
+export const Avatar: FC<IAvatarProps> = ({ size = 'medium', ...props }) => {
+  const className = getClassName(classes.avatar, classes[`avatar--${size}`], props.className);
 
   return (
     <div className={className}>
