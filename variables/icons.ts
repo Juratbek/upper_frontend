@@ -7,7 +7,9 @@ import {
   GitHubIcon,
   GoogleIcon,
   HomeIcon,
+  InstagramIcon,
   LikeIcon,
+  LinkedInIcon,
   MenuListIcon,
   NextIcon,
   NotificationIcon,
@@ -19,6 +21,7 @@ import {
   TelegramIcon,
   TringleIcon,
   UserIcon,
+  YouTubeIcon,
 } from 'assets';
 import { IIcon } from 'types';
 
@@ -42,8 +45,20 @@ export const ICON_TYPES = {
   share: 'share',
   next: 'next',
   prev: 'prev',
+  instagram: 'instagram',
+  linkedIn: 'linkedIn',
+  youtube: 'youtube',
   triangle: 'triangle',
 };
+
+export const SOCIAL_MEAI_ICONS = [
+  ICON_TYPES.telegram,
+  ICON_TYPES.facebook,
+  ICON_TYPES.github,
+  ICON_TYPES.linkedIn,
+  ICON_TYPES.youtube,
+  ICON_TYPES.instagram,
+];
 
 export const ICONS: IIcon = {
   [ICON_TYPES.delete]: DeleteIcon,
@@ -65,5 +80,8 @@ export const ICONS: IIcon = {
   [ICON_TYPES.share]: ShareIcon,
   [ICON_TYPES.next]: NextIcon,
   [ICON_TYPES.prev]: PrevIcon,
+  [ICON_TYPES.instagram]: InstagramIcon,
+  [ICON_TYPES.linkedIn]: LinkedInIcon,
+  [ICON_TYPES.youtube]: YouTubeIcon,
   [ICON_TYPES.triangle]: TringleIcon,
 };

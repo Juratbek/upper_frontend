@@ -1,6 +1,7 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
   --lightGray: rgba(196, 196, 196, 0.35);
+  --gray: gray;
   --red: hsl(0, 76%, 47%);
   --smallBorderRadius: .3rem;
   --mediumBorderRadius: .6rem;
@@ -43,6 +44,10 @@
   margin: $size1
 }
 
+.m-2 {
+  margin: $size2
+}
+
 .mt-0 {
   margin-top: 0;
 }
@@ -69,6 +74,10 @@
 
 .me-1 {
   margin-right: $size1;
+}
+
+.me-2 {
+  margin-right: $size2;
 }
 
 .mb-0 {
@@ -181,6 +190,9 @@
 }
 
 /* widths */
+.w-50 {
+  width: 50%;
+}
 .w-75 {
   width: 75%;
 }

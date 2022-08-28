@@ -4,14 +4,14 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { open } from 'store/loginModal/loginModalSlice';
-import { IArticleResult, IBlog, ILabel } from 'types';
+import { IArticleResult, IBlogMedium, IBlogSmall, ILabel } from 'types';
 import { replaceAll } from 'utils';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
 
-const author: IBlog = {
+const author: IBlogSmall = {
   id: 1,
   name: 'Samandar',
   imgUrl: 'awda',
@@ -34,7 +34,7 @@ const articles: IArticleResult[] = [
     title: 'Article title Lorem Ipsum is simply dummy',
     author,
     content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     labels,
     publishedDate: new Date(),
     updatedDate: new Date(),
@@ -67,7 +67,7 @@ const articles: IArticleResult[] = [
   },
 ];
 
-const blogs: IBlog[] = [
+const blogs: IBlogMedium[] = [
   {
     id: 1,
     name: 'Samandar Boymurodov',

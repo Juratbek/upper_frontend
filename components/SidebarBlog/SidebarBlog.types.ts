@@ -1,5 +1,5 @@
-import { IBlog } from 'types';
+import { IBlogMedium } from 'types';
 
-export interface ISidebarBlogProps extends IBlog {
+export interface ISidebarBlogProps extends IBlogMedium {
   className?: string;
 }

@@ -38,7 +38,7 @@ export interface IIcon {
   [name: TIcon]: FC<{ color?: string }>;
 }
 
-export type TClassName = string | undefined;
+export type TClassName = string | undefined | Record<string, string>;
 
 export interface IGetServerSideProps<T = Record<string, never>> {
   props?: T;
