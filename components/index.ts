@@ -7,6 +7,7 @@ export * from './Label/Label';
 export * from './Author/Author';
 export * from './Blog/Blog';
 export * from './Button/Button';
+export * from './Button/Button.types';
 export * from './Divider/Divider';
 export * from './SidebarArticle/SidebarArticle';
 export * from './ArticleImg/ArticleImg';

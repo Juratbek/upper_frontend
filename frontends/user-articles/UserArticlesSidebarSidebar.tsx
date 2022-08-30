@@ -1,10 +1,15 @@
-import { ArticleStatus, Button, Divider, Select } from 'components';
+import { ArticleStatus, Button, Divider, Modal, Select } from 'components';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { TArticleStatus } from 'types';
 import { ARTICLE_STATUSES } from 'variables/article';
 
-import { ARTICLE_SIDEBAR_CONTENTS } from './UserArticlesSidebar.constants';
+import {
+  ARTICLE_ACTIONS,
+  ARTICLE_SIDEBAR_CONTENTS,
+  ARTICLE_SIDEBAR_MODAL_CONTENTS,
+} from './UserArticlesSidebar.constants';
+import { TArticleAction } from './UserArticlesSidebar.types';
 
 const options = [
   {
@@ -26,36 +31,66 @@ const options = [
 ];
 
 export const UserArticlesSidebar: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState<TArticleAction>('');
   const {
     query: { status, id },
   } = useRouter();
 
   const BTN = ARTICLE_SIDEBAR_CONTENTS[status as string];
+  const MODAL = ARTICLE_SIDEBAR_MODAL_CONTENTS[status as string]?.[action];
 
-  const fullDeleteArticle = (): void => {
-    console.log('full delete', id);
+  const closeModal = (): void => {
+    setIsModalOpen(false);
+    setAction('');
   };
 
-  const deleteArticle = (): void => {
-    console.log('delete', id);
+  const openModal = (action: TArticleAction): void => {
+    setIsModalOpen(true);
+    setAction(action);
+  };
+
+  const deleteArticle = (action: TArticleAction): void => {
+    openModal(action);
   };
 
   return (
     <>
+      {MODAL && (
+        <Modal size='small' isOpen={isModalOpen} close={closeModal}>
+          <p>
+            <strong>“Maqola sarlavhasi”</strong> maqolani {MODAL.text || ''}
+          </p>
+          <div className='justify-content-around d-flex'>
+            <Button color='outline-dark' onClick={closeModal}>
+              Yo`q
+            </Button>
+            <Button color={MODAL.btn.color || 'dark'}>{MODAL.btn.text}</Button>
+          </div>
+        </Modal>
+      )}
       {status && (
         <>
           <ArticleStatus className='mb-1' status={status as TArticleStatus} />
           <div className='d-flex'>
-            {status === ARTICLE_STATUSES.DELETED ? (
-              <Button color='outline-red' className='me-1' onClick={fullDeleteArticle}>
-                To`liq o`chirish
-              </Button>
-            ) : (
-              <Button color='outline-red' className='me-1' onClick={deleteArticle}>
-                O`chirish
-              </Button>
-            )}
-            <Button className='flex-1' onClick={(): void => BTN.callback(id)}>
+            <Button
+              color='outline-red'
+              className='me-1'
+              onClick={(): void =>
+                deleteArticle(
+                  status === ARTICLE_STATUSES.DELETED
+                    ? ARTICLE_ACTIONS.fullDelete
+                    : ARTICLE_ACTIONS.delete,
+                )
+              }
+            >
+              {status === ARTICLE_STATUSES.DELETED ? 'To`liq o`chirish' : 'O`chirish'}
+            </Button>
+            <Button
+              className='flex-1'
+              color={BTN.color}
+              onClick={(): void => openModal(BTN.action)}
+            >
               {BTN.text}
             </Button>
           </div>
