@@ -1,23 +1,15 @@
-import EditorJs, { OutputData } from '@editorjs/editorjs';
+import EditorJs from '@editorjs/editorjs';
 
-import { EDITOR_HOLDER, EDITOR_PLACEHOLDER } from '../../utils/editor/editor.constants';
-
-export interface ICreateEditorProps {
-  holder?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onChangeHandler?(...args: any[]): void;
-  isReadOnly?: boolean;
-  data?: OutputData;
-  placeholder?: string;
-}
+import { EDITOR_HOLDER, EDITOR_PLACEHOLDER, IEditorProps } from '../editor.types';
 
 export const createEditor = async ({
   holder = EDITOR_HOLDER,
-  onChangeHandler,
-  isReadOnly = false,
-  data = { blocks: [] },
+  changeHandler,
+  editable = false,
+  content = { blocks: [] },
   placeholder = EDITOR_PLACEHOLDER,
-}: ICreateEditorProps = {}): Promise<EditorJs> => {
+}: IEditorProps = {}): Promise<EditorJs> => {
+  // TODO: Move tools to separate file
   const EditorJs = (await import('@editorjs/editorjs')).default;
   const Embed = (await import('@editorjs/embed')).default;
   const Header = (await import('@editorjs/header')).default;
@@ -34,10 +26,10 @@ export const createEditor = async ({
 
   return new EditorJs({
     holder: holder,
-    onChange: onChangeHandler,
-    readOnly: isReadOnly,
+    onChange: changeHandler,
+    readOnly: !editable,
     placeholder: placeholder,
-    data: data,
+    data: content,
     tools: {
       header: {
         class: Header,
