@@ -50,7 +50,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
   return (
     <div className={styles.articleActionsContainer}>
       <div className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}>
-        <ArticleSharePopup visible={isSharePopupOpen} />
+        <ArticleSharePopup visible={isSharePopupOpen} setVisible={setSsSharePopupOpen} />
         <div className={styles.iconsContainer}>
           <div className={styles.icon}>
             <CommentIcon />
@@ -64,7 +64,8 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
           </div>
           <div
             className={styles.icon}
-            onClick={(): void => {
+            onClick={(e): void => {
+              e.stopPropagation();
               setSsSharePopupOpen((prev) => !prev);
             }}
           >

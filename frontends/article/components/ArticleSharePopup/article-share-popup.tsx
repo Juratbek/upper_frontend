@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { ICON_TYPES, ICONS } from 'variables';
 
 const TelegramIcon = ICONS[ICON_TYPES.telegram];
@@ -8,8 +8,9 @@ const LinkedInIcon = ICONS[ICON_TYPES.linkedIn];
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
 
-export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible }) => {
+export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const sharePopupRef = useRef<HTMLDivElement>(null);
 
   const onCopyLink = (): void => {
     const inputEl = inputRef.current as HTMLInputElement;
@@ -21,8 +22,28 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible }) => {
     }
   };
 
+  useEffect(() => {
+    const globalClickListener = (e: Event): void => {
+      const sharePopupEl = sharePopupRef.current as HTMLDivElement;
+      const targetEl = e.target as HTMLElement;
+
+      if (e.target !== sharePopupEl && !sharePopupEl.contains(targetEl)) {
+        setVisible(false);
+      }
+    };
+
+    document.addEventListener('click', globalClickListener);
+
+    return () => {
+      window.removeEventListener('click', globalClickListener);
+    };
+  }, []);
+
   return (
-    <div className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''}`}>
+    <div
+      className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''}`}
+      ref={sharePopupRef}
+    >
       <div className={styles.iconsContainer}>
         <div className={styles.socialIcon}>
           <TelegramIcon />
