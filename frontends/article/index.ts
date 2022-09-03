@@ -1,2 +1,2 @@
 export * from './article-page';
-export * from './author';
+export * from './components';
