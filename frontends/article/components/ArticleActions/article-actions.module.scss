@@ -1,0 +1,51 @@
+.articleActionsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.articleActions {
+  display: inline-block;
+  position: fixed;
+  bottom: 1.7rem;
+  z-index: 1;
+  transform: translateY(100px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+
+  background-color: white;
+  border: 1px solid rgb(#000000, 0.25);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+
+  &.scrollUp {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .iconsContainer {
+    display: flex;
+    align-items: center;
+
+    & > *:not(:last-child) {
+      margin-right: 22px;
+    }
+
+    .icon {
+      width: 25px;
+      height: 23px;
+
+      cursor: pointer;
+      transition: all 0.2s ease-in;
+
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
+
+    .reactionsText {
+      font-weight: 500;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import { SidebarBlog } from 'components';
 import { FC } from 'react';
 import { IBlogMedium } from 'types';
 
-import { IAuthorProps } from './article.types';
+import { IAuthorProps } from './author.types';
 
 const blog: IBlogMedium = {
   id: 1,
