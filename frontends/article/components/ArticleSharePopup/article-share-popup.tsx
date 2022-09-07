@@ -8,6 +8,8 @@ const LinkedInIcon = ICONS[ICON_TYPES.linkedIn];
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
 
+const url = window.location.href;
+
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const sharePopupRef = useRef<HTMLDivElement>(null);
@@ -45,25 +47,40 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
       ref={sharePopupRef}
     >
       <div className={styles.iconsContainer}>
-        <div className={styles.socialIcon}>
+        <a
+          className={styles.socialIcon}
+          target='_blank'
+          href={`https://t.me/share/url?url=${url}&text=Test`}
+          rel='noreferrer'
+        >
           <TelegramIcon />
           <div className={styles.iconText}>Telegram</div>
-        </div>
-        <div className={styles.socialIcon}>
+        </a>
+        <a
+          target='_blank'
+          href={`https://www.facebook.com/sharer/sharer.php?u=${url}`}
+          className={styles.socialIcon}
+          rel='noreferrer'
+        >
           <FacebookIcon />
           <div className={styles.iconText}>Facebook</div>
-        </div>
-        <div className={styles.socialIcon}>
+        </a>
+        <a
+          target='_blank'
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${url}`}
+          className={styles.socialIcon}
+          rel='noreferrer'
+        >
           <LinkedInIcon />
           <div className={styles.iconText}>LinkedIn</div>
-        </div>
+        </a>
       </div>
       <div className={styles.articleLink}>
         <input
           type='text'
           className={styles.linkInput}
           readOnly={true}
-          value={window.location.href}
+          value={url}
           ref={inputRef}
         />
         <button className={styles.copyButton} type={'button'} onClick={onCopyLink}>
