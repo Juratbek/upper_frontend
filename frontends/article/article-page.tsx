@@ -6,7 +6,7 @@ import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
-import { ArticleActions } from './article-actions';
+import { ArticleActions } from './components';
 
 const LikeIcon = ICONS[ICON_TYPES.like];
 const DislikeIcon = ICONS[ICON_TYPES.dislike];

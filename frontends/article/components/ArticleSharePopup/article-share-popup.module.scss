@@ -1,0 +1,83 @@
+@import 'styles/helpers';
+
+.popupContainer {
+  width: toRem(420px);
+  background-color: #fff;
+  box-shadow: 0 0 toRem(10px) rgba(#000000, 0.4);
+  border-radius: 6px;
+  padding: toRem(10px) toRem(18px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: toRem(8px);
+
+  position: absolute;
+  transform: translateY(-130%) translateX(5%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.iconsContainer {
+  display: flex;
+  gap: toRem(25px);
+
+  .socialIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 5px;
+    cursor: pointer;
+
+    svg {
+      width: toRem(26px);
+    }
+
+    .iconText {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}
+
+.articleLink {
+  align-self: stretch;
+  position: relative;
+
+  .linkInput {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid var(--lightBlack);
+    font-weight: 500;
+    padding: toRem(10px) calc(#{toRem(70px)} + 2 * #{toRem(15px)}) toRem(10px) toRem(5px);
+    overflow: auto;
+    outline: none;
+  }
+
+  .copyButton {
+    position: absolute;
+    right: toRem(15px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: toRem(70px);
+
+    font-size: toRem(10px);
+    border-radius: 50px;
+    background-color: #fff;
+    border: 1px solid #000;
+    padding: toRem(3px) 0;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: var(--lightGray);
+    }
+  }
+}
