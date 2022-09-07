@@ -1,18 +1,12 @@
-import EditorJs from '@editorjs/editorjs';
-import { createEditor } from 'frontends/write-article';
-import { EDITOR_HOLDER } from 'frontends/write-article';
-import { useEffect, useState } from 'react';
+import { Editor } from 'components/Editor';
 
 export default function WriteArticlePage(): JSX.Element {
-  const [, setEditor] = useState<EditorJs | null>(null);
-
-  useEffect(() => {
-    createEditor().then((editor) => setEditor(editor));
-  }, []);
-
   return (
-    <>
-      <div id={EDITOR_HOLDER}></div>
-    </>
+    <Editor
+      editable={true}
+      content={{
+        blocks: [],
+      }}
+    />
   );
 }

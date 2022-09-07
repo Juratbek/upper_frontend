@@ -1,5 +1,5 @@
+import { articleData } from 'components/Editor/services/sample-article';
 import { Article } from 'frontends/article';
-import { articleData } from 'frontends/write-article/sample-article';
 import { NextPage } from 'next';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { IArticle } from 'types';

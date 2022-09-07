@@ -1,6 +1,6 @@
-import EditorJs from '@editorjs/editorjs';
-import { createEditor, EDITOR_HOLDER__READ } from 'frontends/write-article';
-import { FC, useEffect, useRef, useState } from 'react';
+import EditorJS from '@editorjs/editorjs';
+import { Editor } from 'components';
+import { FC, useState } from 'react';
 import { formatToKMB } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables/icons';
 
@@ -17,35 +17,11 @@ const ShareIcon = ICONS[ICON_TYPES.share];
 
 export const Article: FC<IArticleProps> = (props) => {
   const { content, nextArticleId, prevArticleId, viewCount, publishedDate, updatedDate } = props;
-  const [editor, setEditor] = useState<null | EditorJs>(null);
-  const articleContainer = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (content) {
-      createEditor({
-        holder: EDITOR_HOLDER__READ,
-        data: content,
-        isReadOnly: true,
-      }).then((res) => setEditor(res));
-    }
-  }, [content]);
-
-  // Caption cleanup
-  useEffect(() => {
-    editor?.isReady.then(() => {
-      const captions = document.querySelectorAll('.embed-tool__caption');
-
-      captions.forEach((caption) => {
-        if (!caption.textContent) {
-          caption.remove();
-        }
-      });
-    });
-  }, [editor]);
+  const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
 
   return (
-    <div className={styles.articleContainer} ref={articleContainer}>
-      <div id={EDITOR_HOLDER__READ}></div>
+    <div className={styles.articleContainer}>
+      <Editor content={content} editable={false} handleInstance={setEditorInstance} />
       <div className={styles.articleDetail}>
         <div className='mb-1'>
           <span>{publishedDate} da chop etilgan</span>
@@ -85,7 +61,7 @@ export const Article: FC<IArticleProps> = (props) => {
           </div>
         </div>
       </div>
-      <ArticleActions editor={editor} />
+      <ArticleActions editor={editorInstance} />
     </div>
   );
 };
