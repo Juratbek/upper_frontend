@@ -1,0 +1,21 @@
+.social-media {
+    margin-left: 1rem;
+    text-align: center;
+    margin-top: .5rem;
+
+    &:first-child{
+        margin-left: 0;
+    }
+
+    &-icon {
+        width: 4rem;
+        height: 3rem;
+    }
+
+}
+
+.labels {
+    display: flex;
+    flex-wrap: wrap;
+}
+

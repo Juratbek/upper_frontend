@@ -27,3 +27,7 @@ export * from './Editor/Editor';
 export * from './Textarea/Textarea';
 export * from './FileInput/FileInput';
 export * from './Dropdown/Dropdown';
+export * from './LoginModal/LoginModal';
+export * from './RegisterModal/RegisterModal';
+export * from './Error/Error';
+export * from './Spinner/Spinner';

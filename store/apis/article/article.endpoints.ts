@@ -1,5 +1,7 @@
 import { EndpointDefinitions } from '@reduxjs/toolkit/dist/query';
-import { TBuild } from 'store/api/api.types';
+import { IArticle } from 'types';
+
+import { TBuild } from '../config';
 
 export const articleEndpoints = (build: TBuild): EndpointDefinitions => ({
   save: build.mutation({
@@ -26,7 +28,7 @@ export const articleEndpoints = (build: TBuild): EndpointDefinitions => ({
   fullDelete: build.mutation({
     query: () => '',
   }),
-  get: build.query<any, number | undefined>({
+  get: build.query<IArticle, number | undefined>({
     query: (id?: number) => id?.toString() || '',
   }),
 });

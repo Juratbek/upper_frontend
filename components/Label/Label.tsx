@@ -1,8 +1,17 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
+import { getClassName } from 'utils';
 
-import classes from './Label.module.css';
+import classes from './Label.module.scss';
 import { ILabelProps } from './Label.types';
 
-export const Label: FC<ILabelProps> = ({ className, children }) => {
-  return <span className={`${classes.label} ${className}`}>{children}</span>;
+export const Label: FC<ILabelProps> = ({ children, color, ...props }) => {
+  const className = useMemo(
+    () => getClassName(classes.label, props.className, classes[`label--${color}`]),
+    [color, props.className],
+  );
+  return (
+    <span {...props} className={className}>
+      {children}
+    </span>
+  );
 };
