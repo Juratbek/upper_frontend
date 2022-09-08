@@ -4,3 +4,10 @@ export interface IBlogRegisterDto {
   username: string;
   password: string;
 }
+
+export interface IBlogRegisterResponse {
+  token: string;
+  name: string;
+  email: string;
+  image: string;
+}

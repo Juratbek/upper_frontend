@@ -1,7 +1,20 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { TOKEN } from 'variables';
 
-import { baseQuery } from '../config';
-import { IBlogRegisterDto } from './blog.types';
+import { BASE_URL, TBaseQuery } from '../config';
+import { IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
+
+export const baseQuery = (uri?: string): TBaseQuery =>
+  fetchBaseQuery({
+    baseUrl: `${BASE_URL}${uri && `/${uri}`}`,
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem(TOKEN);
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  });
 
 export const blogApi = createApi({
   reducerPath: 'blog',
@@ -14,7 +27,7 @@ export const blogApi = createApi({
         body,
       }),
     }),
-    register: build.mutation<{ token: string }, IBlogRegisterDto>({
+    register: build.mutation<IBlogRegisterResponse, IBlogRegisterDto>({
       query: (blog) => ({
         url: 'register',
         method: 'POST',

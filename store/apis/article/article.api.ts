@@ -1,10 +1,20 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import { TOKEN } from 'variables';
 
-import { baseQuery } from '../config';
+import { BASE_URL } from '../config';
 import { articleEndpoints } from './article.endpoints';
 
 export const articleApi = createApi({
   reducerPath: 'article',
-  baseQuery: baseQuery('articles'),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${BASE_URL}/article`,
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem(TOKEN);
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
   endpoints: (build) => articleEndpoints(build),
 });

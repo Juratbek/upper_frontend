@@ -11,15 +11,13 @@ export default NextAuth({
       id: 'credentials',
       name: 'credentials',
       credentials: {
-        username: { label: 'Username', type: 'text' },
+        name: { label: 'Name', type: 'text' },
+        bio: { label: 'Bio', type: 'text' },
+        login: { label: 'Login', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        return {
-          username: 'juratbek123',
-          password: 'password123',
-          token: 'token123',
-        };
+        return credentials || null;
       },
     }),
     FacebokProvider({
@@ -45,7 +43,13 @@ export default NextAuth({
       if (user) {
         token.value = user.token;
       }
-      return Promise.resolve(token);
+      return token;
+    },
+    async session(params) {
+      const { session, user, token } = params;
+      if (user) session.user = user;
+      session.token = token.value;
+      return session;
     },
   },
 });

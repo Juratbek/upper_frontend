@@ -44,8 +44,12 @@ export const RegisterModal: FC = () => {
         username: login,
         password,
       }).unwrap();
-      debugger;
-      setToken(res.token);
+      await signIn('credentials', {
+        token: res.token,
+        name: res.name,
+        email: res.email,
+        image: res.image,
+      });
       incrementStep();
     } catch (e) {
       const error = e as IResponseError;
