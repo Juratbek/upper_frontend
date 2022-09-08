@@ -2,7 +2,6 @@ import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
 import { articleApi, blogApi, labelApi } from './apis';
-import authReducer from './states/auth';
 import loginModalReducer from './states/loginModal';
 import registerModalReducer from './states/registerModal';
 
@@ -10,7 +9,6 @@ export const store = configureStore({
   reducer: {
     loginModal: loginModalReducer,
     registerModal: registerModalReducer,
-    auth: authReducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,

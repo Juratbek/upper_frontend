@@ -1,13 +1,16 @@
 import { Button, Error, Input, Label, Modal, Textarea } from 'components';
 import { signIn, useSession } from 'next-auth/react';
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useGetLabelsQuery, useRegisterMutation, useSetLabelsMutation } from 'store/apis';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
 import { IResponseError } from 'types';
 
+import { REGISTER_FORM_FIELDS } from './RegisterModal.constants';
 import classes from './RegisterModal.module.scss';
+
+const { name, bio, login, password } = REGISTER_FORM_FIELDS;
 
 export const RegisterModal: FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
@@ -21,6 +24,7 @@ export const RegisterModal: FC = () => {
     watch,
     clearErrors,
     setError,
+    setFocus,
     formState: { errors },
   } = useForm();
   const { data: labels = [] } = useGetLabelsQuery('');
@@ -61,9 +65,9 @@ export const RegisterModal: FC = () => {
     }
   };
 
-  const errorHandler = (e: FieldErrors): void => {
+  const errorHandler = async (e: FieldErrors): Promise<void> => {
     if (activeStep === 1) {
-      if (!('name' in e || 'bio' in e)) {
+      if (!(name.name in e || bio.name in e)) {
         incrementStep();
         clearErrors();
       }
@@ -85,6 +89,12 @@ export const RegisterModal: FC = () => {
     if (selectedLabels.length) await setBlogLabels(selectedLabels);
     closeModal();
   };
+
+  useEffect(() => {
+    if (activeStep === 2) {
+      setFocus(login.name);
+    }
+  }, [activeStep]);
 
   const labelsContainer = useMemo(
     () => (
@@ -112,15 +122,15 @@ export const RegisterModal: FC = () => {
             <label htmlFor='name' className='d-block mb-1'>
               Blog nomi
             </label>
-            <Input id='name' {...register('name', { required: true })} />
-            <Error error={errors['name']} />
+            <Input id='name' {...register(name.name, name.options)} />
+            <Error error={errors[name.name]} />
           </div>
           <div className='form-element'>
             <label htmlFor='bio' className='d-block mb-1'>
               Bio
             </label>
-            <Textarea id='bio' {...register('bio', { required: true })} />
-            <Error error={errors['bio']} />
+            <Textarea id='bio' {...register(bio.name, bio.options)} />
+            <Error error={errors[bio.name]} />
           </div>
         </div>
         <div className={activeStep === 2 ? 'd-block' : 'd-none'}>
@@ -128,15 +138,15 @@ export const RegisterModal: FC = () => {
             <label htmlFor='login' className='d-block mb-1'>
               Loginni kiriting
             </label>
-            <Input id='login' {...register('login', { required: true })} />
-            <Error error={errors.login} />
+            <Input id='login' {...register(login.name, login.options)} />
+            <Error error={errors[login.name]} />
           </div>
           <div className='form-element'>
             <label htmlFor='password' className='d-block mb-1'>
               Parolni kiriting
             </label>
-            <Input id='password' type='password' {...register('password', { required: true })} />
-            <Error error={errors.password} />
+            <Input id='password' type='password' {...register(password.name, password.options)} />
+            <Error error={errors[password.name]} />
           </div>
           <div className='form-element'>
             <label htmlFor='check-password' className='d-block mb-1'>
@@ -147,7 +157,7 @@ export const RegisterModal: FC = () => {
               type='password'
               {...register('check-password', {
                 required: true,
-                validate: (value) => value === watch('password'),
+                validate: (value) => value === watch(password.name),
               })}
             />
             <Error error={errors['check-password']} />

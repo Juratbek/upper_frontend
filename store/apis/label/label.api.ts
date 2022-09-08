@@ -1,23 +1,13 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { ILabel } from 'types';
-import { TOKEN } from 'variables';
 
-import { BASE_URL } from '../config';
+import { baseQuery } from '../config';
 
 export const labelApi = createApi({
   reducerPath: 'label',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}/label`,
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem(TOKEN);
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
+  baseQuery: baseQuery('label'),
   endpoints: (build) => ({
-    get: build.query<ILabel[], any>({
+    get: build.query<ILabel[], string>({
       query: () => 'list',
     }),
   }),

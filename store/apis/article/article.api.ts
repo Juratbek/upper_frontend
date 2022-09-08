@@ -1,20 +1,38 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { TOKEN } from 'variables';
+import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { IArticle } from 'types';
 
-import { BASE_URL } from '../config';
-import { articleEndpoints } from './article.endpoints';
+import { baseQuery } from '../config';
 
 export const articleApi = createApi({
   reducerPath: 'article',
-  baseQuery: fetchBaseQuery({
-    baseUrl: `${BASE_URL}/article`,
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem(TOKEN);
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
+  baseQuery: baseQuery('article'),
+  endpoints: (build) => ({
+    save: build.mutation({
+      query: (body) => ({
+        url: 'create',
+        body,
+      }),
+    }),
+    publish: build.mutation({
+      query: () => '',
+    }),
+    unpublish: build.mutation({
+      query: () => '',
+    }),
+    republish: build.mutation({
+      query: () => '',
+    }),
+    delete: build.mutation({
+      query: () => '',
+    }),
+    restore: build.mutation({
+      query: () => '',
+    }),
+    fullDelete: build.mutation({
+      query: () => '',
+    }),
+    get: build.query<IArticle, number | undefined>({
+      query: (id?: number) => id?.toString() || '',
+    }),
   }),
-  endpoints: (build) => articleEndpoints(build),
 });

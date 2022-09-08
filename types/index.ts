@@ -5,3 +5,4 @@ export * from './label';
 export * from './notification';
 export * from './auth';
 export * from './response';
+export * from './form';

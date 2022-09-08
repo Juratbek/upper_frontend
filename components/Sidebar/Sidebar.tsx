@@ -98,9 +98,7 @@ const blogs: IBlogMedium[] = [
 export const Sidebar = (): JSX.Element => {
   const dispath = useAppDispatch();
   const { pathname } = useRouter();
-  const session = useSession();
-  console.log('🚀 ~ file: Sidebar.tsx ~ line 102 ~ Sidebar ~ session', session);
-  const { status } = session;
+  const { status } = useSession();
 
   const loginHandler = (): void => {
     dispath(openLoginModal());
@@ -157,7 +155,7 @@ export const Sidebar = (): JSX.Element => {
         ))}
       </>
     );
-  }, [pathname]);
+  }, [pathname, status]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };
