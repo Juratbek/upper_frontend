@@ -1,10 +1,9 @@
 import { Button, Error, Input, Label, Modal, Textarea } from 'components';
-import { signIn } from 'next-auth/react';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useGetLabelsQuery, useRegisterMutation, useSetLabelsMutation } from 'store/apis';
-import { setToken } from 'store/states';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
 import { IResponseError } from 'types';
 
@@ -15,6 +14,7 @@ export const RegisterModal: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<number[]>([]);
   const isOpen = useAppSelector(getIsRegisterModalOpen);
   const dispatch = useAppDispatch();
+  const { status: authStatus } = useSession();
   const {
     register,
     handleSubmit,
@@ -35,8 +35,8 @@ export const RegisterModal: FC = () => {
     setActiveStep((prev) => prev + 1);
   };
 
-  const submitHandler = async (e: Record<string, string>): Promise<void> => {
-    const { name, bio, login, password } = e;
+  const submitHandler = async (event: Record<string, string>): Promise<void> => {
+    const { name, bio, login, password } = event;
     try {
       const res = await createBlog({
         name,
@@ -49,6 +49,7 @@ export const RegisterModal: FC = () => {
         name: res.name,
         email: res.email,
         image: res.image,
+        redirect: false,
       });
       incrementStep();
     } catch (e) {
@@ -69,10 +70,6 @@ export const RegisterModal: FC = () => {
     }
   };
 
-  useEffect(() => {
-    setLabelsResponse.isLoading && closeModal();
-  }, [setLabelsResponse.isLoading]);
-
   const labelHandler = useCallback(
     (labelId: number): void => {
       if (selectedLabels.includes(labelId)) {
@@ -84,9 +81,9 @@ export const RegisterModal: FC = () => {
     [selectedLabels],
   );
 
-  const finishRegistering = (): void => {
-    if (selectedLabels.length) setBlogLabels(selectedLabels);
-    else closeModal();
+  const finishRegistering = async (): Promise<void> => {
+    if (selectedLabels.length) await setBlogLabels(selectedLabels);
+    closeModal();
   };
 
   const labelsContainer = useMemo(
@@ -174,22 +171,16 @@ export const RegisterModal: FC = () => {
             Yakunlash
           </Button>
         ) : (
-          <Button className='d-block w-100 mb-1' loading={createBlogResponse.isLoading}>
+          <Button
+            className='d-block w-100 mb-1'
+            loading={
+              createBlogResponse.isLoading ||
+              (createBlogResponse.isSuccess && authStatus !== 'authenticated')
+            }
+          >
             Davom etish
           </Button>
         )}
-        <Button
-          type='button'
-          onClick={(): void => {
-            signIn('credentials', {
-              username: 'username1',
-              password: 'password1',
-              token: 'token1',
-            });
-          }}
-        >
-          Test
-        </Button>
       </form>
     </Modal>
   );

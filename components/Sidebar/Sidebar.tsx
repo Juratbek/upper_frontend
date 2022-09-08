@@ -99,6 +99,7 @@ export const Sidebar = (): JSX.Element => {
   const dispath = useAppDispatch();
   const { pathname } = useRouter();
   const session = useSession();
+  console.log('🚀 ~ file: Sidebar.tsx ~ line 102 ~ Sidebar ~ session', session);
   const { status } = session;
 
   const loginHandler = (): void => {
