@@ -23,7 +23,7 @@ interface IArticleActionsProps {
   editor: EditorJS | null;
 }
 
-let lastScrollTop = 0;
+let lastScrollTop = Number.MAX_VALUE;
 
 export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);

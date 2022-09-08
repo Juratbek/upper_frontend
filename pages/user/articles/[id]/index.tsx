@@ -8,7 +8,7 @@ export default function ArticlePage(): JSX.Element {
   } = useRouter();
   return (
     <div className='container'>
-      <Editor readOnly={status === ARTICLE_STATUSES.DELETED} />
+      <Editor editable={status !== ARTICLE_STATUSES.DELETED} />
     </div>
   );
 }

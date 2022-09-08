@@ -23,7 +23,7 @@ export * from './Modal/Modal';
 export * from './Select/Select';
 export * from './SidebarSearch/SidebarSearch';
 export * from './ArticleStatus/ArticleStatus';
-export * from './Editor/Editor';
+export * from './Editor/editor';
 export * from './Textarea/Textarea';
 export * from './FileInput/FileInput';
 export * from './Dropdown/Dropdown';
