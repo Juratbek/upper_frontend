@@ -1,9 +1,10 @@
 import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
 import { Author } from 'frontends/article';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
-import { open } from 'store/loginModal/loginModalSlice';
+import { openLoginModal, openRegisterModal } from 'store/states';
 import { IArticleResult, IBlogMedium, IBlogSmall, ILabel } from 'types';
 import { replaceAll } from 'utils';
 import { ARTICLE_STATUSES } from 'variables/article';
@@ -97,9 +98,14 @@ const blogs: IBlogMedium[] = [
 export const Sidebar = (): JSX.Element => {
   const dispath = useAppDispatch();
   const { pathname } = useRouter();
+  const { status } = useSession();
 
   const loginHandler = (): void => {
-    dispath(open());
+    dispath(openLoginModal());
+  };
+
+  const registerHandler = (): void => {
+    dispath(openRegisterModal());
   };
 
   const content: JSX.Element = useMemo(() => {
@@ -119,12 +125,16 @@ export const Sidebar = (): JSX.Element => {
 
     return (
       <>
-        <div className='d-flex justify-content-around'>
-          <Button color='outline-dark' onClick={loginHandler}>
-            Kirish
-          </Button>
-          <Button className='float-right'>Ro`yxatdan o`tish</Button>
-        </div>
+        {status === 'unauthenticated' && (
+          <div className='d-flex justify-content-around'>
+            <Button color='outline-dark' onClick={loginHandler}>
+              Kirish
+            </Button>
+            <Button className='float-right' onClick={registerHandler}>
+              Ro`yxatdan o`tish
+            </Button>
+          </div>
+        )}
         {author && <Author className='mt-2' />}
         <Divider className='my-2' />
         <SidebarSearch />
@@ -145,7 +155,7 @@ export const Sidebar = (): JSX.Element => {
         ))}
       </>
     );
-  }, [pathname]);
+  }, [pathname, status]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };

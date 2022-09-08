@@ -1,7 +1,7 @@
 import 'Styles/index.scss';
 
 import { Navigation, Sidebar } from 'components';
-import { LoginModal } from 'components/LoginModal/LoginModal';
+import { LoginModal, RegisterModal } from 'components';
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import { wrapper } from 'store';
@@ -14,6 +14,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <div className='app'>
         <Navigation />
         <LoginModal />
+        <RegisterModal />
         <div className='main'>
           <Component {...pageProps} />
         </div>

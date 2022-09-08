@@ -3,10 +3,10 @@ import { signIn } from 'next-auth/react';
 import { getProviders } from 'next-auth/react';
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { close, getIsModalOpen } from 'store/loginModal';
+import { closeLoginModal, getIsModalOpen } from 'store/states';
 import { TAuthProviders } from 'types';
 import { telegramSignIn } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './LoginModal.module.scss';
 
@@ -16,15 +16,15 @@ export const LoginModal: FC = () => {
   const dispatch = useAppDispatch();
 
   const closeModal = (): void => {
-    dispatch(close());
+    dispatch(closeLoginModal());
   };
 
-  useEffect(() => {
-    getProviders().then(setProviders);
-  }, []);
+  // useEffect(() => {
+  //   getProviders().then(setProviders);
+  // }, []);
 
   return (
-    <Modal isOpen={isOpen} close={closeModal}>
+    <Modal size='small' isOpen={isOpen} close={closeModal}>
       <form>
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>
@@ -42,7 +42,7 @@ export const LoginModal: FC = () => {
         <Button className='d-block w-100' color='outline-dark'>
           Ro`yxatdan o`tish
         </Button>
-        <div className='d-flex justify-content-around mt-1'>
+        {/* <div className='d-flex justify-content-around mt-1'>
           {providers &&
             Object.values(providers).map((provider, index) => {
               const MediaIcon = ICONS[provider.id];
@@ -62,7 +62,7 @@ export const LoginModal: FC = () => {
                 </div>
               );
             })}
-        </div>
+        </div> */}
         <TelegramLoginButton
           className='mt-2 text-center'
           botName='udas_bot'

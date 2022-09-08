@@ -1,0 +1,30 @@
+$dark: black;
+$red: var(--red);
+
+.label {
+  border-radius: 100rem;
+  border: 1px solid black;
+  padding: 0.4em 0.8em;
+  font-size: 0.8rem;
+
+  &--dark {
+    background-color: $dark;
+    border-color: $dark;
+    color: white;
+  }
+  &--outline-dark {
+    background-color: white;
+    border-color: $dark;
+    color: $dark;
+  }
+  &--outline-red {
+    background-color: white;
+    border-color: $red;
+    color: $red;
+  }
+  &--red {
+    background-color: $red;
+    border-color: $red;
+    color: white;
+  }
+}

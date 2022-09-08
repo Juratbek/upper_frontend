@@ -1,10 +1,12 @@
+import { Spinner } from 'components';
 import { FC, useMemo } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Button.module.scss';
 import { IButtonProps } from './Button.types';
 
-export const Button: FC<IButtonProps> = ({ children, color = 'dark', ...props }) => {
+export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }) => {
+  const { color = 'dark' } = props;
   const className = useMemo(
     () =>
       getClassName(
@@ -16,8 +18,8 @@ export const Button: FC<IButtonProps> = ({ children, color = 'dark', ...props })
   );
 
   return (
-    <button {...props} className={className}>
-      {children}
+    <button {...props} className={className} disabled={props.disabled || loading}>
+      {loading ? <Spinner color={color} /> : children}
     </button>
   );
 };

@@ -21,5 +21,5 @@ const loginModalSlice = createSlice({
   },
 });
 
-export const { open, close } = loginModalSlice.actions;
+export const { open: openLoginModal, close: closeLoginModal } = loginModalSlice.actions;
 export default loginModalSlice.reducer;
