@@ -1,68 +1,82 @@
-import { Button, Input, Modal, TelegramLoginButton } from 'components';
-import { signIn } from 'next-auth/react';
-import { getProviders } from 'next-auth/react';
-import { FC, useEffect, useState } from 'react';
+import { Button, Error, Input, Modal, TelegramLoginButton } from 'components';
+import { useSession } from 'next-auth/react';
+import { FC } from 'react';
+import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
-import { closeLoginModal, getIsModalOpen } from 'store/states';
-import { TAuthProviders } from 'types';
-import { telegramSignIn } from 'utils';
-import { ICONS } from 'variables/icons';
+import { useLoginMutation } from 'store/apis';
+import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
+import { TSubmitFormEvent } from 'types';
+import { signIn, telegramSignIn } from 'utils';
 
-import classes from './LoginModal.module.scss';
+import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
+
+const { login, password } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
-  const [providers, setProviders] = useState<TAuthProviders | null>();
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
+  const [loginBlog, loginBlogResponse] = useLoginMutation();
+  const { status } = useSession();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const closeModal = (): void => {
     dispatch(closeLoginModal());
   };
 
-  // useEffect(() => {
-  //   getProviders().then(setProviders);
-  // }, []);
+  const registerUser = (): void => {
+    dispatch(openRegisterModal());
+    closeModal();
+  };
+
+  const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
+    const { login, password } = event;
+    try {
+      const res = await loginBlog({ username: login, password }).unwrap();
+      await signIn({
+        token: res.token,
+        name: res.name,
+        email: res.email,
+        image: res.image,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+    closeModal();
+  };
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
-      <form>
+      <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>
             Loginni kiriting
           </label>
-          <Input name='login' id='login' />
+          <Input id='login' {...register(login.name, login.options)} />
+          <Error error={errors[login.name]} />
         </div>
         <div className='form-element'>
           <label htmlFor='password' className='d-block mb-1'>
             Parolni kiriting
           </label>
-          <Input type='password' id='password' name='password' />
+          <Input type='password' id='password' {...register(password.name, password.options)} />
+          <Error error={errors[password.name]} />
         </div>
-        <Button className='d-block w-100 mb-1'>Kirish</Button>
-        <Button className='d-block w-100' color='outline-dark'>
+        <Button
+          className='d-block w-100 mb-1'
+          loading={
+            loginBlogResponse.isLoading ||
+            (loginBlogResponse.isSuccess && status !== 'authenticated')
+          }
+        >
+          Kirish
+        </Button>
+        <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
           Ro`yxatdan o`tish
         </Button>
-        {/* <div className='d-flex justify-content-around mt-1'>
-          {providers &&
-            Object.values(providers).map((provider, index) => {
-              const MediaIcon = ICONS[provider.id];
-              return (
-                <div key={index} className={classes['social-media']}>
-                  <Button
-                    type='button'
-                    color='light'
-                    onClick={(): void => {
-                      signIn(provider.id);
-                    }}
-                    className={classes['social-media-icon']}
-                  >
-                    <MediaIcon />
-                  </Button>
-                  <div>{provider.name}</div>
-                </div>
-              );
-            })}
-        </div> */}
         <TelegramLoginButton
           className='mt-2 text-center'
           botName='udas_bot'

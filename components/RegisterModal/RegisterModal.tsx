@@ -1,11 +1,12 @@
 import { Button, Error, Input, Label, Modal, Textarea } from 'components';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useGetLabelsQuery, useRegisterMutation, useSetLabelsMutation } from 'store/apis';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
-import { IResponseError } from 'types';
+import { IResponseError, TSubmitFormEvent } from 'types';
+import { signIn } from 'utils';
 
 import { REGISTER_FORM_FIELDS } from './RegisterModal.constants';
 import classes from './RegisterModal.module.scss';
@@ -39,7 +40,7 @@ export const RegisterModal: FC = () => {
     setActiveStep((prev) => prev + 1);
   };
 
-  const submitHandler = async (event: Record<string, string>): Promise<void> => {
+  const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     const { name, bio, login, password } = event;
     try {
       const res = await createBlog({
@@ -48,12 +49,11 @@ export const RegisterModal: FC = () => {
         username: login,
         password,
       }).unwrap();
-      await signIn('credentials', {
+      await signIn({
         token: res.token,
         name: res.name,
         email: res.email,
         image: res.image,
-        redirect: false,
       });
       incrementStep();
     } catch (e) {

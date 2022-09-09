@@ -1,15 +1,15 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQuery } from '../config';
-import { IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
+import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
 
 export const blogApi = createApi({
   reducerPath: 'blog',
   baseQuery: baseQuery('blog'),
   endpoints: (build) => ({
-    login: build.mutation({
+    login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
-        url: 'search/users',
+        url: 'login',
         method: 'POST',
         body,
       }),

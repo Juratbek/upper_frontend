@@ -11,3 +11,8 @@ export interface IBlogRegisterResponse {
   email: string;
   image: string;
 }
+
+export interface IBlogLoginDto {
+  username: string;
+  password: string;
+}

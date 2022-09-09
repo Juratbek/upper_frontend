@@ -1,4 +1,6 @@
+import { signIn as nextAuthSignIn, SignInResponse } from 'next-auth/react';
 import { IFacebookUser, IGitHubUser, IGoogleUser, ITelegramUser, TAuthProviderProp } from 'types';
+import { TOKEN } from 'variables';
 
 export const googleSignIn = (profile: TAuthProviderProp): boolean => {
   const {
@@ -34,4 +36,20 @@ export const telegramSignIn = (profile: ITelegramUser): boolean => {
   const { first_name, last_name, photo_url, username } = profile;
   console.log('🚀 ~ file: auth.ts ~ line 35 ~ telegramSignIn ~ username', username);
   return true;
+};
+
+export const signIn = async ({
+  token,
+  name,
+  email,
+  image,
+}: Record<string, string>): Promise<SignInResponse | undefined> => {
+  localStorage.setItem(TOKEN, token);
+  return await nextAuthSignIn('credentials', {
+    token,
+    name,
+    email,
+    image,
+    redirect: false,
+  });
 };
