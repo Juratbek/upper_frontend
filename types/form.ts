@@ -8,3 +8,5 @@ export interface IFormField {
 export type TFormFields<TName extends string> = {
   [name in TName]: IFormField;
 };
+
+export type TSubmitFormEvent = Record<string, string>;
