@@ -4,11 +4,13 @@ import { createWrapper } from 'next-redux-wrapper';
 import { articleApi, blogApi, labelApi } from './apis';
 import loginModalReducer from './states/loginModal';
 import registerModalReducer from './states/registerModal';
+import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
   reducer: {
     loginModal: loginModalReducer,
     registerModal: registerModalReducer,
+    writeArticle: writeArticleReducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,

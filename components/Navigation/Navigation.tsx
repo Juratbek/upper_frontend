@@ -12,16 +12,15 @@ export const Navigation = (): JSX.Element => {
   const { status: authStatus } = useSession();
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const isAuthenticated = authStatus === 'authenticated';
 
   const clickHandler = (href: string, authNeeded: boolean | undefined): void => {
-    if (authNeeded) dispatch(openLoginModal());
+    if (!isAuthenticated && authNeeded) dispatch(openLoginModal());
     else router.route !== href && router.push(href);
   };
 
   const icons = useMemo(() => {
-    return authStatus === 'authenticated'
-      ? NAVIGATION_ICONS
-      : NAVIGATION_ICONS.filter((icon) => !icon.private);
+    return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [authStatus]);
 
   return (

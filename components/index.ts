@@ -20,7 +20,7 @@ export * from './LikeNotification/LikeNotification';
 export * from './Input/Input';
 export * from './TelegramLoginButton/TelegramLoginButton';
 export * from './Modal/Modal';
-export * from './Select/Select';
+export * from './Select';
 export * from './SidebarSearch/SidebarSearch';
 export * from './ArticleStatus/ArticleStatus';
 export * from './Editor/editor';

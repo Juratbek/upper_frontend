@@ -2,7 +2,7 @@ import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Select.module.scss';
-import { IOption, ISelectProps } from './Select.types';
+import { IOption, TSelectProps } from './Select.types';
 
 function filterOptions(options: IOption[], option: IOption): IOption[] {
   return options.filter((item) => item.value !== option.value);
@@ -13,7 +13,7 @@ function getAvailableOptions(options: IOption[] | undefined, defaultValues: IOpt
   return options || [];
 }
 
-export const Select: FC<ISelectProps> = ({
+export const Select: FC<TSelectProps> = ({
   className,
   defaultValues = [],
   disabled = false,
@@ -96,6 +96,10 @@ export const Select: FC<ISelectProps> = ({
   useEffect(() => {
     window.addEventListener('click', (e) => clickListener(e));
   }, []);
+
+  useEffect(() => {
+    props.onChange?.(selectedOptions);
+  }, [selectedOptions]);
 
   return (
     <div className={classes.container} ref={ref}>

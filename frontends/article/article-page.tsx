@@ -1,5 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
 import { Editor } from 'components';
+import { useSession } from 'next-auth/react';
 import { FC, useState } from 'react';
 import { formatToKMB } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables/icons';
@@ -18,6 +19,16 @@ const ShareIcon = ICONS[ICON_TYPES.share];
 export const Article: FC<IArticleProps> = (props) => {
   const { content, nextArticleId, prevArticleId, viewCount, publishedDate, updatedDate } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
+  const { status: authStatus } = useSession();
+  const isAuthenticated = authStatus === 'authenticated';
+
+  const doLike = (): void => {
+    // isAuthenticated ?
+  };
+
+  const doDislike = (): void => {
+    //
+  };
 
   return (
     <div className={styles.articleContainer}>
@@ -31,9 +42,13 @@ export const Article: FC<IArticleProps> = (props) => {
           <div className={styles.reactions}>
             {viewCount && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
             <div className={styles.reactionButtons}>
-              <LikeIcon />
+              <span onClick={doLike}>
+                <LikeIcon />
+              </span>
               <span>+14 k</span>
-              <DislikeIcon />
+              <span onClick={doDislike}>
+                <DislikeIcon />
+              </span>
             </div>
           </div>
 
