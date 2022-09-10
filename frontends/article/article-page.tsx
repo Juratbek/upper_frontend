@@ -17,7 +17,7 @@ const SaveIcon = ICONS[ICON_TYPES.save];
 const ShareIcon = ICONS[ICON_TYPES.share];
 
 export const Article: FC<IArticleProps> = (props) => {
-  const { content, nextArticleId, prevArticleId, viewCount, publishedDate, updatedDate } = props;
+  const { nextArticleId, prevArticleId, viewCount, publishedDate, updatedDate, blocks } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const { status: authStatus } = useSession();
   const isAuthenticated = authStatus === 'authenticated';
@@ -32,7 +32,7 @@ export const Article: FC<IArticleProps> = (props) => {
 
   return (
     <div className={styles.articleContainer}>
-      <Editor content={content} editable={false} handleInstance={setEditorInstance} />
+      <Editor content={{ blocks }} editable={false} handleInstance={setEditorInstance} />
       <div className={styles.articleDetail}>
         <div className='mb-1'>
           <span>{publishedDate} da chop etilgan</span>

@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
 ) => {
   const articleId = context.query.id; // Do something with this
   const article: IArticle = {
-    content: articleData,
+    blocks: articleData.blocks,
     id: articleId ? +articleId : 1,
     viewCount: 3000,
     labels: [{ id: 1, name: 'JavaScript' }],
