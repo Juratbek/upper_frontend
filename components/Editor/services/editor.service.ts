@@ -4,7 +4,6 @@ import { EDITOR_HOLDER, EDITOR_PLACEHOLDER, IEditorProps } from '../editor.types
 import { getTools } from './editor-tools';
 
 export const createEditor = async ({
-  holder = EDITOR_HOLDER,
   changeHandler,
   editable = true,
   content = { blocks: [] },
@@ -14,7 +13,7 @@ export const createEditor = async ({
   const tools = await getTools();
 
   return new editorJS({
-    holder,
+    holder: EDITOR_HOLDER,
     onChange: changeHandler,
     readOnly: !editable,
     placeholder,
