@@ -1,4 +1,4 @@
-import { OutputData } from '@editorjs/editorjs';
+import { OutputBlockData } from '@editorjs/editorjs';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import { IBlogSmall } from './blog';
@@ -21,11 +21,11 @@ export interface IArticleResult {
 export interface IArticle {
   id: number;
   title: string;
-  content: OutputData;
+  blocks: OutputBlockData[];
   imgUrl?: string;
   author?: IBlogSmall;
   labels: ILabel[];
-  publishedDate: string;
+  publishedDate?: string;
   updatedDate?: string;
   viewCount?: number;
   likes?: number;

@@ -14,17 +14,21 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
     icon: ICON_TYPES.user,
     href: '/profile',
+    private: true,
   },
   {
     icon: ICON_TYPES.notification,
     href: '/notifications',
+    private: true,
   },
   {
     icon: ICON_TYPES.menuList,
     href: '/articles',
+    private: true,
   },
   {
     icon: ICON_TYPES.pen,
     href: '/write-article',
+    authNeeded: true,
   },
 ];

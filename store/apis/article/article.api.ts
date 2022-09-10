@@ -1,32 +1,26 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { IArticle } from 'types';
+import { IArticle, TArticleStatus } from 'types';
 
 import { baseQuery } from '../config';
+import { ICreateArticleDto } from './article.types';
 
 export const articleApi = createApi({
   reducerPath: 'article',
   baseQuery: baseQuery('article'),
   endpoints: (build) => ({
-    save: build.mutation({
+    save: build.mutation<IArticle, ICreateArticleDto>({
       query: (body) => ({
-        url: 'create',
+        url: 'save',
+        method: 'POST',
         body,
       }),
     }),
-    publish: build.mutation({
-      query: () => '',
-    }),
-    unpublish: build.mutation({
-      query: () => '',
-    }),
-    republish: build.mutation({
-      query: () => '',
-    }),
-    delete: build.mutation({
-      query: () => '',
-    }),
-    restore: build.mutation({
-      query: () => '',
+    updateStatus: build.mutation<number, { id: number; status: TArticleStatus }>({
+      query: ({ id, status }) => ({
+        url: `update-status/${id}`,
+        method: 'POST',
+        body: status,
+      }),
     }),
     fullDelete: build.mutation({
       query: () => '',
@@ -34,5 +28,13 @@ export const articleApi = createApi({
     get: build.query<IArticle, number | undefined>({
       query: (id?: number) => id?.toString() || '',
     }),
+    like: build.query<string, string>({
+      query: (id) => id,
+    }),
   }),
 });
+
+export const {
+  useSaveMutation: useSaveArticleMutation,
+  useUpdateStatusMutation: useUpdateArticleStatus,
+} = articleApi;
