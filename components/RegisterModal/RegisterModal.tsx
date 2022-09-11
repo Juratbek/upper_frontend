@@ -45,7 +45,7 @@ export const RegisterModal: FC = () => {
     try {
       const res = await createBlog({
         name,
-        description: bio,
+        bio,
         username: login,
         password,
       }).unwrap();
