@@ -20,6 +20,8 @@ export const LoginModal: FC = () => {
   const {
     register,
     handleSubmit,
+    setError,
+    setFocus,
     formState: { errors },
   } = useForm();
 
@@ -33,8 +35,8 @@ export const LoginModal: FC = () => {
   };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const { login, password } = event;
     try {
+      const { login, password } = event;
       const res = await loginBlog({ username: login, password }).unwrap();
       await signIn({
         token: res.token,
@@ -42,10 +44,12 @@ export const LoginModal: FC = () => {
         email: res.email,
         image: res.image,
       });
+      closeModal();
     } catch (e) {
       console.error(e);
+      setError(password.name, { message: 'Login yoki parol xato kiritilgan!' });
+      setFocus(login.name);
     }
-    closeModal();
   };
 
   return (

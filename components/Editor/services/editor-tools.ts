@@ -49,16 +49,14 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
           youtube: true,
           codepen: true,
           pinterest: {
-            regex: /https:\/\/www\.pinterest.com\/pin\/(.*)\//,
+            regex: /https:\/\/www\.pinterest.com\/pin\/(.*)\/(.*)/,
             embedUrl: 'https://assets.pinterest.com/ext/embed.html?id=<%= remote_id %>',
             html: '<iframe scrolling="yes" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%; min-height: 500px; max-height: 1000px;" class="embed-tool__content"></iframe>',
-            height: 500,
-            width: 600,
           },
           carbon: {
             regex: /https?:\/\/carbon.now.sh\/(.*)/,
             embedUrl: 'https://carbon.now.sh/embed<%= remote_id %>',
-            html: "<iframe height='350' scrolling='yes' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%'></iframe>",
+            html: "<iframe height='350' scrolling='auto' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%'></iframe>",
             height: 350,
             width: 600,
           },
