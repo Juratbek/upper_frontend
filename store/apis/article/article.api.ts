@@ -19,14 +19,17 @@ export const articleApi = createApi({
       query: ({ id, status }) => ({
         url: `update-status/${id}`,
         method: 'POST',
-        body: status,
+        body: { status },
       }),
     }),
     fullDelete: build.mutation({
       query: () => '',
     }),
-    get: build.query<IArticle, number | undefined>({
-      query: (id?: number) => id?.toString() || '',
+    getById: build.query<IArticle, number>({
+      query: (id: number) => id.toString(),
+    }),
+    getBlogArticleById: build.query<IArticle, number>({
+      query: (id: number) => `need-auth/${id}`,
     }),
     like: build.query<string, string>({
       query: (id) => id,
@@ -37,4 +40,6 @@ export const articleApi = createApi({
 export const {
   useSaveMutation: useSaveArticleMutation,
   useUpdateStatusMutation: useUpdateArticleStatus,
+  useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
+  useLazyGetBlogArticleByIdQuery,
 } = articleApi;

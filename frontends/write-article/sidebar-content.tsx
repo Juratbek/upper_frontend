@@ -1,4 +1,5 @@
 import { Button, Divider, IOption, Select } from 'components';
+import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useGetLabelsQuery, useSaveArticleMutation, useUpdateArticleStatus } from 'store/apis';
@@ -12,6 +13,7 @@ export const SidebarContent: FC = () => {
   const [saveArticle] = useSaveArticleMutation();
   const [updateArticleStatus] = useUpdateArticleStatus();
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const editor = useAppSelector(getEditor);
   const article = useAppSelector(getArticle);
 
@@ -24,6 +26,7 @@ export const SidebarContent: FC = () => {
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
     const newArticle = await saveArticle({ id: article?.id, title, blocks, labels }).unwrap();
     dispatch(setArticle(newArticle));
+    router.push(`/write-article/${newArticle.id}`);
   };
 
   const publish = async (): Promise<void> => {

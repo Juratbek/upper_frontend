@@ -4,12 +4,14 @@ import { SidebarContent } from 'frontends/write-article';
 
 const CONTENT_URLS = {
   writeArticle: '/write-article',
+  writeArticleById: '/write-article/[id]',
   userArticles: '/user/articles/[id]',
   docs: '/docs*',
 };
 
 export const SIDEBAR_CONTENTS = {
   [CONTENT_URLS.writeArticle]: SidebarContent,
+  [CONTENT_URLS.writeArticleById]: SidebarContent,
   [CONTENT_URLS.userArticles]: UserArticlesSidebar,
   [CONTENT_URLS.docs]: DocsSidebar,
 };
