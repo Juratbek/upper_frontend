@@ -36,5 +36,5 @@ export interface IArticle {
 export type TArticleStatus =
   | typeof ARTICLE_STATUSES.PUBLISHED
   | typeof ARTICLE_STATUSES.UNPUBLISHED
-  | typeof ARTICLE_STATUSES.DRAFT
+  | typeof ARTICLE_STATUSES.SAVED
   | typeof ARTICLE_STATUSES.DELETED;

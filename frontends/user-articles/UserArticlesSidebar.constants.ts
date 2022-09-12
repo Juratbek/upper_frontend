@@ -28,7 +28,7 @@ export const ARTICLE_SIDEBAR_MODAL_CONTENTS: IArticleSidebarModalContents = {
       },
     },
   },
-  [ARTICLE_STATUSES.DRAFT]: {
+  [ARTICLE_STATUSES.SAVED]: {
     [ARTICLE_ACTIONS.delete]: {
       text: 'o`chirmoqchimisiz',
       btn: {
@@ -81,7 +81,7 @@ export const ARTICLE_SIDEBAR_CONTENTS: IArticleSidebarContents = {
     action: ARTICLE_ACTIONS.unpublish,
     color: 'outline-dark',
   },
-  [ARTICLE_STATUSES.DRAFT]: {
+  [ARTICLE_STATUSES.SAVED]: {
     text: 'Nashr qilish',
     action: ARTICLE_ACTIONS.publish,
   },

@@ -10,7 +10,7 @@ import { ARTICLE_STATUSES } from 'variables';
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
   const { data: labels = [], isSuccess } = useGetLabelsQuery('');
-  const [saveArticle] = useSaveArticleMutation();
+  const [saveArticle, saveArticleStatus] = useSaveArticleMutation();
   const [updateArticleStatus] = useUpdateArticleStatus();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -46,7 +46,7 @@ export const SidebarContent: FC = () => {
           Chop Etish
         </Button>
       )}
-      <Button onClick={save} className='w-100'>
+      <Button onClick={save} className='w-100' loading={saveArticleStatus.isLoading}>
         Saqlash
       </Button>
 
