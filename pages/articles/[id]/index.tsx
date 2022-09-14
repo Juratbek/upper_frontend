@@ -1,36 +1,47 @@
-import { articleData } from 'components/Editor/services/sample-article';
 import { Article } from 'frontends/article';
-import { NextPage } from 'next';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import { IArticle } from 'types';
-import { toDateString } from 'utils';
+import { GetServerSideProps, NextPage } from 'next';
+import { useEffect } from 'react';
+import { useAppDispatch, wrapper } from 'store';
+import { articleApi, useIncrementViewCountMutation } from 'store/apis';
+import { setArticleAuthor } from 'store/states/readArticle';
+import { IArticle, TRtkError } from 'types';
+import { get } from 'utils';
 
 interface IArticlePageProps {
-  article: IArticle;
+  article?: IArticle | null;
+  error?: TRtkError | null;
 }
 
-const ArticlePage: NextPage<IArticlePageProps> = ({ article }: IArticlePageProps) => {
+const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePageProps) => {
+  const dispatch = useAppDispatch();
+  const [incrementViewCountRequest] = useIncrementViewCountMutation();
+  if (!article) return <h1>{get(error, 'data.message')}</h1>;
+
+  dispatch(setArticleAuthor(article.author));
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      incrementViewCountRequest(article.id);
+    }, 5000);
+    return () => clearTimeout(timeout);
+  }, []);
+
   return <Article {...article} />;
 };
 
-export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
-  context: GetServerSidePropsContext,
-) => {
-  const articleId = context.query.id; // Do something with this
-  const article: IArticle = {
-    blocks: articleData.blocks,
-    id: articleId ? +articleId : 1,
-    viewCount: 3000,
-    labels: [{ id: 1, name: 'JavaScript' }],
-    publishedDate: toDateString(new Date()),
-    updatedDate: toDateString(new Date()),
-    title: 'Article Title',
-  };
-  return {
-    props: {
-      article,
-    },
-  };
-};
+export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    const articleId = get<number>(context, 'query.id');
+    const { data: article, error } = await store.dispatch(
+      articleApi.endpoints.getById.initiate(articleId),
+    );
+    return {
+      props: {
+        article: article || null,
+        error: error || null,
+      },
+    };
+  },
+);
 
 export default ArticlePage;

@@ -23,14 +23,15 @@ export interface IArticle {
   title: string;
   blocks: OutputBlockData[];
   imgUrl?: string;
-  author?: IBlogSmall;
+  author: IBlogSmall;
   labels: ILabel[];
   publishedDate?: string;
   updatedDate?: string;
   viewCount?: number;
-  likes?: number;
+  likeCount?: number;
   prevArticleId?: number;
   nextArticleId?: number;
+  status: TArticleStatus;
 }
 
 export type TArticleStatus =

@@ -3,8 +3,9 @@ import { Author } from 'frontends/article';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
-import { useAppDispatch } from 'store';
+import { useAppDispatch, useAppSelector } from 'store';
 import { openLoginModal, openRegisterModal } from 'store/states';
+import { getArticleAuthor } from 'store/states/readArticle';
 import { IArticleResult, IBlogMedium, IBlogSmall, ILabel } from 'types';
 import { replaceAll } from 'utils';
 import { ARTICLE_STATUSES } from 'variables/article';
@@ -99,6 +100,7 @@ export const Sidebar = (): JSX.Element => {
   const dispath = useAppDispatch();
   const { pathname } = useRouter();
   const { status } = useSession();
+  const articleAuthor = useAppSelector(getArticleAuthor);
 
   const loginHandler = (): void => {
     dispath(openLoginModal());
@@ -135,7 +137,7 @@ export const Sidebar = (): JSX.Element => {
             </Button>
           </div>
         )}
-        {author && <Author className='mt-2' />}
+        {articleAuthor && <Author {...articleAuthor} className='mt-2' />}
         <Divider className='my-2' />
         <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>
@@ -155,7 +157,7 @@ export const Sidebar = (): JSX.Element => {
         ))}
       </>
     );
-  }, [pathname, status]);
+  }, [pathname, status, articleAuthor]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };

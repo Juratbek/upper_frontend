@@ -43,18 +43,18 @@ export const articleData = {
         text: 'WHAT HAS CHANGED 🤔? YOU MAY ASK ME.',
       },
     },
-    {
-      id: 'j1w-ZiDsOj',
-      type: 'embed',
-      data: {
-        service: 'youtube',
-        source: 'https://youtu.be/q5D55G7Ejs8',
-        embed: 'https://www.youtube.com/embed/q5D55G7Ejs8',
-        width: 580,
-        height: 320,
-        caption: '',
-      },
-    },
+    // {
+    //   id: 'j1w-ZiDsOj',
+    //   type: 'embed',
+    //   data: {
+    //     service: 'youtube',
+    //     source: 'https://youtu.be/q5D55G7Ejs8',
+    //     embed: 'https://www.youtube.com/embed/q5D55G7Ejs8',
+    //     width: 580,
+    //     height: 320,
+    //     caption: '',
+    //   },
+    // },
   ],
   version: '2.24.3',
 };

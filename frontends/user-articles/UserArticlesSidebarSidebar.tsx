@@ -1,7 +1,9 @@
 import { ArticleStatus, Button, Divider, Modal, Select } from 'components';
-import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import { TArticleStatus } from 'types';
+import { useAppSelector } from 'store';
+import { useGetLabelsQuery } from 'store/apis';
+import { getArticle } from 'store/states';
+import { convertToOptions } from 'utils';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import {
@@ -9,33 +11,15 @@ import {
   ARTICLE_SIDEBAR_CONTENTS,
   ARTICLE_SIDEBAR_MODAL_CONTENTS,
 } from './UserArticlesSidebar.constants';
+import { ARTICLE_SIDEBAR_BUTTONS } from './UserArticlesSidebar.constants';
 import { TArticleAction } from './UserArticlesSidebar.types';
-
-const options = [
-  {
-    label: 'JavaScript',
-    value: 1,
-  },
-  {
-    label: 'TypeScript',
-    value: 2,
-  },
-  {
-    label: 'HTML',
-    value: 3,
-  },
-  {
-    label: 'CSS',
-    value: 4,
-  },
-];
 
 export const UserArticlesSidebar: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [action, setAction] = useState<TArticleAction>('');
-  const {
-    query: { status, id },
-  } = useRouter();
+  const article = useAppSelector(getArticle);
+  const { data: labels } = useGetLabelsQuery();
+  const status = article?.status;
 
   const BTN = ARTICLE_SIDEBAR_CONTENTS[status as string];
   const MODAL = ARTICLE_SIDEBAR_MODAL_CONTENTS[status as string]?.[action];
@@ -71,7 +55,7 @@ export const UserArticlesSidebar: FC = () => {
       )}
       {status && (
         <>
-          <ArticleStatus className='mb-1' status={status as TArticleStatus} />
+          <ArticleStatus className='mb-1' status={status} />
           <div className='d-flex'>
             <Button
               color='outline-red'
@@ -94,6 +78,30 @@ export const UserArticlesSidebar: FC = () => {
               {BTN.text}
             </Button>
           </div>
+          <div className='d-flex flex-wrap m--1'>
+            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.delete].includes(status) && (
+              <Button color='outline-red' className='flex-auto m-1'>
+                O`chirish
+              </Button>
+            )}
+            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.fullDelete].includes(status) && (
+              <Button color='outline-red' className='flex-auto m-1'>
+                To`liq o`chirish
+              </Button>
+            )}
+            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.publish].includes(status) && (
+              <Button className='flex-auto m-1'>Nashr qilish</Button>
+            )}
+            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.republish].includes(status) && (
+              <Button className='flex-auto m-1'>Qayta nashr qilish</Button>
+            )}
+            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.restore].includes(status) && (
+              <Button className='flex-auto m-1'>Tiklash</Button>
+            )}
+            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.unpublish].includes(status) && (
+              <Button className='flex-auto m-1'>Nashrni bekor qilish</Button>
+            )}
+          </div>
         </>
       )}
       <Divider className='my-2' />
@@ -101,11 +109,13 @@ export const UserArticlesSidebar: FC = () => {
       <label htmlFor='labels' className='mb-1 d-block'>
         Teglar
       </label>
-      <Select
-        disabled={[ARTICLE_STATUSES.DELETED].includes(status as string)}
-        defaultValues={options.slice(0, 2)}
-        options={options}
-      />
+      {article && labels && (
+        <Select
+          disabled={[ARTICLE_STATUSES.DELETED].includes(status as string)}
+          defaultValues={convertToOptions(article?.labels, 'id', 'name')}
+          options={convertToOptions(labels, 'id', 'name')}
+        />
+      )}
     </>
   );
 };

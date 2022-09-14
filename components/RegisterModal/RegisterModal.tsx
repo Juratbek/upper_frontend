@@ -28,7 +28,7 @@ export const RegisterModal: FC = () => {
     setFocus,
     formState: { errors },
   } = useForm();
-  const { data: labels = [] } = useGetLabelsQuery('');
+  const { data: labels = [] } = useGetLabelsQuery();
   const [createBlog, createBlogResponse] = useRegisterMutation();
   const [setBlogLabels, setLabelsResponse] = useSetLabelsMutation();
 

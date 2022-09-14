@@ -31,8 +31,17 @@ export const articleApi = createApi({
     getBlogArticleById: build.query<IArticle, number>({
       query: (id: number) => `need-auth/${id}`,
     }),
-    like: build.query<string, string>({
-      query: (id) => id,
+    likeDislike: build.mutation<void, { id: number; value: -1 | 1 }>({
+      query: ({ id, value }) => ({
+        url: `like-dislike/${id}?value=${value}`,
+        method: 'POST',
+      }),
+    }),
+    incrementViewCount: build.mutation<void, number>({
+      query: (id) => ({
+        url: `increment-view-count/${id}`,
+        method: 'POST',
+      }),
     }),
   }),
 });
@@ -41,5 +50,7 @@ export const {
   useSaveMutation: useSaveArticleMutation,
   useUpdateStatusMutation: useUpdateArticleStatus,
   useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
+  useLikeDislikeMutation,
   useLazyGetBlogArticleByIdQuery,
+  useIncrementViewCountMutation,
 } = articleApi;

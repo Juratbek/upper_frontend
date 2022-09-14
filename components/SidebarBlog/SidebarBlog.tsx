@@ -16,9 +16,9 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
         <div className='d-flex align-items-center pointer'>
           <Avatar imgUrl='' size='medium' className={classes.avatar} />
           <div>
-            <h4 className='m-0'>{name}</h4>
+            <h3 className='m-0'>{name}</h3>
             <p className={`m-0 ${classes['details']}`}>
-              {followersCount && <span>{followersCount} kuzatuvchilar</span>}&nbsp;&nbsp;
+              {followersCount && <span>{followersCount} kuzatuvchilar&nbsp;&nbsp;</span>}
               {articlesCount && <span>{articlesCount} maqolalar</span>}
             </p>
           </div>

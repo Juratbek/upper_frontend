@@ -48,6 +48,10 @@
   margin: $size2
 }
 
+.m--1 {
+  margin: -$size1;
+}
+
 .mt-0 {
   margin-top: 0;
 }
@@ -207,4 +211,8 @@
 // flex
 .flex-1 {
   flex: 1;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }

@@ -8,7 +8,7 @@ import { ILabel } from 'types';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
-  const { data: labels = [], isSuccess } = useGetLabelsQuery('');
+  const { data: labels = [], isSuccess } = useGetLabelsQuery();
   const [saveArticle, saveArticleStatus] = useSaveArticleMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
