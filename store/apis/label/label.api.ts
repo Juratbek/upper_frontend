@@ -7,7 +7,7 @@ export const labelApi = createApi({
   reducerPath: 'label',
   baseQuery: baseQuery('label'),
   endpoints: (build) => ({
-    get: build.query<ILabel[], string>({
+    get: build.query<ILabel[], void>({
       query: () => 'list',
     }),
   }),

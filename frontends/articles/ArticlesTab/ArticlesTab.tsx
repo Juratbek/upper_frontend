@@ -59,7 +59,7 @@ export const ARTICLES: IArticleResult[] = [
     publishedDate: new Date(),
     updatedDate: new Date(),
     viewCount: 12000,
-    status: ARTICLE_STATUSES.DRAFT,
+    status: ARTICLE_STATUSES.SAVED,
   },
   {
     id: 4,

@@ -28,7 +28,7 @@ export const ARTICLE_SIDEBAR_MODAL_CONTENTS: IArticleSidebarModalContents = {
       },
     },
   },
-  [ARTICLE_STATUSES.DRAFT]: {
+  [ARTICLE_STATUSES.SAVED]: {
     [ARTICLE_ACTIONS.delete]: {
       text: 'o`chirmoqchimisiz',
       btn: {
@@ -81,7 +81,7 @@ export const ARTICLE_SIDEBAR_CONTENTS: IArticleSidebarContents = {
     action: ARTICLE_ACTIONS.unpublish,
     color: 'outline-dark',
   },
-  [ARTICLE_STATUSES.DRAFT]: {
+  [ARTICLE_STATUSES.SAVED]: {
     text: 'Nashr qilish',
     action: ARTICLE_ACTIONS.publish,
   },
@@ -93,4 +93,21 @@ export const ARTICLE_SIDEBAR_CONTENTS: IArticleSidebarContents = {
     text: 'Qayta nashr qilish',
     action: ARTICLE_ACTIONS.republish,
   },
+};
+
+export const ARTICLE_SIDEBAR_BUTTONS = {
+  [ARTICLE_ACTIONS.delete]: [
+    ARTICLE_STATUSES.PUBLISHED,
+    ARTICLE_STATUSES.SAVED,
+    ARTICLE_STATUSES.UNPUBLISHED,
+  ],
+  [ARTICLE_ACTIONS.fullDelete]: [ARTICLE_STATUSES.DELETED],
+  [ARTICLE_ACTIONS.publish]: [
+    ARTICLE_STATUSES.SAVED,
+    ARTICLE_STATUSES.PUBLISHED,
+    ARTICLE_STATUSES.UNPUBLISHED,
+  ],
+  [ARTICLE_ACTIONS.republish]: [ARTICLE_STATUSES.UNPUBLISHED],
+  [ARTICLE_ACTIONS.restore]: [ARTICLE_STATUSES.DELETED],
+  [ARTICLE_ACTIONS.unpublish]: [ARTICLE_STATUSES.PUBLISHED],
 };

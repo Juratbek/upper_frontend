@@ -28,7 +28,7 @@ export const RegisterModal: FC = () => {
     setFocus,
     formState: { errors },
   } = useForm();
-  const { data: labels = [] } = useGetLabelsQuery('');
+  const { data: labels = [] } = useGetLabelsQuery();
   const [createBlog, createBlogResponse] = useRegisterMutation();
   const [setBlogLabels, setLabelsResponse] = useSetLabelsMutation();
 
@@ -45,7 +45,7 @@ export const RegisterModal: FC = () => {
     try {
       const res = await createBlog({
         name,
-        description: bio,
+        bio,
         username: login,
         password,
       }).unwrap();

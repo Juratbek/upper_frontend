@@ -8,9 +8,13 @@ export const baseQuery = (uri?: string): TBaseQuery =>
   fetchBaseQuery({
     baseUrl: `${BASE_URL}${uri && `/${uri}`}`,
     prepareHeaders: (headers) => {
-      const token = localStorage.getItem(TOKEN);
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
+      try {
+        const token = localStorage.getItem(TOKEN);
+        if (token) {
+          headers.set('Authorization', `Bearer ${token}`);
+        }
+      } catch (e) {
+        console.error(e);
       }
       return headers;
     },

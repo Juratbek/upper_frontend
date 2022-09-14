@@ -18,7 +18,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
     },
   },
   bio: {
-    name: 'name',
+    name: 'bio',
     options: {
       minLength: {
         value: 2,

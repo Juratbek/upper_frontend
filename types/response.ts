@@ -1,3 +1,6 @@
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+
 export interface IResponseError {
   status: number;
   data: {
@@ -6,3 +9,5 @@ export interface IResponseError {
     httpStatus: string;
   };
 }
+
+export type TRtkError = FetchBaseQueryError | SerializedError | undefined;

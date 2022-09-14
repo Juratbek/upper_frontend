@@ -2,6 +2,8 @@ import { signIn as nextAuthSignIn, SignInResponse } from 'next-auth/react';
 import { IFacebookUser, IGitHubUser, IGoogleUser, ITelegramUser, TAuthProviderProp } from 'types';
 import { TOKEN } from 'variables';
 
+import { isClientSide } from './common';
+
 export const googleSignIn = (profile: TAuthProviderProp): boolean => {
   const {
     email,
@@ -44,7 +46,7 @@ export const signIn = async ({
   email,
   image,
 }: Record<string, string>): Promise<SignInResponse | undefined> => {
-  localStorage.setItem(TOKEN, token);
+  isClientSide() && localStorage.setItem(TOKEN, token);
   return await nextAuthSignIn('credentials', {
     token,
     name,

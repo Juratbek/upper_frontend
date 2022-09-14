@@ -19,17 +19,29 @@ export const articleApi = createApi({
       query: ({ id, status }) => ({
         url: `update-status/${id}`,
         method: 'POST',
-        body: status,
+        body: { status },
       }),
     }),
     fullDelete: build.mutation({
       query: () => '',
     }),
-    get: build.query<IArticle, number | undefined>({
-      query: (id?: number) => id?.toString() || '',
+    getById: build.query<IArticle, number>({
+      query: (id: number) => id.toString(),
     }),
-    like: build.query<string, string>({
-      query: (id) => id,
+    getBlogArticleById: build.query<IArticle, number>({
+      query: (id: number) => `need-auth/${id}`,
+    }),
+    likeDislike: build.mutation<void, { id: number; value: -1 | 1 }>({
+      query: ({ id, value }) => ({
+        url: `like-dislike/${id}?value=${value}`,
+        method: 'POST',
+      }),
+    }),
+    incrementViewCount: build.mutation<void, number>({
+      query: (id) => ({
+        url: `increment-view-count/${id}`,
+        method: 'POST',
+      }),
     }),
   }),
 });
@@ -37,4 +49,8 @@ export const articleApi = createApi({
 export const {
   useSaveMutation: useSaveArticleMutation,
   useUpdateStatusMutation: useUpdateArticleStatus,
+  useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
+  useLikeDislikeMutation,
+  useLazyGetBlogArticleByIdQuery,
+  useIncrementViewCountMutation,
 } = articleApi;

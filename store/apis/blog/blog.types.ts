@@ -1,6 +1,6 @@
 export interface IBlogRegisterDto {
   name: string;
-  description: string;
+  bio: string;
   username: string;
   password: string;
 }
