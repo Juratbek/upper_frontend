@@ -14,24 +14,11 @@ import { ArticleActions } from './components';
 
 const LikeIcon = ICONS[ICON_TYPES.like];
 const DislikeIcon = ICONS[ICON_TYPES.dislike];
-const NextIcon = ICONS[ICON_TYPES.next];
-const PrevIcon = ICONS[ICON_TYPES.prev];
-const SaveIcon = ICONS[ICON_TYPES.save];
-const ShareIcon = ICONS[ICON_TYPES.share];
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
 export const Article: FC<IArticleProps> = (props) => {
-  const {
-    nextArticleId,
-    prevArticleId,
-    viewCount,
-    publishedDate,
-    updatedDate,
-    blocks,
-    id,
-    likeCount,
-  } = props;
+  const { viewCount, publishedDate, updatedDate, blocks, id, likeCount } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const { status: authStatus } = useSession();
   const dispatch = useAppDispatch();
@@ -71,7 +58,7 @@ export const Article: FC<IArticleProps> = (props) => {
             </div>
           </div>
 
-          <div className={styles.navigation}>
+          {/* <div className={styles.navigation}>
             {prevArticleId && (
               <>
                 <div className={styles.navIcon}>
@@ -80,10 +67,10 @@ export const Article: FC<IArticleProps> = (props) => {
                 <span>Oldingi</span>
               </>
             )}
-            {/* <ShareIcon />
+            <ShareIcon />
             <span>Bo&apos;lishish</span>
             <SaveIcon />
-            <span>Saqlash</span> */}
+            <span>Saqlash</span>
             {nextArticleId && (
               <>
                 <span>Keyingi</span>
@@ -92,7 +79,7 @@ export const Article: FC<IArticleProps> = (props) => {
                 </div>
               </>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       <ArticleActions editor={editorInstance} />
