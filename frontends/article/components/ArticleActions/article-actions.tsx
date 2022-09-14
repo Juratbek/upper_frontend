@@ -1,7 +1,9 @@
 import EditorJS from '@editorjs/editorjs';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useEffect, useState } from 'react';
+import { useLikeDislikeMutation } from 'store/apis';
 import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
@@ -28,6 +30,10 @@ let lastScrollTop = Number.MAX_VALUE;
 export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const [isSharePopupOpen, setSsSharePopupOpen] = useState(false);
+  const [likeDislikeArticle] = useLikeDislikeMutation();
+  const {
+    query: { id },
+  } = useRouter();
 
   const detectScrollDirection = (): void => {
     const st = document.documentElement.scrollTop;
@@ -37,6 +43,10 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
       setIsScrollingUp(true);
     }
     lastScrollTop = st <= 0 ? 0 : st;
+  };
+
+  const likeDislike = (value: -1 | 1): void => {
+    typeof id === 'string' && likeDislikeArticle({ id: +id, value });
   };
 
   useEffect(() => {
@@ -55,11 +65,11 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
           <div className={styles.icon}>
             <CommentIcon />
           </div>
-          <div className={styles.icon}>
+          <div className={styles.icon} onClick={(): void => likeDislike(1)}>
             <LikeIcon />
           </div>
           <span className={styles.reactionsText}>+14k</span>
-          <div className={styles.icon}>
+          <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
             <DislikeIcon />
           </div>
           <div
