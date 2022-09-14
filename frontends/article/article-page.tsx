@@ -1,5 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { Editor } from 'components';
+import { Divider, Editor } from 'components';
 import { useSession } from 'next-auth/react';
 import { FC, useState } from 'react';
 import { useAppDispatch } from 'store';
@@ -49,12 +49,13 @@ export const Article: FC<IArticleProps> = (props) => {
   return (
     <div className={styles.articleContainer}>
       <Editor content={{ blocks }} editable={false} handleInstance={setEditorInstance} />
+      <Divider className='my-2' />
       <div className={styles.articleDetail}>
         <div className='mb-1'>
-          {publishedDate && <span>{toUzbDateString(publishedDate)} da chop etilgan</span>}
-          {updatedDate && (
-            <span className='ms-2'>{toUzbDateString(updatedDate)} da yangilangan</span>
+          {publishedDate && (
+            <span className='me-2'>{toUzbDateString(publishedDate)} da chop etilgan</span>
           )}
+          {updatedDate && <span>{toUzbDateString(updatedDate)} da yangilangan</span>}
         </div>
         <div className='d-flex justify-content-between'>
           <div className={styles.reactions}>
@@ -63,7 +64,7 @@ export const Article: FC<IArticleProps> = (props) => {
               <span className='pointer' onClick={(): void => react(1)}>
                 <LikeIcon />
               </span>
-              <span>{likeCount}</span>
+              <span className='mx-2'>{likeCount}+14 K</span>
               <span className='pointer' onClick={(): void => react(-1)}>
                 <DislikeIcon />
               </span>
@@ -79,10 +80,10 @@ export const Article: FC<IArticleProps> = (props) => {
                 <span>Oldingi</span>
               </>
             )}
-            <ShareIcon />
+            {/* <ShareIcon />
             <span>Bo&apos;lishish</span>
             <SaveIcon />
-            <span>Saqlash</span>
+            <span>Saqlash</span> */}
             {nextArticleId && (
               <>
                 <span>Keyingi</span>
