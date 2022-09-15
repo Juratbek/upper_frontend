@@ -6,3 +6,5 @@ export const ACTION_TYPES = {
 };
 
 export const TAB_PARAM_NAME = 'tab';
+
+export const TELEGRAM_BOT = { name: 'UDAS', link: 'https://t.me/udas_bot' };
