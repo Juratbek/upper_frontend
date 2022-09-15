@@ -1,6 +1,5 @@
 import { Editor } from 'components';
-
-import { QS_DATA } from './QuickStartData';
+import { QS_DATA } from 'frontends/docs';
 
 export default function QuickStartPage(): JSX.Element {
   return (
