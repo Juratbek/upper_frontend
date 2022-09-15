@@ -15,12 +15,12 @@ export const Article: FC<IArticleProps> = ({
   author,
   redirectUrl,
 }) => {
-  const { title, content, updatedDate, publishedDate, viewCount, labels = [], status } = article;
+  const { title, content, updatedDate, publishedDate, viewCount, labels = [], id } = article;
   const rootClassName = getClassName(classes.article, className);
 
   return (
     <div className={rootClassName}>
-      <Link href={`${redirectUrl || '/articles'}/${1}?status=${status}`}>
+      <Link href={`${redirectUrl || '/articles'}/${id}`}>
         <div className={classes.body}>
           <div className={classes['text-content']}>
             <h2 className={classes.title}>{title}</h2>

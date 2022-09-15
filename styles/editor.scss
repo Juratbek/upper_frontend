@@ -7,3 +7,11 @@
 .codeflask__lines, .codeflask.codeflask--has-line-numbers:before {
     z-index: unset!important;
 }
+
+.editor-container, .ce-toolbar__content {
+    max-width: 850px;
+}
+
+.editor-container {
+  margin: 0 auto;
+}
