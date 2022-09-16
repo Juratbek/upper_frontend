@@ -31,3 +31,5 @@ export * from './LoginModal/LoginModal';
 export * from './RegisterModal/RegisterModal';
 export * from './Error/Error';
 export * from './Spinner/Spinner';
+export * from './Alert/Alert';
+export * from './ApiError/ApiError';

@@ -1,5 +1,5 @@
 import { DocsSidebar } from 'frontends/docs';
-import { UserArticlesSidebar } from 'frontends/user-articles/UserArticlesSidebarSidebar';
+import { UserArticlesSidebar } from 'frontends/user-articles/UserArticlesSidebar';
 import { SidebarContent } from 'frontends/write-article';
 
 const CONTENT_URLS = {

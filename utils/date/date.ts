@@ -2,6 +2,9 @@ import { MONTHS } from './date.constants';
 import { IDateUtilConfig } from './date.types';
 
 export const toDateString = (date: Date | string, config?: IDateUtilConfig): string => {
+  if (!date) {
+    return '';
+  }
   const d = typeof date === 'object' ? date : new Date(date);
   let localeDate = d.toLocaleDateString('ru');
   const monthConfig = config?.month;

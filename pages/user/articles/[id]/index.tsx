@@ -39,12 +39,14 @@ export default function UserArticlePage(): JSX.Element {
   if (!id || !article || blocks.length === 0) return <h1>Loading...</h1>;
 
   return (
-    <Editor
-      editable={true}
-      content={{
-        blocks: blocks,
-      }}
-      handleInstance={getInstance}
-    />
+    <div className='editor-container'>
+      <Editor
+        editable={true}
+        content={{
+          blocks: blocks,
+        }}
+        handleInstance={getInstance}
+      />
+    </div>
   );
 }

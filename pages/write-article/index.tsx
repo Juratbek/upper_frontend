@@ -15,12 +15,14 @@ export default function WriteArticlePage(): JSX.Element {
   };
 
   return (
-    <Editor
-      editable={true}
-      content={{
-        blocks: [],
-      }}
-      handleInstance={getInstance}
-    />
+    <div className='editor-container'>
+      <Editor
+        editable={true}
+        content={{
+          blocks: [],
+        }}
+        handleInstance={getInstance}
+      />
+    </div>
   );
 }

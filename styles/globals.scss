@@ -5,6 +5,7 @@
   --red: hsl(0, 76%, 47%);
   --smallBorderRadius: .3rem;
   --mediumBorderRadius: .6rem;
+  --yellow: rgba(255, 229, 60);
 }
 
 * {
@@ -33,6 +34,14 @@
 
 .pointer {
   cursor: pointer;
+}
+
+.link {
+  color: blue;
+}
+
+.overflow-wrap {
+  overflow-wrap: anywhere;
 }
 
 /* margins */

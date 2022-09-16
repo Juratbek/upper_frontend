@@ -1,18 +1,20 @@
-import { Button, Error, Input, Modal, TelegramLoginButton } from 'components';
+import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
 import { useSession } from 'next-auth/react';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
-import { TSubmitFormEvent } from 'types';
+import { IResponseError, TSubmitFormEvent } from 'types';
 import { signIn, telegramSignIn } from 'utils';
+import { TELEGRAM_BOT } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 
 const { login, password } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
+  const [hasAlert, setHasAlert] = useState<boolean>(false);
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
@@ -47,13 +49,27 @@ export const LoginModal: FC = () => {
       closeModal();
     } catch (e) {
       console.error(e);
-      setError(password.name, { message: 'Login yoki parol xato kiritilgan!' });
-      setFocus(login.name);
+      const error = e as IResponseError;
+      if (error.status === 404) {
+        setError(password.name, { message: 'Login yoki parol xato kiritilgan!' });
+        setFocus(login.name);
+      } else {
+        setHasAlert(true);
+      }
     }
   };
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
+      {hasAlert && (
+        <Alert color='yellow' className='mb-1'>
+          Xatolik yuz berdi. Iltimos bu haqda&nbsp;
+          <a className='link' href={TELEGRAM_BOT.link} target='_blank' rel='noreferrer'>
+            {TELEGRAM_BOT.name}
+          </a>
+          &nbsp;telegram botiga habar bering.
+        </Alert>
+      )}
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>

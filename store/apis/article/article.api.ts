@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { IArticle, TArticleStatus } from 'types';
+import { IArticle, IArticleResult, TArticleStatus } from 'types';
 
 import { baseQuery } from '../config';
 import { ICreateArticleDto } from './article.types';
@@ -31,6 +31,9 @@ export const articleApi = createApi({
     getBlogArticleById: build.query<IArticle, number>({
       query: (id: number) => `need-auth/${id}`,
     }),
+    getBlogArticles: build.query<IArticleResult[], TArticleStatus[]>({
+      query: (statuses) => `need-auth/list?statuses=${statuses}`,
+    }),
     likeDislike: build.mutation<void, { id: number; value: -1 | 1 }>({
       query: ({ id, value }) => ({
         url: `like-dislike/${id}?value=${value}`,
@@ -48,8 +51,9 @@ export const articleApi = createApi({
 
 export const {
   useSaveMutation: useSaveArticleMutation,
-  useUpdateStatusMutation: useUpdateArticleStatus,
+  useUpdateStatusMutation: useUpdateArticleStatusMutation,
   useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
+  useLazyGetBlogArticlesQuery,
   useLikeDislikeMutation,
   useLazyGetBlogArticleByIdQuery,
   useIncrementViewCountMutation,
