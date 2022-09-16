@@ -1,113 +1,130 @@
+import { TArticleStatus } from 'types';
 import { ARTICLE_STATUSES } from 'variables/article';
 
-import { IArticleSidebarContents, IArticleSidebarModalContents } from './UserArticlesSidebar.types';
+import {
+  IArticleSidebarAction,
+  IUserArticleModalContent,
+  TArticleAction,
+} from './UserArticlesSidebar.types';
 
-export const ARTICLE_ACTIONS = {
+export const ARTICLE_ACTIONS: Record<TArticleAction, TArticleAction> = {
   delete: 'delete',
   fullDelete: 'fullDelete',
   publish: 'publish',
   unpublish: 'unpublish',
   restore: 'restore',
   republish: 'republish',
+  save: 'save',
 };
 
-export const ARTICLE_SIDEBAR_MODAL_CONTENTS: IArticleSidebarModalContents = {
-  [ARTICLE_STATUSES.PUBLISHED]: {
-    [ARTICLE_ACTIONS.delete]: {
-      text: 'o`chirmoqchimisiz',
-      btn: {
-        text: 'O`chirish',
-        color: 'outline-red',
-      },
-    },
-    [ARTICLE_ACTIONS.unpublish]: {
-      text: 'nashr qilishni bekor qilmoqchimisiz?',
-      btn: {
-        text: 'Nashrni bekor qilish',
-        color: 'outline-dark',
-      },
+export const ARTICLE_SIDEBAR_MODAL_CONTENTS: Record<TArticleAction, IUserArticleModalContent> = {
+  delete: {
+    text: 'o`chirmoqchimisiz',
+    btn: {
+      text: 'O`chirish',
+      status: ARTICLE_STATUSES.DELETED,
+      color: 'outline-red',
     },
   },
-  [ARTICLE_STATUSES.SAVED]: {
-    [ARTICLE_ACTIONS.delete]: {
-      text: 'o`chirmoqchimisiz',
-      btn: {
-        text: 'O`chirish',
-        color: 'outline-red',
-      },
-    },
-    [ARTICLE_ACTIONS.publish]: {
-      text: 'nashr qilmoqchimisiz',
-      btn: {
-        text: 'Nashr qilish',
-      },
+  fullDelete: {
+    text: 'keshdan o`chirmoqchimisiz',
+    btn: {
+      text: 'O`chirish',
+      color: 'outline-red',
     },
   },
-  [ARTICLE_STATUSES.DELETED]: {
-    [ARTICLE_ACTIONS.fullDelete]: {
-      text: 'o`chirmoqchimisiz',
-      btn: {
-        text: 'O`chirish',
-        color: 'outline-red',
-      },
-    },
-    [ARTICLE_ACTIONS.restore]: {
-      text: 'tiklamoqchimisiz',
-      btn: {
-        text: 'Tiklash',
-      },
+  publish: {
+    text: 'nashr qilmoqchimisiz',
+    btn: {
+      text: 'Nashr qilish',
+      status: ARTICLE_STATUSES.PUBLISHED,
     },
   },
-  [ARTICLE_STATUSES.UNPUBLISHED]: {
-    [ARTICLE_ACTIONS.delete]: {
-      text: 'o`chirmoqchimisiz',
-      btn: {
-        text: 'O`chirish',
-        color: 'outline-red',
-      },
+  unpublish: {
+    text: 'nashrni bekor qilmoqchimisiz',
+    btn: {
+      text: 'Nashrni bekor qilish',
+      status: ARTICLE_STATUSES.UNPUBLISHED,
+      color: 'outline-red',
     },
-    [ARTICLE_ACTIONS.republish]: {
-      text: 'qayta nashr qilmoqchimisiz?',
-      btn: {
-        text: 'Qayta nashr qilish',
-      },
+  },
+  restore: {
+    text: 'tiklamoqchimisiz',
+    btn: {
+      text: 'Tiklash',
+      status: ARTICLE_STATUSES.SAVED,
+    },
+  },
+  republish: {
+    text: 'qayta nashr qilmoqchimisiz',
+    btn: {
+      text: 'Qayta nashr qilish',
+      status: ARTICLE_STATUSES.PUBLISHED,
+    },
+  },
+  save: {
+    text: 'saqlamoqchimisiz',
+    btn: {
+      text: 'Saqlash',
     },
   },
 };
 
-export const ARTICLE_SIDEBAR_CONTENTS: IArticleSidebarContents = {
-  [ARTICLE_STATUSES.PUBLISHED]: {
+export const ARTICLE_SIDEBAR_ACTIONS: Record<TArticleAction, IArticleSidebarAction> = {
+  delete: {
+    text: 'O`chirish',
+    action: ARTICLE_ACTIONS.delete,
+    color: 'outline-red',
+    shouldOpenModal: true,
+  },
+  fullDelete: {
+    text: 'O`chirish',
+    action: ARTICLE_ACTIONS.fullDelete,
+    color: 'outline-red',
+    shouldOpenModal: true,
+  },
+  publish: {
+    text: 'Nashr qilish',
+    action: ARTICLE_ACTIONS.publish,
+    shouldOpenModal: true,
+  },
+  unpublish: {
     text: 'Nashrni bekor qilish',
     action: ARTICLE_ACTIONS.unpublish,
     color: 'outline-dark',
+    shouldOpenModal: true,
   },
-  [ARTICLE_STATUSES.SAVED]: {
-    text: 'Nashr qilish',
-    action: ARTICLE_ACTIONS.publish,
-  },
-  [ARTICLE_STATUSES.DELETED]: {
+  restore: {
     text: 'Tiklash',
     action: ARTICLE_ACTIONS.restore,
+    shouldOpenModal: true,
   },
-  [ARTICLE_STATUSES.UNPUBLISHED]: {
+  republish: {
     text: 'Qayta nashr qilish',
     action: ARTICLE_ACTIONS.republish,
+    shouldOpenModal: true,
+  },
+  save: {
+    text: 'Saqlash',
+    action: ARTICLE_ACTIONS.save,
   },
 };
 
-export const ARTICLE_SIDEBAR_BUTTONS = {
-  [ARTICLE_ACTIONS.delete]: [
-    ARTICLE_STATUSES.PUBLISHED,
-    ARTICLE_STATUSES.SAVED,
-    ARTICLE_STATUSES.UNPUBLISHED,
+export const ARTICLE_SIDEBAR_BUTTONS: Record<TArticleStatus, IArticleSidebarAction[]> = {
+  SAVED: [
+    ARTICLE_SIDEBAR_ACTIONS.delete,
+    ARTICLE_SIDEBAR_ACTIONS.publish,
+    ARTICLE_SIDEBAR_ACTIONS.save,
   ],
-  [ARTICLE_ACTIONS.fullDelete]: [ARTICLE_STATUSES.DELETED],
-  [ARTICLE_ACTIONS.publish]: [
-    ARTICLE_STATUSES.SAVED,
-    ARTICLE_STATUSES.PUBLISHED,
-    ARTICLE_STATUSES.UNPUBLISHED,
+  PUBLISHED: [
+    ARTICLE_SIDEBAR_ACTIONS.delete,
+    ARTICLE_SIDEBAR_ACTIONS.publish,
+    ARTICLE_SIDEBAR_ACTIONS.save,
   ],
-  [ARTICLE_ACTIONS.republish]: [ARTICLE_STATUSES.UNPUBLISHED],
-  [ARTICLE_ACTIONS.restore]: [ARTICLE_STATUSES.DELETED],
-  [ARTICLE_ACTIONS.unpublish]: [ARTICLE_STATUSES.PUBLISHED],
+  UNPUBLISHED: [
+    ARTICLE_SIDEBAR_ACTIONS.delete,
+    ARTICLE_SIDEBAR_ACTIONS.republish,
+    ARTICLE_SIDEBAR_ACTIONS.save,
+  ],
+  DELETED: [],
 };

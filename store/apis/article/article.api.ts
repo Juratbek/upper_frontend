@@ -51,7 +51,7 @@ export const articleApi = createApi({
 
 export const {
   useSaveMutation: useSaveArticleMutation,
-  useUpdateStatusMutation: useUpdateArticleStatus,
+  useUpdateStatusMutation: useUpdateArticleStatusMutation,
   useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
   useLazyGetBlogArticlesQuery,
   useLikeDislikeMutation,

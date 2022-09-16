@@ -1,32 +1,45 @@
-import { ArticleStatus, Button, Divider, Modal, Select } from 'components';
+import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
 import { FC, useState } from 'react';
-import { useAppSelector } from 'store';
-import { useGetLabelsQuery } from 'store/apis';
-import { getArticle } from 'store/states';
-import { convertToOptions } from 'utils';
+import { useAppDispatch, useAppSelector } from 'store';
+import {
+  useGetLabelsQuery,
+  useSaveArticleMutation,
+  useUpdateArticleStatusMutation,
+} from 'store/apis';
+import { getArticle, getEditor, setArticle } from 'store/states';
+import { ILabel, TArticleStatus } from 'types';
+import { convertLabelsToOptions } from 'utils';
+import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import {
   ARTICLE_ACTIONS,
-  ARTICLE_SIDEBAR_CONTENTS,
+  ARTICLE_SIDEBAR_BUTTONS,
   ARTICLE_SIDEBAR_MODAL_CONTENTS,
 } from './UserArticlesSidebar.constants';
-import { ARTICLE_SIDEBAR_BUTTONS } from './UserArticlesSidebar.constants';
-import { TArticleAction } from './UserArticlesSidebar.types';
+import { IArticleSidebarAction, TArticleAction } from './UserArticlesSidebar.types';
 
 export const UserArticlesSidebar: FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [action, setAction] = useState<TArticleAction>('');
+  const dispatch = useAppDispatch();
   const article = useAppSelector(getArticle);
+  const editor = useAppSelector(getEditor);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [action, setAction] = useState<TArticleAction>();
+  const [selectedLabels, setSelectedLabels] = useState<IOption[]>(
+    convertLabelsToOptions(article?.labels),
+  );
+  const [updateArticle] = useSaveArticleMutation();
+  const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
   const status = article?.status;
 
-  const BTN = ARTICLE_SIDEBAR_CONTENTS[status as string];
-  const MODAL = ARTICLE_SIDEBAR_MODAL_CONTENTS[status as string]?.[action];
+  const BUTTONS = ARTICLE_SIDEBAR_BUTTONS[status as TArticleStatus];
+  const MODAL = action && ARTICLE_SIDEBAR_MODAL_CONTENTS[action];
 
   const closeModal = (): void => {
     setIsModalOpen(false);
-    setAction('');
+    setAction(undefined);
+    updateArticleStatusResponse.reset();
   };
 
   const openModal = (action: TArticleAction): void => {
@@ -34,14 +47,58 @@ export const UserArticlesSidebar: FC = () => {
     setAction(action);
   };
 
-  const deleteArticle = (action: TArticleAction): void => {
-    openModal(action);
+  const saveChanges = async (): Promise<void> => {
+    if (!editor) return Promise.reject();
+    const editorData = await editor?.save();
+    const blocks = editorData.blocks;
+    const title = blocks.find((block) => block.type === 'header')?.data.text;
+    const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
+    const updated = await updateArticle({ id: article?.id, title, blocks, labels }).unwrap();
+    dispatch(setArticle(updated));
+  };
+
+  const clickHandler = (button: IArticleSidebarAction): void => {
+    if (button.shouldOpenModal) {
+      return openModal(button.action);
+    }
+    if (button.action === ARTICLE_ACTIONS.save) {
+      saveChanges();
+    }
+  };
+
+  const confirmAction = async (): Promise<void> => {
+    if (!MODAL || !article) return;
+    const status = MODAL.btn.status;
+    if (status) {
+      try {
+        await updateArticleStatus({ id: article.id, status });
+        dispatch(setArticle({ ...article, status }));
+        closeModal();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  };
+
+  const labelsChangeHandler = (options: IOption[]): void => {
+    setSelectedLabels(options);
   };
 
   return (
     <>
       {MODAL && (
         <Modal size='small' isOpen={isModalOpen} close={closeModal}>
+          {updateArticleStatusResponse.isError && (
+            <Alert>
+              Xatolik yuz berdi. Iltimos bu haqda{' '}
+              <a href={TELEGRAM_BOT.link} className='link'>
+                {TELEGRAM_BOT.name}
+              </a>{' '}
+              telegram botiga habar bering
+              <br />
+              <p className='overflow-wrap'>{JSON.stringify(updateArticleStatusResponse.error)}</p>
+            </Alert>
+          )}
           <p>
             <strong>“Maqola sarlavhasi”</strong> maqolani {MODAL.text || ''}
           </p>
@@ -49,58 +106,26 @@ export const UserArticlesSidebar: FC = () => {
             <Button color='outline-dark' onClick={closeModal}>
               Yo`q
             </Button>
-            <Button color={MODAL.btn.color || 'dark'}>{MODAL.btn.text}</Button>
+            <Button color={MODAL.btn.color || 'dark'} onClick={confirmAction}>
+              {MODAL.btn.text}
+            </Button>
           </div>
         </Modal>
       )}
       {status && (
         <>
           <ArticleStatus className='mb-1' status={status} />
-          <div className='d-flex'>
-            <Button
-              color='outline-red'
-              className='me-1'
-              onClick={(): void =>
-                deleteArticle(
-                  status === ARTICLE_STATUSES.DELETED
-                    ? ARTICLE_ACTIONS.fullDelete
-                    : ARTICLE_ACTIONS.delete,
-                )
-              }
-            >
-              {status === ARTICLE_STATUSES.DELETED ? 'To`liq o`chirish' : 'O`chirish'}
-            </Button>
-            <Button
-              className='flex-1'
-              color={BTN.color}
-              onClick={(): void => openModal(BTN.action)}
-            >
-              {BTN.text}
-            </Button>
-          </div>
           <div className='d-flex flex-wrap m--1'>
-            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.delete].includes(status) && (
-              <Button color='outline-red' className='flex-auto m-1'>
-                O`chirish
+            {BUTTONS.map((button, index) => (
+              <Button
+                key={index}
+                className='flex-auto m-1 mb-0'
+                color={button.color}
+                onClick={(): void => clickHandler(button)}
+              >
+                {button.text}
               </Button>
-            )}
-            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.fullDelete].includes(status) && (
-              <Button color='outline-red' className='flex-auto m-1'>
-                To`liq o`chirish
-              </Button>
-            )}
-            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.publish].includes(status) && (
-              <Button className='flex-auto m-1'>Nashr qilish</Button>
-            )}
-            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.republish].includes(status) && (
-              <Button className='flex-auto m-1'>Qayta nashr qilish</Button>
-            )}
-            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.restore].includes(status) && (
-              <Button className='flex-auto m-1'>Tiklash</Button>
-            )}
-            {ARTICLE_SIDEBAR_BUTTONS[ARTICLE_ACTIONS.unpublish].includes(status) && (
-              <Button className='flex-auto m-1'>Nashrni bekor qilish</Button>
-            )}
+            ))}
           </div>
         </>
       )}
@@ -111,9 +136,10 @@ export const UserArticlesSidebar: FC = () => {
       </label>
       {article && labels && (
         <Select
-          disabled={[ARTICLE_STATUSES.DELETED].includes(status as string)}
-          defaultValues={convertToOptions(article?.labels, 'id', 'name')}
-          options={convertToOptions(labels, 'id', 'name')}
+          onChange={labelsChangeHandler}
+          disabled={[ARTICLE_STATUSES.DELETED].includes(status as TArticleStatus)}
+          defaultValues={selectedLabels}
+          options={convertLabelsToOptions(labels)}
         />
       )}
     </>

@@ -1,5 +1,4 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { ARTICLE_STATUSES } from 'variables/article';
 
 import { IBlogSmall } from './blog';
 import { ILabel } from './label';
@@ -34,8 +33,4 @@ export interface IArticle {
   status: TArticleStatus;
 }
 
-export type TArticleStatus =
-  | typeof ARTICLE_STATUSES.PUBLISHED
-  | typeof ARTICLE_STATUSES.UNPUBLISHED
-  | typeof ARTICLE_STATUSES.SAVED
-  | typeof ARTICLE_STATUSES.DELETED;
+export type TArticleStatus = 'PUBLISHED' | 'UNPUBLISHED' | 'SAVED' | 'DELETED';

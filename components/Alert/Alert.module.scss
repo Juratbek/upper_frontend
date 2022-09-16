@@ -1,5 +1,6 @@
 .alert {
     padding: .8rem;
+    border-radius: var(--smallBorderRadius);
     
     &--yellow {
         background-color: var(--yellow);

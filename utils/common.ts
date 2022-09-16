@@ -1,5 +1,5 @@
 import { IOption } from 'components';
-import { TClassName } from 'types';
+import { ILabel, TClassName } from 'types';
 
 export const getClassName = (...classNames: TClassName[]): string =>
   classNames.filter((className) => !!className).join(' ');
@@ -19,3 +19,6 @@ export const get = <T>(
 export const convertToOptions = (arr: any[], valueKey: string, labelKey: string): IOption[] => {
   return arr.map((item) => ({ value: item[valueKey], label: item[labelKey] }));
 };
+
+export const convertLabelsToOptions = (labels: ILabel[] = []): IOption[] =>
+  convertToOptions(labels, 'id', 'name');
