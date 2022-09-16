@@ -34,7 +34,7 @@ export const Article: FC<IArticleProps> = (props) => {
   };
 
   return (
-    <div className={`${styles.articleContainer} .editor-container`}>
+    <div className={`${styles.articleContainer} editor-container`}>
       <Editor content={{ blocks }} editable={false} handleInstance={setEditorInstance} />
       <Divider className='my-2' />
       <div className={styles.articleDetail}>

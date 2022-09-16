@@ -118,7 +118,7 @@ export const ARTICLE_SIDEBAR_BUTTONS: Record<TArticleStatus, IArticleSidebarActi
   ],
   PUBLISHED: [
     ARTICLE_SIDEBAR_ACTIONS.delete,
-    ARTICLE_SIDEBAR_ACTIONS.publish,
+    ARTICLE_SIDEBAR_ACTIONS.unpublish,
     ARTICLE_SIDEBAR_ACTIONS.save,
   ],
   UNPUBLISHED: [
@@ -126,5 +126,5 @@ export const ARTICLE_SIDEBAR_BUTTONS: Record<TArticleStatus, IArticleSidebarActi
     ARTICLE_SIDEBAR_ACTIONS.republish,
     ARTICLE_SIDEBAR_ACTIONS.save,
   ],
-  DELETED: [],
+  DELETED: [ARTICLE_SIDEBAR_ACTIONS.fullDelete, ARTICLE_SIDEBAR_ACTIONS.restore],
 };

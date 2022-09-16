@@ -1,6 +1,6 @@
-@import './config';
+@import "./normalize";
+@import './_config';
+@import './_helpers';
+@import './_editorjs';
+@import './_variables';
 @import './globals';
-@import './helpers';
-@import './editorjs';
-@import './variables';
-@import './editor';
