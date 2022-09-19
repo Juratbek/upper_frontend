@@ -3,6 +3,8 @@ import { Editor } from 'components/Editor';
 import { useAppDispatch } from 'store';
 import { setEditor } from 'store/states';
 
+import { imagesData } from '../../assets/imagesData';
+
 export default function WriteArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -17,11 +19,13 @@ export default function WriteArticlePage(): JSX.Element {
   return (
     <div className='editor-container'>
       <Editor
-        editable={true}
-        content={{
-          blocks: [],
-        }}
+        editable={false}
+        content={imagesData}
         handleInstance={getInstance}
+        changeHandler={async (api): Promise<void> => {
+          const data = await api.saver.save();
+          console.log(data);
+        }}
       />
     </div>
   );
