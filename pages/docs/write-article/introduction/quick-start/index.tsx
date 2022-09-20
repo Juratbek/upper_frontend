@@ -1,9 +1,10 @@
 import { Editor } from 'components';
+import { QS_DATA } from 'frontends/docs';
 
 export default function QuickStartPage(): JSX.Element {
   return (
     <main className='container'>
-      <Editor editable />
+      <Editor content={QS_DATA} editable={false} />
     </main>
   );
 }

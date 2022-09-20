@@ -97,17 +97,17 @@ const blogs: IBlogMedium[] = [
 ];
 
 export const Sidebar = (): JSX.Element => {
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const { pathname } = useRouter();
   const { status } = useSession();
   const articleAuthor = useAppSelector(getArticleAuthor);
 
   const loginHandler = (): void => {
-    dispath(openLoginModal());
+    dispatch(openLoginModal());
   };
 
   const registerHandler = (): void => {
-    dispath(openRegisterModal());
+    dispatch(openRegisterModal());
   };
 
   const content: JSX.Element = useMemo(() => {

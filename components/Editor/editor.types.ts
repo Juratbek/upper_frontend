@@ -1,7 +1,6 @@
 import EditorJS, { EditorConfig, OutputData } from '@editorjs/editorjs';
 
 export interface IEditorProps {
-  holder?: string;
   changeHandler?: EditorConfig['onChange'];
   editable?: boolean;
   content?: OutputData;

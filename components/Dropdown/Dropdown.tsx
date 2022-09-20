@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 import { getClassName } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables/icons';
 
@@ -9,27 +9,27 @@ const Triangle = ICONS[ICON_TYPES.triangle];
 
 export const Dropdown: FC<IDropdownProps> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(props.isOpen || false);
-  const { title, children, className, titleClassName } = props;
-
-  const rootClassName = useMemo(() => getClassName(classes.container, className), [className]);
-  const dropdownClassName = useMemo(
-    () => getClassName(props.dropdownClassName, isOpen ? classes.open : classes.closed),
-    [props.dropdownClassName, isOpen],
-  );
+  const { title, children, titleClassName, paddingLeft } = props;
 
   const dropdownHandler = (): void => {
     setIsOpen((prev) => !prev);
   };
 
   return (
-    <div className={rootClassName}>
-      <div onClick={dropdownHandler} className={`${classes.title} ${titleClassName}`}>
+    <>
+      <div
+        onClick={dropdownHandler}
+        className={`${classes.title} ${titleClassName}`}
+        style={{
+          paddingLeft,
+        }}
+      >
         {title}
         <span className={`${classes.icon} ${isOpen && classes['icon-open']}`}>
           <Triangle />
         </span>
       </div>
-      <div className={dropdownClassName}>{children}</div>
-    </div>
+      <div className={getClassName(isOpen ? classes.open : classes.closed)}>{children}</div>
+    </>
   );
 };
