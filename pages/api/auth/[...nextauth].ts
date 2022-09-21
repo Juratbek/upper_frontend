@@ -52,4 +52,5 @@ export default NextAuth({
       return session;
     },
   },
+  secret: 'we do not need this',
 });
