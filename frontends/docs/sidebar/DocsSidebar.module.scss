@@ -1,9 +1,12 @@
 .container {
     margin: -1rem -1.3rem;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .link {
     padding: 1rem;
+    display: block;
 
     &:hover {
         background-color: var(--lightGray);

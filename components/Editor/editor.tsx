@@ -7,7 +7,7 @@ import { createEditor } from './services/editor.service';
 export const Editor: FC<IEditorProps> = (props) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
 
-  const { handleInstance, holder } = props;
+  const { handleInstance } = props;
 
   useEffect(() => {
     createEditor({
@@ -31,5 +31,5 @@ export const Editor: FC<IEditorProps> = (props) => {
     });
   }, [editor]);
 
-  return <div id={holder || EDITOR_HOLDER}></div>;
+  return <div id={EDITOR_HOLDER}></div>;
 };

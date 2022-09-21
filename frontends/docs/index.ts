@@ -1,1 +1,2 @@
-export * from './sidebar/DocsSidebar';
+export * from './sidebar';
+export * from './QuickStart';
