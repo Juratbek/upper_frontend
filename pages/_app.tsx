@@ -1,4 +1,4 @@
-import 'Styles/index.scss';
+import 'styles/index.scss';
 
 import { Navigation, Sidebar } from 'components';
 import { LoginModal, RegisterModal } from 'components';
