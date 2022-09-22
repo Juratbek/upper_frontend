@@ -3,6 +3,12 @@ import { OutputBlockData } from '@editorjs/editorjs';
 import { IBlogSmall } from './blog';
 import { ILabel } from './label';
 
+export interface ISidebarArticle {
+  id: number;
+  title: string;
+  imgUrl: string;
+  author: IBlogSmall;
+}
 export interface IArticleResult {
   id: number;
   title: string;
