@@ -31,6 +31,8 @@ export interface IArticle {
   prevArticleId?: number;
   nextArticleId?: number;
   status: TArticleStatus;
+  publishedArticleId?: number;
+  hasNotpublishedChanges?: boolean;
 }
 
 export type TArticleStatus = 'PUBLISHED' | 'UNPUBLISHED' | 'SAVED' | 'DELETED';

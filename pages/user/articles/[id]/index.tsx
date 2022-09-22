@@ -1,4 +1,5 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
+import { Alert } from 'components';
 import { Editor } from 'components/Editor';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ export default function UserArticlePage(): JSX.Element {
   const { query } = useRouter();
   const article = useAppSelector(getArticle);
   const [blocks, setBlocks] = useState<OutputBlockData[]>(article?.blocks || []);
+  const [hasAlert, setHasAlert] = useState<boolean>();
   const [fetchArticle, { isError, error }] = useLazyGetBlogArticleByIdQuery();
   const id = query?.id;
 
@@ -32,7 +34,21 @@ export default function UserArticlePage(): JSX.Element {
         }
       });
     }
+    return () => {
+      dispatch(setArticle(null));
+    };
   }, [id]);
+
+  useEffect(() => {
+    const hasNotpublishedChanges = article?.hasNotpublishedChanges;
+    if (hasNotpublishedChanges) {
+      setHasAlert(hasNotpublishedChanges);
+    }
+  }, [article?.hasNotpublishedChanges]);
+
+  const closeAlert = (): void => {
+    setHasAlert(false);
+  };
 
   if (isError) return <h1>{JSON.stringify(get(error, 'data.message'))}</h1>;
 
@@ -40,6 +56,12 @@ export default function UserArticlePage(): JSX.Element {
 
   return (
     <div className='editor-container'>
+      {hasAlert && (
+        <Alert className='mt-2' onClose={closeAlert}>
+          Saqlangan lekin nashr etilmagan o`zgarishlar mavjud. Ularni nashr qilish uchun &quot;Nashr
+          qilish&quot; tugmasini bosing
+        </Alert>
+      )}
       <Editor
         editable={true}
         content={{

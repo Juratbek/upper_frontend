@@ -1,9 +1,10 @@
 import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
-import { FC, useState } from 'react';
+import Link from 'next/link';
+import { FC, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
   useGetLabelsQuery,
-  useSaveArticleMutation,
+  useUpdateArticleMutaion,
   useUpdateArticleStatusMutation,
 } from 'store/apis';
 import { getArticle, getEditor, setArticle } from 'store/states';
@@ -28,9 +29,13 @@ export const UserArticlesSidebar: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>(
     convertLabelsToOptions(article?.labels),
   );
-  const [updateArticle] = useSaveArticleMutation();
+  const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
+  const isLoading = useMemo(
+    () => isUpdatingArticle || updateArticleStatusResponse.isLoading,
+    [isUpdatingArticle, updateArticleStatusResponse.isLoading],
+  );
   const status = article?.status;
 
   const BUTTONS = ARTICLE_SIDEBAR_BUTTONS[status as TArticleStatus];
@@ -48,12 +53,12 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const saveChanges = async (): Promise<void> => {
-    if (!editor) return Promise.reject();
+    if (!editor || !article) return Promise.reject();
     const editorData = await editor?.save();
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
-    const updated = await updateArticle({ id: article?.id, title, blocks, labels }).unwrap();
+    const updated = await updateArticle({ id: article.id, title, blocks, labels }).unwrap();
     dispatch(setArticle(updated));
   };
 
@@ -114,18 +119,31 @@ export const UserArticlesSidebar: FC = () => {
       )}
       {status && (
         <>
-          <ArticleStatus className='mb-1' status={status} />
+          <ArticleStatus className='mb-1' status={status}>
+            <Link href={`/articles/${article.publishedArticleId}`}>
+              Nashr varyantini ko&apos;rish
+            </Link>
+          </ArticleStatus>
           <div className='d-flex flex-wrap m--1'>
             {BUTTONS.map((button, index) => (
               <Button
                 key={index}
                 className='flex-auto m-1 mb-0'
                 color={button.color}
+                loading={isLoading}
                 onClick={(): void => clickHandler(button)}
               >
                 {button.text}
               </Button>
             ))}
+            {article.hasNotpublishedChanges && (
+              <Button
+                className='flex-auto m-1 mb-0'
+                onClick={(): void => openModal(ARTICLE_ACTIONS.publish)}
+              >
+                Nashr qilish
+              </Button>
+            )}
           </div>
         </>
       )}

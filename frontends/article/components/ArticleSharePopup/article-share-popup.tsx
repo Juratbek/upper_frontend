@@ -29,7 +29,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
       const sharePopupEl = sharePopupRef.current as HTMLDivElement;
       const targetEl = e.target as HTMLElement;
 
-      if (e.target !== sharePopupEl && !sharePopupEl.contains(targetEl)) {
+      if (e.target !== sharePopupEl && !sharePopupEl?.contains(targetEl)) {
         setVisible(false);
       }
     };
