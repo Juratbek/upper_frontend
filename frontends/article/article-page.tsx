@@ -1,6 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
-import { useSession } from 'next-auth/react';
+import { useAuth } from 'hooks';
 import { FC, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLikeDislikeMutation } from 'store/apis';
@@ -20,7 +20,7 @@ const toUzbDateString = (date: Date | string): string => toDateString(date, { mo
 export const Article: FC<IArticleProps> = (props) => {
   const { viewCount, publishedDate, updatedDate, blocks, id, likeCount } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
-  const { status: authStatus } = useSession();
+  const { status: authStatus } = useAuth();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle] = useLikeDislikeMutation();
   const isAuthenticated = authStatus === 'authenticated';

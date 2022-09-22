@@ -1,12 +1,11 @@
 import { Button, Error, Input, Label, Modal, Textarea } from 'components';
-import { useSession } from 'next-auth/react';
+import { useAuth } from 'hooks';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useGetLabelsQuery, useRegisterMutation, useSetLabelsMutation } from 'store/apis';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
 import { IResponseError, TSubmitFormEvent } from 'types';
-import { signIn } from 'utils';
 
 import { REGISTER_FORM_FIELDS } from './RegisterModal.constants';
 import classes from './RegisterModal.module.scss';
@@ -18,7 +17,7 @@ export const RegisterModal: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<number[]>([]);
   const isOpen = useAppSelector(getIsRegisterModalOpen);
   const dispatch = useAppDispatch();
-  const { status: authStatus } = useSession();
+  const { authenticate, status: authStatus } = useAuth();
   const {
     register,
     handleSubmit,
@@ -49,7 +48,7 @@ export const RegisterModal: FC = () => {
         username: login,
         password,
       }).unwrap();
-      await signIn({ ...res });
+      authenticate(res.token);
       incrementStep();
     } catch (e) {
       const error = e as IResponseError;
