@@ -20,7 +20,6 @@ export const Navigation = (): JSX.Element => {
   };
 
   const icons = useMemo(() => {
-    return NAVIGATION_ICONS;
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [authStatus]);
 
