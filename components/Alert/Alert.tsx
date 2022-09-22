@@ -4,8 +4,17 @@ import { getClassName } from 'utils';
 import classes from './Alert.module.scss';
 import { IAlertProps } from './Alert.types';
 
-export const Alert: FC<IAlertProps> = ({ color = 'yellow', children, ...props }) => {
+export const Alert: FC<IAlertProps> = ({ color = 'yellow', children, onClose, ...props }) => {
   const className = getClassName(classes.alert, classes[`alert--${color}`], props.className);
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div className={className}>
+      {onClose && (
+        <span className={classes['close-icon']} onClick={onClose}>
+          x
+        </span>
+      )}
+      {children}
+    </div>
+  );
 };

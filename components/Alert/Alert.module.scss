@@ -1,9 +1,17 @@
 .alert {
     padding: .8rem;
+    position: relative;
     border-radius: var(--smallBorderRadius);
     
     &--yellow {
         background-color: var(--yellow);
         border: .5px solid black;
+    }
+
+    & .close-icon {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        right: 0.3rem;
     }
 }

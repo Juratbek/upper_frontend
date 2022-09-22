@@ -4,4 +4,5 @@ type TAlertColor = 'red' | 'yellow';
 
 export interface IAlertProps extends HTMLAttributes<HTMLDivElement> {
   color?: TAlertColor;
+  onClose?: () => void;
 }
