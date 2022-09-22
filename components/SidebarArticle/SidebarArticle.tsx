@@ -6,15 +6,13 @@ import { getClassName } from 'utils/common';
 import classes from './SidebarArticle.module.css';
 import { ISidebarArticleProps } from './SidebarArticle.types';
 
-const href = `/articles/${1}`;
-
-export const SidebarArticle: FC<ISidebarArticleProps> = ({ className, title, author }) => {
+export const SidebarArticle: FC<ISidebarArticleProps> = ({ className, title, id, author }) => {
   const rootClassName = getClassName(className, classes['sidebar-article']);
 
   return (
     <div className={rootClassName}>
       <div className={classes.title}>
-        <Link href={href}>
+        <Link href={`/articles/${id}`}>
           <h4 className='m-0 mb-1 pointer'>{title}</h4>
         </Link>
         {author && <Author {...author} />}

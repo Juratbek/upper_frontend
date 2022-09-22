@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
-import { articleApi, blogApi, labelApi } from './apis';
+import { articleApi, blogApi, labelApi, publishedArticleApi } from './apis';
 import authReducer from './states/auth';
 import loginModalReducer from './states/loginModal';
 import readArticleReducer from './states/readArticle';
@@ -18,9 +18,15 @@ export const store = configureStore({
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
+    [publishedArticleApi.reducerPath]: publishedArticleApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(blogApi.middleware, articleApi.middleware, labelApi.middleware),
+    getDefaultMiddleware().concat(
+      blogApi.middleware,
+      articleApi.middleware,
+      labelApi.middleware,
+      publishedArticleApi.middleware,
+    ),
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
