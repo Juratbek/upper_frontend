@@ -1,6 +1,6 @@
 import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
   useGetLabelsQuery,
@@ -32,6 +32,10 @@ export const UserArticlesSidebar: FC = () => {
   const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
+  const isLoading = useMemo(
+    () => isUpdatingArticle || updateArticleStatusResponse.isLoading,
+    [isUpdatingArticle, updateArticleStatusResponse.isLoading],
+  );
   const status = article?.status;
 
   const BUTTONS = ARTICLE_SIDEBAR_BUTTONS[status as TArticleStatus];
@@ -126,14 +130,19 @@ export const UserArticlesSidebar: FC = () => {
                 key={index}
                 className='flex-auto m-1 mb-0'
                 color={button.color}
-                loading={isUpdatingArticle}
+                loading={isLoading}
                 onClick={(): void => clickHandler(button)}
               >
                 {button.text}
               </Button>
             ))}
             {article.hasNotpublishedChanges && (
-              <Button className='flex-auto m-1 mb-0'>Nashr qilish</Button>
+              <Button
+                className='flex-auto m-1 mb-0'
+                onClick={(): void => openModal(ARTICLE_ACTIONS.publish)}
+              >
+                Nashr qilish
+              </Button>
             )}
           </div>
         </>
