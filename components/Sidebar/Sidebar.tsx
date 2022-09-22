@@ -4,11 +4,11 @@ import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
+import { useGetSidebarArticleSuggestionsQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal } from 'store/states';
 import { getArticleAuthor } from 'store/states/readArticle';
-import { IArticleResult, IBlogMedium, IBlogSmall, ILabel } from 'types';
+import { IBlogMedium, IBlogSmall, ISidebarArticle } from 'types';
 import { replaceAll } from 'utils';
-import { ARTICLE_STATUSES } from 'variables/article';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
@@ -19,53 +19,24 @@ const author: IBlogSmall = {
   imgUrl: 'awda',
 };
 
-const labels: ILabel[] = [
-  {
-    name: 'JavaScript',
-    id: 1,
-  },
-  {
-    name: 'TypeScript',
-    id: 2,
-  },
-];
-
-const articles: IArticleResult[] = [
+const articles: ISidebarArticle[] = [
   {
     id: 1,
     title: 'Article title Lorem Ipsum is simply dummy',
+    imgUrl: '',
     author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 2,
     title: 'Article title',
+    imgUrl: '',
     author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     id: 3,
     title: 'Article title',
+    imgUrl: '',
     author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
   },
 ];
 
@@ -101,6 +72,7 @@ export const Sidebar = (): JSX.Element => {
   const { pathname } = useRouter();
   const { status: authStatus } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
+  const articleSuggestionsRes = useGetSidebarArticleSuggestionsQuery();
 
   const loginHandler = (): void => {
     dispatch(openLoginModal());
@@ -109,6 +81,18 @@ export const Sidebar = (): JSX.Element => {
   const registerHandler = (): void => {
     dispatch(openRegisterModal());
   };
+
+  const suggestedArticles = useMemo(() => {
+    const { isError, isLoading, error, data } = articleSuggestionsRes;
+    if (isLoading) return 'Loading...';
+    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+    return data?.map((article, index) => (
+      <div key={article.id}>
+        <SidebarArticle {...article} />
+        {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+      </div>
+    ));
+  }, [articleSuggestionsRes]);
 
   const content: JSX.Element = useMemo(() => {
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
@@ -141,12 +125,7 @@ export const Sidebar = (): JSX.Element => {
         <Divider className='my-2' />
         <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>
-        {articles.map((article, index) => (
-          <div key={article.id}>
-            <SidebarArticle {...article} />
-            {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-          </div>
-        ))}
+        {suggestedArticles}
         <Divider className='my-2' />
         <h2>Kuzatib boring</h2>
         {blogs.map((blog, index) => (
@@ -157,7 +136,7 @@ export const Sidebar = (): JSX.Element => {
         ))}
       </>
     );
-  }, [pathname, authStatus, articleAuthor]);
+  }, [pathname, authStatus, articleAuthor, suggestedArticles]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };
