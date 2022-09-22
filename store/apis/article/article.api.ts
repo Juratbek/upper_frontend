@@ -22,7 +22,7 @@ export const articleApi = createApi({
         body,
       }),
     }),
-    updateStatus: build.mutation<number, { id: number; status: TArticleStatus }>({
+    updateStatus: build.mutation<IArticle, { id: number; status: TArticleStatus }>({
       query: ({ id, status }) => ({
         url: `update-status/${id}`,
         method: 'POST',

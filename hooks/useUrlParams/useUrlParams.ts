@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 
-import { IUseUrlParams, TParamValue } from './useUrlParams.types';
+import { IUseUrl, TParamValue } from './useUrlParams.types';
 
-export const useUrlParams = (): IUseUrlParams => {
+export const useUrlParams = (): IUseUrl => {
   const { query, push, pathname, isReady } = useRouter();
 
   const getParam = (name: string): TParamValue => {

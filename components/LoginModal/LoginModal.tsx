@@ -1,12 +1,12 @@
 import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
-import { useSession } from 'next-auth/react';
+import { useAuth } from 'hooks';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
-import { signIn, telegramSignIn } from 'utils';
+import { telegramSignIn } from 'utils';
 import { TELEGRAM_BOT } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
@@ -18,7 +18,7 @@ export const LoginModal: FC = () => {
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
-  const { status } = useSession();
+  const { status, authenticate } = useAuth();
   const {
     register,
     handleSubmit,
@@ -40,12 +40,7 @@ export const LoginModal: FC = () => {
     try {
       const { login, password } = event;
       const res = await loginBlog({ username: login, password }).unwrap();
-      await signIn({
-        token: res.token,
-        name: res.name,
-        email: res.email,
-        image: res.image,
-      });
+      authenticate(res.token);
       closeModal();
     } catch (e) {
       console.error(e);

@@ -1,5 +1,5 @@
+import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { openLoginModal } from 'store/states';
@@ -9,7 +9,7 @@ import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
 
 export const Navigation = (): JSX.Element => {
-  const { status: authStatus } = useSession();
+  const { status: authStatus } = useAuth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const isAuthenticated = authStatus === 'authenticated';

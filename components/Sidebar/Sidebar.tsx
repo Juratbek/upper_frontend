@@ -1,7 +1,7 @@
 import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
 import { Author } from 'frontends/article';
+import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { openLoginModal, openRegisterModal } from 'store/states';
@@ -99,7 +99,7 @@ const blogs: IBlogMedium[] = [
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { pathname } = useRouter();
-  const { status } = useSession();
+  const { status: authStatus } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
 
   const loginHandler = (): void => {
@@ -127,7 +127,7 @@ export const Sidebar = (): JSX.Element => {
 
     return (
       <>
-        {status === 'unauthenticated' && (
+        {authStatus === 'unauthenticated' && (
           <div className='d-flex justify-content-around'>
             <Button color='outline-dark' onClick={loginHandler}>
               Kirish
@@ -157,7 +157,7 @@ export const Sidebar = (): JSX.Element => {
         ))}
       </>
     );
-  }, [pathname, status, articleAuthor]);
+  }, [pathname, authStatus, articleAuthor]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };
