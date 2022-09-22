@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
   useGetLabelsQuery,
-  useSaveArticleMutation,
+  useUpdateArticleMutaion,
   useUpdateArticleStatusMutation,
 } from 'store/apis';
 import { getArticle, getEditor, setArticle } from 'store/states';
@@ -28,7 +28,7 @@ export const UserArticlesSidebar: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>(
     convertLabelsToOptions(article?.labels),
   );
-  const [updateArticle] = useSaveArticleMutation();
+  const [updateArticle] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
   const status = article?.status;
@@ -48,12 +48,12 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const saveChanges = async (): Promise<void> => {
-    if (!editor) return Promise.reject();
+    if (!editor || !article) return Promise.reject();
     const editorData = await editor?.save();
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
-    const updated = await updateArticle({ id: article?.id, title, blocks, labels }).unwrap();
+    const updated = await updateArticle({ id: article.id, title, blocks, labels }).unwrap();
     dispatch(setArticle(updated));
   };
 

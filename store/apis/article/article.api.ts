@@ -2,15 +2,22 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { IArticle, IArticleResult, TArticleStatus } from 'types';
 
 import { baseQuery } from '../config';
-import { ICreateArticleDto } from './article.types';
+import { ICreateArticleDto, IUpdateArticleDto } from './article.types';
 
 export const articleApi = createApi({
   reducerPath: 'article',
   baseQuery: baseQuery('article'),
   endpoints: (build) => ({
-    save: build.mutation<IArticle, ICreateArticleDto>({
+    create: build.mutation<IArticle, ICreateArticleDto>({
       query: (body) => ({
-        url: 'save',
+        url: 'create',
+        method: 'POST',
+        body,
+      }),
+    }),
+    update: build.mutation<IArticle, IUpdateArticleDto>({
+      query: (body) => ({
+        url: 'update',
         method: 'POST',
         body,
       }),
@@ -50,7 +57,8 @@ export const articleApi = createApi({
 });
 
 export const {
-  useSaveMutation: useSaveArticleMutation,
+  useCreateMutation: useCreateArticleMutation,
+  useUpdateMutation: useUpdateArticleMutaion,
   useUpdateStatusMutation: useUpdateArticleStatusMutation,
   useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
   useLazyGetBlogArticlesQuery,
