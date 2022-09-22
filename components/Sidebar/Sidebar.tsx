@@ -4,10 +4,13 @@ import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useGetSidebarArticleSuggestionsQuery } from 'store/apis';
+import {
+  useGetSidebarArticleSuggestionsQuery,
+  useGetSidebarBlogSuggestionsQuery,
+} from 'store/apis';
 import { openLoginModal, openRegisterModal } from 'store/states';
 import { getArticleAuthor } from 'store/states/readArticle';
-import { IBlogMedium, IBlogSmall, ISidebarArticle } from 'types';
+import { IBlogSmall, ISidebarArticle } from 'types';
 import { replaceAll } from 'utils';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -40,39 +43,13 @@ const articles: ISidebarArticle[] = [
   },
 ];
 
-const blogs: IBlogMedium[] = [
-  {
-    id: 1,
-    name: 'Samandar Boymurodov',
-    imgUrl: 'url',
-    bio: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-    articlesCount: 100,
-    followersCount: 20,
-  },
-  {
-    id: 2,
-    name: 'Blog 2',
-    imgUrl: 'url',
-    bio: 'Blog bio will be here',
-    articlesCount: 100,
-    followersCount: 20,
-  },
-  {
-    id: 3,
-    name: 'Blog 3',
-    imgUrl: 'url',
-    bio: 'Blog bio will be here',
-    articlesCount: 100,
-    followersCount: 20,
-  },
-];
-
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { pathname } = useRouter();
   const { status: authStatus } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
   const articleSuggestionsRes = useGetSidebarArticleSuggestionsQuery();
+  const blogSuggestionsRes = useGetSidebarBlogSuggestionsQuery();
 
   const loginHandler = (): void => {
     dispatch(openLoginModal());
@@ -94,6 +71,18 @@ export const Sidebar = (): JSX.Element => {
     ));
   }, [articleSuggestionsRes]);
 
+  const suggestedBlogs = useMemo(() => {
+    const { isError, isLoading, error, data } = blogSuggestionsRes;
+    if (isLoading) return 'Loading...';
+    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+    return data?.map((blog, index) => (
+      <div key={blog.id}>
+        <SidebarBlog {...blog} />
+        {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+      </div>
+    ));
+  }, [blogSuggestionsRes]);
+
   const content: JSX.Element = useMemo(() => {
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
     if (ContentComponent) return <ContentComponent />;
@@ -113,31 +102,33 @@ export const Sidebar = (): JSX.Element => {
     return (
       <>
         {authStatus === 'unauthenticated' && (
-          <div className='d-flex justify-content-around'>
-            <Button color='outline-dark' onClick={loginHandler}>
-              Kirish
-            </Button>
-            <Button className='float-right' onClick={registerHandler}>
-              Ro`yxatdan o`tish
-            </Button>
-          </div>
+          <>
+            <div className='d-flex justify-content-around'>
+              <Button color='outline-dark' onClick={loginHandler}>
+                Kirish
+              </Button>
+              <Button className='float-right' onClick={registerHandler}>
+                Ro`yxatdan o`tish
+              </Button>
+            </div>
+            <Divider className='my-2' />
+          </>
         )}
-        {articleAuthor && isPublishedArticlePage && <Author {...articleAuthor} className='mt-2' />}
-        <Divider className='my-2' />
+        {articleAuthor && isPublishedArticlePage && (
+          <>
+            <Author {...articleAuthor} className='mt-2' />
+            <Divider className='my-2' />
+          </>
+        )}
         <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>
         {suggestedArticles}
         <Divider className='my-2' />
         <h2>Kuzatib boring</h2>
-        {blogs.map((blog, index) => (
-          <div key={blog.id}>
-            <SidebarBlog {...blog} />
-            {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-          </div>
-        ))}
+        {suggestedBlogs}
       </>
     );
-  }, [pathname, authStatus, articleAuthor, suggestedArticles]);
+  }, [pathname, authStatus, articleAuthor, suggestedArticles, suggestedBlogs]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };

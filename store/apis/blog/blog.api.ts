@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { IBlogMedium } from 'types';
 
 import { baseQuery } from '../config';
 import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
@@ -28,7 +29,15 @@ export const blogApi = createApi({
         body: labels,
       }),
     }),
+    getSidebarSuggestions: build.query<IBlogMedium[], void>({
+      query: () => 'sidebar-suggestions',
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useSetLabelsMutation } = blogApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useSetLabelsMutation,
+  useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
+} = blogApi;
