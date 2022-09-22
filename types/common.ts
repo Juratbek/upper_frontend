@@ -46,3 +46,5 @@ export interface IGetServerSideProps<T = Record<string, never>> {
     destination: string;
   };
 }
+
+export type TAuthStatus = 'authenticated' | 'unauthenticated';
