@@ -19,7 +19,7 @@ const writeArticleSlice = createSlice({
     setEditor(state, { payload }: PayloadAction<EditorJS>) {
       state.editor = payload;
     },
-    setArticle(state, { payload }: PayloadAction<IArticle>) {
+    setArticle(state, { payload }: PayloadAction<IArticle | null>) {
       state.article = payload;
     },
   },

@@ -1,4 +1,5 @@
 import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
+import Link from 'next/link';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
@@ -28,7 +29,7 @@ export const UserArticlesSidebar: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>(
     convertLabelsToOptions(article?.labels),
   );
-  const [updateArticle] = useUpdateArticleMutaion();
+  const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
   const status = article?.status;
@@ -114,18 +115,26 @@ export const UserArticlesSidebar: FC = () => {
       )}
       {status && (
         <>
-          <ArticleStatus className='mb-1' status={status} />
+          <ArticleStatus className='mb-1' status={status}>
+            <Link href={`/articles/${article.publishedArticleId}`}>
+              Nashr varyantini ko&apos;rish
+            </Link>
+          </ArticleStatus>
           <div className='d-flex flex-wrap m--1'>
             {BUTTONS.map((button, index) => (
               <Button
                 key={index}
                 className='flex-auto m-1 mb-0'
                 color={button.color}
+                loading={isUpdatingArticle}
                 onClick={(): void => clickHandler(button)}
               >
                 {button.text}
               </Button>
             ))}
+            {article.hasNotpublishedChanges && (
+              <Button className='flex-auto m-1 mb-0'>Nashr qilish</Button>
+            )}
           </div>
         </>
       )}
