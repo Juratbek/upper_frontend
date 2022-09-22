@@ -108,6 +108,7 @@ export const Sidebar = (): JSX.Element => {
       const ContentComponent = SIDEBAR_CONTENTS[key];
       return <ContentComponent />;
     }
+    const isPublishedArticlePage = pathname === '/articles/[id]';
 
     return (
       <>
@@ -121,7 +122,7 @@ export const Sidebar = (): JSX.Element => {
             </Button>
           </div>
         )}
-        {articleAuthor && <Author {...articleAuthor} className='mt-2' />}
+        {articleAuthor && isPublishedArticlePage && <Author {...articleAuthor} className='mt-2' />}
         <Divider className='my-2' />
         <SidebarSearch />
         <h2>Siz uchun maqolalar</h2>
