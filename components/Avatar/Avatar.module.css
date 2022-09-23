@@ -11,10 +11,10 @@
 }
 
 .avatar--medium {
-    --diametr: 50px;
-    min-width: var(--diametr);
-    width: var(--diametr);
-    height: var(--diametr);
+    --size: 2.6rem;
+    min-width: var(--size);
+    width: var(--size);
+    height: var(--size);
 }
 
 .avatar--large {
@@ -24,8 +24,8 @@
 }
 
 .avatar--extra-large {
-    --diametr: 80px;
-    min-width: var(--diametr);
-    width: var(--diametr);
-    height: var(--diametr);
+    --size: 6rem;
+    min-width: var(--size);
+    width: var(--size);
+    height: var(--size);
 }

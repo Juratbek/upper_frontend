@@ -77,7 +77,6 @@ export const UserArticlesSidebar: FC = () => {
     if (status) {
       try {
         const updatedArticle = await updateArticleStatus({ id: article.id, status }).unwrap();
-        debugger;
         dispatch(setArticle({ ...article, ...updatedArticle }));
         closeModal();
       } catch (e) {
