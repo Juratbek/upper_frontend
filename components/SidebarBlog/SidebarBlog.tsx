@@ -16,10 +16,22 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
         <div className='d-flex align-items-center pointer'>
           <Avatar imgUrl='' size='medium' className={classes.avatar} />
           <div>
-            <h3 className='m-0'>{name}</h3>
+            <h4 className='m-0'>{name}</h4>
             <p className={`m-0 ${classes['details']}`}>
-              {followersCount && <span>{followersCount} kuzatuvchilar&nbsp;&nbsp;</span>}
-              {articlesCount && <span>{articlesCount} maqolalar</span>}
+              {followersCount ? (
+                <span>
+                  {followersCount} kuzatuvchi{followersCount > 1 && 'lar'}&nbsp;&nbsp;
+                </span>
+              ) : (
+                ''
+              )}
+              {articlesCount ? (
+                <span>
+                  {articlesCount} maqola{articlesCount > 1 && 'lar'}
+                </span>
+              ) : (
+                ''
+              )}
             </p>
           </div>
         </div>
