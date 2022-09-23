@@ -5,9 +5,9 @@
 }
 
 .avatar--small {
-    min-width: 32px;
-    width: 32px;
-    height: 32px;
+    min-width: 1.9rem;
+    width: 1.9rem;
+    height: 1.9rem;
 }
 
 .avatar--medium {
