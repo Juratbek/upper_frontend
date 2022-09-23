@@ -121,10 +121,10 @@ export const Sidebar = (): JSX.Element => {
           </>
         )}
         <SidebarSearch />
-        <h2>Siz uchun maqolalar</h2>
+        <h3>Siz uchun maqolalar</h3>
         {suggestedArticles}
         <Divider className='my-2' />
-        <h2>Kuzatib boring</h2>
+        <h3>Kuzatib boring</h3>
         {suggestedBlogs}
       </>
     );

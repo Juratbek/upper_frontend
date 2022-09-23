@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { ISidebarArticle } from 'types';
+import { IArticleResult, ISidebarArticle } from 'types';
 
 import { baseQuery } from '../config';
 
@@ -10,8 +10,13 @@ export const publishedArticleApi = createApi({
     getSidebarSuggestions: build.query<ISidebarArticle[], void>({
       query: () => 'sidebar-suggestions',
     }),
+    getSuggestions: build.query<IArticleResult[], void>({
+      query: () => 'suggestions',
+    }),
   }),
 });
 
-export const { useGetSidebarSuggestionsQuery: useGetSidebarArticleSuggestionsQuery } =
-  publishedArticleApi;
+export const {
+  useGetSidebarSuggestionsQuery: useGetSidebarArticleSuggestionsQuery,
+  useGetSuggestionsQuery: useGetArticleSuggestionsQuery,
+} = publishedArticleApi;
