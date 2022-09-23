@@ -1,7 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
 import { useAuth } from 'hooks';
-import { FC, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal } from 'store/states';
@@ -33,9 +33,18 @@ export const Article: FC<IArticleProps> = (props) => {
     likeDislikeArticle({ id, value });
   };
 
+  useEffect(() => {
+    editorInstance?.render({ blocks });
+  }, [blocks]);
+
+  const article = useMemo(
+    () => <Editor content={{ blocks }} editable={false} handleInstance={setEditorInstance} />,
+    [blocks],
+  );
+
   return (
     <div className={`${styles.articleContainer} editor-container`}>
-      <Editor content={{ blocks }} editable={false} handleInstance={setEditorInstance} />
+      {article}
       <Divider className='my-2' />
       <div className={styles.articleDetail}>
         <div className='mb-1'>
