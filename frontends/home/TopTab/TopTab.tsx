@@ -10,7 +10,7 @@ export const TopTab: FC = () => {
     <ApiErrorBoundary res={res} className='tab'>
       {res.data?.map((article) => (
         <Article
-          className='px-2 py-2'
+          className='p-2'
           key={article.id}
           article={article}
           author={article.author}

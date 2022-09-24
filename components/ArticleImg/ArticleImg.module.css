@@ -10,13 +10,13 @@
 }
 
 .article-img--small {
-    min-width: 80px;
+    min-width: 4.5rem;
     max-width: 20%;
-    height: 60px;
+    height: 4rem;
 }
 
 .article-img--medium {
-    min-width: 150px;
+    min-width: 8.5rem;
     max-width: 30%;
-    height: 100px;
+    height: 7.5rem;
 }
