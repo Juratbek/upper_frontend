@@ -1,6 +1,7 @@
 import EditorJs from '@editorjs/editorjs';
 import { FC, useEffect, useRef, useState } from 'react';
 
+import { ImageModal } from '../ImageModal';
 import { EDITOR_HOLDER, IEditorProps } from './editor.types';
 import { createEditor } from './services/editor.service';
 
@@ -29,14 +30,46 @@ export const Editor: FC<IEditorProps> = (props) => {
     });
   };
 
-  // const zoomInImage = (): void => {};
+  const onImgClick = (e: Event): void => {
+    const target = e.target as HTMLElement;
+    const clonedImg = target.cloneNode(true);
+    const imgModal = document.querySelector('#imgModal') as HTMLElement;
+    const imgModalContent = imgModal.querySelector('#modalContent') as HTMLElement;
+    imgModalContent.innerHTML = '';
+    imgModalContent.appendChild(clonedImg);
+    imgModal.style.display = 'block';
+  };
+
+  const onImgInserted = (e: Event): void => {
+    const target = e.target as HTMLElement;
+    const img = target.querySelector('img');
+    img?.addEventListener('click', onImgClick);
+  };
+
+  const zoomInImage = (): void => {
+    containerRef.current?.querySelectorAll('.inline-image').forEach((imgContainer) => {
+      imgContainer.addEventListener('DOMNodeInserted', onImgInserted);
+    });
+  };
 
   useEffect(() => {
     editor?.isReady.then(() => {
       cleanEmptyCaptions();
-      // zoomInImage();
+      zoomInImage();
     });
+
+    return () => {
+      containerRef.current?.querySelectorAll('.inline-image').forEach((imgContainer) => {
+        imgContainer.removeEventListener('DOMNodeInserted', onImgInserted);
+        imgContainer.querySelector('img')?.removeEventListener('click', onImgClick);
+      });
+    };
   }, [editor]);
 
-  return <div id={EDITOR_HOLDER} ref={containerRef}></div>;
+  return (
+    <>
+      <div id={EDITOR_HOLDER} ref={containerRef}></div>
+      <ImageModal />
+    </>
+  );
 };

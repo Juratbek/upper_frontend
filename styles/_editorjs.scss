@@ -8,6 +8,12 @@
   }
 }
 
+.inline-image__picture {
+  img {
+    cursor: zoom-in;
+  }
+}
+
 .inline-code {
   background: rgba(240, 240, 240, 0.7) !important;
   color: black !important;

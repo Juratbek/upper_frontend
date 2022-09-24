@@ -1,44 +1,40 @@
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
 }
 
-/* Modal Content (image) */
+.modal__overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
 .modal__content {
   margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
+  display: flex;
+  width: 90vw;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-content: center;
 
-/* Caption of Modal Image */
-.modal__caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
+  img {
+    max-width: 100%;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
 
-/* Add Animation */
-.modal__content,
-.modal__caption {
-  -webkit-animation-name: zoom;
-  -webkit-animation-duration: 0.6s;
-  animation-name: zoom;
-  animation-duration: 0.6s;
+    cursor: zoom-out;
+  }
 }
 
 @keyframes zoom {
@@ -50,7 +46,6 @@
   }
 }
 
-/* The Close Button */
 .modal__close-icon {
   position: absolute;
   top: 15px;
