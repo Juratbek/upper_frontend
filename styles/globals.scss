@@ -44,6 +44,15 @@
   overflow-wrap: anywhere;
 }
 
+.icon {
+  & svg {
+    fill: black
+  }
+  &--active svg {
+    fill: blue;
+  }
+}
+
 /* margins */
 .m-0 {
   margin: 0;

@@ -3,7 +3,7 @@ import { Divider, Editor } from 'components';
 import { useAuth } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { useLikeDislikeMutation } from 'store/apis';
+import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal } from 'store/states';
 import { formatToKMB, toDateString } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables/icons';
@@ -23,6 +23,8 @@ export const Article: FC<IArticleProps> = (props) => {
   const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle] = useLikeDislikeMutation();
+  const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
+    useLazyCheckIfLikedDislikedQuery();
 
   const likeDislike = (value: -1 | 1): void => {
     if (!isAuthenticated) {
@@ -31,6 +33,10 @@ export const Article: FC<IArticleProps> = (props) => {
     }
     likeDislikeArticle({ id, value });
   };
+
+  useEffect(() => {
+    isAuthenticated && checkIfLikedDislikedQuery(id);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     editorInstance?.render({ blocks });
@@ -56,18 +62,24 @@ export const Article: FC<IArticleProps> = (props) => {
           <div className={styles.reactions}>
             {viewCount > 0 && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
             <div className={styles.reactionButtons}>
-              <span className='pointer' onClick={(): void => likeDislike(1)}>
+              <span
+                className={`pointer icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
+                onClick={(): void => likeDislike(1)}
+              >
                 <LikeIcon />
               </span>
               <span className='mx-2'>{likeCount}</span>
-              <span className='pointer' onClick={(): void => likeDislike(-1)}>
+              <span
+                className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
+                onClick={(): void => likeDislike(-1)}
+              >
                 <DislikeIcon />
               </span>
             </div>
           </div>
         </div>
       </div>
-      <ArticleActions editor={editorInstance} />
+      <ArticleActions editor={editorInstance} isLikedOrDisliked={isLikedOrDisliked} />
     </div>
   );
 };

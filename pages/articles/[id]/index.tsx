@@ -1,14 +1,9 @@
 import { ApiError } from 'components';
 import { Article } from 'frontends/article';
-import { useAuth } from 'hooks';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect } from 'react';
 import { useAppDispatch, wrapper } from 'store';
-import {
-  articleApi,
-  useIncrementViewCountMutation,
-  useLazyCheckIfLikedDislikedQuery,
-} from 'store/apis';
+import { articleApi, useIncrementViewCountMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
 import { get } from 'utils';
@@ -21,8 +16,6 @@ interface IArticlePageProps {
 const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePageProps) => {
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
-  const [checkIfLikedDislikedQuery] = useLazyCheckIfLikedDislikedQuery();
-  const { isAuthenticated } = useAuth();
 
   if (!article) {
     if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
@@ -32,8 +25,6 @@ const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePa
   dispatch(setArticleAuthor(article.author));
 
   useEffect(() => {
-    isAuthenticated && checkIfLikedDislikedQuery(article.id);
-
     const timeout = setTimeout(() => {
       incrementViewCountRequest(article.id);
     }, 5000);
