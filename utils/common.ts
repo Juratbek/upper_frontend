@@ -16,9 +16,11 @@ export const get = <T>(
   }, obj) as T;
 };
 
-export const convertToOptions = (arr: any[], valueKey: string, labelKey: string): IOption[] => {
-  return arr.map((item) => ({ value: item[valueKey], label: item[labelKey] }));
-};
+export const convertToOptions = (arr: any[], valueKey: string, labelKey: string): IOption[] =>
+  arr.map((item) => ({ value: item[valueKey], label: item[labelKey] }));
+
+export const convertOptionsToLabels = (options: IOption[]): ILabel[] =>
+  options.map((option) => ({ id: +option.value, name: option.label }));
 
 export const convertLabelsToOptions = (labels: ILabel[] = []): IOption[] =>
   convertToOptions(labels, 'id', 'name');

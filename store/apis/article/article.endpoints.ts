@@ -51,16 +51,6 @@ export const update = (
     }),
   });
 
-export const likeDislike = (
-  build: TArticleEndpointBuilder,
-): TArticleMutationDefinition<void, { id: number; value: -1 | 1 }> =>
-  build.mutation({
-    query: ({ id, value }) => ({
-      url: `like-dislike/${id}?value=${value}`,
-      method: 'POST',
-    }),
-  });
-
 export const incrementViewCount = (
   build: TArticleEndpointBuilder,
 ): TArticleMutationDefinition<void, number> =>

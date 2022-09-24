@@ -9,7 +9,11 @@ function filterOptions(options: IOption[], option: IOption): IOption[] {
 }
 
 function getAvailableOptions(options: IOption[] | undefined, defaultValues: IOption[]): IOption[] {
-  if (defaultValues && options) return options.filter((option) => !defaultValues.includes(option));
+  if (defaultValues && options) {
+    const defaultOptionsValues = defaultValues.map((option) => option.value);
+    const defaultValuesSet = new Set(defaultOptionsValues);
+    return options.filter((option) => !defaultValuesSet.has(option.value));
+  }
   return options || [];
 }
 
