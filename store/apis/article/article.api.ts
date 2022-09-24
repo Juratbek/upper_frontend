@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { IArticle, IArticleResult, TArticleStatus } from 'types';
 
 import { baseQuery } from '../config';
-import { create, incrementViewCount, likeDislike, update, updateStatus } from './article.endpoints';
+import { create, incrementViewCount, update, updateStatus } from './article.endpoints';
 
 export const articleApi = createApi({
   reducerPath: 'article',
@@ -11,7 +11,6 @@ export const articleApi = createApi({
     create: create(build),
     update: update(build),
     updateStatus: updateStatus(build),
-    likeDislike: likeDislike(build),
     incrementViewCount: incrementViewCount(build),
     fullDelete: build.mutation({
       query: () => '',
@@ -34,7 +33,6 @@ export const {
   useUpdateStatusMutation: useUpdateArticleStatusMutation,
   useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
   useLazyGetBlogArticlesQuery,
-  useLikeDislikeMutation,
   useLazyGetBlogArticleByIdQuery,
   useIncrementViewCountMutation,
 } = articleApi;

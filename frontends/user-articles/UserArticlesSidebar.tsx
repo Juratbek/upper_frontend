@@ -7,9 +7,9 @@ import {
   useUpdateArticleMutaion,
   useUpdateArticleStatusMutation,
 } from 'store/apis';
-import { getArticle, getEditor, setArticle } from 'store/states';
-import { ILabel, TArticleStatus } from 'types';
-import { convertLabelsToOptions } from 'utils';
+import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
+import { TArticleStatus } from 'types';
+import { convertLabelsToOptions, convertOptionsToLabels } from 'utils';
 import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
@@ -26,9 +26,6 @@ export const UserArticlesSidebar: FC = () => {
   const editor = useAppSelector(getEditor);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [action, setAction] = useState<TArticleAction>();
-  const [selectedLabels, setSelectedLabels] = useState<IOption[]>(
-    convertLabelsToOptions(article?.labels),
-  );
   const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
@@ -57,8 +54,7 @@ export const UserArticlesSidebar: FC = () => {
     const editorData = await editor?.save();
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
-    const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
-    const updated = await updateArticle({ id: article.id, title, blocks, labels }).unwrap();
+    const updated = await updateArticle({ ...article, title, blocks }).unwrap();
     dispatch(setArticle(updated));
   };
 
@@ -86,7 +82,8 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
-    setSelectedLabels(options);
+    const selectedLabels = convertOptionsToLabels(options);
+    dispatch(setLabels(selectedLabels));
   };
 
   return (
@@ -156,7 +153,7 @@ export const UserArticlesSidebar: FC = () => {
         <Select
           onChange={labelsChangeHandler}
           disabled={[ARTICLE_STATUSES.DELETED].includes(status as TArticleStatus)}
-          defaultValues={selectedLabels}
+          defaultValues={convertLabelsToOptions(article.labels)}
           options={convertLabelsToOptions(labels)}
         />
       )}

@@ -34,8 +34,8 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
         </div>
       </Link>
       <div className={classes.footer}>
-        <div>
-          <span className='date'>
+        <div className={classes.stats}>
+          <span>
             {updatedDate ? (
               <>
                 <strong>{toDateString(updatedDate)}</strong> da yangilangan
@@ -47,7 +47,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
             )}
           </span>
           &nbsp; &nbsp;
-          {viewCount && (
+          {viewCount > 0 && (
             <span>
               <strong>{formatToKMB(viewCount)}</strong> martta o`qilgan
             </span>
@@ -63,18 +63,6 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
       </div>
       <div className={classes.footer} style={{ marginTop: '.5rem' }}>
         {author ? <Author {...author} /> : <div />}
-        {/* <div className='d-flex'>
-          {icons &&
-            icons.map((icon) => {
-              const Icon = ICONS[icon];
-              return (
-                <span key={icon} style={{ marginRight: '.8rem' }}>
-                  <Icon />
-                </span>
-              );
-            })}
-          {actions && <Actions actions={actions} />}
-        </div> */}
       </div>
     </div>
   );

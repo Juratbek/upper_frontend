@@ -3,8 +3,8 @@
   --lightGray: rgba(196, 196, 196, 0.35);
   --gray: gray;
   --red: hsl(0, 76%, 47%);
-  --smallBorderRadius: .3rem;
-  --mediumBorderRadius: .6rem;
+  --smallBorderRadius: 0.3rem;
+  --mediumBorderRadius: 0.6rem;
   --yellow: rgba(255, 229, 60);
 }
 
@@ -18,18 +18,18 @@
   min-height: 100vh;
 }
 
-.app>.main{
+.app > .main {
   flex: 1 1 auto;
 }
 
 .container {
-  max-width: 1000px;
-  width: 90%;
+  max-width: 80rem;
+  width: 80%;
   margin: 0 auto;
 }
 
 .form-element {
-  margin-bottom: .8em;
+  margin-bottom: 0.8em;
 }
 
 .pointer {
@@ -44,21 +44,17 @@
   overflow-wrap: anywhere;
 }
 
-.date {
-  font-size: 0.8rem;
-}
-
 /* margins */
 .m-0 {
   margin: 0;
 }
 
 .m-1 {
-  margin: $size1
+  margin: $size1;
 }
 
 .m-2 {
-  margin: $size2
+  margin: $size2;
 }
 
 .m--1 {
