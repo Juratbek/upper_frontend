@@ -11,7 +11,6 @@ export const ImageModal: FC = () => {
   return (
     <div id='imgModal' className={styles.modal} onClick={(e): void => closeModal(e)}>
       <div className={styles['modal__overlay']}></div>
-      <span className={styles['modal__close-icon']}>&times;</span>
       <div className={styles['modal__content']} id={'modalContent'}></div>
     </div>
   );
