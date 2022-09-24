@@ -13,10 +13,17 @@ export const publishedArticleApi = createApi({
     getSuggestions: build.query<IArticleResult[], void>({
       query: () => 'suggestions',
     }),
+    likeDislike: build.mutation<void, { id: number; value: -1 | 1 }>({
+      query: ({ id, value }) => ({
+        url: `like-dislike/${id}?value=${value}`,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
 export const {
   useGetSidebarSuggestionsQuery: useGetSidebarArticleSuggestionsQuery,
   useGetSuggestionsQuery: useGetArticleSuggestionsQuery,
+  useLikeDislikeMutation,
 } = publishedArticleApi;
