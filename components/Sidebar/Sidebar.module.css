@@ -1,6 +1,6 @@
 .sidebar {
     border-left: 1px solid var(--lightBlack);
-    min-width: 300px;
-    width: 25vw;
-    padding: 1rem 1.3rem;
+    min-width: 22rem;
+    width: 26vw;
+    padding: 1rem 1.8rem;
 }

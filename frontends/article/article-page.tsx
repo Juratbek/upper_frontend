@@ -25,7 +25,7 @@ export const Article: FC<IArticleProps> = (props) => {
   const [likeDislikeArticle] = useLikeDislikeMutation();
   const isAuthenticated = authStatus === 'authenticated';
 
-  const react = (value: -1 | 1): void => {
+  const likeDislike = (value: -1 | 1): void => {
     if (!isAuthenticated) {
       dispatch(openLoginModal());
       return;
@@ -55,40 +55,17 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
         <div className='d-flex justify-content-between'>
           <div className={styles.reactions}>
-            {viewCount && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
+            {viewCount > 0 && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
             <div className={styles.reactionButtons}>
-              <span className='pointer' onClick={(): void => react(1)}>
+              <span className='pointer' onClick={(): void => likeDislike(1)}>
                 <LikeIcon />
               </span>
-              <span className='mx-2'>{likeCount}+14 K</span>
-              <span className='pointer' onClick={(): void => react(-1)}>
+              <span className='mx-2'>{likeCount}</span>
+              <span className='pointer' onClick={(): void => likeDislike(-1)}>
                 <DislikeIcon />
               </span>
             </div>
           </div>
-
-          {/* <div className={styles.navigation}>
-            {prevArticleId && (
-              <>
-                <div className={styles.navIcon}>
-                  <PrevIcon />
-                </div>
-                <span>Oldingi</span>
-              </>
-            )}
-            <ShareIcon />
-            <span>Bo&apos;lishish</span>
-            <SaveIcon />
-            <span>Saqlash</span>
-            {nextArticleId && (
-              <>
-                <span>Keyingi</span>
-                <div className={styles.navIcon}>
-                  <NextIcon />
-                </div>
-              </>
-            )}
-          </div> */}
         </div>
       </div>
       <ArticleActions editor={editorInstance} />

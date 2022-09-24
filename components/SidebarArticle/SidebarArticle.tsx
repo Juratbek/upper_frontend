@@ -13,7 +13,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({ className, title, id,
     <div className={rootClassName}>
       <div className={classes.title}>
         <Link href={`/articles/${id}`}>
-          <h3 className='m-0 mb-1 pointer'>{title}</h3>
+          <h4 className='m-0 mb-1 pointer'>{title}</h4>
         </Link>
         {author && <Author {...author} />}
       </div>

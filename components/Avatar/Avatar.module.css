@@ -11,7 +11,7 @@
 }
 
 .avatar--medium {
-    --size: 2.6rem;
+    --size: 3rem;
     min-width: var(--size);
     width: var(--size);
     height: var(--size);

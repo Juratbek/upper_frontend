@@ -59,7 +59,7 @@ export const LoginModal: FC = () => {
       {hasAlert && (
         <Alert color='yellow' className='mb-1'>
           Xatolik yuz berdi. Iltimos bu haqda&nbsp;
-          <a className='link' href={TELEGRAM_BOT.link} target='_blank' rel='noreferrer'>
+          <a className='text-blue' href={TELEGRAM_BOT.link} target='_blank' rel='noreferrer'>
             {TELEGRAM_BOT.name}
           </a>
           &nbsp;telegram botiga habar bering.

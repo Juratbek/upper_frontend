@@ -36,8 +36,8 @@
   cursor: pointer;
 }
 
-.link {
-  color: blue;
+.link:hover {
+  text-decoration: underline;
 }
 
 .overflow-wrap {
@@ -224,4 +224,9 @@
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+// text colors
+.text-blue {
+  color: blue;
 }
