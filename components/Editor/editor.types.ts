@@ -2,7 +2,7 @@ import EditorJS, { EditorConfig, OutputData } from '@editorjs/editorjs';
 
 export interface IEditorProps {
   changeHandler?: EditorConfig['onChange'];
-  editable?: boolean;
+  isEditable?: boolean;
   content?: OutputData;
   placeholder?: string;
   handleInstance?: (editor: EditorJS) => void;

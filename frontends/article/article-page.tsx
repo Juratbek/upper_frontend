@@ -38,7 +38,7 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [blocks]);
 
   const article = useMemo(
-    () => <Editor content={{ blocks }} editable={false} handleInstance={setEditorInstance} />,
+    () => <Editor content={{ blocks }} isEditable={false} handleInstance={setEditorInstance} />,
     [blocks],
   );
 
