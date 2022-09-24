@@ -31,6 +31,7 @@ const article: IArticleResult = {
   labels,
   publishedDate: new Date(),
   status: ARTICLE_STATUSES.PUBLISHED,
+  viewCount: 10,
 };
 
 const notifications: INotification[] = [
