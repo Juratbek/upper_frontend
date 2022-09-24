@@ -22,6 +22,9 @@ export const publishedArticleApi = createApi({
         method: 'POST',
       }),
     }),
+    checkIfLikedDisliked: build.query<number, number>({
+      query: (id) => `check-like-dislike/${id}`,
+    }),
   }),
 });
 
@@ -29,5 +32,6 @@ export const {
   useGetSidebarSuggestionsQuery: useGetSidebarArticleSuggestionsQuery,
   useGetSuggestionsQuery: useGetArticleSuggestionsQuery,
   useGetTopQuery: useGetTopArticlesQuery,
+  useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
 } = publishedArticleApi;

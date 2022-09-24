@@ -20,10 +20,9 @@ const toUzbDateString = (date: Date | string): string => toDateString(date, { mo
 export const Article: FC<IArticleProps> = (props) => {
   const { viewCount, publishedDate, updatedDate, blocks, id, likeCount } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
-  const { status: authStatus } = useAuth();
+  const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle] = useLikeDislikeMutation();
-  const isAuthenticated = authStatus === 'authenticated';
 
   const likeDislike = (value: -1 | 1): void => {
     if (!isAuthenticated) {

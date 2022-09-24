@@ -10,43 +10,15 @@ import {
 } from 'store/apis';
 import { openLoginModal, openRegisterModal } from 'store/states';
 import { getArticleAuthor } from 'store/states/readArticle';
-import { IBlogSmall, ISidebarArticle } from 'types';
 import { replaceAll } from 'utils';
 
 import { SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
 
-const author: IBlogSmall = {
-  id: 1,
-  name: 'Samandar',
-  imgUrl: 'awda',
-};
-
-const articles: ISidebarArticle[] = [
-  {
-    id: 1,
-    title: 'Article title Lorem Ipsum is simply dummy',
-    imgUrl: '',
-    author,
-  },
-  {
-    id: 2,
-    title: 'Article title',
-    imgUrl: '',
-    author,
-  },
-  {
-    id: 3,
-    title: 'Article title',
-    imgUrl: '',
-    author,
-  },
-];
-
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const { pathname } = useRouter();
-  const { status: authStatus } = useAuth();
+  const { isAuthenticated } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
   const articleSuggestionsRes = useGetSidebarArticleSuggestionsQuery();
   const blogSuggestionsRes = useGetSidebarBlogSuggestionsQuery();
@@ -66,7 +38,7 @@ export const Sidebar = (): JSX.Element => {
     return data?.map((article, index) => (
       <div key={article.id}>
         <SidebarArticle {...article} />
-        {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+        {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
       </div>
     ));
   }, [articleSuggestionsRes]);
@@ -78,7 +50,7 @@ export const Sidebar = (): JSX.Element => {
     return data?.map((blog, index) => (
       <div key={blog.id}>
         <SidebarBlog {...blog} />
-        {index !== articles.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+        {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
       </div>
     ));
   }, [blogSuggestionsRes]);
@@ -101,7 +73,7 @@ export const Sidebar = (): JSX.Element => {
 
     return (
       <>
-        {authStatus === 'unauthenticated' && (
+        {!isAuthenticated && (
           <>
             <div className='d-flex justify-content-around'>
               <Button color='outline-dark' onClick={loginHandler}>
@@ -128,7 +100,7 @@ export const Sidebar = (): JSX.Element => {
         {suggestedBlogs}
       </>
     );
-  }, [pathname, authStatus, articleAuthor, suggestedArticles, suggestedBlogs]);
+  }, [pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
 
   return <div className={classes.sidebar}>{content}</div>;
 };

@@ -3,10 +3,12 @@ import { TAuthStatus } from 'types';
 
 interface IAuthState {
   status: TAuthStatus;
+  isAuthenticated: boolean;
 }
 
 const initialState: IAuthState = {
   status: 'unauthenticated',
+  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
@@ -15,9 +17,11 @@ const authSlice = createSlice({
   reducers: {
     authenticate(state) {
       state.status = 'authenticated';
+      state.isAuthenticated = true;
     },
     unauthenticate(state) {
       state.status = 'unauthenticated';
+      state.isAuthenticated = false;
     },
   },
 });

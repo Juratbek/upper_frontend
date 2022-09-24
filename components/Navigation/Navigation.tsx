@@ -9,10 +9,9 @@ import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
 
 export const Navigation = (): JSX.Element => {
-  const { status: authStatus } = useAuth();
+  const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const isAuthenticated = authStatus === 'authenticated';
 
   const clickHandler = (href: string, authNeeded: boolean | undefined): void => {
     if (!isAuthenticated && authNeeded) dispatch(openLoginModal());
@@ -21,7 +20,7 @@ export const Navigation = (): JSX.Element => {
 
   const icons = useMemo(() => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
-  }, [authStatus]);
+  }, [isAuthenticated]);
 
   return (
     <div className={classes.navigation}>
