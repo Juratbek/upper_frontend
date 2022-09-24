@@ -19,7 +19,7 @@ export interface IArticleResult {
   labels: ILabel[];
   publishedDate: Date;
   updatedDate?: Date;
-  viewCount?: number;
+  viewCount: number;
   likes?: number;
 }
 
