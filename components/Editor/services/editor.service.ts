@@ -5,7 +5,7 @@ import { getTools } from './editor-tools';
 
 export const createEditor = async ({
   changeHandler,
-  editable = true,
+  isEditable = true,
   content = { blocks: [] },
   placeholder = EDITOR_PLACEHOLDER,
 }: IEditorProps = {}): Promise<EditorJs> => {
@@ -15,7 +15,7 @@ export const createEditor = async ({
   return new editorJS({
     holder: EDITOR_HOLDER,
     onChange: changeHandler,
-    readOnly: !editable,
+    readOnly: !isEditable,
     placeholder,
     data: content,
     tools,

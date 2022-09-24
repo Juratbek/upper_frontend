@@ -9,7 +9,7 @@ export const Editor: FC<IEditorProps> = (props) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { handleInstance } = props;
+  const { handleInstance, isEditable = true } = props;
 
   useEffect(() => {
     createEditor({
@@ -55,20 +55,22 @@ export const Editor: FC<IEditorProps> = (props) => {
   useEffect(() => {
     editor?.isReady.then(() => {
       cleanEmptyCaptions();
-      zoomInImage();
+      if (!isEditable) zoomInImage();
     });
 
     return () => {
       containerRef.current?.querySelectorAll('.inline-image').forEach((imgContainer) => {
-        imgContainer.removeEventListener('DOMNodeInserted', onImgInserted);
-        imgContainer.querySelector('img')?.removeEventListener('click', onImgClick);
+        if (!isEditable) {
+          imgContainer.removeEventListener('DOMNodeInserted', onImgInserted);
+          imgContainer.querySelector('img')?.removeEventListener('click', onImgClick);
+        }
       });
     };
   }, [editor]);
 
   return (
     <>
-      <div id={EDITOR_HOLDER} ref={containerRef}></div>
+      <div id={EDITOR_HOLDER} ref={containerRef} className={!isEditable ? 'readMode' : ''}></div>
       <ImageModal />
     </>
   );

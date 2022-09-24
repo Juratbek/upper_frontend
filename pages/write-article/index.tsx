@@ -18,15 +18,7 @@ export default function WriteArticlePage(): JSX.Element {
 
   return (
     <div className='editor-container'>
-      <Editor
-        editable={false}
-        content={imagesData}
-        handleInstance={getInstance}
-        changeHandler={async (api): Promise<void> => {
-          const data = await api.saver.save();
-          console.log(data);
-        }}
-      />
+      <Editor content={imagesData} isEditable={false} handleInstance={getInstance} />
     </div>
   );
 }
