@@ -63,7 +63,7 @@ export default function UserArticlePage(): JSX.Element {
         </Alert>
       )}
       <Editor
-        editable={true}
+        isEditable={true}
         content={{
           blocks: blocks,
         }}
