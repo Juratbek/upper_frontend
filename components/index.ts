@@ -34,3 +34,4 @@ export * from './Spinner/Spinner';
 export * from './Alert/Alert';
 export * from './ApiError/ApiError';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
+export * from './ImageModal';
