@@ -1,5 +1,4 @@
 import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
-import { Author } from 'frontends/article';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -12,7 +11,7 @@ import { openLoginModal, openRegisterModal } from 'store/states';
 import { getArticleAuthor } from 'store/states/readArticle';
 import { replaceAll } from 'utils';
 
-import { SIDEBAR_CONTENTS } from './Sidebar.constants';
+import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.css';
 
 export const Sidebar = (): JSX.Element => {
@@ -69,7 +68,8 @@ export const Sidebar = (): JSX.Element => {
       const ContentComponent = SIDEBAR_CONTENTS[key];
       return <ContentComponent />;
     }
-    const isPublishedArticlePage = pathname === '/articles/[id]';
+
+    const AdditionalComponent = ADDITIONAL_SIDEBAR_CONTENTS[pathname];
 
     return (
       <>
@@ -86,12 +86,7 @@ export const Sidebar = (): JSX.Element => {
             <Divider className='my-2' />
           </>
         )}
-        {articleAuthor && isPublishedArticlePage && (
-          <>
-            <Author {...articleAuthor} className='mt-2' />
-            <Divider className='my-2' />
-          </>
-        )}
+        {AdditionalComponent && <AdditionalComponent />}
         <SidebarSearch />
         <h3>Siz uchun maqolalar</h3>
         {suggestedArticles}
