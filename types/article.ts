@@ -34,11 +34,13 @@ export interface IArticle {
   updatedDate?: string;
   viewCount: number;
   likeCount: number;
+  dislikeCount: number;
   prevArticleId?: number;
   nextArticleId?: number;
   status: TArticleStatus;
   publishedArticleId?: number;
   hasNotpublishedChanges?: boolean;
+  token?: string;
 }
 
 export type TArticleStatus = 'PUBLISHED' | 'UNPUBLISHED' | 'SAVED' | 'DELETED';
