@@ -32,8 +32,8 @@ export interface IArticle {
   labels: ILabel[];
   publishedDate?: string;
   updatedDate?: string;
-  viewCount?: number;
-  likeCount?: number;
+  viewCount: number;
+  likeCount: number;
   prevArticleId?: number;
   nextArticleId?: number;
   status: TArticleStatus;

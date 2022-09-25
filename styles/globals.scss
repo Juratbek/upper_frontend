@@ -36,12 +36,21 @@
   cursor: pointer;
 }
 
-.link {
-  color: blue;
+.link:hover {
+  text-decoration: underline;
 }
 
 .overflow-wrap {
   overflow-wrap: anywhere;
+}
+
+.icon {
+  & svg {
+    fill: black
+  }
+  &--active svg {
+    fill: blue;
+  }
 }
 
 /* margins */
@@ -224,4 +233,9 @@
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+// text colors
+.text-blue {
+  color: blue;
 }

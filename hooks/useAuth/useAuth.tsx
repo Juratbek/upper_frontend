@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
+  getIsAuthenticated,
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
 import { TOKEN } from 'variables';
@@ -12,6 +13,7 @@ import { IUseAuth } from './useAuth.types';
 export const useAuth = (): IUseAuth => {
   const dispatch = useAppDispatch();
   const status = useAppSelector(getAuthStatus);
+  const isAuthenticated = useAppSelector(getIsAuthenticated);
 
   useEffect(() => {
     const token = getToken();
@@ -40,13 +42,14 @@ export const useAuth = (): IUseAuth => {
     try {
       return localStorage.getItem(TOKEN);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return null;
     }
   };
 
   return {
     status,
+    isAuthenticated,
     authenticate,
     unauthenticate,
     getToken,

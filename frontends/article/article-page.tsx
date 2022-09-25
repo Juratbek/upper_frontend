@@ -3,7 +3,7 @@ import { Divider, Editor } from 'components';
 import { useAuth } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { useLikeDislikeMutation } from 'store/apis';
+import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal } from 'store/states';
 import { formatToKMB, toDateString } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables/icons';
@@ -20,18 +20,23 @@ const toUzbDateString = (date: Date | string): string => toDateString(date, { mo
 export const Article: FC<IArticleProps> = (props) => {
   const { viewCount, publishedDate, updatedDate, blocks, id, likeCount } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
-  const { status: authStatus } = useAuth();
+  const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle] = useLikeDislikeMutation();
-  const isAuthenticated = authStatus === 'authenticated';
+  const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
+    useLazyCheckIfLikedDislikedQuery();
 
-  const react = (value: -1 | 1): void => {
+  const likeDislike = (value: -1 | 1): void => {
     if (!isAuthenticated) {
       dispatch(openLoginModal());
       return;
     }
     likeDislikeArticle({ id, value });
   };
+
+  useEffect(() => {
+    isAuthenticated && checkIfLikedDislikedQuery(id);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     editorInstance?.render({ blocks });
@@ -55,43 +60,26 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
         <div className='d-flex justify-content-between'>
           <div className={styles.reactions}>
-            {viewCount && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
+            {viewCount > 0 && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
             <div className={styles.reactionButtons}>
-              <span className='pointer' onClick={(): void => react(1)}>
+              <span
+                className={`pointer icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
+                onClick={(): void => likeDislike(1)}
+              >
                 <LikeIcon />
               </span>
-              <span className='mx-2'>{likeCount}+14 K</span>
-              <span className='pointer' onClick={(): void => react(-1)}>
+              <span className='mx-2'>{likeCount}</span>
+              <span
+                className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
+                onClick={(): void => likeDislike(-1)}
+              >
                 <DislikeIcon />
               </span>
             </div>
           </div>
-
-          {/* <div className={styles.navigation}>
-            {prevArticleId && (
-              <>
-                <div className={styles.navIcon}>
-                  <PrevIcon />
-                </div>
-                <span>Oldingi</span>
-              </>
-            )}
-            <ShareIcon />
-            <span>Bo&apos;lishish</span>
-            <SaveIcon />
-            <span>Saqlash</span>
-            {nextArticleId && (
-              <>
-                <span>Keyingi</span>
-                <div className={styles.navIcon}>
-                  <NextIcon />
-                </div>
-              </>
-            )}
-          </div> */}
         </div>
       </div>
-      <ArticleActions editor={editorInstance} />
+      <ArticleActions editor={editorInstance} isLikedOrDisliked={isLikedOrDisliked} />
     </div>
   );
 };

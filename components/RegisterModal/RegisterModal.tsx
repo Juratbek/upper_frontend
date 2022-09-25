@@ -17,7 +17,7 @@ export const RegisterModal: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<number[]>([]);
   const isOpen = useAppSelector(getIsRegisterModalOpen);
   const dispatch = useAppDispatch();
-  const { authenticate, status: authStatus } = useAuth();
+  const { authenticate } = useAuth();
   const {
     register,
     handleSubmit,
@@ -175,13 +175,7 @@ export const RegisterModal: FC = () => {
             Yakunlash
           </Button>
         ) : (
-          <Button
-            className='d-block w-100 mb-1'
-            loading={
-              createBlogResponse.isLoading ||
-              (createBlogResponse.isSuccess && authStatus !== 'authenticated')
-            }
-          >
+          <Button className='d-block w-100 mb-1' loading={createBlogResponse.isLoading}>
             Davom etish
           </Button>
         )}

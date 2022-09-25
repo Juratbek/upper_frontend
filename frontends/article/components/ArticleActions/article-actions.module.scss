@@ -39,6 +39,10 @@
       cursor: pointer;
       transition: all 0.2s ease-in;
 
+      &--active svg {
+        fill: blue;
+      }
+
       &:hover {
         transform: scale(1.25);
       }

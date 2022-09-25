@@ -18,7 +18,7 @@ export const LoginModal: FC = () => {
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
-  const { status, authenticate } = useAuth();
+  const { authenticate } = useAuth();
   const {
     register,
     handleSubmit,
@@ -59,7 +59,7 @@ export const LoginModal: FC = () => {
       {hasAlert && (
         <Alert color='yellow' className='mb-1'>
           Xatolik yuz berdi. Iltimos bu haqda&nbsp;
-          <a className='link' href={TELEGRAM_BOT.link} target='_blank' rel='noreferrer'>
+          <a className='text-blue' href={TELEGRAM_BOT.link} target='_blank' rel='noreferrer'>
             {TELEGRAM_BOT.name}
           </a>
           &nbsp;telegram botiga habar bering.
@@ -80,13 +80,7 @@ export const LoginModal: FC = () => {
           <Input type='password' id='password' {...register(password.name, password.options)} />
           <Error error={errors[password.name]} />
         </div>
-        <Button
-          className='d-block w-100 mb-1'
-          loading={
-            loginBlogResponse.isLoading ||
-            (loginBlogResponse.isSuccess && status !== 'authenticated')
-          }
-        >
+        <Button className='d-block w-100 mb-1' loading={loginBlogResponse.isLoading}>
           Kirish
         </Button>
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>

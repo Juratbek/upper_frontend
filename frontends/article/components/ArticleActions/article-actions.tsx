@@ -1,4 +1,3 @@
-import EditorJS from '@editorjs/editorjs';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
@@ -8,6 +7,7 @@ import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
 import styles from './article-actions.module.scss';
+import { IArticleActionsProps } from './article-actions.types';
 
 const CommentIcon = ICONS[ICON_TYPES.comment];
 const LikeIcon = ICONS[ICON_TYPES.like];
@@ -21,13 +21,9 @@ const ArticleSharePopup = dynamic<IArticleSharePopupProps>(
   },
 );
 
-interface IArticleActionsProps {
-  editor: EditorJS | null;
-}
-
 let lastScrollTop = Number.MAX_VALUE;
 
-export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
+export const ArticleActions: FC<IArticleActionsProps> = ({ editor, isLikedOrDisliked }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const [isSharePopupOpen, setSsSharePopupOpen] = useState(false);
   const [likeDislikeArticle] = useLikeDislikeMutation();
@@ -46,7 +42,9 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
   };
 
   const likeDislike = (value: -1 | 1): void => {
-    typeof id === 'string' && likeDislikeArticle({ id: +id, value });
+    if (typeof id === 'string') {
+      likeDislikeArticle({ id: +id, value });
+    }
   };
 
   useEffect(() => {
@@ -65,11 +63,17 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
           <div className={styles.icon}>
             <CommentIcon />
           </div>
-          <div className={styles.icon} onClick={(): void => likeDislike(1)}>
+          <div
+            className={`${styles.icon} icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
+            onClick={(): void => likeDislike(1)}
+          >
             <LikeIcon />
           </div>
           <span className={styles.reactionsText}>+14k</span>
-          <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
+          <div
+            className={`${styles.icon} icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
+            onClick={(): void => likeDislike(-1)}
+          >
             <DislikeIcon />
           </div>
           <div

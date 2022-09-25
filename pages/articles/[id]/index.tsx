@@ -3,7 +3,7 @@ import { Article } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect } from 'react';
 import { useAppDispatch, wrapper } from 'store';
-import { articleApi, useIncrementViewCountMutation } from 'store/apis';
+import { publishedArticleApi, useIncrementViewCountMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
 import { get } from 'utils';
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
   (store) => async (context) => {
     const articleId = get<number>(context, 'query.id');
     const { data: article, error = {} } = await store.dispatch(
-      articleApi.endpoints.getById.initiate(articleId),
+      publishedArticleApi.endpoints.getById.initiate(articleId),
     );
     return {
       props: {
