@@ -5,7 +5,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal } from 'store/states';
-import { formatToKMB, toDateString } from 'utils';
+import { toDateString } from 'utils';
 import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
@@ -18,8 +18,9 @@ const DislikeIcon = ICONS[ICON_TYPES.dislike];
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
 export const Article: FC<IArticleProps> = (props) => {
-  const { viewCount, publishedDate, updatedDate, blocks, id, likeCount } = props;
+  const { viewCount, publishedDate, updatedDate, blocks, id, likeCount, dislikeCount } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
+  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle] = useLikeDislikeMutation();
@@ -31,7 +32,9 @@ export const Article: FC<IArticleProps> = (props) => {
       dispatch(openLoginModal());
       return;
     }
-    likeDislikeArticle({ id, value });
+    likeDislikeArticle({ id, value }).then(() => {
+      setLikeDislikeCount((prev) => prev + value - (isLikedOrDisliked || 0));
+    });
   };
 
   useEffect(() => {
@@ -52,7 +55,7 @@ export const Article: FC<IArticleProps> = (props) => {
       {article}
       <Divider className='my-2' />
       <div className={styles.articleDetail}>
-        <div className='mb-1'>
+        <div>
           {publishedDate && (
             <span className='me-2'>{toUzbDateString(publishedDate)} da chop etilgan</span>
           )}
@@ -60,7 +63,7 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
         <div className='d-flex justify-content-between'>
           <div className={styles.reactions}>
-            {viewCount > 0 && <span>{formatToKMB(viewCount)} ko&apos;rilgan</span>}
+            {viewCount > 0 && <span className='me-1'>{viewCount} martta ko&apos;rilgan</span>}
             <div className={styles.reactionButtons}>
               <span
                 className={`pointer icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
@@ -68,7 +71,7 @@ export const Article: FC<IArticleProps> = (props) => {
               >
                 <LikeIcon />
               </span>
-              <span className='mx-2'>{likeCount}</span>
+              <span className='mx-2'>{likeDislikeCount}</span>
               <span
                 className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
                 onClick={(): void => likeDislike(-1)}
@@ -79,7 +82,12 @@ export const Article: FC<IArticleProps> = (props) => {
           </div>
         </div>
       </div>
-      <ArticleActions editor={editorInstance} isLikedOrDisliked={isLikedOrDisliked} />
+      <ArticleActions
+        editor={editorInstance}
+        likeDislike={likeDislike}
+        isLikedOrDisliked={isLikedOrDisliked}
+        likeDislikeCount={likeDislikeCount}
+      />
     </div>
   );
 };

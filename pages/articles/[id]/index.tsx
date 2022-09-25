@@ -26,10 +26,13 @@ const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePa
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      incrementViewCountRequest(article.id);
-    }, 5000);
+      if (article.token) {
+        const { id, token } = article;
+        incrementViewCountRequest({ id, token });
+      }
+    }, 15 * 1000);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [article.id]);
 
   return <Article {...article} />;
 };

@@ -51,16 +51,6 @@ export const update = (
     }),
   });
 
-export const incrementViewCount = (
-  build: TArticleEndpointBuilder,
-): TArticleMutationDefinition<void, number> =>
-  build.mutation({
-    query: (id) => ({
-      url: `increment-view-count/${id}`,
-      method: 'POST',
-    }),
-  });
-
 export const updateStatus = (
   build: TArticleEndpointBuilder,
 ): TArticleMutationDefinition<IArticle, { id: number; status: TArticleStatus }> =>

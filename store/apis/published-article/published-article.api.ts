@@ -31,6 +31,13 @@ export const publishedArticleApi = createApi({
     }),
     getById: build.query<IArticle, number>({
       query: (id: number) => id.toString(),
+      keepUnusedDataFor: 1,
+    }),
+    incrementViewCount: build.mutation<void, { id: number; token: string }>({
+      query: ({ id, token }) => ({
+        url: `increment-view-count/${id}?token=${token}`,
+        method: 'POST',
+      }),
     }),
   }),
 });
@@ -41,4 +48,5 @@ export const {
   useGetTopQuery: useGetTopArticlesQuery,
   useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
+  useIncrementViewCountMutation,
 } = publishedArticleApi;
