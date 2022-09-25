@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/dist/query/react';
 import { IArticleResult, ISidebarArticle } from 'types';
 
 import { baseQuery } from '../config';
+import { TCheckIfLikedDisliked } from './published-article.api.types';
 
 export const publishedArticleApi = createApi({
   reducerPath: 'published-article',
@@ -16,11 +17,14 @@ export const publishedArticleApi = createApi({
     getTop: build.query<IArticleResult[], void>({
       query: () => 'top-articles',
     }),
-    likeDislike: build.mutation<void, { id: number; value: -1 | 1 }>({
+    likeDislike: build.mutation<void, { id: number; value: TCheckIfLikedDisliked }>({
       query: ({ id, value }) => ({
         url: `like-dislike/${id}?value=${value}`,
         method: 'POST',
       }),
+      async onQueryStarted({ value, id }, { dispatch }) {
+        dispatch(publishedArticleApi.util.updateQueryData('checkIfLikedDisliked', id, () => value));
+      },
     }),
     checkIfLikedDisliked: build.query<number, number>({
       query: (id) => `check-like-dislike/${id}`,

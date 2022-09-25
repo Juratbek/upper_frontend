@@ -42,7 +42,7 @@ export const useAuth = (): IUseAuth => {
     try {
       return localStorage.getItem(TOKEN);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return null;
     }
   };

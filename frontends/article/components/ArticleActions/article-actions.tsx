@@ -42,7 +42,9 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor, isLikedOrDisl
   };
 
   const likeDislike = (value: -1 | 1): void => {
-    typeof id === 'string' && likeDislikeArticle({ id: +id, value });
+    if (typeof id === 'string') {
+      likeDislikeArticle({ id: +id, value });
+    }
   };
 
   useEffect(() => {
