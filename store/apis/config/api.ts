@@ -14,7 +14,7 @@ export const baseQuery = (uri?: string): TBaseQuery =>
           headers.set('Authorization', `Bearer ${token}`);
         }
       } catch (e) {
-        console.error(e);
+        // console.error(e);
       }
       return headers;
     },

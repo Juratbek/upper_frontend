@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { IArticleResult, ISidebarArticle } from 'types';
+import { IArticle, IArticleResult, ISidebarArticle } from 'types';
 
 import { baseQuery } from '../config';
 import { TCheckIfLikedDisliked } from './published-article.api.types';
@@ -28,6 +28,9 @@ export const publishedArticleApi = createApi({
     }),
     checkIfLikedDisliked: build.query<number, number>({
       query: (id) => `check-like-dislike/${id}`,
+    }),
+    getById: build.query<IArticle, number>({
+      query: (id: number) => id.toString(),
     }),
   }),
 });
