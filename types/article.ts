@@ -14,7 +14,7 @@ export interface IArticleResult {
   title: string;
   content: string;
   status: TArticleStatus;
-  imgUrl?: string;
+  imgUrl: string;
   author?: IBlogSmall;
   labels: ILabel[];
   publishedDate: Date;
