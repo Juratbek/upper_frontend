@@ -6,7 +6,7 @@ import { toDateString } from 'utils';
 import classes from './Comment.module.scss';
 import { TCommentProps } from './Comment.types';
 
-export const Comment: FC<TCommentProps> = ({ author, date, message }) => {
+export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
   return (
     <>
       <div className={classes.comment}>
@@ -17,7 +17,7 @@ export const Comment: FC<TCommentProps> = ({ author, date, message }) => {
             <p className={`m-0 ${classes.date}`}>{toDateString(date)}</p>
           </div>
         </div>
-        <div className={classes.message}>{message}</div>
+        <div className={classes.message}>{text}</div>
       </div>
       <Divider className='w-90 mx-auto' />
     </>

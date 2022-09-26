@@ -47,7 +47,7 @@ export const SidebarSearch: FC = () => {
     setIsResultsContainerOpen(true);
   };
 
-  const ref = useClickOutside(() => {
+  const [ref] = useClickOutside(() => {
     setIsResultsContainerOpen(false);
   });
 

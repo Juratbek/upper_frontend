@@ -1,57 +1,47 @@
 import { Divider } from 'components';
-import { IComment } from 'types';
+import { useClickOutside } from 'hooks';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useMemo } from 'react';
+import { useAppDispatch } from 'store';
+import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
+import { closeCommentsSidebar } from 'store/states';
+import { getClassName } from 'utils';
 
 import classes from './Comments.module.scss';
+import { ICommentsProps } from './Comments.types';
 import { Comment, Form } from './components';
 
-const author = {
-  id: 1,
-  imgUrl: '',
-  name: 'Test',
-};
+export const Comments: FC<ICommentsProps> = ({ isOpen }) => {
+  const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
+  const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
+  const dispatch = useAppDispatch();
+  const [rootRef] = useClickOutside(() => {
+    dispatch(closeCommentsSidebar());
+  }, 'comment-icon');
+  const {
+    query: { id },
+  } = useRouter();
 
-const comments: IComment[] = [
-  {
-    id: 1,
-    message: 'Lorem ipsum dolor',
-    date: new Date().toString(),
-    author,
-  },
-  {
-    id: 2,
-    message: 'Lorem ipsum dolor',
-    date: new Date().toString(),
-    author,
-  },
-  {
-    id: 3,
-    message: 'Lorem ipsum dolor',
-    date: new Date().toString(),
-    author,
-  },
-  {
-    id: 4,
-    message: 'Lorem ipsum dolor',
-    date: new Date().toString(),
-    author,
-  },
-  {
-    id: 5,
-    message: 'Lorem ipsum dolor',
-    date: new Date().toString(),
-    author,
-  },
-];
+  useEffect(() => {
+    id && fetchComments(+id);
+  }, [id]);
 
-export const Comments = (): JSX.Element => {
+  const comments = useMemo(() => {
+    const { data: comments, isLoading, isFetching } = fetchCommentsRes;
+    if (isLoading || isFetching) return 'Loading...';
+    if (!comments) return <></>;
+    if (comments.length === 0) return <p className='text-center'>Izohlar mavjud emas</p>;
+
+    const clone = [...comments];
+    return clone.reverse().map((comment) => <Comment {...comment} key={comment.id} />);
+  }, [fetchCommentsRes]);
+
   return (
-    <div className={classes['comments-container']}>
+    <div ref={rootRef} className={rootClassName}>
       <div className={classes['comments-list']}>
         <h3 className='m-1'>Izohlar</h3>
         <Divider />
-        {comments.map((comment) => (
-          <Comment {...comment} key={comment.id} />
-        ))}
+        {comments}
       </div>
       <div className={classes.form}>
         <Form />

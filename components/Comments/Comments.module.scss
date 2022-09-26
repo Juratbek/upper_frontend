@@ -1,18 +1,36 @@
-.comments-container {
-    position: absolute;
-    inset: 0;
-    background-color: white;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.comments {
+  position: absolute;
+  inset: 0;
+  background-color: white;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateX(100%);
+  transition: all 200ms ease-in-out;
 
-    & .comments-list {
-        padding: 1rem;
-    }
+  &--open {
+    transform: translateX(0);
+  }
 
-    & .form {
-        border-top: 0.5px solid black;
-        padding: 1rem;
+  & .comments-list {
+    padding: 1rem;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
     }
+    &::-webkit-scrollbar-track {
+      background: #fff;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: rgb(204, 204, 204);
+      border-radius: 1rem;
+    }
+  }
+
+  & .form {
+    border-top: 0.5px solid black;
+    padding: 1rem;
+  }
 }

@@ -4,21 +4,22 @@
   border-radius: 100rem;
   margin: 0 auto;
   animation: rotation 1s linear infinite;
+  border: 2px solid transparent;
 
   &--dark {
-    border: 2px solid white;
+    border-color: white;
   }
   &--outline-dark {
-    border: 2px solid black;
+    border-color: black;
   }
   &--light {
-    border: 2px solid black;
+    border-color: black;
   }
   &--outline-red {
-    border: 2px solid var(--red);
+    border-color: var(--red);
   }
 
-  border-top-color: transparent!important;
+  border-top-color: transparent !important;
 }
 
 @keyframes rotation {
