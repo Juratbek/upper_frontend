@@ -1,13 +1,14 @@
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Textarea.module.scss';
-import { TTextareaProps } from './Textarea.types';
+import { ITextareaProps } from './Textarea.types';
 
-export const Textarea: FC<TTextareaProps> = forwardRef<HTMLTextAreaElement, TTextareaProps>(
-  function withRef({ className, ...props }, ref) {
-    const rootClassName = getClassName(classes.textarea, className);
+export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>(function withRef(
+  { className, color, ...props },
+  ref,
+) {
+  const rootClassName = getClassName(classes.textarea, className, classes[`textarea--${color}`]);
 
-    return <textarea {...props} className={rootClassName} ref={ref} />;
-  },
-);
+  return <textarea {...props} className={rootClassName} ref={ref} />;
+});

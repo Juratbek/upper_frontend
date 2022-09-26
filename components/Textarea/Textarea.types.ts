@@ -1,3 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-export type TTextareaProps = HTMLAttributes<HTMLTextAreaElement>;
+type TColor = 'transparent' | 'dark';
+export interface ITextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
+  color?: TColor;
+}

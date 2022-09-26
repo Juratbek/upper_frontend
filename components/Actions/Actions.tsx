@@ -16,7 +16,7 @@ export const Actions: FC<IActinosProps> = (props) => {
   const openPopup = (): void => setIsPopupOpen(true);
   const closePopup = (): void => setIsPopupOpen(false);
 
-  const ref = useClickOutside(closePopup);
+  const [ref] = useClickOutside(closePopup);
 
   return (
     <div ref={ref} className={classes.actions}>

@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
-import { articleApi, blogApi, labelApi, publishedArticleApi } from './apis';
+import { articleApi, blogApi, commentApi, labelApi, publishedArticleApi } from './apis';
 import authReducer from './states/auth';
+import commentsSidebarReducer from './states/commentsSidebar';
 import loginModalReducer from './states/loginModal';
 import readArticleReducer from './states/readArticle';
 import registerModalReducer from './states/registerModal';
@@ -15,10 +16,12 @@ export const store = configureStore({
     writeArticle: writeArticleReducer,
     readArticle: readArticleReducer,
     auth: authReducer,
+    comments: commentsSidebarReducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
     [publishedArticleApi.reducerPath]: publishedArticleApi.reducer,
+    [commentApi.reducerPath]: commentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -26,6 +29,7 @@ export const store = configureStore({
       articleApi.middleware,
       labelApi.middleware,
       publishedArticleApi.middleware,
+      commentApi.middleware,
     ),
 });
 

@@ -27,6 +27,10 @@
 .outline-dark:hover {
     background-color: black;
     color: white;
+
+    & .spinner {
+        border-color: white;
+    }
 }
 
 .light {

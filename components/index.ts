@@ -35,3 +35,4 @@ export * from './Alert/Alert';
 export * from './ApiError/ApiError';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
 export * from './ImageModal';
+export * from './Comments/Comments';
