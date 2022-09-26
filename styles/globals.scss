@@ -207,7 +207,9 @@
 .float-firgt {
   float: right;
 }
-
+.text-start {
+  text-align: start;
+}
 .text-center {
   text-align: center;
 }
@@ -245,4 +247,7 @@
 // text colors
 .text-blue {
   color: blue;
+}
+.text-danger {
+  color: var(--red);
 }
