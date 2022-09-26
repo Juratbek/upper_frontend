@@ -23,7 +23,7 @@ export const Article: FC<IArticleProps> = (props) => {
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
-  const [likeDislikeArticle] = useLikeDislikeMutation();
+  const [likeDislikeArticle, likeDislikeRes] = useLikeDislikeMutation();
   const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
     useLazyCheckIfLikedDislikedQuery();
 
@@ -32,6 +32,7 @@ export const Article: FC<IArticleProps> = (props) => {
       dispatch(openLoginModal());
       return;
     }
+    if (likeDislikeRes.isLoading || value === isLikedOrDisliked) return;
     likeDislikeArticle({ id, value }).then(() => {
       setLikeDislikeCount((prev) => prev + value - (isLikedOrDisliked || 0));
     });
