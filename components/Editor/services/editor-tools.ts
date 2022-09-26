@@ -7,7 +7,6 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
   const List = (await import('@editorjs/list')).default;
   const Quote = (await import('@editorjs/quote')).default;
   const Delimeter = (await import('@editorjs/delimiter')).default;
-  const Tooltip = (await import('editorjs-tooltip')).default;
   const TextColor = (await import('editorjs-text-color-plugin')).default;
   const Alert = (await import('editorjs-alert')).default;
   const Unsplash = (await import('editorjs-inline-image')).default;
@@ -72,13 +71,6 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
             width: 600,
           },
         },
-      },
-    },
-    tooltip: {
-      class: Tooltip,
-      inlineToolbar: true,
-      config: {
-        underline: true,
       },
     },
     textColor: {

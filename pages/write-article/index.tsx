@@ -3,8 +3,6 @@ import { Editor } from 'components/Editor';
 import { useAppDispatch } from 'store';
 import { setEditor } from 'store/states';
 
-import { imagesData } from '../../assets/imagesData';
-
 export default function WriteArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
 
@@ -18,7 +16,7 @@ export default function WriteArticlePage(): JSX.Element {
 
   return (
     <div className='editor-container'>
-      <Editor content={imagesData} isEditable={false} handleInstance={getInstance} />
+      <Editor content={{ blocks: [] }} handleInstance={getInstance} />
     </div>
   );
 }
