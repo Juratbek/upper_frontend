@@ -6,7 +6,13 @@ import { getClassName } from 'utils/common';
 import classes from './SidebarArticle.module.css';
 import { ISidebarArticleProps } from './SidebarArticle.types';
 
-export const SidebarArticle: FC<ISidebarArticleProps> = ({ className, title, id, author }) => {
+export const SidebarArticle: FC<ISidebarArticleProps> = ({
+  className,
+  title,
+  id,
+  author,
+  imgUrl,
+}) => {
   const rootClassName = getClassName(className, classes['sidebar-article']);
 
   return (
@@ -19,7 +25,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({ className, title, id,
       </div>
       <Link href={`/articles/${1}`}>
         <div>
-          <ArticleImg imgUrl={''} size='small' className='pointer' />
+          <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
         </div>
       </Link>
     </div>

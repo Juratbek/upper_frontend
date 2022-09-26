@@ -7,7 +7,16 @@ import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
 
 export const Article: FC<IArticleProps> = ({ className, article, author, redirectUrl }) => {
-  const { title, content, updatedDate, publishedDate, viewCount, labels = [], id } = article;
+  const {
+    title,
+    content,
+    updatedDate,
+    publishedDate,
+    viewCount,
+    labels = [],
+    id,
+    imgUrl,
+  } = article;
   const rootClassName = getClassName(classes.article, className);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +39,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
             <h2 className={classes.title}>{title}</h2>
             <p className={classes.content} ref={contentRef} />
           </div>
-          <ArticleImg imgUrl='' />
+          <ArticleImg imgUrl={imgUrl} />
         </div>
       </Link>
       <div className={classes.footer}>
