@@ -8,8 +8,6 @@ import { useLazyGetBlogArticleByIdQuery } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
 import { get } from 'utils';
 
-import { imagesData } from '../../../../assets/imagesData';
-
 export default function UserArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { query } = useRouter();
@@ -64,7 +62,13 @@ export default function UserArticlePage(): JSX.Element {
           qilish&quot; tugmasini bosing
         </Alert>
       )}
-      <Editor isEditable={false} content={imagesData} handleInstance={getInstance} />
+      <Editor
+        isEditable={true}
+        content={{
+          blocks: blocks,
+        }}
+        handleInstance={getInstance}
+      />
     </div>
   );
 }
