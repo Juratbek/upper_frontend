@@ -20,7 +20,17 @@ export const Editor: FC<IEditorProps> = (props) => {
     });
   }, []);
 
-  const cleanEmptyCaptions = (): void => {
+  const cleanImageCaption = (caption: HTMLElement): void => {
+    const isCaption = caption.classList.contains('inline-image__caption');
+
+    if (!isCaption) return;
+
+    if (!caption.textContent) {
+      caption.remove();
+    }
+  };
+
+  const cleanEmbedCaptions = (): void => {
     const captions = document.querySelectorAll('.embed-tool__caption');
 
     captions.forEach((caption) => {
@@ -44,6 +54,8 @@ export const Editor: FC<IEditorProps> = (props) => {
     const target = e.target as HTMLElement;
     const img = target.querySelector('img');
     img?.addEventListener('click', onImgClick);
+
+    cleanImageCaption(e.target as HTMLElement);
   };
 
   const zoomInImage = (): void => {
@@ -54,7 +66,7 @@ export const Editor: FC<IEditorProps> = (props) => {
 
   useEffect(() => {
     editor?.isReady.then(() => {
-      cleanEmptyCaptions();
+      cleanEmbedCaptions();
       if (!isEditable) zoomInImage();
     });
 
