@@ -32,4 +32,9 @@
 
 .editor-container {
   margin: 0 auto;
+  position: relative;
+}
+
+.codex-editor__loader {
+  display: none;
 }

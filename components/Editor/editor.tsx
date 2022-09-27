@@ -1,12 +1,16 @@
 import EditorJs from '@editorjs/editorjs';
+import { Spinner } from 'assets/icons';
 import { FC, useEffect, useRef, useState } from 'react';
 
 import { ImageModal } from '../ImageModal';
+import styles from './editor.module.scss';
 import { EDITOR_HOLDER, IEditorProps } from './editor.types';
 import { createEditor } from './services/editor.service';
 
 export const Editor: FC<IEditorProps> = (props) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
+  const [isEditorLoading, setIsEditorLoading] = useState<boolean>(true);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { handleInstance, isEditable = true } = props;
@@ -66,6 +70,7 @@ export const Editor: FC<IEditorProps> = (props) => {
 
   useEffect(() => {
     editor?.isReady.then(() => {
+      setIsEditorLoading(false);
       cleanEmbedCaptions();
       if (!isEditable) zoomInImage();
     });
@@ -82,6 +87,11 @@ export const Editor: FC<IEditorProps> = (props) => {
 
   return (
     <>
+      {isEditorLoading && (
+        <div className={styles.spinnerContainer} id={'editorjsSpinner'}>
+          <Spinner />
+        </div>
+      )}
       <div id={EDITOR_HOLDER} ref={containerRef} className={!isEditable ? 'readMode' : ''}></div>
       <ImageModal />
     </>
