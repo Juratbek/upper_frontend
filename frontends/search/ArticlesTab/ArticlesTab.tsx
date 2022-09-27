@@ -1,85 +1,32 @@
 import { Article } from 'components';
-import { FC } from 'react';
-import { IArticleResult, IBlogSmall, ILabel } from 'types';
-import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
-import { ARTICLE_STATUSES } from 'variables/article';
-
-const author: IBlogSmall = {
-  id: 1,
-  name: 'Samandar',
-  imgUrl: 'awda',
-};
-
-const labels: ILabel[] = [
-  {
-    name: 'JavaScript',
-    id: 1,
-  },
-  {
-    name: 'TypeScript',
-    id: 2,
-  },
-];
-
-const articles: IArticleResult[] = [
-  {
-    id: 1,
-    title: 'Article title',
-    imgUrl: '',
-    author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
-  },
-  {
-    id: 2,
-    title: 'Article title',
-    imgUrl: '',
-    author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
-  },
-  {
-    id: 3,
-    title: 'Article title',
-    imgUrl: '',
-    author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
-  },
-  {
-    id: 4,
-    title: 'Article title',
-    imgUrl: '',
-    author,
-    content:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-    labels,
-    publishedDate: new Date(),
-    updatedDate: new Date(),
-    viewCount: 12000,
-    status: ARTICLE_STATUSES.PUBLISHED,
-  },
-];
+import { useRouter } from 'next/router';
+import { FC, useEffect, useMemo } from 'react';
+import { useLazySearchArticleQuery } from 'store/apis';
+import {
+  SEARCH_PAGE_ARTICLE_ACTIONS,
+  SEARCH_PAGE_ARTICLE_ICONS,
+  SEARCH_PAGE_TAB_IDS,
+} from 'variables';
 
 export const ArticlesTab: FC = () => {
-  return (
-    <div className='tab'>
-      {articles.map((article) => (
+  const {
+    query: { search, tab },
+  } = useRouter();
+  const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
+
+  useEffect(() => {
+    if (search && search.length > 1 && tab === SEARCH_PAGE_TAB_IDS.articles) {
+      searchArticle(search as string);
+    }
+  }, [search]);
+
+  const articles = useMemo(() => {
+    const { data: articles, isLoading, isFetching, isError, error, isSuccess } = searchArticleRes;
+    if (isLoading || isFetching) return 'Loading...';
+    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+
+    if (isSuccess) {
+      return articles.map((article) => (
         <Article
           className='px-2 py-2'
           key={article.id}
@@ -88,7 +35,9 @@ export const ArticlesTab: FC = () => {
           actions={SEARCH_PAGE_ARTICLE_ACTIONS}
           icons={SEARCH_PAGE_ARTICLE_ICONS}
         />
-      ))}
-    </div>
-  );
+      ));
+    }
+  }, [searchArticleRes]);
+
+  return <div className='tab'>{articles}</div>;
 };

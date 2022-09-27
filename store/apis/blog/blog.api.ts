@@ -32,6 +32,9 @@ export const blogApi = createApi({
     getSidebarSuggestions: build.query<IBlogMedium[], void>({
       query: () => 'sidebar-suggestions',
     }),
+    search: build.query<IBlogMedium[], string>({
+      query: (search) => `search?search=${search}`,
+    }),
   }),
 });
 
@@ -40,4 +43,5 @@ export const {
   useRegisterMutation,
   useSetLabelsMutation,
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
+  useLazySearchQuery: useLazySearchBlogQuery,
 } = blogApi;

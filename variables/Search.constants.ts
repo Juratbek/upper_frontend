@@ -4,7 +4,7 @@ import { ITabBody, ITabHeader, TAction, TIcon } from 'types';
 import { ACTION_TYPES } from './common';
 import { ICON_TYPES } from './icons';
 
-const TAB_IDS = {
+export const SEARCH_PAGE_TAB_IDS = {
   articles: 'articles',
   blogs: 'blogs',
 };
@@ -12,17 +12,17 @@ const TAB_IDS = {
 export const SEARCH_TAB_MENUS: ITabHeader[] = [
   {
     name: 'Maqolalar',
-    id: TAB_IDS.articles,
+    id: SEARCH_PAGE_TAB_IDS.articles,
   },
   {
     name: 'Bloglar',
-    id: TAB_IDS.blogs,
+    id: SEARCH_PAGE_TAB_IDS.blogs,
   },
 ];
 
 export const SEARCH_TABS: ITabBody = {
-  [TAB_IDS.articles]: ArticlesTab,
-  [TAB_IDS.blogs]: BlogsTab,
+  [SEARCH_PAGE_TAB_IDS.articles]: ArticlesTab,
+  [SEARCH_PAGE_TAB_IDS.blogs]: BlogsTab,
 };
 
 export const SEARCH_PAGE_ARTICLE_ACTIONS: TAction[] = [

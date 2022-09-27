@@ -39,6 +39,9 @@ export const publishedArticleApi = createApi({
         method: 'POST',
       }),
     }),
+    search: build.query<IArticleResult[], string>({
+      query: (search) => `search?search=${search}`,
+    }),
   }),
 });
 
@@ -49,4 +52,5 @@ export const {
   useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
   useIncrementViewCountMutation,
+  useLazySearchQuery: useLazySearchArticleQuery,
 } = publishedArticleApi;
