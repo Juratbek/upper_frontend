@@ -2,16 +2,20 @@ import { Article } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazySearchArticleQuery } from 'store/apis';
-import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import {
+  SEARCH_PAGE_ARTICLE_ACTIONS,
+  SEARCH_PAGE_ARTICLE_ICONS,
+  SEARCH_PAGE_TAB_IDS,
+} from 'variables';
 
 export const ArticlesTab: FC = () => {
   const {
-    query: { search },
+    query: { search, tab },
   } = useRouter();
   const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
 
   useEffect(() => {
-    if (search && search.length > 1) {
+    if (search && search.length > 1 && tab === SEARCH_PAGE_TAB_IDS.articles) {
       searchArticle(search as string);
     }
   }, [search]);
@@ -19,7 +23,7 @@ export const ArticlesTab: FC = () => {
   const articles = useMemo(() => {
     const { data: articles, isLoading, isFetching, isError, error, isSuccess } = searchArticleRes;
     if (isLoading || isFetching) return 'Loading...';
-    if (isError) return <pre>{JSON.stringify(error)}</pre>;
+    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
     if (isSuccess) {
       return articles.map((article) => (
