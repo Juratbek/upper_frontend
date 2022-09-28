@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
-import { TSubmitFormEvent } from 'types';
-import { ICONS, SOCIAL_MEAI_ICONS } from 'variables';
+import { ILink, TSubmitFormEvent } from 'types';
+import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 import classes from './SettingsTab.module.scss';
@@ -24,12 +24,20 @@ export const SettingsTab: FC = () => {
   }, [tab]);
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const { name, bio } = event;
+    const { name, bio, ...values } = event;
+    const mediaIconsSet = new Set(SOCIAL_MEDIA_ICONS);
+    const socialMediaLinks = Object.keys(values).reduce((res, value) => {
+      if (mediaIconsSet.has(value) && values[value]) {
+        return [...res, { type: value, link: values[value] }];
+      }
+      return res;
+    }, [] as Array<ILink>);
     const avatar = event.avatar[0];
     const formData = new FormData();
-    formData.set('avatar', avatar);
+    avatar && formData.set('avatar', avatar);
     formData.set('name', name);
     formData.set('bio', bio);
+    formData.set('links', JSON.stringify(socialMediaLinks));
     await updateBlog(formData).unwrap();
   };
 
@@ -58,9 +66,9 @@ export const SettingsTab: FC = () => {
           <div className='w-50 p-1'>
             <h4 className='mb-1'>Ijtimoiy tarmoqlar</h4>
             <div>
-              {SOCIAL_MEAI_ICONS.map((icon, index) => {
+              {SOCIAL_MEDIA_ICONS.map((icon, index) => {
                 const Icon = ICONS[icon];
-                const link = blog.links?.[icon];
+                const link = blog.links?.find((link) => link.type === icon)?.link;
 
                 return (
                   <div key={index} className='d-flex my-2 w-100 align-items-center'>
@@ -68,7 +76,7 @@ export const SettingsTab: FC = () => {
                       <Icon />
                     </span>
                     <span className='flex-auto'>
-                      <Input defaultValue={link} {...register(icon)} />
+                      <Input defaultValue={link} {...register(icon, { minLength: 5 })} />
                     </span>
                   </div>
                 );

@@ -48,3 +48,8 @@ export interface IGetServerSideProps<T = Record<string, never>> {
 }
 
 export type TAuthStatus = 'authenticated' | 'unauthenticated';
+
+export interface ILink {
+  type: string;
+  link: string;
+}
