@@ -14,4 +14,5 @@ export interface IBlogMedium extends IBlogSmall {
 export interface IBlog extends IBlogMedium {
   links: ILink[];
   createdDate: Date;
+  isFollowed?: boolean;
 }

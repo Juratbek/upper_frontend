@@ -2,22 +2,20 @@ import { ApiErrorBoundary, Blog, Button, TabBody, TabsHeader } from 'components'
 import { BLOG_TAB_MENUS, BLOG_TABS } from 'frontends/blog';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useLazyGetBlogByIdQuery } from 'store/apis';
-import { IBlogSmall } from 'types';
-
-export const blog: IBlogSmall = {
-  id: 1,
-  name: 'Boymurodov Samandar',
-  imgUrl: '',
-};
-
-const isBeeingFollowed = false;
+import {
+  useFollowBlogMutation,
+  useLazyGetBlogByIdQuery,
+  useUnfollowBlogMutation,
+} from 'store/apis';
 
 export default function BlogPage(): JSX.Element {
   const {
     query: { id },
   } = useRouter();
   const [fetchBlogById, fetchBlogByIdRes] = useLazyGetBlogByIdQuery();
+  const [followBlog] = useFollowBlogMutation();
+  const [unfollowBlog] = useUnfollowBlogMutation();
+  const { data: blog } = fetchBlogByIdRes;
 
   useEffect(() => {
     if (id) {
@@ -25,21 +23,29 @@ export default function BlogPage(): JSX.Element {
     }
   }, [id]);
 
+  const follow = (): void => {
+    id && followBlog(+id);
+  };
+
+  const unfollow = (): void => {
+    id && unfollowBlog(+id);
+  };
+
   return (
     <main className='container'>
       <ApiErrorBoundary
         res={fetchBlogByIdRes}
         className='d-flex align-items-center justify-content-between p-2'
       >
-        {fetchBlogByIdRes.data && (
+        {blog && (
           <>
-            <Blog {...fetchBlogByIdRes.data} avaratSize='extra-large' />
-            {isBeeingFollowed ? (
-              <Button color='outline-dark' disabled className='test'>
-                Kuzatib borilmoqda
+            <Blog {...blog} avaratSize='extra-large' />
+            {blog.isFollowed ? (
+              <Button color='outline-dark' onClick={unfollow}>
+                Kuzatishni bekor qilish
               </Button>
             ) : (
-              <Button>Kuzatib borish</Button>
+              <Button onClick={follow}>Kuzatib borish</Button>
             )}
           </>
         )}

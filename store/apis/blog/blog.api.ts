@@ -54,6 +54,30 @@ export const blogApi = createApi({
     getById: build.query<IBlog, number>({
       query: (id) => id.toString(),
     }),
+    follow: build.mutation<void, number>({
+      query: (id) => ({
+        url: `follow/${id}`,
+        method: 'POST',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(
+          blogApi.util.updateQueryData('getById', id, (blog) => ({ ...blog, isFollowed: true })),
+        );
+      },
+    }),
+    unfollow: build.mutation<void, number>({
+      query: (id) => ({
+        url: `unfollow/${id}`,
+        method: 'POST',
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(
+          blogApi.util.updateQueryData('getById', id, (blog) => ({ ...blog, isFollowed: false })),
+        );
+      },
+    }),
   }),
 });
 
@@ -68,4 +92,6 @@ export const {
   useLazySearchQuery: useLazySearchBlogQuery,
   useLazyGetFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
+  useFollowMutation: useFollowBlogMutation,
+  useUnfollowMutation: useUnfollowBlogMutation,
 } = blogApi;
