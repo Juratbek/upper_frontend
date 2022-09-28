@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IBlog, IBlogMedium } from 'types';
+import { IArticleResult, IBlog, IBlogMedium } from 'types';
 
 import { baseQuery } from '../config';
 import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
@@ -78,6 +78,9 @@ export const blogApi = createApi({
         );
       },
     }),
+    getBlogPublishedArticles: build.query<IArticleResult[], number>({
+      query: (id) => `published-articles/${id}`,
+    }),
   }),
 });
 
@@ -87,6 +90,7 @@ export const {
   useSetLabelsMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
+  useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,

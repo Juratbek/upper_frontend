@@ -1,5 +1,4 @@
 import { ApiErrorBoundary, Blog, Button, TabBody, TabsHeader } from 'components';
-import { BLOG_TAB_MENUS, BLOG_TABS } from 'frontends/blog';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import {
@@ -7,6 +6,7 @@ import {
   useLazyGetBlogByIdQuery,
   useUnfollowBlogMutation,
 } from 'store/apis';
+import { BLOG_TAB_MENUS, BLOG_TABS } from 'variables';
 
 export default function BlogPage(): JSX.Element {
   const {
