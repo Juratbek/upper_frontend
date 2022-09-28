@@ -1,41 +1,28 @@
 import { Blog } from 'components';
-import { FC, Fragment } from 'react';
-import { IBlogMedium } from 'types';
-
-const followers: IBlogMedium[] = [
-  {
-    id: 1,
-    name: 'Boymurodov Samandar',
-    imgUrl: '',
-    articlesCount: 20,
-    followersCount: 100,
-    bio: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-  },
-  {
-    id: 2,
-    name: 'Boymurodov Samandar',
-    imgUrl: '',
-    articlesCount: 20,
-    followersCount: 100,
-  },
-  {
-    id: 3,
-    name: 'Boymurodov Samandar',
-    imgUrl: '',
-  },
-  {
-    id: 4,
-    name: 'Boymurodov Samandar',
-    imgUrl: '',
-    articlesCount: 20,
-    followersCount: 100,
-  },
-];
+import { useRouter } from 'next/router';
+import { FC, Fragment, useEffect } from 'react';
+import { useLazyGetCurrentBlogFollowersQuery } from 'store/apis';
+import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 export const FollowersTab: FC = () => {
+  const {
+    query: { tab },
+  } = useRouter();
+  const [fetchFollowers, { data: followers, isLoading, isFetching, isError, error }] =
+    useLazyGetCurrentBlogFollowersQuery();
+
+  useEffect(() => {
+    if (tab && tab === PROFILE_TAB_IDS.followers) {
+      fetchFollowers();
+    }
+  }, [tab]);
+
+  if (isLoading || isFetching) return <div>Loading...</div>;
+  if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+
   return (
     <div>
-      {followers.map((follower) => (
+      {followers?.map((follower) => (
         <Fragment key={follower.id}>
           <Blog {...follower} className='px-3 py-2' isLink />
         </Fragment>
