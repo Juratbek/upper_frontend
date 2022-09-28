@@ -51,6 +51,9 @@ export const blogApi = createApi({
     getFollowers: build.query<IBlogMedium[], void>({
       query: () => 'current-blog-followers',
     }),
+    getById: build.query<IBlog, number>({
+      query: (id) => id.toString(),
+    }),
   }),
 });
 
@@ -64,4 +67,5 @@ export const {
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
   useLazyGetFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
+  useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
 } = blogApi;
