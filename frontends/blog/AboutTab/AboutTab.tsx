@@ -11,14 +11,7 @@ const blog: IBlog = {
   name: "Jur'atbek",
   imgUrl: '',
   bio: 'Lorem ipsum dolor sit amet',
-  links: {
-    telegram: 'https://t.me/JuratbekBahodirovich',
-    facebook: 'https://facebook.com',
-    github: 'https://github.com/juratbek',
-    linkedIn: 'https://linkedin.com',
-    youtube: 'https://www.youtube.com/channel/UCCQ5c4lS04lCdf_HWecRaBA',
-    instagram: 'https://www.instagram.com/mahammadaliyevj',
-  },
+  links: [{ type: 'telegram', link: 'https://t.me/JuratbekBahodirovich' }],
   createdDate: new Date(),
 };
 
@@ -41,11 +34,11 @@ export const AboutTab: FC = () => {
       <Divider />
       {links && (
         <div className={classes['social-media']}>
-          {Object.entries(links).map(([icon, link]) => {
-            const Icon = ICONS[icon];
+          {links.map((link) => {
+            const Icon = ICONS[link.type];
             return (
-              <div className={classes['social-media-link']} key={icon}>
-                <a href={link} target='_blank' rel='noreferrer'>
+              <div className={classes['social-media-link']} key={link.type}>
+                <a href={link.link} target='_blank' rel='noreferrer'>
                   <Icon />
                 </a>
               </div>
