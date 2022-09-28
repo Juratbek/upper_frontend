@@ -1,3 +1,5 @@
+import { ILink } from './common';
+
 export interface IBlogSmall {
   id: number;
   imgUrl: string;
@@ -10,6 +12,6 @@ export interface IBlogMedium extends IBlogSmall {
 }
 
 export interface IBlog extends IBlogMedium {
-  links: Record<string, string>;
+  links: ILink[];
   createdDate: Date;
 }

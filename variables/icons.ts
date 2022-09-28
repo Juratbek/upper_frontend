@@ -51,7 +51,7 @@ export const ICON_TYPES = {
   triangle: 'triangle',
 };
 
-export const SOCIAL_MEAI_ICONS = [
+export const SOCIAL_MEDIA_ICONS = [
   ICON_TYPES.telegram,
   ICON_TYPES.facebook,
   ICON_TYPES.github,
