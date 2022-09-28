@@ -1,37 +1,49 @@
 import { Button } from 'components/Button/Button';
-import { ChangeEvent, FC, useRef, useState } from 'react';
+import { ChangeEvent, forwardRef, useState } from 'react';
 
 import classes from './FileInput.module.scss';
-import { TFileInputProps } from './FileInput.types';
+import { IFileInputProps } from './FileInput.types';
 
-export const FileInput: FC<TFileInputProps> = ({ onChange, ...props }) => {
+const id = 'file-input';
+
+export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function withRef(
+  props,
+  ref,
+) {
   const [file, setFile] = useState<File>();
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     const files = event.target?.files;
     if (!files) return;
     const file = files[0];
     setFile(file);
-    onChange?.(file);
+    props.onChange?.(event);
   };
 
   const clickHandler = (): void => {
-    inputRef.current?.click();
+    const element = document.getElementById(`${id}-${props.name}`);
+    element?.click();
   };
 
   return (
     <div className={classes.container}>
-      <input {...props} type='file' ref={inputRef} onChange={changeHandler} hidden />
+      <input
+        {...props}
+        id={`${id}-${props.name}`}
+        type='file'
+        onChange={changeHandler}
+        hidden
+        ref={ref}
+      />
       <input
         value={file?.name}
         disabled
         placeholder='O`zgartirish uchun faylni yuklang'
         className={classes.input}
       />
-      <Button onClick={clickHandler} color='outline-dark'>
+      <Button type='button' onClick={clickHandler} color='outline-dark'>
         Yuklash
       </Button>
     </div>
   );
-};
+});

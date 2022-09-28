@@ -155,6 +155,9 @@
 }
 
 // paddings
+.p-1 {
+  padding: $size1;
+}
 .p-2 {
   padding: $size2;
 }
@@ -163,7 +166,10 @@
   padding-top: $size2;
   padding-bottom: $size2;
 }
-
+.px-1 {
+  padding-left: $size1;
+  padding-right: $size1;
+}
 .px-2 {
   padding-right: $size2;
   padding-left: $size2;

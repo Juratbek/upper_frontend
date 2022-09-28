@@ -1,31 +1,32 @@
 .avatar {
-    position: relative;
-    border-radius: 100rem;
-    background-color: #D9D9D9;
+  overflow: hidden;
+  position: relative;
+  border-radius: 100rem;
+  background-color: #d9d9d9;
 }
 
 .avatar--small {
-    min-width: 1.9rem;
-    width: 1.9rem;
-    height: 1.9rem;
+  min-width: 1.9rem;
+  width: 1.9rem;
+  height: 1.9rem;
 }
 
 .avatar--medium {
-    --size: 3rem;
-    min-width: var(--size);
-    width: var(--size);
-    height: var(--size);
+  --size: 3rem;
+  min-width: var(--size);
+  width: var(--size);
+  height: var(--size);
 }
 
 .avatar--large {
-    min-width: 60px;
-    width: 60px;
-    height: 60px;
+  min-width: 60px;
+  width: 60px;
+  height: 60px;
 }
 
 .avatar--extra-large {
-    --size: 6rem;
-    min-width: var(--size);
-    width: var(--size);
-    height: var(--size);
+  --size: 6rem;
+  min-width: var(--size);
+  width: var(--size);
+  height: var(--size);
 }

@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IBlogMedium } from 'types';
+import { IBlog, IBlogMedium } from 'types';
 
 import { baseQuery } from '../config';
 import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
@@ -7,6 +7,7 @@ import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.t
 export const blogApi = createApi({
   reducerPath: 'blog',
   baseQuery: baseQuery('blog'),
+  tagTypes: ['current-blog'],
   endpoints: (build) => ({
     login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
@@ -35,6 +36,18 @@ export const blogApi = createApi({
     search: build.query<IBlogMedium[], string>({
       query: (search) => `search?search=${search}`,
     }),
+    getCurrentBlog: build.query<IBlog, void>({
+      query: () => 'get-current',
+      providesTags: ['current-blog'],
+    }),
+    update: build.mutation<IBlogMedium, FormData>({
+      query: (body) => ({
+        url: 'update',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['current-blog'],
+    }),
   }),
 });
 
@@ -42,6 +55,8 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useSetLabelsMutation,
+  useLazyGetCurrentBlogQuery,
+  useUpdateMutation: useUpdateBlogMutation,
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
 } = blogApi;
