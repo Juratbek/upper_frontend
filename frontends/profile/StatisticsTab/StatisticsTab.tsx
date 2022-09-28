@@ -1,5 +1,5 @@
 import { FC } from 'react';
 
 export const StatisticsTab: FC = () => {
-  return <h2>Statistics tab</h2>;
+  return <h2>Tez orada...</h2>;
 };
