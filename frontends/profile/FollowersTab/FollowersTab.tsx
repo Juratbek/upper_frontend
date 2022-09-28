@@ -20,13 +20,16 @@ export const FollowersTab: FC = () => {
   if (isLoading || isFetching) return <div>Loading...</div>;
   if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
-  return (
-    <div>
-      {followers?.map((follower) => (
-        <Fragment key={follower.id}>
-          <Blog {...follower} className='px-3 py-2' isLink />
-        </Fragment>
-      ))}
-    </div>
-  );
+  if (followers && followers.length > 0)
+    return (
+      <div>
+        {followers?.map((follower) => (
+          <Fragment key={follower.id}>
+            <Blog {...follower} className='px-3 py-2' isLink />
+          </Fragment>
+        ))}
+      </div>
+    );
+
+  return <p className='text-center'>Kuzatuvchilar yo`q</p>;
 };

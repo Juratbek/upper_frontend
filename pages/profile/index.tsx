@@ -1,4 +1,6 @@
 import { Blog, TabBody, TabsHeader } from 'components';
+import { useMemo } from 'react';
+import { useGetCurrentBlogQuery } from 'store/apis';
 import { IBlogMedium } from 'types';
 import { PROFILE_TAB_MENUS, PROFILE_TABS } from 'variables/Profile.constants';
 
@@ -11,9 +13,26 @@ export const blog: IBlogMedium = {
 };
 
 export default function ProfilePage(): JSX.Element {
+  const fetchCurrentBlogRes = useGetCurrentBlogQuery();
+
+  const currentBlog = useMemo(() => {
+    const {
+      data: currentBlog,
+      isLoading,
+      isFetching,
+      isError,
+      isSuccess,
+      error,
+    } = fetchCurrentBlogRes;
+    if (isLoading || isFetching) return 'Yuklanmoqda';
+    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+    if (isSuccess)
+      return <Blog {...currentBlog} avaratSize='extra-large' className='p-2 align-items-center' />;
+  }, [fetchCurrentBlogRes]);
+
   return (
     <main className='container'>
-      <Blog {...blog} avaratSize='extra-large' className='p-2 align-items-center' />
+      {currentBlog}
       <TabsHeader tabs={PROFILE_TAB_MENUS} />
       <TabBody tabs={PROFILE_TABS} />
     </main>

@@ -7,14 +7,14 @@ import classes from './SidebarBlog.module.css';
 import { ISidebarBlogProps } from './SidebarBlog.types';
 
 export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
-  const { className, name, bio, id } = props;
+  const { className, name, bio, id, imgUrl } = props;
   const rootClassName = getClassName(classes['sidebar-blog'], className);
 
   return (
     <div className={rootClassName}>
       <Link href={`/blogs/${id}`}>
         <div className='d-flex pointer'>
-          <Avatar imgUrl='' size='medium' className={classes.avatar} />
+          <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />
           <div>
             <h4 className='m-0'>{name}</h4>
             {bio && <p className={classes.bio}>{bio}</p>}

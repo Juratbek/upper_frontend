@@ -59,6 +59,7 @@ export const {
   useRegisterMutation,
   useSetLabelsMutation,
   useLazyGetCurrentBlogQuery,
+  useGetCurrentBlogQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
