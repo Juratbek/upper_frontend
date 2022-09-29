@@ -6,6 +6,7 @@ export interface IApiErrorBoundaryProps extends HTMLAttributes<HTMLDivElement> {
     isLoading?: boolean;
     isFetching?: boolean;
     isError?: boolean;
+    isSuccess?: boolean;
     error?: TRtkError;
     [name: string]: unknown;
   };
