@@ -3,16 +3,15 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
 import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
-import { BLOG_TAB_IDS } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const {
-    query: { id, tab },
+    query: { id },
   } = useRouter();
   const [fetchBlogArticles, fetchBlogArticlesRes] = useLazyGetBlogPublishedArticlesQuery();
 
   useEffect(() => {
-    if (id && tab === BLOG_TAB_IDS.articles) {
+    if (id) {
       fetchBlogArticles(+id);
     }
   }, [id]);

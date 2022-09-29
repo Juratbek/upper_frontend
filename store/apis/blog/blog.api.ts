@@ -48,7 +48,7 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['current-blog'],
     }),
-    getFollowers: build.query<IBlogMedium[], void>({
+    getCurrentBlogFollowers: build.query<IBlogMedium[], void>({
       query: () => 'current-blog-followers',
     }),
     getById: build.query<IBlog, number>({
@@ -78,8 +78,11 @@ export const blogApi = createApi({
         );
       },
     }),
-    getBlogPublishedArticles: build.query<IArticleResult[], number>({
+    getPublishedArticles: build.query<IArticleResult[], number>({
       query: (id) => `published-articles/${id}`,
+    }),
+    getFollowers: build.query<IBlogMedium[], number>({
+      query: (id) => `followers/${id}`,
     }),
   }),
 });
@@ -90,12 +93,13 @@ export const {
   useSetLabelsMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
-  useLazyGetBlogPublishedArticlesQuery,
+  useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
-  useLazyGetFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
+  useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
   useFollowMutation: useFollowBlogMutation,
   useUnfollowMutation: useUnfollowBlogMutation,
+  useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
 } = blogApi;
