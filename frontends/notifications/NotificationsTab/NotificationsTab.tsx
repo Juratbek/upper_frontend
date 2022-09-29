@@ -1,74 +1,41 @@
-import { Divider } from 'components';
-import { FC } from 'react';
-import { IArticleResult, INotification } from 'types';
+import { ApiErrorBoundary, Divider } from 'components';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useMemo } from 'react';
+import { useLazyGetNotificationsByTypeQuery } from 'store/apis';
 import { NOTIFICATIONS } from 'variables';
-import { ARTICLE_STATUSES } from 'variables/article';
 
 import { getNotificationComponent } from './util';
 
-const author = {
-  id: 1,
-  name: 'Author name',
-  imgUrl: '',
-};
-
-const labels = [
-  {
-    id: 1,
-    name: 'JavaScript',
-  },
-  {
-    id: 2,
-    name: 'TypeScript',
-  },
-];
-
-const article: IArticleResult = {
-  id: 1,
-  title: 'Article title',
-  imgUrl: '',
-  content:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised",
-  labels,
-  publishedDate: new Date(),
-  status: ARTICLE_STATUSES.PUBLISHED,
-  viewCount: 10,
-};
-
-const notifications: INotification[] = [
-  {
-    id: 1,
-    type: 'article',
-    author,
-    article,
-  },
-  {
-    id: 2,
-    type: 'comment',
-    author,
-    article,
-  },
-  {
-    id: 3,
-    type: 'like',
-    author,
-    article,
-  },
-];
-
 export const NotificationsTab: FC = () => {
+  const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
+  const {
+    query: { tab },
+  } = useRouter();
+
+  useEffect(() => {
+    tab && fetchNotifications(tab as string);
+  }, [tab]);
+
+  const notifications = useMemo(() => {
+    const { data: notifications } = fetchNotificationsRes;
+    if (!notifications || notifications.length === 0)
+      return <p className='text-center'>Habarlar mavjud emas</p>;
+
+    return notifications.map((notification, index) => {
+      const Notification = getNotificationComponent(notification.type);
+      const actions = NOTIFICATIONS[notification.type].actions;
+      return (
+        <div key={notification.id}>
+          <Notification {...notification} actions={actions} className='px-2 py-2' />
+          {index !== notifications.length - 1 && <Divider className='w-75 mx-auto' />}
+        </div>
+      );
+    });
+  }, [fetchNotificationsRes.data]);
+
   return (
-    <div className='tab'>
-      {notifications.map((notification, index) => {
-        const Notification = getNotificationComponent(notification.type);
-        const actions = NOTIFICATIONS[notification.type].actions;
-        return (
-          <div key={notification.id}>
-            <Notification {...notification} actions={actions} className='px-2 py-2' />
-            {index !== notifications.length - 1 && <Divider className='w-75 mx-auto' />}
-          </div>
-        );
-      })}
-    </div>
+    <ApiErrorBoundary res={fetchNotificationsRes} className='tab'>
+      {notifications}
+    </ApiErrorBoundary>
   );
 };

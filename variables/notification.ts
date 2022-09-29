@@ -18,18 +18,18 @@ export const NOTIFICATIONS_TAB_MENUS: ITabHeader[] = [
     name: 'Barchasi',
     id: TAB_IDS.all,
   },
-  {
-    name: 'Obunalar',
-    id: TAB_IDS.subscriptions,
-  },
-  {
-    name: 'Izohlar',
-    id: TAB_IDS.comments,
-  },
-  {
-    name: '"Yoqdi"lar',
-    id: TAB_IDS.likes,
-  },
+  // {
+  //   name: 'Obunalar',
+  //   id: TAB_IDS.subscriptions,
+  // },
+  // {
+  //   name: 'Izohlar',
+  //   id: TAB_IDS.comments,
+  // },
+  // {
+  //   name: '"Yoqdi"lar',
+  //   id: TAB_IDS.likes,
+  // },
 ];
 
 export const NOTIFICATIONS_TABS: ITabBody = {

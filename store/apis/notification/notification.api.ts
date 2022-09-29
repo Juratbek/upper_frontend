@@ -4,13 +4,13 @@ import { INotification } from 'types';
 import { baseQuery } from '../config';
 
 export const notificationApi = createApi({
-  reducerPath: 'notifications',
-  baseQuery: baseQuery('notifications'),
+  reducerPath: 'notification',
+  baseQuery: baseQuery('notification'),
   endpoints: (build) => ({
-    getAll: build.query<INotification, void>({
-      query: () => 'list',
+    getByType: build.query<INotification[], string>({
+      query: (type) => `list/${type}`,
     }),
   }),
 });
 
-export const { useGetAllQuery: useGetAllNotificationsQuery } = notificationApi;
+export const { useLazyGetByTypeQuery: useLazyGetNotificationsByTypeQuery } = notificationApi;
