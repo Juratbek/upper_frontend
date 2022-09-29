@@ -1,7 +1,7 @@
 import { MONTHS } from './date.constants';
 import { IDateUtilConfig } from './date.types';
 
-export const toDateString = (date: Date | string, config?: IDateUtilConfig): string => {
+export const toDateString = (date: Date | string | undefined, config?: IDateUtilConfig): string => {
   if (!date) {
     return '';
   }

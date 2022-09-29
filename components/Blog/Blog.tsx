@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { getClassName } from 'utils';
 
-import classes from './Blog.module.css';
+import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
 
 export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', ...props }) => {

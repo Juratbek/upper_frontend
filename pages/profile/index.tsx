@@ -16,18 +16,13 @@ export default function ProfilePage(): JSX.Element {
   const fetchCurrentBlogRes = useGetCurrentBlogQuery();
 
   const currentBlog = useMemo(() => {
-    const {
-      data: currentBlog,
-      isLoading,
-      isFetching,
-      isError,
-      isSuccess,
-      error,
-    } = fetchCurrentBlogRes;
-    if (isLoading || isFetching) return 'Yuklanmoqda';
+    const { data: currentBlog, isError, error } = fetchCurrentBlogRes;
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-    if (isSuccess)
-      return <Blog {...currentBlog} avaratSize='extra-large' className='p-2 align-items-center' />;
+    return (
+      currentBlog && (
+        <Blog {...currentBlog} avaratSize='extra-large' className='p-2 align-items-center' />
+      )
+    );
   }, [fetchCurrentBlogRes]);
 
   return (

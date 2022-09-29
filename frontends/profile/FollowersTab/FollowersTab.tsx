@@ -1,4 +1,4 @@
-import { Blog } from 'components';
+import { Follower } from 'components';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
 import { useLazyGetCurrentBlogFollowersQuery } from 'store/apis';
@@ -25,7 +25,7 @@ export const FollowersTab: FC = () => {
       <div>
         {followers?.map((follower) => (
           <Fragment key={follower.id}>
-            <Blog {...follower} className='px-3 py-2' isLink />
+            <Follower {...follower} className='px-3 py-2' />
           </Fragment>
         ))}
       </div>

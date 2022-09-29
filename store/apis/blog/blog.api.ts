@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IBlog, IBlogMedium } from 'types';
+import { IArticleResult, IBlog, IBlogMedium } from 'types';
 
 import { baseQuery } from '../config';
 import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
@@ -48,7 +48,7 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['current-blog'],
     }),
-    getFollowers: build.query<IBlogMedium[], void>({
+    getCurrentBlogFollowers: build.query<IBlogMedium[], void>({
       query: () => 'current-blog-followers',
     }),
     getById: build.query<IBlog, number>({
@@ -78,6 +78,12 @@ export const blogApi = createApi({
         );
       },
     }),
+    getPublishedArticles: build.query<IArticleResult[], number>({
+      query: (id) => `published-articles/${id}`,
+    }),
+    getFollowers: build.query<IBlogMedium[], number>({
+      query: (id) => `followers/${id}`,
+    }),
   }),
 });
 
@@ -87,11 +93,13 @@ export const {
   useSetLabelsMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
+  useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
-  useLazyGetFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
+  useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
   useFollowMutation: useFollowBlogMutation,
   useUnfollowMutation: useUnfollowBlogMutation,
+  useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
 } = blogApi;
