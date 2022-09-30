@@ -6,7 +6,7 @@ import classes from './CommentNotification.module.css';
 import { ICommentNotificationProps } from './CommentNotification.types';
 
 export const CommentNotification: FC<ICommentNotificationProps> = (props) => {
-  const { className, article, author, actions = [] } = props;
+  const { className, article, author } = props;
   const rootClassName = getClassName(className, classes['comment-notification']);
 
   return (
@@ -17,7 +17,7 @@ export const CommentNotification: FC<ICommentNotificationProps> = (props) => {
       </div>
       <div className='d-flex align-items-center'>
         <Label className='me-1'>Izoh</Label>
-        <Actions actions={actions} />
+        <Actions actions={[]} />
       </div>
     </div>
   );

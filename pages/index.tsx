@@ -5,7 +5,7 @@ import type { NextPage } from 'next';
 const Home: NextPage = () => {
   return (
     <main className='container'>
-      <h1 className='mb-1'>UDAS - Birgalikda osonroq</h1>
+      <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
       <TabsHeader tabs={HOME_TAB_MENUS} />
       <TabBody tabs={HOME_TABS} />
     </main>

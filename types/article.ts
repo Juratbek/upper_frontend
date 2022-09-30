@@ -3,15 +3,17 @@ import { OutputBlockData } from '@editorjs/editorjs';
 import { IBlogSmall } from './blog';
 import { ILabel } from './label';
 
+export interface IArticleSmall {
+  id: number;
+  title: string;
+}
 export interface ISidebarArticle {
   id: number;
   title: string;
   imgUrl: string;
   author: IBlogSmall;
 }
-export interface IArticleResult {
-  id: number;
-  title: string;
+export interface IArticleResult extends IArticleSmall {
   content: string;
   status: TArticleStatus;
   imgUrl: string;
@@ -23,9 +25,7 @@ export interface IArticleResult {
   likes?: number;
 }
 
-export interface IArticle {
-  id: number;
-  title: string;
+export interface IArticle extends IArticleSmall {
   blocks: OutputBlockData[];
   imgUrl?: string;
   author: IBlogSmall;
