@@ -3,9 +3,8 @@ import { ILikeNotificationProps } from 'components/LikeNotification/LikeNotifica
 import { IPublishedArticleNotificationProps } from 'components/PublishedArticleNotification/PublishedArticleNotification.types';
 import { FC } from 'react';
 
-import { IArticleResult, IArticleSmall } from './article';
-import { IBlog, IBlogSmall } from './blog';
-import { TAction } from './common';
+import { IArticleSmall } from './article';
+import { IBlogSmall } from './blog';
 
 export type TNotification = 'ARTICLE_PUBLISHED' | 'COMMENT' | 'LIKE';
 export type TNotificationStatus = 'UNREAD' | 'READ';
@@ -23,9 +22,3 @@ export type TNotificationComponent =
   | FC<IPublishedArticleNotificationProps>
   | FC<ICommentNotificationProps>
   | FC<ILikeNotificationProps>;
-
-export interface INotificationComponentProps {
-  article: IArticleResult;
-  author?: IBlog;
-  actions?: TAction[];
-}

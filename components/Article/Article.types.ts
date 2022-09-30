@@ -1,7 +1,10 @@
-import { INotificationComponentProps, TIcon } from 'types';
+import { IArticleResult, IBlogSmall, TAction, TIcon } from 'types';
 
-export interface IArticleProps extends INotificationComponentProps {
+export interface IArticleProps {
   className?: string;
   icons?: TIcon[];
   redirectUrl?: string;
+  article: IArticleResult;
+  author?: IBlogSmall;
+  actions?: TAction[];
 }
