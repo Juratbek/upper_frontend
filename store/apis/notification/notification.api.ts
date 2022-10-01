@@ -10,7 +10,16 @@ export const notificationApi = createApi({
     getByType: build.query<INotification[], string>({
       query: (type) => `list/${type}`,
     }),
+    read: build.mutation<void, number>({
+      query: (id) => ({
+        url: `read/${id}`,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
-export const { useLazyGetByTypeQuery: useLazyGetNotificationsByTypeQuery } = notificationApi;
+export const {
+  useLazyGetByTypeQuery: useLazyGetNotificationsByTypeQuery,
+  useReadMutation: useReadNotificationMutation,
+} = notificationApi;

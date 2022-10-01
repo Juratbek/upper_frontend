@@ -1,18 +1,27 @@
 import { ApiErrorBoundary, Divider } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
-import { useLazyGetNotificationsByTypeQuery } from 'store/apis';
+import { useLazyGetNotificationsByTypeQuery, useReadNotificationMutation } from 'store/apis';
+import { INotification } from 'types';
 import { NOTIFICATIONS } from 'variables';
 
 export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
+  const [sendReadNotificationReq] = useReadNotificationMutation();
   const {
     query: { tab },
+    push,
   } = useRouter();
 
   useEffect(() => {
     tab && fetchNotifications(tab as string);
   }, [tab]);
+
+  const readNotification = (notification: INotification): void => {
+    const { id, article } = notification;
+    sendReadNotificationReq(id);
+    push(`/articles/${article.id}`);
+  };
 
   const notifications = useMemo(() => {
     const { data: notifications } = fetchNotificationsRes;
@@ -21,24 +30,13 @@ export const NotificationsTab: FC = () => {
 
     return notifications.map((notification, index) => {
       const Notification = NOTIFICATIONS[notification.type];
-      // return <pre key={notification.id}>{JSON.stringify(notification, null, 2)}</pre>;
       return (
         <div key={notification.id}>
-          <Notification {...notification} className='p-2' />
+          <Notification onClick={readNotification} {...notification} className='p-2' />
           {index !== notifications.length - 1 && <Divider className='w-75 mx-auto' />}
         </div>
       );
     });
-    // return notifications.map((notification, index) => {
-    //   const Notification = getNotificationComponent(notification.type);
-    //   const actions = NOTIFICATIONS[notification.type].actions;
-    //   return (
-    //     <div key={notification.id}>
-    //       <Notification {...notification} actions={actions} className='px-2 py-2' />
-    //       {index !== notifications.length - 1 && <Divider className='w-75 mx-auto' />}
-    //     </div>
-    //   );
-    // });
   }, [fetchNotificationsRes.data]);
 
   return (

@@ -22,3 +22,7 @@ export type TNotificationComponent =
   | FC<IPublishedArticleNotificationProps>
   | FC<ICommentNotificationProps>
   | FC<ILikeNotificationProps>;
+
+export interface INotificationComponentProp extends INotification {
+  onClick?: (notification: INotification) => void;
+}
