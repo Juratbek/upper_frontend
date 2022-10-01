@@ -1,7 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
-import { articleApi, blogApi, commentApi, labelApi, publishedArticleApi } from './apis';
+import {
+  articleApi,
+  blogApi,
+  commentApi,
+  labelApi,
+  notificationApi,
+  publishedArticleApi,
+} from './apis';
 import authReducer from './states/auth';
 import commentsSidebarReducer from './states/commentsSidebar';
 import loginModalReducer from './states/loginModal';
@@ -22,6 +29,7 @@ export const store = configureStore({
     [labelApi.reducerPath]: labelApi.reducer,
     [publishedArticleApi.reducerPath]: publishedArticleApi.reducer,
     [commentApi.reducerPath]: commentApi.reducer,
+    [notificationApi.reducerPath]: notificationApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -30,6 +38,7 @@ export const store = configureStore({
       labelApi.middleware,
       publishedArticleApi.middleware,
       commentApi.middleware,
+      notificationApi.middleware,
     ),
 });
 

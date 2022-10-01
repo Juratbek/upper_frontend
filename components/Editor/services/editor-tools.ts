@@ -1,33 +1,67 @@
 import { EditorConfig } from '@editorjs/editorjs';
 
+type TTool =
+  | 'Embed'
+  | 'Header'
+  | 'ImageTool'
+  | 'List'
+  | 'Quote'
+  | 'Delimeter'
+  | 'TextColor'
+  | 'Alert'
+  | 'Unsplash'
+  | 'InclineCode'
+  | 'CodeFlask';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TOOLS: Record<TTool, any> = {
+  Embed: undefined,
+  Header: undefined,
+  ImageTool: undefined,
+  List: undefined,
+  Quote: undefined,
+  Delimeter: undefined,
+  TextColor: undefined,
+  Alert: undefined,
+  Unsplash: undefined,
+  InclineCode: undefined,
+  CodeFlask: undefined,
+};
+
 export const getTools = async (): Promise<EditorConfig['tools']> => {
-  const Embed = (await import('@editorjs/embed')).default;
-  const Header = (await import('@editorjs/header')).default;
-  const ImageTool = (await import('@editorjs/image')).default;
-  const List = (await import('@editorjs/list')).default;
-  const Quote = (await import('@editorjs/quote')).default;
-  const Delimeter = (await import('@editorjs/delimiter')).default;
-  const TextColor = (await import('editorjs-text-color-plugin')).default;
-  const Alert = (await import('editorjs-alert')).default;
-  const Unsplash = (await import('editorjs-inline-image')).default;
-  const InclineCode = (await import('@editorjs/inline-code')).default;
-  const CodeFlask = (await import('@calumk/editorjs-codeflask')).default;
+  const tools = await Promise.all([
+    import('@editorjs/embed'),
+    import('@editorjs/header'),
+    import('@editorjs/image'),
+    import('@editorjs/list'),
+    import('@editorjs/quote'),
+    import('@editorjs/delimiter'),
+    import('editorjs-text-color-plugin'),
+    import('editorjs-alert'),
+    import('editorjs-inline-image'),
+    import('@editorjs/inline-code'),
+    import('@calumk/editorjs-codeflask'),
+  ]);
+
+  Object.keys(TOOLS).forEach((key, index) => {
+    TOOLS[key as TTool] = tools[index].default;
+  });
 
   return {
     header: {
-      class: Header,
+      class: TOOLS.Header,
       shortcut: 'CMD+SHIFT+H',
       config: {
         levels: [1, 2, 3, 4, 5, 6],
         defaultLevel: 1,
       },
     },
-    alert: Alert,
-    quote: Quote,
-    delimeter: Delimeter,
-    list: List,
+    alert: TOOLS.Alert,
+    quote: TOOLS.Quote,
+    delimeter: TOOLS.Delimeter,
+    list: TOOLS.List,
     unsplash: {
-      class: Unsplash,
+      class: TOOLS.Unsplash,
       config: {
         unsplash: {
           appName: 'udas',
@@ -35,10 +69,10 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
         },
       },
     },
-    image: ImageTool,
-    code: CodeFlask,
+    image: TOOLS.ImageTool,
+    code: TOOLS.CodeFlask,
     embed: {
-      class: Embed,
+      class: TOOLS.Embed,
       inlineToolbar: true,
       config: {
         services: {
@@ -74,11 +108,11 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
       },
     },
     textColor: {
-      class: TextColor,
+      class: TOOLS.TextColor,
       inlineToolbar: true,
     },
     inlineCode: {
-      class: InclineCode,
+      class: TOOLS.InclineCode,
       inlineToolbar: true,
     },
   };

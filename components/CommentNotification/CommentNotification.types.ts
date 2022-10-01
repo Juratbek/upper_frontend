@@ -1,6 +1,5 @@
-import { INotificationComponentProps } from 'types';
+import { INotificationComponentProp } from 'types';
 
-export interface ICommentNotificationProps extends INotificationComponentProps {
-  id: number;
+export interface ICommentNotificationProps extends INotificationComponentProp {
   className?: string;
 }
