@@ -1,47 +1,15 @@
-import { ArticleImg, Divider, SearchInput } from 'components';
-import { Author } from 'components/Author/Author';
+import { ApiErrorBoundary, ArticleImg, Author, Divider, SearchInput } from 'components';
 import { useClickOutside } from 'hooks';
-import { FC, useState } from 'react';
-import { IBlogSmall } from 'types';
+import Link from 'next/link';
+import { FC, useMemo, useState } from 'react';
+import { useLazySearchArticleQuery, useLazySearchBlogQuery } from 'store/apis';
 
 import classes from './SidebarSearch.module.scss';
-import { IArticle } from './SidebarSearch.types';
-
-const blogs: IBlogSmall[] = [
-  {
-    id: 1,
-    name: 'Blog',
-    imgUrl: '',
-  },
-  {
-    id: 2,
-    name: 'Blog',
-    imgUrl: '',
-  },
-  {
-    id: 3,
-    name: 'Blog',
-    imgUrl: '',
-  },
-];
-
-const articles: IArticle[] = [
-  {
-    id: 1,
-    title: 'Title',
-  },
-  {
-    id: 2,
-    title: 'Title',
-  },
-  {
-    id: 3,
-    title: 'Title',
-  },
-];
 
 export const SidebarSearch: FC = () => {
   const [isResultsContainerOpen, setIsResultsContainerOpen] = useState<boolean>(false);
+  const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
+  const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
 
   const openResultsContainer = (): void => {
     setIsResultsContainerOpen(true);
@@ -51,27 +19,61 @@ export const SidebarSearch: FC = () => {
     setIsResultsContainerOpen(false);
   });
 
+  const search = (value: string): void => {
+    if (!value || value.length <= 1) return;
+    searchArticle(value);
+    searchBlog(value);
+  };
+
+  const blogs = useMemo(() => {
+    const { data: blogs } = searchBlogRes;
+    return (
+      <ApiErrorBoundary res={searchBlogRes}>
+        {!blogs || blogs.length === 0 ? (
+          <p>Bloglar yo`q</p>
+        ) : (
+          blogs.map((blog) => (
+            <Link href={`/blogs/${blog.id}`} key={blog.id}>
+              <div className={classes.blog}>
+                <Author {...blog} />
+              </div>
+            </Link>
+          ))
+        )}
+      </ApiErrorBoundary>
+    );
+  }, [searchBlogRes.data]);
+
+  const articles = useMemo(
+    () => (
+      <ApiErrorBoundary res={searchArticleRes}>
+        {searchArticleRes.data?.length === 0 ? (
+          <p>Bloglar yo`q</p>
+        ) : (
+          searchArticleRes.data?.map((article) => (
+            <Link href={`/articles/${article.id}`} key={article.id}>
+              <div className={classes.article}>
+                <ArticleImg imgUrl={article.imgUrl} size='micro' className={classes.img} />
+                <h4 className='m-0'>{article.title}</h4>
+              </div>
+            </Link>
+          ))
+        )}
+      </ApiErrorBoundary>
+    ),
+    [searchArticleRes.data],
+  );
+
   return (
     <div className={classes.container} ref={ref}>
-      <SearchInput onFocus={openResultsContainer} />
+      <SearchInput onFocus={openResultsContainer} onDebounce={search} />
       <div className={`${classes['results-container']} ${!isResultsContainerOpen && 'd-none'}`}>
         <h4 className='m-0'>Bloglar</h4>
         <Divider />
-        <div>
-          {blogs.map((blog) => (
-            <div key={blog.id} className={classes.blog}>
-              <Author {...blog} />
-            </div>
-          ))}
-        </div>
+        {blogs}
         <h4 className='m-0'>Maqolalar</h4>
         <Divider />
-        {articles.map((article) => (
-          <div key={article.id} className={classes.article}>
-            <ArticleImg imgUrl='' size='micro' className={classes.img} />
-            <h4 className='m-0'>{article.title}</h4>
-          </div>
-        ))}
+        {articles}
       </div>
     </div>
   );
