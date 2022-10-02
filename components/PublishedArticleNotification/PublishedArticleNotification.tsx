@@ -6,8 +6,12 @@ import classes from './PublishedArticleNotification.module.scss';
 import { IPublishedArticleNotificationProps } from './PublishedArticleNotification.types';
 
 export const PublishedArticleNotification: FC<IPublishedArticleNotificationProps> = (props) => {
-  const { className, article, author } = props;
-  const rootClassName = getClassName(className, classes['published-article-notification']);
+  const { className, article, author, status } = props;
+  const rootClassName = getClassName(
+    className,
+    classes['published-article-notification'],
+    status === 'UNREAD' && 'notification--unread',
+  );
 
   const clickHandler = (): void => {
     props.onClick?.(props);
