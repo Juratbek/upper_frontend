@@ -54,6 +54,12 @@
   }
 }
 
+.notification {
+  &--unread {
+    background-color: var(--lightGray);
+  }
+}
+
 /* margins */
 .m-0 {
   margin: 0;
