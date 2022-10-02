@@ -30,7 +30,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   likeDislike,
 }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
-  const [isSharePopupOpen, setSsSharePopupOpen] = useState(false);
+  const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
   const dispatch = useAppDispatch();
 
   const detectScrollDirection = (): void => {
@@ -58,7 +58,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   return (
     <div className={styles.articleActionsContainer}>
       <div className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}>
-        <ArticleSharePopup visible={isSharePopupOpen} setVisible={setSsSharePopupOpen} />
+        <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
         <div className={styles.iconsContainer}>
           <div className={styles.icon} onClick={OpenCommentsSidebar} id='comment-icon'>
             <CommentIcon />
@@ -80,7 +80,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
             className={styles.icon}
             onClick={(e): void => {
               e.stopPropagation();
-              setSsSharePopupOpen((prev) => !prev);
+              setIsSharePopupOpen((prev) => !prev);
             }}
           >
             <ShareIcon />

@@ -1,9 +1,11 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { ICON_TYPES, ICONS } from 'variables';
 
 const TelegramIcon = ICONS[ICON_TYPES.telegram];
 const FacebookIcon = ICONS[ICON_TYPES.facebook];
 const LinkedInIcon = ICONS[ICON_TYPES.linkedIn];
+
+import { useClickOutside } from 'hooks';
 
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
@@ -12,7 +14,6 @@ const url = window.location.href;
 
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const sharePopupRef = useRef<HTMLDivElement>(null);
 
   const onCopyLink = (): void => {
     const inputEl = inputRef.current as HTMLInputElement;
@@ -24,22 +25,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
     }
   };
 
-  useEffect(() => {
-    const globalClickListener = (e: Event): void => {
-      const sharePopupEl = sharePopupRef.current as HTMLDivElement;
-      const targetEl = e.target as HTMLElement;
-
-      if (e.target !== sharePopupEl && !sharePopupEl?.contains(targetEl)) {
-        setVisible(false);
-      }
-    };
-
-    document.addEventListener('click', globalClickListener);
-
-    return () => {
-      window.removeEventListener('click', globalClickListener);
-    };
-  }, []);
+  const [sharePopupRef] = useClickOutside(() => setVisible(false));
 
   return (
     <div
