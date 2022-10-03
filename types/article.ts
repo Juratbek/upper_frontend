@@ -43,4 +43,4 @@ export interface IArticle extends IArticleSmall {
   token?: string;
 }
 
-export type TArticleStatus = 'PUBLISHED' | 'UNPUBLISHED' | 'SAVED' | 'DELETED';
+export type TArticleStatus = 'PUBLISHED' | 'SAVED' | 'DELETED';

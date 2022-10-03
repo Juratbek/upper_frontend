@@ -1,8 +1,7 @@
-import { ARTICLE_STATUSES } from 'variables/article';
+import { TArticleStatus } from 'types';
 
-export const STATUS_LABELS = {
-  [ARTICLE_STATUSES.PUBLISHED]: 'nashr qilingan',
-  [ARTICLE_STATUSES.SAVED]: 'saqlangan',
-  [ARTICLE_STATUSES.DELETED]: 'o`chirilgan',
-  [ARTICLE_STATUSES.UNPUBLISHED]: 'bekor qilingan',
+export const STATUS_LABELS: Record<TArticleStatus, string> = {
+  PUBLISHED: 'nashr qilingan',
+  SAVED: 'saqlangan',
+  DELETED: 'o`chirilgan',
 };

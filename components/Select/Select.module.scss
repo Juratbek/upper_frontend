@@ -5,6 +5,7 @@
 .select {
     border-radius: var(--mediumBorderRadius);
     border: 1px solid var(--lightBlack);
+    min-height: 2rem;
     min-width: 100px;
     padding: .4rem .5rem;
     display: flex;

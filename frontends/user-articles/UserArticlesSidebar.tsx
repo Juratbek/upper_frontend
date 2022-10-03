@@ -73,6 +73,7 @@ export const UserArticlesSidebar: FC = () => {
     if (status) {
       try {
         const updatedArticle = await updateArticleStatus({ id: article.id, status }).unwrap();
+        debugger;
         dispatch(setArticle({ ...article, ...updatedArticle }));
         closeModal();
       } catch (e) {
@@ -101,7 +102,7 @@ export const UserArticlesSidebar: FC = () => {
               <p className='overflow-wrap'>{JSON.stringify(updateArticleStatusResponse.error)}</p>
             </Alert>
           )}
-          <p>
+          <p className='text-center'>
             <strong>“Maqola sarlavhasi”</strong> maqolani {MODAL.text || ''}
           </p>
           <div className='justify-content-around d-flex'>
@@ -117,9 +118,11 @@ export const UserArticlesSidebar: FC = () => {
       {status && (
         <>
           <ArticleStatus className='mb-1' status={status}>
-            <Link href={`/articles/${article.publishedArticleId}`}>
-              Nashr varyantini ko&apos;rish
-            </Link>
+            {article.publishedArticleId && (
+              <Link href={`/articles/${article.publishedArticleId}`}>
+                Nashr varyantini ko&apos;rish
+              </Link>
+            )}
           </ArticleStatus>
           <div className='d-flex flex-wrap m--1'>
             {BUTTONS.map((button, index) => (
