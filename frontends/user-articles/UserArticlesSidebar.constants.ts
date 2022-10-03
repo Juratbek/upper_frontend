@@ -11,9 +11,7 @@ export const ARTICLE_ACTIONS: Record<TArticleAction, TArticleAction> = {
   delete: 'delete',
   fullDelete: 'fullDelete',
   publish: 'publish',
-  unpublish: 'unpublish',
   restore: 'restore',
-  republish: 'republish',
   save: 'save',
 };
 
@@ -40,26 +38,11 @@ export const ARTICLE_SIDEBAR_MODAL_CONTENTS: Record<TArticleAction, IUserArticle
       status: ARTICLE_STATUSES.PUBLISHED,
     },
   },
-  unpublish: {
-    text: 'nashrni bekor qilmoqchimisiz',
-    btn: {
-      text: 'Nashrni bekor qilish',
-      status: ARTICLE_STATUSES.UNPUBLISHED,
-      color: 'outline-red',
-    },
-  },
   restore: {
     text: 'tiklamoqchimisiz',
     btn: {
       text: 'Tiklash',
       status: ARTICLE_STATUSES.SAVED,
-    },
-  },
-  republish: {
-    text: 'qayta nashr qilmoqchimisiz',
-    btn: {
-      text: 'Qayta nashr qilish',
-      status: ARTICLE_STATUSES.PUBLISHED,
     },
   },
   save: {
@@ -78,7 +61,7 @@ export const ARTICLE_SIDEBAR_ACTIONS: Record<TArticleAction, IArticleSidebarActi
     shouldOpenModal: true,
   },
   fullDelete: {
-    text: 'O`chirish',
+    text: 'To`liq o`chirish',
     action: ARTICLE_ACTIONS.fullDelete,
     color: 'outline-red',
     shouldOpenModal: true,
@@ -88,20 +71,9 @@ export const ARTICLE_SIDEBAR_ACTIONS: Record<TArticleAction, IArticleSidebarActi
     action: ARTICLE_ACTIONS.publish,
     shouldOpenModal: true,
   },
-  unpublish: {
-    text: 'Nashrni bekor qilish',
-    action: ARTICLE_ACTIONS.unpublish,
-    color: 'outline-dark',
-    shouldOpenModal: true,
-  },
   restore: {
     text: 'Tiklash',
     action: ARTICLE_ACTIONS.restore,
-    shouldOpenModal: true,
-  },
-  republish: {
-    text: 'Qayta nashr qilish',
-    action: ARTICLE_ACTIONS.republish,
     shouldOpenModal: true,
   },
   save: {
@@ -116,15 +88,6 @@ export const ARTICLE_SIDEBAR_BUTTONS: Record<TArticleStatus, IArticleSidebarActi
     ARTICLE_SIDEBAR_ACTIONS.publish,
     ARTICLE_SIDEBAR_ACTIONS.save,
   ],
-  PUBLISHED: [
-    ARTICLE_SIDEBAR_ACTIONS.delete,
-    ARTICLE_SIDEBAR_ACTIONS.unpublish,
-    ARTICLE_SIDEBAR_ACTIONS.save,
-  ],
-  UNPUBLISHED: [
-    ARTICLE_SIDEBAR_ACTIONS.delete,
-    ARTICLE_SIDEBAR_ACTIONS.republish,
-    ARTICLE_SIDEBAR_ACTIONS.save,
-  ],
+  PUBLISHED: [ARTICLE_SIDEBAR_ACTIONS.delete, ARTICLE_SIDEBAR_ACTIONS.save],
   DELETED: [ARTICLE_SIDEBAR_ACTIONS.fullDelete, ARTICLE_SIDEBAR_ACTIONS.restore],
 };

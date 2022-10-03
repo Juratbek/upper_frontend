@@ -1,14 +1,7 @@
 import { TButtonColor } from 'components';
 import { TArticleStatus } from 'types';
 
-export type TArticleAction =
-  | 'delete'
-  | 'fullDelete'
-  | 'publish'
-  | 'republish'
-  | 'restore'
-  | 'unpublish'
-  | 'save';
+export type TArticleAction = 'delete' | 'fullDelete' | 'publish' | 'restore' | 'save';
 
 export interface IUserArticleModalContent {
   text: string;

@@ -12,16 +12,12 @@ export const TAB_IDS = {
 
 export const ARTICLES_TAB_MENUS: ITabHeader[] = [
   {
-    name: 'Nashr etilgan',
+    name: 'Nashr qilingan',
     id: ARTICLE_STATUSES.PUBLISHED,
   },
   {
     name: 'Saqlangan',
     id: ARTICLE_STATUSES.SAVED,
-  },
-  {
-    name: 'Bekor qilingan',
-    id: ARTICLE_STATUSES.UNPUBLISHED,
   },
   {
     name: 'O`chirilgan',
@@ -32,6 +28,5 @@ export const ARTICLES_TAB_MENUS: ITabHeader[] = [
 export const ARTICLES_TABS: ITabBody = {
   [ARTICLE_STATUSES.PUBLISHED]: ArticlesTab,
   [ARTICLE_STATUSES.SAVED]: ArticlesTab,
-  [ARTICLE_STATUSES.UNPUBLISHED]: ArticlesTab,
   [ARTICLE_STATUSES.DELETED]: ArticlesTab,
 };
