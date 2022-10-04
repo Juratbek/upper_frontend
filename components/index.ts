@@ -38,3 +38,4 @@ export * from './ImageModal';
 export * from './Comments/Comments';
 export * from './Follower/Follower';
 export * from './PublishedArticleNotification/PublishedArticleNotification';
+export * from './GoogleOneTap/GoogleOneTap';

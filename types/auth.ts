@@ -1,22 +1,4 @@
-import { Profile } from 'next-auth';
-import { BuiltInProviderType } from 'next-auth/providers';
-import { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
-import { AUTH_PROVIDER_TYPES } from 'variables';
-
 type TGitHubUserType = 'User';
-
-export type TAuthProviderProp = Profile & Record<string, unknown>;
-
-export type TAuthProviderTypes =
-  | typeof AUTH_PROVIDER_TYPES.google
-  | typeof AUTH_PROVIDER_TYPES.facebook
-  | typeof AUTH_PROVIDER_TYPES.github;
-
-export type TAuthProviders = Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>;
-
-export interface IAuthProvider {
-  [name: string]: (profile: TAuthProviderProp) => boolean;
-}
 
 export interface IGitHubUser {
   login: string;

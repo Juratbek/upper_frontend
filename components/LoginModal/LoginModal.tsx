@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
-import { telegramSignIn } from 'utils';
 import { TELEGRAM_BOT } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
@@ -86,11 +85,7 @@ export const LoginModal: FC = () => {
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
           Ro`yxatdan o`tish
         </Button>
-        <TelegramLoginButton
-          className='mt-2 text-center'
-          botName='udas_bot'
-          onAuth={telegramSignIn}
-        />
+        <TelegramLoginButton className='mt-2 text-center' botName='udas_bot' onAuth={console.log} />
       </form>
     </Modal>
   );

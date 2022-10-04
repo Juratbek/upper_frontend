@@ -26,7 +26,6 @@
     "@types/events": "^3.0.0",
     "husky": "^8.0.1",
     "next": "12.1.6",
-    "next-auth": "^4.10.0",
     "next-redux-wrapper": "^7.0.5",
     "nextjs-progressbar": "^0.0.14",
     "nodemailer": "^6.7.7",
