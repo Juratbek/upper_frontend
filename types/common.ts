@@ -47,7 +47,7 @@ export interface IGetServerSideProps<T = Record<string, never>> {
   };
 }
 
-export type TAuthStatus = 'authenticated' | 'unauthenticated';
+export type TAuthStatus = 'authenticated' | 'unauthenticated' | 'loading';
 
 export interface ILink {
   type: string;

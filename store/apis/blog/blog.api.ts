@@ -16,6 +16,13 @@ export const blogApi = createApi({
         body,
       }),
     }),
+    googleOneTapRegister: build.mutation<IBlogRegisterResponse, string>({
+      query: (token) => ({
+        url: 'open/google-one-tap-register',
+        method: 'POST',
+        body: token,
+      }),
+    }),
     register: build.mutation<IBlogRegisterResponse, IBlogRegisterDto>({
       query: (blog) => ({
         url: 'register',
@@ -102,4 +109,5 @@ export const {
   useFollowMutation: useFollowBlogMutation,
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
+  useGoogleOneTapRegisterMutation,
 } = blogApi;

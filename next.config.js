@@ -1,3 +1,4 @@
+require('dotenv').config();
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
@@ -6,8 +7,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['www.lamborghini.com', 'images.unsplash.com']
-  }
+    domains: ['www.lamborghini.com', 'images.unsplash.com'],
+  },
+  env: {
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+  },
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
