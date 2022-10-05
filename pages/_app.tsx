@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { Navigation, Sidebar } from 'components';
+import { GoogleOneTap, Navigation, Sidebar } from 'components';
 import { LoginModal, RegisterModal } from 'components';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
@@ -19,6 +19,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <Sidebar />
       </div>
       <NextNProgress color='#7a7e80' height={3} showOnShallow={true} />
+      <GoogleOneTap />
     </div>
   );
 }

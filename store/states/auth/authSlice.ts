@@ -3,12 +3,12 @@ import { TAuthStatus } from 'types';
 
 interface IAuthState {
   status: TAuthStatus;
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | undefined;
 }
 
 const initialState: IAuthState = {
-  status: 'unauthenticated',
-  isAuthenticated: false,
+  status: 'loading',
+  isAuthenticated: undefined,
 };
 
 const authSlice = createSlice({

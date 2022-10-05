@@ -17,7 +17,7 @@ export const useAuth = (): IUseAuth => {
 
   useEffect(() => {
     const token = getToken();
-    token && dispatch(storeAuthenticate());
+    dispatch(token ? storeAuthenticate() : storeUnauthenticate());
   }, []);
 
   const authenticate = (token: string): void => {
