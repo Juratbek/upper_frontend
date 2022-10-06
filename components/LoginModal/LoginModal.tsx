@@ -1,10 +1,10 @@
 import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
 import { useAuth } from 'hooks';
 import Head from 'next/head';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLoginMutation, useLoginWithTelegramMutation } from 'store/apis';
+import { useLoginMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
 import { TELEGRAM_BOT } from 'variables';
@@ -18,7 +18,6 @@ export const LoginModal: FC = () => {
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
-  const [loginWithTelegram, loginWithTelegramRes] = useLoginWithTelegramMutation();
   const { authenticate } = useAuth();
   const {
     register,
@@ -54,14 +53,6 @@ export const LoginModal: FC = () => {
       }
     }
   };
-
-  useEffect(() => {
-    const { data, isSuccess } = loginWithTelegramRes;
-    if (isSuccess) {
-      authenticate(data.token);
-      closeModal();
-    }
-  }, [loginWithTelegramRes.data]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
@@ -104,8 +95,7 @@ export const LoginModal: FC = () => {
         <TelegramLoginButton
           className='mt-2 text-center'
           botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}
-          onAuth={loginWithTelegram}
-          isLoading={loginWithTelegramRes.isLoading}
+          onAuth={closeModal}
         />
       </form>
     </Modal>
