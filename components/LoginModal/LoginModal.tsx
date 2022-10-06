@@ -1,16 +1,15 @@
 import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
 import { useAuth } from 'hooks';
 import Head from 'next/head';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLoginMutation } from 'store/apis';
+import { useLoginMutation, useLoginWithTelegramMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
 import { TELEGRAM_BOT } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
-import classes from './LoginModal.module.scss';
 
 const { login, password } = LOGIN_FORM_FIELDS;
 
@@ -19,6 +18,7 @@ export const LoginModal: FC = () => {
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
+  const [loginWithTelegram, loginWithTelegramRes] = useLoginWithTelegramMutation();
   const { authenticate } = useAuth();
   const {
     register,
@@ -54,6 +54,14 @@ export const LoginModal: FC = () => {
       }
     }
   };
+
+  useEffect(() => {
+    const { data, isSuccess } = loginWithTelegramRes;
+    if (isSuccess) {
+      authenticate(data.token);
+      closeModal();
+    }
+  }, [loginWithTelegramRes.data]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
@@ -93,10 +101,12 @@ export const LoginModal: FC = () => {
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
           Ro`yxatdan o`tish
         </Button>
-        <TelegramLoginButton className='mt-2 text-center' botName='udas_bot' onAuth={console.log} />
-        <div className='d-flex'>
-          <div className={classes['media-icon']}></div>
-        </div>
+        <TelegramLoginButton
+          className='mt-2 text-center'
+          botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}
+          onAuth={loginWithTelegram}
+          isLoading={loginWithTelegramRes.isLoading}
+        />
       </form>
     </Modal>
   );

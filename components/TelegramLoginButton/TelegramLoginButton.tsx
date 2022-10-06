@@ -1,3 +1,4 @@
+import { Button } from 'components';
 import { FC, useEffect, useRef } from 'react';
 import { ITelegramUser } from 'types';
 
@@ -23,6 +24,7 @@ export const TelegramLoginButton: FC<ITelegramLoginButtonProps> = (props) => {
     onAuth,
     cornerRadius,
     shouldRequestAccess = true,
+    isLoading,
   } = props;
 
   useEffect(() => {
@@ -52,5 +54,9 @@ export const TelegramLoginButton: FC<ITelegramLoginButtonProps> = (props) => {
     ref.current.appendChild(script);
   }, [botName, buttonSize, cornerRadius, onAuth, shouldRequestAccess, shouldUsePic, ref]);
 
-  return <div ref={ref} className={className} />;
+  return isLoading ? (
+    <Button loading={true} color='blue' className={`w-100 ${className}`} />
+  ) : (
+    <div ref={ref} className={className} />
+  );
 };
