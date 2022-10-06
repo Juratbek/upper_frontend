@@ -10,4 +10,5 @@ export interface ITelegramLoginButtonProps {
   shouldRequestAccess?: boolean;
   onAuth: (user: ITelegramUser) => void;
   buttonSize?: TButtonSize;
+  isLoading?: boolean;
 }

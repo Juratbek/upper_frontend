@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IArticleResult, IBlog, IBlogMedium } from 'types';
+import { IArticleResult, IBlog, IBlogMedium, ITelegramUser } from 'types';
 
 import { baseQuery } from '../config';
 import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
@@ -21,6 +21,13 @@ export const blogApi = createApi({
         url: 'open/google-one-tap-register',
         method: 'POST',
         body: token,
+      }),
+    }),
+    loginWithTelegram: build.mutation<IBlogRegisterResponse, ITelegramUser>({
+      query: (user) => ({
+        url: 'open/login-with-telegram',
+        method: 'POST',
+        body: user,
       }),
     }),
     register: build.mutation<IBlogRegisterResponse, IBlogRegisterDto>({
@@ -110,4 +117,5 @@ export const {
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useGoogleOneTapRegisterMutation,
+  useLoginWithTelegramMutation,
 } = blogApi;

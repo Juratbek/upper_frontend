@@ -18,6 +18,17 @@
     color: black;
 }
 
+.blue {
+    background-color: var(--blue);
+    color: white;
+}
+
+.outline-blue {
+    background-color: white;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+}
+
 .outline-dark-disabled {
     border: 1px solid var(--gray);
     color: var(--gray);
