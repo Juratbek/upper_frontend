@@ -11,7 +11,7 @@ export const blogApi = createApi({
   endpoints: (build) => ({
     login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
-        url: 'login',
+        url: 'open/login',
         method: 'POST',
         body,
       }),
@@ -32,7 +32,7 @@ export const blogApi = createApi({
     }),
     register: build.mutation<IBlogRegisterResponse, IBlogRegisterDto>({
       query: (blog) => ({
-        url: 'register',
+        url: 'open/register',
         method: 'POST',
         body: blog,
       }),
