@@ -19,15 +19,15 @@ export const GoogleOneTap: FC = () => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (isAuthenticated === false) {
-        // try {
-        //   google.accounts.id.initialize({
-        //     client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-        //     callback: function (res: ISignInResponse) {
-        //       oneTapRegister(res.credential);
-        //     },
-        //   });
-        //   google.accounts.id.prompt();
-        // } catch (e) {}
+        try {
+          google.accounts.id.initialize({
+            client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            callback: function (res: ISignInResponse) {
+              oneTapRegister(res.credential);
+            },
+          });
+          google.accounts.id.prompt();
+        } catch (e) {}
       }
     }, 1000);
     return () => window.clearTimeout(timeout);
