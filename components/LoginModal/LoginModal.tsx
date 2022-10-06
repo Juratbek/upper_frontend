@@ -1,5 +1,6 @@
 import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
 import { useAuth } from 'hooks';
+import Head from 'next/head';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -9,6 +10,7 @@ import { IResponseError, TSubmitFormEvent } from 'types';
 import { TELEGRAM_BOT } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
+import classes from './LoginModal.module.scss';
 
 const { login, password } = LOGIN_FORM_FIELDS;
 
@@ -55,6 +57,12 @@ export const LoginModal: FC = () => {
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
+      <Head>
+        <meta
+          name='google-signin-client_id'
+          content='578132262483-mp1bv5i0pp46fmh0d8hvi0qe7t29g9p0.apps.googleusercontent.com'
+        />
+      </Head>
       {hasAlert && (
         <Alert color='yellow' className='mb-1'>
           Xatolik yuz berdi. Iltimos bu haqda&nbsp;
@@ -86,6 +94,9 @@ export const LoginModal: FC = () => {
           Ro`yxatdan o`tish
         </Button>
         <TelegramLoginButton className='mt-2 text-center' botName='udas_bot' onAuth={console.log} />
+        <div className='d-flex'>
+          <div className={classes['media-icon']}></div>
+        </div>
       </form>
     </Modal>
   );
