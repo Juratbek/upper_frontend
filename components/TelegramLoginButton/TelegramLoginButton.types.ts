@@ -1,4 +1,4 @@
-import { ITelegramUser } from 'types';
+import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 
 type TButtonSize = 'large' | 'medium' | 'small';
 
@@ -8,7 +8,7 @@ export interface ITelegramLoginButtonProps {
   className?: string;
   cornerRadius?: number;
   shouldRequestAccess?: boolean;
-  onAuth: (user: ITelegramUser) => void;
+  onAuth?: (user: IBlogRegisterResponse) => void;
   buttonSize?: TButtonSize;
   isLoading?: boolean;
 }

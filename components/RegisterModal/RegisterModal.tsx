@@ -1,4 +1,4 @@
-import { Button, Error, Input, Label, Modal, Textarea } from 'components';
+import { Button, Error, Input, Label, Modal, TelegramLoginButton, Textarea } from 'components';
 import { useAuth } from 'hooks';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
@@ -180,6 +180,11 @@ export const RegisterModal: FC = () => {
           </Button>
         )}
       </form>
+      <TelegramLoginButton
+        className='mt-2 text-center'
+        botName={process.env.NEXT_PUBLIC_REGISTER_BOT_USERNAME || 'upper_test_bot'}
+        onAuth={closeModal}
+      />
     </Modal>
   );
 };
