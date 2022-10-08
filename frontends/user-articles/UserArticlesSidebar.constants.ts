@@ -9,7 +9,6 @@ import {
 
 export const ARTICLE_ACTIONS: Record<TArticleAction, TArticleAction> = {
   delete: 'delete',
-  fullDelete: 'fullDelete',
   publish: 'publish',
   restore: 'restore',
   save: 'save',
@@ -21,13 +20,6 @@ export const ARTICLE_SIDEBAR_MODAL_CONTENTS: Record<TArticleAction, IUserArticle
     btn: {
       text: 'O`chirish',
       status: ARTICLE_STATUSES.DELETED,
-      color: 'outline-red',
-    },
-  },
-  fullDelete: {
-    text: 'keshdan o`chirmoqchimisiz',
-    btn: {
-      text: 'O`chirish',
       color: 'outline-red',
     },
   },
@@ -60,12 +52,6 @@ export const ARTICLE_SIDEBAR_ACTIONS: Record<TArticleAction, IArticleSidebarActi
     color: 'outline-red',
     shouldOpenModal: true,
   },
-  fullDelete: {
-    text: 'To`liq o`chirish',
-    action: ARTICLE_ACTIONS.fullDelete,
-    color: 'outline-red',
-    shouldOpenModal: true,
-  },
   publish: {
     text: 'Nashr qilish',
     action: ARTICLE_ACTIONS.publish,
@@ -89,5 +75,5 @@ export const ARTICLE_SIDEBAR_BUTTONS: Record<TArticleStatus, IArticleSidebarActi
     ARTICLE_SIDEBAR_ACTIONS.save,
   ],
   PUBLISHED: [ARTICLE_SIDEBAR_ACTIONS.delete, ARTICLE_SIDEBAR_ACTIONS.save],
-  DELETED: [ARTICLE_SIDEBAR_ACTIONS.fullDelete, ARTICLE_SIDEBAR_ACTIONS.restore],
+  DELETED: [ARTICLE_SIDEBAR_ACTIONS.restore],
 };

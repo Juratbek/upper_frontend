@@ -11,9 +11,6 @@ export const articleApi = createApi({
     create: create(build),
     update: update(build),
     updateStatus: updateStatus(build),
-    fullDelete: build.mutation({
-      query: () => '',
-    }),
     getById: build.query<IArticle, number>({
       query: (id: number) => id.toString(),
     }),
