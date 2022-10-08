@@ -37,6 +37,9 @@ export const publishedArticleApi = createApi({
       query: ({ id, token }) => ({
         url: `increment-view-count/${id}?token=${token}`,
         method: 'POST',
+        headers: {
+          Authorization: '',
+        },
       }),
     }),
     search: build.query<IArticleResult[], string>({
