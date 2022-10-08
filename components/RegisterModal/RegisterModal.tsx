@@ -48,7 +48,7 @@ export const RegisterModal: FC = () => {
         username: login,
         password,
       }).unwrap();
-      authenticate(res.token);
+      authenticate(res);
       incrementStep();
     } catch (e) {
       const error = e as IResponseError;

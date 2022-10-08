@@ -10,7 +10,8 @@ export const baseQuery = (uri?: string): TBaseQuery =>
     prepareHeaders: (headers) => {
       try {
         const token = localStorage.getItem(TOKEN);
-        if (token) {
+        const authorization = headers.get('Authorization');
+        if (token && authorization === null) {
           headers.set('Authorization', `Bearer ${token}`);
         }
       } catch (e) {

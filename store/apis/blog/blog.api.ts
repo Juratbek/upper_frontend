@@ -1,4 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { authenticate } from 'store/states';
 import { IArticleResult, IBlog, IBlogMedium, ITelegramUser } from 'types';
 
 import { baseQuery } from '../config';
@@ -97,6 +98,20 @@ export const blogApi = createApi({
     }),
     getFollowers: build.query<IBlogMedium[], number>({
       query: (id) => `followers/${id}`,
+    }),
+    getNewToken: build.mutation<IBlogRegisterResponse, string>({
+      query: (refreshToken) => ({
+        url: 'open/get-token',
+        method: 'POST',
+        body: refreshToken,
+        headers: {
+          Authorization: '',
+        },
+      }),
+      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      //   const res = await queryFulfilled;
+      //   dispatch(authenticate(res.data));
+      // },
     }),
   }),
 });

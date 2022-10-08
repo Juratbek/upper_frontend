@@ -12,7 +12,7 @@ export const GoogleOneTap: FC = () => {
   useEffect(() => {
     const { data, isSuccess } = oneTapRegisterRes;
     if (isSuccess) {
-      authenticate(data.token);
+      authenticate(data);
     }
   }, [oneTapRegisterRes.data]);
 

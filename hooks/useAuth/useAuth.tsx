@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
+import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
   getIsAuthenticated,
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
-import { TOKEN } from 'variables';
+import { REFRESH_TOKEN, TOKEN } from 'variables';
 
 import { IUseAuth } from './useAuth.types';
 
@@ -17,30 +18,30 @@ export const useAuth = (): IUseAuth => {
 
   useEffect(() => {
     const token = getToken();
-    dispatch(token ? storeAuthenticate() : storeUnauthenticate());
+    const refreshToken = getRefreshToken() || '';
+    dispatch(token ? storeAuthenticate({ token, refreshToken }) : storeUnauthenticate());
   }, []);
 
-  const authenticate = (token: string): void => {
-    try {
-      localStorage.setItem(TOKEN, token);
-      dispatch(storeAuthenticate());
-    } catch (e) {
-      console.error(e);
-    }
+  const authenticate = (user: IBlogRegisterResponse): void => {
+    dispatch(storeAuthenticate(user));
   };
 
   const unauthenticate = (): void => {
-    try {
-      localStorage.removeItem(TOKEN);
-      dispatch(storeUnauthenticate());
-    } catch (e) {
-      console.error(e);
-    }
+    dispatch(storeUnauthenticate());
   };
 
   const getToken = (): string | null => {
     try {
       return localStorage.getItem(TOKEN);
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  };
+
+  const getRefreshToken = (): string | null => {
+    try {
+      return localStorage.getItem(REFRESH_TOKEN);
     } catch (e) {
       console.error(e);
       return null;
