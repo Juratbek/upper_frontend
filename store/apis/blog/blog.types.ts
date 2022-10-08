@@ -7,9 +7,10 @@ export interface IBlogRegisterDto {
 
 export interface IBlogRegisterResponse {
   token: string;
-  name: string;
-  email: string;
-  image: string;
+  refreshToken: string;
+  name?: string;
+  email?: string;
+  image?: string;
 }
 
 export interface IBlogLoginDto {

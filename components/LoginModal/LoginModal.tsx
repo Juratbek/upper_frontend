@@ -40,7 +40,7 @@ export const LoginModal: FC = () => {
     try {
       const { login, password } = event;
       const res = await loginBlog({ username: login, password }).unwrap();
-      authenticate(res.token);
+      authenticate(res);
       closeModal();
     } catch (e) {
       console.error(e);

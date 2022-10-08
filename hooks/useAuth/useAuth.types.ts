@@ -1,9 +1,10 @@
+import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import { TAuthStatus } from 'types';
 
 export interface IUseAuth {
   status: TAuthStatus;
   isAuthenticated: boolean | null;
-  authenticate: (token: string) => void;
+  authenticate: (user: IBlogRegisterResponse) => void;
   unauthenticate: () => void;
   getToken: () => string | null;
 }

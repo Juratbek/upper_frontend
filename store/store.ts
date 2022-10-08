@@ -9,6 +9,7 @@ import {
   notificationApi,
   publishedArticleApi,
 } from './apis';
+import { apiErrorMiddleware } from './middlewares';
 import authReducer from './states/auth';
 import commentsSidebarReducer from './states/commentsSidebar';
 import loginModalReducer from './states/loginModal';
@@ -39,6 +40,7 @@ export const store = configureStore({
       publishedArticleApi.middleware,
       commentApi.middleware,
       notificationApi.middleware,
+      apiErrorMiddleware,
     ),
 });
 

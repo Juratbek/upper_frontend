@@ -1,5 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import { TAuthStatus } from 'types';
+import { REFRESH_TOKEN, TOKEN } from 'variables';
 
 interface IAuthState {
   status: TAuthStatus;
@@ -15,13 +17,25 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authenticate(state) {
-      state.status = 'authenticated';
-      state.isAuthenticated = true;
+    authenticate(state, { payload }: PayloadAction<IBlogRegisterResponse>) {
+      try {
+        localStorage.setItem(TOKEN, payload.token);
+        localStorage.setItem(REFRESH_TOKEN, payload.refreshToken);
+        state.status = 'authenticated';
+        state.isAuthenticated = true;
+      } catch (e) {
+        console.error(e);
+      }
     },
     unauthenticate(state) {
-      state.status = 'unauthenticated';
-      state.isAuthenticated = false;
+      try {
+        localStorage.removeItem(TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
+        state.status = 'unauthenticated';
+        state.isAuthenticated = false;
+      } catch (e) {
+        console.error(e);
+      }
     },
   },
 });
