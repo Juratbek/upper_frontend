@@ -1,9 +1,21 @@
 import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 
-import { IUseUrl, TParamValue } from './useUrlParams.types';
+import { ILocation, IUseUrl, TParamValue } from './useUrlParams.types';
 
 export const useUrlParams = (): IUseUrl => {
   const { query, push, pathname, isReady } = useRouter();
+
+  const location: ILocation = useMemo(() => {
+    try {
+      return window.location;
+    } catch (e) {
+      return {
+        host: '',
+        origin: '',
+      };
+    }
+  }, []);
 
   const getParam = (name: string): TParamValue => {
     return query[name];
@@ -19,6 +31,7 @@ export const useUrlParams = (): IUseUrl => {
   return {
     getParam,
     setParam,
+    location,
     isReady,
   };
 };

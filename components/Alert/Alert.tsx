@@ -11,7 +11,7 @@ export const Alert: FC<IAlertProps> = ({ color = 'yellow', children, onClose, ..
     <div className={className}>
       {onClose && (
         <span className={classes['close-icon']} onClick={onClose}>
-          x
+          &#10005;
         </span>
       )}
       {children}

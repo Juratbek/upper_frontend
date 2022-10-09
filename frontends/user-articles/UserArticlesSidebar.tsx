@@ -1,4 +1,5 @@
 import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
+import { useUrlParams } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -22,10 +23,12 @@ import { IArticleSidebarAction, TArticleAction } from './UserArticlesSidebar.typ
 
 export const UserArticlesSidebar: FC = () => {
   const dispatch = useAppDispatch();
+  const { location } = useUrlParams();
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [action, setAction] = useState<TArticleAction>();
+  const [alert, setAlert] = useState<string>();
   const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
   const { data: labels } = useGetLabelsQuery();
@@ -51,11 +54,18 @@ export const UserArticlesSidebar: FC = () => {
 
   const saveChanges = async (): Promise<void> => {
     if (!editor || !article) return Promise.reject();
+
     const editorData = await editor?.save();
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
-    const updated = await updateArticle({ ...article, title, blocks }).unwrap();
-    dispatch(setArticle(updated));
+    const mainImg = blocks.find((block) => block.type === 'unsplash');
+    if (!mainImg) return setAlert('Kamida bitta rasm bo`lishi kerak');
+    if (!title) return setAlert('Maqola sarlavhasini kiriting');
+    if (article.labels.length === 0) return setAlert('Iltimos teglarni tanlang');
+
+    const updatedArticle = await updateArticle({ ...article, title, blocks }).unwrap();
+    dispatch(setArticle({ ...article, ...updatedArticle }));
+    setAlert('');
   };
 
   const clickHandler = (button: IArticleSidebarAction): void => {
@@ -113,6 +123,14 @@ export const UserArticlesSidebar: FC = () => {
             </Button>
           </div>
         </Modal>
+      )}
+      {alert && (
+        <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+          <div>{alert}</div>
+          <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
+            Yo`riqnomani o`qish
+          </a>
+        </Alert>
       )}
       {status && (
         <>
