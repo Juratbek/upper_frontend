@@ -30,12 +30,12 @@ export const publishedArticleApi = createApi({
       query: (id) => `check-like-dislike/${id}`,
     }),
     getById: build.query<IArticle, number>({
-      query: (id: number) => id.toString(),
+      query: (id: number) => `open/${id}`,
       keepUnusedDataFor: 1,
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({
       query: ({ id, token }) => ({
-        url: `increment-view-count/${id}?token=${token}`,
+        url: `open/increment-view-count/${id}?token=${token}`,
         method: 'POST',
         headers: {
           Authorization: '',

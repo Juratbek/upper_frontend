@@ -2,10 +2,15 @@
     padding: .8rem;
     position: relative;
     border-radius: var(--smallBorderRadius);
+    border: .5px solid black;
     
     &--yellow {
         background-color: var(--yellow);
-        border: .5px solid black;
+    }
+    &--red {
+        background-color: var(--lightRed);
+        border-color: transparent;
+        color: white;
     }
 
     & .close-icon {
