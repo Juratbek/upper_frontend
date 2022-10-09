@@ -1,0 +1,25 @@
+.navs {
+    $width: 14rem;
+    width: $width;
+    min-width: $width;
+    min-height: 20rem;
+    border-right: 0.5px solid black;
+    padding-right: 0.5rem;
+}
+
+.content {
+    flex: 1 1 auto;
+    padding: 0 0.5rem;
+    overflow: scroll;
+}
+
+.tab {
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &--active {
+        background-color: var(--blue);
+        color: white;
+        border-radius: 0.4rem;
+    }
+}
