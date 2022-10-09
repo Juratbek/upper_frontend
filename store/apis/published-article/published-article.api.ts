@@ -9,10 +9,10 @@ export const publishedArticleApi = createApi({
   baseQuery: baseQuery('published-article'),
   endpoints: (build) => ({
     getSidebarSuggestions: build.query<ISidebarArticle[], void>({
-      query: () => 'sidebar-suggestions',
+      query: () => 'open/sidebar-suggestions',
     }),
     getSuggestions: build.query<IArticleResult[], void>({
-      query: () => 'suggestions',
+      query: () => 'open/suggestions',
     }),
     getTop: build.query<IArticleResult[], void>({
       query: () => 'top-articles',

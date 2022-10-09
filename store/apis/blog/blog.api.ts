@@ -1,9 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { authenticate } from 'store/states';
 import { IArticleResult, IBlog, IBlogMedium, ITelegramUser } from 'types';
 
 import { baseQuery } from '../config';
-import { IBlogLoginDto, IBlogRegisterDto, IBlogRegisterResponse } from './blog.types';
+import {
+  IBlogLoginDto,
+  IBlogRegisterDto,
+  IBlogRegisterResponse,
+  IChangePasswordDto,
+} from './blog.types';
 
 export const blogApi = createApi({
   reducerPath: 'blog',
@@ -108,10 +112,13 @@ export const blogApi = createApi({
           Authorization: '',
         },
       }),
-      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
-      //   const res = await queryFulfilled;
-      //   dispatch(authenticate(res.data));
-      // },
+    }),
+    changePassword: build.mutation<void, IChangePasswordDto>({
+      query: (passwords) => ({
+        url: 'change-password',
+        method: 'PUT',
+        body: passwords,
+      }),
     }),
   }),
 });
@@ -133,4 +140,5 @@ export const {
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useGoogleOneTapRegisterMutation,
   useLoginWithTelegramMutation,
+  useChangePasswordMutation,
 } = blogApi;

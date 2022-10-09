@@ -17,3 +17,8 @@ export interface IBlogLoginDto {
   username: string;
   password: string;
 }
+
+export interface IChangePasswordDto {
+  currentPassword: string;
+  newPassword: string;
+}
