@@ -9,6 +9,7 @@ export interface IUserArticleModalContent {
     text: string;
     color?: TButtonColor;
     status?: TArticleStatus;
+    shouldValidate?: boolean;
   };
 }
 

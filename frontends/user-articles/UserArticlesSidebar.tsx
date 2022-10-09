@@ -10,7 +10,7 @@ import {
 } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
 import { TArticleStatus } from 'types';
-import { convertLabelsToOptions, convertOptionsToLabels } from 'utils';
+import { convertLabelsToOptions, convertOptionsToLabels, validateArticle } from 'utils';
 import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
@@ -58,10 +58,6 @@ export const UserArticlesSidebar: FC = () => {
     const editorData = await editor?.save();
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
-    const mainImg = blocks.find((block) => block.type === 'unsplash');
-    if (!mainImg) return setAlert('Kamida bitta rasm bo`lishi kerak');
-    if (!title) return setAlert('Maqola sarlavhasini kiriting');
-    if (article.labels.length === 0) return setAlert('Iltimos teglarni tanlang');
 
     const updatedArticle = await updateArticle({ ...article, title, blocks }).unwrap();
     dispatch(setArticle({ ...article, ...updatedArticle }));
@@ -78,8 +74,14 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const confirmAction = async (): Promise<void> => {
-    if (!MODAL || !article) return;
-    const status = MODAL.btn.status;
+    if (!MODAL || !article || !editor) return;
+    const { status, shouldValidate } = MODAL.btn;
+    if (shouldValidate) {
+      const editorData = await editor?.save();
+      const blocks = editorData.blocks;
+      const message = validateArticle(article, blocks);
+      if (message) return setAlert(message);
+    }
     if (status) {
       try {
         const updatedArticle = await updateArticleStatus({ id: article.id, status }).unwrap();
@@ -100,6 +102,14 @@ export const UserArticlesSidebar: FC = () => {
     <>
       {MODAL && (
         <Modal size='small' isOpen={isModalOpen} close={closeModal}>
+          {alert && (
+            <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+              <div>{alert}</div>
+              <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
+                Yo`riqnomani o`qish
+              </a>
+            </Alert>
+          )}
           {updateArticleStatusResponse.isError && (
             <Alert>
               Xatolik yuz berdi. Iltimos bu haqda{' '}
@@ -123,14 +133,6 @@ export const UserArticlesSidebar: FC = () => {
             </Button>
           </div>
         </Modal>
-      )}
-      {alert && (
-        <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
-          <div>{alert}</div>
-          <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
-            Yo`riqnomani o`qish
-          </a>
-        </Alert>
       )}
       {status && (
         <>

@@ -27,6 +27,7 @@ export const ARTICLE_SIDEBAR_MODAL_CONTENTS: Record<TArticleAction, IUserArticle
     text: 'nashr qilmoqchimisiz',
     btn: {
       text: 'Nashr qilish',
+      shouldValidate: true,
       status: ARTICLE_STATUSES.PUBLISHED,
     },
   },
