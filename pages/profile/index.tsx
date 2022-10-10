@@ -2,6 +2,7 @@ import { Blog, TabBody, TabsHeader } from 'components';
 import { useMemo } from 'react';
 import { useGetCurrentBlogQuery } from 'store/apis';
 import { IBlogMedium } from 'types';
+import { checkAuthInServer } from 'utils';
 import { PROFILE_TAB_MENUS, PROFILE_TABS } from 'variables/Profile.constants';
 
 export const blog: IBlogMedium = {
@@ -33,3 +34,5 @@ export default function ProfilePage(): JSX.Element {
     </main>
   );
 }
+
+export const getServerSideProps = checkAuthInServer;

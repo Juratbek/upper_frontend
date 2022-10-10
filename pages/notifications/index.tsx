@@ -1,4 +1,5 @@
 import { TabBody, TabsHeader } from 'components';
+import { checkAuthInServer } from 'utils';
 import { NOTIFICATIONS_TAB_MENUS, NOTIFICATIONS_TABS } from 'variables/notification';
 
 export default function NotificationsPage(): JSX.Element {
@@ -10,3 +11,5 @@ export default function NotificationsPage(): JSX.Element {
     </main>
   );
 }
+
+export const getServerSideProps = checkAuthInServer;
