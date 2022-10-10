@@ -2,6 +2,7 @@ import EditorJS from '@editorjs/editorjs';
 import { Editor } from 'components/Editor';
 import { useAppDispatch } from 'store';
 import { setEditor } from 'store/states';
+import { checkAuthInServer } from 'utils';
 
 export default function WriteArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,3 +21,5 @@ export default function WriteArticlePage(): JSX.Element {
     </div>
   );
 }
+
+export const getServerSideProps = checkAuthInServer;

@@ -1,3 +1,4 @@
+import { useNextAuth } from 'hooks/useNextAuth/useNextAuth';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
@@ -13,21 +14,28 @@ import { IUseAuth } from './useAuth.types';
 
 export const useAuth = (): IUseAuth => {
   const dispatch = useAppDispatch();
+  const { signIn, signOut } = useNextAuth();
   const status = useAppSelector(getAuthStatus);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
 
   useEffect(() => {
     const token = getToken();
     const refreshToken = getRefreshToken() || '';
-    dispatch(token ? storeAuthenticate({ token, refreshToken }) : storeUnauthenticate());
+    if (token) {
+      authenticate({ token, refreshToken });
+    } else {
+      unauthenticate();
+    }
   }, []);
 
   const authenticate = (user: IBlogRegisterResponse): void => {
     dispatch(storeAuthenticate(user));
+    signIn(user.token);
   };
 
   const unauthenticate = (): void => {
     dispatch(storeUnauthenticate());
+    signOut();
   };
 
   const getToken = (): string | null => {
