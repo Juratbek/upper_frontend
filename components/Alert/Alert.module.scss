@@ -12,7 +12,11 @@
         border-color: transparent;
         color: white;
     }
-
+    &--green {
+        background-color: var(--green);
+        border-color: transparent;
+        color: white;
+    }
     & .close-icon {
         position: absolute;
         cursor: pointer;
