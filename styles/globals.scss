@@ -8,6 +8,7 @@
   --mediumBorderRadius: 0.6rem;
   --yellow: rgba(255, 229, 60);
   --blue: #54a9eb;
+  --green: #0a950ad6;
 }
 
 * {
@@ -83,6 +84,10 @@
   margin-top: 0;
 }
 
+.mt-1 {
+  margin-top: $size1;
+}
+
 .mt-2 {
   margin-top: 1rem;
 }
@@ -91,8 +96,8 @@
   margin-top: 1.7rem;
 }
 
-.mt-1 {
-  margin-top: $size1;
+.mt-4 {
+  margin-top: $size4;
 }
 
 .ms-1 {
