@@ -1,4 +1,4 @@
-import { Button, Divider, IOption, Select } from 'components';
+import { Button, Divider, IOption, MultiSelect, Select } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -37,15 +37,29 @@ export const SidebarContent: FC = () => {
       </Button>
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
-      <label htmlFor='labels' className='mb-1 d-block'>
-        Teglar
-      </label>
-      {isSuccess && (
+      <div className='mb-1'>
+        <label htmlFor='labels' className='mb-1 d-block'>
+          Sohalar
+        </label>
         <Select
-          onChange={labelsChangeHandler}
-          options={labels.map((label) => ({ label: label.name, value: label.id }))}
+          options={[
+            { value: 1, label: 'IT' },
+            { value: 2, label: 'Sog`liq' },
+            { value: 3, label: "Ta'lim" },
+          ]}
         />
-      )}
+      </div>
+      <div>
+        <label htmlFor='labels' className='mb-1 d-block'>
+          Teglar
+        </label>
+        {isSuccess && (
+          <MultiSelect
+            onChange={labelsChangeHandler}
+            options={labels.map((label) => ({ label: label.name, value: label.id }))}
+          />
+        )}
+      </div>
     </>
   );
 };

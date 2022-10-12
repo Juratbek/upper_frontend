@@ -13,6 +13,15 @@
   flex-wrap: wrap;
 }
 
+.input {
+  border: none;
+  flex: 1 1 auto;
+  width: 1rem;
+  &:focus {
+    outline: none;
+  }
+}
+
 .option {
   &-container {
     position: absolute;
@@ -36,4 +45,13 @@
     }
   }
 
+  &__selected {
+    background-color: black;
+    color: white;
+    padding: 0.2rem 0.4rem;
+    border-radius: 100rem;
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
+    cursor: pointer;
+  }
 }

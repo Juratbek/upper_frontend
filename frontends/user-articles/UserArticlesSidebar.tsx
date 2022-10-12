@@ -1,4 +1,4 @@
-import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
+import { Alert, ArticleStatus, Button, Divider, IOption, Modal, MultiSelect } from 'components';
 import { useUrlParams } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
@@ -172,7 +172,7 @@ export const UserArticlesSidebar: FC = () => {
         Teglar
       </label>
       {article && labels && (
-        <Select
+        <MultiSelect
           onChange={labelsChangeHandler}
           disabled={[ARTICLE_STATUSES.DELETED].includes(status as TArticleStatus)}
           defaultValues={convertLabelsToOptions(article.labels)}
