@@ -1,4 +1,5 @@
 import { ILink } from './common';
+import { ILabel } from './label';
 
 export interface IBlogSmall {
   id: number;
@@ -14,5 +15,6 @@ export interface IBlogMedium extends IBlogSmall {
 export interface IBlog extends IBlogMedium {
   links: ILink[];
   createdDate: string;
+  labels: ILabel[];
   isFollowed?: boolean;
 }

@@ -1,20 +1,29 @@
-import { Avatar, Button, FileInput, Input, Textarea } from 'components';
+import { Alert, Avatar, Button, Divider, FileInput, Input, Label, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
-import { ILink, TSubmitFormEvent } from 'types';
+import {
+  useGetLabelsQuery,
+  useLazyGetCurrentBlogQuery,
+  useSetLabelsMutation,
+  useUpdateBlogMutation,
+} from 'store/apis';
+import { ILabel, ILink, TSubmitFormEvent } from 'types';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 import classes from './AboutTab.module.scss';
 
 export const AboutTab: FC = () => {
+  const [alert, setAlert] = useState<string>();
   const {
     query: { tab },
   } = useRouter();
   const [fetchCurrentBlog, currentBlogRes] = useLazyGetCurrentBlogQuery();
-  const [updateBlog] = useUpdateBlogMutation();
+  const fetchLabelsRes = useGetLabelsQuery();
+  const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
+  const [updateBlogLabels, updateBlogLabelsRes] = useSetLabelsMutation();
+  const [selectedLabelIds, setSelectedLabelIds] = useState<number[]>([]);
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -22,6 +31,26 @@ export const AboutTab: FC = () => {
       fetchCurrentBlog();
     }
   }, [tab]);
+
+  useEffect(() => {
+    const { data: currentBlog, isSuccess } = currentBlogRes;
+    if (isSuccess && currentBlog.labels.length !== 0) {
+      const ids = currentBlog.labels.map((label) => label.id);
+      setSelectedLabelIds(ids);
+    }
+  }, [currentBlogRes.data]);
+
+  const labelClickHandler = ({ id }: ILabel): void => {
+    if (selectedLabelIds.includes(id)) {
+      const filteredLabelIds = selectedLabelIds.filter((labelId) => labelId !== id);
+      return setSelectedLabelIds(filteredLabelIds);
+    }
+    setSelectedLabelIds((prev) => [...prev, id]);
+  };
+
+  const updateLabels = (): void => {
+    updateBlogLabels(selectedLabelIds).then(() => setAlert('Tanlangan sohalar yangilandi'));
+  };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     const { name, bio, ...values } = event;
@@ -41,7 +70,7 @@ export const AboutTab: FC = () => {
     await updateBlog(formData).unwrap();
   };
 
-  const renderSettings = (): JSX.Element => {
+  const renderOpenSettings = (): JSX.Element => {
     const { data: blog, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
     if (isLoading || isFetching) return <p>Yuklanmoqda...</p>;
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
@@ -49,6 +78,10 @@ export const AboutTab: FC = () => {
     if (isSuccess)
       return (
         <form className='d-flex flex-wrap' onSubmit={handleSubmit(submitHandler)}>
+          <div className='w-100'>
+            <h2 className='m-1'>Ochiq ma&apos;lumotlar</h2>
+            <Divider />
+          </div>
           <div className='w-50 p-1'>
             <div>
               <Avatar imgUrl={blog.imgUrl} className='my-2' size='extra-large' />
@@ -84,7 +117,7 @@ export const AboutTab: FC = () => {
             </div>
           </div>
           <div className='px-1'>
-            <Button>Saqlash</Button>
+            <Button loading={updateBlogRes.isLoading}>Saqlash</Button>
           </div>
         </form>
       );
@@ -92,5 +125,51 @@ export const AboutTab: FC = () => {
     return <></>;
   };
 
-  return renderSettings();
+  const renderLabelSettings = (): JSX.Element => {
+    const { data: labels, isSuccess } = fetchLabelsRes;
+    if (isSuccess) {
+      return (
+        <>
+          <h2 className='mb-1 mt-4'>Tanlangan sohalar</h2>
+          <Divider className='mb-1' />
+          {labels.map((label) => {
+            const isSelected = selectedLabelIds.includes(label.id);
+            return (
+              <Label
+                color={isSelected ? 'dark' : 'outline-dark'}
+                key={label.id}
+                className='me-1 pointer'
+                onClick={(): void => labelClickHandler(label)}
+              >
+                {label.name}
+              </Label>
+            );
+          })}
+          <div className='mt-2'>
+            <Button
+              color='outline-dark'
+              loading={updateBlogLabelsRes.isLoading}
+              onClick={updateLabels}
+            >
+              Saqlash
+            </Button>
+          </div>
+        </>
+      );
+    }
+
+    return <></>;
+  };
+
+  return (
+    <>
+      {alert && (
+        <Alert color='green' onClose={(): void => setAlert('')}>
+          {alert}
+        </Alert>
+      )}
+      {renderOpenSettings()}
+      {renderLabelSettings()}
+    </>
+  );
 };
