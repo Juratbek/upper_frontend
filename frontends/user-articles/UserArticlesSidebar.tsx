@@ -1,16 +1,41 @@
-import { Alert, ArticleStatus, Button, Divider, IOption, Modal, MultiSelect } from 'components';
+import {
+  Alert,
+  ArticleStatus,
+  Button,
+  Divider,
+  IOption,
+  ISelectOption,
+  Modal,
+  MultiSelect,
+  Select,
+} from 'components';
 import { useUrlParams } from 'hooks';
 import Link from 'next/link';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
-  useGetLabelsQuery,
+  useGetAllFieldsQuery,
+  useLazyGetAllLabelsByDirectionIdsQuery,
+  useLazyGetDirectionsByFieldIdQuery,
   useUpdateArticleMutaion,
   useUpdateArticleStatusMutation,
 } from 'store/apis';
-import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
-import { TArticleStatus } from 'types';
-import { convertLabelsToOptions, convertOptionsToLabels, validateArticle } from 'utils';
+import {
+  getArticle,
+  getEditor,
+  setArticle,
+  setDirections,
+  setField,
+  setLabels,
+} from 'store/states';
+import { IDirection, TArticleStatus } from 'types';
+import {
+  convertLabelsToOptions,
+  convertOptionsToLabels,
+  convertOptionsToTags,
+  convertTagsToOptions,
+  validateArticle,
+} from 'utils';
 import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
@@ -31,7 +56,10 @@ export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
   const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
-  const { data: labels } = useGetLabelsQuery();
+  const { data: fields } = useGetAllFieldsQuery();
+  const [fetchDirectionsByFieldId, fetchDirectionsRes] = useLazyGetDirectionsByFieldIdQuery();
+  const [fetchLabelsByDirectionIds, fetchLabelsRes] = useLazyGetAllLabelsByDirectionIdsQuery();
+
   const isLoading = useMemo(
     () => isUpdatingArticle || updateArticleStatusResponse.isLoading,
     [isUpdatingArticle, updateArticleStatusResponse.isLoading],
@@ -97,6 +125,28 @@ export const UserArticlesSidebar: FC = () => {
     const selectedLabels = convertOptionsToLabels(options);
     dispatch(setLabels(selectedLabels));
   };
+
+  const fieldChangeHandler = ({ value, label }: ISelectOption): void => {
+    dispatch(setField({ id: +value, name: label }));
+  };
+
+  const directionsChangeHandler = (options: IOption[]): void => {
+    const directions = convertOptionsToTags<IDirection>(options);
+    dispatch(setDirections(directions));
+  };
+
+  useEffect(() => {
+    if (article && article.field) {
+      fetchDirectionsByFieldId(article.field.id);
+    }
+  }, [article?.field]);
+
+  useEffect(() => {
+    if (article && article.directions) {
+      const directionIds = article.directions.map((direction) => direction.id);
+      fetchLabelsByDirectionIds(directionIds);
+    }
+  }, [article?.directions]);
 
   return (
     <>
@@ -168,16 +218,41 @@ export const UserArticlesSidebar: FC = () => {
       )}
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
-      <label htmlFor='labels' className='mb-1 d-block'>
-        Teglar
-      </label>
-      {article && labels && (
-        <MultiSelect
-          onChange={labelsChangeHandler}
-          disabled={[ARTICLE_STATUSES.DELETED].includes(status as TArticleStatus)}
-          defaultValues={convertLabelsToOptions(article.labels)}
-          options={convertLabelsToOptions(labels)}
-        />
+      {article && (
+        <>
+          <div className='mb-1'>
+            <label htmlFor='labels' className='mb-1 d-block'>
+              Sohalar
+            </label>
+            <Select
+              onChange={fieldChangeHandler}
+              defaultValue={article.field && { value: article.field.id, label: article.field.name }}
+              options={convertTagsToOptions(fields)}
+            />
+          </div>
+          <div className='mb-1'>
+            <label htmlFor='labels' className='mb-1 d-block'>
+              Yo`nalishlar
+            </label>
+            <MultiSelect
+              onChange={directionsChangeHandler}
+              disabled={status === ARTICLE_STATUSES.DELETED}
+              defaultValues={convertTagsToOptions(article?.directions)}
+              options={convertTagsToOptions(fetchDirectionsRes.data)}
+            />
+          </div>
+          <div className='mb-1'>
+            <label htmlFor='labels' className='mb-1 d-block'>
+              Teglar
+            </label>
+            <MultiSelect
+              onChange={labelsChangeHandler}
+              disabled={status === ARTICLE_STATUSES.DELETED}
+              defaultValues={convertLabelsToOptions(article.labels)}
+              options={convertLabelsToOptions(fetchLabelsRes.data)}
+            />
+          </div>
+        </>
       )}
     </>
   );

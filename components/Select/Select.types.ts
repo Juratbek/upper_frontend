@@ -5,4 +5,6 @@ export interface ISelectOption {
 export interface ISelectProps {
   className?: string;
   options?: ISelectOption[];
+  defaultValue?: ISelectOption;
+  onChange?: (option: ISelectOption) => void;
 }

@@ -51,35 +51,37 @@ export const Article: FC<IArticleProps> = (props) => {
     [blocks],
   );
 
+  const dateContent = useMemo(() => {
+    if (updatedDate) return <span>{toUzbDateString(updatedDate)} yangilangan</span>;
+    if (publishedDate) return <span>{toUzbDateString(publishedDate)}</span>;
+    return <></>;
+  }, [publishedDate, updatedDate]);
+
   return (
     <div className={`${styles.articleContainer} editor-container`}>
       {article}
       <Divider className='my-2' />
       <div className={styles.articleDetail}>
-        <div>
-          {publishedDate && (
-            <span className='me-2'>{toUzbDateString(publishedDate)} da chop etilgan</span>
-          )}
-          {updatedDate && <span>{toUzbDateString(updatedDate)} da yangilangan</span>}
+        <div className='d-flex'>
+          {viewCount > 0 && <span>{viewCount} martta ko&apos;rilgan</span>}
+          <Divider type='vertical' className='mx-1' />
+          {dateContent}
         </div>
-        <div className='d-flex justify-content-between'>
-          <div className={styles.reactions}>
-            {viewCount > 0 && <span className='me-1'>{viewCount} martta ko&apos;rilgan</span>}
-            <div className={styles.reactionButtons}>
-              <span
-                className={`pointer icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
-                onClick={(): void => likeDislike(1)}
-              >
-                <LikeIcon />
-              </span>
-              <span className='mx-2'>{likeDislikeCount}</span>
-              <span
-                className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
-                onClick={(): void => likeDislike(-1)}
-              >
-                <DislikeIcon />
-              </span>
-            </div>
+        <div className={styles.reactions}>
+          <div className={styles.reactionButtons}>
+            <span
+              className={`pointer icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
+              onClick={(): void => likeDislike(1)}
+            >
+              <LikeIcon />
+            </span>
+            <span className='mx-2'>{likeDislikeCount}</span>
+            <span
+              className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
+              onClick={(): void => likeDislike(-1)}
+            >
+              <DislikeIcon />
+            </span>
           </div>
         </div>
       </div>

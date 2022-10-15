@@ -1,15 +1,25 @@
-import { Button, Divider, IOption, MultiSelect, Select } from 'components';
+import { Button, Divider, IOption, ISelectOption, MultiSelect, Select } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useCreateArticleMutation, useGetLabelsQuery } from 'store/apis';
+import {
+  useCreateArticleMutation,
+  useGetAllFieldsQuery,
+  useLazyGetAllLabelsByDirectionIdsQuery,
+} from 'store/apis';
+import { useLazyGetDirectionsByFieldIdQuery } from 'store/apis/direction';
 import { getEditor, setArticle } from 'store/states';
-import { ILabel } from 'types';
+import { IDirection, IField, ILabel } from 'types';
+import { convertLabelsToOptions, convertOptionsToTags, convertTagsToOptions } from 'utils';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
-  const { data: labels = [], isSuccess } = useGetLabelsQuery();
+  const [selectedField, setSelectedField] = useState<IField>();
+  const [selectedDirections, setSelectedDirections] = useState<IOption[]>([]);
+  const { data: fields } = useGetAllFieldsQuery();
   const [createArticle, createArticleStatus] = useCreateArticleMutation();
+  const [fetchDirectionsByFieldId, fetchDirectionsRes] = useLazyGetDirectionsByFieldIdQuery();
+  const [fetchLabelsByDirectionIds, fetchLabelsRes] = useLazyGetAllLabelsByDirectionIdsQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const editor = useAppSelector(getEditor);
@@ -21,13 +31,31 @@ export const SidebarContent: FC = () => {
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
-    const newArticle = await createArticle({ title, blocks, labels }).unwrap();
+    const directions = convertOptionsToTags<IDirection>(selectedDirections);
+    const newArticle = await createArticle({
+      title,
+      blocks,
+      labels,
+      field: selectedField,
+      directions,
+    }).unwrap();
     dispatch(setArticle(newArticle));
     router.push(`/user/articles/${newArticle.id}`);
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
     setSelectedLabels(options);
+  };
+
+  const fieldsChangeHandler = (option: ISelectOption): void => {
+    fetchDirectionsByFieldId(+option.value);
+    setSelectedField({ id: +option.value, name: option.label });
+  };
+
+  const directionsChangeHandler = (options: ISelectOption[]): void => {
+    const directionIds = options.map((option) => +option.value);
+    fetchLabelsByDirectionIds(directionIds);
+    setSelectedDirections(options);
   };
 
   return (
@@ -41,24 +69,25 @@ export const SidebarContent: FC = () => {
         <label htmlFor='labels' className='mb-1 d-block'>
           Sohalar
         </label>
-        <Select
-          options={[
-            { value: 1, label: 'IT' },
-            { value: 2, label: 'Sog`liq' },
-            { value: 3, label: "Ta'lim" },
-          ]}
+        <Select options={convertTagsToOptions(fields)} onChange={fieldsChangeHandler} />
+      </div>
+      <div>
+        <label htmlFor='labels' className='mb-1 d-block'>
+          Yo`nalishlar
+        </label>
+        <MultiSelect
+          onChange={directionsChangeHandler}
+          options={convertTagsToOptions(fetchDirectionsRes.data)}
         />
       </div>
       <div>
         <label htmlFor='labels' className='mb-1 d-block'>
           Teglar
         </label>
-        {isSuccess && (
-          <MultiSelect
-            onChange={labelsChangeHandler}
-            options={labels.map((label) => ({ label: label.name, value: label.id }))}
-          />
-        )}
+        <MultiSelect
+          onChange={labelsChangeHandler}
+          options={convertLabelsToOptions(fetchLabelsRes.data)}
+        />
       </div>
     </>
   );

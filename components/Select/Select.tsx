@@ -4,8 +4,10 @@ import { FC, useMemo, useState } from 'react';
 import classes from './Select.module.scss';
 import { ISelectOption, ISelectProps } from './Select.types';
 
-export const Select: FC<ISelectProps> = ({ options = [] }) => {
-  const [selectedOption, setSelectedOption] = useState<ISelectOption>();
+export const Select: FC<ISelectProps> = ({ options = [], ...props }) => {
+  const [selectedOption, setSelectedOption] = useState<ISelectOption | undefined>(
+    props.defaultValue,
+  );
   const [isOptionsContainerOpen, setIsOptionsContainerOpen] = useState<boolean>(false);
 
   const closeOptionsContainer = (): void => {
@@ -17,6 +19,7 @@ export const Select: FC<ISelectProps> = ({ options = [] }) => {
   const selectOption = (option: ISelectOption): void => {
     setSelectedOption(option);
     closeOptionsContainer();
+    props.onChange?.(option);
   };
 
   const openOptionsContainer = (): void => {

@@ -13,4 +13,4 @@ export const fieldApi = createApi({
   }),
 });
 
-export const { useGetAllQuery } = fieldApi;
+export const { useGetAllQuery: useGetAllFieldsQuery } = fieldApi;

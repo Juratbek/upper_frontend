@@ -14,7 +14,7 @@ export const toDateString = (date: Date | string | undefined, config?: IDateUtil
     const month = MONTHS[monthNumber][monthConfig];
     const year = dateDetails[2];
     const day = dateDetails[0].startsWith('0') ? dateDetails[0].slice(1) : dateDetails[0];
-    localeDate = `${day}-${month} ${year}-yil`;
+    localeDate = `${day} ${month} ${year}`;
   }
   return localeDate;
 };

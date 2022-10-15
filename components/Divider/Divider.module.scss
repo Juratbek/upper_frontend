@@ -1,0 +1,12 @@
+.divider {
+  background-color: var(--lightGray);
+
+  &--horisontal {
+    height: 1px;
+  }
+
+  &--vertical {
+    width: 1px;
+  }
+
+}

@@ -8,3 +8,4 @@ export * from './response';
 export * from './form';
 export * from './comment';
 export * from './field';
+export * from './direction';

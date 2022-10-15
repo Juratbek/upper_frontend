@@ -8,28 +8,14 @@ function filterOptions(options: IOption[], option: IOption): IOption[] {
   return options.filter((item) => item.value !== option.value);
 }
 
-function getAvailableOptions(options: IOption[] | undefined, defaultValues: IOption[]): IOption[] {
-  if (defaultValues && options) {
-    const defaultOptionsValues = defaultValues.map((option) => option.value);
-    const defaultValuesSet = new Set(defaultOptionsValues);
-    return options.filter((option) => !defaultValuesSet.has(option.value));
-  }
-  return options || [];
-}
-
 export const MultiSelect: FC<TMultiSelectProps> = ({
   className,
   defaultValues = [],
   disabled = false,
+  options = [],
   ...props
 }) => {
-  const defaultNotSelectedOptions = useMemo(
-    () => getAvailableOptions(props.options, defaultValues),
-    [props.options, defaultValues],
-  );
   const [selectedOptions, setSelectedOptions] = useState<IOption[]>(defaultValues);
-  const [options, setOptions] = useState<IOption[]>(defaultNotSelectedOptions);
-  const [unselectedOptions, setUnselectedOptions] = useState<IOption[]>(defaultNotSelectedOptions);
   const [isOptionsContainerOpen, setIsOptionsContainerOpen] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const selectClassName = getClassName(classes.select, className);
@@ -38,54 +24,23 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   const selectOption = (option: IOption): void => {
     if (inputValue) {
       setInputValue('');
-      setOptions(props.options || []);
     }
-    const filteredUnselectedOptions = filterOptions(unselectedOptions, option);
-    setUnselectedOptions(filteredUnselectedOptions);
-    setOptions(filteredUnselectedOptions);
     setSelectedOptions([...selectedOptions, option]);
   };
 
   const unselectOption = (option: IOption): void => {
     if (disabled) return;
     const filteredOptions = filterOptions(selectedOptions, option);
-    const newUnselectedOptions = [...unselectedOptions, option];
-    setUnselectedOptions(newUnselectedOptions);
-    setOptions(newUnselectedOptions);
     setSelectedOptions(filteredOptions);
   };
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setInputValue(value);
-
-    const filteredOptions = unselectedOptions.filter((option) =>
-      option.label.toLowerCase().includes(value),
-    );
-    setOptions(filteredOptions);
   };
 
   const onInputFocus = (): void => {
     setIsOptionsContainerOpen(true);
-  };
-
-  const getOptions = (): JSX.Element => {
-    if (options.length === 0) {
-      return <div className={classes['option__item']}>No options</div>;
-    }
-    return (
-      <>
-        {options.map((option) => (
-          <div
-            key={option.value}
-            className={classes['option__item']}
-            onClick={(): void => selectOption(option)}
-          >
-            {option.label}
-          </div>
-        ))}
-      </>
-    );
   };
 
   const clickListener = (event: MouseEvent): void => {
@@ -98,12 +53,37 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   };
 
   useEffect(() => {
-    window.addEventListener('click', (e) => clickListener(e));
+    window.addEventListener('click', clickListener);
+    return () => window.removeEventListener('click', clickListener);
   }, []);
 
   useEffect(() => {
     props.onChange?.(selectedOptions);
   }, [selectedOptions]);
+
+  const optionsContent = useMemo(() => {
+    const selectedOptionsValues = selectedOptions.map((option) => option.value);
+    const selectedOptionsValuesSet = new Set(selectedOptionsValues);
+    const availableOptions = options.filter(
+      (option) => !selectedOptionsValuesSet.has(option.value),
+    );
+    if (availableOptions.length === 0) {
+      return <div className={classes['option__item']}>No options</div>;
+    }
+    return (
+      <>
+        {availableOptions.map((option) => (
+          <div
+            key={option.value}
+            className={classes['option__item']}
+            onClick={(): void => selectOption(option)}
+          >
+            {option.label}
+          </div>
+        ))}
+      </>
+    );
+  }, [options, selectedOptions]);
 
   return (
     <div className={classes.container} ref={ref}>
@@ -132,7 +112,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
           isOptionsContainerOpen && !disabled ? 'd-block' : 'd-none'
         }`}
       >
-        {getOptions()}
+        {optionsContent}
       </div>
     </div>
   );
