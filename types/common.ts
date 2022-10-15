@@ -53,3 +53,8 @@ export interface ILink {
   type: string;
   link: string;
 }
+
+export interface ITag {
+  id: number;
+  name: string;
+}

@@ -17,6 +17,10 @@
       "npm run lint"
     ]
   },
+  "engines" : { 
+    "npm" : ">=8.15.0",
+    "node" : ">=16.17.0"
+  },
   "dependencies": {
     "@editorjs/editorjs": "^2.25.0",
     "@editorjs/embed": "^2.5.2",
