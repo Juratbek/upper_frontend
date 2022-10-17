@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { openCommentsSidebar } from 'store/states';
+import { toggleCommentsSidebar } from 'store/states';
 import { ICON_TYPES, ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
@@ -43,8 +43,8 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     lastScrollTop = st <= 0 ? 0 : st;
   };
 
-  const OpenCommentsSidebar = (): void => {
-    dispatch(openCommentsSidebar());
+  const commentIconClickHandler = (): void => {
+    dispatch(toggleCommentsSidebar());
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
       <div className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}>
         <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
         <div className={styles.iconsContainer}>
-          <div className={styles.icon} onClick={OpenCommentsSidebar} id='comment-icon'>
+          <div className={styles.icon} onClick={commentIconClickHandler} id='comment-icon'>
             <CommentIcon />
           </div>
           <div
