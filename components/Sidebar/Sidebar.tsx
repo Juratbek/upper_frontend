@@ -1,4 +1,12 @@
-import { Button, Divider, SidebarArticle, SidebarBlog, SidebarSearch } from 'components';
+import {
+  ApiErrorBoundary,
+  Button,
+  Divider,
+  SidebarArticle,
+  SidebarArticleSkeleton,
+  SidebarBlog,
+  SidebarSearch,
+} from 'components';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -7,9 +15,9 @@ import {
   useGetSidebarArticleSuggestionsQuery,
   useGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import { openLoginModal, openRegisterModal } from 'store/states';
-import { getArticleAuthor } from 'store/states/readArticle';
+import { getArticleAuthor, openLoginModal, openRegisterModal } from 'store/states';
 import { replaceAll } from 'utils';
+import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.scss';
@@ -31,15 +39,22 @@ export const Sidebar = (): JSX.Element => {
   };
 
   const suggestedArticles = useMemo(() => {
-    const { isError, isLoading, error, data } = articleSuggestionsRes;
-    if (isLoading) return 'Loading...';
-    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-    return data?.map((article, index) => (
-      <div key={article.id}>
-        <SidebarArticle {...article} />
-        {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-      </div>
-    ));
+    const { data } = articleSuggestionsRes;
+    return (
+      <ApiErrorBoundary
+        fallback={<SidebarArticleSkeleton />}
+        fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
+        res={articleSuggestionsRes}
+      >
+        {data &&
+          data.map((article, index) => (
+            <div key={article.id}>
+              <SidebarArticle {...article} />
+              {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+            </div>
+          ))}
+      </ApiErrorBoundary>
+    );
   }, [articleSuggestionsRes]);
 
   const suggestedBlogs = useMemo(() => {
