@@ -6,7 +6,7 @@ import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variable
 export const ForYouTab: FC = () => {
   const res = useGetArticleSuggestionsQuery();
   return (
-    <ApiErrorBoundary res={res} className='tab'>
+    <ApiErrorBoundary fallback={<div></div>} res={res} className='tab'>
       {res?.data?.map((article) => (
         <Article
           className='px-2 py-2'

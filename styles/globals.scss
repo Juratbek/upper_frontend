@@ -54,7 +54,7 @@
 
 .icon {
   & svg {
-    fill: black
+    fill: black;
   }
   &--active svg {
     fill: blue;
@@ -64,6 +64,27 @@
 .notification {
   &--unread {
     background-color: var(--lightGray);
+  }
+}
+
+.skeleton {
+  height: 100px;
+  width: 100px;
+  background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0) 70%
+    )
+    #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 800ms loading ease-in-out infinite;
+}
+
+@keyframes loading {
+  to {
+    background-position-x: -20%;
   }
 }
 
