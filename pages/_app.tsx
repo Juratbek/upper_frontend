@@ -13,9 +13,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <Navigation />
         <LoginModal />
         <RegisterModal />
-        <div className='main'>
+        <main className='main'>
           <Component {...pageProps} />
-        </div>
+        </main>
         <Sidebar />
       </div>
       <NextNProgress color='#7a7e80' height={3} showOnShallow={true} />

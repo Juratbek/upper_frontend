@@ -12,7 +12,7 @@ import { getArticleAuthor } from 'store/states/readArticle';
 import { replaceAll } from 'utils';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
-import classes from './Sidebar.module.css';
+import classes from './Sidebar.module.scss';
 
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();

@@ -17,6 +17,8 @@
 
 .app {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
@@ -24,6 +26,8 @@
 
 .app > .main {
   flex: 1 1 auto;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .container {
