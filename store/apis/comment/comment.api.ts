@@ -9,7 +9,7 @@ export const commentApi = createApi({
   tagTypes: ['list'],
   endpoints: (build) => ({
     getByArticleId: build.query<IComment[], number>({
-      query: (id) => id.toString(),
+      query: (id) => `open/${id}`,
       providesTags: ['list'],
     }),
     create: build.mutation<void, { articleId: number; text: string }>({

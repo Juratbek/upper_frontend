@@ -1,6 +1,8 @@
 .comments {
   position: absolute;
   inset: 0;
+  bottom: unset;
+  height: 100vh;
   background-color: white;
   z-index: 1;
   display: flex;
