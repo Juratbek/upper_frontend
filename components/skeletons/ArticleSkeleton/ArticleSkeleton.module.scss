@@ -1,0 +1,31 @@
+.article-skeleton {
+    width: 100%;
+
+    & .text {
+        height: 1rem;
+        border-radius: 0.5rem;
+    }
+    & .img {
+        aspect-ratio: 1 / 1;
+        width: 8rem;
+        border-radius: 1rem;
+    }
+
+    & .avatar {
+        border-radius: 100rem;
+        width: 2rem;
+        height: 2rem;
+    }
+
+    & .author {
+        height: 1rem;
+        margin: 0;
+        border-radius: 1rem;
+    }
+
+    & .label {
+        height: 1.4rem;
+        border-radius: 10rem;
+        width: 3rem;
+    }
+}

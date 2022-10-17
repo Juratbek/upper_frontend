@@ -1,13 +1,22 @@
-import { ApiErrorBoundary, Article } from 'components';
+import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
 import { FC } from 'react';
 import { useGetTopArticlesQuery } from 'store/apis';
-import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import {
+  ARTICLES_SKELETON_COUNT,
+  SEARCH_PAGE_ARTICLE_ACTIONS,
+  SEARCH_PAGE_ARTICLE_ICONS,
+} from 'variables';
 
 export const TopTab: FC = () => {
   const res = useGetTopArticlesQuery();
 
   return (
-    <ApiErrorBoundary res={res} className='tab'>
+    <ApiErrorBoundary
+      fallback={<ArticleSkeleton className='px-2 py-2' />}
+      fallbackItemCount={ARTICLES_SKELETON_COUNT}
+      res={res}
+      className='tab'
+    >
       {res.data?.map((article) => (
         <Article
           className='p-2'

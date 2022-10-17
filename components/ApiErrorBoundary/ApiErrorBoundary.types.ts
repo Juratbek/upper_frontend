@@ -11,4 +11,5 @@ export interface IApiErrorBoundaryProps extends HTMLAttributes<HTMLDivElement> {
     [name: string]: unknown;
   };
   fallback?: ReactNode;
+  fallbackItemCount?: number;
 }
