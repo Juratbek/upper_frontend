@@ -1,8 +1,8 @@
-import { Blog, Button } from 'components';
+import { ApiErrorBoundary, Blog, BlogSkeleton, Button } from 'components';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import { useLazySearchBlogQuery } from 'store/apis';
-import { SEARCH_PAGE_TAB_IDS } from 'variables';
+import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 export const BlogsTab: FC = () => {
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
@@ -16,19 +16,19 @@ export const BlogsTab: FC = () => {
     }
   }, [search]);
 
-  const blogs = useMemo(() => {
-    const { data: blogs, isLoading, isFetching, isError, isSuccess, error } = searchBlogRes;
-    if (isLoading || isFetching) return 'Yuklanmoqda...';
-    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-
-    if (isSuccess)
-      return blogs.map((blog) => (
+  return (
+    <ApiErrorBoundary
+      fallback={<BlogSkeleton className='px-3 py-2' />}
+      fallbackItemCount={SIDEBAR_BLOGS_SKELETON_COUNT}
+      res={searchBlogRes}
+      className='tab'
+    >
+      {searchBlogRes.data?.map((blog) => (
         <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
           <Blog {...blog} isLink />
           <Button color='outline-dark'>Follow</Button>
         </div>
-      ));
-  }, [searchBlogRes]);
-
-  return <div className='tab'>{blogs}</div>;
+      ))}
+    </ApiErrorBoundary>
+  );
 };
