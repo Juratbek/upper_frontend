@@ -1,0 +1,25 @@
+.author {
+  border-radius: 100rem;
+
+  &--medium {
+    $size: 2.6rem;
+    height: $size;
+    width: $size;
+  }
+  &--large {
+    $size: 5rem;
+    height: $size;
+    width: $size;
+  }
+}
+
+.text {
+  border-radius: 10rem;
+  &--medium {
+    height: 0.6rem;
+    margin: 0.4rem 0;
+  }
+  &--large {
+    height: 1rem;
+  }
+}

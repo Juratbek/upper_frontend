@@ -1,0 +1,17 @@
+.text {
+    height: 0.7rem;
+    border-radius: 10rem;
+}
+
+.img {
+    $size: 4rem;
+    width: $size;
+    height: $size;
+}
+
+.avatar {
+    $size: 1.8rem;
+    width: $size;
+    height: $size;
+    border-radius: 10rem;
+}

@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { TRtkError } from 'types';
 
 export interface IApiErrorBoundaryProps extends HTMLAttributes<HTMLDivElement> {
@@ -10,4 +10,6 @@ export interface IApiErrorBoundaryProps extends HTMLAttributes<HTMLDivElement> {
     error?: TRtkError;
     [name: string]: unknown;
   };
+  fallback?: ReactNode;
+  fallbackItemCount?: number;
 }

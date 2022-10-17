@@ -1,0 +1,37 @@
+.avatar {
+  overflow: hidden;
+  position: relative;
+  border-radius: 100rem;
+  background-color: #d9d9d9;
+}
+
+.avatar--small {
+  $size: 1.9rem;
+  min-width: $size;
+  width: $size;
+  height: $size;
+}
+
+.avatar--medium {
+  $size: 2.8rem;
+  min-width: $size;
+  width: $size;
+  height: $size;
+}
+
+.avatar--large {
+  $size: 4rem;
+  min-width: $size;
+  width: $size;
+  height: $size;
+  /* min-width: 60px;
+  width: 60px;
+  height: 60px; */
+}
+
+.avatar--extra-large {
+  $size: 6rem;
+  min-width: $size;
+  width: $size;
+  height: $size;
+}

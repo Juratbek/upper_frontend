@@ -1,3 +1,7 @@
+export const ARTICLES_SKELETON_COUNT = 3;
+export const SIDEBAR_ARTICLES_SKELETON_COUNT = 3;
+export const SIDEBAR_BLOGS_SKELETON_COUNT = 3;
+
 export const ACTION_TYPES = {
   delete: 'delete',
   markAsRead: 'markAsRead',
