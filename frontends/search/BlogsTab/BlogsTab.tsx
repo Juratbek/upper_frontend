@@ -18,7 +18,7 @@ export const BlogsTab: FC = () => {
 
   return (
     <ApiErrorBoundary
-      fallback={<BlogSkeleton className='px-3 py-2' />}
+      fallback={<BlogSkeleton size='large' className='px-3 py-2' />}
       fallbackItemCount={SIDEBAR_BLOGS_SKELETON_COUNT}
       res={searchBlogRes}
       className='tab'

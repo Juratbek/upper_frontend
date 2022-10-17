@@ -7,6 +7,7 @@ import {
   SidebarBlog,
   SidebarSearch,
 } from 'components';
+import { BlogSkeleton } from 'components/skeletons';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -58,15 +59,22 @@ export const Sidebar = (): JSX.Element => {
   }, [articleSuggestionsRes]);
 
   const suggestedBlogs = useMemo(() => {
-    const { isError, isLoading, error, data } = blogSuggestionsRes;
-    if (isLoading) return 'Loading...';
-    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-    return data?.map((blog, index) => (
-      <div key={blog.id}>
-        <SidebarBlog {...blog} />
-        {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-      </div>
-    ));
+    const { data } = blogSuggestionsRes;
+    return (
+      <ApiErrorBoundary
+        fallback={<BlogSkeleton className='my-2' />}
+        fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
+        res={articleSuggestionsRes}
+      >
+        {data &&
+          data.map((blog, index) => (
+            <div key={blog.id}>
+              <SidebarBlog {...blog} />
+              {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+            </div>
+          ))}
+      </ApiErrorBoundary>
+    );
   }, [blogSuggestionsRes]);
 
   const content: JSX.Element = useMemo(() => {

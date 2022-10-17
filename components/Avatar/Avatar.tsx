@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { getClassName } from 'utils';
 
-import classes from './Avatar.module.css';
+import classes from './Avatar.module.scss';
 import { IAvatarProps } from './Avatar.types';
 
 export const Avatar: FC<IAvatarProps> = ({ size = 'medium', imgUrl, ...props }) => {
