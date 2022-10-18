@@ -53,7 +53,7 @@ export const blogApi = createApi({
       query: () => 'sidebar-suggestions',
     }),
     search: build.query<IBlogMedium[], string>({
-      query: (search) => `search?search=${search}`,
+      query: (search) => `open/search?search=${search}`,
     }),
     getCurrentBlog: build.query<IBlog, void>({
       query: () => 'get-current',
