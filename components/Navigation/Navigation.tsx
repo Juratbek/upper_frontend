@@ -8,8 +8,10 @@ import { ICONS } from 'variables';
 import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
 
+const LogOutIcon = ICONS.logOut;
+
 export const Navigation = (): JSX.Element => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, unauthenticate } = useAuth();
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -22,12 +24,16 @@ export const Navigation = (): JSX.Element => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [isAuthenticated]);
 
+  const logOut = (): void => {
+    unauthenticate();
+  };
+
   return (
     <div className={classes.navigation}>
       <div className={`${classes.navigation} ${classes.positioned}`}>
         <span>logo</span>
         <div className={classes.icons}>
-          {icons.map(({ icon, href, authNeeded, ...props }, index) => {
+          {icons.map(({ icon, href, authNeeded }, index) => {
             const Icon = ICONS[icon];
             return (
               <div
@@ -36,13 +42,15 @@ export const Navigation = (): JSX.Element => {
                 className='pointer'
               >
                 <a className={classes.icon}>
-                  <Icon {...props} />
+                  <Icon />
                 </a>
               </div>
             );
           })}
         </div>
-        <div />
+        <div className={`${classes.icon} pointer`} onClick={logOut}>
+          {isAuthenticated && <LogOutIcon />}
+        </div>
       </div>
     </div>
   );

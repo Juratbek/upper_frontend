@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import { getClassName } from 'utils';
-import { ICON_TYPES, ICONS } from 'variables/icons';
+import { ICONS } from 'variables/icons';
 
 import classes from './Dropdown.module.scss';
 import { IDropdownProps } from './Dropdown.types';
 
-const Triangle = ICONS[ICON_TYPES.triangle];
+const Triangle = ICONS.triangle;
 
 export const Dropdown: FC<IDropdownProps> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(props.isOpen || false);

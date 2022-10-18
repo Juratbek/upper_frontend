@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
-import { ILink, TSubmitFormEvent } from 'types';
+import { ILink, TIcon, TSubmitFormEvent } from 'types';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
@@ -72,7 +72,7 @@ export const AboutTab: FC = () => {
             <h4 className='mb-1'>Ijtimoiy tarmoqlar</h4>
             <div>
               {SOCIAL_MEDIA_ICONS.map((icon, index) => {
-                const Icon = ICONS[icon];
+                const Icon = ICONS[icon as TIcon];
                 const link = blog.links?.find((link) => link.type === icon)?.link;
 
                 return (

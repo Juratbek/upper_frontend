@@ -1,9 +1,9 @@
 import { FC, useRef } from 'react';
-import { ICON_TYPES, ICONS } from 'variables';
+import { ICONS } from 'variables';
 
-const TelegramIcon = ICONS[ICON_TYPES.telegram];
-const FacebookIcon = ICONS[ICON_TYPES.facebook];
-const LinkedInIcon = ICONS[ICON_TYPES.linkedIn];
+const TelegramIcon = ICONS.telegram;
+const FacebookIcon = ICONS.facebook;
+const LinkedInIcon = ICONS.linkedIn;
 
 import { useClickOutside } from 'hooks';
 

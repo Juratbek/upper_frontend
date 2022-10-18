@@ -2,6 +2,7 @@ import { ApiErrorBoundary, Divider } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogByIdQuery } from 'store/apis';
+import { TIcon } from 'types';
 import { toDateString } from 'utils';
 import { BLOG_TAB_IDS, ICONS } from 'variables';
 
@@ -35,7 +36,7 @@ export const AboutTab: FC = () => {
         {blog?.links && (
           <div className={classes['social-media']}>
             {blog.links.map((link) => {
-              const Icon = ICONS[link.type];
+              const Icon = ICONS[link.type as TIcon];
               return (
                 <div className={classes['social-media-link']} key={link.type}>
                   <a href={link.link} target='_blank' rel='noreferrer'>

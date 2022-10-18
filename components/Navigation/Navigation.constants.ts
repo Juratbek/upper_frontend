@@ -1,33 +1,31 @@
-import { ICON_TYPES } from 'variables/icons';
-
 import { INavigationIcon } from './Navigation.types';
 
 export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
-    icon: ICON_TYPES.home,
+    icon: 'home',
     href: '/',
   },
   {
-    icon: ICON_TYPES.search,
+    icon: 'search',
     href: '/search',
   },
   {
-    icon: ICON_TYPES.user,
+    icon: 'user',
     href: '/profile',
     private: true,
   },
   {
-    icon: ICON_TYPES.notification,
+    icon: 'notification',
     href: '/notifications',
     private: true,
   },
   {
-    icon: ICON_TYPES.menuList,
+    icon: 'menuList',
     href: '/articles',
     private: true,
   },
   {
-    icon: ICON_TYPES.pen,
+    icon: 'pen',
     href: '/write-article',
     authNeeded: true,
   },
