@@ -13,5 +13,7 @@ export type TMultiSelectProps = Override<
     defaultValues?: IOption[];
     disabled?: boolean;
     onChange?: (options: IOption[]) => void;
+    onInputDebounce?: (value: string) => void;
+    inputPlacegolder?: string;
   }
 >;

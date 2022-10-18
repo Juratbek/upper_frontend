@@ -1,3 +1,4 @@
+import { useDebounce } from 'hooks';
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
@@ -20,6 +21,11 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   const [inputValue, setInputValue] = useState<string>('');
   const selectClassName = getClassName(classes.select, className);
   const ref = useRef<HTMLDivElement>(null);
+  const debouncedValue = useDebounce(inputValue);
+
+  useEffect(() => {
+    props.onInputDebounce?.(debouncedValue);
+  }, [debouncedValue]);
 
   const selectOption = (option: IOption): void => {
     if (inputValue) {
@@ -104,6 +110,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
             onFocus={onInputFocus}
             className={classes.input}
             onChange={onInputChange}
+            placeholder={props.inputPlacegolder}
           />
         )}
       </div>
