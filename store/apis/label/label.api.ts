@@ -19,6 +19,9 @@ export const labelApi = createApi({
         },
       }),
     }),
+    search: build.query<ILabel[], string>({
+      query: (search) => `open/search?query=${search}`,
+    }),
   }),
 });
 
@@ -26,4 +29,5 @@ export const {
   useGetAllQuery: useGetLabelsQuery,
   useLazyGetAllQuery: useLazyGetAllLabelsQuery,
   useLazyGetAllByDirectionIdsQuery: useLazyGetAllLabelsByDirectionIdsQuery,
+  useLazySearchQuery: useLazySearchLabelsQuery,
 } = labelApi;

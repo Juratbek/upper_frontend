@@ -1,8 +1,6 @@
 import { OutputBlockData } from '@editorjs/editorjs';
 
 import { IBlogSmall } from './blog';
-import { IDirection } from './direction';
-import { IField } from './field';
 import { ILabel } from './label';
 
 export interface IArticleSmall {
@@ -31,8 +29,6 @@ export interface IArticle extends IArticleSmall {
   blocks: OutputBlockData[];
   imgUrl?: string;
   author: IBlogSmall;
-  field?: IField;
-  directions?: IDirection[];
   labels: ILabel[];
   publishedDate?: string;
   updatedDate?: string;

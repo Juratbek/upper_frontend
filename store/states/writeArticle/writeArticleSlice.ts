@@ -1,6 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IArticle, IDirection, IField, ILabel } from 'types';
+import { IArticle, ILabel } from 'types';
 
 interface IWriteArticleState {
   editor: EditorJS | null;
@@ -27,20 +27,9 @@ const writeArticleSlice = createSlice({
         state.article.labels = payload;
       }
     },
-    setField(state, { payload }: PayloadAction<IField>) {
-      if (state.article) {
-        state.article.field = payload;
-      }
-    },
-    setDirections(state, { payload }: PayloadAction<IDirection[]>) {
-      if (state.article) {
-        state.article.directions = payload;
-      }
-    },
   },
 });
 
-export const { setEditor, setArticle, setLabels, setField, setDirections } =
-  writeArticleSlice.actions;
+export const { setEditor, setArticle, setLabels } = writeArticleSlice.actions;
 
 export default writeArticleSlice.reducer;
