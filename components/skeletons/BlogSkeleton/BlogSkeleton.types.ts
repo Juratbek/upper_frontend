@@ -1,4 +1,4 @@
-type TSize = 'medium' | 'large';
+type TSize = 'small' | 'medium' | 'large';
 
 export interface IBlogSkeletonProps {
   className?: string;

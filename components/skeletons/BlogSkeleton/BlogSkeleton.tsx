@@ -5,9 +5,9 @@ import { IBlogSkeletonProps } from './BlogSkeleton.types';
 
 export const BlogSkeleton: FC<IBlogSkeletonProps> = ({ size = 'medium', ...props }) => {
   return (
-    <div className={`d-flex ${props.className}`}>
+    <div className={`d-flex align-items-center ${props.className}`}>
       <div className={`${classes.author} skeleton ${classes[`author--${size}`]}`} />
-      <div className='flex-1 ms-2'>
+      <div className='flex-1'>
         {Array(2)
           .fill('')
           .map((_, index) => (
