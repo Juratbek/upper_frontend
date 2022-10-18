@@ -64,7 +64,7 @@ export const Sidebar = (): JSX.Element => {
       <ApiErrorBoundary
         fallback={<BlogSkeleton className='my-2' />}
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
-        res={articleSuggestionsRes}
+        res={blogSuggestionsRes}
       >
         {data &&
           data.map((blog, index) => (

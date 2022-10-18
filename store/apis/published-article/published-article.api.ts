@@ -15,7 +15,7 @@ export const publishedArticleApi = createApi({
       query: () => 'open/suggestions',
     }),
     getTop: build.query<IArticleResult[], void>({
-      query: () => 'top-articles',
+      query: () => 'open/top-articles',
     }),
     likeDislike: build.mutation<void, { id: number; value: TCheckIfLikedDisliked }>({
       query: ({ id, value }) => ({
@@ -43,7 +43,7 @@ export const publishedArticleApi = createApi({
       }),
     }),
     search: build.query<IArticleResult[], string>({
-      query: (search) => `search?search=${search}`,
+      query: (search) => `open/search?search=${search}`,
     }),
   }),
 });
