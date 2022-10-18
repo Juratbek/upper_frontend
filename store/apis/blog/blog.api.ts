@@ -42,13 +42,6 @@ export const blogApi = createApi({
         body: blog,
       }),
     }),
-    setLabels: build.mutation<{ token: string }, number[]>({
-      query: (labels) => ({
-        url: 'set-labels',
-        method: 'POST',
-        body: labels,
-      }),
-    }),
     getSidebarSuggestions: build.query<IBlogMedium[], void>({
       query: () => 'sidebar-suggestions',
     }),
@@ -126,7 +119,6 @@ export const blogApi = createApi({
 export const {
   useLoginMutation,
   useRegisterMutation,
-  useSetLabelsMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
