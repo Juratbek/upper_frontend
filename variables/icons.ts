@@ -10,6 +10,7 @@ import {
   InstagramIcon,
   LikeIcon,
   LinkedInIcon,
+  LogOut,
   MenuListIcon,
   NextIcon,
   NotificationIcon,
@@ -18,7 +19,6 @@ import {
   SaveIcon,
   SearchIcon,
   ShareIcon,
-  SignOut,
   TelegramIcon,
   TringleIcon,
   UserIcon,
@@ -50,7 +50,7 @@ export const ICON_TYPES = {
   linkedIn: 'linkedIn',
   youtube: 'youtube',
   triangle: 'triangle',
-  signOut: 'signOut',
+  logOut: 'logOut',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -86,5 +86,5 @@ export const ICONS: Record<TIcon, () => JSX.Element> = {
   linkedIn: LinkedInIcon,
   youtube: YouTubeIcon,
   triangle: TringleIcon,
-  signOut: SignOut,
+  logOut: LogOut,
 };
