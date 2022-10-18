@@ -212,7 +212,10 @@
 .p-2 {
   padding: $size2;
 }
-
+.py-1 {
+  padding-top: $size1;
+  padding-bottom: $size1;
+}
 .py-2 {
   padding-top: $size2;
   padding-bottom: $size2;
