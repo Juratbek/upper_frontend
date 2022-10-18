@@ -1,14 +1,9 @@
-import { Alert, Avatar, Button, Divider, FileInput, Input, Label, Textarea } from 'components';
+import { Alert, Avatar, Button, Divider, FileInput, Input, Textarea } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  useGetLabelsQuery,
-  useLazyGetCurrentBlogQuery,
-  useSetLabelsMutation,
-  useUpdateBlogMutation,
-} from 'store/apis';
-import { ILabel, ILink, TSubmitFormEvent } from 'types';
+import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
+import { ILink, TSubmitFormEvent } from 'types';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
@@ -20,10 +15,7 @@ export const AboutTab: FC = () => {
     query: { tab },
   } = useRouter();
   const [fetchCurrentBlog, currentBlogRes] = useLazyGetCurrentBlogQuery();
-  const fetchLabelsRes = useGetLabelsQuery();
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
-  const [updateBlogLabels, updateBlogLabelsRes] = useSetLabelsMutation();
-  const [selectedLabelIds, setSelectedLabelIds] = useState<number[]>([]);
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -31,26 +23,6 @@ export const AboutTab: FC = () => {
       fetchCurrentBlog();
     }
   }, [tab]);
-
-  useEffect(() => {
-    const { data: currentBlog, isSuccess } = currentBlogRes;
-    if (isSuccess && currentBlog.labels.length !== 0) {
-      const ids = currentBlog.labels.map((label) => label.id);
-      setSelectedLabelIds(ids);
-    }
-  }, [currentBlogRes.data]);
-
-  const labelClickHandler = ({ id }: ILabel): void => {
-    if (selectedLabelIds.includes(id)) {
-      const filteredLabelIds = selectedLabelIds.filter((labelId) => labelId !== id);
-      return setSelectedLabelIds(filteredLabelIds);
-    }
-    setSelectedLabelIds((prev) => [...prev, id]);
-  };
-
-  const updateLabels = (): void => {
-    updateBlogLabels(selectedLabelIds).then(() => setAlert('Tanlangan sohalar yangilandi'));
-  };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     const { name, bio, ...values } = event;
@@ -125,42 +97,6 @@ export const AboutTab: FC = () => {
     return <></>;
   };
 
-  const renderLabelSettings = (): JSX.Element => {
-    const { data: labels, isSuccess } = fetchLabelsRes;
-    if (isSuccess) {
-      return (
-        <>
-          <h2 className='mb-1 mt-4'>Tanlangan sohalar</h2>
-          <Divider className='mb-1' />
-          {labels.map((label) => {
-            const isSelected = selectedLabelIds.includes(label.id);
-            return (
-              <Label
-                color={isSelected ? 'dark' : 'outline-dark'}
-                key={label.id}
-                className='me-1 pointer'
-                onClick={(): void => labelClickHandler(label)}
-              >
-                {label.name}
-              </Label>
-            );
-          })}
-          <div className='mt-2'>
-            <Button
-              color='outline-dark'
-              loading={updateBlogLabelsRes.isLoading}
-              onClick={updateLabels}
-            >
-              Saqlash
-            </Button>
-          </div>
-        </>
-      );
-    }
-
-    return <></>;
-  };
-
   return (
     <>
       {alert && (
@@ -169,7 +105,6 @@ export const AboutTab: FC = () => {
         </Alert>
       )}
       {renderOpenSettings()}
-      {renderLabelSettings()}
     </>
   );
 };
