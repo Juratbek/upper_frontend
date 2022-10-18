@@ -18,12 +18,13 @@ import {
   SaveIcon,
   SearchIcon,
   ShareIcon,
+  SignOut,
   TelegramIcon,
   TringleIcon,
   UserIcon,
   YouTubeIcon,
 } from 'assets';
-import { IIcon } from 'types';
+import { TIcon } from 'types';
 
 export const ICON_TYPES = {
   delete: 'delete',
@@ -49,6 +50,7 @@ export const ICON_TYPES = {
   linkedIn: 'linkedIn',
   youtube: 'youtube',
   triangle: 'triangle',
+  signOut: 'signOut',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -60,28 +62,29 @@ export const SOCIAL_MEDIA_ICONS = [
   ICON_TYPES.instagram,
 ];
 
-export const ICONS: IIcon = {
-  [ICON_TYPES.delete]: DeleteIcon,
-  [ICON_TYPES.save]: SaveIcon,
-  [ICON_TYPES.home]: HomeIcon,
-  [ICON_TYPES.user]: UserIcon,
-  [ICON_TYPES.notification]: NotificationIcon,
-  [ICON_TYPES.menuList]: MenuListIcon,
-  [ICON_TYPES.pen]: PenIcon,
-  [ICON_TYPES.search]: SearchIcon,
-  [ICON_TYPES.eye]: EyeIcon,
-  [ICON_TYPES.telegram]: TelegramIcon,
-  [ICON_TYPES.google]: GoogleIcon,
-  [ICON_TYPES.facebook]: FacebookIcon,
-  [ICON_TYPES.github]: GitHubIcon,
-  [ICON_TYPES.comment]: CommentIcon,
-  [ICON_TYPES.like]: LikeIcon,
-  [ICON_TYPES.dislike]: DislikeIcon,
-  [ICON_TYPES.share]: ShareIcon,
-  [ICON_TYPES.next]: NextIcon,
-  [ICON_TYPES.prev]: PrevIcon,
-  [ICON_TYPES.instagram]: InstagramIcon,
-  [ICON_TYPES.linkedIn]: LinkedInIcon,
-  [ICON_TYPES.youtube]: YouTubeIcon,
-  [ICON_TYPES.triangle]: TringleIcon,
+export const ICONS: Record<TIcon, () => JSX.Element> = {
+  delete: DeleteIcon,
+  save: SaveIcon,
+  home: HomeIcon,
+  user: UserIcon,
+  notification: NotificationIcon,
+  menuList: MenuListIcon,
+  pen: PenIcon,
+  search: SearchIcon,
+  eye: EyeIcon,
+  telegram: TelegramIcon,
+  google: GoogleIcon,
+  facebook: FacebookIcon,
+  github: GitHubIcon,
+  comment: CommentIcon,
+  like: LikeIcon,
+  dislike: DislikeIcon,
+  share: ShareIcon,
+  next: NextIcon,
+  prev: PrevIcon,
+  instagram: InstagramIcon,
+  linkedIn: LinkedInIcon,
+  youtube: YouTubeIcon,
+  triangle: TringleIcon,
+  signOut: SignOut,
 };

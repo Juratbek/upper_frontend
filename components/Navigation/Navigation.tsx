@@ -27,7 +27,7 @@ export const Navigation = (): JSX.Element => {
       <div className={`${classes.navigation} ${classes.positioned}`}>
         <span>logo</span>
         <div className={classes.icons}>
-          {icons.map(({ icon, href, authNeeded, ...props }, index) => {
+          {icons.map(({ icon, href, authNeeded }, index) => {
             const Icon = ICONS[icon];
             return (
               <div
@@ -36,7 +36,7 @@ export const Navigation = (): JSX.Element => {
                 className='pointer'
               >
                 <a className={classes.icon}>
-                  <Icon {...props} />
+                  <Icon />
                 </a>
               </div>
             );

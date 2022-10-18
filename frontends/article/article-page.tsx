@@ -6,14 +6,14 @@ import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal } from 'store/states';
 import { toDateString } from 'utils';
-import { ICON_TYPES, ICONS } from 'variables/icons';
+import { ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
 import { ArticleActions } from './components';
 
-const LikeIcon = ICONS[ICON_TYPES.like];
-const DislikeIcon = ICONS[ICON_TYPES.dislike];
+const LikeIcon = ICONS.like;
+const DislikeIcon = ICONS.dislike;
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 

@@ -3,16 +3,16 @@ import { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
-import { ICON_TYPES, ICONS } from 'variables/icons';
+import { ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
 import styles from './article-actions.module.scss';
 import { IArticleActionsProps } from './article-actions.types';
 
-const CommentIcon = ICONS[ICON_TYPES.comment];
-const LikeIcon = ICONS[ICON_TYPES.like];
-const DislikeIcon = ICONS[ICON_TYPES.dislike];
-const ShareIcon = ICONS[ICON_TYPES.share];
+const CommentIcon = ICONS.comment;
+const LikeIcon = ICONS.like;
+const DislikeIcon = ICONS.dislike;
+const ShareIcon = ICONS.share;
 
 const ArticleSharePopup = dynamic<IArticleSharePopupProps>(
   () => import('../ArticleSharePopup').then((mod) => mod.ArticleSharePopup),
