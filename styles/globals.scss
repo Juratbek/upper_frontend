@@ -9,6 +9,7 @@
   --yellow: rgba(255, 229, 60);
   --blue: #54a9eb;
   --green: #0a950ad6;
+  --scrollbar-thumb-color: #d3d3d3;
 }
 
 * {
@@ -28,6 +29,14 @@
   flex: 1 1 auto;
   height: 100vh;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    border-radius: 10rem;
+    border: 2px solid white;
+  }
 }
 
 .container {
