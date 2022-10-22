@@ -31,15 +31,12 @@ export const publishedArticleApi = createApi({
     }),
     getById: build.query<IArticle, number>({
       query: (id: number) => `open/${id}`,
-      keepUnusedDataFor: 1,
+      keepUnusedDataFor: 15,
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({
       query: ({ id, token }) => ({
         url: `open/increment-view-count/${id}?token=${token}`,
         method: 'POST',
-        headers: {
-          Authorization: '',
-        },
       }),
     }),
     search: build.query<IArticleResult[], string>({
