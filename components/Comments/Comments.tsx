@@ -1,17 +1,17 @@
-import { Divider } from 'components';
+import { Divider, Spinner } from 'components';
 import { useClickOutside } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo } from 'react';
-import { useAppDispatch } from 'store';
+import { useEffect, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
-import { closeCommentsSidebar } from 'store/states';
+import { closeCommentsSidebar, getIsCommentsSidebarOpen } from 'store/states';
 import { getClassName } from 'utils';
 
 import classes from './Comments.module.scss';
-import { ICommentsProps } from './Comments.types';
 import { Comment, Form } from './components';
 
-export const Comments: FC<ICommentsProps> = ({ isOpen }) => {
+export const Comments = (): JSX.Element => {
+  const isOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
   const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
   const dispatch = useAppDispatch();
@@ -23,12 +23,12 @@ export const Comments: FC<ICommentsProps> = ({ isOpen }) => {
   } = useRouter();
 
   useEffect(() => {
-    id && fetchComments(+id);
-  }, [id]);
+    isOpen && id && fetchComments(+id);
+  }, [id, isOpen]);
 
   const comments = useMemo(() => {
-    const { data: comments, isLoading, isFetching } = fetchCommentsRes;
-    if (isLoading || isFetching) return 'Loading...';
+    const { data: comments, isLoading } = fetchCommentsRes;
+    if (isLoading) return <Spinner />;
     if (!comments) return <></>;
     if (comments.length === 0) return <p className='text-center'>Izohlar mavjud emas</p>;
 
