@@ -23,6 +23,7 @@ export const BlogsTab: FC = () => {
       res={searchBlogRes}
       className='tab'
     >
+      {searchBlogRes.data?.length === 0 && <h3 className='text-center'>Blog topilmadi</h3>}
       {searchBlogRes.data?.map((blog) => (
         <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
           <Blog {...blog} isLink />

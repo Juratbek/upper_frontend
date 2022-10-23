@@ -16,6 +16,7 @@ export const ForYouTab: FC = () => {
       res={res}
       className='tab'
     >
+      {res?.data?.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
       {res?.data?.map((article) => (
         <Article
           className='px-2 py-2'

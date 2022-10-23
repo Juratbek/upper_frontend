@@ -47,6 +47,7 @@ export const Sidebar = (): JSX.Element => {
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={articleSuggestionsRes}
       >
+        {data?.length === 0 && <h5>Maqolalar mavjud emas</h5>}
         {data &&
           data.map((article, index) => (
             <div key={article.id}>
@@ -66,6 +67,7 @@ export const Sidebar = (): JSX.Element => {
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={blogSuggestionsRes}
       >
+        {data?.length === 0 && <h5>Bloglar mavjud emas</h5>}
         {data &&
           data.map((blog, index) => (
             <div key={blog.id}>

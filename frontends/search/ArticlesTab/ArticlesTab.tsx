@@ -28,6 +28,7 @@ export const ArticlesTab: FC = () => {
       fallbackItemCount={ARTICLES_SKELETON_COUNT}
       className='tab'
     >
+      {searchArticleRes.data?.length === 0 && <h3 className='text-center'>Maqola topilmadi</h3>}
       {searchArticleRes.data?.map((article) => (
         <Article
           className='px-2 py-2'
