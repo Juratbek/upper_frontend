@@ -5,7 +5,8 @@ const TelegramIcon = ICONS.telegram;
 const FacebookIcon = ICONS.facebook;
 const LinkedInIcon = ICONS.linkedIn;
 
-import { useClickOutside } from 'hooks';
+import { Button } from 'components';
+import { useClickOutside, useClipboard } from 'hooks';
 
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
@@ -14,6 +15,7 @@ const url = window.location.href;
 
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const { writeText, isLoading, isCopied, isError } = useClipboard();
 
   const onCopyLink = (): void => {
     const inputEl = inputRef.current as HTMLInputElement;
@@ -21,11 +23,17 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
       inputEl.select();
       inputEl.setSelectionRange(0, 99999);
 
-      navigator.clipboard.writeText(inputEl.value);
+      writeText(inputEl.value);
     }
   };
 
   const [sharePopupRef] = useClickOutside(() => setVisible(false));
+
+  const getBtnText = (): string => {
+    if (isError) return 'Xatolik';
+    if (isCopied) return 'Nusxalandi';
+    return 'Nusxalash';
+  };
 
   return (
     <div
@@ -69,9 +77,15 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
           value={url}
           ref={inputRef}
         />
-        <button className={styles.copyButton} type={'button'} onClick={onCopyLink}>
-          Nusxalash
-        </button>
+        <Button
+          loading={isLoading}
+          className={styles.copyButton}
+          color={isCopied ? 'dark' : 'outline-dark'}
+          type='button'
+          onClick={onCopyLink}
+        >
+          {getBtnText()}
+        </Button>
       </div>
     </div>
   );

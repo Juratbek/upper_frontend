@@ -66,18 +66,7 @@
     right: toRem(15px);
     top: 50%;
     transform: translateY(-50%);
-    width: toRem(70px);
-
-    font-size: toRem(10px);
-    border-radius: 50px;
-    background-color: #fff;
-    border: 1px solid #000;
-    padding: toRem(3px) 0;
-    cursor: pointer;
+    font-size: toRem(12px);
     transition: all 0.2s;
-
-    &:hover {
-      background-color: var(--lightGray);
-    }
   }
 }
