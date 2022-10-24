@@ -9,6 +9,7 @@ import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
 
 const LogOutIcon = ICONS.logOut;
+const Logo = ICONS.logo;
 
 export const Navigation = (): JSX.Element => {
   const { isAuthenticated, unauthenticate } = useAuth();
@@ -31,7 +32,9 @@ export const Navigation = (): JSX.Element => {
   return (
     <div className={classes.navigation}>
       <div className={`${classes.navigation} ${classes.positioned}`}>
-        <span>logo</span>
+        <span className={classes.logo}>
+          <Logo />
+        </span>
         <div className={classes.icons}>
           {icons.map(({ icon, href, authNeeded }, index) => {
             const Icon = ICONS[icon];

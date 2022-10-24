@@ -10,6 +10,7 @@ import {
   InstagramIcon,
   LikeIcon,
   LinkedInIcon,
+  Logo,
   LogOut,
   MenuListIcon,
   NextIcon,
@@ -51,6 +52,7 @@ export const ICON_TYPES = {
   youtube: 'youtube',
   triangle: 'triangle',
   logOut: 'logOut',
+  logo: 'logo',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -87,4 +89,5 @@ export const ICONS: Record<TIcon, () => JSX.Element> = {
   youtube: YouTubeIcon,
   triangle: TringleIcon,
   logOut: LogOut,
+  logo: Logo,
 };
