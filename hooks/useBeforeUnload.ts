@@ -10,7 +10,6 @@ export const useBeforeUnload = (): void => {
     window.addEventListener('beforeunload', onBeforeUnload);
 
     return (): void => {
-      console.log('changing');
       window.removeEventListener('beforeunload', onBeforeUnload);
     };
   }, []);
