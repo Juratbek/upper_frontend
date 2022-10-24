@@ -1,30 +1,45 @@
-import { Divider, Spinner } from 'components';
-import { useClickOutside } from 'hooks';
+import { Button, Divider, Spinner } from 'components';
+import { useAuth, useClickOutside } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
-import { closeCommentsSidebar, getIsCommentsSidebarOpen } from 'store/states';
+import {
+  closeCommentsSidebar,
+  getIsCommentsSidebarOpen,
+  openLoginModal,
+  openRegisterModal,
+} from 'store/states';
 import { getClassName } from 'utils';
 
 import classes from './Comments.module.scss';
 import { Comment, Form } from './components';
 
 export const Comments = (): JSX.Element => {
-  const isOpen = useAppSelector(getIsCommentsSidebarOpen);
-  const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
-  const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
   const dispatch = useAppDispatch();
-  const [rootRef] = useClickOutside(() => {
-    dispatch(closeCommentsSidebar());
-  }, 'comment-icon');
+  const { isAuthenticated } = useAuth();
   const {
     query: { id },
   } = useRouter();
+  const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
+  const isOpen = useAppSelector(getIsCommentsSidebarOpen);
+  const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
+
+  const [rootRef] = useClickOutside(() => {
+    dispatch(closeCommentsSidebar());
+  }, 'comment-icon');
 
   useEffect(() => {
     isOpen && id && fetchComments(+id);
   }, [id, isOpen]);
+
+  const loginClickHandler = (): void => {
+    dispatch(openLoginModal());
+  };
+
+  const registerClickHandler = (): void => {
+    dispatch(openRegisterModal());
+  };
 
   const comments = useMemo(() => {
     const { data: comments, isLoading } = fetchCommentsRes;
@@ -44,7 +59,21 @@ export const Comments = (): JSX.Element => {
         {comments}
       </div>
       <div className={classes.form}>
-        <Form />
+        {isAuthenticated ? (
+          <Form />
+        ) : (
+          <div>
+            <p className='mt-0'>Izoh qoldirish uchun ro`yxatdan o`ting</p>
+            <div className='d-flex f-gap-1'>
+              <Button className='flex-auto' color='outline-dark' onClick={loginClickHandler}>
+                Kirish
+              </Button>
+              <Button className='flex-auto' onClick={registerClickHandler}>
+                Ro`yxatdan o`tish
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
