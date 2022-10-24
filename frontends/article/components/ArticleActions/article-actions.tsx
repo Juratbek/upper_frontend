@@ -1,24 +1,21 @@
-import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { openCommentsSidebar } from 'store/states';
-import { ICON_TYPES, ICONS } from 'variables/icons';
+import { toggleCommentsSidebar } from 'store/states';
+import { appDynamic } from 'utils';
+import { ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
 import styles from './article-actions.module.scss';
 import { IArticleActionsProps } from './article-actions.types';
 
-const CommentIcon = ICONS[ICON_TYPES.comment];
-const LikeIcon = ICONS[ICON_TYPES.like];
-const DislikeIcon = ICONS[ICON_TYPES.dislike];
-const ShareIcon = ICONS[ICON_TYPES.share];
+const CommentIcon = ICONS.comment;
+const LikeIcon = ICONS.like;
+const DislikeIcon = ICONS.dislike;
+const ShareIcon = ICONS.share;
 
-const ArticleSharePopup = dynamic<IArticleSharePopupProps>(
-  () => import('../ArticleSharePopup').then((mod) => mod.ArticleSharePopup),
-  {
-    ssr: false,
-  },
+const ArticleSharePopup = appDynamic<IArticleSharePopupProps>(() =>
+  import('../ArticleSharePopup').then((mod) => mod.ArticleSharePopup),
 );
 
 let lastScrollTop = Number.MAX_VALUE;
@@ -43,8 +40,8 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     lastScrollTop = st <= 0 ? 0 : st;
   };
 
-  const OpenCommentsSidebar = (): void => {
-    dispatch(openCommentsSidebar());
+  const commentIconClickHandler = (): void => {
+    dispatch(toggleCommentsSidebar());
   };
 
   useEffect(() => {
@@ -60,7 +57,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
       <div className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}>
         <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
         <div className={styles.iconsContainer}>
-          <div className={styles.icon} onClick={OpenCommentsSidebar} id='comment-icon'>
+          <div className={styles.icon} onClick={commentIconClickHandler} id='comment-icon'>
             <CommentIcon />
           </div>
           <div

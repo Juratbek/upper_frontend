@@ -1,20 +1,21 @@
-import { Avatar, Button, FileInput, Input, Textarea } from 'components';
+import { Alert, Avatar, Button, Divider, FileInput, Input, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
-import { ILink, TSubmitFormEvent } from 'types';
+import { ILink, TIcon, TSubmitFormEvent } from 'types';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 import classes from './AboutTab.module.scss';
 
 export const AboutTab: FC = () => {
+  const [alert, setAlert] = useState<string>();
   const {
     query: { tab },
   } = useRouter();
   const [fetchCurrentBlog, currentBlogRes] = useLazyGetCurrentBlogQuery();
-  const [updateBlog] = useUpdateBlogMutation();
+  const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export const AboutTab: FC = () => {
     await updateBlog(formData).unwrap();
   };
 
-  const renderSettings = (): JSX.Element => {
+  const renderOpenSettings = (): JSX.Element => {
     const { data: blog, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
     if (isLoading || isFetching) return <p>Yuklanmoqda...</p>;
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
@@ -49,6 +50,10 @@ export const AboutTab: FC = () => {
     if (isSuccess)
       return (
         <form className='d-flex flex-wrap' onSubmit={handleSubmit(submitHandler)}>
+          <div className='w-100'>
+            <h2 className='m-1'>Ochiq ma&apos;lumotlar</h2>
+            <Divider />
+          </div>
           <div className='w-50 p-1'>
             <div>
               <Avatar imgUrl={blog.imgUrl} className='my-2' size='extra-large' />
@@ -67,7 +72,7 @@ export const AboutTab: FC = () => {
             <h4 className='mb-1'>Ijtimoiy tarmoqlar</h4>
             <div>
               {SOCIAL_MEDIA_ICONS.map((icon, index) => {
-                const Icon = ICONS[icon];
+                const Icon = ICONS[icon as TIcon];
                 const link = blog.links?.find((link) => link.type === icon)?.link;
 
                 return (
@@ -84,7 +89,7 @@ export const AboutTab: FC = () => {
             </div>
           </div>
           <div className='px-1'>
-            <Button>Saqlash</Button>
+            <Button loading={updateBlogRes.isLoading}>Saqlash</Button>
           </div>
         </form>
       );
@@ -92,5 +97,14 @@ export const AboutTab: FC = () => {
     return <></>;
   };
 
-  return renderSettings();
+  return (
+    <>
+      {alert && (
+        <Alert color='green' onClose={(): void => setAlert('')}>
+          {alert}
+        </Alert>
+      )}
+      {renderOpenSettings()}
+    </>
+  );
 };

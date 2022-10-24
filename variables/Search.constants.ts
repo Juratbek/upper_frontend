@@ -2,7 +2,6 @@ import { ArticlesTab, BlogsTab } from 'frontends/search';
 import { ITabBody, ITabHeader, TAction, TIcon } from 'types';
 
 import { ACTION_TYPES } from './common';
-import { ICON_TYPES } from './icons';
 
 export const SEARCH_PAGE_TAB_IDS = {
   articles: 'articles',
@@ -30,4 +29,4 @@ export const SEARCH_PAGE_ARTICLE_ACTIONS: TAction[] = [
   ACTION_TYPES.report,
 ];
 
-export const SEARCH_PAGE_ARTICLE_ICONS: TIcon[] = [ICON_TYPES.save];
+export const SEARCH_PAGE_ARTICLE_ICONS: TIcon[] = ['save'];

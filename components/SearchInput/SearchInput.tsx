@@ -1,11 +1,11 @@
 import { useDebounce } from 'hooks';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
-import { ICON_TYPES, ICONS } from 'variables';
+import { ICONS } from 'variables';
 
 import classes from './SearchInput.module.scss';
 import { ISearchInputProps } from './SearchInput.types';
 
-const Icon = ICONS[ICON_TYPES.search];
+const Icon = ICONS.search;
 
 export const SearchInput: FC<ISearchInputProps> = ({
   className,

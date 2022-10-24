@@ -1,21 +1,25 @@
 import 'styles/index.scss';
 
 import { GoogleOneTap, Navigation, Sidebar } from 'components';
-import { LoginModal, RegisterModal } from 'components';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
 import { wrapper } from 'store';
+import { appDynamic } from 'utils';
+
+const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
+
+const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal'));
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <div>
       <div className='app'>
         <Navigation />
-        <LoginModal />
-        <RegisterModal />
-        <div className='main'>
+        <DynamicLoginModal />
+        <DynamicRegisterModal />
+        <main className='main'>
           <Component {...pageProps} />
-        </div>
+        </main>
         <Sidebar />
       </div>
       <NextNProgress color='#7a7e80' height={3} showOnShallow={true} />

@@ -42,18 +42,11 @@ export const blogApi = createApi({
         body: blog,
       }),
     }),
-    setLabels: build.mutation<{ token: string }, number[]>({
-      query: (labels) => ({
-        url: 'set-labels',
-        method: 'POST',
-        body: labels,
-      }),
-    }),
     getSidebarSuggestions: build.query<IBlogMedium[], void>({
       query: () => 'sidebar-suggestions',
     }),
     search: build.query<IBlogMedium[], string>({
-      query: (search) => `search?search=${search}`,
+      query: (search) => `open/search?search=${search}`,
     }),
     getCurrentBlog: build.query<IBlog, void>({
       query: () => 'get-current',
@@ -126,7 +119,6 @@ export const blogApi = createApi({
 export const {
   useLoginMutation,
   useRegisterMutation,
-  useSetLabelsMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,

@@ -1,10 +1,10 @@
-import { Alert, ArticleStatus, Button, Divider, IOption, Modal, Select } from 'components';
+import { Alert, ArticleStatus, Button, Divider, IOption, Modal, MultiSelect } from 'components';
 import { useUrlParams } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
-  useGetLabelsQuery,
+  useLazySearchLabelsQuery,
   useUpdateArticleMutaion,
   useUpdateArticleStatusMutation,
 } from 'store/apis';
@@ -31,7 +31,8 @@ export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
   const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
   const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
-  const { data: labels } = useGetLabelsQuery();
+  const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
+
   const isLoading = useMemo(
     () => isUpdatingArticle || updateArticleStatusResponse.isLoading,
     [isUpdatingArticle, updateArticleStatusResponse.isLoading],
@@ -96,6 +97,10 @@ export const UserArticlesSidebar: FC = () => {
   const labelsChangeHandler = (options: IOption[]): void => {
     const selectedLabels = convertOptionsToLabels(options);
     dispatch(setLabels(selectedLabels));
+  };
+
+  const SearchLabels = (value: string): void => {
+    value && searchLabels(value);
   };
 
   return (
@@ -168,16 +173,20 @@ export const UserArticlesSidebar: FC = () => {
       )}
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
-      <label htmlFor='labels' className='mb-1 d-block'>
-        Teglar
-      </label>
-      {article && labels && (
-        <Select
-          onChange={labelsChangeHandler}
-          disabled={[ARTICLE_STATUSES.DELETED].includes(status as TArticleStatus)}
-          defaultValues={convertLabelsToOptions(article.labels)}
-          options={convertLabelsToOptions(labels)}
-        />
+      {article && (
+        <div className='mb-1'>
+          <label htmlFor='labels' className='mb-1 d-block'>
+            Teglar
+          </label>
+          <MultiSelect
+            onChange={labelsChangeHandler}
+            disabled={status === ARTICLE_STATUSES.DELETED}
+            onInputDebounce={SearchLabels}
+            defaultValues={convertLabelsToOptions(article.labels)}
+            options={convertLabelsToOptions(searchLabelsRes.data)}
+            inputPlacegolder='Qidirish uchun yozing'
+          />
+        </div>
       )}
     </>
   );

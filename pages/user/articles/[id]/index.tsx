@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetBlogArticleByIdQuery } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
-import { get } from 'utils';
+import { checkAuthInServer, get } from 'utils';
 import { ARTICLE_STATUSES } from 'variables';
 
 export default function UserArticlePage(): JSX.Element {
@@ -76,3 +76,5 @@ export default function UserArticlePage(): JSX.Element {
     </div>
   );
 }
+
+export const getServerSideProps = checkAuthInServer;

@@ -8,7 +8,7 @@ const SearchPage: NextPage = () => {
   const { setParam } = useUrlParams();
 
   const search = (value: string): void => {
-    setParam('search', value);
+    value && setParam('search', value);
   };
 
   return (

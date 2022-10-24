@@ -1,5 +1,5 @@
 import { IOption } from 'components';
-import { ILabel, TClassName } from 'types';
+import { ILabel, ITag, TClassName } from 'types';
 
 export const getClassName = (...classNames: TClassName[]): string =>
   classNames.filter((className) => !!className).join(' ');
@@ -24,3 +24,9 @@ export const convertOptionsToLabels = (options: IOption[]): ILabel[] =>
 
 export const convertLabelsToOptions = (labels: ILabel[] = []): IOption[] =>
   convertToOptions(labels, 'id', 'name');
+
+export const convertTagsToOptions = (tags: ITag[] = []): IOption[] =>
+  convertToOptions(tags, 'id', 'name');
+
+export const convertOptionsToTags = <T extends ITag>(options: IOption[]): T[] =>
+  options.map((option) => ({ id: +option.value, name: option.label })) as T[];

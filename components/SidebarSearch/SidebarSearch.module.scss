@@ -26,6 +26,7 @@ $margin: .8rem;
 .article {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-top: $margin;
     margin-bottom: $margin;
     cursor: pointer;

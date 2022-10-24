@@ -1,5 +1,5 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
-import { TOKEN } from 'variables';
+import { Authorization, TOKEN } from 'variables';
 
 import { BASE_URL } from './api.constants';
 import { TBaseQuery } from './api.types';
@@ -10,9 +10,9 @@ export const baseQuery = (uri?: string): TBaseQuery =>
     prepareHeaders: (headers) => {
       try {
         const token = localStorage.getItem(TOKEN);
-        const authorization = headers.get('Authorization');
+        const authorization = headers.get(Authorization);
         if (token && authorization === null) {
-          headers.set('Authorization', `Bearer ${token}`);
+          headers.set(Authorization, `Bearer ${token}`);
         }
       } catch (e) {
         // console.error(e);

@@ -1,15 +1,16 @@
-import { Button, Divider, IOption, Select } from 'components';
+import { Button, Divider, IOption, MultiSelect } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useCreateArticleMutation, useGetLabelsQuery } from 'store/apis';
+import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
 import { ILabel } from 'types';
+import { convertLabelsToOptions } from 'utils';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
-  const { data: labels = [], isSuccess } = useGetLabelsQuery();
   const [createArticle, createArticleStatus] = useCreateArticleMutation();
+  const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const editor = useAppSelector(getEditor);
@@ -21,13 +22,21 @@ export const SidebarContent: FC = () => {
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
-    const newArticle = await createArticle({ title, blocks, labels }).unwrap();
+    const newArticle = await createArticle({
+      title,
+      blocks,
+      labels,
+    }).unwrap();
     dispatch(setArticle(newArticle));
     router.push(`/user/articles/${newArticle.id}`);
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
     setSelectedLabels(options);
+  };
+
+  const SearchLabels = (value: string): void => {
+    value && searchLabels(value);
   };
 
   return (
@@ -37,15 +46,17 @@ export const SidebarContent: FC = () => {
       </Button>
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
-      <label htmlFor='labels' className='mb-1 d-block'>
-        Teglar
-      </label>
-      {isSuccess && (
-        <Select
+      <div>
+        <label htmlFor='labels' className='mb-1 d-block'>
+          Teglar
+        </label>
+        <MultiSelect
           onChange={labelsChangeHandler}
-          options={labels.map((label) => ({ label: label.name, value: label.id }))}
+          onInputDebounce={SearchLabels}
+          options={convertLabelsToOptions(searchLabelsRes.data)}
+          inputPlacegolder='Qidirish uchun yozing'
         />
-      )}
+      </div>
     </>
   );
 };

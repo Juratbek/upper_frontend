@@ -13,7 +13,7 @@ export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
         <div className={classes.author}>
           <Avatar imgUrl='' size='small' />
           <div className='ms-1'>
-            <h4 className='m-0'>{author.name}</h4>
+            <h5 className='m-0'>{author.name}</h5>
             <p className={`m-0 ${classes.date}`}>{toDateString(date)}</p>
           </div>
         </div>

@@ -4,6 +4,7 @@ import { useBeforeUnload } from 'hooks';
 import { useEffect } from 'react';
 import { useAppDispatch } from 'store';
 import { setEditor } from 'store/states';
+import { checkAuthInServer } from 'utils';
 
 export default function WriteArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -24,3 +25,5 @@ export default function WriteArticlePage(): JSX.Element {
     </div>
   );
 }
+
+export const getServerSideProps = checkAuthInServer;

@@ -8,6 +8,8 @@
   --mediumBorderRadius: 0.6rem;
   --yellow: rgba(255, 229, 60);
   --blue: #54a9eb;
+  --green: #0a950ad6;
+  --scrollbar-thumb-color: #d3d3d3;
 }
 
 * {
@@ -16,6 +18,8 @@
 
 .app {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
@@ -23,6 +27,16 @@
 
 .app > .main {
   flex: 1 1 auto;
+  height: 100vh;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    border-radius: 10rem;
+    border: 2px solid white;
+  }
 }
 
 .container {
@@ -49,7 +63,7 @@
 
 .icon {
   & svg {
-    fill: black
+    fill: black;
   }
   &--active svg {
     fill: blue;
@@ -59,6 +73,27 @@
 .notification {
   &--unread {
     background-color: var(--lightGray);
+  }
+}
+
+.skeleton {
+  height: 100px;
+  width: 100px;
+  background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0) 70%
+    )
+    #ededed;
+  background-size: 200% 100%;
+  background-position-x: 180%;
+  animation: 800ms loading ease-in-out infinite;
+}
+
+@keyframes loading {
+  to {
+    background-position-x: -20%;
   }
 }
 
@@ -83,6 +118,10 @@
   margin-top: 0;
 }
 
+.mt-1 {
+  margin-top: $size1;
+}
+
 .mt-2 {
   margin-top: 1rem;
 }
@@ -91,8 +130,8 @@
   margin-top: 1.7rem;
 }
 
-.mt-1 {
-  margin-top: $size1;
+.mt-4 {
+  margin-top: $size4;
 }
 
 .ms-1 {
@@ -109,6 +148,10 @@
 
 .me-2 {
   margin-right: $size2;
+}
+
+.me-3 {
+  margin-right: $size3;
 }
 
 .mb-0 {
@@ -169,7 +212,10 @@
 .p-2 {
   padding: $size2;
 }
-
+.py-1 {
+  padding-top: $size1;
+  padding-bottom: $size1;
+}
 .py-2 {
   padding-top: $size2;
   padding-bottom: $size2;
@@ -245,17 +291,20 @@
   width: 100%;
 }
 
-.flex-auto {
-  flex: 1 1 auto;
-}
-
 // flex
 .flex-1 {
   flex: 1;
 }
-
+.flex-auto {
+  flex: 1 1 auto;
+}
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+// flex gaps
+.f-gap-1 {
+  gap: 0.5rem;
 }
 
 // text colors

@@ -18,9 +18,16 @@ const commentsSidebarSlice = createSlice({
     close(state) {
       state.isOpen = false;
     },
+    toggle(state) {
+      const isOpen = state.isOpen;
+      state.isOpen = !isOpen;
+    },
   },
 });
 
-export const { open: openCommentsSidebar, close: closeCommentsSidebar } =
-  commentsSidebarSlice.actions;
+export const {
+  open: openCommentsSidebar,
+  close: closeCommentsSidebar,
+  toggle: toggleCommentsSidebar,
+} = commentsSidebarSlice.actions;
 export default commentsSidebarSlice.reducer;

@@ -15,7 +15,7 @@ export const publishedArticleApi = createApi({
       query: () => 'open/suggestions',
     }),
     getTop: build.query<IArticleResult[], void>({
-      query: () => 'top-articles',
+      query: () => 'open/top-articles',
     }),
     likeDislike: build.mutation<void, { id: number; value: TCheckIfLikedDisliked }>({
       query: ({ id, value }) => ({
@@ -31,19 +31,16 @@ export const publishedArticleApi = createApi({
     }),
     getById: build.query<IArticle, number>({
       query: (id: number) => `open/${id}`,
-      keepUnusedDataFor: 1,
+      keepUnusedDataFor: 15,
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({
       query: ({ id, token }) => ({
         url: `open/increment-view-count/${id}?token=${token}`,
         method: 'POST',
-        headers: {
-          Authorization: '',
-        },
       }),
     }),
     search: build.query<IArticleResult[], string>({
-      query: (search) => `search?search=${search}`,
+      query: (search) => `open/search?search=${search}`,
     }),
   }),
 });
