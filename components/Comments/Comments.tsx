@@ -1,4 +1,4 @@
-import { Button, Divider, Spinner } from 'components';
+import { Button, CommentSkeleton, Divider } from 'components';
 import { useAuth, useClickOutside } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
@@ -43,7 +43,10 @@ export const Comments = (): JSX.Element => {
 
   const comments = useMemo(() => {
     const { data: comments, isLoading } = fetchCommentsRes;
-    if (isLoading) return <Spinner />;
+    if (isLoading)
+      return Array(3)
+        .fill('')
+        .map((_, index) => <CommentSkeleton key={index} className='p-1' />);
     if (!comments) return <></>;
     if (comments.length === 0) return <p className='text-center'>Izohlar mavjud emas</p>;
 
