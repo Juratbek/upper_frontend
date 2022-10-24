@@ -1,7 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
 import { Editor } from 'components/Editor';
 import { useBeforeUnload } from 'hooks';
-import { useEffect } from 'react';
 import { useAppDispatch } from 'store';
 import { setEditor } from 'store/states';
 import { checkAuthInServer } from 'utils';
