@@ -291,17 +291,20 @@
   width: 100%;
 }
 
-.flex-auto {
-  flex: 1 1 auto;
-}
-
 // flex
 .flex-1 {
   flex: 1;
 }
-
+.flex-auto {
+  flex: 1 1 auto;
+}
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+// flex gaps
+.f-gap-1{
+  gap: 0.5rem;
 }
 
 // text colors

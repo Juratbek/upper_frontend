@@ -1,8 +1,8 @@
-import dynamic from 'next/dynamic';
 import { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
+import { appDynamic } from 'utils';
 import { ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
@@ -14,11 +14,8 @@ const LikeIcon = ICONS.like;
 const DislikeIcon = ICONS.dislike;
 const ShareIcon = ICONS.share;
 
-const ArticleSharePopup = dynamic<IArticleSharePopupProps>(
-  () => import('../ArticleSharePopup').then((mod) => mod.ArticleSharePopup),
-  {
-    ssr: false,
-  },
+const ArticleSharePopup = appDynamic<IArticleSharePopupProps>(() =>
+  import('../ArticleSharePopup').then((mod) => mod.ArticleSharePopup),
 );
 
 let lastScrollTop = Number.MAX_VALUE;
