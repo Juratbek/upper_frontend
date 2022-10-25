@@ -1,6 +1,7 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
 import { Alert } from 'components';
 import { Editor } from 'components/Editor';
+import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -17,6 +18,8 @@ export default function UserArticlePage(): JSX.Element {
   const [hasAlert, setHasAlert] = useState<boolean>();
   const [fetchArticle, { isError, error }] = useLazyGetBlogArticleByIdQuery();
   const id = query?.id;
+
+  useBeforeUnload();
 
   const getInstance = (editor: EditorJS): void => {
     editor.isReady
