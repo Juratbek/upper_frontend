@@ -12,9 +12,14 @@ import { get } from 'utils';
 interface IArticlePageProps {
   article?: IArticle | null;
   error?: IResponseError;
+  fullUrl: string;
 }
 
-const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePageProps) => {
+const ArticlePage: NextPage<IArticlePageProps> = ({
+  article,
+  error,
+  fullUrl,
+}: IArticlePageProps) => {
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
 
@@ -43,6 +48,8 @@ const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePa
         <meta property='og:image' content={article.imgUrl} />
         <meta property='og:description' content={article.content} />
         <meta property='og:type' content='article' />
+        <meta property='og:locale' content='uz' />
+        <meta property='og:url' content={fullUrl} />
         <title>{article.title}</title>
       </Head>
       <Article {...article} />
@@ -52,6 +59,11 @@ const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePa
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
   (store) => async (context) => {
+    const host = context.req.headers.host || '';
+    const url = context.req.url;
+    console.log('🚀 ~ file: index.tsx ~ line 57 ~ host');
+    console.log('🚀 ~ file: index.tsx ~ line 57 ~ url');
+
     const articleId = get<number>(context, 'query.id');
     const { data: article, error = {} } = await store.dispatch(
       publishedArticleApi.endpoints.getById.initiate(articleId),
@@ -60,6 +72,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
       props: {
         article: article || null,
         error: error as IResponseError,
+        fullUrl: host + url,
       },
     };
   },
