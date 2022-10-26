@@ -50,8 +50,8 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
         <meta property='og:type' content='article' />
         <meta property='og:locale' content='uz' />
         <meta property='og:url' content={fullUrl} />
-        <meta property='og:author' content={article.author.name} />
-        <meta property='og:publish_date' content={article.publishedDate} />
+        <meta name='author' property='og:author' content={article.author.name} />
+        <meta name='published_date' property='og:publish_date' content={article.publishedDate} />
         <title>{article.title}</title>
       </Head>
       <Article {...article} />
