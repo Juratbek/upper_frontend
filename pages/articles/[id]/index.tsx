@@ -59,10 +59,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const host = context.req.headers.host || '';
-    const url = context.req.url;
-    console.log('🚀 ~ file: index.tsx ~ line 57 ~ host');
-    console.log('🚀 ~ file: index.tsx ~ line 57 ~ url');
+    const fullUrl = context.req.headers.referer || '';
 
     const articleId = get<number>(context, 'query.id');
     const { data: article, error = {} } = await store.dispatch(
@@ -72,7 +69,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
       props: {
         article: article || null,
         error: error as IResponseError,
-        fullUrl: host + url,
+        fullUrl,
       },
     };
   },
