@@ -72,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
       props: {
         article: article || null,
         error: error as IResponseError,
-        fullUrl: host + url,
+        fullUrl: `https://${host}${url}`,
       },
     };
   },
