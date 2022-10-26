@@ -38,10 +38,12 @@ const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePa
   return (
     <div>
       <Head>
+        <meta property='og:site_name' content='UPPER' />
         <meta property='og:title' content={article.title} />
         <meta property='og:image' content={article.imgUrl} />
         <meta property='og:description' content={article.content} />
         <meta property='og:type' content='article' />
+        <title>{article.title}</title>
       </Head>
       <Article {...article} />
     </div>
