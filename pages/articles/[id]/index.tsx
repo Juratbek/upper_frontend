@@ -1,6 +1,7 @@
 import { ApiError } from 'components';
 import { Article } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import { useEffect } from 'react';
 import { useAppDispatch, wrapper } from 'store';
 import { publishedArticleApi, useIncrementViewCountMutation } from 'store/apis';
@@ -34,7 +35,17 @@ const ArticlePage: NextPage<IArticlePageProps> = ({ article, error }: IArticlePa
     return () => clearTimeout(timeout);
   }, [article.id]);
 
-  return <Article {...article} />;
+  return (
+    <div>
+      <Head>
+        <meta property='og:title' content={article.title} />
+        <meta property='og:image' content={article.imgUrl} />
+        <meta property='og:description' content={article.content} />
+        <meta property='og:type' content='article' />
+      </Head>
+      <Article {...article} />
+    </div>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(

@@ -59,7 +59,7 @@ export const Article: FC<IArticleProps> = (props) => {
 
   return (
     <div className={`${styles.articleContainer} editor-container`}>
-      {article}
+      <article>{article}</article>
       <Divider className='my-2' />
       <div className={styles.articleDetail}>
         <div className='d-flex'>
