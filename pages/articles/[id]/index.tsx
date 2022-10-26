@@ -45,11 +45,13 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
       <Head>
         <meta property='og:site_name' content='UPPER' />
         <meta property='og:title' content={article.title} />
-        <meta property='og:image' content={article.imgUrl} />
+        <meta name='image' property='og:image' content={article.imgUrl} />
         <meta property='og:description' content={article.content} />
         <meta property='og:type' content='article' />
         <meta property='og:locale' content='uz' />
         <meta property='og:url' content={fullUrl} />
+        <meta name='author' property='og:author' content={article.author.name} />
+        <meta name='publish_date' property='og:publish_date' content={article.publishedDate} />
         <title>{article.title}</title>
       </Head>
       <Article {...article} />
@@ -59,7 +61,8 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const fullUrl = context.req.headers.referer || '';
+    const host = context.req.headers.host || '';
+    const url = context.req.url;
 
     const articleId = get<number>(context, 'query.id');
     const { data: article, error = {} } = await store.dispatch(
@@ -69,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
       props: {
         article: article || null,
         error: error as IResponseError,
-        fullUrl,
+        fullUrl: host + url,
       },
     };
   },
