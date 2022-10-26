@@ -1,5 +1,7 @@
 import { EditorConfig } from '@editorjs/editorjs';
+import { toBase64 } from 'utils';
 
+import { IUploadedImage } from '../editor.types';
 type TTool =
   | 'Embed'
   | 'Header'
@@ -69,7 +71,23 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
         },
       },
     },
-    image: TOOLS.ImageTool,
+    image: {
+      class: TOOLS.ImageTool,
+      config: {
+        uploader: {
+          async uploadByFile(file: File): Promise<IUploadedImage> {
+            const imageUrl = await toBase64(file);
+
+            return {
+              success: 1,
+              file: {
+                url: imageUrl?.toString() || '',
+              },
+            };
+          },
+        },
+      },
+    },
     code: TOOLS.CodeFlask,
     embed: {
       class: TOOLS.Embed,

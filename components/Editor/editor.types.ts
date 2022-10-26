@@ -10,3 +10,10 @@ export interface IEditorProps {
 
 export const EDITOR_HOLDER = 'editorjs';
 export const EDITOR_PLACEHOLDER = 'Hikoyangizni yozing...';
+
+export interface IUploadedImage {
+  success: number;
+  file: {
+    url: string;
+  };
+}
