@@ -44,14 +44,14 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
     <div>
       <Head>
         <meta property='og:site_name' content='UPPER' />
-        <meta name='title' property='og:title' content={article.title} />
-        <meta name='image' property='og:image' content={article.imgUrl} />
+        <meta property='og:title' content={article.title} />
+        <meta property='og:image' content={article.imgUrl} />
         <meta property='og:description' content={article.content} />
         <meta property='og:type' content='article' />
         <meta property='og:locale' content='uz' />
         <meta property='og:url' content={fullUrl} />
-        <meta name='author' property='og:author' content={article.author.name} />
-        <meta name='publish_date' property='og:publish_date' content={article.publishedDate} />
+        <meta property='og:author' content={article.author.name} />
+        <meta property='og:publish_date' content={article.publishedDate} />
         <title>{article.title}</title>
       </Head>
       <Article {...article} />
