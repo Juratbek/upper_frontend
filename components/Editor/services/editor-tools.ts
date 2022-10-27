@@ -2,6 +2,7 @@ import { EditorConfig } from '@editorjs/editorjs';
 import { toBase64 } from 'utils';
 
 import { IUploadedImage } from '../editor.types';
+
 type TTool =
   | 'Embed'
   | 'Header'
