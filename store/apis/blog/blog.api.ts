@@ -1,5 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { IArticleResult, IBlog, IBlogMedium, ITelegramUser } from 'types';
+import { Authorization } from 'variables';
 
 import { baseQuery } from '../config';
 import {
@@ -63,8 +64,15 @@ export const blogApi = createApi({
     getCurrentBlogFollowers: build.query<IBlogMedium[], void>({
       query: () => 'current-blog-followers',
     }),
-    getById: build.query<IBlog, number>({
-      query: (id) => id.toString(),
+    getById: build.query<IBlog, { id: number; token?: string | null }>({
+      query: ({ id, token }) => ({
+        url: `open/${id}`,
+        headers: token
+          ? {
+              [Authorization]: `Bearer ${token}`,
+            }
+          : {},
+      }),
     }),
     follow: build.mutation<void, number>({
       query: (id) => ({
@@ -74,7 +82,10 @@ export const blogApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
-          blogApi.util.updateQueryData('getById', id, (blog) => ({ ...blog, isFollowed: true })),
+          blogApi.util.updateQueryData('getById', { id }, (blog) => ({
+            ...blog,
+            isFollowed: true,
+          })),
         );
       },
     }),
@@ -86,15 +97,18 @@ export const blogApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
-          blogApi.util.updateQueryData('getById', id, (blog) => ({ ...blog, isFollowed: false })),
+          blogApi.util.updateQueryData('getById', { id }, (blog) => ({
+            ...blog,
+            isFollowed: false,
+          })),
         );
       },
     }),
     getPublishedArticles: build.query<IArticleResult[], number>({
-      query: (id) => `published-articles/${id}`,
+      query: (id) => `open/published-articles/${id}`,
     }),
     getFollowers: build.query<IBlogMedium[], number>({
-      query: (id) => `followers/${id}`,
+      query: (id) => `open/followers/${id}`,
     }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({

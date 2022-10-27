@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 export default function handler(req: NextApiRequest, res: NextApiResponse<void>): void {
   const { token } = req.query;
   if (token && token !== 'undefined') {
-    setCookie('token', 'token', {
+    setCookie('token', token, {
       req,
       res,
       maxAge: 60 * 60 * 24, // 1 day
