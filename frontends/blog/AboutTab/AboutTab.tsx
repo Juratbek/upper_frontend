@@ -16,7 +16,7 @@ export const AboutTab: FC = () => {
 
   useEffect(() => {
     if (id && tab === BLOG_TAB_IDS.about) {
-      fetchBlogById(+id);
+      fetchBlogById({ id: +id });
     }
   }, [id]);
 

@@ -105,10 +105,10 @@ export const blogApi = createApi({
       },
     }),
     getPublishedArticles: build.query<IArticleResult[], number>({
-      query: (id) => `published-articles/${id}`,
+      query: (id) => `open/published-articles/${id}`,
     }),
     getFollowers: build.query<IBlogMedium[], number>({
-      query: (id) => `followers/${id}`,
+      query: (id) => `open/followers/${id}`,
     }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({
