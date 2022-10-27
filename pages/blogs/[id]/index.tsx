@@ -42,7 +42,7 @@ const BlogPage: NextPage<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageP
         <meta property='og:type' content='blog' />
         <meta property='og:locale' content='uz' />
         <meta property='og:url' content={fullUrl} />
-        <meta name='description' content={blog.name} />
+        <meta name='description' content={blog.bio} />
         <title>{blog.name}</title>
       </Head>
       <div className='d-flex align-items-center justify-content-between p-2'>
