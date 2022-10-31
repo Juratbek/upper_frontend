@@ -5,7 +5,7 @@ import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLazyGetBlogArticleByIdQuery } from 'store/apis';
+import { ARTICLE_BUCKET_URL, useLazyGetBlogArticleByIdQuery } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
 import { checkAuthInServer, get } from 'utils';
 import { ARTICLE_STATUSES } from 'variables';
@@ -33,7 +33,20 @@ export default function UserArticlePage(): JSX.Element {
     if (blocks.length === 0 && typeof id === 'string') {
       fetchArticle(+id).then(({ data }) => {
         if (data) {
-          setBlocks(data.blocks);
+          const generatedBlocks = data.blocks.map((block) => {
+            if (block.type === 'image') {
+              return {
+                ...block,
+                data: {
+                  file: {
+                    url: `${ARTICLE_BUCKET_URL}${block.data.file.url}`,
+                  },
+                },
+              };
+            }
+            return block;
+          });
+          setBlocks(generatedBlocks);
           dispatch(setArticle(data));
         }
       });

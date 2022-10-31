@@ -83,6 +83,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
               success: 1,
               file: {
                 url: imageUrl?.toString() || '',
+                name: file.name,
               },
             };
           },

@@ -15,5 +15,6 @@ export interface IUploadedImage {
   success: number;
   file: {
     url: string;
+    name: string;
   };
 }

@@ -7,6 +7,7 @@ const nextConfig = {
       'images.unsplash.com',
       'lh3.googleusercontent.com',
       'i.natgeofe.com',
+      'upper-article-image-assets-bucket.s3.ap-south-1.amazonaws.com'
     ],
   },
 };

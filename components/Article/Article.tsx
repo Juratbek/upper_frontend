@@ -31,6 +31,22 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
     }
   }, [content]);
 
+  const renderDate = (): JSX.Element => {
+    if (updatedDate)
+      return (
+        <>
+          <strong>{toDateString(updatedDate)}</strong> da yangilangan
+        </>
+      );
+    if (publishedDate)
+      return (
+        <>
+          <strong>{toDateString(publishedDate)}</strong> da nashr etilgan
+        </>
+      );
+    return <></>;
+  };
+
   return (
     <div className={rootClassName}>
       <Link href={`${redirectUrl || '/articles'}/${id}`}>
@@ -44,17 +60,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
       </Link>
       <div className={classes.footer}>
         <div className={classes.stats}>
-          <span>
-            {updatedDate ? (
-              <>
-                <strong>{toDateString(updatedDate)}</strong> da yangilangan
-              </>
-            ) : (
-              <>
-                <strong>{toDateString(publishedDate)}</strong> da nashr etilgan
-              </>
-            )}
-          </span>
+          <span>{renderDate()}</span>
           &nbsp; &nbsp;
           {viewCount > 0 && (
             <span>

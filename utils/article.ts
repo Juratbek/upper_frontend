@@ -1,5 +1,6 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { IArticle } from 'types';
+import { ARTICLE_BUCKET_URL } from 'store/apis';
+import { IArticle, IArticleResult } from 'types';
 
 export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): string => {
   const title = blocks.find((block) => block.type === 'header')?.data.text;
@@ -9,3 +10,6 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
   if (article.labels.length === 0) return 'Iltimos teglarni tanlang';
   return '';
 };
+
+export const addUriToArticleImages = (articles: IArticleResult[]): IArticleResult[] =>
+  articles.map((article) => ({ ...article, imgUrl: `${ARTICLE_BUCKET_URL}${article.imgUrl}` }));

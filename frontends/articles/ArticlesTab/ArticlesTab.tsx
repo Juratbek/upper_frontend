@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazyGetBlogArticlesQuery } from 'store/apis';
 import { TArticleStatus } from 'types';
+import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, ARTICLES_TAB_MENUS } from 'variables';
 
 export const ArticlesTab: FC = () => {
@@ -35,7 +36,7 @@ export const ArticlesTab: FC = () => {
           </Link>
         </div>
       )}
-      {getBlogArticlesRes.data?.map((article) => {
+      {addUriToArticleImages(getBlogArticlesRes.data || []).map((article) => {
         return (
           <Article
             redirectUrl='/user/articles'
