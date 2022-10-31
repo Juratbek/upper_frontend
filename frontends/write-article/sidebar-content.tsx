@@ -1,6 +1,7 @@
 import { Button, Divider, IOption, MultiSelect } from 'components';
+import { useShortCut } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
@@ -38,6 +39,12 @@ export const SidebarContent: FC = () => {
   const SearchLabels = (value: string): void => {
     value && searchLabels(value);
   };
+
+  const isSavePressed = useShortCut('s');
+
+  useEffect(() => {
+    if (isSavePressed) save();
+  }, [isSavePressed]);
 
   return (
     <>
