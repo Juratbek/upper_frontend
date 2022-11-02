@@ -13,3 +13,24 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
 
 export const addUriToArticleImages = (articles: IArticleResult[]): IArticleResult[] =>
   articles.map((article) => ({ ...article, imgUrl: `${ARTICLE_BUCKET_URL}${article.imgUrl}` }));
+
+export const removeAmazonUriFromImgBlocks = (blocks: OutputBlockData[]): OutputBlockData[] =>
+  blocks.map((block) => {
+    if (block.type !== 'image') return block;
+    debugger;
+    const img = block.data.file;
+    const imgUrl = img.url as string;
+    if (imgUrl.startsWith(ARTICLE_BUCKET_URL)) {
+      const imgUrlWithoutUri = imgUrl.replaceAll(ARTICLE_BUCKET_URL, '');
+      return {
+        ...block,
+        data: {
+          file: {
+            ...img,
+            url: imgUrlWithoutUri,
+          },
+        },
+      };
+    }
+    return block;
+  });
