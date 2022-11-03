@@ -30,8 +30,10 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
   const dispatch = useAppDispatch();
 
-  const detectScrollDirection = (): void => {
-    const st = document.documentElement.scrollTop;
+  const detectScrollDirection = (e: Event): void => {
+    const target = e.target as HTMLElement;
+
+    const st = target.scrollTop;
     if (st > lastScrollTop) {
       setIsScrollingUp(false);
     } else {
@@ -45,7 +47,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', detectScrollDirection);
+    document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
   }, []);
 
   useEffect(() => {
