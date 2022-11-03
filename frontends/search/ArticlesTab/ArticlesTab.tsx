@@ -2,6 +2,7 @@ import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchArticleQuery } from 'store/apis';
+import { addUriToArticleImages } from 'utils';
 import {
   ARTICLES_SKELETON_COUNT,
   SEARCH_PAGE_ARTICLE_ACTIONS,
@@ -29,7 +30,7 @@ export const ArticlesTab: FC = () => {
       className='tab'
     >
       {searchArticleRes.data?.length === 0 && <h3 className='text-center'>Maqola topilmadi</h3>}
-      {searchArticleRes.data?.map((article) => (
+      {addUriToArticleImages(searchArticleRes.data).map((article) => (
         <Article
           className='px-2 py-2'
           key={article.id}

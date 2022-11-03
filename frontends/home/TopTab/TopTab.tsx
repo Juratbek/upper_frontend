@@ -1,6 +1,7 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
 import { FC } from 'react';
 import { useGetTopArticlesQuery } from 'store/apis';
+import { addUriToArticleImages } from 'utils';
 import {
   ARTICLES_SKELETON_COUNT,
   SEARCH_PAGE_ARTICLE_ACTIONS,
@@ -17,8 +18,8 @@ export const TopTab: FC = () => {
       res={res}
       className='tab'
     >
-      {res?.data?.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
-      {res.data?.map((article) => (
+      {res.data?.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
+      {addUriToArticleImages(res.data).map((article) => (
         <Article
           className='p-2'
           key={article.id}

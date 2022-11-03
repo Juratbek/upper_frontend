@@ -5,7 +5,12 @@ import { getClassName } from 'utils';
 import classes from './ArticleImg.module.css';
 import { IArticleImgProps } from './ArticleImg.types';
 
-export const ArticleImg: FC<IArticleImgProps> = ({ className, size = 'medium', imgUrl }) => {
+export const ArticleImg: FC<IArticleImgProps> = ({
+  className,
+  size = 'medium',
+  imgUrl = 'https://images.unsplash.com/photo-1612538498456-e861df91d4d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
+}) => {
+  console.log('🚀 ~ file: ArticleImg.tsx ~ line 12 ~ imgUrl', imgUrl);
   const rootClassName = getClassName(
     className,
     classes['article-img'],
@@ -14,11 +19,7 @@ export const ArticleImg: FC<IArticleImgProps> = ({ className, size = 'medium', i
 
   return (
     <div className={rootClassName}>
-      {imgUrl ? (
-        <Image src={imgUrl} alt='Vercel Logo' layout='fill' objectFit='contain' />
-      ) : (
-        <Image src='/vercel.svg' alt='Vercel Logo' layout='fill' />
-      )}
+      {imgUrl && <Image src={imgUrl} alt='Vercel Logo' layout='fill' objectFit='contain' />}
     </div>
   );
 };

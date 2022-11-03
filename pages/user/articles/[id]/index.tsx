@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetBlogArticleByIdQuery } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
-import { checkAuthInServer, get } from 'utils';
+import { addUriToImageBlocks, checkAuthInServer, get } from 'utils';
 import { ARTICLE_STATUSES } from 'variables';
 
 export default function UserArticlePage(): JSX.Element {
@@ -33,7 +33,8 @@ export default function UserArticlePage(): JSX.Element {
     if (blocks.length === 0 && typeof id === 'string') {
       fetchArticle(+id).then(({ data }) => {
         if (data) {
-          setBlocks(data.blocks);
+          const generatedBlocks = addUriToImageBlocks(data.blocks);
+          setBlocks(generatedBlocks);
           dispatch(setArticle(data));
         }
       });

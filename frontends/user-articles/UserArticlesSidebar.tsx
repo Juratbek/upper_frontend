@@ -10,7 +10,12 @@ import {
 } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
 import { TArticleStatus } from 'types';
-import { convertLabelsToOptions, convertOptionsToLabels, validateArticle } from 'utils';
+import {
+  convertLabelsToOptions,
+  convertOptionsToLabels,
+  removeAmazonUriFromImgBlocks,
+  validateArticle,
+} from 'utils';
 import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
@@ -57,7 +62,7 @@ export const UserArticlesSidebar: FC = () => {
     if (!editor || !article) return Promise.reject();
 
     const editorData = await editor?.save();
-    const blocks = editorData.blocks;
+    const blocks = removeAmazonUriFromImgBlocks(editorData.blocks);
     const title = blocks.find((block) => block.type === 'header')?.data.text;
 
     const updatedArticle = await updateArticle({ ...article, title, blocks }).unwrap();
