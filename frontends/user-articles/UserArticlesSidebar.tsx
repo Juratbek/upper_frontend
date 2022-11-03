@@ -1,7 +1,7 @@
 import { Alert, ArticleStatus, Button, Divider, IOption, Modal, MultiSelect } from 'components';
-import { useUrlParams } from 'hooks';
+import { useShortCut, useUrlParams } from 'hooks';
 import Link from 'next/link';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
   useLazySearchLabelsQuery,
@@ -107,6 +107,14 @@ export const UserArticlesSidebar: FC = () => {
   const SearchLabels = (value: string): void => {
     value && searchLabels(value);
   };
+
+  const isSavePressed = useShortCut('s');
+  const isPublishPressed = useShortCut('p');
+
+  useEffect(() => {
+    if (isSavePressed) saveChanges();
+    if (isPublishPressed) openModal(ARTICLE_ACTIONS.publish);
+  }, [isSavePressed, isPublishPressed]);
 
   return (
     <>
