@@ -1,6 +1,7 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
 import { FC } from 'react';
 import { useGetArticleSuggestionsQuery } from 'store/apis';
+import { addUriToArticleImages } from 'utils';
 import {
   ARTICLES_SKELETON_COUNT,
   SEARCH_PAGE_ARTICLE_ACTIONS,
@@ -16,8 +17,8 @@ export const ForYouTab: FC = () => {
       res={res}
       className='tab'
     >
-      {res?.data?.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
-      {res?.data?.map((article) => (
+      {res.data?.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
+      {addUriToArticleImages(res.data).map((article) => (
         <Article
           className='px-2 py-2'
           key={article.id}

@@ -5,7 +5,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal } from 'store/states';
-import { toDateString } from 'utils';
+import { addUriToImageBlocks, toDateString } from 'utils';
 import { ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
@@ -47,7 +47,13 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [blocks]);
 
   const article = useMemo(
-    () => <Editor content={{ blocks }} isEditable={false} handleInstance={setEditorInstance} />,
+    () => (
+      <Editor
+        content={{ blocks: addUriToImageBlocks(blocks) }}
+        isEditable={false}
+        handleInstance={setEditorInstance}
+      />
+    ),
     [blocks],
   );
 

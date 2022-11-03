@@ -2,6 +2,7 @@ import { ApiErrorBoundary, Article } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
+import { addUriToArticleImages } from 'utils';
 import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
 
 export const ArticlesTab: FC = () => {
@@ -19,7 +20,7 @@ export const ArticlesTab: FC = () => {
   const articles = useMemo(() => {
     const { data: articles } = fetchBlogArticlesRes;
     if (!articles || articles.length === 0) return <p>Maqolalar mavjud emas</p>;
-    return articles.map((article) => (
+    return addUriToArticleImages(articles).map((article) => (
       <Article
         className='px-2 py-2'
         key={article.id}
