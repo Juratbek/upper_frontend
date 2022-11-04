@@ -11,7 +11,7 @@ import {
   LikeIcon,
   LinkedInIcon,
   Logo,
-  LogOut,
+  LogOutIcon,
   MenuListIcon,
   NextIcon,
   NotificationIcon,
@@ -25,7 +25,7 @@ import {
   UserIcon,
   YouTubeIcon,
 } from 'assets';
-import { TIcon } from 'types';
+import { TIcon, TIconComponent } from 'types';
 
 export const ICON_TYPES = {
   delete: 'delete',
@@ -64,7 +64,7 @@ export const SOCIAL_MEDIA_ICONS = [
   ICON_TYPES.instagram,
 ];
 
-export const ICONS: Record<TIcon, () => JSX.Element> = {
+export const ICONS: Record<TIcon, TIconComponent> = {
   delete: DeleteIcon,
   save: SaveIcon,
   home: HomeIcon,
@@ -88,6 +88,6 @@ export const ICONS: Record<TIcon, () => JSX.Element> = {
   linkedIn: LinkedInIcon,
   youtube: YouTubeIcon,
   triangle: TringleIcon,
-  logOut: LogOut,
+  logOut: LogOutIcon,
   logo: Logo,
 };

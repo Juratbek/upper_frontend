@@ -1,0 +1,21 @@
+
+.icon {
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+  
+    $bg-color: rgba(0, 0, 0, 0.75);
+    &:hover {
+      background-color: $bg-color;
+    }
+
+    &--active {
+      background-color: $bg-color;
+    }
+  
+    svg {
+      $size: 1.6rem;
+      width: $size;
+      height: $size;
+    }
+  }
