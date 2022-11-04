@@ -69,8 +69,12 @@ export const Article: FC<IArticleProps> = (props) => {
       <Divider className='my-2' />
       <div className={styles.articleDetail}>
         <div className='d-flex'>
-          {viewCount > 0 && <span>{viewCount} martta ko&apos;rilgan</span>}
-          <Divider type='vertical' className='mx-1' />
+          {viewCount > 0 && (
+            <>
+              <span>{viewCount} martta ko&apos;rilgan</span>
+              <Divider type='vertical' className='mx-1' />
+            </>
+          )}
           {dateContent}
         </div>
         <div className={styles.reactions}>
