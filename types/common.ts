@@ -15,6 +15,8 @@ export type TAction = typeof ACTION_TYPES.delete | typeof ACTION_TYPES.markAsRea
 
 export type TIcon = keyof typeof ICON_TYPES;
 
+export type TIconComponent = ({ color }: { color?: string }) => JSX.Element;
+
 export type TClassName = string | undefined | Record<string, string> | boolean;
 
 export interface IGetServerSideProps<T = Record<string, never>> {

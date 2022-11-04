@@ -5,6 +5,7 @@ import { useAppDispatch } from 'store';
 import { openLoginModal } from 'store/states';
 import { ICONS } from 'variables';
 
+import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
 
@@ -13,6 +14,7 @@ const Logo = ICONS.logo;
 
 export const Navigation = (): JSX.Element => {
   const { isAuthenticated, unauthenticate } = useAuth();
+  const { pathname } = useRouter();
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -39,15 +41,13 @@ export const Navigation = (): JSX.Element => {
           {icons.map(({ icon, href, authNeeded }, index) => {
             const Icon = ICONS[icon];
             return (
-              <div
-                key={index}
+              <NavItem
                 onClick={(): void => clickHandler(href, authNeeded)}
+                key={index}
+                icon={Icon}
                 className='pointer'
-              >
-                <a className={classes.icon}>
-                  <Icon />
-                </a>
-              </div>
+                isActive={href === pathname}
+              />
             );
           })}
         </div>
