@@ -15,9 +15,11 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
       <Link href={`/blogs/${id}`}>
         <div className='d-flex pointer'>
           <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />
-          <div>
-            <h4 className='m-0'>{name}</h4>
-            {bio && <p className={classes.bio}>{bio}</p>}
+          <div className='d-flex align-items-center'>
+            <div>
+              <h4 className='m-0'>{name}</h4>
+              {bio && <p className={classes.bio}>{bio}</p>}
+            </div>
           </div>
         </div>
       </Link>
