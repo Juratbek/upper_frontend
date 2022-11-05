@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
 import { ILink, TIcon, TSubmitFormEvent } from 'types';
-import { addAmazonUri, compressImage } from 'utils';
+import { addAmazonUri, compressImage, toBase64 } from 'utils';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
@@ -12,18 +12,34 @@ import classes from './AboutTab.module.scss';
 
 export const AboutTab: FC = () => {
   const [alert, setAlert] = useState<string>();
+  const [imgUrl, setImgUrl] = useState<string | undefined>('');
   const {
     query: { tab },
   } = useRouter();
   const [fetchCurrentBlog, currentBlogRes] = useLazyGetCurrentBlogQuery();
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
 
   useEffect(() => {
     if (tab && tab === PROFILE_TAB_IDS.settings) {
-      fetchCurrentBlog();
+      fetchCurrentBlog().then((res) => {
+        if (!res.data) return;
+        const imgUrl = addAmazonUri(res.data).imgUrl;
+        setImgUrl(imgUrl);
+      });
     }
   }, [tab]);
+
+  useEffect(() => {
+    const avatarFile = watch('avatar')?.[0];
+    if (typeof avatarFile !== 'object') return;
+    avatarChangeHandler(avatarFile);
+  }, [watch('avatar')]);
+
+  const avatarChangeHandler = async (file: File): Promise<void> => {
+    const imageDataStr = await toBase64(file);
+    setImgUrl(imageDataStr as string);
+  };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     const { name, bio, ...values } = event;
@@ -47,12 +63,11 @@ export const AboutTab: FC = () => {
   };
 
   const renderOpenSettings = (): JSX.Element => {
-    const { data, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
+    const { data: blog, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
     if (isLoading || isFetching) return <p>Yuklanmoqda...</p>;
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
     if (isSuccess) {
-      const blog = addAmazonUri(data);
       return (
         <form className='d-flex flex-wrap' onSubmit={handleSubmit(submitHandler)}>
           <div className='w-100'>
@@ -61,7 +76,7 @@ export const AboutTab: FC = () => {
           </div>
           <div className='w-50 p-1'>
             <div>
-              <Avatar imgUrl={blog.imgUrl} className='my-2' size='extra-large' />
+              <Avatar imgUrl={imgUrl || ''} className='my-2' size='extra-large' />
               <FileInput {...register('avatar')} accept='image/jpeg, image/png' />
             </div>
             <div>
