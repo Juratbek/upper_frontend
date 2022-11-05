@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
 import { ILink, TIcon, TSubmitFormEvent } from 'types';
+import { addAmazonUri, compressImage } from 'utils';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
@@ -33,21 +34,25 @@ export const AboutTab: FC = () => {
       }
       return res;
     }, [] as Array<ILink>);
-    const avatar = event.avatar[0];
+    const avatar = event.avatar[0] as unknown as File;
+    const compressedAvatarImage = await compressImage(avatar);
+
     const formData = new FormData();
-    avatar && formData.set('avatar', avatar);
+    avatar && formData.set('avatar', compressedAvatarImage);
     formData.set('name', name);
     formData.set('bio', bio);
     formData.set('links', JSON.stringify(socialMediaLinks));
+
     await updateBlog(formData).unwrap();
   };
 
   const renderOpenSettings = (): JSX.Element => {
-    const { data: blog, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
+    const { data, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
     if (isLoading || isFetching) return <p>Yuklanmoqda...</p>;
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
-    if (isSuccess)
+    if (isSuccess) {
+      const blog = addAmazonUri(data);
       return (
         <form className='d-flex flex-wrap' onSubmit={handleSubmit(submitHandler)}>
           <div className='w-100'>
@@ -93,6 +98,7 @@ export const AboutTab: FC = () => {
           </div>
         </form>
       );
+    }
 
     return <></>;
   };

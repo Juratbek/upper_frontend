@@ -3,6 +3,7 @@
   position: relative;
   border-radius: 100rem;
   background-color: #d9d9d9;
+  border: 0.1px solid rgba(245, 245, 245, 0.1);
 }
 
 .avatar--small {
@@ -24,9 +25,6 @@
   min-width: $size;
   width: $size;
   height: $size;
-  /* min-width: 60px;
-  width: 60px;
-  height: 60px; */
 }
 
 .avatar--extra-large {

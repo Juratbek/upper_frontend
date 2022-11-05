@@ -1,6 +1,7 @@
 import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
+import { addAmazonUri } from 'utils';
 import { getClassName } from 'utils/common';
 
 import classes from './SidebarArticle.module.css';
@@ -21,7 +22,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
         <Link href={`/articles/${id}`}>
           <h4 className='m-0 mb-1 pointer'>{title}</h4>
         </Link>
-        {author && <Author {...author} />}
+        {author && <Author {...addAmazonUri(author)} />}
       </div>
       <Link href={`/articles/${1}`}>
         <div>
