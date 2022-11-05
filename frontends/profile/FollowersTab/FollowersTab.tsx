@@ -2,6 +2,7 @@ import { Follower } from 'components';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
 import { useLazyGetCurrentBlogFollowersQuery } from 'store/apis';
+import { addAmazonUri } from 'utils';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 export const FollowersTab: FC = () => {
@@ -25,7 +26,7 @@ export const FollowersTab: FC = () => {
       <div>
         {followers?.map((follower) => (
           <Fragment key={follower.id}>
-            <Follower {...follower} className='px-3 py-2' />
+            <Follower {...addAmazonUri(follower)} className='px-3 py-2' />
           </Fragment>
         ))}
       </div>

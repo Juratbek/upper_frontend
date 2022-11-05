@@ -1,7 +1,7 @@
 import { ArticleImg, Author, Label } from 'components';
 import Link from 'next/link';
 import { FC, useEffect, useRef } from 'react';
-import { formatToKMB, getClassName, toDateString } from 'utils';
+import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
 
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
@@ -77,7 +77,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
         </div>
       </div>
       <div className={classes.footer} style={{ marginTop: '.5rem' }}>
-        {author ? <Author {...author} /> : <div />}
+        {author ? <Author {...addAmazonUri(author)} /> : <div />}
       </div>
     </div>
   );

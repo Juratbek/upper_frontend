@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { wrapper } from 'store';
 import { blogApi, useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
 import { IBlog, IResponseError } from 'types';
-import { get } from 'utils';
+import { addAmazonUri, get } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS } from 'variables';
 
 interface IBlogPageProps {
@@ -48,7 +48,7 @@ const BlogPage: NextPage<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageP
       <div className='d-flex align-items-center justify-content-between p-2'>
         {blog && (
           <>
-            <Blog {...blog} avaratSize='extra-large' />
+            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' />
             {blog.isFollowed ? (
               <Button color='outline-dark' onClick={unfollow}>
                 Kuzatishni bekor qilish

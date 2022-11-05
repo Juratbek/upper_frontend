@@ -1,7 +1,7 @@
 import { Divider } from 'components';
 import { useAppSelector } from 'store';
 import { getArticleAuthor } from 'store/states/readArticle';
-import { appDynamic } from 'utils';
+import { addAmazonUri, appDynamic } from 'utils';
 
 import { Author } from '../Author';
 
@@ -15,7 +15,7 @@ export const ReadArticleSidebar = (): JSX.Element => {
   return (
     <>
       <DynamicComments />
-      <Author {...articleAuthor} className='mt-2' />
+      <Author {...addAmazonUri(articleAuthor)} className='mt-2' />
       <Divider className='my-2' />
     </>
   );
