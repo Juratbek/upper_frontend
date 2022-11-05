@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, Fragment, useMemo } from 'react';
 
 import { IApiErrorBoundaryProps } from './ApiErrorBoundary.types';
 
@@ -12,7 +12,7 @@ export const ApiErrorBoundary: FC<IApiErrorBoundaryProps> = ({
   const Fallback = useMemo(() => {
     return Array(fallbackItemCount)
       .fill('')
-      .map(() => fallback);
+      .map((_, index) => <Fragment key={index}>{fallback}</Fragment>);
   }, [fallback, fallbackItemCount]);
 
   const content = useMemo(() => {

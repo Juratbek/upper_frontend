@@ -6,13 +6,13 @@ import classes from './NavItem.module.scss';
 
 interface INavItemProps extends HTMLAttributes<HTMLDivElement> {
   icon: TIconComponent;
-  isActive?: boolean;
+  active?: boolean;
 }
 
-export const NavItem: FC<INavItemProps> = (props) => {
+export const NavItem: FC<INavItemProps> = ({ active, icon, ...props }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const Icon = props.icon;
-  const iconClassName = getClassName(classes.icon, props.isActive && classes['icon--active']);
+  const Icon = icon;
+  const iconClassName = getClassName(classes.icon, active && classes['icon--active']);
 
   const toggleHover = (): void => {
     setIsHovered((prev) => !prev);
@@ -21,7 +21,7 @@ export const NavItem: FC<INavItemProps> = (props) => {
   return (
     <div {...props} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
       <a className={iconClassName}>
-        <Icon {...((props.isActive || isHovered) && { color: 'white' })} />
+        <Icon {...((active || isHovered) && { color: 'white' })} />
       </a>
     </div>
   );

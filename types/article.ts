@@ -17,7 +17,7 @@ export interface IArticleResult extends IArticleSmall {
   content: string;
   status: TArticleStatus;
   imgUrl: string;
-  author?: IBlogSmall;
+  author: IBlogSmall;
   labels: ILabel[];
   publishedDate: Date;
   updatedDate?: Date;

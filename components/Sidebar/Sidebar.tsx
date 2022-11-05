@@ -17,7 +17,7 @@ import {
   useGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
 import { getArticleAuthor, openLoginModal, openRegisterModal } from 'store/states';
-import { addAmazonUri, replaceAll } from 'utils';
+import { addAmazonUri, addUriToArticleImages, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -49,7 +49,7 @@ export const Sidebar = (): JSX.Element => {
       >
         {data?.length === 0 && <h5>Maqolalar mavjud emas</h5>}
         {data &&
-          data.map((article, index) => (
+          addUriToArticleImages(data).map((article, index) => (
             <div key={article.id}>
               <SidebarArticle {...article} />
               {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}

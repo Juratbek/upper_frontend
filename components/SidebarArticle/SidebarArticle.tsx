@@ -24,7 +24,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
         </Link>
         {author && <Author {...addAmazonUri(author)} />}
       </div>
-      <Link href={`/articles/${1}`}>
+      <Link href={`/articles/${id}`}>
         <div>
           <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
         </div>

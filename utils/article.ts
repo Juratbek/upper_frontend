@@ -1,6 +1,6 @@
 import { OutputBlockData } from '@editorjs/editorjs';
 import { ARTICLE_BUCKET_URL } from 'store/apis';
-import { IArticle, IArticleResult } from 'types';
+import { IArticle, ISidebarArticle } from 'types';
 
 export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): string => {
   const title = blocks.find((block) => block.type === 'header')?.data.text;
@@ -11,7 +11,7 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
   return '';
 };
 
-export const addUriToArticleImages = (articles: IArticleResult[] = []): IArticleResult[] =>
+export const addUriToArticleImages = <T extends ISidebarArticle>(articles: T[] = []): T[] =>
   articles.map((article) => {
     const imgUrl = article.imgUrl;
     if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;

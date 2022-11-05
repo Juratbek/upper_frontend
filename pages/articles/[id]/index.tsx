@@ -23,14 +23,9 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
 
-  if (!article) {
-    if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
-    return <h1>{get(error, 'data.message')}</h1>;
-  }
-
-  dispatch(setArticleAuthor(article.author));
-
   useEffect(() => {
+    if (!article) return;
+    dispatch(setArticleAuthor(article.author));
     const timeout = setTimeout(() => {
       if (article.token) {
         const { id, token } = article;
@@ -38,7 +33,12 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
       }
     }, 15 * 1000);
     return () => clearTimeout(timeout);
-  }, [article.id]);
+  }, [article?.id]);
+
+  if (!article) {
+    if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
+    return <h1>{get(error, 'data.message')}</h1>;
+  }
 
   return (
     <div>
