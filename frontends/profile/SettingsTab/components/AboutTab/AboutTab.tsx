@@ -62,7 +62,7 @@ export const AboutTab: FC = () => {
           <div className='w-50 p-1'>
             <div>
               <Avatar imgUrl={blog.imgUrl} className='my-2' size='extra-large' />
-              <FileInput {...register('avatar')} />
+              <FileInput {...register('avatar')} accept='image/jpeg, image/png' />
             </div>
             <div>
               <h4 className='mb-1'>Nomi</h4>

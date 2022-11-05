@@ -1,5 +1,5 @@
 import { EditorConfig } from '@editorjs/editorjs';
-import { toBase64 } from 'utils';
+import { compressImage, toBase64 } from 'utils';
 
 import { IUploadedImage } from '../editor.types';
 
@@ -77,7 +77,8 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
       config: {
         uploader: {
           async uploadByFile(file: File): Promise<IUploadedImage> {
-            const imageUrl = await toBase64(file);
+            const compressedFile = await compressImage(file);
+            const imageUrl = await toBase64(compressedFile);
 
             return {
               success: 1,
