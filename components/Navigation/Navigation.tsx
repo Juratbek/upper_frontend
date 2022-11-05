@@ -46,7 +46,7 @@ export const Navigation = (): JSX.Element => {
                 key={index}
                 icon={Icon}
                 className='pointer'
-                isActive={href === pathname}
+                active={href === pathname}
               />
             );
           })}
