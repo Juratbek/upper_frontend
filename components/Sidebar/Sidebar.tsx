@@ -17,7 +17,7 @@ import {
   useGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
 import { getArticleAuthor, openLoginModal, openRegisterModal } from 'store/states';
-import { replaceAll } from 'utils';
+import { addAmazonUri, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -71,7 +71,7 @@ export const Sidebar = (): JSX.Element => {
         {data &&
           data.map((blog, index) => (
             <div key={blog.id}>
-              <SidebarBlog {...blog} />
+              <SidebarBlog {...addAmazonUri(blog)} />
               {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
             </div>
           ))}

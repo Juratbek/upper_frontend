@@ -1,17 +1,8 @@
 import { Blog, TabBody, TabsHeader } from 'components';
 import { useMemo } from 'react';
 import { useGetCurrentBlogQuery } from 'store/apis';
-import { IBlogMedium } from 'types';
-import { checkAuthInServer } from 'utils';
+import { addAmazonUri, checkAuthInServer } from 'utils';
 import { PROFILE_TAB_MENUS, PROFILE_TABS } from 'variables/Profile.constants';
-
-export const blog: IBlogMedium = {
-  id: 1,
-  name: 'Boymurodov Samandar',
-  imgUrl: '',
-  articlesCount: 200,
-  followersCount: 1000,
-};
 
 export default function ProfilePage(): JSX.Element {
   const fetchCurrentBlogRes = useGetCurrentBlogQuery();
@@ -21,7 +12,11 @@ export default function ProfilePage(): JSX.Element {
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
     return (
       currentBlog && (
-        <Blog {...currentBlog} avaratSize='extra-large' className='p-2 align-items-center' />
+        <Blog
+          {...addAmazonUri(currentBlog)}
+          avaratSize='extra-large'
+          className='p-2 align-items-center'
+        />
       )
     );
   }, [fetchCurrentBlogRes]);

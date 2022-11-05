@@ -7,3 +7,5 @@ export * from './article';
 export * from './auth';
 export * from './app-dynamic';
 export * from './toBase64';
+export * from './blog';
+export * from './image';
