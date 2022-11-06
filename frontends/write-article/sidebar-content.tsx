@@ -60,6 +60,14 @@ export const SidebarContent: FC = () => {
         <MultiSelect
           onChange={labelsChangeHandler}
           onInputDebounce={SearchLabels}
+          renderItem={(item): JSX.Element => {
+            return (
+              <div className='p-1 pointer'>
+                <h4 className='m-0'>{item.label}</h4>
+                <p className='m-0 mt-1 fs-1'>{item.description}</p>
+              </div>
+            );
+          }}
           options={convertLabelsToOptions(searchLabelsRes.data)}
           inputPlacegolder='Qidirish uchun yozing'
         />
