@@ -68,6 +68,13 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   }, [selectedOptions]);
 
   const optionsContent = useMemo(() => {
+    const renderItem = (option: IOption): JSX.Element =>
+      props.renderItem ? (
+        props.renderItem(option)
+      ) : (
+        <div className={classes['option__item']}>{option.label}</div>
+      );
+
     const selectedOptionsValues = selectedOptions.map((option) => option.value);
     const selectedOptionsValuesSet = new Set(selectedOptionsValues);
     const availableOptions = options.filter(
@@ -79,12 +86,8 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     return (
       <>
         {availableOptions.map((option) => (
-          <div
-            key={option.value}
-            className={classes['option__item']}
-            onClick={(): void => selectOption(option)}
-          >
-            {option.label}
+          <div key={option.value} onClick={(): void => selectOption(option)}>
+            {renderItem(option)}
           </div>
         ))}
       </>

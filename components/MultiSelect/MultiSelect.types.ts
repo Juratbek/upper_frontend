@@ -1,9 +1,10 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { Override } from 'utils';
 
 export interface IOption {
   label: string;
   value: string | number;
+  [name: string]: ReactNode;
 }
 
 export type TMultiSelectProps = Override<
@@ -15,5 +16,6 @@ export type TMultiSelectProps = Override<
     onChange?: (options: IOption[]) => void;
     onInputDebounce?: (value: string) => void;
     inputPlacegolder?: string;
+    renderItem?: (option: IOption) => JSX.Element;
   }
 >;

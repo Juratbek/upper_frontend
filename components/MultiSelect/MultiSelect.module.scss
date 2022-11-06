@@ -47,9 +47,9 @@
   }
 
   &__selected {
-    background-color: black;
-    color: white;
-    padding: 0.2rem 0.4rem;
+    border: 0.5px solid black;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
     border-radius: 100rem;
     margin-bottom: 0.1rem;
     margin-top: 0.1rem;
