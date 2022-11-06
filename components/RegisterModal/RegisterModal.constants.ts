@@ -1,18 +1,14 @@
 import { TFormFields } from 'types';
 
-type TField = 'name' | 'bio' | 'login' | 'password';
+import { TField, TValidityRequirement } from './RegisterModal.types';
 
 export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
   name: {
     name: 'name',
     options: {
-      required: true,
-      minLength: {
-        value: 2,
-        message: 'Blog nomi kamida 2 harfdan iborat bo`lishi zarur!',
-      },
+      required: 'Blog nomi bo`sh bo`lishi mumkin emas',
       maxLength: {
-        value: 40,
+        value: 60,
         message: 'Blog nomi o`ta uzun',
       },
     },
@@ -20,12 +16,8 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
   bio: {
     name: 'bio',
     options: {
-      minLength: {
-        value: 2,
-        message: 'Bio kamida 2 harfdan iborat bo`lishi zarur!',
-      },
       maxLength: {
-        value: 50,
+        value: 60,
         message: 'Bio o`ta uzun',
       },
     },
@@ -33,7 +25,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
   login: {
     name: 'login',
     options: {
-      required: true,
+      required: 'Login bo`sh bo`lishi mumkin eams',
       minLength: {
         value: 8,
         message: 'Login 8 harfdan kam bo`lmasligi kerak',
@@ -47,7 +39,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
   password: {
     name: 'password',
     options: {
-      required: true,
+      required: 'Parol bo`sh bo`lishi mumkin emas',
       minLength: {
         value: 8,
         message: 'Parol 8 harfdan kam bo`lmasligi kerak',
@@ -56,6 +48,19 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
         value: 30,
         message: 'Parol o`ta uzun',
       },
+      validate: (value) => /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value),
     },
   },
+};
+
+export const VALIDITY_REQUIREMENTS = {
+  length: 'length',
+  upperLowerCase: 'upperLowerCase',
+  numberContains: 'numberContains',
+};
+
+export const PASSWORD_VALIDITY_REQUIREMENTS: Record<TValidityRequirement, string> = {
+  length: 'Parol 8 harfdan kam bo`lmasligi kerak',
+  upperLowerCase: 'Kamida bitta katta va kichik harf bo`lishi kerak',
+  numberContains: 'Kamida bitta raqam bo`lishi kerak',
 };
