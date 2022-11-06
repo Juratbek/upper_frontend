@@ -3,6 +3,7 @@ import {
   DeleteIcon,
   DislikeIcon,
   EyeIcon,
+  EyeSlashIcon,
   FacebookIcon,
   GitHubIcon,
   GoogleIcon,
@@ -53,6 +54,7 @@ export const ICON_TYPES = {
   triangle: 'triangle',
   logOut: 'logOut',
   logo: 'logo',
+  eyeSlash: 'eyeSlash',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -90,4 +92,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   triangle: TringleIcon,
   logOut: LogOutIcon,
   logo: Logo,
+  eyeSlash: EyeSlashIcon,
 };

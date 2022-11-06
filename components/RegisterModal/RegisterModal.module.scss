@@ -1,21 +1,24 @@
-.social-media {
-    margin-left: 1rem;
-    text-align: center;
-    margin-top: .5rem;
+.validity-level-container {
+  display: flex;
+  height: 0.5em;
+  border-radius: 10rem;
+  overflow: hidden;
 
-    &:first-child{
-        margin-left: 0;
-    }
-
-    &-icon {
-        width: 4rem;
-        height: 3rem;
-    }
-
+  & .red {
+    background-color: var(--red);
+    width: 50%;
+  }
+  & .yellow {
+    background-color: var(--yellow);
+    width: 30%;
+  }
+  & .green {
+    background-color: var(--green);
+    width: 20%;
+  }
 }
 
-.labels {
-    display: flex;
-    flex-wrap: wrap;
+.password-requirement {
+  font-size: 0.8rem;
+  margin: 0.3rem 0;
 }
-

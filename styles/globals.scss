@@ -274,6 +274,11 @@
   text-align: center;
 }
 
+// positions
+.position-relative {
+  position: relative;
+}
+
 /* widths */
 .w-50 {
   width: 50%;
@@ -313,4 +318,7 @@
 }
 .text-danger {
   color: var(--red);
+}
+.text-green {
+  color: var(--green);
 }
