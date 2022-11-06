@@ -11,9 +11,9 @@ export const Avatar: FC<IAvatarProps> = ({ size = 'medium', imgUrl, ...props }) 
   return (
     <div className={className}>
       {imgUrl ? (
-        <Image src={imgUrl} alt='Vercel Logo' layout='fill' objectFit='cover' />
+        <Image src={imgUrl} alt='UPPER' layout='fill' objectFit='cover' />
       ) : (
-        <Image src='/vercel.svg' alt='Vercel Logo' layout='fill' />
+        <Image src='/logo.svg' alt='UPPER' layout='fill' />
       )}
     </div>
   );

@@ -6,4 +6,5 @@ export interface IModalProps extends HTMLAttributes<HTMLElement> {
   isOpen: boolean;
   size?: TSize;
   close: () => void;
+  bodyClassName?: string;
 }

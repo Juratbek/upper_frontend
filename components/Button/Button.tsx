@@ -19,7 +19,13 @@ export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }
 
   return (
     <button {...props} className={className} disabled={props.disabled || loading}>
-      {loading ? <Spinner className={classes.spinner} color={color} /> : children}
+      {loading ? (
+        <div className='px-3'>
+          <Spinner className={classes.spinner} color={color} />
+        </div>
+      ) : (
+        children
+      )}
     </button>
   );
 };
