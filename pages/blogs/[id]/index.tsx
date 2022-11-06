@@ -1,8 +1,9 @@
-import { Blog, Button, TabBody, TabsHeader } from 'components';
+import { Blog, Button, Modal, TabBody, TabsHeader } from 'components';
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { wrapper } from 'store';
 import { blogApi, useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
 import { IBlog, IResponseError } from 'types';
@@ -16,18 +17,28 @@ interface IBlogPageProps {
 }
 
 const BlogPage: NextPage<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageProps) => {
+  const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
+  const [isFollowed, setIsFollowed] = useState<boolean>(blog?.isFollowed || false);
   const {
     query: { id },
   } = useRouter();
-  const [followBlog] = useFollowBlogMutation();
-  const [unfollowBlog] = useUnfollowBlogMutation();
+  const [followBlog, followBlogRes] = useFollowBlogMutation();
+  const [unfollowBlog, unfollowBlogRes] = useUnfollowBlogMutation();
 
   const follow = (): void => {
-    id && followBlog(+id);
+    id && followBlog(+id).then(() => setIsFollowed(true));
   };
 
   const unfollow = (): void => {
-    id && unfollowBlog(+id);
+    id &&
+      unfollowBlog(+id).then(() => {
+        setIsFollowed(false);
+        setIsUnfollowModalOpen(false);
+      });
+  };
+
+  const toggleUnfollowModal = (): void => {
+    setIsUnfollowModalOpen((prev) => !prev);
   };
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
@@ -45,16 +56,36 @@ const BlogPage: NextPage<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageP
         <meta name='description' content={blog.bio} />
         <title>{blog.name}</title>
       </Head>
+
+      <Modal
+        size='small'
+        isOpen={isUnfollowModalOpen}
+        close={toggleUnfollowModal}
+        bodyClassName='text-center'
+      >
+        <strong>{blog.name}</strong> obunasini bekor qilmoqchimisiz
+        <div className='mt-2'>
+          <Button onClick={toggleUnfollowModal} color='outline-dark' className='me-2'>
+            Yopish
+          </Button>
+          <Button onClick={unfollow} loading={unfollowBlogRes.isLoading} color='outline-dark'>
+            Obunani bekor qilish
+          </Button>
+        </div>
+      </Modal>
+
       <div className='d-flex align-items-center justify-content-between p-2'>
         {blog && (
           <>
             <Blog {...addAmazonUri(blog)} avaratSize='extra-large' />
-            {blog.isFollowed ? (
-              <Button color='outline-dark' onClick={unfollow}>
-                Kuzatishni bekor qilish
+            {isFollowed ? (
+              <Button color='outline-dark' onClick={toggleUnfollowModal}>
+                Obuna bo`lingan
               </Button>
             ) : (
-              <Button onClick={follow}>Kuzatib borish</Button>
+              <Button onClick={follow} loading={followBlogRes.isLoading}>
+                Obuna bo`lish
+              </Button>
             )}
           </>
         )}
