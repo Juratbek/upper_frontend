@@ -45,9 +45,9 @@ export default function UserArticlePage(): JSX.Element {
   }, [id]);
 
   useEffect(() => {
-    const hasNotpublishedChanges = article?.hasNotpublishedChanges;
-    if (hasNotpublishedChanges) {
-      setHasAlert(hasNotpublishedChanges);
+    const hasNotPublishedChanges = article?.hasNotpublishedChanges;
+    if (hasNotPublishedChanges) {
+      setHasAlert(hasNotPublishedChanges);
     }
   }, [article?.hasNotpublishedChanges]);
 

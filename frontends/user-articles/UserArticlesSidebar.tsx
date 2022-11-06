@@ -11,6 +11,7 @@ import {
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
 import { TArticleStatus } from 'types';
 import {
+  addUriToImageBlocks,
   convertLabelsToOptions,
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
@@ -62,12 +63,27 @@ export const UserArticlesSidebar: FC = () => {
     if (!editor || !article) return Promise.reject();
 
     const editorData = await editor?.save();
-    const blocks = removeAmazonUriFromImgBlocks(editorData.blocks);
-    const title = blocks.find((block) => block.type === 'header')?.data.text;
 
-    const updatedArticle = await updateArticle({ ...article, title, blocks }).unwrap();
+    // Don't save image urls in database. Only image IDs
+    const oldBlocks = removeAmazonUriFromImgBlocks(editorData.blocks);
+    const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
+
+    const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
     dispatch(setArticle({ ...article, ...updatedArticle }));
     setAlert('');
+
+    for (let i = 0; i < updatedArticle.blocks.length; i++) {
+      const newBlock = updatedArticle.blocks[i];
+
+      if (newBlock.type === 'image') {
+        const imgId: string = newBlock.data.file?.url;
+
+        if (oldBlocks[i].data.file?.url !== imgId) {
+          editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
+          break;
+        }
+      }
+    }
   };
 
   const clickHandler = (button: IArticleSidebarAction): void => {
