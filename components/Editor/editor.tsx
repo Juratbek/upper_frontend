@@ -4,7 +4,12 @@ import { FC, useEffect, useRef, useState } from 'react';
 
 import { ImageModal } from '../ImageModal';
 import styles from './editor.module.scss';
-import { EDITOR_HOLDER, IEditorProps } from './editor.types';
+import {
+  CAPTION_CLASSES,
+  EDITOR_HOLDER,
+  IEditorProps,
+  IMAGE_CONTAINER_CLASSES,
+} from './editor.types';
 import { createEditor } from './services/editor.service';
 
 export const Editor: FC<IEditorProps> = (props) => {
@@ -24,24 +29,10 @@ export const Editor: FC<IEditorProps> = (props) => {
     });
   }, []);
 
-  const cleanImageCaption = (caption: HTMLElement): void => {
-    const isCaption = caption.classList.contains('inline-image__caption');
-
-    if (!isCaption) return;
-
+  const cleanImageCaption = (caption: Element): void => {
     if (!caption.textContent) {
       caption.remove();
     }
-  };
-
-  const cleanEmbedCaptions = (): void => {
-    const captions = document.querySelectorAll('.embed-tool__caption');
-
-    captions.forEach((caption) => {
-      if (!caption.textContent) {
-        caption.remove();
-      }
-    });
   };
 
   const onImgClick = (e: Event): void => {
@@ -59,28 +50,46 @@ export const Editor: FC<IEditorProps> = (props) => {
     const img = target.querySelector('img');
     img?.addEventListener('click', onImgClick);
 
-    cleanImageCaption(e.target as HTMLElement);
+    if (target.classList.contains(CAPTION_CLASSES.inlineImageCaption)) cleanImageCaption(target);
   };
 
   const zoomInImage = (): void => {
-    containerRef.current?.querySelectorAll('.inline-image').forEach((imgContainer) => {
-      imgContainer.addEventListener('DOMNodeInserted', onImgInserted);
+    Object.values(IMAGE_CONTAINER_CLASSES).forEach((className) => {
+      if (className !== IMAGE_CONTAINER_CLASSES.inlineImage) {
+        containerRef.current?.querySelectorAll(`.${className}`).forEach((imgContainer) => {
+          const img = imgContainer.querySelector('img');
+          img?.addEventListener('click', onImgClick);
+        });
+        return;
+      }
+      containerRef.current?.querySelectorAll(`.${className}`).forEach((imgContainer) => {
+        imgContainer.addEventListener('DOMNodeInserted', onImgInserted);
+      });
+    });
+
+    Object.values(CAPTION_CLASSES).forEach((className) => {
+      if (className !== CAPTION_CLASSES.inlineImageCaption) {
+        document.querySelectorAll(`.${className}`).forEach((caption) => {
+          cleanImageCaption(caption);
+        });
+      }
     });
   };
 
   useEffect(() => {
     editor?.isReady.then(() => {
       setIsEditorLoading(false);
-      cleanEmbedCaptions();
       if (!isEditable) zoomInImage();
     });
 
     return () => {
-      containerRef.current?.querySelectorAll('.inline-image').forEach((imgContainer) => {
-        if (!isEditable) {
-          imgContainer.removeEventListener('DOMNodeInserted', onImgInserted);
+      if (isEditable) return;
+      Object.values(IMAGE_CONTAINER_CLASSES).forEach((className) => {
+        containerRef.current?.querySelectorAll(`.${className}`).forEach((imgContainer) => {
+          if (className === IMAGE_CONTAINER_CLASSES.inlineImage)
+            imgContainer.removeEventListener('DOMNodeInserted', onImgInserted);
           imgContainer.querySelector('img')?.removeEventListener('click', onImgClick);
-        }
+        });
       });
     };
   }, [editor]);

@@ -157,7 +157,7 @@ export const UserArticlesSidebar: FC = () => {
           <ArticleStatus className='mb-1' status={status}>
             {article.publishedArticleId && (
               <Link href={`/articles/${article.publishedArticleId}`}>
-                Nashr varyantini ko&apos;rish
+                <a target={'_blank'}>Nashr varyantini ko&apos;rish</a>
               </Link>
             )}
           </ArticleStatus>
