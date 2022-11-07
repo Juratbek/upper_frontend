@@ -1,8 +1,10 @@
+import { Button } from 'components';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch } from 'store';
-import { openLoginModal } from 'store/states';
+import { openLoginModal, openRegisterModal } from 'store/states';
+import { getDevice } from 'utils';
 import { ICONS } from 'variables';
 
 import { NavItem } from './components';
@@ -18,17 +20,27 @@ export const Navigation = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const icons = useMemo(() => {
+    return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
+  }, [isAuthenticated]);
+
+  const isMobile = useMemo(() => getDevice().isMobile, []);
+
+  const logOut = (): void => {
+    unauthenticate();
+  };
+
   const clickHandler = (href: string, authNeeded: boolean | undefined): void => {
     if (!isAuthenticated && authNeeded) dispatch(openLoginModal());
     else router.route !== href && router.push(href);
   };
 
-  const icons = useMemo(() => {
-    return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
-  }, [isAuthenticated]);
+  const registerClickHandler = (): void => {
+    dispatch(openRegisterModal());
+  };
 
-  const logOut = (): void => {
-    unauthenticate();
+  const loginClickHandler = (): void => {
+    dispatch(openLoginModal());
   };
 
   return (
@@ -51,8 +63,18 @@ export const Navigation = (): JSX.Element => {
             );
           })}
         </div>
-        <div className={`${classes.icon} pointer`} onClick={logOut}>
-          {isAuthenticated && <LogOutIcon />}
+        <div className={classes['third-block']}>
+          <div className={`${classes.logOut} pointer`} onClick={logOut}>
+            {isAuthenticated && <LogOutIcon />}
+            {isMobile && !isAuthenticated && (
+              <>
+                <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
+                  Ro`yxatdan o`tish
+                </Button>
+                <Button onClick={loginClickHandler}>Kirish</Button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

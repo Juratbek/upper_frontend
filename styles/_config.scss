@@ -1,7 +1,11 @@
 @import './_variables';
+@import './_mixins';
 
 html {
   font-size: $rem;
+  @include screenMax576 {
+    font-size: 0.9rem;
+  }
 }
 
 html,

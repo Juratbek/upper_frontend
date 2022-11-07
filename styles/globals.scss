@@ -23,6 +23,10 @@
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
+
+  @include screenMax576 {
+    flex-direction: column;
+  }
 }
 
 .app > .main {
@@ -203,6 +207,13 @@
 .mx-auto {
   margin-right: auto;
   margin-left: auto;
+}
+
+// margins for screens smaller than 576px
+@include screenMax576 {
+  .me-xs-1 {
+    margin-right: $size1-xs;
+  }
 }
 
 // paddings
