@@ -16,7 +16,6 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import {
@@ -126,17 +125,6 @@ export const UserArticlesSidebar: FC = () => {
               <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
                 Yo`riqnomani o`qish
               </a>
-            </Alert>
-          )}
-          {updateArticleStatusResponse.isError && (
-            <Alert>
-              Xatolik yuz berdi. Iltimos bu haqda{' '}
-              <a href={TELEGRAM_BOT.link} className='link'>
-                {TELEGRAM_BOT.name}
-              </a>{' '}
-              telegram botiga habar bering
-              <br />
-              <p className='overflow-wrap'>{JSON.stringify(updateArticleStatusResponse.error)}</p>
             </Alert>
           )}
           <p className='text-center'>

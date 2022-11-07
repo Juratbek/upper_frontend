@@ -65,7 +65,7 @@ $mobile-screen-padding: 0.8rem;
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 10;
 
   @include screenMax576 {
     bottom: unset;
@@ -74,7 +74,10 @@ $mobile-screen-padding: 0.8rem;
 
 .third-block {
   @include screenMax576 {
+    width: 80%;
     padding-right: $mobile-screen-padding;
+    display: flex;
+    justify-content: end;
   }
 }
 

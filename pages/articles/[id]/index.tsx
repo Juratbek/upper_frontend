@@ -41,7 +41,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
   }
 
   return (
-    <div>
+    <div className='container'>
       <Head>
         <meta property='og:site_name' content='UPPER' />
         <meta property='og:title' content={article.title} />

@@ -3,7 +3,7 @@ import { FC, useEffect } from 'react';
 import { ITabHeader } from 'types';
 import { TAB_PARAM_NAME } from 'variables';
 
-import classes from './TabsHeader.module.css';
+import classes from './TabsHeader.module.scss';
 import { ITabsHeaderProps } from './TabsHeader.types';
 
 export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
