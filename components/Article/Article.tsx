@@ -1,7 +1,7 @@
 import { ArticleImg, Author, Label } from 'components';
 import Link from 'next/link';
-import { FC, useEffect, useRef } from 'react';
-import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
+import { FC, useEffect, useMemo, useRef } from 'react';
+import { addAmazonUri, formatToKMB, getClassName, getDevice, toDateString } from 'utils';
 
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
@@ -19,6 +19,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
   } = article;
   const rootClassName = getClassName(classes.article, className);
   const contentRef = useRef<HTMLDivElement>(null);
+  const isMobile = useMemo(() => getDevice().isMobile, []);
 
   useEffect(() => {
     const contentContainer = contentRef.current;
@@ -53,7 +54,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
         <div className={classes.body}>
           <div className={classes['text-content']}>
             <h2 className={classes.title}>{title}</h2>
-            <p className={classes.content} ref={contentRef} />
+            {!isMobile && <p className={classes.content} ref={contentRef} />}
           </div>
           <ArticleImg imgUrl={imgUrl} />
         </div>

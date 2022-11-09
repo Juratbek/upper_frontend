@@ -1,0 +1,40 @@
+.tabs {
+  border-bottom: 0.5px solid black;
+  display: flex;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  padding: 0.5rem 0.8rem;
+  display: inline-block;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: relative;
+  flex: 0 1 8rem;
+  white-space: nowrap;
+}
+
+.tab::after {
+  transition: all 300ms;
+  position: absolute;
+  content: ' ';
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1.5px;
+  background-color: var(--blue);
+}
+
+.tab.active {
+  color: var(--blue);
+  &::after {
+    width: 100%;
+  }
+}

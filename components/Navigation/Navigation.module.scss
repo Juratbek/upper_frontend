@@ -1,7 +1,18 @@
-.logo svg {
-  width: 4rem;
-  height: 2rem;
-  margin: 0 auto;
+@import 'styles/_mixins';
+
+$mobile-screen-padding: 0.8rem;
+
+.logo {
+  & svg {
+    width: 4rem;
+    height: 2rem;
+    margin: 0 auto;
+  }
+
+  @include screenMax576 {
+    width: 20%;
+    padding: calc($mobile-screen-padding / 4) $mobile-screen-padding;
+  }
 }
 
 .navigation {
@@ -15,10 +26,34 @@
   align-items: center;
   justify-content: space-between;
   flex-shrink: 1;
+  background-color: white;
+
+  @include screenMax576 {
+    width: 100%;
+    flex-direction: row;
+    padding: 0;
+    flex-wrap: wrap;
+    box-shadow: 0px -2px 10px rgb(0 0 0 / 15%);
+  }
 }
 
-.icons > div {
-  margin-bottom: 1rem;
+.icons {
+  & > div {
+    margin-bottom: 1rem;
+    @include screenMax576 {
+      margin-bottom: 0;
+    }
+  }
+
+  @include screenMax576 {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    flex: 1 1 auto;
+    order: 3;
+    border-top: 0.5px solid var(--lightBlack);
+    padding: calc($mobile-screen-padding / 2) $mobile-screen-padding ;
+  }
 }
 
 .navigation > div:last-child {
@@ -30,9 +65,23 @@
   top: 0;
   left: 0;
   bottom: 0;
+  z-index: 10;
+
+  @include screenMax576 {
+    bottom: unset;
+  }
 }
 
-.icon {
+.third-block {
+  @include screenMax576 {
+    width: 80%;
+    padding-right: $mobile-screen-padding;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.logOut {
   display: flex;
   padding: 0.4rem;
 
@@ -40,5 +89,9 @@
     $size: 1.6rem;
     width: $size;
     height: $size;
+  }
+
+  @include screenMax576 {
+    padding-right: 0.3rem;
   }
 }
