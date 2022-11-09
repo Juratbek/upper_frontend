@@ -26,7 +26,10 @@ export const BlogsTab: FC = () => {
     >
       {searchBlogRes.data?.length === 0 && <h3 className='text-center'>Blog topilmadi</h3>}
       {searchBlogRes.data?.map((blog) => (
-        <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
+        <div
+          className='d-flex align-items-center justify-content-between px-3 py-2 px-xs-1'
+          key={blog.id}
+        >
           <Blog {...addAmazonUri(blog)} isLink />
           <Button color='outline-dark'>Follow</Button>
         </div>

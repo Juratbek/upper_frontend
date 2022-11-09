@@ -19,7 +19,7 @@ export const WriteArticlePage: FC = () => {
   };
 
   return (
-    <div className='editor-container'>
+    <div className='editor-container container'>
       <Editor content={{ blocks: [] }} handleInstance={getInstance} />
     </div>
   );

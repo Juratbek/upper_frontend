@@ -1,7 +1,7 @@
 import { SearchInput, TabBody, TabsHeader } from 'components';
 import { useUrlParams } from 'hooks';
 import type { NextPage } from 'next';
-import classes from 'styles/Search.module.css';
+import classes from 'styles/Search.module.scss';
 import { SEARCH_TAB_MENUS, SEARCH_TABS } from 'variables/Search.constants';
 
 const SearchPage: NextPage = () => {

@@ -7,3 +7,4 @@ export * from './Blog.constants';
 export * from './auth';
 export * from './images';
 export * from './article';
+export * from './editor';

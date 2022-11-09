@@ -9,3 +9,4 @@ export * from './app-dynamic';
 export * from './toBase64';
 export * from './blog';
 export * from './image';
+export * from './device/device';

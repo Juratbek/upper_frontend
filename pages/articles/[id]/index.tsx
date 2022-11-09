@@ -41,7 +41,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
   }
 
   return (
-    <div>
+    <div className='container'>
       <Head>
         <meta property='og:site_name' content='UPPER' />
         <meta property='og:title' content={article.title} />
@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
 
     const articleId = get<number>(context, 'query.id');
     const { data: article, error = {} } = await store.dispatch(
-      publishedArticleApi.endpoints.getById.initiate(articleId),
+      publishedArticleApi.endpoints.getById.initiate(articleId, { forceRefetch: 5 }),
     );
     return {
       props: {

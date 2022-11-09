@@ -17,7 +17,6 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { TELEGRAM_BOT } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import {
@@ -144,17 +143,6 @@ export const UserArticlesSidebar: FC = () => {
               </a>
             </Alert>
           )}
-          {updateArticleStatusResponse.isError && (
-            <Alert>
-              Xatolik yuz berdi. Iltimos bu haqda{' '}
-              <a href={TELEGRAM_BOT.link} className='link'>
-                {TELEGRAM_BOT.name}
-              </a>{' '}
-              telegram botiga habar bering
-              <br />
-              <p className='overflow-wrap'>{JSON.stringify(updateArticleStatusResponse.error)}</p>
-            </Alert>
-          )}
           <p className='text-center'>
             <strong>“Maqola sarlavhasi”</strong> maqolani {MODAL.text || ''}
           </p>
@@ -162,7 +150,7 @@ export const UserArticlesSidebar: FC = () => {
             <Button color='outline-dark' onClick={closeModal}>
               Yo`q
             </Button>
-            <Button color={MODAL.btn.color || 'dark'} onClick={confirmAction}>
+            <Button color={MODAL.btn.color || 'dark'} onClick={confirmAction} loading={isLoading}>
               {MODAL.btn.text}
             </Button>
           </div>
@@ -173,7 +161,7 @@ export const UserArticlesSidebar: FC = () => {
           <ArticleStatus className='mb-1' status={status}>
             {article.publishedArticleId && (
               <Link href={`/articles/${article.publishedArticleId}`}>
-                Nashr varyantini ko&apos;rish
+                <a target={'_blank'}>Nashr varyantini ko&apos;rish</a>
               </Link>
             )}
           </ArticleStatus>
@@ -193,6 +181,7 @@ export const UserArticlesSidebar: FC = () => {
               <Button
                 className='flex-auto m-1 mb-0'
                 onClick={(): void => openModal(ARTICLE_ACTIONS.publish)}
+                loading={isLoading}
               >
                 Nashr qilish
               </Button>
