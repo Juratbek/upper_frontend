@@ -134,7 +134,7 @@ export const UserArticlesSidebar: FC = () => {
             <Button color='outline-dark' onClick={closeModal}>
               Yo`q
             </Button>
-            <Button color={MODAL.btn.color || 'dark'} onClick={confirmAction}>
+            <Button color={MODAL.btn.color || 'dark'} onClick={confirmAction} loading={isLoading}>
               {MODAL.btn.text}
             </Button>
           </div>
@@ -165,6 +165,7 @@ export const UserArticlesSidebar: FC = () => {
               <Button
                 className='flex-auto m-1 mb-0'
                 onClick={(): void => openModal(ARTICLE_ACTIONS.publish)}
+                loading={isLoading}
               >
                 Nashr qilish
               </Button>
