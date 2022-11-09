@@ -66,14 +66,14 @@ export const Navigation = (): JSX.Element => {
         <div className={classes['third-block']}>
           <div className={`${classes.logOut} pointer`} onClick={logOut}>
             {isAuthenticated && <LogOutIcon />}
-            {isMobile && !isAuthenticated && (
+            {/* {isMobile && !isAuthenticated && (
               <>
                 <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
                   Ro`yxatdan o`tish
                 </Button>
                 <Button onClick={loginClickHandler}>Kirish</Button>
               </>
-            )}
+            )} */}
           </div>
         </div>
       </div>

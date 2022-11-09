@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <main className='main'>
           <Component {...pageProps} />
         </main>
-        {isMobile ? <></> : <Sidebar />}
+        <Sidebar />
       </div>
       <NextNProgress color='#7a7e80' height={3} showOnShallow={true} />
       <GoogleOneTap />
