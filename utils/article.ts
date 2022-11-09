@@ -48,7 +48,7 @@ export const removeAmazonUriFromImgBlocks = (blocks: OutputBlockData[]): OutputB
       if (!imgUrl || !imgUrl.startsWith(ARTICLE_BUCKET_URL)) return block;
       const imgUrlWithoutUri = imgUrl.replaceAll(ARTICLE_BUCKET_URL, '');
 
-      return { ...block, data: { file: { ...img, url: imgUrlWithoutUri } } };
+      return { ...block, data: { ...block.data, file: { ...img, url: imgUrlWithoutUri } } };
     }
 
     if (blockType === BLOCK_TYPES.unsplash) {
