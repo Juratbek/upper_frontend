@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
 
     const articleId = get<number>(context, 'query.id');
     const { data: article, error = {} } = await store.dispatch(
-      publishedArticleApi.endpoints.getById.initiate(articleId),
+      publishedArticleApi.endpoints.getById.initiate(articleId, { forceRefetch: 5 }),
     );
     return {
       props: {
