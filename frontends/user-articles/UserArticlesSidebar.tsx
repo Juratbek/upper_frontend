@@ -17,6 +17,7 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
+import { BLOCK_TYPES } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import {
@@ -71,18 +72,15 @@ export const UserArticlesSidebar: FC = () => {
     dispatch(setArticle({ ...article, ...updatedArticle }));
     setAlert('');
 
-    for (let i = 0; i < updatedArticle.blocks.length; i++) {
-      const newBlock = updatedArticle.blocks[i];
+    const hasBase64Image = oldBlocks.some((block) => {
+      const type = block.type;
+      const data = block.data;
+      if (type === BLOCK_TYPES.image && data.file?.url?.startsWith('data:')) return true;
+      if (type === BLOCK_TYPES.unsplash && data.url?.startsWith('data:')) return true;
+      return false;
+    });
 
-      if (newBlock.type === 'image') {
-        const imgId: string = newBlock.data.file?.url;
-
-        if (oldBlocks[i].data.file?.url !== imgId) {
-          editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
-          break;
-        }
-      }
-    }
+    if (hasBase64Image) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
   };
 
   const clickHandler = (button: IArticleSidebarAction): void => {
