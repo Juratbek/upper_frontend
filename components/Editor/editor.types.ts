@@ -11,6 +11,13 @@ export interface IEditorProps {
 export const EDITOR_HOLDER = 'editorjs';
 export const EDITOR_PLACEHOLDER = 'Hikoyangizni yozing...';
 
+export const CAPTION_CLASSES = {
+  imageToolCaption: 'image-tool__caption',
+  inlineImageCaption: 'inline-image__caption',
+  embedToolCaption: 'embed-tool__caption',
+};
+export const IMAGE_CONTAINER_CLASSES = { inlineImage: 'inline-image', imageTool: 'image-tool' };
+
 export interface IUploadedImage {
   success: number;
   file: {

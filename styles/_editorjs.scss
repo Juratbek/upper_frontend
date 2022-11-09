@@ -8,9 +8,10 @@
   }
 }
 
-.readMode .inline-image__picture {
-  img {
-    cursor: zoom-in;
+.readMode {
+  .inline-image__picture img,
+  img.image-tool__image-picture {
+      cursor: zoom-in;
   }
 }
 
