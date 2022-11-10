@@ -7,6 +7,7 @@ import {
   IBlogLoginDto,
   IBlogRegisterDto,
   IBlogRegisterResponse,
+  IChangeLoginDto,
   IChangePasswordDto,
 } from './blog.types';
 
@@ -127,6 +128,13 @@ export const blogApi = createApi({
         body: passwords,
       }),
     }),
+    changeLogin: build.mutation<IBlogRegisterResponse, IChangeLoginDto>({
+      query: (body) => ({
+        url: 'change-login',
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -147,4 +155,5 @@ export const {
   useGoogleOneTapRegisterMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,
+  useChangeLoginMutation,
 } = blogApi;

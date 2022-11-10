@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { useChangePasswordMutation } from 'store/apis';
 import { IResponseError, TSubmitFormEvent } from 'types';
 
+import { LoginForm } from './components';
+
 const passwordMinLength = 8;
 
 export const SecurityTab: FC = () => {
@@ -82,8 +84,11 @@ export const SecurityTab: FC = () => {
 
   return (
     <div>
-      <h3>Parolni o`zgartirish</h3>
-      <div>{passwordForm}</div>
+      <LoginForm />
+      <div>
+        <h3>Parolni o`zgartirish</h3>
+        <div>{passwordForm}</div>
+      </div>
     </div>
   );
 };

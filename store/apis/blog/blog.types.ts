@@ -22,3 +22,8 @@ export interface IChangePasswordDto {
   currentPassword: string;
   newPassword: string;
 }
+
+export interface IChangeLoginDto {
+  username: string;
+  password: string;
+}
