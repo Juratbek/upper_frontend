@@ -32,7 +32,9 @@ export const ArticlesTab: FC = () => {
         <div className='text-center mt-3'>
           <h2>{TAB?.name} maqolalar mavjuda emas</h2>
           <Link href='/write-article'>
-            <Button color='outline-dark'>Maqola yozish</Button>
+            <a>
+              <Button color='outline-dark'>Maqola yozish</Button>
+            </a>
           </Link>
         </div>
       )}

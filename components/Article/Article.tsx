@@ -51,13 +51,15 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
   return (
     <div className={rootClassName}>
       <Link href={`${redirectUrl || '/articles'}/${id}`}>
-        <div className={classes.body}>
-          <div className={classes['text-content']}>
-            <h2 className={classes.title}>{title}</h2>
-            {!isMobile && <p className={classes.content} ref={contentRef} />}
+        <a>
+          <div className={classes.body}>
+            <div className={classes['text-content']}>
+              <h2 className={classes.title}>{title}</h2>
+              {!isMobile && <p className={classes.content} ref={contentRef} />}
+            </div>
+            <ArticleImg imgUrl={imgUrl} />
           </div>
-          <ArticleImg imgUrl={imgUrl} />
-        </div>
+        </a>
       </Link>
       <div className={classes.footer}>
         <div className={classes.stats}>

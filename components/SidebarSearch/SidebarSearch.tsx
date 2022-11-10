@@ -47,9 +47,11 @@ export const SidebarSearch: FC = () => {
         ) : (
           blogs.map((blog) => (
             <Link href={`/blogs/${blog.id}`} key={blog.id}>
-              <div className={classes.blog}>
-                <Author {...blog} />
-              </div>
+              <a>
+                <div className={classes.blog}>
+                  <Author {...blog} />
+                </div>
+              </a>
             </Link>
           ))
         )}
@@ -65,10 +67,12 @@ export const SidebarSearch: FC = () => {
       >
         {searchArticleRes.data?.map((article) => (
           <Link href={`/articles/${article.id}`} key={article.id}>
-            <div className={classes.article}>
-              <h4 className='m-0'>{article.title}</h4>
-              <ArticleImg imgUrl={article.imgUrl} size='micro' className={classes.img} />
-            </div>
+            <a>
+              <div className={classes.article}>
+                <h4 className='m-0'>{article.title}</h4>
+                <ArticleImg imgUrl={article.imgUrl} size='micro' className={classes.img} />
+              </div>
+            </a>
           </Link>
         ))}
       </ApiErrorBoundary>
