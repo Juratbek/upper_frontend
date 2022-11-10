@@ -29,7 +29,7 @@ export * from './FileInput/FileInput';
 export * from './Dropdown/Dropdown';
 export * from './Error/Error';
 export * from './Spinner/Spinner';
-export * from './Alert/Alert';
+export * from './Alert';
 export * from './ApiError/ApiError';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
 export * from './ImageModal';
