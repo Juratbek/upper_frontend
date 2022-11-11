@@ -39,12 +39,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
           <strong>{toDateString(updatedDate)}</strong> da yangilangan
         </>
       );
-    if (publishedDate)
-      return (
-        <>
-          <strong>{toDateString(publishedDate)}</strong> da nashr etilgan
-        </>
-      );
+    if (publishedDate) return <strong>{toDateString(publishedDate)}</strong>;
     return <></>;
   };
 
