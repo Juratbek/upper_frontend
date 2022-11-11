@@ -13,15 +13,17 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
   return (
     <div className={rootClassName}>
       <Link href={`/blogs/${id}`}>
-        <div className='d-flex pointer'>
-          <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />
-          <div className='d-flex align-items-center'>
-            <div>
-              <h4 className='m-0'>{name}</h4>
-              {bio && <p className={classes.bio}>{bio}</p>}
+        <a>
+          <div className='d-flex pointer'>
+            <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />
+            <div className='d-flex align-items-center'>
+              <div>
+                <h4 className='m-0'>{name}</h4>
+                {bio && <p className={classes.bio}>{bio}</p>}
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </Link>
     </div>
   );

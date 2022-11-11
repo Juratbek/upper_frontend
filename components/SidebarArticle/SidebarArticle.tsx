@@ -20,14 +20,18 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
     <div className={rootClassName}>
       <div className={classes.title}>
         <Link href={`/articles/${id}`}>
-          <h4 className='m-0 mb-1 pointer'>{title}</h4>
+          <a>
+            <h4 className='m-0 mb-1 pointer'>{title}</h4>
+          </a>
         </Link>
         {author && <Author {...addAmazonUri(author)} />}
       </div>
       <Link href={`/articles/${id}`}>
-        <div>
-          <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
-        </div>
+        <a>
+          <div>
+            <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
+          </div>
+        </a>
       </Link>
     </div>
   );
