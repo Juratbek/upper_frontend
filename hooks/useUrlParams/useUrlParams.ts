@@ -21,7 +21,7 @@ export const useUrlParams = (): IUseUrl => {
     return query[name];
   };
 
-  const setParam = (name: string, value: TParamValue): void => {
+  const setParam = (name: string, value: TParamValue | number): void => {
     push({
       pathname: pathname,
       query: { ...query, [name]: value },
