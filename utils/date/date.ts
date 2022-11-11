@@ -11,10 +11,11 @@ export const toDateString = (date: Date | string | undefined, config?: IDateUtil
   if (monthConfig) {
     const dateDetails = localeDate.split('.');
     const monthNumber = dateDetails[1];
-    const month = MONTHS[monthNumber][monthConfig];
+    let month = MONTHS[monthNumber][monthConfig];
+    monthConfig === 'short' && (month = month + '.');
     const year = dateDetails[2];
     const day = dateDetails[0].startsWith('0') ? dateDetails[0].slice(1) : dateDetails[0];
-    localeDate = `${day} ${month} ${year}`;
+    localeDate = `${day}-${month} ${year}`;
   }
   return localeDate;
 };

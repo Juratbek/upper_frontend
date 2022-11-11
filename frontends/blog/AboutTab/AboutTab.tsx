@@ -47,7 +47,7 @@ export const AboutTab: FC = () => {
             })}
           </div>
         )}
-        <p>{toDateString(blog?.createdDate, { month: 'long' })}dan beri UPPER azosi</p>
+        <p>{toDateString(blog?.createdDate, { month: 'long' })} dan beri UPPER azosi</p>
       </>
     );
   }, [fetchBlogByIdRes.data]);
