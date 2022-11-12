@@ -93,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<IBlogPageProps> = wrapper.ge
 
       const blogId = get<number>(query, 'id');
       const { data: blog = null, error = {} } = await store.dispatch(
-        blogApi.endpoints.getById.initiate({ id: blogId, token }),
+        blogApi.endpoints.getById.initiate({ id: blogId, token }, { forceRefetch: true }),
       );
       return {
         props: {
