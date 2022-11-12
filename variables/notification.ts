@@ -2,7 +2,13 @@ import { CommentNotification } from 'components/CommentNotification/CommentNotif
 import { LikeNotification } from 'components/LikeNotification/LikeNotification';
 import { PublishedArticleNotification } from 'components/PublishedArticleNotification/PublishedArticleNotification';
 import { NotificationsTab } from 'frontends/notifications';
-import { ITabBody, ITabHeader, TNotification, TNotificationComponent } from 'types';
+import {
+  ITabBody,
+  ITabHeader,
+  TNotification,
+  TNotificationComponent,
+  TNotificationStatus,
+} from 'types';
 
 const TAB_IDS = {
   all: 'all',
@@ -47,4 +53,9 @@ export const NOTIFICATIONS: Record<TNotification, TNotificationComponent> = {
   ARTICLE_PUBLISHED: PublishedArticleNotification,
   COMMENT: CommentNotification,
   LIKE: LikeNotification,
+};
+
+export const NOTIFICATION_STATUSES: Record<TNotificationStatus, TNotificationStatus> = {
+  READ: 'READ',
+  UNREAD: 'UNREAD',
 };

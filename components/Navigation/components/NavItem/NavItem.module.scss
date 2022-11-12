@@ -1,17 +1,21 @@
+.root {
+  position: relative;
+  border-radius: 0.4rem;
+  $bg-color: var(--blue);
+
+  &:hover {
+    background-color: $bg-color;
+  }
+
+  &--active {
+    background-color: $bg-color;
+  }
+}
 
 .icon {
     display: flex;
     padding: 0.5rem;
-    border-radius: 0.4rem;
   
-    $bg-color: var(--blue);
-    &:hover {
-      background-color: $bg-color;
-    }
-
-    &--active {
-      background-color: $bg-color;
-    }
   
     svg {
       $size: 1.6rem;
