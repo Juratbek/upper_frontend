@@ -1,3 +1,4 @@
+import { Tooltip } from 'components';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
@@ -56,23 +57,28 @@ export const Navigation = (): JSX.Element => {
           <Logo />
         </span>
         <div className={classes.icons}>
-          {icons.map(({ icon, href, authNeeded }, index) => {
+          {icons.map(({ icon, href, authNeeded, tooltip }) => {
             const Icon = ICONS[icon];
             return (
-              <NavItem
-                onClick={(): void => clickHandler(href, authNeeded)}
-                key={index}
-                icon={Icon}
-                className='pointer'
-                active={href === pathname}
-                badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
-              />
+              <Tooltip tooltip={tooltip} key={icon}>
+                <NavItem
+                  onClick={(): void => clickHandler(href, authNeeded)}
+                  icon={Icon}
+                  className='pointer'
+                  active={href === pathname}
+                  badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
+                />
+              </Tooltip>
             );
           })}
         </div>
         <div className={classes['third-block']}>
           <div className={`${classes.logOut} pointer`} onClick={logOut}>
-            {isAuthenticated && <LogOutIcon />}
+            {isAuthenticated && (
+              <Tooltip tooltip='Profildan chiqish'>
+                <LogOutIcon />
+              </Tooltip>
+            )}
             {/* {isMobile && !isAuthenticated && (
               <>
                 <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
