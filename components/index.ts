@@ -41,3 +41,4 @@ export * from './Select';
 export * from './skeletons';
 export * from './AppSuspense/AppSuspense';
 export * from './Pagination/Pagination';
+export * from './Head';

@@ -1,4 +1,5 @@
 import { OutputBlockData } from '@editorjs/editorjs';
+import { IHeadProps } from 'components';
 import { ARTICLE_BUCKET_URL } from 'store/apis';
 import { IArticle, ISidebarArticle } from 'types';
 import { BLOCK_TYPES } from 'variables';
@@ -61,3 +62,16 @@ export const removeAmazonUriFromImgBlocks = (blocks: OutputBlockData[]): OutputB
 
     return block;
   });
+
+export const convertToHeadProp = (article: IArticle): IHeadProps => {
+  const { title, imgUrl = '', content, author, publishedDate } = article;
+  return {
+    title,
+    imgUrl,
+    url: '',
+    description: content,
+    author: author.name,
+    publishedDate,
+    type: 'article',
+  };
+};
