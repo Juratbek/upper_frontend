@@ -1,3 +1,4 @@
+import { useUrlParams } from 'hooks';
 import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
 
@@ -8,6 +9,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   const [acitvePage, setActivePage] = useState(1);
   const totalPages = useMemo(() => Math.ceil(count), [count]);
   const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
+  const { setParam } = useUrlParams();
 
   const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
   const nextClassName = getClassName(
@@ -27,6 +29,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
     if (page < 1 || page > totalPages) return;
     setActivePage(page);
     onPageChange?.(page);
+    setParam('page', page);
   };
 
   if (arr.length < 2) return <></>;
