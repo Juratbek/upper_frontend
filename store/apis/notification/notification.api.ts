@@ -6,6 +6,7 @@ import { baseQuery } from '../config';
 export const notificationApi = createApi({
   reducerPath: 'notification',
   baseQuery: baseQuery('notification'),
+  tagTypes: ['count'],
   endpoints: (build) => ({
     getByType: build.query<INotification[], string>({
       query: (type) => `list/${type}`,
@@ -15,9 +16,11 @@ export const notificationApi = createApi({
         url: `read/${id}`,
         method: 'POST',
       }),
+      invalidatesTags: ['count'],
     }),
     getBlogNotificationsCount: build.query<number, string>({
       query: (status) => `blog-notifications-count?status=${status}`,
+      providesTags: ['count'],
     }),
   }),
 });
