@@ -1,9 +1,10 @@
 import 'styles/index.scss';
 
 import { GoogleOneTap, Navigation, Sidebar } from 'components';
+import { useAuth } from 'hooks';
 import type { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { wrapper } from 'store';
 import { appDynamic } from 'utils';
 import { getDevice } from 'utils';
@@ -14,6 +15,17 @@ const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal')
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const isMobile = useMemo(() => getDevice().isMobile, []);
+  const { getToken, getRefreshToken, authenticate, unauthenticate } = useAuth();
+
+  useEffect(() => {
+    const token = getToken();
+    const refreshToken = getRefreshToken() || '';
+    if (token) {
+      authenticate({ token, refreshToken });
+    } else {
+      unauthenticate();
+    }
+  }, []);
 
   return (
     <div>
