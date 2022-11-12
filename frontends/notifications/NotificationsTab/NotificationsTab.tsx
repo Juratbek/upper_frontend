@@ -31,7 +31,7 @@ export const NotificationsTab: FC = () => {
     return notifications.map((notification, index) => {
       const Notification = NOTIFICATIONS[notification.type];
       return (
-        <div key={notification.id}>
+        <div key={notification.id} onClick={(): void => console.log('test')}>
           <Notification onClick={readNotification} {...notification} className='p-2' />
           {index !== notifications.length - 1 && <Divider className='w-75 mx-auto' />}
         </div>

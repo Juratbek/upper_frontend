@@ -16,10 +16,14 @@ export const notificationApi = createApi({
         method: 'POST',
       }),
     }),
+    getBlogNotificationsCount: build.query<number, string>({
+      query: (status) => `blog-notifications-count?status=${status}`,
+    }),
   }),
 });
 
 export const {
   useLazyGetByTypeQuery: useLazyGetNotificationsByTypeQuery,
   useReadMutation: useReadNotificationMutation,
+  useLazyGetBlogNotificationsCountQuery,
 } = notificationApi;

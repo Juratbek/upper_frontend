@@ -1,11 +1,11 @@
-import { Button } from 'components';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
+import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal } from 'store/states';
 import { getDevice } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS, NOTIFICATION_STATUSES } from 'variables';
 
 import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
@@ -16,6 +16,8 @@ const Logo = ICONS.logo;
 
 export const Navigation = (): JSX.Element => {
   const { isAuthenticated, unauthenticate } = useAuth();
+  const [fetchBlogNotificationsCount, fetchBlogNotificationsCountRes] =
+    useLazyGetBlogNotificationsCountQuery();
   const { pathname } = useRouter();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -43,6 +45,10 @@ export const Navigation = (): JSX.Element => {
     dispatch(openLoginModal());
   };
 
+  useEffect(() => {
+    isAuthenticated && fetchBlogNotificationsCount(NOTIFICATION_STATUSES.UNREAD);
+  }, [isAuthenticated]);
+
   return (
     <div className={classes.navigation}>
       <div className={`${classes.navigation} ${classes.positioned}`}>
@@ -59,6 +65,7 @@ export const Navigation = (): JSX.Element => {
                 icon={Icon}
                 className='pointer'
                 active={href === pathname}
+                badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
               />
             );
           })}
