@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { INotification } from 'types';
+import { INotification, IPagingResponse, TOptionalPagingRequest } from 'types';
 
 import { baseQuery } from '../config';
 
@@ -8,8 +8,11 @@ export const notificationApi = createApi({
   baseQuery: baseQuery('notification'),
   tagTypes: ['count'],
   endpoints: (build) => ({
-    getByType: build.query<INotification[], string>({
-      query: (type) => `list/${type}`,
+    getByType: build.query<
+      IPagingResponse<INotification[]>,
+      TOptionalPagingRequest<{ type: string }>
+    >({
+      query: ({ type, page = 0 }) => `list?type=${type}&page=${page}`,
     }),
     read: build.mutation<void, number>({
       query: (id) => ({
