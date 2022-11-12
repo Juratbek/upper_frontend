@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { getClassName } from 'utils';
 
-import classes from './ArticleImg.module.css';
+import classes from './ArticleImg.module.scss';
 import { IArticleImgProps } from './ArticleImg.types';
 
 export const ArticleImg: FC<IArticleImgProps> = ({
@@ -18,7 +18,7 @@ export const ArticleImg: FC<IArticleImgProps> = ({
 
   return (
     <div className={rootClassName}>
-      {imgUrl && <Image src={imgUrl} alt='Vercel Logo' layout='fill' objectFit='contain' />}
+      {imgUrl && <Image src={imgUrl} alt='Vercel Logo' layout='fill' objectFit='cover' />}
     </div>
   );
 };
