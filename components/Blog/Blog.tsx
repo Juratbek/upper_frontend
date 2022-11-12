@@ -27,7 +27,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
         </div>
       </div>
     ),
-    [],
+    [name, articlesCount, followersCount, imgUrl],
   );
 
   return (
