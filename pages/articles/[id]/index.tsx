@@ -1,13 +1,12 @@
-import { ApiError } from 'components';
+import { ApiError, Head } from 'components';
 import { Article } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useEffect } from 'react';
 import { useAppDispatch, wrapper } from 'store';
 import { publishedArticleApi, useIncrementViewCountMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
-import { get } from 'utils';
+import { convertToHeadProp, get } from 'utils';
 
 interface IArticlePageProps {
   article?: IArticle | null;
@@ -42,19 +41,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
 
   return (
     <div className='container'>
-      <Head>
-        <meta property='og:site_name' content='UPPER' />
-        <meta property='og:title' content={article.title} />
-        <meta property='og:image' content={article.imgUrl} />
-        <meta property='og:description' content={article.content} />
-        <meta property='og:type' content='article' />
-        <meta property='og:locale' content='uz' />
-        <meta property='og:url' content={fullUrl} />
-        <meta name='author' content={article.author.name} />
-        <meta name='published_date' content={article.publishedDate} />
-        <meta name='description' content={article.content} />
-        <title>{article.title}</title>
-      </Head>
+      <Head {...convertToHeadProp(article)} url={fullUrl} />
       <Article {...article} />
     </div>
   );

@@ -1,13 +1,12 @@
-import { Blog, Button, Modal, TabBody, TabsHeader } from 'components';
+import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { wrapper } from 'store';
 import { blogApi, useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
 import { IBlog, IResponseError } from 'types';
-import { addAmazonUri, get } from 'utils';
+import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS } from 'variables';
 
 interface IBlogPageProps {
@@ -45,18 +44,7 @@ const BlogPage: NextPage<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageP
 
   return (
     <div className='container'>
-      <Head>
-        <meta property='og:site_name' content='UPPER' />
-        <meta property='og:title' content={blog.name} />
-        <meta property='og:image' content={blog.imgUrl} />
-        <meta property='og:description' content={blog.bio} />
-        <meta property='og:type' content='blog' />
-        <meta property='og:locale' content='uz' />
-        <meta property='og:url' content={fullUrl} />
-        <meta name='description' content={blog.bio} />
-        <title>{blog.name}</title>
-      </Head>
-
+      <Head {...convertBlogToHeadProp(blog)} url={fullUrl} />
       <Modal
         size='small'
         isOpen={isUnfollowModalOpen}
