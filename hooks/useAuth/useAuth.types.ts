@@ -7,4 +7,5 @@ export interface IUseAuth {
   authenticate: (user: IBlogRegisterResponse) => void;
   unauthenticate: () => void;
   getToken: () => string | null;
+  getRefreshToken: () => string | null;
 }
