@@ -11,7 +11,7 @@ import { PASSWORD_VALIDITY_REQUIREMENTS, REGISTER_FORM_FIELDS } from './Register
 import classes from './RegisterModal.module.scss';
 import { IPasswordValidityLevelProps, TValidityRequirement } from './RegisterModal.types';
 
-const { name, bio, login, password } = REGISTER_FORM_FIELDS;
+const { name, bio, login, password, email } = REGISTER_FORM_FIELDS;
 
 export const RegisterModal: FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
@@ -42,13 +42,14 @@ export const RegisterModal: FC = () => {
   };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const { name, bio, login, password } = event;
+    const { name, bio, login, password, email } = event;
     try {
       const res = await createBlog({
         name,
         bio,
         username: login,
         password,
+        email,
       }).unwrap();
       authenticate(res);
       closeModal();
@@ -88,8 +89,15 @@ export const RegisterModal: FC = () => {
             <Error error={errors[name.name]} />
           </div>
           <div className='form-element'>
+            <label htmlFor='email' className='d-block mb-1'>
+              Email (ihtiyoriy)
+            </label>
+            <Input id='email' type='email' {...register(email.name, email.options)} />
+            <Error error={errors[email.name]} />
+          </div>
+          <div className='form-element'>
             <label htmlFor='bio' className='d-block mb-1'>
-              Bio
+              Bio (ihtiyoriy)
             </label>
             <Textarea id='bio' {...register(bio.name, bio.options)} />
             <Error error={errors[bio.name]} />

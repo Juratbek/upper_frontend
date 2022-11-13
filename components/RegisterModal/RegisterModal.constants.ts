@@ -13,11 +13,20 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
       },
     },
   },
+  email: {
+    name: 'email',
+    options: {
+      maxLength: {
+        value: 30,
+        message: 'Email o`ta uzun',
+      },
+    },
+  },
   bio: {
     name: 'bio',
     options: {
       maxLength: {
-        value: 60,
+        value: 100,
         message: 'Bio o`ta uzun',
       },
     },

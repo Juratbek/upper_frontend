@@ -1,6 +1,6 @@
 import { VALIDITY_REQUIREMENTS } from './RegisterModal.constants';
 
-export type TField = 'name' | 'bio' | 'login' | 'password';
+export type TField = 'name' | 'bio' | 'login' | 'password' | 'email';
 
 export interface IPasswordValidityLevelProps {
   password: string;
