@@ -89,13 +89,6 @@ export const RegisterModal: FC = () => {
             <Error error={errors[name.name]} />
           </div>
           <div className='form-element'>
-            <label htmlFor='email' className='d-block mb-1'>
-              Email (ihtiyoriy)
-            </label>
-            <Input id='email' type='email' {...register(email.name, email.options)} />
-            <Error error={errors[email.name]} />
-          </div>
-          <div className='form-element'>
             <label htmlFor='bio' className='d-block mb-1'>
               Bio (ihtiyoriy)
             </label>
@@ -110,6 +103,13 @@ export const RegisterModal: FC = () => {
             </label>
             <Input id='login' {...register(login.name, login.options)} />
             <Error error={errors[login.name]} />
+          </div>
+          <div className='form-element'>
+            <label htmlFor='email' className='d-block mb-1'>
+              Email (ihtiyoriy)
+            </label>
+            <Input id='email' type='email' {...register(email.name, email.options)} />
+            <Error error={errors[email.name]} />
           </div>
           <div className='form-element'>
             <label htmlFor='password' className='d-block mb-1'>
