@@ -40,3 +40,4 @@ export * from './GoogleOneTap/GoogleOneTap';
 export * from './Select';
 export * from './skeletons';
 export * from './AppSuspense/AppSuspense';
+export * from './PasswordValidityLevel/PasswordValidityLevel';

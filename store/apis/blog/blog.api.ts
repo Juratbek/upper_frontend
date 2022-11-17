@@ -135,6 +135,13 @@ export const blogApi = createApi({
         body,
       }),
     }),
+    sendEmailConfirmationForPassword: build.mutation<void, string>({
+      query: (email) => ({
+        url: 'open/forgot-credentials',
+        body: email,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -156,4 +163,5 @@ export const {
   useLoginWithTelegramMutation,
   useChangePasswordMutation,
   useChangeLoginMutation,
+  useSendEmailConfirmationForPasswordMutation,
 } = blogApi;
