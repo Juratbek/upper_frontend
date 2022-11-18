@@ -65,7 +65,13 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     list: TOOLS.List,
     unsplash: {
       class: TOOLS.Unsplash,
+      toolbox: {
+        title: 'Unsplash',
+      },
       config: {
+        embed: {
+          display: false,
+        },
         unsplash: {
           appName: 'udas',
           clientId: 'YUiELidZbnKRhMEECKChvST2BMHOfCR6X3mPia5ZdbU',
