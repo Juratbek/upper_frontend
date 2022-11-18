@@ -9,7 +9,7 @@ type TTool =
   | 'ImageTool'
   | 'List'
   | 'Quote'
-  | 'Delimeter'
+  | 'Delimiter'
   | 'TextColor'
   | 'Alert'
   | 'Unsplash'
@@ -23,7 +23,7 @@ const TOOLS: Record<TTool, any> = {
   ImageTool: undefined,
   List: undefined,
   Quote: undefined,
-  Delimeter: undefined,
+  Delimiter: undefined,
   TextColor: undefined,
   Alert: undefined,
   Unsplash: undefined,
@@ -61,7 +61,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     },
     alert: TOOLS.Alert,
     quote: TOOLS.Quote,
-    delimeter: TOOLS.Delimeter,
+    delimiter: TOOLS.Delimiter,
     list: TOOLS.List,
     unsplash: {
       class: TOOLS.Unsplash,
