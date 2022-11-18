@@ -94,7 +94,7 @@ export const LoginModal: FC = () => {
           Ro`yxatdan o`tish
         </Button>
         <p className='text-gray text-center'>
-          <Link href='/forgot-password'>
+          <Link href='/forgot-credentials'>
             <a className='link'>Login yoki parolni unutdingizmi?</a>
           </Link>
         </p>

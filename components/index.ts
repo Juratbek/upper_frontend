@@ -41,3 +41,4 @@ export * from './Select';
 export * from './skeletons';
 export * from './AppSuspense/AppSuspense';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
+export * from './RegisterModal';

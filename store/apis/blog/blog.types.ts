@@ -28,3 +28,9 @@ export interface IChangeLoginDto {
   username: string;
   password: string;
 }
+
+export interface IChangeCredentiasDto {
+  username: string;
+  password: string;
+  token: string;
+}

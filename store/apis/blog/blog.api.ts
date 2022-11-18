@@ -7,6 +7,7 @@ import {
   IBlogLoginDto,
   IBlogRegisterDto,
   IBlogRegisterResponse,
+  IChangeCredentiasDto,
   IChangeLoginDto,
   IChangePasswordDto,
 } from './blog.types';
@@ -142,6 +143,13 @@ export const blogApi = createApi({
         method: 'POST',
       }),
     }),
+    changeCredentials: build.mutation<IBlogRegisterResponse, IChangeCredentiasDto>({
+      query: (body) => ({
+        url: 'open/change-credentials',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -164,4 +172,5 @@ export const {
   useChangePasswordMutation,
   useChangeLoginMutation,
   useSendEmailConfirmationForPasswordMutation,
+  useChangeCredentialsMutation,
 } = blogApi;
