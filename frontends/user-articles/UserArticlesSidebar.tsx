@@ -17,7 +17,6 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { BLOCK_TYPES } from 'variables';
 import { ARTICLE_STATUSES } from 'variables/article';
 
 import {
@@ -65,22 +64,14 @@ export const UserArticlesSidebar: FC = () => {
     const editorData = await editor?.save();
 
     // Don't save image urls in database. Only image IDs
-    const oldBlocks = removeAmazonUriFromImgBlocks(editorData.blocks);
+    const [oldBlocks, isReset] = removeAmazonUriFromImgBlocks(editorData.blocks);
     const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
 
     const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
     dispatch(setArticle({ ...article, ...updatedArticle }));
     setAlert('');
 
-    const hasBase64Image = oldBlocks.some((block) => {
-      const type = block.type;
-      const data = block.data;
-      if (type === BLOCK_TYPES.image && data.file?.url?.startsWith('data:')) return true;
-      if (type === BLOCK_TYPES.unsplash && data.url?.startsWith('data:')) return true;
-      return false;
-    });
-
-    if (hasBase64Image) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
+    if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
   };
 
   const clickHandler = (button: IArticleSidebarAction): void => {
