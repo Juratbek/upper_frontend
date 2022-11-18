@@ -8,7 +8,7 @@ export const Head: FC<IHeadProps> = (props) => {
   return (
     <NextHead>
       <meta property='og:site_name' content='UPPER' />
-      <meta property='og:title' content={title} />
+      <meta property='og:title' content={title} key='og-title' />
       <meta property='og:image' content={imgUrl} />
       <meta property='og:description' content={description || ''} />
       <meta property='og:type' content={type || ''} />
