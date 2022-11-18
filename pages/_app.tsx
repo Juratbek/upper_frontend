@@ -3,6 +3,7 @@ import 'styles/index.scss';
 import { GoogleOneTap, Navigation, Sidebar } from 'components';
 import { useAuth } from 'hooks';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect, useMemo } from 'react';
 import { wrapper } from 'store';
@@ -29,6 +30,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 
   return (
     <div>
+      <Head>
+        <meta name='description' content='Biz bilan yanada yuqoriroq' key='description' />
+        <title key='title'>UPPER</title>
+      </Head>
       <div className='app'>
         <Navigation />
         <DynamicLoginModal />

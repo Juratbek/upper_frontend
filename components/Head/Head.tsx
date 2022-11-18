@@ -16,8 +16,8 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='og:url' content={url} />
       <meta name='author' content={author || ''} />
       <meta name='published_date' content={publishedDate || ''} />
-      <meta name='description' content={description || ''} />
-      <title>{title}</title>
+      <meta name='description' content={description || ''} key='description' />
+      <title key='title'>{title}</title>
       {props.children}
     </NextHead>
   );
