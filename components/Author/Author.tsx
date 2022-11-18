@@ -8,10 +8,12 @@ import { IAuthorProps } from './Author.types';
 export const Author: FC<IAuthorProps> = ({ name, imgUrl, id }) => {
   return (
     <Link href={`/blogs/${id}`}>
-      <div className={classes.blog}>
-        <Avatar imgUrl={imgUrl} size='small' className={classes.avatar} />
-        <h5 className='m-0'>{name}</h5>
-      </div>
+      <a>
+        <div className={classes.blog}>
+          <Avatar imgUrl={imgUrl} size='small' className={classes.avatar} />
+          <h5 className='m-0'>{name}</h5>
+        </div>
+      </a>
     </Link>
   );
 };

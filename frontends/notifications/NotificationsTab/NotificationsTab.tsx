@@ -1,21 +1,22 @@
-import { ApiErrorBoundary, Divider } from 'components';
+import { ApiErrorBoundary, Divider, Pagination } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetNotificationsByTypeQuery, useReadNotificationMutation } from 'store/apis';
 import { INotification } from 'types';
-import { NOTIFICATIONS } from 'variables';
+import { NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
 
 export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
   const [sendReadNotificationReq] = useReadNotificationMutation();
   const {
-    query: { tab },
+    query: { tab, page },
     push,
   } = useRouter();
 
   useEffect(() => {
-    tab && fetchNotifications(tab as string);
-  }, [tab]);
+    const p = (page as unknown as number) || 1;
+    tab && fetchNotifications({ type: tab as string, page: p - 1 });
+  }, [tab, page]);
 
   const readNotification = (notification: INotification): void => {
     const { id, article } = notification;
@@ -24,7 +25,8 @@ export const NotificationsTab: FC = () => {
   };
 
   const notifications = useMemo(() => {
-    const { data: notifications } = fetchNotificationsRes;
+    const { data } = fetchNotificationsRes;
+    const notifications = data?.list || [];
     if (!notifications || notifications.length === 0)
       return <p className='text-center'>Habarlar mavjud emas</p>;
 
@@ -40,8 +42,13 @@ export const NotificationsTab: FC = () => {
   }, [fetchNotificationsRes.data]);
 
   return (
-    <ApiErrorBoundary res={fetchNotificationsRes} className='tab'>
-      {notifications}
-    </ApiErrorBoundary>
+    <div>
+      <ApiErrorBoundary res={fetchNotificationsRes} className='tab'>
+        {notifications}
+      </ApiErrorBoundary>
+      {fetchNotificationsRes.data && (
+        <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
+      )}
+    </div>
   );
 };

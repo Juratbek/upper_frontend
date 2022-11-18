@@ -22,7 +22,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
           blogApi.endpoints.getNewToken.initiate(refreshToken) as unknown as AnyAction,
         )) as unknown as { data: IBlogRegisterResponse };
         await dispatch(authenticate(res.data));
-        // window.location.reload();
+        window.location.reload();
       } catch (e) {
         console.error(e);
         return next(action);

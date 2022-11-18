@@ -6,7 +6,7 @@ export interface ILocation {
 }
 export interface IUseUrl {
   getParam: (name: string) => TParamValue;
-  setParam: (name: string, value: TParamValue) => void;
+  setParam: (name: string, value: TParamValue | number) => void;
   location: ILocation;
   isReady: boolean;
 }

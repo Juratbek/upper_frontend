@@ -58,7 +58,7 @@ export const Article: FC<IArticleProps> = (props) => {
   );
 
   const dateContent = useMemo(() => {
-    if (updatedDate) return <span>{toUzbDateString(updatedDate)} yangilangan</span>;
+    if (updatedDate) return <span>{toUzbDateString(updatedDate)} da yangilangan</span>;
     if (publishedDate) return <span>{toUzbDateString(publishedDate)}</span>;
     return <></>;
   }, [publishedDate, updatedDate]);

@@ -27,12 +27,18 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
         </div>
       </div>
     ),
-    [],
+    [name, articlesCount, followersCount, imgUrl],
   );
 
   return (
     <div className={rootClassName}>
-      {isLink ? <Link href={`/blogs/${id}`}>{getBlog('pointer')}</Link> : getBlog()}
+      {isLink ? (
+        <Link href={`/blogs/${id}`}>
+          <a>{getBlog('pointer')}</a>
+        </Link>
+      ) : (
+        getBlog()
+      )}
       <div>{bio && <p className={`${classes.bio} m-0`}>{bio}</p>}</div>
     </div>
   );
