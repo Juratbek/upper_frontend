@@ -13,9 +13,19 @@
 }
 
 .outline-dark {
-    background-color: white;
+    background-color: transparent;
     border: 1px solid black;
     color: black;
+}
+
+.white {
+    background-color: white;
+}
+
+.outline-white {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
 }
 
 .blue {

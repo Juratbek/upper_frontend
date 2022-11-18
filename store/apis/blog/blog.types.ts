@@ -3,6 +3,7 @@ export interface IBlogRegisterDto {
   bio: string;
   username: string;
   password: string;
+  email?: string;
 }
 
 export interface IBlogRegisterResponse {
@@ -26,4 +27,10 @@ export interface IChangePasswordDto {
 export interface IChangeLoginDto {
   username: string;
   password: string;
+}
+
+export interface IChangeCredentiasDto {
+  username: string;
+  password: string;
+  token: string;
 }

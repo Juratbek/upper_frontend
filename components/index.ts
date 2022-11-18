@@ -40,6 +40,8 @@ export * from './GoogleOneTap/GoogleOneTap';
 export * from './Select';
 export * from './skeletons';
 export * from './AppSuspense/AppSuspense';
+export * from './PasswordValidityLevel/PasswordValidityLevel';
+export * from './RegisterModal';
 export * from './Pagination/Pagination';
 export * from './Head';
 export * from './Badge/Badge';

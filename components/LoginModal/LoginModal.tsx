@@ -1,6 +1,7 @@
 import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
 import { useAuth } from 'hooks';
 import Head from 'next/head';
+import Link from 'next/link';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -92,6 +93,12 @@ export const LoginModal: FC = () => {
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
           Ro`yxatdan o`tish
         </Button>
+        <p className='text-gray text-center'>
+          <Link href='/forgot-credentials'>
+            <a className='link'>Login yoki parolni unutdingizmi?</a>
+          </Link>
+        </p>
+
         <TelegramLoginButton
           className='mt-2 text-center'
           botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}

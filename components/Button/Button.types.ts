@@ -6,7 +6,9 @@ export type TButtonColor =
   | 'light'
   | 'outline-red'
   | 'blue'
-  | 'outline-blue';
+  | 'outline-blue'
+  | 'white'
+  | 'outline-white';
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: TButtonColor;

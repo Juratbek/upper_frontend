@@ -6,7 +6,9 @@ export type TSpinnerColor =
   | 'light'
   | 'outline-red'
   | 'outline-blue'
-  | 'blue';
+  | 'blue'
+  | 'white'
+  | 'outline-white';
 
 export interface ISpinnerProps extends HTMLAttributes<HTMLDivElement> {
   color?: TSpinnerColor;
