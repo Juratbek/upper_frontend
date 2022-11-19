@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
 import { ILabel, IResponseError } from 'types';
-import { convertLabelsToOptions } from 'utils';
+import { compressUnsplashImage, convertLabelsToOptions } from 'utils';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
@@ -22,7 +22,7 @@ export const SidebarContent: FC = () => {
     if (!editor) return Promise.reject();
 
     const editorData = await editor.save();
-    const blocks = editorData.blocks;
+    const blocks = editorData.blocks.map(compressUnsplashImage);
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
 

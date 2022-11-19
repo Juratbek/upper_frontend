@@ -4,6 +4,8 @@ import { ARTICLE_BUCKET_URL } from 'store/apis';
 import { IArticle, ISidebarArticle } from 'types';
 import { BLOCK_TYPES } from 'variables';
 
+import { compressUnsplashImage } from './image';
+
 export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): string => {
   const title = blocks.find((block) => block.type === BLOCK_TYPES.header)?.data.text;
   const mainImg = blocks.find(
@@ -40,12 +42,19 @@ export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[
     return block;
   });
 
-export const removeAmazonUriFromImgBlocks = (blocks: OutputBlockData[]): OutputBlockData[] =>
-  blocks.map((block) => {
+export const removeAmazonUriFromImgBlocks = (
+  blocks: OutputBlockData[],
+): [OutputBlockData[], boolean] => {
+  let isReset = false;
+
+  const updatedBlocks = blocks.map((block) => {
     const blockType = block.type;
     if (blockType === BLOCK_TYPES.image) {
       const img = block.data.file;
       const imgUrl = img.url as string;
+
+      if (imgUrl.startsWith('data:')) isReset = isReset || true;
+
       if (!imgUrl || !imgUrl.startsWith(ARTICLE_BUCKET_URL)) return block;
       const imgUrlWithoutUri = imgUrl.replaceAll(ARTICLE_BUCKET_URL, '');
 
@@ -55,6 +64,15 @@ export const removeAmazonUriFromImgBlocks = (blocks: OutputBlockData[]): OutputB
     if (blockType === BLOCK_TYPES.unsplash) {
       const data = block.data;
       const url = data.url as string;
+
+      if (url.startsWith('data:')) isReset = isReset || true;
+
+      const compressedImage = compressUnsplashImage(block);
+      if (compressedImage.data.url !== url) {
+        isReset = isReset || true;
+        return compressedImage;
+      }
+
       if (!url || !url.startsWith(ARTICLE_BUCKET_URL)) return block;
       const imgUrlWithoutUri = url.replaceAll(ARTICLE_BUCKET_URL, '');
       return { ...block, data: { ...data, url: imgUrlWithoutUri } };
@@ -62,6 +80,8 @@ export const removeAmazonUriFromImgBlocks = (blocks: OutputBlockData[]): OutputB
 
     return block;
   });
+  return [updatedBlocks, isReset];
+};
 
 export const convertToHeadProp = (article: IArticle): IHeadProps => {
   const { title, imgUrl = '', content, author, publishedDate } = article;

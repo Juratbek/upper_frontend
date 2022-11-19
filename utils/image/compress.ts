@@ -1,3 +1,8 @@
+import { OutputBlockData } from '@editorjs/editorjs';
+import { BlockToolData } from '@editorjs/editorjs/types/tools';
+
+import { UNSPLASH_URL } from '../../store/apis';
+
 const resizeImageElement = (img: HTMLImageElement): string => {
   const canvas = document.createElement('canvas');
 
@@ -48,4 +53,25 @@ export const compressImage = (img: File): Promise<File> => {
 
     fileReader.onerror = reject;
   });
+};
+
+export const compressUnsplashImage = (block: OutputBlockData): BlockToolData => {
+  let url = block.data.url;
+  if (!url) return block;
+
+  if (url.startsWith(UNSPLASH_URL)) {
+    const urlSearchParams = new URLSearchParams(url);
+    if (urlSearchParams.get('amp;q') === '10') return block;
+
+    urlSearchParams.set('amp;q', '10');
+    url = decodeURIComponent(urlSearchParams.toString());
+
+    return {
+      ...block,
+      data: {
+        ...block.data,
+        url: url,
+      },
+    };
+  }
 };

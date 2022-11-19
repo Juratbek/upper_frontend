@@ -1,1 +1,1 @@
-export * from './compres';
+export * from './compress';
