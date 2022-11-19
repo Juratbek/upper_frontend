@@ -19,14 +19,9 @@ export const ARTICLES_TAB_MENUS: ITabHeader[] = [
     name: 'Saqlangan',
     id: ARTICLE_STATUSES.SAVED,
   },
-  {
-    name: 'O`chirilgan',
-    id: ARTICLE_STATUSES.DELETED,
-  },
 ];
 
 export const ARTICLES_TABS: ITabBody = {
   [ARTICLE_STATUSES.PUBLISHED]: ArticlesTab,
   [ARTICLE_STATUSES.SAVED]: ArticlesTab,
-  [ARTICLE_STATUSES.DELETED]: ArticlesTab,
 };
