@@ -1,3 +1,5 @@
+@import './mixins';
+
 .codex-editor {
   &__redactor {
     padding-bottom: 0 !important;
@@ -28,7 +30,10 @@
 
 .editor-container,
 .ce-toolbar__content {
-  max-width: 800px;
+  max-width: 820px;
+  @include screenMin1200 {
+    max-width: 880px;
+  }
 }
 
 .editor-container {

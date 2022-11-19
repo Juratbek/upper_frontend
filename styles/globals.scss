@@ -28,6 +28,10 @@
   @include screenMax576 {
     flex-direction: column;
   }
+  @include screenMin1200 {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
 }
 
 .app > .main {
