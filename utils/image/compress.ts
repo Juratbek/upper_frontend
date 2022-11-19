@@ -61,9 +61,9 @@ export const compressUnsplashImage = (block: OutputBlockData): BlockToolData => 
 
   if (url.startsWith(UNSPLASH_URL)) {
     const urlSearchParams = new URLSearchParams(url);
-    if (urlSearchParams.get('amp;q') === '10') return block;
+    if (urlSearchParams.get('q') === '10') return block;
 
-    urlSearchParams.set('amp;q', '10');
+    urlSearchParams.set('q', '10');
     url = decodeURIComponent(urlSearchParams.toString());
 
     return {
