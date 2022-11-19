@@ -1,20 +1,22 @@
-import { Button, Divider, IOption, MultiSelect } from 'components';
+import { Alert, Button, Divider, IOption, MultiSelect } from 'components';
 import { useShortCut } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
-import { ILabel } from 'types';
+import { ILabel, IResponseError } from 'types';
 import { convertLabelsToOptions } from 'utils';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
   const [createArticle, createArticleStatus] = useCreateArticleMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
+  const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const editor = useAppSelector(getEditor);
+  const isSavePressed = useShortCut('s');
 
   const save = async (): Promise<void> => {
     if (!editor) return Promise.reject();
@@ -23,13 +25,19 @@ export const SidebarContent: FC = () => {
     const blocks = editorData.blocks;
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
-    const newArticle = await createArticle({
-      title,
-      blocks,
-      labels,
-    }).unwrap();
-    dispatch(setArticle(newArticle));
-    router.push(`/user/articles/${newArticle.id}`);
+
+    try {
+      const newArticle = await createArticle({
+        title,
+        blocks,
+        labels,
+      }).unwrap();
+      dispatch(setArticle(newArticle));
+      router.push(`/user/articles/${newArticle.id}`);
+    } catch (e) {
+      const exception = e as IResponseError;
+      setAlert(exception.data.message);
+    }
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
@@ -40,7 +48,7 @@ export const SidebarContent: FC = () => {
     value && searchLabels(value);
   };
 
-  const isSavePressed = useShortCut('s');
+  const closeAlert = (): void => setAlert('');
 
   useEffect(() => {
     if (isSavePressed) save();
@@ -48,6 +56,11 @@ export const SidebarContent: FC = () => {
 
   return (
     <>
+      {alert && (
+        <Alert onClose={closeAlert} color='red' className='mb-1'>
+          {alert}
+        </Alert>
+      )}
       <Button onClick={save} className='w-100' loading={createArticleStatus.isLoading}>
         Saqlash
       </Button>
