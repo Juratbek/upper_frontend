@@ -14,7 +14,7 @@ export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }
         props.disabled ? `${classes[`${color}-disabled`]}` : classes[color],
         props.className,
       ),
-    [props.className, color],
+    [props.className, color, props.disabled],
   );
 
   return (

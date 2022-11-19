@@ -6,3 +6,4 @@ export * from './useBeforeUnload';
 export * from './useShortCut';
 export * from './useNextAuth/useNextAuth';
 export * from './useClipboard/useClipboard';
+export * from './useModal/useModal';

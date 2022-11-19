@@ -9,7 +9,7 @@ import {
 import { PAGINATION_SIZE } from 'variables';
 
 import { baseQuery } from '../config';
-import { create, update, updateStatus } from './article.endpoints';
+import { create, update } from './article.endpoints';
 
 export const articleApi = createApi({
   reducerPath: 'article',
@@ -17,7 +17,6 @@ export const articleApi = createApi({
   endpoints: (build) => ({
     create: create(build),
     update: update(build),
-    updateStatus: updateStatus(build),
     getById: build.query<IArticle, number>({
       query: (id: number) => id.toString(),
     }),
@@ -31,14 +30,27 @@ export const articleApi = createApi({
       query: ({ statuses, page = 0 }) =>
         `need-auth/list?statuses=${statuses}&page=${page}&size=${PAGINATION_SIZE}`,
     }),
+    publish: build.mutation<void, number>({
+      query: (id) => ({
+        url: `publish/${id}`,
+        method: 'POST',
+      }),
+    }),
+    delete: build.mutation<void, number>({
+      query: (id) => ({
+        url: `delete/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
 export const {
   useCreateMutation: useCreateArticleMutation,
   useUpdateMutation: useUpdateArticleMutaion,
-  useUpdateStatusMutation: useUpdateArticleStatusMutation,
   useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
+  useDeleteMutation: useDeleteArticleMutation,
+  usePublishMutation,
   useLazyGetBlogArticlesQuery,
   useLazyGetBlogArticleByIdQuery,
 } = articleApi;
