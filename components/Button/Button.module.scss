@@ -12,6 +12,11 @@
     color: white;
 }
 
+.dark-disabled {
+    background-color: var(--gray);
+    color: white;
+}
+
 .outline-dark {
     background-color: transparent;
     border: 1px solid black;
@@ -66,7 +71,17 @@
     color: var(--red);
 }
 
+.outline-red-disabled {
+    background-color: white;
+    border: 1px solid var(--lightRed);
+    color: var(--lightRed);
+}
+
 .outline-red:hover {
     background-color: var(--red);
     color: white;
+
+    & .spinner {
+        border-color: white;
+    }
 }

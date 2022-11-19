@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetBlogArticleByIdQuery } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
 import { addUriToImageBlocks, checkAuthInServer, get } from 'utils';
-import { ARTICLE_STATUSES } from 'variables';
 
 export default function UserArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -68,7 +67,6 @@ export default function UserArticlePage(): JSX.Element {
         </Alert>
       )}
       <Editor
-        isEditable={article.status !== ARTICLE_STATUSES.DELETED}
         content={{
           blocks: blocks,
         }}

@@ -1,15 +1,25 @@
-import { Alert, ArticleStatus, Button, Divider, IOption, Modal, MultiSelect } from 'components';
-import { useShortCut, useUrlParams } from 'hooks';
+import {
+  Alert,
+  ArticleStatus,
+  Button,
+  Divider,
+  Input,
+  IOption,
+  Modal,
+  MultiSelect,
+} from 'components';
+import { useModal, useShortCut, useUrlParams } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
+  useDeleteArticleMutation,
   useLazySearchLabelsQuery,
+  usePublishMutation,
   useUpdateArticleMutaion,
-  useUpdateArticleStatusMutation,
 } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
-import { TArticleStatus } from 'types';
 import {
   addUriToImageBlocks,
   convertLabelsToOptions,
@@ -17,46 +27,31 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { ARTICLE_STATUSES } from 'variables/article';
-
-import {
-  ARTICLE_ACTIONS,
-  ARTICLE_SIDEBAR_BUTTONS,
-  ARTICLE_SIDEBAR_MODAL_CONTENTS,
-} from './UserArticlesSidebar.constants';
-import { IArticleSidebarAction, TArticleAction } from './UserArticlesSidebar.types';
+import { ARTICLE_STATUSES } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
+  const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
   const { location } = useUrlParams();
+  const { register, handleSubmit } = useForm();
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [action, setAction] = useState<TArticleAction>();
-  const [alert, setAlert] = useState<string>();
-  const [updateArticle, { isLoading: isUpdatingArticle }] = useUpdateArticleMutaion();
-  const [updateArticleStatus, updateArticleStatusResponse] = useUpdateArticleStatusMutation();
+  const [isPublishModalOpen, togglePublishModal] = useModal(false);
+  const [isDeleteModalOpen, toggleDeleteModal] = useModal(false);
+
+  const [updateArticle, updateArticleRes] = useUpdateArticleMutaion();
+  const [publishArticle, publishArticleRes] = usePublishMutation();
+  const [deleteArticleReq, deleteArticleRes] = useDeleteArticleMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
-  const isLoading = useMemo(
-    () => isUpdatingArticle || updateArticleStatusResponse.isLoading,
-    [isUpdatingArticle, updateArticleStatusResponse.isLoading],
+  const isSavePressed = useShortCut('s');
+  const isPublishPressed = useShortCut('p');
+
+  const isDisabled = useMemo(
+    () => updateArticleRes.isLoading || publishArticleRes.isLoading || deleteArticleRes.isLoading,
+    [updateArticleRes.isLoading, deleteArticleRes.isLoading, publishArticleRes.isLoading],
   );
   const status = article?.status;
-
-  const BUTTONS = ARTICLE_SIDEBAR_BUTTONS[status as TArticleStatus];
-  const MODAL = action && ARTICLE_SIDEBAR_MODAL_CONTENTS[action];
-
-  const closeModal = (): void => {
-    setIsModalOpen(false);
-    setAction(undefined);
-    updateArticleStatusResponse.reset();
-  };
-
-  const openModal = (action: TArticleAction): void => {
-    setIsModalOpen(true);
-    setAction(action);
-  };
 
   const saveChanges = async (): Promise<void> => {
     if (!editor || !article) return Promise.reject();
@@ -74,33 +69,22 @@ export const UserArticlesSidebar: FC = () => {
     if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
   };
 
-  const clickHandler = (button: IArticleSidebarAction): void => {
-    if (button.shouldOpenModal) {
-      return openModal(button.action);
-    }
-    if (button.action === ARTICLE_ACTIONS.save) {
-      saveChanges();
-    }
+  const publish = async (): Promise<void> => {
+    if (!article || !editor) return;
+    const editorData = await editor?.save();
+    const blocks = editorData.blocks;
+    const message = validateArticle(article, blocks);
+    if (message) return setAlert(message);
+
+    await publishArticle(article.id).unwrap();
+    dispatch(setArticle({ ...article, status: ARTICLE_STATUSES.PUBLISHED }));
+    togglePublishModal();
   };
 
-  const confirmAction = async (): Promise<void> => {
-    if (!MODAL || !article || !editor) return;
-    const { status, shouldValidate } = MODAL.btn;
-    if (shouldValidate) {
-      const editorData = await editor?.save();
-      const blocks = editorData.blocks;
-      const message = validateArticle(article, blocks);
-      if (message) return setAlert(message);
-    }
-    if (status) {
-      try {
-        const updatedArticle = await updateArticleStatus({ id: article.id, status }).unwrap();
-        dispatch(setArticle({ ...article, ...updatedArticle }));
-        closeModal();
-      } catch (e) {
-        console.error(e);
-      }
-    }
+  const deleteArticle = async (event: Record<string, string>): Promise<void> => {
+    if (!article || !editor) return;
+    if (event.confirmation !== 'tasdiqlash') return;
+    await deleteArticleReq(article.id);
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
@@ -112,39 +96,79 @@ export const UserArticlesSidebar: FC = () => {
     value && searchLabels(value);
   };
 
-  const isSavePressed = useShortCut('s');
-  const isPublishPressed = useShortCut('p');
-
   useEffect(() => {
     if (isSavePressed) saveChanges();
-    if (isPublishPressed) openModal(ARTICLE_ACTIONS.publish);
+    if (isPublishPressed) togglePublishModal();
   }, [isSavePressed, isPublishPressed]);
 
   return (
     <>
-      {MODAL && (
-        <Modal size='small' isOpen={isModalOpen} close={closeModal}>
-          {alert && (
-            <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
-              <div>{alert}</div>
-              <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
-                Yo`riqnomani o`qish
-              </a>
-            </Alert>
-          )}
-          <p className='text-center'>
-            <strong>“Maqola sarlavhasi”</strong> maqolani {MODAL.text || ''}
-          </p>
-          <div className='justify-content-around d-flex'>
-            <Button color='outline-dark' onClick={closeModal}>
-              Yo`q
+      <Modal
+        size='small'
+        isOpen={isPublishModalOpen}
+        close={togglePublishModal}
+        bodyClassName='text-center'
+      >
+        {alert && (
+          <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+            <div>{alert}</div>
+            <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
+              Yo`riqnomani o`qish
+            </a>
+          </Alert>
+        )}
+        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz</h3>
+        <div className='d-flex'>
+          <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
+            Modalni yopish
+          </Button>
+          <Button onClick={publish} className='flex-1' loading={publishArticleRes.isLoading}>
+            Nashr qilish
+          </Button>
+        </div>
+      </Modal>
+      <Modal
+        size='small'
+        isOpen={isDeleteModalOpen}
+        close={toggleDeleteModal}
+        bodyClassName='text-center'
+      >
+        {alert && (
+          <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+            <div>{alert}</div>
+            <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
+              Yo`riqnomani o`qish
+            </a>
+          </Alert>
+        )}
+        <form onSubmit={handleSubmit(deleteArticle)}>
+          <h3 className='mt-1'>Maqolani o`chirmoqchimisiz</h3>
+          <div className='mb-2'>
+            <label htmlFor='confirm' className='mb-1 d-block'>
+              Tasdiqlash uchun{' '}
+              <strong>
+                <code>tasdiqlash</code>
+              </strong>{' '}
+              so`zini kiriting
+            </label>
+            <Input
+              placeholder='tasdiqlash'
+              {...register('confirmation', {
+                required: true,
+                validate: (value) => value === 'tasdiqlash',
+              })}
+            />
+          </div>
+          <div className='d-flex justify-content-end'>
+            <Button type='button' color='outline-dark' onClick={toggleDeleteModal} className='me-1'>
+              Modalni yopish
             </Button>
-            <Button color={MODAL.btn.color || 'dark'} onClick={confirmAction} loading={isLoading}>
-              {MODAL.btn.text}
+            <Button color='outline-red' loading={deleteArticleRes.isLoading}>
+              O`chirish
             </Button>
           </div>
-        </Modal>
-      )}
+        </form>
+      </Modal>
       {status && (
         <>
           <ArticleStatus className='mb-1' status={status}>
@@ -155,22 +179,40 @@ export const UserArticlesSidebar: FC = () => {
             )}
           </ArticleStatus>
           <div className='d-flex flex-wrap m--1'>
-            {BUTTONS.map((button, index) => (
+            <Button
+              className='flex-auto m-1 mb-0'
+              color='outline-red'
+              type='button'
+              onClick={toggleDeleteModal}
+              disabled={isDisabled}
+            >
+              O`chirish
+            </Button>
+            <Button
+              className='flex-auto m-1 mb-0'
+              color='outline-dark'
+              type='button'
+              onClick={saveChanges}
+              loading={updateArticleRes.isLoading}
+              disabled={publishArticleRes.isLoading}
+            >
+              Saqlash
+            </Button>
+            {status === ARTICLE_STATUSES.SAVED && (
               <Button
-                key={index}
                 className='flex-auto m-1 mb-0'
-                color={button.color}
-                loading={isLoading}
-                onClick={(): void => clickHandler(button)}
+                type='button'
+                onClick={togglePublishModal}
+                disabled={isDisabled}
               >
-                {button.text}
+                Nashr qilish
               </Button>
-            ))}
+            )}
             {article.hasNotpublishedChanges && (
               <Button
                 className='flex-auto m-1 mb-0'
-                onClick={(): void => openModal(ARTICLE_ACTIONS.publish)}
-                loading={isLoading}
+                onClick={togglePublishModal}
+                disabled={isDisabled}
               >
                 Nashr qilish
               </Button>
@@ -187,7 +229,6 @@ export const UserArticlesSidebar: FC = () => {
           </label>
           <MultiSelect
             onChange={labelsChangeHandler}
-            disabled={status === ARTICLE_STATUSES.DELETED}
             onInputDebounce={SearchLabels}
             defaultValues={convertLabelsToOptions(article.labels)}
             renderItem={(item): JSX.Element => {

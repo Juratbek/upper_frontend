@@ -2,7 +2,7 @@ import {
   EndpointBuilder,
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { IArticle, TArticleStatus } from 'types';
+import { IArticle } from 'types';
 
 import { TBaseQuery } from '../config';
 import { ICreateArticleDto, IUpdateArticleDto } from './article.types';
@@ -48,16 +48,5 @@ export const update = (
       url: 'update',
       method: 'POST',
       body,
-    }),
-  });
-
-export const updateStatus = (
-  build: TArticleEndpointBuilder,
-): TArticleMutationDefinition<IArticle, { id: number; status: TArticleStatus }> =>
-  build.mutation({
-    query: ({ id, status }) => ({
-      url: `update-status/${id}`,
-      method: 'POST',
-      body: { status },
     }),
   });

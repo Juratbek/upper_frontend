@@ -4,7 +4,7 @@
   --lightGray: rgba(196, 196, 196, 0.35);
   --gray: gray;
   --red: hsl(0, 76%, 47%);
-  --lightRed: hsl(0, 76%, 47%);
+  --lightRed: hsl(0, 28%, 67%);
   --smallBorderRadius: 0.3rem;
   --mediumBorderRadius: 0.6rem;
   --yellow: rgba(255, 229, 60);
@@ -298,6 +298,10 @@
 
 .justify-content-around {
   justify-content: space-around;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
 }
 
 .float-firgt {
