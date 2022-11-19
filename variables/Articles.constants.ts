@@ -5,9 +5,7 @@ import { ARTICLE_STATUSES } from './article';
 
 export const TAB_IDS = {
   published: 'published',
-  draft: 'draft',
   saved: 'saved',
-  deleted: 'deleted',
 };
 
 export const ARTICLES_TAB_MENUS: ITabHeader[] = [
