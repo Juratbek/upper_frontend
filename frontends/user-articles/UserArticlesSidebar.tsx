@@ -10,6 +10,7 @@ import {
 } from 'components';
 import { useModal, useShortCut, useUrlParams } from 'hooks';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -33,6 +34,7 @@ export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
   const { location } = useUrlParams();
+  const { push } = useRouter();
   const { register, handleSubmit } = useForm();
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
@@ -84,7 +86,10 @@ export const UserArticlesSidebar: FC = () => {
   const deleteArticle = async (event: Record<string, string>): Promise<void> => {
     if (!article || !editor) return;
     if (event.confirmation !== 'tasdiqlash') return;
-    await deleteArticleReq(article.id);
+    try {
+      await deleteArticleReq(article.id);
+      push('/articles');
+    } catch (e) {}
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
@@ -144,7 +149,7 @@ export const UserArticlesSidebar: FC = () => {
         <form onSubmit={handleSubmit(deleteArticle)}>
           <h3 className='mt-1'>Maqolani o`chirmoqchimisiz</h3>
           <div className='mb-2'>
-            <label htmlFor='confirm' className='mb-1 d-block'>
+            <label htmlFor='confirm' className='mb-1 d-block' style={{ userSelect: 'none' }}>
               Tasdiqlash uchun{' '}
               <strong>
                 <code>tasdiqlash</code>

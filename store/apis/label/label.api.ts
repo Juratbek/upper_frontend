@@ -7,9 +7,6 @@ export const labelApi = createApi({
   reducerPath: 'label',
   baseQuery: baseQuery('label'),
   endpoints: (build) => ({
-    getAll: build.query<ILabel[], void>({
-      query: () => 'list',
-    }),
     getAllByDirectionIds: build.query<ILabel[], number[]>({
       query: (ids) => ({
         url: 'by-direction',
@@ -26,8 +23,6 @@ export const labelApi = createApi({
 });
 
 export const {
-  useGetAllQuery: useGetLabelsQuery,
-  useLazyGetAllQuery: useLazyGetAllLabelsQuery,
   useLazyGetAllByDirectionIdsQuery: useLazyGetAllLabelsByDirectionIdsQuery,
   useLazySearchQuery: useLazySearchLabelsQuery,
 } = labelApi;
