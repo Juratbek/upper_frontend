@@ -22,7 +22,7 @@ import {
   openLoginModal,
   openRegisterModal,
 } from 'store/states';
-import { addAmazonUri, addUriToArticleImages, getDevice, replaceAll } from 'utils';
+import { addAmazonUri, addUriToArticleImages, getClassName, getDevice, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -36,8 +36,12 @@ export const Sidebar = (): JSX.Element => {
   const [fetchArticleSuggestions, articleSuggestionsRes] =
     useLazyGetSidebarArticleSuggestionsQuery();
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
-  const isMobile = useMemo(() => getDevice().isMobile, []);
+  const isMobile = useMemo(() => getDevice().isMobile || false, []);
   const isCommentsBlockOpen = useAppSelector(getIsCommentsSidebarOpen);
+  const rootClassName = getClassName(
+    classes.sidebar,
+    isMobile && !isCommentsBlockOpen && classes['sidebar--hidden'],
+  );
 
   const loginHandler = (): void => {
     dispatch(openLoginModal());
@@ -136,9 +140,5 @@ export const Sidebar = (): JSX.Element => {
     );
   }, [pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
 
-  return (
-    <div className={`${classes.sidebar} ${isMobile && !isCommentsBlockOpen && 'd-none'}`}>
-      {content}
-    </div>
-  );
+  return <div className={rootClassName}>{content}</div>;
 };
