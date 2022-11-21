@@ -5,4 +5,11 @@
     position: relative;
     padding: 1rem 1.8rem;
 
+    &--hidden {
+        width: 0;
+        max-width: 0;
+        max-height: 0;
+        height: 0;
+        overflow: 0;
+    }
 }

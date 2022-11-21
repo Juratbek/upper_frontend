@@ -3,12 +3,18 @@ import { IDevice, TDeviceType } from './device.types';
 
 export const getDevice = (): IDevice => {
   let screenWith = 0;
-  try {
-    screenWith = screen.width;
-  } catch (e) {}
   let type: TDeviceType = DEVICE_TYPES.desktop;
   let isMobile = false;
   let isTablet = false;
+  try {
+    screenWith = screen.width;
+  } catch (e) {
+    return {
+      type,
+      isMobile,
+      isTablet,
+    };
+  }
 
   if (screenWith < 576) {
     isMobile = true;
