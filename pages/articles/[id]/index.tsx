@@ -36,7 +36,15 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
 
   if (!article) {
     if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
-    return <h1>{get(error, 'data.message')}</h1>;
+    if (error?.status === 404)
+      return (
+        <div className='text-center mt-4'>
+          <h1>Maqola topilmadi</h1>
+          <h3>404 :(</h3>
+          <p className='text-gray'>Maqola o`chirilgan yoki bloklangan bo`lishi mumkin</p>
+        </div>
+      );
+    return <h2>{get(error, 'data.message')}</h2>;
   }
 
   return (
