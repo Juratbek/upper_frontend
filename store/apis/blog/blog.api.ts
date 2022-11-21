@@ -160,7 +160,7 @@ export const {
   useGetCurrentBlogQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
-  useGetSidebarSuggestionsQuery: useGetSidebarBlogSuggestionsQuery,
+  useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
   useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
