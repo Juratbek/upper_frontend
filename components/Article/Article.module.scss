@@ -1,7 +1,12 @@
+@import 'styles/_mixins';
+
 .title {
   margin: 0;
   font-size: 1.4rem;
   margin-bottom: 0.4rem;
+  @include screenMax576 {
+    font-size: 1.3rem;
+  }
 }
 
 .content {
@@ -10,6 +15,9 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  @include screenMax576 {
+    font-size: 1rem;
+  }
 }
 
 .body {
@@ -25,6 +33,9 @@
 
 .text-content {
   margin-right: 1rem;
+  @include screenMax576 {
+    margin-right: 0.2rem;
+  }
 }
 
 .footer {

@@ -2,7 +2,9 @@ import { Button, Textarea } from 'components';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
+import { closeCommentsSidebar } from 'store/states';
 import { TSubmitFormEvent } from 'types';
 
 import classes from './Form.module.scss';
@@ -17,6 +19,7 @@ export const Form: FC<IFormProps> = () => {
     setError,
     formState: { errors },
   } = useForm();
+  const dispatch = useAppDispatch();
   const [createComment, { isLoading }] = useCreateCommentMutation();
   const {
     query: { id },
@@ -33,6 +36,10 @@ export const Form: FC<IFormProps> = () => {
     reset();
   };
 
+  const closeComments = (): void => {
+    dispatch(closeCommentsSidebar());
+  };
+
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
       <Textarea
@@ -45,6 +52,9 @@ export const Form: FC<IFormProps> = () => {
       )}
       <Button loading={isLoading} className='w-100 mx-auto mt-1' color='outline-dark'>
         Izoh qoldirish
+      </Button>
+      <Button type='button' className='w-100 mt-1' color='outline-dark' onClick={closeComments}>
+        Yopish
       </Button>
     </form>
   );

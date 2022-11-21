@@ -1,3 +1,5 @@
+@import 'styles/_mixins';
+
 .comments {
   position: absolute;
   inset: 0;
@@ -11,19 +13,40 @@
   transform: translateX(100%);
   transition: all 200ms ease-in-out;
 
+  @include screenMax576 {
+    position: fixed;
+    top: 30%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: unset;
+    transform: translateY(100%);
+    border-radius: 15px 15px 0 0;
+    border: 0.5px solid var(--gray);
+  }
+
   &--open {
     transform: translateX(0);
+
+    @include screenMax576 {
+      transform: translateY(0);
+    }
   }
 
   & .comments-list {
     padding: 1rem;
     overflow-y: scroll;
 
+    @include screenMax576 {
+      margin-top: 1rem;
+      padding-top: 0;
+    }
+
     &::-webkit-scrollbar {
       width: 0.5rem;
     }
     &::-webkit-scrollbar-track {
-      background: #fff;
+      background: transparent;
     }
     &::-webkit-scrollbar-thumb {
       background: rgb(204, 204, 204);

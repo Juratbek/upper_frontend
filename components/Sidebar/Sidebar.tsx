@@ -10,14 +10,19 @@ import {
 import { BlogSkeleton } from 'components/skeletons';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
-  useGetSidebarArticleSuggestionsQuery,
-  useGetSidebarBlogSuggestionsQuery,
+  useLazyGetSidebarArticleSuggestionsQuery,
+  useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import { getArticleAuthor, openLoginModal, openRegisterModal } from 'store/states';
-import { addAmazonUri, addUriToArticleImages, replaceAll } from 'utils';
+import {
+  getArticleAuthor,
+  getIsCommentsSidebarOpen,
+  openLoginModal,
+  openRegisterModal,
+} from 'store/states';
+import { addAmazonUri, addUriToArticleImages, getDevice, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -28,8 +33,11 @@ export const Sidebar = (): JSX.Element => {
   const { pathname } = useRouter();
   const { isAuthenticated } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
-  const articleSuggestionsRes = useGetSidebarArticleSuggestionsQuery();
-  const blogSuggestionsRes = useGetSidebarBlogSuggestionsQuery();
+  const [fetchArticleSuggestions, articleSuggestionsRes] =
+    useLazyGetSidebarArticleSuggestionsQuery();
+  const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
+  const isMobile = useMemo(() => getDevice().isMobile, []);
+  const isCommentsBlockOpen = useAppSelector(getIsCommentsSidebarOpen);
 
   const loginHandler = (): void => {
     dispatch(openLoginModal());
@@ -38,6 +46,12 @@ export const Sidebar = (): JSX.Element => {
   const registerHandler = (): void => {
     dispatch(openRegisterModal());
   };
+
+  useEffect(() => {
+    if (isMobile) return;
+    fetchArticleSuggestions();
+    fetchBlogSuggestions();
+  }, []);
 
   const suggestedArticles = useMemo(() => {
     const { data } = articleSuggestionsRes;
@@ -122,5 +136,9 @@ export const Sidebar = (): JSX.Element => {
     );
   }, [pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
 
-  return <div className={classes.sidebar}>{content}</div>;
+  return (
+    <div className={`${classes.sidebar} ${isMobile && !isCommentsBlockOpen && 'd-none'}`}>
+      {content}
+    </div>
+  );
 };

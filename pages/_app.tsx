@@ -5,17 +5,15 @@ import { useAuth } from 'hooks';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import NextNProgress from 'nextjs-progressbar';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { wrapper } from 'store';
 import { appDynamic } from 'utils';
-import { getDevice } from 'utils';
 
 const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
 
 const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal'));
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const isMobile = useMemo(() => getDevice().isMobile, []);
   const { getToken, getRefreshToken, authenticate, unauthenticate } = useAuth();
 
   useEffect(() => {

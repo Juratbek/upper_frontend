@@ -46,7 +46,7 @@ export const publishedArticleApi = createApi({
 });
 
 export const {
-  useGetSidebarSuggestionsQuery: useGetSidebarArticleSuggestionsQuery,
+  useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarArticleSuggestionsQuery,
   useGetSuggestionsQuery: useGetArticleSuggestionsQuery,
   useGetTopQuery: useGetTopArticlesQuery,
   useLazyCheckIfLikedDislikedQuery,
