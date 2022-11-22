@@ -10,6 +10,7 @@
         max-width: 0;
         max-height: 0;
         height: 0;
-        overflow: 0;
+        overflow: hidden;
+        transform: scale(0);
     }
 }
