@@ -9,7 +9,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
     const status: number = action.payload?.status;
     const endpointName = action.meta?.arg?.endpointName;
     const isGetNewTokenApi = endpointName === 'getNewToken';
-    if ([401, 400, 500, 403].includes(status)) {
+    if (isGetNewTokenApi && [401, 400, 500, 403].includes(status)) {
       const { dispatch } = api;
       dispatch(unauthenticate());
       window.location.reload();
