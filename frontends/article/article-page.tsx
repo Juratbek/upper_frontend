@@ -39,6 +39,14 @@ export const Article: FC<IArticleProps> = (props) => {
   };
 
   useEffect(() => {
+    if (editorInstance?.isReady) {
+      const main = document.querySelector('#main');
+      main?.scrollIntoView({ block: 'start' });
+      main?.scrollTo(0, 0);
+    }
+  }, [editorInstance?.isReady]);
+
+  useEffect(() => {
     isAuthenticated && checkIfLikedDislikedQuery(id);
   }, [isAuthenticated]);
 
