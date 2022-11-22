@@ -1,11 +1,10 @@
-import { Tooltip } from 'components';
-import { useAuth } from 'hooks';
+import { Button, Tooltip } from 'components';
+import { useAuth, useDevice } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal } from 'store/states';
-import { getDevice } from 'utils';
 import { ICONS, NOTIFICATION_STATUSES } from 'variables';
 
 import { NavItem } from './components';
@@ -22,12 +21,11 @@ export const Navigation = (): JSX.Element => {
   const { pathname } = useRouter();
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { isMobile } = useDevice();
 
   const icons = useMemo(() => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [isAuthenticated]);
-
-  const isMobile = useMemo(() => getDevice().isMobile, []);
 
   const logOut = (): void => {
     unauthenticate();
@@ -49,6 +47,18 @@ export const Navigation = (): JSX.Element => {
   useEffect(() => {
     isAuthenticated && fetchBlogNotificationsCount(NOTIFICATION_STATUSES.UNREAD);
   }, [isAuthenticated]);
+
+  const buttons = useMemo(
+    () => (
+      <div className={isMobile && !isAuthenticated ? 'd-block' : 'd-none'}>
+        <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
+          Ro`yxatdan o`tish
+        </Button>
+        <Button onClick={loginClickHandler}>Kirish</Button>
+      </div>
+    ),
+    [isMobile, isAuthenticated],
+  );
 
   return (
     <div className={classes.navigation}>
@@ -79,14 +89,7 @@ export const Navigation = (): JSX.Element => {
                 <LogOutIcon />
               </Tooltip>
             )}
-            {/* {isMobile && !isAuthenticated && (
-              <>
-                <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
-                  Ro`yxatdan o`tish
-                </Button>
-                <Button onClick={loginClickHandler}>Kirish</Button>
-              </>
-            )} */}
+            {buttons}
           </div>
         </div>
       </div>

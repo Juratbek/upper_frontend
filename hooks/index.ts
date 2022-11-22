@@ -7,3 +7,4 @@ export * from './useShortCut';
 export * from './useNextAuth/useNextAuth';
 export * from './useClipboard/useClipboard';
 export * from './useModal/useModal';
+export * from './useDevice/useDevice';

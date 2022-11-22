@@ -8,7 +8,7 @@ import {
   SidebarSearch,
 } from 'components';
 import { BlogSkeleton } from 'components/skeletons';
-import { useAuth } from 'hooks';
+import { useAuth, useDevice } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -22,7 +22,7 @@ import {
   openLoginModal,
   openRegisterModal,
 } from 'store/states';
-import { addAmazonUri, addUriToArticleImages, getClassName, getDevice, replaceAll } from 'utils';
+import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
@@ -36,7 +36,7 @@ export const Sidebar = (): JSX.Element => {
   const [fetchArticleSuggestions, articleSuggestionsRes] =
     useLazyGetSidebarArticleSuggestionsQuery();
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
-  const isMobile = useMemo(() => getDevice().isMobile || false, []);
+  const { isMobile } = useDevice({ isMobile: true });
   const isCommentsBlockOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
     classes.sidebar,
@@ -55,7 +55,7 @@ export const Sidebar = (): JSX.Element => {
     if (isMobile) return;
     fetchArticleSuggestions();
     fetchBlogSuggestions();
-  }, []);
+  }, [isMobile]);
 
   const suggestedArticles = useMemo(() => {
     const { data } = articleSuggestionsRes;
