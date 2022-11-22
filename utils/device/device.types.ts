@@ -1,4 +1,4 @@
-export type TDeviceType = 'mobile' | 'desktop' | 'tablet';
+export type TDeviceType = 'mobile' | 'desktop' | 'tablet' | 'unknown';
 
 export interface IDevice {
   type: TDeviceType;
