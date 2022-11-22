@@ -337,6 +337,12 @@
   width: 100%;
 }
 
+.w-mobile-100 {
+  @include screenMax576 {
+    width: 100%;
+  }
+}
+
 // flex
 .flex-1 {
   flex: 1;

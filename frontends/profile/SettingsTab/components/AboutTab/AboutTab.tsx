@@ -69,12 +69,12 @@ export const AboutTab: FC = () => {
 
     if (isSuccess) {
       return (
-        <form className='d-flex flex-wrap' onSubmit={handleSubmit(submitHandler)}>
+        <form className={`d-flex flex-wrap ${classes.form}`} onSubmit={handleSubmit(submitHandler)}>
           <div className='w-100'>
             <h2 className='m-1'>Ochiq ma&apos;lumotlar</h2>
             <Divider />
           </div>
-          <div className='w-50 p-1'>
+          <div className='w-50 w-mobile-100 p-1'>
             <div>
               <Avatar imgUrl={imgUrl || ''} className='my-2' size='extra-large' />
               <FileInput {...register('avatar')} accept='image/jpeg, image/png' />
@@ -88,7 +88,7 @@ export const AboutTab: FC = () => {
               <Textarea defaultValue={blog.bio} {...register('bio', { required: true })} />
             </div>
           </div>
-          <div className='w-50 p-1'>
+          <div className='w-50 w-mobile-100 p-1'>
             <h4 className='mb-1'>Ijtimoiy tarmoqlar</h4>
             <div>
               {SOCIAL_MEDIA_ICONS.map((icon, index) => {
