@@ -7,12 +7,17 @@ import { REFRESH_TOKEN } from 'variables';
 export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => async (action) => {
   if (isRejectedWithValue(action)) {
     const status: number = action.payload?.status;
+    const endpointName = action.meta?.arg?.endpointName;
+    const isGetNewTokenApi = endpointName === 'getNewToken';
+    if ([401, 400, 500, 403].includes(status)) {
+      const { dispatch } = api;
+      dispatch(unauthenticate());
+      window.location.reload();
+    }
 
     if (status === 401) {
       const { dispatch } = api;
       const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-      const endpointName = action.meta?.arg?.endpointName;
-      const isGetNewTokenApi = endpointName === 'getNewToken';
 
       if (!refreshToken || isGetNewTokenApi) {
         dispatch(unauthenticate());
@@ -21,8 +26,8 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
           blogApi.endpoints.getNewToken.initiate(refreshToken) as unknown as AnyAction,
         )) as unknown as { data: IBlogRegisterResponse };
         await dispatch(authenticate(res.data));
-        window.location.reload();
       }
+      window.location.reload();
     }
   }
   return next(action);
