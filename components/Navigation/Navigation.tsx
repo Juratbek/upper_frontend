@@ -70,7 +70,7 @@ export const Navigation = (): JSX.Element => {
           {icons.map(({ icon, href, authNeeded, tooltip }) => {
             const Icon = ICONS[icon];
             return (
-              <Tooltip tooltip={tooltip} key={icon}>
+              <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
                 <NavItem
                   onClick={(): void => clickHandler(href, authNeeded)}
                   icon={Icon}

@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <Navigation />
         <DynamicLoginModal />
         <DynamicRegisterModal />
-        <main className='main'>
+        <main className='main' id='main'>
           <Component {...pageProps} />
         </main>
         <Sidebar />
