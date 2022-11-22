@@ -48,6 +48,7 @@
   }
 
   @include screenMax576 {
+    padding: 0 0.5rem;
     padding-top: 91px;
     &::-webkit-scrollbar {
       width: 0.5rem;
@@ -334,6 +335,12 @@
 }
 .w-100 {
   width: 100%;
+}
+
+.w-mobile-100 {
+  @include screenMax576 {
+    width: 100%;
+  }
 }
 
 // flex
