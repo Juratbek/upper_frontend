@@ -48,6 +48,7 @@
   }
 
   @include screenMax576 {
+    padding: 0 0.5rem;
     padding-top: 91px;
     &::-webkit-scrollbar {
       width: 0.5rem;
