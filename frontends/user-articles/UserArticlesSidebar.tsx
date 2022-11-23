@@ -124,7 +124,10 @@ export const UserArticlesSidebar: FC = () => {
             </a>
           </Alert>
         )}
-        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz</h3>
+        {status === ARTICLE_STATUSES.SAVED && (
+          <Alert color='yellow'>Obunalar maqola nashr qilingani haqida habar olishadi</Alert>
+        )}
+        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz?</h3>
         <div className='d-flex'>
           <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
             Modalni yopish
