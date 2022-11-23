@@ -1,7 +1,7 @@
-import { Button, Tooltip } from 'components';
-import { useAuth, useDevice } from 'hooks';
+import { Alert, Button, Modal, Tooltip } from 'components';
+import { useAuth, useDevice, useModal } from 'hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal } from 'store/states';
@@ -15,7 +15,9 @@ const LogOutIcon = ICONS.logOut;
 const Logo = ICONS.logo;
 
 export const Navigation = (): JSX.Element => {
+  const [alert, setAlert] = useState<string>();
   const { isAuthenticated, unauthenticate } = useAuth();
+  const [isPublishModalOpen, togglePublishModal] = useModal();
   const [fetchBlogNotificationsCount, fetchBlogNotificationsCountRes] =
     useLazyGetBlogNotificationsCountQuery();
   const { pathname } = useRouter();
@@ -60,8 +62,54 @@ export const Navigation = (): JSX.Element => {
     [isMobile, isAuthenticated],
   );
 
+  const actions = useMemo(() => {
+    const isWriteArticlePage = pathname === '/write-article';
+    const isUserArticlePage = pathname === '/user/articles/[id]';
+    return (
+      <div>
+        {(isWriteArticlePage || isUserArticlePage) && (
+          <Button color={isWriteArticlePage ? 'dark' : 'outline-dark'} className='me-xs-1'>
+            Saqlash
+          </Button>
+        )}
+        {isUserArticlePage && <Button className='me-xs-2'>Nashr qilish</Button>}
+      </div>
+    );
+  }, [pathname]);
+
+  const publishModal = useMemo(
+    () => (
+      <Modal
+        size='small'
+        isOpen={isPublishModalOpen}
+        close={togglePublishModal}
+        bodyClassName='text-center'
+      >
+        {alert && (
+          <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+            <div>{alert}</div>
+            <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
+              Yo`riqnomani o`qish
+            </a>
+          </Alert>
+        )}
+        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz</h3>
+        <div className='d-flex'>
+          <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
+            Modalni yopish
+          </Button>
+          {/* <Button onClick={publish} className='flex-1' loading={publishArticleRes.isLoading}>
+            Nashr qilish
+          </Button> */}
+        </div>
+      </Modal>
+    ),
+    [],
+  );
+
   return (
     <div className={classes.navigation}>
+      {publishModal}
       <div className={`${classes.navigation} ${classes.positioned}`}>
         <span className={classes.logo}>
           <Logo />
@@ -84,6 +132,7 @@ export const Navigation = (): JSX.Element => {
         </div>
         <div className={classes['third-block']}>
           <div className={`${classes.logOut} pointer`} onClick={logOut}>
+            {actions}
             {isAuthenticated && (
               <Tooltip tooltip='Profildan chiqish'>
                 <LogOutIcon />
