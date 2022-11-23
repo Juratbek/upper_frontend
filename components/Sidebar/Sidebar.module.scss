@@ -4,6 +4,8 @@
     width: 26vw;
     position: relative;
     padding: 1rem 1.8rem;
+    height: 100vh;
+    overflow: auto;
 
     &--hidden {
         width: 0;
