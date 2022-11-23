@@ -37,10 +37,10 @@ export const Sidebar = (): JSX.Element => {
     useLazyGetSidebarArticleSuggestionsQuery();
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
-  const isCommentsBlockOpen = useAppSelector(getIsCommentsSidebarOpen);
+  const isCommentsSidebarOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
     classes.sidebar,
-    isMobile && !isCommentsBlockOpen && classes['sidebar--hidden'],
+    isMobile && !isCommentsSidebarOpen && classes['sidebar--hidden'],
   );
 
   const loginHandler = (): void => {
@@ -131,11 +131,15 @@ export const Sidebar = (): JSX.Element => {
         )}
         {AdditionalComponent && <AdditionalComponent />}
         <SidebarSearch />
-        <h3>Siz uchun maqolalar</h3>
-        {suggestedArticles}
-        <Divider className='my-2' />
-        <h3>Kuzatib boring</h3>
-        {suggestedBlogs}
+        {!isCommentsSidebarOpen && (
+          <>
+            <h3>Siz uchun maqolalar</h3>
+            {suggestedArticles}
+            <Divider className='my-2' />
+            <h3>Kuzatib boring</h3>
+            {suggestedBlogs}
+          </>
+        )}
       </>
     );
   }, [pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
