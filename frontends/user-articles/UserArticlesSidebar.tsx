@@ -75,6 +75,7 @@ export const UserArticlesSidebar: FC = () => {
     if (!article) return;
     let res;
     try {
+      await saveChanges();
       res = await publishArticle(article.id).unwrap();
     } catch (e) {
       const error = e as IResponseError;
@@ -128,7 +129,11 @@ export const UserArticlesSidebar: FC = () => {
           <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
             Modalni yopish
           </Button>
-          <Button onClick={publish} className='flex-1' loading={publishArticleRes.isLoading}>
+          <Button
+            onClick={publish}
+            className='flex-1'
+            loading={publishArticleRes.isLoading || updateArticleRes.isLoading}
+          >
             Nashr qilish
           </Button>
         </div>
