@@ -81,7 +81,7 @@ export const SidebarSearch: FC = () => {
   );
 
   const content = useMemo(() => {
-    if (!inputValue) return <p className='my-1'>Type something to search</p>;
+    if (!inputValue) return <p className='my-1'>Qidirish uchun yozing</p>;
 
     const hasBlogsContent = !(
       searchBlogRes.isSuccess &&
