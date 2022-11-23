@@ -21,12 +21,12 @@ import {
   useUpdateArticleMutaion,
 } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
+import { IResponseError } from 'types';
 import {
   addUriToImageBlocks,
   convertLabelsToOptions,
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
-  validateArticle,
 } from 'utils';
 import { ARTICLE_STATUSES } from 'variables';
 
@@ -72,13 +72,13 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const publish = async (): Promise<void> => {
-    if (!article || !editor) return;
-    const editorData = await editor?.save();
-    const blocks = editorData.blocks;
-    const message = validateArticle(article, blocks);
-    if (message) return setAlert(message);
-
-    await publishArticle(article.id).unwrap();
+    if (!article) return;
+    try {
+      await publishArticle(article.id).unwrap();
+    } catch (e) {
+      const error = e as IResponseError;
+      return setAlert(error.data.message);
+    }
     dispatch(setArticle({ ...article, status: ARTICLE_STATUSES.PUBLISHED }));
     togglePublishModal();
   };
