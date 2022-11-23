@@ -93,6 +93,8 @@ export const SidebarSearch: FC = () => {
       !searchArticleRes.isFetching &&
       searchArticleRes.data.length === 0
     );
+
+    if (!(hasBlogsContent || hasArticlesContent)) return <p className='my-1'>Ma`lumot topilmadi</p>;
     return (
       <>
         {hasBlogsContent && (
