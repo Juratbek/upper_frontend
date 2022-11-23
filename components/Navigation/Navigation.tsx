@@ -29,6 +29,7 @@ export const Navigation = (): JSX.Element => {
 
   const logOut = (): void => {
     unauthenticate();
+    router.push('/');
   };
 
   const clickHandler = (href: string, authNeeded: boolean | undefined): void => {
@@ -89,8 +90,8 @@ export const Navigation = (): JSX.Element => {
                 <LogOutIcon />
               </Tooltip>
             )}
-            {buttons}
           </div>
+          {buttons}
         </div>
       </div>
     </div>
