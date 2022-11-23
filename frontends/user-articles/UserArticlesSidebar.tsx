@@ -73,13 +73,14 @@ export const UserArticlesSidebar: FC = () => {
 
   const publish = async (): Promise<void> => {
     if (!article) return;
+    let res;
     try {
-      await publishArticle(article.id).unwrap();
+      res = await publishArticle(article.id).unwrap();
     } catch (e) {
       const error = e as IResponseError;
       return setAlert(error.data.message);
     }
-    dispatch(setArticle({ ...article, status: ARTICLE_STATUSES.PUBLISHED }));
+    dispatch(setArticle({ ...article, ...res }));
     togglePublishModal();
   };
 

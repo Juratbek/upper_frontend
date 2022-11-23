@@ -30,7 +30,7 @@ export const articleApi = createApi({
       query: ({ statuses, page = 0 }) =>
         `need-auth/list?statuses=${statuses}&page=${page}&size=${PAGINATION_SIZE}`,
     }),
-    publish: build.mutation<void, number>({
+    publish: build.mutation<IArticle, number>({
       query: (id) => ({
         url: `publish/${id}`,
         method: 'POST',
