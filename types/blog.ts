@@ -17,4 +17,5 @@ export interface IBlog extends IBlogMedium {
   createdDate: string;
   labels: ILabel[];
   isFollowed?: boolean;
+  isCurrentBlog?: boolean;
 }
