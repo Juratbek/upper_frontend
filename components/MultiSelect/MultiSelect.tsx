@@ -104,6 +104,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
             key={option.value}
           >
             {option.label}
+            <span className={classes.x}>&#10005;</span>
           </span>
         ))}
         {!disabled && (
