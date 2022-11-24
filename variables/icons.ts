@@ -1,4 +1,5 @@
 import {
+  BurgerIcon,
   CommentIcon,
   DeleteIcon,
   DislikeIcon,
@@ -55,6 +56,7 @@ export const ICON_TYPES = {
   logOut: 'logOut',
   logo: 'logo',
   eyeSlash: 'eyeSlash',
+  burger: 'burger',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -93,4 +95,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   logOut: LogOutIcon,
   logo: Logo,
   eyeSlash: EyeSlashIcon,
+  burger: BurgerIcon,
 };

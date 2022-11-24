@@ -17,8 +17,10 @@ import {
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
 import {
+  closeSidebar,
   getArticleAuthor,
   getIsCommentsSidebarOpen,
+  getIsSidebarOpen,
   openLoginModal,
   openRegisterModal,
 } from 'store/states';
@@ -33,14 +35,15 @@ export const Sidebar = (): JSX.Element => {
   const { pathname } = useRouter();
   const { isAuthenticated } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
+  const isSidebarOpen = useAppSelector(getIsSidebarOpen);
   const [fetchArticleSuggestions, articleSuggestionsRes] =
     useLazyGetSidebarArticleSuggestionsQuery();
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
   const isCommentsSidebarOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
-    classes.sidebar,
-    isMobile && !isCommentsSidebarOpen && classes['sidebar--hidden'],
+    classes.container,
+    isSidebarOpen && classes['container--open'],
   );
 
   const loginHandler = (): void => {
@@ -51,8 +54,11 @@ export const Sidebar = (): JSX.Element => {
     dispatch(openRegisterModal());
   };
 
+  const closeSidebarHandler = (): void => {
+    dispatch(closeSidebar());
+  };
+
   useEffect(() => {
-    if (isMobile) return;
     fetchArticleSuggestions();
     fetchBlogSuggestions();
   }, [isMobile]);
@@ -144,5 +150,12 @@ export const Sidebar = (): JSX.Element => {
     );
   }, [pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
 
-  return <div className={rootClassName}>{content}</div>;
+  return (
+    <div className={rootClassName}>
+      <div className={classes.outside} onClick={closeSidebarHandler}>
+        <div className={classes.closeIcon}>&#10005;</div>
+      </div>
+      <div className={classes.sidebar}>{content}</div>
+    </div>
+  );
 };

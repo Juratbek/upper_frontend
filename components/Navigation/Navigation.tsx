@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openRegisterModal } from 'store/states';
+import { openLoginModal, openRegisterModal, openSidebar } from 'store/states';
 import { ICONS, NOTIFICATION_STATUSES } from 'variables';
 
 import { NavItem } from './components';
@@ -13,6 +13,7 @@ import classes from './Navigation.module.scss';
 
 const LogOutIcon = ICONS.logOut;
 const Logo = ICONS.logo;
+const Burger = ICONS.burger;
 
 export const Navigation = (): JSX.Element => {
   const { isAuthenticated, unauthenticate } = useAuth();
@@ -45,13 +46,17 @@ export const Navigation = (): JSX.Element => {
     dispatch(openLoginModal());
   };
 
+  const openSidebarHandler = (): void => {
+    dispatch(openSidebar());
+  };
+
   useEffect(() => {
     isAuthenticated && fetchBlogNotificationsCount(NOTIFICATION_STATUSES.UNREAD);
   }, [isAuthenticated]);
 
   const buttons = useMemo(
     () => (
-      <div className={isMobile && !isAuthenticated ? 'd-block' : 'd-none'}>
+      <div className={isMobile && !isAuthenticated ? 'd-flex align-items-center' : 'd-none'}>
         <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
           Ro`yxatdan o`tish
         </Button>
@@ -84,7 +89,7 @@ export const Navigation = (): JSX.Element => {
           })}
         </div>
         <div className={classes['third-block']}>
-          <div className={`${classes.logOut} pointer`} onClick={logOut}>
+          <div className={`${classes.logOut} ${classes.icon} pointer`} onClick={logOut}>
             {isAuthenticated && (
               <Tooltip tooltip='Profildan chiqish'>
                 <LogOutIcon />
@@ -92,6 +97,9 @@ export const Navigation = (): JSX.Element => {
             )}
           </div>
           {buttons}
+          <div className={`${classes.burger} ${classes.icon}`} onClick={openSidebarHandler}>
+            <Burger />
+          </div>
         </div>
       </div>
     </div>
