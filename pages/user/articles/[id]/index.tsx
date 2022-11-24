@@ -59,7 +59,7 @@ export default function UserArticlePage(): JSX.Element {
   if (!id || !article || blocks.length === 0) return <h1>Yuklanmoqda...</h1>;
 
   return (
-    <div className='editor-container container'>
+    <div className='editor-container container pb-4'>
       {hasAlert && (
         <Alert className='mt-2' onClose={closeAlert}>
           Saqlangan lekin nashr etilmagan o`zgarishlar mavjud. Ularni nashr qilish uchun &quot;Nashr
