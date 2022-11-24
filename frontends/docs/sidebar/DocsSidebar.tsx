@@ -16,17 +16,21 @@ export const DocsSidebar: FC = () => {
       return links.map((link, index) => {
         const pdLeftInRem = paddingLeft + padding + 'rem';
 
-        return link.children ? (
-          <Dropdown
-            key={index}
-            title={link.name}
-            titleClassName={classes.link}
-            paddingLeft={pdLeftInRem}
-          >
-            {generateLink(link.children, url + link.url, paddingLeft + padding)}
-          </Dropdown>
-        ) : (
-          <Link href={`/docs${url}${link.url}`} key={index}>
+        if (link.children) {
+          const finalUrl = `${url}${link.url}_`;
+          return (
+            <Dropdown
+              key={index}
+              title={link.name}
+              titleClassName={classes.link}
+              paddingLeft={pdLeftInRem}
+            >
+              {generateLink(link.children, finalUrl, paddingLeft + padding)}
+            </Dropdown>
+          );
+        }
+        return (
+          <Link href={`/docs/${url + link.url}`} key={index}>
             <a className={classes.link} style={{ paddingLeft: pdLeftInRem }}>
               {link.name}
             </a>
