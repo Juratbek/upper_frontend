@@ -1,19 +1,50 @@
-.sidebar {
-    border-left: 1px solid var(--lightBlack);
-    $width: 25rem;
-    width: $width;
-    min-width: $width;
-    position: relative;
-    padding: 1rem 1.8rem;
-    max-height: 100vh;
-    overflow: auto;
+@import 'styles/_mixins';
 
-    &--hidden {
-        width: 0;
-        max-width: 0;
-        max-height: 0;
-        height: 0;
-        overflow: hidden;
-        transform: scale(0);
+.container {
+  & .closeIcon {
+    display: none;
+  }
+
+  @include screenMax576 {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    transform: translateX(100%);
+    transition: all 200ms ease-in-out;
+    display: flex;
+
+    &--open {
+      transform: translateX(0);
     }
+
+    & .outside {
+      flex: 1 1 auto;
+    }
+    & .closeIcon {
+      display: block;
+      text-align: end;
+      padding-right: 0.5rem;
+      font-size: 2rem;
+    }
+  }
+}
+
+.sidebar {
+  border-left: 1px solid var(--lightBlack);
+  $width: 25rem;
+  width: $width;
+  min-width: $width;
+  position: relative;
+  padding: 1rem 1.8rem;
+  max-height: 100vh;
+  overflow: auto;
+
+  @include screenMax576 {
+    $width: 20rem;
+    background-color: white;
+    width: $width;
+    max-width: $width;
+    min-width: $width;
+    height: 100%;
+  }
 }

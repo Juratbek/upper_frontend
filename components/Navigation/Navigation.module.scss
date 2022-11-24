@@ -80,7 +80,7 @@ $mobile-screen-padding: 0.8rem;
   }
 }
 
-.logOut {
+.icon {
   display: flex;
   padding: 0.4rem;
 
@@ -89,8 +89,16 @@ $mobile-screen-padding: 0.8rem;
     width: $size;
     height: $size;
   }
-
+}
+.logOut {
   @include screenMax576 {
     padding-right: 0.3rem;
+  }
+}
+
+.burger {
+  display: none;
+  @include screenMax576 {
+    display: block;
   }
 }
