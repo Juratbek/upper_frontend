@@ -14,13 +14,14 @@
   transition: all 200ms ease-in-out;
 
   @include screenMax576 {
+    transform: unset;
     position: fixed;
     top: 30%;
     bottom: 0;
     right: 0;
     left: 0;
     height: unset;
-    transform: translateY(100%);
+    transform: translate(-100%, 100%);
     border-radius: 15px 15px 0 0;
     border: 0.5px solid var(--gray);
   }
@@ -29,7 +30,7 @@
     transform: translateX(0);
 
     @include screenMax576 {
-      transform: translateY(0);
+      transform: translate(-100%, 0);
     }
   }
 
