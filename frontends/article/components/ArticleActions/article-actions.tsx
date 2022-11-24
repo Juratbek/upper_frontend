@@ -32,6 +32,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
 
   const detectScrollDirection = (e: Event): void => {
     const target = e.target as HTMLElement;
+    console.log('test');
 
     const st = target.scrollTop;
     if (st > lastScrollTop) {
