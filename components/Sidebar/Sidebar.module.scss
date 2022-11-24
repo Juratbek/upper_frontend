@@ -12,6 +12,7 @@
     transform: translateX(100%);
     transition: all 200ms ease-in-out;
     display: flex;
+    height: 100vh;
 
     &--open {
       transform: translateX(0);
@@ -37,7 +38,9 @@
   position: relative;
   padding: 1rem 1.8rem;
   max-height: 100vh;
-  overflow: auto;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @include screenMax576 {
     $width: 20rem;
