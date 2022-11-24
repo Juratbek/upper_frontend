@@ -61,7 +61,7 @@ export const UserArticlesSidebar: FC = () => {
     const editorData = await editor?.save();
 
     // Don't save image urls in database. Only image IDs
-    const [oldBlocks, isReset] = removeAmazonUriFromImgBlocks(editorData.blocks);
+    const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
     const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
 
     const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
