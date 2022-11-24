@@ -21,7 +21,7 @@ $nav-item-color: #636262;
     a {
      color: $nav-item-color;
       &:hover {
-        color: lighten($nav-item-color, 15%);
+        text-decoration: underline;
       }
     }
   }
