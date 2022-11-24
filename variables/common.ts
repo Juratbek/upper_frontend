@@ -14,3 +14,5 @@ export const TAB_PARAM_NAME = 'tab';
 export const TELEGRAM_BOT = { name: 'UDAS', link: 'https://t.me/udas_bot' };
 
 export const PAGINATION_SIZE = 10;
+
+export const COMING_SOON_TEXT = 'Tez orada...';
