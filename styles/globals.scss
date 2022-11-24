@@ -52,6 +52,7 @@
   }
 
   @include screenMax576 {
+    padding: 0 0.5rem;
     padding-top: 91px;
     &::-webkit-scrollbar {
       width: 0.5rem;
@@ -235,6 +236,9 @@
   .me-xs-1 {
     margin-right: $size1-xs;
   }
+  .me-xs-2 {
+    margin-right: $size2-xs;
+  }
 }
 
 // paddings
@@ -265,7 +269,9 @@
   padding-right: $size3;
   padding-left: $size3;
 }
-
+.pb-4 {
+  padding-bottom: $size4;
+}
 // margins for screens smaller than 576px
 @include screenMax576 {
   .px-xs-1 {
@@ -338,6 +344,12 @@
 }
 .w-100 {
   width: 100%;
+}
+
+.w-mobile-100 {
+  @include screenMax576 {
+    width: 100%;
+  }
 }
 
 // flex

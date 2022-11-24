@@ -1,7 +1,6 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { BlockToolData } from '@editorjs/editorjs/types/tools';
 
-import { ARTICLE_BUCKET_URL, UNSPLASH_URL } from '../../store/apis';
+import { UNSPLASH_URL } from '../../store/apis';
 
 const resizeImageElement = (img: HTMLImageElement): string => {
   const canvas = document.createElement('canvas');
@@ -55,13 +54,29 @@ export const compressImage = (img: File): Promise<File> => {
   });
 };
 
-export const compressUnsplashImage = (block: OutputBlockData): BlockToolData => {
+export const compressDataImage = (dataImg: string): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const newImg = new Image();
+    newImg.src = dataImg as string;
+
+    newImg.onload = async (): Promise<void> => {
+      const compressed = resizeImageElement(newImg);
+      resolve(compressed);
+    };
+
+    newImg.onerror = reject;
+  });
+};
+
+export const compressUnsplashImage = (block: OutputBlockData): OutputBlockData => {
   let url = block.data.url;
-  if (!url || url.startsWith(ARTICLE_BUCKET_URL)) return block;
 
   if (url.startsWith(UNSPLASH_URL)) {
     const urlSearchParams = new URLSearchParams(url);
-    if (urlSearchParams.get('q') === '10') return block;
+
+    while (urlSearchParams.get('amp;q')) {
+      urlSearchParams.delete('amp;q');
+    }
 
     urlSearchParams.set('q', '10');
     url = decodeURIComponent(urlSearchParams.toString());
@@ -74,4 +89,6 @@ export const compressUnsplashImage = (block: OutputBlockData): BlockToolData => 
       },
     };
   }
+
+  return block;
 };

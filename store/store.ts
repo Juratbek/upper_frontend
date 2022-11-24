@@ -15,6 +15,7 @@ import commentsSidebarReducer from './states/commentsSidebar';
 import loginModalReducer from './states/loginModal';
 import readArticleReducer from './states/readArticle';
 import registerModalReducer from './states/registerModal';
+import sidebarReducer from './states/sidebar';
 import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
@@ -25,6 +26,7 @@ export const store = configureStore({
     readArticle: readArticleReducer,
     auth: authReducer,
     comments: commentsSidebarReducer,
+    sidebar: sidebarReducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,

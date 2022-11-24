@@ -3,10 +3,11 @@ import { FC, useState } from 'react';
 import classes from './Tooltip.module.scss';
 import { ITooltipProps } from './Tooltip.types';
 
-export const Tooltip: FC<ITooltipProps> = ({ children, tooltip }) => {
+export const Tooltip: FC<ITooltipProps> = ({ children, tooltip, invisible }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const toggleHover = (): void => {
+    if (invisible) return;
     setIsHovered((prev) => !prev);
   };
 

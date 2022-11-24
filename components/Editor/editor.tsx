@@ -1,9 +1,8 @@
 import EditorJs from '@editorjs/editorjs';
-import { Spinner } from 'assets/icons';
+import { EditorSpinner } from 'components';
 import { FC, useEffect, useRef, useState } from 'react';
 
 import { ImageModal } from '../ImageModal';
-import styles from './editor.module.scss';
 import {
   CAPTION_CLASSES,
   EDITOR_HOLDER,
@@ -96,11 +95,7 @@ export const Editor: FC<IEditorProps> = (props) => {
 
   return (
     <>
-      {isEditorLoading && (
-        <div className={styles.spinnerContainer} id={'editorjsSpinner'}>
-          <Spinner />
-        </div>
-      )}
+      {isEditorLoading && <EditorSpinner />}
       <div id={EDITOR_HOLDER} ref={containerRef} className={!isEditable ? 'readMode' : ''}></div>
       <ImageModal />
     </>

@@ -21,12 +21,12 @@ import {
   useUpdateArticleMutaion,
 } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
+import { IResponseError } from 'types';
 import {
   addUriToImageBlocks,
   convertLabelsToOptions,
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
-  validateArticle,
 } from 'utils';
 import { ARTICLE_STATUSES } from 'variables';
 
@@ -61,7 +61,7 @@ export const UserArticlesSidebar: FC = () => {
     const editorData = await editor?.save();
 
     // Don't save image urls in database. Only image IDs
-    const [oldBlocks, isReset] = removeAmazonUriFromImgBlocks(editorData.blocks);
+    const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
     const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
 
     const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
@@ -72,14 +72,16 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const publish = async (): Promise<void> => {
-    if (!article || !editor) return;
-    const editorData = await editor?.save();
-    const blocks = editorData.blocks;
-    const message = validateArticle(article, blocks);
-    if (message) return setAlert(message);
-
-    await publishArticle(article.id).unwrap();
-    dispatch(setArticle({ ...article, status: ARTICLE_STATUSES.PUBLISHED }));
+    if (!article) return;
+    let res;
+    try {
+      await saveChanges();
+      res = await publishArticle(article.id).unwrap();
+    } catch (e) {
+      const error = e as IResponseError;
+      return setAlert(error.data.message);
+    }
+    dispatch(setArticle({ ...article, ...res }));
     togglePublishModal();
   };
 
@@ -122,12 +124,19 @@ export const UserArticlesSidebar: FC = () => {
             </a>
           </Alert>
         )}
-        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz</h3>
+        {status === ARTICLE_STATUSES.SAVED && (
+          <Alert color='yellow'>Obunalar maqola nashr qilingani haqida habar olishadi</Alert>
+        )}
+        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz?</h3>
         <div className='d-flex'>
           <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
             Modalni yopish
           </Button>
-          <Button onClick={publish} className='flex-1' loading={publishArticleRes.isLoading}>
+          <Button
+            onClick={publish}
+            className='flex-1'
+            loading={publishArticleRes.isLoading || updateArticleRes.isLoading}
+          >
             Nashr qilish
           </Button>
         </div>
