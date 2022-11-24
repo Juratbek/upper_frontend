@@ -1,9 +1,12 @@
 .sidebar {
     border-left: 1px solid var(--lightBlack);
-    min-width: 20rem;
-    width: 26vw;
+    $width: 25rem;
+    width: $width;
+    min-width: $width;
     position: relative;
     padding: 1rem 1.8rem;
+    max-height: 100vh;
+    overflow: auto;
 
     &--hidden {
         width: 0;

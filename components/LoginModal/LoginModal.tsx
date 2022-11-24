@@ -93,7 +93,7 @@ export const LoginModal: FC = () => {
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
           Ro`yxatdan o`tish
         </Button>
-        <p className='text-gray text-center'>
+        <p className='text-gray text-center' onClick={closeModal}>
           <Link href='/forgot-credentials'>
             <a className='link'>Login yoki parolni unutdingizmi?</a>
           </Link>

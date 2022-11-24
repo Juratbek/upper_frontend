@@ -12,6 +12,7 @@ export const HOME_TAB_MENUS: ITabHeader[] = [
   {
     name: 'Siz uchun',
     id: TAB_IDS.forYou,
+    private: true,
   },
   {
     name: 'Top',

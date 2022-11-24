@@ -4,7 +4,7 @@ import { ARTICLE_BUCKET_URL } from 'store/apis';
 import { IArticle, ISidebarArticle } from 'types';
 import { BLOCK_TYPES } from 'variables';
 
-import { compressUnsplashImage } from './image';
+import { compressDataImage, compressUnsplashImage } from './image';
 
 export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): string => {
   const title = blocks.find((block) => block.type === BLOCK_TYPES.header)?.data.text;
@@ -42,18 +42,21 @@ export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[
     return block;
   });
 
-export const removeAmazonUriFromImgBlocks = (
+export const removeAmazonUriFromImgBlocks = async (
   blocks: OutputBlockData[],
-): [OutputBlockData[], boolean] => {
+): Promise<[OutputBlockData[], boolean]> => {
   let isReset = false;
 
-  const updatedBlocks = blocks.map((block) => {
+  const updatedBlocks = await blocks.map(async (block): Promise<OutputBlockData> => {
     const blockType = block.type;
     if (blockType === BLOCK_TYPES.image) {
       const img = block.data.file;
       const imgUrl = img.url as string;
 
-      if (imgUrl.startsWith('data:')) isReset = isReset || true;
+      if (imgUrl.startsWith('data:')) {
+        isReset = true;
+        return block;
+      }
 
       if (!imgUrl || !imgUrl.startsWith(ARTICLE_BUCKET_URL)) return block;
       const imgUrlWithoutUri = imgUrl.replaceAll(ARTICLE_BUCKET_URL, '');
@@ -65,22 +68,24 @@ export const removeAmazonUriFromImgBlocks = (
       const data = block.data;
       const url = data.url as string;
 
-      if (url.startsWith('data:')) isReset = isReset || true;
-
-      const compressedImage = compressUnsplashImage(block);
-      if (compressedImage.data.url !== url) {
-        isReset = isReset || true;
-        return compressedImage;
+      if (url.startsWith('data:')) {
+        isReset = true;
+        const compressedImage = await compressDataImage(url);
+        return { ...block, data: { ...data, url: compressedImage } };
       }
 
-      if (!url || !url.startsWith(ARTICLE_BUCKET_URL)) return block;
-      const imgUrlWithoutUri = url.replaceAll(ARTICLE_BUCKET_URL, '');
-      return { ...block, data: { ...data, url: imgUrlWithoutUri } };
+      if (url.startsWith(ARTICLE_BUCKET_URL)) {
+        const imgUrlWithoutUri = url.replaceAll(ARTICLE_BUCKET_URL, '');
+        return { ...block, data: { ...data, url: imgUrlWithoutUri } };
+      }
+
+      return compressUnsplashImage(block);
     }
 
     return block;
   });
-  return [updatedBlocks, isReset];
+  const results = await Promise.all(updatedBlocks);
+  return [results, isReset];
 };
 
 export const convertToHeadProp = (article: IArticle): IHeadProps => {

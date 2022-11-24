@@ -1,6 +1,6 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
-  --mediumGray: rgba(196, 196, 196, 0.8); 
+  --mediumGray: rgba(196, 196, 196, 0.8);
   --lightGray: rgba(196, 196, 196, 0.35);
   --gray: gray;
   --red: hsl(0, 76%, 47%);
@@ -265,7 +265,9 @@
   padding-right: $size3;
   padding-left: $size3;
 }
-
+.pb-4 {
+  padding-bottom: $size4;
+}
 // margins for screens smaller than 576px
 @include screenMax576 {
   .px-xs-1 {

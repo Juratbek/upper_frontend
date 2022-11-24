@@ -66,15 +66,16 @@ const BlogPage: NextPage<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageP
         {blog && (
           <>
             <Blog {...addAmazonUri(blog)} avaratSize='extra-large' />
-            {isFollowed ? (
-              <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                Obuna bo`lingan
-              </Button>
-            ) : (
-              <Button onClick={follow} loading={followBlogRes.isLoading}>
-                Obuna bo`lish
-              </Button>
-            )}
+            {!blog.isCurrentBlog &&
+              (isFollowed ? (
+                <Button color='outline-dark' onClick={toggleUnfollowModal}>
+                  Obuna bo`lingan
+                </Button>
+              ) : (
+                <Button onClick={follow} loading={followBlogRes.isLoading}>
+                  Obuna bo`lish
+                </Button>
+              ))}
           </>
         )}
       </div>
