@@ -1,5 +1,5 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
-import { Alert } from 'components';
+import { Alert, EditorSpinner } from 'components';
 import { Editor } from 'components/Editor';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
@@ -56,7 +56,18 @@ export default function UserArticlePage(): JSX.Element {
 
   if (isError) return <h1>{JSON.stringify(get(error, 'data.message'))}</h1>;
 
-  if (!id || !article || blocks.length === 0) return <h1>Yuklanmoqda...</h1>;
+  const renderEditor = (): JSX.Element => {
+    if (!id || !article || blocks.length === 0) return <EditorSpinner />;
+
+    return (
+      <Editor
+        content={{
+          blocks: blocks,
+        }}
+        handleInstance={getInstance}
+      />
+    );
+  };
 
   return (
     <div className='editor-container container pb-4'>
@@ -66,12 +77,7 @@ export default function UserArticlePage(): JSX.Element {
           qilish&quot; tugmasini bosing
         </Alert>
       )}
-      <Editor
-        content={{
-          blocks: blocks,
-        }}
-        handleInstance={getInstance}
-      />
+      {renderEditor()}
     </div>
   );
 }
