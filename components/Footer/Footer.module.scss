@@ -1,0 +1,36 @@
+$nav-item-color: #636262;
+
+.footerContainer {
+  width: 100%;
+  border-top: 1px solid #C4C4C4;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerNav {
+  display: flex;
+  gap: 5.5rem;
+  padding: 0;
+  margin: 1rem 0;
+
+  & > li {
+    list-style: none;
+
+    a {
+     color: $nav-item-color;
+      &:hover {
+        color: lighten($nav-item-color, 15%);
+      }
+    }
+  }
+}
+
+.copyrightText {
+  color: $nav-item-color;
+  font-size: 0.97rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  margin-bottom: 0.65rem;
+}

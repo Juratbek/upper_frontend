@@ -46,3 +46,4 @@ export * from './Pagination/Pagination';
 export * from './Head';
 export * from './Badge/Badge';
 export * from './Tooltip/Tooltip';
+export * from './Footer';
