@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { GoogleOneTap, Navigation, Sidebar } from 'components';
+import { Footer, GoogleOneTap, Navigation, Sidebar } from 'components';
 import { useAuth } from 'hooks';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -39,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <DynamicRegisterModal />
         <main className='main' id='main'>
           <Component {...pageProps} />
+          <Footer />
         </main>
         <Sidebar />
       </div>
