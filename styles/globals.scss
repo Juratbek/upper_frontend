@@ -38,6 +38,10 @@
   flex: 1 1 auto;
   height: 100vh;
   overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   &::-webkit-scrollbar {
     width: 0.7rem;
   }
