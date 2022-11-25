@@ -13,7 +13,7 @@ $nav-item-color: #636262;
   display: flex;
   gap: 5.5rem;
   padding: 0;
-  margin: 1rem 0;
+  margin: 0.7rem 0;
 
   & > li {
     list-style: none;
@@ -29,8 +29,8 @@ $nav-item-color: #636262;
 
 .copyrightText {
   color: $nav-item-color;
-  font-size: 0.97rem;
+  font-size: 0.8rem;
   font-weight: 300;
-  margin-top: 0.5rem;
+  margin-top: 0;
   margin-bottom: 0.65rem;
 }
