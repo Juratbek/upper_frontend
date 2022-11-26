@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { IUseClipboardProps } from './useClipboard.types';
 
-export const useClipboard = (): IUseClipboardProps => {
+export const useClipboard = (isReset?: boolean): IUseClipboardProps => {
   const [isCopied, setIsCopied] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,6 +18,14 @@ export const useClipboard = (): IUseClipboardProps => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isReset) {
+      setIsCopied(false);
+      setIsError(false);
+      setIsLoading(false);
+    }
+  }, [isReset]);
 
   return {
     isCopied,

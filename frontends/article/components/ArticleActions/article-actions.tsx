@@ -32,11 +32,11 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
 
   const detectScrollDirection = (e: Event): void => {
     const target = e.target as HTMLElement;
-    console.log('test');
 
     const st = target.scrollTop;
     if (st > lastScrollTop) {
       setIsScrollingUp(false);
+      setIsSharePopupOpen(false);
     } else {
       setIsScrollingUp(true);
     }
@@ -57,8 +57,11 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
 
   return (
     <div className={styles.articleActionsContainer}>
-      <div className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}>
-        <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
+      <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
+      <div
+        className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}
+        id={'articleActions'}
+      >
         <div className={styles.iconsContainer}>
           <div className={styles.icon} onClick={commentIconClickHandler} id='comment-icon'>
             <CommentIcon />
