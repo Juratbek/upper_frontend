@@ -6,6 +6,8 @@ import { IBlog, IResponseError } from 'types';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS } from 'variables';
 
+import styles from './Blog.module.scss';
+
 export interface IBlogPageProps {
   blog?: IBlog | null;
   error?: IResponseError;
@@ -49,7 +51,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
         bodyClassName='text-center'
       >
         <strong>{blog.name}</strong> obunasini bekor qilmoqchimisiz
-        <div className='mt-2'>
+        <div className={['mt-2', styles.buttonsContainer].join(' ')}>
           <Button onClick={toggleUnfollowModal} color='outline-dark' className='me-2'>
             Yopish
           </Button>
