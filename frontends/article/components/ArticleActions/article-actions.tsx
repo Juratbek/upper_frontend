@@ -49,6 +49,10 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
 
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
+
+    return () => {
+      document.querySelector('.main')?.removeEventListener('scroll', detectScrollDirection);
+    };
   }, []);
 
   useEffect(() => {
