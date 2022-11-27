@@ -1,9 +1,12 @@
+import { useDevice } from 'hooks';
 import { FC } from 'react';
 
 import classes from './ArticleSkeleton.module.scss';
 import { IArticleSkeletonProps } from './ArticleSkeleton.types';
 
 export const ArticleSkeleton: FC<IArticleSkeletonProps> = (props) => {
+  const { isMobile } = useDevice();
+
   return (
     <div className={`${classes['article-skeleton']} ${props.className}`}>
       <div className='d-flex w-100 justify-content-between'>
@@ -22,7 +25,7 @@ export const ArticleSkeleton: FC<IArticleSkeletonProps> = (props) => {
           <p className={`${classes.text} ms-1 skeleton`} />
         </div>
         <div className='d-flex'>
-          {Array(5)
+          {Array(isMobile ? 2 : 5)
             .fill('')
             .map((_, index) => (
               <div key={index} className={`${classes.label} me-1 skeleton`} />
