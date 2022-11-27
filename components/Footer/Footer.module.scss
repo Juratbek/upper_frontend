@@ -1,3 +1,5 @@
+@import 'styles/_mixins';
+
 $nav-item-color: #636262;
 
 .footerContainer {
@@ -14,6 +16,10 @@ $nav-item-color: #636262;
   gap: 5.5rem;
   padding: 0;
   margin: 0.7rem 0;
+
+  @include screenMax576 {
+    gap: 2rem;
+  }
 
   & > li {
     list-style: none;
