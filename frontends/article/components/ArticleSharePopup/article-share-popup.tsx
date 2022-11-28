@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, RefObject, useEffect, useRef } from 'react';
 import { ICONS } from 'variables';
 
 const TelegramIcon = ICONS.telegram;
@@ -34,6 +34,16 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
     if (isCopied) return 'Nusxalandi';
     return 'Nusxalash';
   };
+
+  useEffect(() => {
+    const popover = (sharePopupRef as RefObject<HTMLDivElement>).current;
+    if (popover) {
+      const targetOffSetTop = (document.getElementById('articleActions') as HTMLDivElement)
+        .offsetTop;
+      const popoverHeight = popover.getBoundingClientRect().height;
+      popover.style.top = targetOffSetTop - popoverHeight - 24 + 'px';
+    }
+  }, []);
 
   return (
     <div

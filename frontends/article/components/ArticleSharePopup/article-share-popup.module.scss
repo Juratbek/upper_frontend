@@ -6,17 +6,22 @@
   box-shadow: 0 0 toRem(10px) rgba(#000000, 0.4);
   border-radius: 6px;
   padding: toRem(10px) toRem(18px);
+  margin-left: 15rem;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: toRem(8px);
 
-  position: absolute;
-  transform: translateY(-130%) translateX(5%);
+  position: fixed;
+  z-index: 1;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s;
+
+  @media only screen and (max-width: 600px) {
+    margin-left: 0;
+  }
 
   &.show {
     opacity: 1;
