@@ -10,7 +10,7 @@ import { compressUnsplashImage, convertLabelsToOptions } from 'utils';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
-  const [createArticle, createArticleStatus] = useCreateArticleMutation();
+  const [createArticle, createArticleRes] = useCreateArticleMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
   const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
@@ -26,18 +26,7 @@ export const SidebarContent: FC = () => {
     const title = blocks.find((block) => block.type === 'header')?.data.text;
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
 
-    try {
-      const newArticle = await createArticle({
-        title,
-        blocks,
-        labels,
-      }).unwrap();
-      dispatch(setArticle(newArticle));
-      router.push(`/user/articles/${newArticle.id}`);
-    } catch (e) {
-      const exception = e as IResponseError;
-      setAlert(exception.data.message);
-    }
+    createArticle({ title, blocks, labels });
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
@@ -54,6 +43,20 @@ export const SidebarContent: FC = () => {
     if (isSavePressed) save();
   }, [isSavePressed]);
 
+  useEffect(() => {
+    const { isError, error, isSuccess, data: newArticle } = createArticleRes;
+    if (isError) {
+      const exception = error as IResponseError;
+      exception.status === 400
+        ? setAlert('Maqolani saqlashda hatolik yuz berdi')
+        : setAlert(exception.data.message);
+    }
+    if (isSuccess) {
+      dispatch(setArticle(newArticle));
+      router.push(`/user/articles/${newArticle.id}`);
+    }
+  }, [createArticleRes.status]);
+
   return (
     <>
       {alert && (
@@ -61,7 +64,7 @@ export const SidebarContent: FC = () => {
           {alert}
         </Alert>
       )}
-      <Button onClick={save} className='w-100' loading={createArticleStatus.isLoading}>
+      <Button onClick={save} className='w-100' loading={createArticleRes.isLoading}>
         Saqlash
       </Button>
       <Divider className='my-2' />
