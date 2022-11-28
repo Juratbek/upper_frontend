@@ -71,7 +71,7 @@ export const compressDataImage = (dataImg: string): Promise<string> => {
 export const compressUnsplashImage = (block: OutputBlockData): OutputBlockData => {
   let url = block.data.url;
 
-  if (url.startsWith(UNSPLASH_URL)) {
+  if (url && url.startsWith(UNSPLASH_URL)) {
     const urlSearchParams = new URLSearchParams(url);
 
     while (urlSearchParams.get('amp;q')) {
