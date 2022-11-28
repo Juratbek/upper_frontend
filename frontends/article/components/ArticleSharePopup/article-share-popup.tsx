@@ -15,7 +15,7 @@ const url = window.location.href;
 
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { writeText, isLoading, isCopied, isError } = useClipboard(visible);
+  const { writeText, isLoading, isCopied, isError } = useClipboard();
 
   const onCopyLink = (): void => {
     const inputEl = inputRef.current as HTMLInputElement;
@@ -43,7 +43,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
       const popoverHeight = popover.getBoundingClientRect().height;
       popover.style.top = targetOffSetTop - popoverHeight - 24 + 'px';
     }
-  });
+  }, []);
 
   return (
     <div
