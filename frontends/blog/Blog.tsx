@@ -61,7 +61,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
         </div>
       </Modal>
 
-      <div className='d-flex align-items-center justify-content-between p-2'>
+      <div className='d-flex align-items-center justify-content-between p-2 flex-wrap'>
         {blog && (
           <>
             <Blog {...addAmazonUri(blog)} avaratSize='extra-large' />
