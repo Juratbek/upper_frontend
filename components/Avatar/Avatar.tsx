@@ -13,7 +13,7 @@ export const Avatar: FC<IAvatarProps> = ({ size = 'medium', imgUrl, ...props }) 
       {imgUrl ? (
         <Image src={imgUrl} alt='UPPER' layout='fill' objectFit='cover' />
       ) : (
-        <Image src='/logo.svg' alt='UPPER' layout='fill' />
+        <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />
       )}
     </div>
   );
