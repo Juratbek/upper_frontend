@@ -14,8 +14,6 @@ import { useForm } from 'react-hook-form';
 import { useChangeCredentialsMutation } from 'store/apis';
 import { IResponseError } from 'types';
 
-import classes from './ChangeCredentialsForm.module.scss';
-
 export const ChangeCredentialsForm: FC = () => {
   const [isTokenAbsent, setIsTokenAbsent] = useState(false);
   const [alert, setAlert] = useState('');
@@ -91,7 +89,7 @@ export const ChangeCredentialsForm: FC = () => {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
+    <form className='form' onSubmit={handleSubmit(submitHandler)}>
       {alert && (
         <Alert color='red' className='mb-1 text-center' onClose={closeAlert}>
           {alert}
