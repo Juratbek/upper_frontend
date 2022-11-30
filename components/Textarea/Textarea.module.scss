@@ -3,6 +3,9 @@
     height: 90px;
     padding: .4em;
     resize: none;
+    border-radius: var(--smallBorderRadius);
+    border: 1px solid var(--lightBlack);
+    outline: transparent solid 1px;
 
     &--transparent {
         border: none;

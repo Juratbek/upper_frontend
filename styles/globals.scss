@@ -81,6 +81,7 @@
 
 .link:hover {
   text-decoration: underline;
+  color: black;
 }
 
 .overflow-wrap {
@@ -385,4 +386,13 @@
 // font sizes
 .fs-1 {
   font-size: 0.8rem;
+}
+
+// form
+.form {
+  width: 20rem;
+  margin: 10rem auto;
+  border: 0.5px solid var(--gray);
+  border-radius: 5px;
+  padding: 1.5rem;
 }

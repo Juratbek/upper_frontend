@@ -8,7 +8,7 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
-import { useModal, useShortCut, useUrlParams } from 'hooks';
+import { useModal, useShortCut } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
@@ -33,7 +33,6 @@ import { ARTICLE_STATUSES } from 'variables';
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
-  const { location } = useUrlParams();
   const { push } = useRouter();
   const { register, handleSubmit } = useForm();
   const article = useAppSelector(getArticle);
@@ -108,6 +107,21 @@ export const UserArticlesSidebar: FC = () => {
     if (isPublishPressed) togglePublishModal();
   }, [isSavePressed, isPublishPressed]);
 
+  const alertComponent = useMemo(
+    () =>
+      alert && (
+        <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+          <div>{alert}</div>
+          <Link href='/docs'>
+            <a target='_blank' className='link'>
+              Yo`riqnomani o`qish
+            </a>
+          </Link>
+        </Alert>
+      ),
+    [alert],
+  );
+
   return (
     <>
       <Modal
@@ -116,14 +130,7 @@ export const UserArticlesSidebar: FC = () => {
         close={togglePublishModal}
         bodyClassName='text-center'
       >
-        {alert && (
-          <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
-            <div>{alert}</div>
-            <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
-              Yo`riqnomani o`qish
-            </a>
-          </Alert>
-        )}
+        {alertComponent}
         {status === ARTICLE_STATUSES.SAVED && (
           <Alert color='yellow'>Obunalar maqola nashr qilingani haqida habar olishadi</Alert>
         )}
@@ -147,14 +154,7 @@ export const UserArticlesSidebar: FC = () => {
         close={toggleDeleteModal}
         bodyClassName='text-center'
       >
-        {alert && (
-          <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
-            <div>{alert}</div>
-            <a href={`${location.origin}/docs`} target='_blank' className='link' rel='noreferrer'>
-              Yo`riqnomani o`qish
-            </a>
-          </Alert>
-        )}
+        {alertComponent}
         <form onSubmit={handleSubmit(deleteArticle)}>
           <h3 className='mt-1'>Maqolani o`chirmoqchimisiz</h3>
           <div className='mb-2'>
@@ -238,9 +238,16 @@ export const UserArticlesSidebar: FC = () => {
       <h2>Sozlamalar</h2>
       {article && (
         <div className='mb-1'>
-          <label htmlFor='labels' className='mb-1 d-block'>
-            Teglar
-          </label>
+          <div className='d-flex justify-content-between'>
+            <label htmlFor='labels' className='mb-1 d-block'>
+              Teglar
+            </label>
+            <Link href='/create-label'>
+              <a target='_blank' className='link text-gray'>
+                Tag yaratish
+              </a>
+            </Link>
+          </div>
           <MultiSelect
             onChange={labelsChangeHandler}
             onInputDebounce={SearchLabels}
