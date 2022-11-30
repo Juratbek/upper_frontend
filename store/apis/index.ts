@@ -6,3 +6,4 @@ export * from './comment';
 export * from './notification';
 export * from './docs';
 export * from './config/api.constants';
+export * from './label-request';

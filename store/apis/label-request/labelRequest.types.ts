@@ -1,5 +1,4 @@
-export interface ILabel {
-  id: number;
+export interface ICreateLabelRequestDto {
   name: string;
   description?: string;
 }
