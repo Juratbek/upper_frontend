@@ -260,6 +260,7 @@ export const UserArticlesSidebar: FC = () => {
                 </div>
               );
             }}
+            loading={searchLabelsRes.isLoading}
             options={convertLabelsToOptions(searchLabelsRes.data)}
             inputPlacegolder='Qidirish uchun yozing'
           />

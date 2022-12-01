@@ -18,5 +18,6 @@ export type TMultiSelectProps = Override<
     inputPlacegolder?: string;
     renderItem?: (option: IOption) => JSX.Element;
     max?: number;
+    loading?: boolean;
   }
 >;
