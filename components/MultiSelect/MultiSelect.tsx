@@ -1,3 +1,4 @@
+import { Spinner } from 'components';
 import { useDebounce } from 'hooks';
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
@@ -86,6 +87,13 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
         <div className={classes['option__item']}>{props.max} tadan ko`p tanlash mumkin emas</div>
       );
     }
+    if (props.loading) {
+      return (
+        <div className={classes['option__item']}>
+          <Spinner color='light' className='mx-auto' />
+        </div>
+      );
+    }
     if (availableOptions.length === 0) {
       return <div className={classes['option__item']}>Varintlar yo`q</div>;
     }
@@ -98,7 +106,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
         ))}
       </>
     );
-  }, [options, selectedOptions]);
+  }, [options, selectedOptions, props.loading]);
 
   return (
     <div className={classes.container} ref={ref}>
