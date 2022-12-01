@@ -46,7 +46,7 @@ export const blogApi = createApi({
       }),
     }),
     getSidebarSuggestions: build.query<IBlogMedium[], void>({
-      query: () => 'sidebar-suggestions',
+      query: () => 'open/sidebar-suggestions',
     }),
     search: build.query<IBlogMedium[], string>({
       query: (search) => `open/search?search=${search}`,

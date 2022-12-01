@@ -6,7 +6,7 @@ import { TBaseQuery } from './api.types';
 
 export const baseQuery = (uri?: string): TBaseQuery =>
   fetchBaseQuery({
-    baseUrl: `${BASE_URL}${uri && `/${uri}`}`,
+    baseUrl: `${BASE_URL}/api${uri && `/${uri}`}`,
     prepareHeaders: (headers) => {
       try {
         const token = localStorage.getItem(TOKEN);
