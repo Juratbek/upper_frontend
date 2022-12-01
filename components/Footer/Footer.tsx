@@ -13,7 +13,7 @@ export const Footer: FC = () => {
           </Link>
         </li>
         <li>
-          <Link href={'/about'}>
+          <Link href={'/about-us'}>
             <a>Biz haqimizda</a>
           </Link>
         </li>

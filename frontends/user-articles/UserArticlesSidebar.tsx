@@ -28,7 +28,7 @@ import {
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
 } from 'utils';
-import { ARTICLE_STATUSES } from 'variables';
+import { ARTICLE_STATUSES, MAX_LABELS } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
@@ -248,6 +248,7 @@ export const UserArticlesSidebar: FC = () => {
             </Link>
           </div>
           <MultiSelect
+            max={MAX_LABELS}
             onChange={labelsChangeHandler}
             onInputDebounce={SearchLabels}
             defaultValues={convertLabelsToOptions(article.labels)}

@@ -8,6 +8,7 @@ import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
 import { ILabel, IResponseError } from 'types';
 import { compressUnsplashImage, convertLabelsToOptions } from 'utils';
+import { MAX_LABELS } from 'variables';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
@@ -82,6 +83,7 @@ export const SidebarContent: FC = () => {
           </Link>
         </div>
         <MultiSelect
+          max={MAX_LABELS}
           onChange={labelsChangeHandler}
           onInputDebounce={SearchLabels}
           renderItem={(item): JSX.Element => {
