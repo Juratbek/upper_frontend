@@ -8,3 +8,4 @@ export * from './useNextAuth/useNextAuth';
 export * from './useClipboard/useClipboard';
 export * from './useModal/useModal';
 export * from './useDevice/useDevice';
+export * from './useInfiniteScroll/useInfiniteScroll';
