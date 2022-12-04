@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
@@ -47,6 +47,10 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     dispatch(toggleCommentsSidebar());
   };
 
+  const reactionsCount = useMemo(() => {
+    return likeDislikeCount || '';
+  }, [likeDislikeCount]);
+
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
 
@@ -76,7 +80,14 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
           >
             <LikeIcon />
           </div>
-          <span className={styles.reactionsText}>{likeDislikeCount}</span>
+          <span
+            className={[
+              styles.reactionsText,
+              !reactionsCount && styles.reactionsTextZeroCount,
+            ].join(' ')}
+          >
+            {reactionsCount}
+          </span>
           <div
             className={`${styles.icon} icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
             onClick={(): void => likeDislike(-1)}
