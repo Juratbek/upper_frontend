@@ -1,0 +1,25 @@
+.contacts {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.contact {
+    width: 30%;
+    text-align: center;
+    padding: 3rem 4rem;
+    border-radius: 1em;
+    border: 1px solid transparentize(gray, 0.5);
+    box-shadow: 0 20px 20px -10px #1414142b;
+    transition: all 300ms ease-out;
+
+    &:hover {
+        transform: translateY(-10%);
+    }
+}
+
+.icon>svg {
+    $size: 4rem;
+    width: $size;
+    height: $size;
+}
