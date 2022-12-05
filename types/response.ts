@@ -12,7 +12,7 @@ export interface IResponseError {
 
 export type TRtkError = FetchBaseQueryError | SerializedError | undefined;
 
-export interface IPagingResponse<T extends unknown[]> {
-  list: T;
+export interface IPagingResponse<T> {
+  list: T[];
   totalItemCount: number;
 }

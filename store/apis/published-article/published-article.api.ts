@@ -1,5 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { IArticle, IArticleResult, ISidebarArticle } from 'types';
+import {
+  IArticle,
+  IArticleResult,
+  IPagingResponse,
+  ISidebarArticle,
+  TOptionalPagingRequest,
+} from 'types';
 
 import { baseQuery } from '../config';
 import { TCheckIfLikedDisliked } from './published-article.api.types';
@@ -11,8 +17,11 @@ export const publishedArticleApi = createApi({
     getSidebarSuggestions: build.query<ISidebarArticle[], void>({
       query: () => 'open/sidebar-suggestions',
     }),
-    getSuggestions: build.query<IArticleResult[], void>({
-      query: () => 'open/suggestions',
+    getSuggestions: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+      query: (params) => ({
+        url: 'open/suggestions',
+        params,
+      }),
     }),
     getTop: build.query<IArticleResult[], void>({
       query: () => 'open/top-articles',
@@ -48,7 +57,7 @@ export const publishedArticleApi = createApi({
 
 export const {
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarArticleSuggestionsQuery,
-  useGetSuggestionsQuery: useGetArticleSuggestionsQuery,
+  useLazyGetSuggestionsQuery: useLazyGetArticleSuggestionsQuery,
   useGetTopQuery: useGetTopArticlesQuery,
   useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
