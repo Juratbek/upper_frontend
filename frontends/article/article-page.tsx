@@ -88,12 +88,12 @@ export const Article: FC<IArticleProps> = (props) => {
         <div className={styles.reactions}>
           <div className={styles.reactionButtons}>
             <span
-              className={`pointer icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
+              className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
               onClick={(): void => likeDislike(1)}
             >
               <LikeIcon />
             </span>
-            <span className='mx-2'>{likeDislikeCount}</span>
+            {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
             <span
               className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
               onClick={(): void => likeDislike(-1)}

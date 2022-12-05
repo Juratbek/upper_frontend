@@ -76,7 +76,9 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
           >
             <LikeIcon />
           </div>
-          <span className={styles.reactionsText}>{likeDislikeCount}</span>
+          {Boolean(likeDislikeCount) && (
+            <span className={styles.reactionsText}>{likeDislikeCount}</span>
+          )}
           <div
             className={`${styles.icon} icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
             onClick={(): void => likeDislike(-1)}
