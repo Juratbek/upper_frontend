@@ -8,7 +8,7 @@ export const Footer: FC = () => {
     <div className={styles.footerContainer}>
       <ul className={styles.footerNav}>
         <li>
-          <Link href={'/contact'}>
+          <Link href={'/contacts'}>
             <a>Aloqa</a>
           </Link>
         </li>
