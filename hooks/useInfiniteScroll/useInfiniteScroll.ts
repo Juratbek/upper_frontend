@@ -1,18 +1,9 @@
 import { QueryDefinition } from '@reduxjs/toolkit/dist/query';
-import { LazyQueryTrigger, UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
+import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { IRes } from 'components/ApiErrorBoundary';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { TBaseQuery } from 'store/apis/config';
 import { IPagingResponse, TOptionalPagingRequest } from 'types';
-
-type TCallBack<T> = LazyQueryTrigger<
-  QueryDefinition<
-    TOptionalPagingRequest<Record<string, unknown>>,
-    TBaseQuery,
-    never,
-    IPagingResponse<T>
-  >
->;
 
 type THook<T> = UseLazyQuery<
   QueryDefinition<
@@ -23,48 +14,59 @@ type THook<T> = UseLazyQuery<
   >
 >;
 
-interface IResponse<T> extends IRes {
-  data: {
-    list: T[];
-  };
+interface IInfiniteScroll<T> extends IRes {
+  list: T[];
+  newItems: T[];
+  page: number;
+  hasMore: boolean;
 }
 
-export const useInfiniteScroll = <T>(
-  cb: TCallBack<T>,
-  hook: THook<T>,
-): [(node: Element | null) => void, IResponse<T>] => {
-  const [list, setList] = useState<T[]>([]);
-  const [page, setPage] = useState<number>(0);
-  const observer = useRef<IntersectionObserver>();
-  const [fetchItems, fetchItemsRes] = hook();
+type TFetch = (params?: TOptionalPagingRequest) => Promise<void>;
+type TFetchNextPage = () => Promise<void>;
 
-  const fetchList = async (): Promise<void> => {
-    const res = await fetchItems({ page }).unwrap();
-    setList([...list, ...res.list]);
+export const useInfiniteScroll = <T>(
+  hook: THook<T>,
+): [TFetch, IInfiniteScroll<T>, TFetchNextPage] => {
+  const [list, setList] = useState<T[]>([]);
+  const [newItems, setNewItems] = useState<T[]>([]);
+  const [page, setPage] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [fetchItems] = hook();
+
+  const fetchList: TFetch = async (params) => {
+    list.length === 0 ? setIsLoading(true) : setIsFetching(true);
+    setIsSuccess(false);
+    setIsError(false);
+    try {
+      const res = await fetchItems({ page: params?.page || page }).unwrap();
+      setList((prev) => [...prev, ...res.list]);
+      setNewItems(res.list);
+      setIsSuccess(true);
+      if (!Boolean(res.list) || res.list.length === 0) {
+        setHasMore(false);
+      }
+    } catch (e) {
+      console.error(e);
+      setIsError(true);
+      setHasMore(false);
+    } finally {
+      list.length === 0 ? setIsLoading(false) : setIsFetching(false);
+    }
   };
 
-  useEffect(() => {
-    fetchList();
-  }, []);
-
-  const lastItemRef = useCallback((node: Element | null) => {
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver(async (entries) => {
-      const lastItem = entries[0];
-      if (lastItem.isIntersecting) {
-        const res = await cb({ page }).unwrap();
-        console.log(
-          '🚀 ~ file: useInfiniteScroll.ts:20 ~ observer.current=newIntersectionObserver ~ res',
-          res,
-        );
-        setPage((prev) => prev + 1);
-        observer.current?.unobserve(lastItem.target);
-      }
+  const fetchNextPage: TFetchNextPage = async () => {
+    fetchList({ page: page + 1 }).then(() => {
+      setPage((prev) => prev + 1);
     });
+  };
 
-    if (node) observer.current.observe(node);
-  }, []);
-
-  return [lastItemRef, { ...fetchItemsRes, data: { list } }];
+  return [
+    fetchList,
+    { list, newItems, page, isLoading, isSuccess, isError, isFetching, hasMore },
+    fetchNextPage,
+  ];
 };
