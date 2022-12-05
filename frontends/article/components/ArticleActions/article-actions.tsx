@@ -1,8 +1,8 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
-import { appDynamic } from 'utils';
+import { appDynamic, getClassName } from 'utils';
 import { ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
@@ -29,6 +29,10 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const reactionsClassName = getClassName(
+    styles.reactionsText,
+    !likeDislikeCount && styles.reactionsTextZeroCount,
+  );
 
   const detectScrollDirection = (e: Event): void => {
     const target = e.target as HTMLElement;
@@ -46,10 +50,6 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   const commentIconClickHandler = (): void => {
     dispatch(toggleCommentsSidebar());
   };
-
-  const reactionsCount = useMemo(() => {
-    return likeDislikeCount || '';
-  }, [likeDislikeCount]);
 
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
@@ -80,14 +80,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
           >
             <LikeIcon />
           </div>
-          <span
-            className={[
-              styles.reactionsText,
-              !reactionsCount && styles.reactionsTextZeroCount,
-            ].join(' ')}
-          >
-            {reactionsCount}
-          </span>
+          <span className={reactionsClassName}>{likeDislikeCount || ''}</span>
           <div
             className={`${styles.icon} icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
             onClick={(): void => likeDislike(-1)}
