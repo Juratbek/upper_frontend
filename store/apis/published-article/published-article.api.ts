@@ -23,8 +23,11 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
-    getTop: build.query<IArticleResult[], void>({
-      query: () => 'open/top-articles',
+    getTop: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+      query: (params) => ({
+        url: 'open/top-articles',
+        params,
+      }),
     }),
     likeDislike: build.mutation<void, { id: number; value: TCheckIfLikedDisliked }>({
       query: ({ id, value }) => ({
@@ -58,7 +61,7 @@ export const publishedArticleApi = createApi({
 export const {
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSuggestionsQuery: useLazyGetArticleSuggestionsQuery,
-  useGetTopQuery: useGetTopArticlesQuery,
+  useLazyGetTopQuery: useLazyGetTopArticlesQuery,
   useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
   useIncrementViewCountMutation,
