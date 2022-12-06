@@ -1,4 +1,4 @@
-import { Alert, Button, Error, Input, TAlertColor } from 'components';
+import { Alert, Button, Error, IAlert, Input } from 'components';
 import { useAuth } from 'hooks';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,7 +7,7 @@ import { IResponseError } from 'types';
 
 export const LoginForm: FC = () => {
   const [changeLogin, changeLoginRes] = useChangeLoginMutation();
-  const [alert, setAlert] = useState<{ message: string; color: TAlertColor }>();
+  const [alert, setAlert] = useState<IAlert>();
   const { authenticate } = useAuth();
   const {
     register,

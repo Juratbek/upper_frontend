@@ -353,6 +353,12 @@
   }
 }
 
+.w-mobile-75 {
+  @include screenMax576 {
+    width: 75%;
+  }
+}
+
 // flex
 .flex-1 {
   flex: 1;

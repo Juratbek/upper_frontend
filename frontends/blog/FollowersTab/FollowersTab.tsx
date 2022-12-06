@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, Follower } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, Follower } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogFollowersQuery } from 'store/apis';
@@ -29,7 +29,12 @@ export const FollowersTab: FC = () => {
   }, [fetchFollowerRes.data]);
 
   return (
-    <ApiErrorBoundary res={fetchFollowerRes} className='tab'>
+    <ApiErrorBoundary
+      res={fetchFollowerRes}
+      fallback={<BlogSkeleton className='px-3 py-2 w-50 w-mobile-100' />}
+      fallbackItemCount={3}
+      className='tab'
+    >
       {followers}
     </ApiErrorBoundary>
   );

@@ -7,6 +7,7 @@ import {
   commentApi,
   docsApi,
   labelApi,
+  labelRequestApi,
   notificationApi,
   publishedArticleApi,
 } from './apis';
@@ -37,6 +38,7 @@ export const store = configureStore({
     [commentApi.reducerPath]: commentApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
     [docsApi.reducerPath]: docsApi.reducer,
+    [labelRequestApi.reducerPath]: labelRequestApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -47,6 +49,7 @@ export const store = configureStore({
       commentApi.middleware,
       notificationApi.middleware,
       docsApi.middleware,
+      labelRequestApi.middleware,
       apiErrorMiddleware,
     ),
 });
