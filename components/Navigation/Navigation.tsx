@@ -1,5 +1,6 @@
 import { Button, LogoutModal, Tooltip } from 'components';
 import { useAuth, useDevice } from 'hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
@@ -68,9 +69,11 @@ export const Navigation = (): JSX.Element => {
     <div className={classes.navigation}>
       <LogoutModal />
       <div className={`${classes.navigation} ${classes.positioned}`}>
-        <span className={classes.logo}>
-          <Logo />
-        </span>
+        <Link href='/about-us'>
+          <a className={classes.logo}>
+            <Logo />
+          </a>
+        </Link>
         <div className={classes.icons}>
           {icons.map(({ icon, href, authNeeded, tooltip }) => {
             const Icon = ICONS[icon];

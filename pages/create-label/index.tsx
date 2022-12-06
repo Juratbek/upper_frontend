@@ -1,7 +1,6 @@
 import { CreateLabelForm } from 'frontends/create-label';
-import { NextPage } from 'next';
 
-const CreateLabelPage: NextPage = () => {
+const CreateLabelPage = (): JSX.Element => {
   return (
     <div className='container'>
       <CreateLabelForm />

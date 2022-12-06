@@ -36,7 +36,7 @@ export const CreateLabelForm = (): JSX.Element => {
       )}
       <div className='mb-1'>
         <label htmlFor='login' className='mb-1 d-block'>
-          Nomi
+          Nom
         </label>
         <Input {...register('name', { required: 'Tag nomini kiriting' })} />
         <Error error={errors.name} />

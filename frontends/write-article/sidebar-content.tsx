@@ -1,5 +1,6 @@
 import { Alert, Button, Divider, IOption, MultiSelect } from 'components';
 import { useShortCut } from 'hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -7,6 +8,7 @@ import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
 import { ILabel, IResponseError } from 'types';
 import { compressUnsplashImage, convertLabelsToOptions } from 'utils';
+import { MAX_LABELS } from 'variables';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
@@ -70,10 +72,18 @@ export const SidebarContent: FC = () => {
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
       <div>
-        <label htmlFor='labels' className='mb-1 d-block'>
-          Teglar
-        </label>
+        <div className='d-flex justify-content-between'>
+          <label htmlFor='labels' className='mb-1 d-block'>
+            Teglar
+          </label>
+          <Link href='/create-label'>
+            <a target='_blank' className='text-gray link'>
+              Teg yaratish
+            </a>
+          </Link>
+        </div>
         <MultiSelect
+          max={MAX_LABELS}
           onChange={labelsChangeHandler}
           onInputDebounce={SearchLabels}
           renderItem={(item): JSX.Element => {
@@ -84,6 +94,7 @@ export const SidebarContent: FC = () => {
               </div>
             );
           }}
+          loading={searchLabelsRes.isLoading}
           options={convertLabelsToOptions(searchLabelsRes.data)}
           inputPlacegolder='Qidirish uchun yozing'
         />

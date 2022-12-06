@@ -17,5 +17,7 @@ export type TMultiSelectProps = Override<
     onInputDebounce?: (value: string) => void;
     inputPlacegolder?: string;
     renderItem?: (option: IOption) => JSX.Element;
+    max?: number;
+    loading?: boolean;
   }
 >;

@@ -24,7 +24,7 @@ export const articleApi = createApi({
       query: (id: number) => `need-auth/${id}`,
     }),
     getBlogArticles: build.query<
-      IPagingResponse<IArticleResult[]>,
+      IPagingResponse<IArticleResult>,
       TOptionalPagingRequest<{ statuses: TArticleStatus[] }>
     >({
       query: ({ statuses, page = 0 }) =>

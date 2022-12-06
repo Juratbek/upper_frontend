@@ -81,7 +81,7 @@
 
 .link:hover {
   text-decoration: underline;
-  color: black;
+  color: inherit;
 }
 
 .overflow-wrap {
@@ -167,6 +167,10 @@
 
 .ms-2 {
   margin-left: $size2;
+}
+
+.me-0 {
+  margin-right: 0;
 }
 
 .me-1 {
@@ -265,10 +269,15 @@
   padding-right: $size2;
   padding-left: $size2;
 }
-
 .px-3 {
   padding-right: $size3;
   padding-left: $size3;
+}
+.pt-3 {
+  padding-top: $size3;
+}
+.pt-4 {
+  padding-top: $size4;
 }
 .pb-4 {
   padding-bottom: $size4;
@@ -393,7 +402,10 @@
 .fs-1 {
   font-size: 0.8rem;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 // form
 .form {
   width: 20rem;

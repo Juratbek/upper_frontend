@@ -18,9 +18,8 @@ export const ApiErrorBoundary: FC<IApiErrorBoundaryProps> = ({
   const content = useMemo(() => {
     const { isLoading, isError, isFetching, error, isSuccess } = res;
     if (isLoading) return Fallback || 'Yuklanmoqda...';
-    if (isFetching) return Fallback || 'Qayta yuklanmoqda...';
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-    if (isSuccess) return <>{children}</>;
+    if (isSuccess || isFetching) return <>{children}</>;
     return <></>;
   }, [res]);
 

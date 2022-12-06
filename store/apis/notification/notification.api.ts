@@ -9,7 +9,7 @@ export const notificationApi = createApi({
   tagTypes: ['count'],
   endpoints: (build) => ({
     getByType: build.query<
-      IPagingResponse<INotification[]>,
+      IPagingResponse<INotification>,
       TOptionalPagingRequest<{ type: string }>
     >({
       query: ({ type, page = 0 }) => `list?type=${type}&page=${page}`,

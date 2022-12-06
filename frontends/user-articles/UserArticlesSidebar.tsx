@@ -28,7 +28,7 @@ import {
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
 } from 'utils';
-import { ARTICLE_STATUSES } from 'variables';
+import { ARTICLE_STATUSES, MAX_LABELS } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
@@ -107,20 +107,19 @@ export const UserArticlesSidebar: FC = () => {
     if (isPublishPressed) togglePublishModal();
   }, [isSavePressed, isPublishPressed]);
 
-  const alertComponent = useMemo(
-    () =>
-      alert && (
-        <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
-          <div>{alert}</div>
-          <Link href='/docs'>
-            <a target='_blank' className='link'>
-              Yo`riqnomani o`qish
-            </a>
-          </Link>
-        </Alert>
-      ),
-    [alert],
-  );
+  const alertComponent = useMemo(() => {
+    if (!alert) return <></>;
+    return (
+      <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
+        <div>{alert}</div>
+        <Link href='/docs'>
+          <a target='_blank' className='link'>
+            Yo`riqnomani o`qish
+          </a>
+        </Link>
+      </Alert>
+    );
+  }, [alert]);
 
   return (
     <>
@@ -243,12 +242,13 @@ export const UserArticlesSidebar: FC = () => {
               Teglar
             </label>
             <Link href='/create-label'>
-              <a target='_blank' className='link text-gray'>
-                Tag yaratish
+              <a target='_blank' className='text-gray link'>
+                Teg yaratish
               </a>
             </Link>
           </div>
           <MultiSelect
+            max={MAX_LABELS}
             onChange={labelsChangeHandler}
             onInputDebounce={SearchLabels}
             defaultValues={convertLabelsToOptions(article.labels)}
@@ -260,6 +260,7 @@ export const UserArticlesSidebar: FC = () => {
                 </div>
               );
             }}
+            loading={searchLabelsRes.isLoading}
             options={convertLabelsToOptions(searchLabelsRes.data)}
             inputPlacegolder='Qidirish uchun yozing'
           />
