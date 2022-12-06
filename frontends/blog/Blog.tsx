@@ -61,10 +61,12 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
         </div>
       </Modal>
 
-      <div className='d-flex align-items-center justify-content-between p-2 flex-wrap'>
+      <div
+        className={`d-flex align-items-center justify-content-between p-2 flex-wrap ${styles.blogContainer}`}
+      >
         {blog && (
           <>
-            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' />
+            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' className='mb-2' />
             {!blog.isCurrentBlog &&
               (isFollowed ? (
                 <Button color='outline-dark' onClick={toggleUnfollowModal}>
