@@ -88,7 +88,7 @@ export const UserArticlesSidebar: FC = () => {
     if (!article || !editor) return;
     if (event.confirmation !== 'tasdiqlash') return;
     try {
-      await deleteArticleReq(article.id);
+      await deleteArticleReq(article.id).unwrap();
       push('/articles');
     } catch (e) {}
   };

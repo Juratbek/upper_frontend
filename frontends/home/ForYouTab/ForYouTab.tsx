@@ -13,6 +13,7 @@ import {
 export const ForYouTab: FC = () => {
   const [fetchArticles, fetchArticlesRes, fetchNextArticlesPage] = useInfiniteScroll(
     useLazyGetArticleSuggestionsQuery,
+    { removeDublicates: true, itemUniqueKey: 'id' },
   );
   const { list: articles, hasMore } = fetchArticlesRes;
 
