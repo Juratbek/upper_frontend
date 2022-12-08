@@ -47,7 +47,7 @@ export const removeAmazonUriFromImgBlocks = async (
 ): Promise<[OutputBlockData[], boolean]> => {
   let isReset = false;
 
-  const updatedBlocks = await blocks.map(async (block): Promise<OutputBlockData> => {
+  const updatedBlocks = blocks.map(async (block): Promise<OutputBlockData> => {
     const blockType = block.type;
     if (blockType === BLOCK_TYPES.image) {
       const img = block.data.file;
