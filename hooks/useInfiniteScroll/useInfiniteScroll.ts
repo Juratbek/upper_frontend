@@ -1,31 +1,10 @@
-import { QueryDefinition } from '@reduxjs/toolkit/dist/query';
-import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
-import { IRes } from 'components/ApiErrorBoundary';
 import { useState } from 'react';
-import { TBaseQuery } from 'store/apis/config';
-import { IPagingResponse, TOptionalPagingRequest } from 'types';
 
-type THook<T> = UseLazyQuery<
-  QueryDefinition<
-    TOptionalPagingRequest<Record<string, unknown>>,
-    TBaseQuery,
-    never,
-    IPagingResponse<T>
-  >
->;
-
-interface IInfiniteScroll<T> extends IRes {
-  list: T[];
-  newItems: T[];
-  page: number;
-  hasMore: boolean;
-}
-
-type TFetch = (params?: TOptionalPagingRequest) => Promise<void>;
-type TFetchNextPage = () => Promise<void>;
+import { IConfig, IInfiniteScroll, TFetch, TFetchNextPage, THook } from './useInfiniteScroll.types';
 
 export const useInfiniteScroll = <T>(
   hook: THook<T>,
+  config: IConfig = { removeDublicates: false },
 ): [TFetch, IInfiniteScroll<T>, TFetchNextPage] => {
   const [list, setList] = useState<T[]>([]);
   const [newItems, setNewItems] = useState<T[]>([]);
@@ -43,7 +22,33 @@ export const useInfiniteScroll = <T>(
     setIsError(false);
     try {
       const res = await fetchItems({ page: params?.page || page }).unwrap();
-      setList((prev) => [...prev, ...res.list]);
+      setList((prev) => {
+        const newItems = res.list;
+        if (config.removeDublicates) {
+          const { itemUniqueKey } = config;
+          if (itemUniqueKey) {
+            // @ts-ignore
+            const set = new Set(prev.map((item) => item[itemUniqueKey]));
+            const newItemsWithoutDublicates = newItems.filter((item) => {
+              // @ts-ignore
+              const hasInCurrentList = set.has(item[itemUniqueKey]);
+              if (!hasInCurrentList) prev.push(item);
+              return !hasInCurrentList;
+            });
+
+            if (newItemsWithoutDublicates.length) fetchNextPage();
+
+            return prev;
+          }
+
+          const set = new Set(prev);
+          newItems.forEach((item) => {
+            if (!set.has(item)) prev.push(item);
+          });
+          return prev;
+        }
+        return [...prev, ...newItems];
+      });
       setNewItems(res.list);
       setIsSuccess(true);
       if (!Boolean(res.list) || res.list.length === 0) {
