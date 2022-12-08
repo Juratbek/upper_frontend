@@ -51,18 +51,20 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
               <h2 className={classes.title}>{title}</h2>
               <p className={classes.content} ref={contentRef} />
             </div>
-            <ArticleImg imgUrl={imgUrl} />
+            {imgUrl && <ArticleImg imgUrl={imgUrl} />}
           </div>
         </a>
       </Link>
       <div className={classes.footer}>
         <div className={classes.stats}>
           <span>{renderDate()}</span>
-          &nbsp; &nbsp;
           {viewCount > 0 && (
-            <span>
-              <strong>{formatToKMB(viewCount)}</strong> martta o`qilgan
-            </span>
+            <>
+              &nbsp; &nbsp;
+              <span>
+                <strong>{formatToKMB(viewCount)}</strong> martta o`qilgan
+              </span>
+            </>
           )}
         </div>
         <div>
@@ -73,9 +75,11 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
           ))}
         </div>
       </div>
-      <div className={classes.footer} style={{ marginTop: '.5rem' }}>
-        {author ? <Author {...addAmazonUri(author)} /> : <div />}
-      </div>
+      {author && (
+        <div className={classes.footer} style={{ marginTop: '.5rem' }}>
+          <Author {...addAmazonUri(author)} />
+        </div>
+      )}
     </div>
   );
 };
