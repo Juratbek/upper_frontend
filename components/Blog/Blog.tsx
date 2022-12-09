@@ -7,7 +7,7 @@ import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
 
 export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', ...props }) => {
-  const { followersCount, className, isLink, id, articlesCount } = props;
+  const { className, isLink, id } = props;
   const rootClassName = getClassName(classes.blog, className);
 
   const getBlog = useCallback(
@@ -16,18 +16,10 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
         <Avatar imgUrl={imgUrl} size={avaratSize} className={classes.avatar} />
         <div>
           <h2 className='m-0'>{name}</h2>
-          <p className='m-0 text-gray'>
-            {!!followersCount && <span>{followersCount} kuzatuvchilar</span>}{' '}
-            {!!articlesCount && (
-              <span>
-                {articlesCount} maqola{articlesCount > 1 && 'lar'}
-              </span>
-            )}
-          </p>
         </div>
       </div>
     ),
-    [name, articlesCount, followersCount, imgUrl],
+    [name, imgUrl],
   );
 
   return (

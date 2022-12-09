@@ -1,0 +1,12 @@
+.icon > svg {
+  $size: 2rem;
+  aspect-ratio: 1 / 1;
+  width: $size;
+}
+
+.avatar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
