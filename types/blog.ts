@@ -8,8 +8,6 @@ export interface IBlogSmall {
 }
 export interface IBlogMedium extends IBlogSmall {
   bio?: string;
-  followersCount?: number;
-  articlesCount?: number;
 }
 
 export interface IBlog extends IBlogMedium {
@@ -18,4 +16,6 @@ export interface IBlog extends IBlogMedium {
   labels: ILabel[];
   isFollowed?: boolean;
   isCurrentBlog?: boolean;
+  followersCount?: number;
+  articlesCount?: number;
 }
