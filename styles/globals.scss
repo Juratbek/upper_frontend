@@ -205,6 +205,10 @@
   margin-bottom: 1.7rem;
 }
 
+.mb-4 {
+  margin-bottom: $size4;
+}
+
 .my-1 {
   margin-top: $size1;
   margin-bottom: $size1;
@@ -387,6 +391,11 @@
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+.flex-mobile-col {
+  @include screenMax576 {
+    flex-direction: column;
+  }
 }
 
 // flex gaps

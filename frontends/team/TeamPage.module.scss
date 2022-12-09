@@ -1,12 +1,24 @@
-.icon > svg {
-  $size: 2rem;
-  aspect-ratio: 1 / 1;
-  width: $size;
+@import 'styles/_mixins';
+
+.member {
+  padding-top: 4rem;
+  @include screenMax576 {
+    padding-top: 5.5rem;
+  }
+}
+
+.icon {
+  margin-right: 1rem;
+  &> svg {
+    $size: 2rem;
+    aspect-ratio: 1 / 1;
+    width: $size;
+  }
 }
 
 .avatar {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -40%);
 }
