@@ -6,6 +6,7 @@ export interface ITabHeader {
   id: string;
   active?: boolean;
   private?: boolean;
+  defaultSelected?: boolean;
 }
 
 export interface ITabBody {

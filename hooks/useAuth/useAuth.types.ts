@@ -4,6 +4,7 @@ import { TAuthStatus } from 'types';
 export interface IUseAuth {
   status: TAuthStatus;
   isAuthenticated: boolean | null;
+  isLoading: boolean;
   authenticate: (user: IBlogRegisterResponse) => void;
   unauthenticate: () => void;
   getToken: () => string | null;

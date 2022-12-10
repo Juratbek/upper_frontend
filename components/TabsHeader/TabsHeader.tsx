@@ -21,10 +21,10 @@ export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
   };
 
   useEffect(() => {
-    if (!activeTabId && isReady) {
-      changeActiveTab(tabs[0].id);
-    }
-  }, []);
+    if (Boolean(activeTabId) || !isReady) return;
+    const defaultAvticeTab = tabs.find((tab) => tab.defaultSelected) || tabs[0];
+    defaultAvticeTab && changeActiveTab(defaultAvticeTab.id);
+  }, [tabs]);
 
   return (
     <div className={classes.tabs}>

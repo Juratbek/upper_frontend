@@ -1,4 +1,5 @@
 import { useNextAuth } from 'hooks/useNextAuth/useNextAuth';
+import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import {
@@ -16,6 +17,7 @@ export const useAuth = (): IUseAuth => {
   const { signIn, signOut } = useNextAuth();
   const status = useAppSelector(getAuthStatus);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
+  const isLoading = useMemo(() => status === 'loading', [status]);
 
   const authenticate = (user: IBlogRegisterResponse): void => {
     dispatch(storeAuthenticate(user));
@@ -48,6 +50,7 @@ export const useAuth = (): IUseAuth => {
   return {
     status,
     isAuthenticated,
+    isLoading,
     authenticate,
     unauthenticate,
     getToken,
