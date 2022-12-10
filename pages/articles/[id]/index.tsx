@@ -1,12 +1,13 @@
-import { ApiError, Head } from 'components';
+import { ApiError, Blog, Divider, Head } from 'components';
 import { Article } from 'frontends/article';
+import { useDevice } from 'hooks';
 import { GetServerSideProps, NextPage } from 'next';
 import { useEffect } from 'react';
 import { useAppDispatch, wrapper } from 'store';
 import { publishedArticleApi, useIncrementViewCountMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
-import { convertToHeadProp, get } from 'utils';
+import { addAmazonUri, convertToHeadProp, get } from 'utils';
 
 interface IArticlePageProps {
   article?: IArticle | null;
@@ -21,6 +22,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
 }: IArticlePageProps) => {
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
+  const { isMobile } = useDevice();
 
   useEffect(() => {
     if (!article) return;
@@ -50,6 +52,12 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
   return (
     <div className='container'>
       <Head {...convertToHeadProp(article)} url={fullUrl} />
+      {isMobile && (
+        <>
+          <Blog {...addAmazonUri(article.author)} />
+          <Divider className='mt-1' />
+        </>
+      )}
       <Article {...article} />
     </div>
   );
