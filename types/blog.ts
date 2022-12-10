@@ -8,10 +8,10 @@ export interface IBlogSmall {
 }
 export interface IBlogMedium extends IBlogSmall {
   bio?: string;
+  links: ILink[];
 }
 
 export interface IBlog extends IBlogMedium {
-  links: ILink[];
   createdDate: string;
   labels: ILabel[];
   isFollowed?: boolean;
