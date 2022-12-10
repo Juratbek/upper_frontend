@@ -46,15 +46,17 @@ export const AboutTab: FC = () => {
     const mediaIconsSet = new Set(SOCIAL_MEDIA_ICONS);
     const socialMediaLinks = Object.keys(values).reduce((res, value) => {
       if (mediaIconsSet.has(value) && values[value]) {
-        return [...res, { type: value, link: values[value] }];
+        return [...res, { type: value as TIcon, link: values[value] }];
       }
       return res;
     }, [] as Array<ILink>);
     const avatar = event.avatar[0] as unknown as File;
-    const compressedAvatarImage = await compressImage(avatar);
 
     const formData = new FormData();
-    avatar && formData.set('avatar', compressedAvatarImage);
+    if (avatar) {
+      const compressedAvatarImage = await compressImage(avatar);
+      formData.set('avatar', compressedAvatarImage);
+    }
     formData.set('name', name);
     formData.set('bio', bio);
     formData.set('links', JSON.stringify(socialMediaLinks));

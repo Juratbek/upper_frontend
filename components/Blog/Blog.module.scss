@@ -1,11 +1,34 @@
 .name {
-    margin-right: 2rem;
+  margin-right: 2rem;
 }
 
 .bio {
-    font-size: 1.1rem;
+  font-size: 1.1rem;
 }
 
 .avatar {
-    margin-right: .6rem;
+  margin-right: 0.6rem;
+}
+
+.social-media-links {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateY(130%);
+
+  & .icon {
+    margin-right: 0.6rem;
+    & > svg {
+      $size: 1.1rem;
+      width: $size;
+      height: $size;
+
+      & path {
+          fill: var(--darkGray);
+      }
+      &:hover path {
+          fill: black;
+      }
+    }
+  }
 }
