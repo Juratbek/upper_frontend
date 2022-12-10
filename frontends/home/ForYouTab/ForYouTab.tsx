@@ -1,5 +1,6 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
 import { useInfiniteScroll } from 'hooks';
+import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useLazyGetArticleSuggestionsQuery } from 'store/apis';
@@ -10,7 +11,12 @@ import {
   SEARCH_PAGE_ARTICLE_ICONS,
 } from 'variables';
 
+import { HOME_TAB_IDS } from '../Home.constants';
+
 export const ForYouTab: FC = () => {
+  const {
+    query: { tab },
+  } = useRouter();
   const [fetchArticles, fetchArticlesRes, fetchNextArticlesPage] = useInfiniteScroll(
     useLazyGetArticleSuggestionsQuery,
     { removeDublicates: true, itemUniqueKey: 'id' },
@@ -18,8 +24,8 @@ export const ForYouTab: FC = () => {
   const { list: articles, hasMore } = fetchArticlesRes;
 
   useEffect(() => {
-    fetchArticles();
-  }, []);
+    if (tab === HOME_TAB_IDS.forYou && articles.length === 0) fetchArticles();
+  }, [tab]);
 
   return (
     <ApiErrorBoundary

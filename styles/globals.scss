@@ -71,6 +71,21 @@
   }
 }
 
+// form
+.form {
+  width: 20rem;
+  margin: 10rem auto;
+  border: 0.5px solid var(--gray);
+  border-radius: 5px;
+  padding: 1.5rem;
+}
+.card {
+  padding: 3rem;
+  border-radius: 1em;
+  border: 1px solid transparentize(gray, 0.5);
+  box-shadow: 0 20px 20px -10px #1414142b;
+}
+
 .form-element {
   margin-bottom: 0.8em;
 }
@@ -420,18 +435,4 @@
 // font sizes
 .fs-1 {
   font-size: 0.8rem;
-}
-// form
-.form {
-  width: 20rem;
-  margin: 10rem auto;
-  border: 0.5px solid var(--gray);
-  border-radius: 5px;
-  padding: 1.5rem;
-}
-.card {
-  padding: 3rem;
-  border-radius: 1em;
-  border: 1px solid transparentize(gray, 0.5);
-  box-shadow: 0 20px 20px -10px #1414142b;
 }

@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useState } from 'react';
+import { TOptionalPagingRequest } from 'types';
 
 import { IConfig, IInfiniteScroll, TFetch, TFetchNextPage, THook } from './useInfiniteScroll.types';
 
@@ -16,42 +18,50 @@ export const useInfiniteScroll = <T>(
   const [hasMore, setHasMore] = useState(true);
   const [fetchItems] = hook();
 
+  const setListWithoutDiblicates = (
+    newItemsFromApi: T[],
+    params: TOptionalPagingRequest | undefined,
+  ): void => {
+    const { itemUniqueKey } = config;
+    if (itemUniqueKey) {
+      // @ts-ignore
+      const set = new Set(list.map((item) => item[itemUniqueKey]));
+      const newItemsWithoutDublicates = newItemsFromApi.filter((item) => {
+        // @ts-ignore
+        const hasInCurrentList = set.has(item[itemUniqueKey]);
+        if (!hasInCurrentList) list.push(item);
+        return !hasInCurrentList;
+      });
+
+      if (newItemsFromApi.length !== 0 && newItemsWithoutDublicates.length === 0)
+        setTimeout(() => {
+          fetchList({ page: (params?.page || page) + 1 });
+        }, 0);
+    } else {
+      const set = new Set(list);
+      newItems.forEach((item) => {
+        if (!set.has(item)) list.push(item);
+      });
+    }
+
+    setList(list);
+  };
+
   const fetchList: TFetch = async (params) => {
     list.length === 0 ? setIsLoading(true) : setIsFetching(true);
     setIsSuccess(false);
     setIsError(false);
     try {
       const res = await fetchItems({ page: params?.page || page }).unwrap();
-      setList((prev) => {
-        const newItems = res.list;
-        if (config.removeDublicates) {
-          const { itemUniqueKey } = config;
-          if (itemUniqueKey) {
-            // @ts-ignore
-            const set = new Set(prev.map((item) => item[itemUniqueKey]));
-            const newItemsWithoutDublicates = newItems.filter((item) => {
-              // @ts-ignore
-              const hasInCurrentList = set.has(item[itemUniqueKey]);
-              if (!hasInCurrentList) prev.push(item);
-              return !hasInCurrentList;
-            });
-
-            if (newItemsWithoutDublicates.length) fetchNextPage();
-
-            return prev;
-          }
-
-          const set = new Set(prev);
-          newItems.forEach((item) => {
-            if (!set.has(item)) prev.push(item);
-          });
-          return prev;
-        }
-        return [...prev, ...newItems];
-      });
-      setNewItems(res.list);
+      const newItemsFromApi = res.list;
+      if (config.removeDublicates) {
+        setListWithoutDiblicates(newItemsFromApi, params);
+      } else {
+        setList((prev) => [...prev, ...newItemsFromApi]);
+      }
+      setNewItems(newItemsFromApi);
       setIsSuccess(true);
-      if (!Boolean(res.list) || res.list.length === 0) {
+      if (!Boolean(newItemsFromApi) || newItemsFromApi.length === 0) {
         setHasMore(false);
       }
     } catch (e) {
@@ -59,7 +69,8 @@ export const useInfiniteScroll = <T>(
       setIsError(true);
       setHasMore(false);
     } finally {
-      list.length === 0 ? setIsLoading(false) : setIsFetching(false);
+      list.length === 0 && setIsFetching(false);
+      setIsLoading(false);
     }
   };
 

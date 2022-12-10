@@ -5,12 +5,12 @@ import type { NextPage } from 'next';
 import { useMemo } from 'react';
 
 const Home: NextPage = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
 
-  const tabMenus = useMemo(
-    () => (isAuthenticated ? HOME_TAB_MENUS : HOME_TAB_MENUS.filter((menu) => !menu.private)),
-    [isAuthenticated],
-  );
+  const tabMenus = useMemo(() => {
+    if (isLoading) return [];
+    return isAuthenticated ? HOME_TAB_MENUS : HOME_TAB_MENUS.filter((menu) => !menu.private);
+  }, [isAuthenticated]);
 
   return (
     <main className='container'>
