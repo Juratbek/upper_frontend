@@ -8,7 +8,7 @@ import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
 
 export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', ...props }) => {
-  const { className, isLink, id, links } = props;
+  const { className, isLink, id, links = [] } = props;
   const rootClassName = getClassName(classes.blog, className);
 
   const getBlog = useCallback(
