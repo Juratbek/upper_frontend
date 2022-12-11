@@ -11,7 +11,7 @@ export const ArticleStatus: FC<IArticleStatusProps> = ({ status, className, chil
 
   return (
     <div className={rootClassName}>
-      <div>Stauts: {label.toUpperCase()}</div>
+      <div>{label.toUpperCase()}</div>
       {children && <div>{children}</div>}
     </div>
   );

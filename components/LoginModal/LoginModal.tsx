@@ -2,20 +2,19 @@ import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'compone
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
-import { TELEGRAM_BOT } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 
 const { login, password } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
-  const [hasAlert, setHasAlert] = useState<boolean>(false);
+  const [alert, setAlert] = useState<string>();
   const isOpen = useAppSelector(getIsModalOpen);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
@@ -23,8 +22,6 @@ export const LoginModal: FC = () => {
   const {
     register,
     handleSubmit,
-    setError,
-    setFocus,
     formState: { errors },
   } = useForm();
 
@@ -47,13 +44,21 @@ export const LoginModal: FC = () => {
       console.error(e);
       const error = e as IResponseError;
       if (error.status === 404) {
-        setError(password.name, { message: 'Login yoki parol xato kiritilgan!' });
-        setFocus(login.name);
-      } else {
-        setHasAlert(true);
+        setAlert('Login yoki parol xato kiritilgan!');
       }
     }
   };
+
+  const closeAlert = (): void => setAlert(undefined);
+
+  const alertComponent = useMemo(() => {
+    if (!alert) return <></>;
+    return (
+      <Alert color='red' className='mb-1' onClose={closeAlert}>
+        {alert}
+      </Alert>
+    );
+  }, [alert]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
@@ -63,15 +68,7 @@ export const LoginModal: FC = () => {
           content='578132262483-mp1bv5i0pp46fmh0d8hvi0qe7t29g9p0.apps.googleusercontent.com'
         />
       </Head>
-      {hasAlert && (
-        <Alert color='yellow' className='mb-1'>
-          Xatolik yuz berdi. Iltimos bu haqda&nbsp;
-          <a className='text-blue' href={TELEGRAM_BOT.link} target='_blank' rel='noreferrer'>
-            {TELEGRAM_BOT.name}
-          </a>
-          &nbsp;telegram botiga habar bering.
-        </Alert>
-      )}
+      {alertComponent}
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>

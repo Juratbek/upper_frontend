@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Error,
   Input,
@@ -8,7 +9,7 @@ import {
   Textarea,
 } from 'components';
 import { useAuth } from 'hooks';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useRegisterMutation } from 'store/apis';
@@ -21,6 +22,7 @@ const { name, bio, login, password, email } = REGISTER_FORM_FIELDS;
 
 export const RegisterModal: FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
+  const [alert, setAlert] = useState<string>();
   const isOpen = useAppSelector(getIsRegisterModalOpen);
   const dispatch = useAppDispatch();
   const { authenticate } = useAuth();
@@ -29,7 +31,6 @@ export const RegisterModal: FC = () => {
     handleSubmit,
     watch,
     clearErrors,
-    setError,
     setFocus,
     formState: { errors },
   } = useForm();
@@ -63,7 +64,7 @@ export const RegisterModal: FC = () => {
       const error = e as IResponseError;
       console.error(error);
       if (error.status === 409) {
-        setError('login', { type: 'value', message: error.data.message }, { shouldFocus: true });
+        setAlert(error.data.message);
       }
     }
   };
@@ -77,14 +78,26 @@ export const RegisterModal: FC = () => {
     }
   };
 
+  const closeAlert = (): void => setAlert(undefined);
+
   useEffect(() => {
     if (activeStep === 2) {
       setFocus(login.name);
     }
   }, [activeStep]);
 
+  const alertComponent = useMemo(() => {
+    if (!alert) return <></>;
+    return (
+      <Alert color='red' className='mb-1' onClose={closeAlert}>
+        {alert}
+      </Alert>
+    );
+  }, [alert]);
+
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
+      {alertComponent}
       <form onSubmit={handleSubmit(submitHandler, errorHandler)}>
         <div className={activeStep === 1 ? 'd-block' : 'd-none'}>
           <div className='form-element'>
