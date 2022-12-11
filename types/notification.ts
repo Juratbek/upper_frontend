@@ -15,7 +15,7 @@ export interface INotification {
   article: IArticleSmall;
   author: IBlogSmall;
   status: TNotificationStatus;
-  date: string;
+  createdDate: string;
 }
 
 export type TNotificationComponent =
