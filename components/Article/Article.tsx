@@ -17,7 +17,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
     id,
     imgUrl,
   } = article;
-  const rootClassName = getClassName(classes.article, className);
+  const rootClassName = getClassName(classes.article, className, 'card');
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
             <>
               &nbsp; &nbsp;
               <span>
-                <strong>{formatToKMB(viewCount)}</strong> martta o`qilgan
+                <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
               </span>
             </>
           )}
