@@ -79,7 +79,7 @@ export const Article: FC<IArticleProps> = (props) => {
         <div className='d-flex'>
           {viewCount > 0 && (
             <>
-              <span>{viewCount} martta ko&apos;rilgan</span>
+              <span>{viewCount} marta ko&apos;rilgan</span>
               <Divider type='vertical' className='mx-1' />
             </>
           )}

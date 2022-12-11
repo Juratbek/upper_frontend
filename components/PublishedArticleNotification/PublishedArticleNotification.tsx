@@ -21,11 +21,11 @@ export const PublishedArticleNotification: FC<IPublishedArticleNotificationProps
     <div className={rootClassName} onClick={clickHandler}>
       <Avatar className='me-1' imgUrl={addAmazonUri(author).imgUrl} />
       {author?.name}&nbsp;
-      <span>
+      <span className={classes.text}>
         <strong className='pointer'>&quot;{article.title}&quot;</strong>&nbsp;sarlavhali maqola
         nashr qildi
       </span>
-      <span className={`ms-auto ${classes.date}`}>{toDateString(createdDate)}</span>
+      <span className={classes.date}>{toDateString(createdDate)}</span>
     </div>
   );
 };

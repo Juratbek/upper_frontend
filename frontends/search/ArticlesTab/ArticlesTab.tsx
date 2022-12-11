@@ -32,7 +32,7 @@ export const ArticlesTab: FC = () => {
       {searchArticleRes.data?.length === 0 && <h3 className='text-center'>Maqola topilmadi</h3>}
       {addUriToArticleImages(searchArticleRes.data).map((article) => (
         <Article
-          className='p-2 px-xs-1'
+          className='p-2 px-xs-1 my-2'
           key={article.id}
           article={article}
           author={article.author}

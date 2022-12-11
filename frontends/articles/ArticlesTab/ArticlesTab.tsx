@@ -52,7 +52,7 @@ export const ArticlesTab: FC = () => {
           return (
             <Article
               redirectUrl='/user/articles'
-              className='p-2 px-xs-1'
+              className='p-2 px-xs-1 my-2'
               key={article.id}
               article={article}
             />

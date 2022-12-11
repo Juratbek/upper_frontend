@@ -46,7 +46,7 @@ export const TopTab: FC = () => {
         {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
         {addUriToArticleImages(articles).map((article) => (
           <Article
-            className='p-2 px-xs-1'
+            className='p-2 px-xs-1 my-2'
             key={article.id}
             article={article}
             author={article.author}
