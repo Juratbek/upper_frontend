@@ -18,7 +18,6 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
     if (status === 401) {
       const { dispatch } = api;
       const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-      debugger;
       if (!refreshToken) {
         dispatch(unauthenticate());
       } else {

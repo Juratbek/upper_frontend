@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetNotificationsByTypeQuery, useReadNotificationMutation } from 'store/apis';
 import { INotification } from 'types';
-import { NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
+import { NOTIFICATION_STATUSES, NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
 
 export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
@@ -35,7 +35,14 @@ export const NotificationsTab: FC = () => {
       return (
         <div key={notification.id}>
           <Notification onClick={readNotification} {...notification} className='p-2' />
-          {index !== notifications.length - 1 && <Divider className='w-75 mx-auto' />}
+          {index !== notifications.length - 1 && (
+            <Divider
+              className='w-75 mx-auto'
+              color={
+                notification.status === NOTIFICATION_STATUSES.UNREAD ? 'transparent' : undefined
+              }
+            />
+          )}
         </div>
       );
     });

@@ -4,9 +4,12 @@
   &--horisontal {
     height: 1px;
   }
-
   &--vertical {
     width: 1px;
+  }
+
+  &--transparent {
+    background-color: transparent;
   }
 
 }
