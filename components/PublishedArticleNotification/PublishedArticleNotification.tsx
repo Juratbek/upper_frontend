@@ -1,6 +1,6 @@
 import { Avatar } from 'components';
 import { FC } from 'react';
-import { getClassName } from 'utils';
+import { addAmazonUri, getClassName } from 'utils';
 
 import classes from './PublishedArticleNotification.module.scss';
 import { IPublishedArticleNotificationProps } from './PublishedArticleNotification.types';
@@ -19,7 +19,7 @@ export const PublishedArticleNotification: FC<IPublishedArticleNotificationProps
 
   return (
     <div className={rootClassName} onClick={clickHandler}>
-      <Avatar className='me-1' imgUrl={author.imgUrl} />
+      <Avatar className='me-1' imgUrl={addAmazonUri(author).imgUrl} />
       {author?.name}&nbsp;
       <strong className='pointer'>&quot;{article.title}&quot;</strong>&nbsp;nomli maqola nashr qildi
     </div>
