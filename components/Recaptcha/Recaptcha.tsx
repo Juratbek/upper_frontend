@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FC, useEffect, useRef } from 'react';
+import { Spinner } from 'components';
+import { useAuth } from 'hooks';
+import { FC, useEffect, useId, useState } from 'react';
 
 import { IRecaptchaProps } from './Recaptcha.types';
 
@@ -10,34 +12,50 @@ declare global {
   }
 }
 
+const googleScriptId = 'google-racaptcha';
+
 export const Recaptcha: FC<IRecaptchaProps> = ({ siteKey, onSuccess, onExpired, ...props }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+  const [isLoding, setIsLoading] = useState(true);
+  const id = useId();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (ref.current === null) return;
+    if (!isScriptLoaded) return;
 
-    window.onloadCallback = (): void => {
+    setTimeout(() => {
       // @ts-ignore
-      grecaptcha.enterprise.render('html_element', {
+      grecaptcha.enterprise.render(id, {
         sitekey: siteKey,
         callback: onSuccess,
         'expired-callback': onExpired,
       });
-    };
+      setIsLoading(false);
+    }, 2000);
+  }, [isScriptLoaded]);
+
+  useEffect(() => {
+    if (isAuthenticated) return;
+
+    const head = document.head;
+    const recaptchaScript = head.querySelector(`#${googleScriptId}`);
+    if (recaptchaScript) {
+      return setIsScriptLoaded(true);
+    }
 
     const script = document.createElement('script');
-    script.src =
-      'https://www.google.com/recaptcha/enterprise.js?onload=onloadCallback&render=explicit&hl=ru';
+    script.src = 'https://www.google.com/recaptcha/enterprise.js?render=explicit&hl=ru';
+    script.id = googleScriptId;
     script.async = true;
     script.defer = true;
-
-    ref.current.append(script);
+    script.onload = (): void => setIsScriptLoaded(true);
+    head.append(script);
   }, []);
 
   return (
     <div {...props}>
-      <div id='html_element'></div>
-      <div ref={ref} />
+      {isLoding && <Spinner color='light' />}
+      <div id={id} />
     </div>
   );
 };

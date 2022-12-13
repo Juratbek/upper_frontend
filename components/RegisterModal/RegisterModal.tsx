@@ -5,12 +5,13 @@ import {
   Input,
   Modal,
   PasswordValidityLevel,
+  Recaptcha,
   TelegramLoginButton,
   Textarea,
 } from 'components';
 import { useAuth } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { FieldErrors, useForm } from 'react-hook-form';
+import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useRegisterMutation } from 'store/apis';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
@@ -18,7 +19,7 @@ import { IResponseError, TSubmitFormEvent } from 'types';
 
 import { REGISTER_FORM_FIELDS } from './RegisterModal.constants';
 
-const { name, bio, login, password, email } = REGISTER_FORM_FIELDS;
+const { name, bio, login, password, email, recaptcha } = REGISTER_FORM_FIELDS;
 
 export const RegisterModal: FC = () => {
   const [activeStep, setActiveStep] = useState<number>(1);
@@ -32,6 +33,7 @@ export const RegisterModal: FC = () => {
     watch,
     clearErrors,
     setFocus,
+    control,
     formState: { errors },
   } = useForm();
   const [createBlog, createBlogResponse] = useRegisterMutation();
@@ -49,7 +51,7 @@ export const RegisterModal: FC = () => {
   };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const { name, bio, login, password, email } = event;
+    const { name, bio, login, password, email, recaptcha } = event;
     try {
       const res = await createBlog({
         name,
@@ -57,6 +59,7 @@ export const RegisterModal: FC = () => {
         username: login,
         password,
         email,
+        reCaptchaResponse: recaptcha,
       }).unwrap();
       authenticate(res);
       closeModal();
@@ -155,6 +158,22 @@ export const RegisterModal: FC = () => {
               })}
             />
             <Error error={errors['check-password']} />
+          </div>
+          <div className='form-element'>
+            <Controller
+              control={control}
+              name={recaptcha.name}
+              rules={recaptcha.options}
+              render={({ field: { onChange } }): JSX.Element => (
+                <Recaptcha
+                  className='mb-1 register'
+                  siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
+                  onSuccess={onChange}
+                  onExpired={(): void => onChange(null)}
+                />
+              )}
+            />
+            <Error error={errors[recaptcha.name]} />
           </div>
         </div>
         <Button className='d-block w-100 mb-1' loading={createBlogResponse.isLoading}>

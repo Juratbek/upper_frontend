@@ -34,7 +34,7 @@ export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
   recaptcha: {
     name: 'recaptcha',
     options: {
-      required: true,
+      required: 'Bot emasligingizni tasdiqlash uchun bosing',
     },
   },
 };
