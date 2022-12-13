@@ -96,7 +96,7 @@ export const LoginModal: FC = () => {
             rules={recaptcha.options}
             render={({ field: { onChange } }): JSX.Element => (
               <Recaptcha
-                className='mb-1'
+                className='mb-1 login'
                 siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                 onSuccess={onChange}
                 onExpired={(): void => onChange(null)}

@@ -61,4 +61,10 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
       validate: (value) => /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value),
     },
   },
+  recaptcha: {
+    name: 'recaptcha',
+    options: {
+      required: 'Bot emasligingizni tasdiqlash uchun bosing',
+    },
+  },
 };
