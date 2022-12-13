@@ -1,9 +1,9 @@
-import { Alert, Button, Error, Input, Modal, TelegramLoginButton } from 'components';
+import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } from 'components';
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
 import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
@@ -11,7 +11,7 @@ import { IResponseError, TSubmitFormEvent } from 'types';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 
-const { login, password } = LOGIN_FORM_FIELDS;
+const { login, password, recaptcha } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
   const [alert, setAlert] = useState<string>();
@@ -23,6 +23,7 @@ export const LoginModal: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm();
 
   const closeModal = (): void => {
@@ -36,8 +37,12 @@ export const LoginModal: FC = () => {
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     try {
-      const { login, password } = event;
-      const res = await loginBlog({ username: login, password }).unwrap();
+      const { login, password, recaptcha } = event;
+      const res = await loginBlog({
+        username: login,
+        password,
+        reCaptchaResponse: recaptcha,
+      }).unwrap();
       authenticate(res);
       closeModal();
     } catch (e) {
@@ -84,6 +89,23 @@ export const LoginModal: FC = () => {
           <Input type='password' id='password' {...register(password.name, password.options)} />
           <Error error={errors[password.name]} />
         </div>
+        <div className='form-element'>
+          <Controller
+            control={control}
+            name={recaptcha.name}
+            rules={recaptcha.options}
+            render={({ field: { onChange } }): JSX.Element => (
+              <Recaptcha
+                className='mb-1'
+                siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
+                onSuccess={onChange}
+                onExpired={(): void => onChange(null)}
+              />
+            )}
+          />
+          <Error error={errors[recaptcha.name]} />
+        </div>
+
         <Button className='d-block w-100 mb-1' loading={loginBlogResponse.isLoading}>
           Kirish
         </Button>

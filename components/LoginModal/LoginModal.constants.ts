@@ -1,6 +1,6 @@
 import { TFormFields } from 'types';
 
-type TField = 'login' | 'password';
+type TField = 'login' | 'password' | 'recaptcha';
 
 export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
   login: {
@@ -29,6 +29,12 @@ export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
         value: 30,
         message: 'Parol o`ta uzun',
       },
+    },
+  },
+  recaptcha: {
+    name: 'recaptcha',
+    options: {
+      required: true,
     },
   },
 };
