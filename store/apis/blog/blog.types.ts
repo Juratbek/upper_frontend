@@ -17,6 +17,7 @@ export interface IBlogRegisterResponse {
 export interface IBlogLoginDto {
   username: string;
   password: string;
+  reCaptchaResponse: string;
 }
 
 export interface IChangePasswordDto {

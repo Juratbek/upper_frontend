@@ -49,3 +49,4 @@ export * from './Tooltip/Tooltip';
 export * from './Footer';
 export * from './EditorSpinner/EditorSpinner';
 export * from './LogoutModal/LogoutModal';
+export * from './Recaptcha/Recaptcha';
