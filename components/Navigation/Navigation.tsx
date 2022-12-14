@@ -11,6 +11,7 @@ import { ICONS, NOTIFICATION_STATUSES } from 'variables';
 import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
+import { INavigationIcon } from './Navigation.types';
 
 const LogOutIcon = ICONS.logOut;
 const Logo = ICONS.logo;
@@ -32,8 +33,9 @@ export const Navigation = (): JSX.Element => {
     dispatch(openLogoutModal());
   };
 
-  const clickHandler = (href: string, authNeeded: boolean | undefined): void => {
-    if (!isAuthenticated && authNeeded) dispatch(openLoginModal());
+  const clickHandler = (navigationIcon: INavigationIcon): void => {
+    const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
+    if (!isAuthenticated && isPrivateRoute) dispatch(openLoginModal(loginModalTitle));
     else router.route !== href && router.push(href);
   };
 
@@ -75,12 +77,13 @@ export const Navigation = (): JSX.Element => {
           </a>
         </Link>
         <div className={classes.icons}>
-          {icons.map(({ icon, href, authNeeded, tooltip }) => {
+          {icons.map((navigationIcon) => {
+            const { icon, tooltip, href } = navigationIcon;
             const Icon = ICONS[icon];
             return (
               <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
                 <NavItem
-                  onClick={(): void => clickHandler(href, authNeeded)}
+                  onClick={(): void => clickHandler(navigationIcon)}
                   icon={Icon}
                   className='pointer'
                   active={href === router.pathname}

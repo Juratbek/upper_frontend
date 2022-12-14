@@ -32,7 +32,8 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
     icon: 'pen',
     href: '/write-article',
-    authNeeded: true,
+    isPrivateRoute: true,
     tooltip: 'Maqola yozish',
+    loginModalTitle: <h2 className='mb-1 mt-0'>Maqola yozish uchun ro&apos;yxatdan o&apos;ting</h2>,
   },
 ];
