@@ -4,6 +4,7 @@ import { Footer, GoogleOneTap, Navigation, Sidebar } from 'components';
 import { useAuth } from 'hooks';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
 import { wrapper } from 'store';
@@ -33,6 +34,23 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>
       </Head>
+      <Script
+        strategy='afterInteractive'
+        src='https://www.googletagmanager.com/gtag/js?id=G-6XYX2X34TV'
+      />
+      <Script
+        id='google-analytics'
+        strategy='afterInteractive'
+        dangerouslySetInnerHTML={{
+          __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+            
+              gtag('config', 'G-6XYX2X34TV');
+            `,
+        }}
+      />
       <div className='app'>
         <Navigation />
         <DynamicLoginModal />
