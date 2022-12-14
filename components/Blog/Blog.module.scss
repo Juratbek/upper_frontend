@@ -19,15 +19,21 @@
   & .icon {
     margin-right: 0.6rem;
     & > svg {
-      $size: 1.1rem;
+      $size: 1.0rem;
       width: $size;
       height: $size;
 
-      & path {
-          fill: var(--darkGray);
+      & > path,
+      & > g path {
+        $color: var(--gray);
+        fill: $color;
+        stroke: $color;
       }
-      &:hover path {
-          fill: black;
+      &:hover > path,
+      &:hover > g path {
+        $color: black;
+        fill: $color;
+        stroke: $color;
       }
     }
   }
