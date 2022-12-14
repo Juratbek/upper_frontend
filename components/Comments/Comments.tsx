@@ -69,10 +69,10 @@ export const Comments = (): JSX.Element => {
             <p className='mt-0'>Izoh qoldirish uchun ro`yxatdan o`ting</p>
             <div className='d-flex f-gap-1'>
               <Button className='flex-auto' color='outline-dark' onClick={loginClickHandler}>
-                Kirish
+                Profilga kirish
               </Button>
               <Button className='flex-auto' onClick={registerClickHandler}>
-                Ro`yxatdan o`tish
+                Ro`yxatdan o&apos;tish
               </Button>
             </div>
           </div>

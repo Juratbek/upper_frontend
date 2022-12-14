@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { TIcon } from 'types';
 
 export interface INavigationIcon {
@@ -6,5 +7,6 @@ export interface INavigationIcon {
   tooltip: string;
   color?: string;
   private?: boolean;
-  authNeeded?: boolean;
+  isPrivateRoute?: boolean;
+  loginModalTitle?: ReactNode;
 }

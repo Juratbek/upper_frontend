@@ -6,7 +6,12 @@ import { FC, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
-import { closeLoginModal, getIsModalOpen, openRegisterModal } from 'store/states';
+import {
+  closeLoginModal,
+  getIsModalOpen,
+  getLoginModalTitle,
+  openRegisterModal,
+} from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
@@ -16,6 +21,7 @@ const { login, password, recaptcha } = LOGIN_FORM_FIELDS;
 export const LoginModal: FC = () => {
   const [alert, setAlert] = useState<string>();
   const isOpen = useAppSelector(getIsModalOpen);
+  const Title = useAppSelector(getLoginModalTitle);
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
   const { authenticate } = useAuth();
@@ -75,6 +81,7 @@ export const LoginModal: FC = () => {
       </Head>
       {alertComponent}
       <form onSubmit={handleSubmit(submitHandler)}>
+        {Boolean(Title) && Title}
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>
             Loginni kiriting
