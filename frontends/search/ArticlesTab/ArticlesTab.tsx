@@ -3,12 +3,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchArticleQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
-import {
-  ARTICLES_SKELETON_COUNT,
-  SEARCH_PAGE_ARTICLE_ACTIONS,
-  SEARCH_PAGE_ARTICLE_ICONS,
-  SEARCH_PAGE_TAB_IDS,
-} from 'variables';
+import { ARTICLES_SKELETON_COUNT, SEARCH_PAGE_ARTICLE_ICONS, SEARCH_PAGE_TAB_IDS } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const {
@@ -36,7 +31,6 @@ export const ArticlesTab: FC = () => {
           key={article.id}
           article={article}
           author={article.author}
-          actions={SEARCH_PAGE_ARTICLE_ACTIONS}
           icons={SEARCH_PAGE_ARTICLE_ICONS}
         />
       ))}

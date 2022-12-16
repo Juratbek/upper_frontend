@@ -1,12 +1,15 @@
-import { TAction } from 'types';
+import { CSSProperties, ReactNode } from 'react';
 
-interface IAction {
-  Icon?: () => JSX.Element;
-  label: string;
+type TColor = 'red';
+export interface IAction {
+  label: ReactNode;
+  color?: TColor;
+  onClick?: () => void;
 }
-export interface IActions {
-  [string: TAction]: IAction;
-}
+
 export interface IActinosProps {
-  actions: TAction[];
+  actions: IAction[];
+  popupStyle?: CSSProperties;
+  dotsClassName?: string;
+  loading?: boolean;
 }

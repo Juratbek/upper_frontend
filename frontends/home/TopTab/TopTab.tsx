@@ -6,11 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useLazyGetTopArticlesQuery } from 'store/apis';
 import { IArticleResult } from 'types';
 import { addUriToArticleImages } from 'utils';
-import {
-  ARTICLES_SKELETON_COUNT,
-  SEARCH_PAGE_ARTICLE_ACTIONS,
-  SEARCH_PAGE_ARTICLE_ICONS,
-} from 'variables';
+import { ARTICLES_SKELETON_COUNT, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
 
 import { HOME_TAB_IDS } from '../Home.constants';
 
@@ -50,7 +46,6 @@ export const TopTab: FC = () => {
             key={article.id}
             article={article}
             author={article.author}
-            actions={SEARCH_PAGE_ARTICLE_ACTIONS}
             icons={SEARCH_PAGE_ARTICLE_ICONS}
           />
         ))}
