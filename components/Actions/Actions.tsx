@@ -1,17 +1,11 @@
 import { useClickOutside } from 'hooks';
-import { FC, useMemo, useState } from 'react';
+import { FC, useState } from 'react';
 
-import { ACTIONS } from './Actions.constants';
-import classes from './Actions.module.css';
+import classes from './Actions.module.scss';
 import { IActinosProps } from './Actions.types';
 
-export const Actions: FC<IActinosProps> = (props) => {
+export const Actions: FC<IActinosProps> = ({ actions }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const actions = useMemo(
-    () => props.actions?.map((actionType) => ACTIONS[actionType]),
-    [props.actions],
-  );
 
   const openPopup = (): void => setIsPopupOpen(true);
   const closePopup = (): void => setIsPopupOpen(false);
@@ -19,8 +13,8 @@ export const Actions: FC<IActinosProps> = (props) => {
   const [ref] = useClickOutside(closePopup);
 
   return (
-    <div ref={ref} className={classes.actions}>
-      <div onClick={openPopup} className={classes.dots}>
+    <div ref={ref} className={classes['actions-container']}>
+      <div onClick={openPopup} className={classes['dots-container']}>
         {Array(3)
           .fill(1)
           .map((_, index) => (
@@ -29,14 +23,9 @@ export const Actions: FC<IActinosProps> = (props) => {
       </div>
       {actions && (
         <div className={`${classes.popup} ${!isPopupOpen && 'd-none'}`}>
-          {actions.map(({ Icon, label }, index) => (
+          {actions.map(({ label }, index) => (
             <div className={classes['popup__item']} key={index}>
-              {Icon && (
-                <>
-                  <Icon /> &nbsp;
-                </>
-              )}
-              <span>{label}</span>
+              {label}
             </div>
           ))}
         </div>

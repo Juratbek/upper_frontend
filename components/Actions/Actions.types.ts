@@ -1,12 +1,9 @@
-import { TAction } from 'types';
+import { ReactNode } from 'react';
 
 interface IAction {
-  Icon?: () => JSX.Element;
-  label: string;
+  label: ReactNode;
 }
-export interface IActions {
-  [string: TAction]: IAction;
-}
+
 export interface IActinosProps {
-  actions: TAction[];
+  actions: IAction[];
 }

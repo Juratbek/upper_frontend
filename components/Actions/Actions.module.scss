@@ -1,35 +1,27 @@
-.actions {
+.actions-container {
     position: relative;
     cursor: pointer;
+    padding: 0.5rem;
 }
 
-.dots {
-    height: 21px;
-    width: 5px;
+.dots-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 1.5rem;
 }
-
 .dots__item {
-    position: absolute;
-    width: 5px;
-    height: 5px;
+    $size: 5px;
+    width: $size;
+    height: $size;
     background-color: black;
     border-radius: 100rem;
-    top: 0;
-    left: 0;
-}
-
-.dots__item:nth-child(2){
-    top: 8px
-}
-
-.dots__item:nth-child(3){
-    top: 16px
 }
 
 .popup {
     position: absolute;
-    top: -.5rem;
     left: 0;
+    bottom: 0;
     transform: translateX(-70%);
     z-index: 1000;
     box-shadow: 0px 2px 3px #D9D9D9;

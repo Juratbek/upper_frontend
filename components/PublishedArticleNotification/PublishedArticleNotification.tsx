@@ -1,4 +1,4 @@
-import { Avatar } from 'components';
+import { Actions, Avatar } from 'components';
 import { FC } from 'react';
 import { addAmazonUri, getClassName, toDateString } from 'utils';
 
@@ -26,6 +26,9 @@ export const PublishedArticleNotification: FC<IPublishedArticleNotificationProps
         nashr qildi
       </span>
       <span className={classes.date}>{toDateString(createdDate)}</span>
+      <div className={classes.actions} onClick={(e): void => e.stopPropagation()}>
+        <Actions actions={[{ label: "O'qilgan sifatida belgilash" }]} />
+      </div>
     </div>
   );
 };
