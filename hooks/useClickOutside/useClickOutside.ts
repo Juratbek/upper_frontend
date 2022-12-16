@@ -9,6 +9,7 @@ export const useClickOutside = (
   const ref = useRef<HTMLDivElement>(null);
 
   const clickHandler: MouseEventHandler = (event: MouseEvent<HTMLElement>) => {
+    console.log('click');
     const clickedTarget = event.target;
     const currentTarget = ref.current;
     // @ts-ignore
@@ -26,10 +27,10 @@ export const useClickOutside = (
 
   useEffect(() => {
     // @ts-ignore
-    document.addEventListener('click', clickHandler);
+    window.addEventListener('click', clickHandler);
 
     // @ts-ignore
-    return () => document.removeEventListener('click', clickHandler);
+    return () => window.removeEventListener('click', clickHandler);
   }, []);
 
   return [ref, isClickedOutside];

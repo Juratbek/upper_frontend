@@ -1,9 +1,14 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
-interface IAction {
+type TColor = 'red';
+export interface IAction {
   label: ReactNode;
+  color?: TColor;
+  onClick?: () => void;
 }
 
 export interface IActinosProps {
   actions: IAction[];
+  popupStyle?: CSSProperties;
+  dotsClassName?: string;
 }
