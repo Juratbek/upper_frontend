@@ -11,4 +11,5 @@ export interface IActinosProps {
   actions: IAction[];
   popupStyle?: CSSProperties;
   dotsClassName?: string;
+  loading?: boolean;
 }

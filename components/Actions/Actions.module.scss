@@ -9,7 +9,7 @@
     align-items: center;
     cursor: pointer;
     height: 2rem;
-    padding: 0.25rem 0;
+    padding: 0.4rem 0;
     width: 1rem;
 }
 
@@ -17,7 +17,7 @@
     $size: 5px;
     width: $size;
     height: $size;
-    background-color: black;
+    background-color: var(--gray);
     border-radius: 100rem;
 }
 

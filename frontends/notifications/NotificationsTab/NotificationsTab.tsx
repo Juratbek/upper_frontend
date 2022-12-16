@@ -11,8 +11,8 @@ import { NOTIFICATION_STATUSES, NOTIFICATIONS, PAGINATION_SIZE } from 'variables
 
 export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
-  const [sendReadNotificationReq] = useReadNotificationMutation();
-  const [deleteNotificationReq] = useDeleteNotificationMutation();
+  const [sendReadNotificationReq, sendReadNotificationRes] = useReadNotificationMutation();
+  const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
   const {
     query: { tab, page },
     push,
@@ -53,6 +53,7 @@ export const NotificationsTab: FC = () => {
             className='p-2'
             markAsRead={markAsRead}
             deleteNotification={deleteNotification}
+            loading={sendReadNotificationRes.isLoading || deleteNotificationRes.isLoading}
           />
           {index !== notifications.length - 1 && (
             <Divider

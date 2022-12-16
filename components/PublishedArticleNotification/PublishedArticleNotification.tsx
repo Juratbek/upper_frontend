@@ -46,7 +46,12 @@ export const PublishedArticleNotification: FC<IPublishedArticleNotificationProps
         <span className={classes.date}>{toDateString(createdDate)}</span>
       </div>
       <div className={classes.actions}>
-        <Actions dotsClassName={classes.dots} actions={actions} popupStyle={{ minWidth: 240 }} />
+        <Actions
+          dotsClassName={classes.dots}
+          actions={actions}
+          popupStyle={{ minWidth: 240 }}
+          loading={props.loading}
+        />
       </div>
     </div>
   );
