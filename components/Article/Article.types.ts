@@ -1,4 +1,4 @@
-import { IArticleResult, IBlogSmall, TAction, TIcon } from 'types';
+import { IArticleResult, IBlogSmall, TIcon } from 'types';
 
 export interface IArticleProps {
   className?: string;
@@ -6,5 +6,4 @@ export interface IArticleProps {
   redirectUrl?: string;
   article: IArticleResult;
   author?: IBlogSmall;
-  actions?: TAction[];
 }

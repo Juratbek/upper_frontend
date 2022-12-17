@@ -1,24 +1,45 @@
 @import 'styles/_mixins';
 
-.published-article-notification {
+.container {
+  position: relative;
+
+  & .dots {
+    display: block;
+  }
+
+  &:hover .dots {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    cursor: pointer;
+  }
+}
+
+.published-article-notification {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  cursor: pointer;
 }
 
 .text {
-    flex: 1 1 auto;
-    @include screenMax576 {
-        order: 3;
-        margin-top: 0.5rem;
-    }
+  flex: 1 1 auto;
+  @include screenMax576 {
+    order: 3;
+    margin-top: 0.5rem;
+  }
 }
 
 .date {
-    font-size: 0.8rem;
-    color: var(--gray);
-    @include screenMax576 {
-        margin-left: auto;
-    }
+  font-size: 0.8rem;
+  color: var(--gray);
+  @include screenMax576 {
+    margin-left: auto;
+  }
+  margin-right: 0.3rem;
+}
+
+.actions {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1;
 }

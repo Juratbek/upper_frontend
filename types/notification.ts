@@ -25,4 +25,7 @@ export type TNotificationComponent =
 
 export interface INotificationComponentProp extends INotification {
   onClick?: (notification: INotification) => void;
+  markAsRead?: (notification: INotification) => void;
+  deleteNotification?: (notification: INotification) => void;
+  loading?: boolean;
 }

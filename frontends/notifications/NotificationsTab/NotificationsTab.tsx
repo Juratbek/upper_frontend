@@ -1,13 +1,18 @@
 import { ApiErrorBoundary, Divider, Pagination } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
-import { useLazyGetNotificationsByTypeQuery, useReadNotificationMutation } from 'store/apis';
+import {
+  useDeleteNotificationMutation,
+  useLazyGetNotificationsByTypeQuery,
+  useReadNotificationMutation,
+} from 'store/apis';
 import { INotification } from 'types';
 import { NOTIFICATION_STATUSES, NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
 
 export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
-  const [sendReadNotificationReq] = useReadNotificationMutation();
+  const [sendReadNotificationReq, sendReadNotificationRes] = useReadNotificationMutation();
+  const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
   const {
     query: { tab, page },
     push,
@@ -19,9 +24,17 @@ export const NotificationsTab: FC = () => {
   }, [tab, page]);
 
   const readNotification = (notification: INotification): void => {
-    const { id, article } = notification;
-    sendReadNotificationReq(id);
+    const { article } = notification;
+    markAsRead(notification);
     push(`/articles/${article.id}`);
+  };
+
+  const markAsRead = (notification: INotification): void => {
+    sendReadNotificationReq(notification.id);
+  };
+
+  const deleteNotification = (notification: INotification): void => {
+    deleteNotificationReq(notification.id);
   };
 
   const notifications = useMemo(() => {
@@ -34,7 +47,14 @@ export const NotificationsTab: FC = () => {
       const Notification = NOTIFICATIONS[notification.type];
       return (
         <div key={notification.id}>
-          <Notification onClick={readNotification} {...notification} className='p-2' />
+          <Notification
+            onClick={readNotification}
+            {...notification}
+            className='p-2'
+            markAsRead={markAsRead}
+            deleteNotification={deleteNotification}
+            loading={sendReadNotificationRes.isLoading || deleteNotificationRes.isLoading}
+          />
           {index !== notifications.length - 1 && (
             <Divider
               className='w-75 mx-auto'

@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
-import { SEARCH_PAGE_ARTICLE_ACTIONS, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import { SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const {
@@ -26,7 +26,6 @@ export const ArticlesTab: FC = () => {
         key={article.id}
         article={article}
         author={article.author}
-        actions={SEARCH_PAGE_ARTICLE_ACTIONS}
         icons={SEARCH_PAGE_ARTICLE_ICONS}
       />
     ));

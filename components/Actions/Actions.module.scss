@@ -1,0 +1,47 @@
+.actions-container {
+    position: relative;
+}
+
+.dots-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    height: 2rem;
+    padding: 0.4rem 0;
+    width: 1rem;
+}
+
+.dots__item {
+    $size: 5px;
+    width: $size;
+    height: $size;
+    background-color: var(--gray);
+    border-radius: 100rem;
+}
+
+.popup {
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(10%);
+    z-index: 1000;
+    box-shadow: 0px 2px 3px #D9D9D9;
+    border-radius: .6rem;
+    background-color: white;
+    padding: .4rem;
+}
+
+.popup__item {
+    display: flex;
+    align-items: center;
+    padding: .5rem .3rem;
+    margin: .3rem 0;
+    cursor: pointer;
+    font-weight: bolder;
+
+    &--red {
+        color: var(--red);
+    }
+}
