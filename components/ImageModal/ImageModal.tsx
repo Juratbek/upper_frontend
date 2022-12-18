@@ -1,17 +1,8 @@
 import { FC, MouseEvent, useEffect } from 'react';
 
+import { IMAGE_MODAL, ZOOM_ATTRIBUTE } from './ImageModal.constants';
 import styles from './ImageModal.module.scss';
-
-export const IMAGE_MODAL = {
-  CONTAINER_ID: 'imgModal',
-  CONTENT_ID: 'modalContent',
-};
-
-const hasZoomAttribute = 'hasZoom';
-
-interface IImageModalProps {
-  images: HTMLElement[];
-}
+import { IImageModalProps } from './ImageModal.types';
 
 export const ImageModal: FC<IImageModalProps> = ({ images = [] }) => {
   const closeModal = (e: MouseEvent<HTMLDivElement>): void => {
@@ -33,13 +24,13 @@ export const ImageModal: FC<IImageModalProps> = ({ images = [] }) => {
     images.forEach((img) => {
       if (img.dataset.hasZoom) return;
       img.addEventListener('click', zoomOnClick);
-      img.dataset[hasZoomAttribute] = 'true';
+      img.dataset[ZOOM_ATTRIBUTE] = 'true';
     });
 
     return () => {
       images.forEach((img) => {
         img.removeEventListener('click', zoomOnClick);
-        delete img.dataset[hasZoomAttribute];
+        delete img.dataset[ZOOM_ATTRIBUTE];
       });
     };
   }, [images]);

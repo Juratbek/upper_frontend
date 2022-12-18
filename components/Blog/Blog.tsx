@@ -15,13 +15,13 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
     const https = 'https://';
     const http = 'http://';
     if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
-    return '//' + link;
+    return `//${link}`;
   };
 
   const getBlog = useCallback(
     (className?: string) => (
       <div className={`d-flex align-items-center mb-1 ${className}`}>
-        <Avatar imgUrl={imgUrl} size={avaratSize} className={classes.avatar} zoomable={true} />
+        <Avatar imgUrl={imgUrl} size={avaratSize} className={classes.avatar} zoomable />
         <div className='position-relative'>
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
