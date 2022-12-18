@@ -18,7 +18,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
     name: 'email',
     options: {
       maxLength: {
-        value: 30,
+        value: 100,
         message: 'Email o`ta uzun',
       },
     },
@@ -41,7 +41,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
         message: 'Login 8 harfdan kam bo`lmasligi kerak',
       },
       maxLength: {
-        value: 20,
+        value: 100,
         message: 'Login o`ta uzun',
       },
     },
@@ -55,7 +55,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
         message: 'Parol 8 harfdan kam bo`lmasligi kerak',
       },
       maxLength: {
-        value: 30,
+        value: 100,
         message: 'Parol o`ta uzun',
       },
       validate: (value) => /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value),
