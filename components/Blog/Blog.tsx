@@ -12,9 +12,10 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
   const rootClassName = getClassName(classes.blog, className);
 
   const prefixHttp = (link: string): string => {
-    const protocol = 'https://';
-    if (!link.startsWith(protocol) && !link.startsWith('//')) return protocol + link;
-    return link;
+    const https = 'https://';
+    const http = 'http://';
+    if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
+    return '//' + link;
   };
 
   const getBlog = useCallback(
