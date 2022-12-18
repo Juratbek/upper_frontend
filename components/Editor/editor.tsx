@@ -14,6 +14,7 @@ import { createEditor } from './services/editor.service';
 export const Editor: FC<IEditorProps> = (props) => {
   const [editor, setEditor] = useState<null | EditorJs>(null);
   const [isEditorLoading, setIsEditorLoading] = useState<boolean>(true);
+  const [images, setImages] = useState<HTMLElement[]>([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -34,20 +35,10 @@ export const Editor: FC<IEditorProps> = (props) => {
     }
   };
 
-  const onImgClick = (e: Event): void => {
-    const target = e.target as HTMLElement;
-    const clonedImg = target.cloneNode(true);
-    const imgModal = document.querySelector('#imgModal') as HTMLElement;
-    const imgModalContent = imgModal.querySelector('#modalContent') as HTMLElement;
-    imgModalContent.innerHTML = '';
-    imgModalContent.appendChild(clonedImg);
-    imgModal.style.display = 'block';
-  };
-
   const onImgInserted = (e: Event): void => {
     const target = e.target as HTMLElement;
     const img = target.querySelector('img');
-    img?.addEventListener('click', onImgClick);
+    img && setImages((prevState) => [...prevState, img]);
 
     if (target.classList.contains(CAPTION_CLASSES.inlineImageCaption)) cleanImageCaption(target);
   };
@@ -57,7 +48,7 @@ export const Editor: FC<IEditorProps> = (props) => {
       if (className !== IMAGE_CONTAINER_CLASSES.inlineImage) {
         containerRef.current?.querySelectorAll(`.${className}`).forEach((imgContainer) => {
           const img = imgContainer.querySelector('img');
-          img?.addEventListener('click', onImgClick);
+          img && setImages((prevState) => [...prevState, img]);
         });
         return;
       }
@@ -80,24 +71,13 @@ export const Editor: FC<IEditorProps> = (props) => {
       setIsEditorLoading(false);
       if (!isEditable) zoomInImage();
     });
-
-    return () => {
-      if (isEditable) return;
-      Object.values(IMAGE_CONTAINER_CLASSES).forEach((className) => {
-        containerRef.current?.querySelectorAll(`.${className}`).forEach((imgContainer) => {
-          if (className === IMAGE_CONTAINER_CLASSES.inlineImage)
-            imgContainer.removeEventListener('DOMNodeInserted', onImgInserted);
-          imgContainer.querySelector('img')?.removeEventListener('click', onImgClick);
-        });
-      });
-    };
   }, [editor]);
 
   return (
     <>
       {isEditorLoading && <EditorSpinner />}
       <div id={EDITOR_HOLDER} ref={containerRef} className={!isEditable ? 'readMode' : ''}></div>
-      <ImageModal />
+      <ImageModal images={images} />
     </>
   );
 };

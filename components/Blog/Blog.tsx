@@ -11,10 +11,17 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
   const { className, isLink, id, links = [] } = props;
   const rootClassName = getClassName(classes.blog, className);
 
+  const prefixHttp = (link: string): string => {
+    const https = 'https://';
+    const http = 'http://';
+    if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
+    return `//${link}`;
+  };
+
   const getBlog = useCallback(
     (className?: string) => (
       <div className={`d-flex align-items-center mb-1 ${className}`}>
-        <Avatar imgUrl={imgUrl} size={avaratSize} className={classes.avatar} />
+        <Avatar imgUrl={imgUrl} size={avaratSize} className={classes.avatar} zoomable />
         <div className='position-relative'>
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
@@ -24,7 +31,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
                 <a
                   key={link.link}
                   className={classes.icon}
-                  href={link.link}
+                  href={prefixHttp(link.link)}
                   target='_blank'
                   rel='noreferrer'
                 >
