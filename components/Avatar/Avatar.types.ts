@@ -3,4 +3,5 @@ export interface IAvatarProps {
   imgUrl: string;
   size?: TAvatarSize;
   className?: string;
+  zoomable?: boolean;
 }

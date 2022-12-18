@@ -7,6 +7,8 @@ export const IMAGE_MODAL = {
   CONTENT_ID: 'modalContent',
 };
 
+const hasZoomAttribute = 'hasZoom';
+
 interface IImageModalProps {
   images: HTMLElement[];
 }
@@ -28,22 +30,19 @@ export const ImageModal: FC<IImageModalProps> = ({ images = [] }) => {
   };
 
   useEffect(() => {
-    if (images.length > 0) {
-      images.forEach((img) => {
-        if (img.dataset.hasZoom) return;
-        img.addEventListener('click', zoomOnClick);
-        img.dataset.hasZoom = 'true';
-      });
-    }
-  });
+    images.forEach((img) => {
+      if (img.dataset.hasZoom) return;
+      img.addEventListener('click', zoomOnClick);
+      img.dataset[hasZoomAttribute] = 'true';
+    });
 
-  useEffect(() => {
     return () => {
       images.forEach((img) => {
         img.removeEventListener('click', zoomOnClick);
+        delete img.dataset[hasZoomAttribute];
       });
     };
-  }, []);
+  }, [images]);
 
   return (
     <div
