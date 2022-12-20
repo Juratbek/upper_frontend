@@ -12,7 +12,7 @@ export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
         message: 'Login 8 harfdan kam bo`lmasligi kerak',
       },
       maxLength: {
-        value: 20,
+        value: 60,
         message: 'Login o`ta uzun',
       },
     },
@@ -26,7 +26,7 @@ export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
         message: 'Parol 8 harfdan kam bo`lmasligi kerak',
       },
       maxLength: {
-        value: 30,
+        value: 60,
         message: 'Parol o`ta uzun',
       },
     },
