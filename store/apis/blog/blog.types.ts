@@ -36,3 +36,8 @@ export interface IChangeCredentiasDto {
   password: string;
   token: string;
 }
+
+export interface IBlogDonatCredentialsDto {
+  donatText?: string;
+  cardNumber: string;
+}

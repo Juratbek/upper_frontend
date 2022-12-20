@@ -4,6 +4,7 @@ import { Authorization } from 'variables';
 
 import { baseQuery } from '../config';
 import {
+  IBlogDonatCredentialsDto,
   IBlogLoginDto,
   IBlogRegisterDto,
   IBlogRegisterResponse,
@@ -150,6 +151,13 @@ export const blogApi = createApi({
         body,
       }),
     }),
+    changeDonatCredentials: build.mutation<void, IBlogDonatCredentialsDto>({
+      query: (credentials) => ({
+        url: 'change-donat-credentials',
+        method: 'PUT',
+        body: credentials,
+      }),
+    }),
   }),
 });
 
@@ -173,4 +181,5 @@ export const {
   useChangeLoginMutation,
   useSendEmailConfirmationForPasswordMutation,
   useChangeCredentialsMutation,
+  useChangeDonatCredentialsMutation,
 } = blogApi;

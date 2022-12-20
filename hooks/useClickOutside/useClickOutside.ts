@@ -9,7 +9,6 @@ export const useClickOutside = (
   const ref = useRef<HTMLDivElement>(null);
 
   const clickHandler: MouseEventHandler = (event: MouseEvent<HTMLElement>) => {
-    console.log('click');
     const clickedTarget = event.target;
     const currentTarget = ref.current;
     // @ts-ignore

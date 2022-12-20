@@ -18,4 +18,6 @@ export interface IBlog extends IBlogMedium {
   isCurrentBlog?: boolean;
   followersCount?: number;
   articlesCount?: number;
+  cardNumber?: string;
+  donatText?: string;
 }
