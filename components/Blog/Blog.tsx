@@ -22,7 +22,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
     (className?: string) => (
       <div className={`d-flex align-items-center mb-1 ${className}`}>
         <Avatar imgUrl={imgUrl} size={avaratSize} className={classes.avatar} zoomable />
-        <div className='position-relative'>
+        <div className='position-relative flex-1'>
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
             {links.map((link) => {
