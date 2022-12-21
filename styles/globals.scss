@@ -119,6 +119,16 @@
     fill: blue;
   }
 }
+.sponsor-icon {
+  margin-right: 0.3rem;
+  & svg {
+    width: 1rem;
+    height: 1rem;
+    & path {
+      fill: var(--blue);
+    }
+  }
+}
 
 .notification {
   &--unread {
