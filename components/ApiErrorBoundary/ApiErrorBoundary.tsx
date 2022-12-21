@@ -21,7 +21,7 @@ export const ApiErrorBoundary: FC<IApiErrorBoundaryProps> = ({
     if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
     if (isSuccess || isFetching) return <>{children}</>;
     return <></>;
-  }, [res]);
+  }, [res, props.memoizationDependencies]);
 
   return <div {...props}>{content}</div>;
 };

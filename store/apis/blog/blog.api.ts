@@ -158,6 +158,9 @@ export const blogApi = createApi({
         body: credentials,
       }),
     }),
+    getDonatCredentials: build.query<IBlogDonatCredentialsDto, number>({
+      query: (id) => `donat-credentials/${id}`,
+    }),
   }),
 });
 
@@ -175,6 +178,7 @@ export const {
   useFollowMutation: useFollowBlogMutation,
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
+  useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useGoogleOneTapRegisterMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,

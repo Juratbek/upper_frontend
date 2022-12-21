@@ -73,12 +73,19 @@
 }
 
 // form
+.form--medium {
+  width: 30rem;
+}
 .form {
   width: 20rem;
   margin: 10rem auto;
   border: 0.5px solid var(--gray);
   border-radius: 5px;
   padding: 1.5rem;
+
+  @include screenMax576 {
+    width: 95vw;
+  }
 }
 .card {
   padding: 3rem;
@@ -266,6 +273,12 @@
 
 // margins for screens smaller than 576px
 @include screenMax576 {
+  .mt-xs-2 {
+    margin-top: $size2-xs;
+  }
+  .mt-xs-3 {
+    margin-top: $size3-xs;
+  }
   .me-xs-1 {
     margin-right: $size1-xs;
   }
@@ -411,6 +424,9 @@
 }
 .flex-wrap {
   flex-wrap: wrap;
+}
+.flex-col {
+  flex-direction: column;
 }
 .flex-mobile-col {
   @include screenMax576 {

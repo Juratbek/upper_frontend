@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+}
+
+.icon {
+  transform: rotate(-180deg);
+  display: inline-block;
+  $size: 1.2em;
+  width: $size;
+  height: $size;
+
+  &--open {
+    transform: rotate(-90deg);
+  }
+}
+
+.popover {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateY(102%);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+
+  &--open {
+    box-shadow: 0px 2px 3px #d9d9d9;
+    max-height: unset;
+    border: 1px solid var(--lightGray);
+  }
+}
