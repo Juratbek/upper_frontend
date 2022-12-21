@@ -1,8 +1,9 @@
-import { Alert, Button, Error, Input } from 'components';
+import { Alert, Button, Error, Input, PasswordValidityLevel } from 'components';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useChangePasswordMutation } from 'store/apis';
 import { IResponseError, TSubmitFormEvent } from 'types';
+import { validatePassword } from 'utils';
 
 import { LoginForm } from './components';
 
@@ -59,9 +60,14 @@ export const SecurityTab: FC = () => {
         </label>
         <Input
           type='password'
-          {...register('newPassword', { required: true, minLength: passwordMinLength })}
+          {...register('newPassword', {
+            required: true,
+            minLength: passwordMinLength,
+            validate: validatePassword,
+          })}
         />
         <Error error={errors.newPassword} />
+        <PasswordValidityLevel password={watch('newPassword')} />
       </div>
       <div className='mb-1'>
         <label className='mb-1 d-block' htmlFor='username'>

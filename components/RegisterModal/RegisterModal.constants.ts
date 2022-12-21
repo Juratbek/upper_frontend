@@ -1,4 +1,5 @@
 import { TFormFields } from 'types';
+import { validatePassword } from 'utils';
 
 import { TField } from './RegisterModal.types';
 
@@ -58,7 +59,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
         value: 60,
         message: 'Parol o`ta uzun',
       },
-      validate: (value) => /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value),
+      validate: validatePassword,
     },
   },
   recaptcha: {
