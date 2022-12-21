@@ -11,6 +11,7 @@ import { useClickOutside } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
 import { useLazySearchArticleQuery, useLazySearchBlogQuery } from 'store/apis';
+import { addAmazonUri, addUriToArticleImages } from 'utils';
 
 import classes from './SidebarSearch.module.scss';
 
@@ -20,13 +21,11 @@ export const SidebarSearch: FC = () => {
   const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
 
-  const openResultsContainer = (): void => {
-    setIsResultsContainerOpen(true);
-  };
+  const openResultsContainer = (): void => setIsResultsContainerOpen(true);
 
-  const [ref] = useClickOutside(() => {
-    setIsResultsContainerOpen(false);
-  });
+  const closeResultsContainer = (): void => setIsResultsContainerOpen(false);
+
+  const [ref] = useClickOutside(closeResultsContainer);
 
   const search = (value: string): void => {
     if (!value || value.length <= 1) return;
@@ -47,9 +46,9 @@ export const SidebarSearch: FC = () => {
         ) : (
           blogs.map((blog) => (
             <Link href={`/blogs/${blog.id}`} key={blog.id}>
-              <a>
+              <a onClick={closeResultsContainer}>
                 <div className={classes.blog}>
-                  <Author {...blog} />
+                  <Author {...addAmazonUri(blog)} />
                 </div>
               </a>
             </Link>
@@ -65,9 +64,9 @@ export const SidebarSearch: FC = () => {
         fallback={<SidebarSearchArticleSkeleton className='py-1' />}
         res={searchArticleRes}
       >
-        {searchArticleRes.data?.map((article) => (
+        {addUriToArticleImages(searchArticleRes.data).map((article) => (
           <Link href={`/articles/${article.id}`} key={article.id}>
-            <a>
+            <a onClick={closeResultsContainer}>
               <div className={classes.article}>
                 <h4 className='m-0'>{article.title}</h4>
                 <ArticleImg imgUrl={article.imgUrl} size='micro' className={classes.img} />
