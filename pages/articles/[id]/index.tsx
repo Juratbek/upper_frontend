@@ -1,19 +1,23 @@
-import { ApiError, Blog, Divider, Head } from 'components';
+import { ApiError, Blog, Button, Divider, Head } from 'components';
 import { Article } from 'frontends/article';
 import { useDevice } from 'hooks';
 import { GetServerSideProps, NextPage } from 'next';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { useAppDispatch, wrapper } from 'store';
 import { publishedArticleApi, useIncrementViewCountMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
 import { addAmazonUri, convertToHeadProp, get } from 'utils';
+import { ICONS } from 'variables';
 
 interface IArticlePageProps {
   article?: IArticle | null;
   error?: IResponseError;
   fullUrl: string;
 }
+
+const HeartIcon = ICONS.heart;
 
 const ArticlePage: NextPage<IArticlePageProps> = ({
   article,
@@ -55,6 +59,21 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
       {isMobile && (
         <>
           <Blog {...addAmazonUri(article.author)} />
+          {Boolean(article.author.cardNumber) && (
+            <>
+              <div style={{ height: '1rem' }} />
+              <Link href={`/blogs/${article.author.id}/support`}>
+                <a className='link'>
+                  <Button className='w-100'>
+                    <span className='sponsor-icon'>
+                      <HeartIcon />
+                    </span>
+                    Blog faoliyatiga hissa qo&apos;shing
+                  </Button>
+                </a>
+              </Link>
+            </>
+          )}
           <Divider className='mt-1' />
         </>
       )}

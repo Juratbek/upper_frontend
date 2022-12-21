@@ -5,6 +5,7 @@ export interface IBlogSmall {
   id: number;
   imgUrl: string;
   name: string;
+  cardNumber?: string;
 }
 export interface IBlogMedium extends IBlogSmall {
   bio?: string;
@@ -18,4 +19,5 @@ export interface IBlog extends IBlogMedium {
   isCurrentBlog?: boolean;
   followersCount?: number;
   articlesCount?: number;
+  donatText?: string;
 }

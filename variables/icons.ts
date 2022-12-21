@@ -9,6 +9,7 @@ import {
   FacebookIcon,
   GitHubIcon,
   GoogleIcon,
+  HeartIcon,
   HomeIcon,
   InstagramIcon,
   LikeIcon,
@@ -59,6 +60,7 @@ export const ICON_TYPES = {
   eyeSlash: 'eyeSlash',
   burger: 'burger',
   blackLogo: 'blackLogo',
+  heart: 'heart',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -99,4 +101,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   eyeSlash: EyeSlashIcon,
   burger: BurgerIcon,
   blackLogo: BlackLogo,
+  heart: HeartIcon,
 };

@@ -47,7 +47,7 @@ export const LoginForm: FC = () => {
       </div>
       <div className='mb-1'>
         <label className='mb-1 d-block' htmlFor='password'>
-          Parol
+          Joriy Parol
         </label>
         <Input type='password' {...register('password', { required: 'Parolni kiriting' })} />
         <Error error={errors.password} />

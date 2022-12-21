@@ -1,34 +1,35 @@
-import { Alert, Avatar, Button, Divider, FileInput, Input, Textarea } from 'components';
-import { useRouter } from 'next/router';
+import {
+  Alert,
+  ApiErrorBoundary,
+  Avatar,
+  Button,
+  Divider,
+  FileInput,
+  Input,
+  Textarea,
+} from 'components';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLazyGetCurrentBlogQuery, useUpdateBlogMutation } from 'store/apis';
+import { useUpdateBlogMutation } from 'store/apis';
 import { ILink, TIcon, TSubmitFormEvent } from 'types';
 import { addAmazonUri, compressImage, toBase64 } from 'utils';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
-import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
+import { INavTab } from '../NavsTabs/NavsTabs.types';
 import classes from './AboutTab.module.scss';
 
-export const AboutTab: FC = () => {
+export const AboutTab: FC<INavTab> = ({ currentBlog, res }) => {
   const [alert, setAlert] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string | undefined>('');
-  const {
-    query: { tab },
-  } = useRouter();
-  const [fetchCurrentBlog, currentBlogRes] = useLazyGetCurrentBlogQuery();
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
   const { register, handleSubmit, watch } = useForm();
 
   useEffect(() => {
-    if (tab && tab === PROFILE_TAB_IDS.settings) {
-      fetchCurrentBlog().then((res) => {
-        if (!res.data) return;
-        const imgUrl = addAmazonUri(res.data).imgUrl;
-        setImgUrl(imgUrl);
-      });
+    if (currentBlog) {
+      const imgUrl = addAmazonUri(currentBlog).imgUrl;
+      setImgUrl(imgUrl);
     }
-  }, [tab]);
+  }, [currentBlog]);
 
   useEffect(() => {
     const avatarFile = watch('avatar')?.[0];
@@ -65,12 +66,8 @@ export const AboutTab: FC = () => {
   };
 
   const renderOpenSettings = (): JSX.Element => {
-    const { data: blog, isLoading, isFetching, isSuccess, isError, error } = currentBlogRes;
-    if (isLoading || isFetching) return <p>Yuklanmoqda...</p>;
-    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
-
-    if (isSuccess) {
-      return (
+    return (
+      <ApiErrorBoundary res={res || {}}>
         <form className={`d-flex flex-wrap ${classes.form}`} onSubmit={handleSubmit(submitHandler)}>
           <div className='w-100'>
             <h2 className='m-1'>Ochiq ma&apos;lumotlar</h2>
@@ -83,11 +80,11 @@ export const AboutTab: FC = () => {
             </div>
             <div>
               <h4 className='mb-1'>Nomi</h4>
-              <Input defaultValue={blog.name} {...register('name', { required: true })} />
+              <Input defaultValue={currentBlog?.name} {...register('name', { required: true })} />
             </div>
             <div>
               <h4 className='mb-1'>Bio</h4>
-              <Textarea defaultValue={blog.bio} {...register('bio', { required: true })} />
+              <Textarea defaultValue={currentBlog?.bio} {...register('bio', { required: true })} />
             </div>
           </div>
           <div className='w-50 w-mobile-100 p-1'>
@@ -95,7 +92,7 @@ export const AboutTab: FC = () => {
             <div>
               {SOCIAL_MEDIA_ICONS.map((icon, index) => {
                 const Icon = ICONS[icon as TIcon];
-                const link = blog.links?.find((link) => link.type === icon)?.link;
+                const link = currentBlog?.links?.find((link) => link.type === icon)?.link;
 
                 return (
                   <div key={index} className='d-flex my-2 w-100 align-items-center'>
@@ -114,10 +111,8 @@ export const AboutTab: FC = () => {
             <Button loading={updateBlogRes.isLoading}>Saqlash</Button>
           </div>
         </form>
-      );
-    }
-
-    return <></>;
+      </ApiErrorBoundary>
+    );
   };
 
   return (

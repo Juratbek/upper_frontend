@@ -1,27 +1,26 @@
 import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
+import { useDevice } from 'hooks';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
-import { IBlog, IResponseError } from 'types';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS } from 'variables';
+import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
 
 import styles from './Blog.module.scss';
+import { IBlogPageProps } from './Blog.types';
 
-export interface IBlogPageProps {
-  blog?: IBlog | null;
-  error?: IResponseError;
-  fullUrl: string;
-}
+const HeartIcon = ICONS.heart;
 
 export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageProps) => {
   const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
   const [isFollowed, setIsFollowed] = useState<boolean>(blog?.isFollowed || false);
+  const { isMobile } = useDevice();
+  const [followBlog, followBlogRes] = useFollowBlogMutation();
+  const [unfollowBlog, unfollowBlogRes] = useUnfollowBlogMutation();
   const {
     query: { id },
   } = useRouter();
-  const [followBlog, followBlogRes] = useFollowBlogMutation();
-  const [unfollowBlog, unfollowBlogRes] = useUnfollowBlogMutation();
 
   const follow = (): void => {
     id && followBlog(+id).then(() => setIsFollowed(true));
@@ -66,17 +65,43 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
       >
         {blog && (
           <>
-            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' className='mb-2' />
-            {!blog.isCurrentBlog &&
-              (isFollowed ? (
-                <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                  Obuna bo`lingan
-                </Button>
-              ) : (
-                <Button onClick={follow} loading={followBlogRes.isLoading}>
-                  Obuna bo`lish
-                </Button>
-              ))}
+            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' className='mb-2 flex-1' />
+            {!blog.isCurrentBlog && (
+              <>
+                {isFollowed ? (
+                  <Button color='outline-dark' onClick={toggleUnfollowModal}>
+                    Obuna bo`lingan
+                  </Button>
+                ) : (
+                  <Button onClick={follow} loading={followBlogRes.isLoading}>
+                    Obuna bo`lish
+                  </Button>
+                )}
+                {Boolean(blog.cardNumber) && (
+                  <Link href={`/blogs/${id}/support`}>
+                    <a className='link d-flex mt-xs-2'>
+                      {isMobile ? (
+                        <Button className='w-100' color='outline-dark'>
+                          <span className='sponsor-icon'>
+                            <HeartIcon />
+                          </span>
+                          Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
+                        </Button>
+                      ) : (
+                        <>
+                          <span className='sponsor-icon'>
+                            <HeartIcon />
+                          </span>
+                          <h4 className='m-0'>
+                            Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
+                          </h4>
+                        </>
+                      )}
+                    </a>
+                  </Link>
+                )}
+              </>
+            )}
           </>
         )}
       </div>

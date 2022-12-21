@@ -18,3 +18,12 @@ export function formatToKMB(num: number): string {
     return res;
   }, String(num));
 }
+
+export function convertToCardNumbers(cardNumber = ''): string {
+  if (!cardNumber) return '';
+  const cardNumbers = (cardNumber.split('') || []) as string[];
+  return cardNumbers.reduce((res, number, index) => {
+    if (index % 4 === 0) return `${res} ${number}`;
+    return `${res}${number}`;
+  }, '');
+}

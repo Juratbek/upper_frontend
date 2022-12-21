@@ -40,5 +40,25 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
   {
     name: 'Blog yuritish',
     url: 'blogging',
+    children: [
+      {
+        name: 'Sozlamalar',
+        url: 'settings',
+        children: [
+          {
+            name: 'Siz haqingizda',
+            url: 'about-you',
+          },
+          {
+            name: "Rag'batlantirish",
+            url: 'support',
+          },
+          {
+            name: 'Havfsizlik',
+            url: 'security',
+          },
+        ],
+      },
+    ],
   },
 ];

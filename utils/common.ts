@@ -30,3 +30,6 @@ export const convertTagsToOptions = (tags: ITag[] = []): IOption[] =>
 
 export const convertOptionsToTags = <T extends ITag>(options: IOption[]): T[] =>
   options.map((option) => ({ id: +option.value, name: option.label })) as T[];
+
+export const validatePassword = (value: string): boolean =>
+  /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value);

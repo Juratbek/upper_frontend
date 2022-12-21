@@ -4,6 +4,7 @@ import { Authorization } from 'variables';
 
 import { baseQuery } from '../config';
 import {
+  IBlogDonatCredentialsDto,
   IBlogLoginDto,
   IBlogRegisterDto,
   IBlogRegisterResponse,
@@ -150,6 +151,16 @@ export const blogApi = createApi({
         body,
       }),
     }),
+    changeDonatCredentials: build.mutation<void, IBlogDonatCredentialsDto>({
+      query: (credentials) => ({
+        url: 'change-donat-credentials',
+        method: 'PUT',
+        body: credentials,
+      }),
+    }),
+    getDonatCredentials: build.query<IBlogDonatCredentialsDto, number>({
+      query: (id) => `donat-credentials/${id}`,
+    }),
   }),
 });
 
@@ -167,10 +178,12 @@ export const {
   useFollowMutation: useFollowBlogMutation,
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
+  useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useGoogleOneTapRegisterMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,
   useChangeLoginMutation,
   useSendEmailConfirmationForPasswordMutation,
   useChangeCredentialsMutation,
+  useChangeDonatCredentialsMutation,
 } = blogApi;
