@@ -5,7 +5,7 @@ import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 import { AboutTab } from '../AboutTab/AboutTab';
 import { SecurityTab } from '../SecurityTab/SecurityTab';
-import { SupportTab } from '../SupportTab/SupportTab';
+import { SponsorTab } from '../SponsorTab/SponsorTab';
 import classes from './NavsTabs.module.scss';
 import { INavTab } from './NavsTabs.types';
 
@@ -15,7 +15,7 @@ const tabs = [
     value: 'about',
   },
   {
-    name: "Rag'batlantirish",
+    name: '"Hissa qo\'shish" hizmati',
     value: 'support',
   },
   {
@@ -27,7 +27,7 @@ const tabs = [
 const contents: Record<string, FC<INavTab>> = {
   about: AboutTab,
   security: SecurityTab,
-  support: SupportTab,
+  support: SponsorTab,
 };
 
 export const NavsTabs: FC = () => {

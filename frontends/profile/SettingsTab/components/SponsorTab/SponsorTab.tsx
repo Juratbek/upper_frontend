@@ -1,26 +1,40 @@
 import { Alert, Button, Error, Input, Modal, Textarea } from 'components';
 import { useModal } from 'hooks';
 import Link from 'next/link';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useChangeDonatCredentialsMutation } from 'store/apis';
 import { convertToCardNumbers } from 'utils';
 
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 
-export const SupportTab: FC<INavTab> = ({ currentBlog }) => {
+export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
   const [isConfirmationModalOpen, toggleConfirmationModal] = useModal();
+  const [isTurnOffModalOpen, toggleTurnOffModal] = useModal();
   const [changeDonatCredentials, changeDonatCredentialsRes] = useChangeDonatCredentialsMutation();
+  const [cardNumber, setCardNumber] = useState(currentBlog?.cardNumber);
   const {
     register,
     handleSubmit,
     formState: { errors },
     getValues,
+    reset,
   } = useForm();
 
-  const turnOnSupport = (): void => {
+  const turnOnSponsor = (): void => {
     const values = getValues();
-    changeDonatCredentials({ donatText: values.text, cardNumber: values.card });
+    changeDonatCredentials({ donatText: values.text, cardNumber: values.card }).then(() => {
+      setCardNumber(values.card);
+      toggleConfirmationModal();
+    });
+  };
+
+  const turnOffSponsor = (): void => {
+    changeDonatCredentials(null).then((): void => {
+      setCardNumber(undefined);
+      toggleTurnOffModal();
+      reset();
+    });
   };
 
   const confirmationModal = useMemo(() => {
@@ -34,9 +48,9 @@ export const SupportTab: FC<INavTab> = ({ currentBlog }) => {
         close={toggleConfirmationModal}
       >
         <h4>
-          {currentBlog?.cardNumber
+          {cardNumber
             ? "Ma'lumotlarni tasdiqlang"
-            : "Rag'batlantirish hizmatini yoqish uchun quyidagi ma'lumotlarni tasdiqlang"}
+            : '"Hissa qo\'shish" hizmatini yoqish uchun quyidagi ma\'lumotlarni tasdiqlang'}
         </h4>
         {Boolean(values.text) && <h4>{values.text}</h4>}
         <p>{validatedCardNumer}</p>
@@ -44,7 +58,7 @@ export const SupportTab: FC<INavTab> = ({ currentBlog }) => {
           Bekor qilish
         </Button>
         <Button
-          onClick={turnOnSupport}
+          onClick={turnOnSponsor}
           className='ms-2'
           loading={changeDonatCredentialsRes.isLoading}
         >
@@ -54,29 +68,43 @@ export const SupportTab: FC<INavTab> = ({ currentBlog }) => {
     );
   }, [isConfirmationModalOpen, changeDonatCredentialsRes.status]);
 
+  const turnOffModal = useMemo(
+    () => (
+      <Modal isOpen={isTurnOffModalOpen} bodyClassName='text-center' close={toggleTurnOffModal}>
+        <h4>&quot;Hissa qo&apos;shish&quot; hizmatini o&apos;chirmoqchimisiz</h4>
+        <Button onClick={toggleTurnOffModal} color='outline-dark'>
+          Bekor qilish
+        </Button>
+        <Button
+          onClick={turnOffSponsor}
+          className='ms-2'
+          color='outline-red'
+          loading={changeDonatCredentialsRes.isLoading}
+        >
+          Hizmarni o&apos;chirish
+        </Button>
+      </Modal>
+    ),
+    [isTurnOffModalOpen, changeDonatCredentialsRes.status],
+  );
+
   const submitHandler = (): void => {
     toggleConfirmationModal();
   };
 
-  useEffect(() => {
-    const { isSuccess } = changeDonatCredentialsRes;
-    if (isSuccess) {
-      toggleConfirmationModal();
-    }
-  }, [changeDonatCredentialsRes.status]);
-
   return (
     <div>
       {confirmationModal}
-      {currentBlog?.cardNumber && (
+      {turnOffModal}
+      {cardNumber && (
         <Alert color='green' className='mb-1'>
-          <p className='my-1'>Rag&apos;batlantirish hizmati yoqilgan</p>
+          <p className='my-1'>&quot;Hissa qo&apos;shish&quot; hizmati yoqilgan</p>
         </Alert>
       )}
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='donat-text' className='d-block mb-1'>
-            Rag&apos;batlantirish matni (ihtiyoriy)
+            Hissa qo&apos;shish matni (ihtiyoriy)
           </label>
           <Textarea
             defaultValue={currentBlog?.donatText}
@@ -100,16 +128,21 @@ export const SupportTab: FC<INavTab> = ({ currentBlog }) => {
               minLength: { value: 16, message: 'Karta raqami 16 tadan kam' },
               maxLength: { value: 16, message: "Karta raqami 16 tadan ko'p" },
             })}
-            defaultValue={currentBlog?.cardNumber}
+            defaultValue={cardNumber}
             placeholder='0000 0000 0000 0000'
           />
           <Error error={errors.card} />
         </div>
-        <Button>
-          {currentBlog?.cardNumber
-            ? "Ma'lumotlarni o'zgartirish"
-            : "Rag'batlantirish imkoniyatini yoqish"}
-        </Button>
+        <div className='d-flex'>
+          <Button color={cardNumber ? 'outline-dark' : 'dark'}>
+            {cardNumber ? "Ma'lumotlarni o'zgartirish" : '"Hissa qo\'shish" hizmatini yoqish'}
+          </Button>
+          {Boolean(cardNumber) && (
+            <Button onClick={toggleTurnOffModal} type='button' color='outline-red' className='ms-1'>
+              Hizmatni o&apos;chirish
+            </Button>
+          )}
+        </div>
       </form>
     </div>
   );
