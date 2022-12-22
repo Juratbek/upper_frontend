@@ -151,11 +151,11 @@ export const blogApi = createApi({
         body,
       }),
     }),
-    changeDonatCredentials: build.mutation<void, IBlogDonatCredentialsDto>({
+    changeDonatCredentials: build.mutation<void, IBlogDonatCredentialsDto | null>({
       query: (credentials) => ({
         url: 'change-donat-credentials',
         method: 'PUT',
-        body: credentials,
+        body: credentials || {},
       }),
     }),
     getDonatCredentials: build.query<IBlogDonatCredentialsDto, number>({
