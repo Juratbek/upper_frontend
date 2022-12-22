@@ -24,7 +24,10 @@ export const Actions: FC<IActinosProps> = ({
       <Fragment key={index}>
         <div
           className={`${classes['popup__item']} ${classes[`popup__item--${color}`]}`}
-          onClick={onClick}
+          onClick={(): void => {
+            onClick?.();
+            closePopup();
+          }}
         >
           {label}
         </div>

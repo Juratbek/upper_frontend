@@ -31,7 +31,7 @@ export const Recaptcha: FC<IRecaptchaProps> = ({ siteKey, onSuccess, onExpired, 
         'expired-callback': onExpired,
       });
       setIsLoading(false);
-    }, 2000);
+    }, 3000);
   }, [isScriptLoaded]);
 
   useEffect(() => {
