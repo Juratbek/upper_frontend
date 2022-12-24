@@ -18,9 +18,9 @@ import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 import classes from './AboutTab.module.scss';
 
-export const AboutTab: FC<INavTab> = ({ currentBlog, res }) => {
+export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   const [alert, setAlert] = useState<string>();
-  const [imgUrl, setImgUrl] = useState<string | undefined>('');
+  const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
   const { register, handleSubmit, watch } = useForm();
 
@@ -67,7 +67,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res }) => {
 
   const renderOpenSettings = (): JSX.Element => {
     return (
-      <ApiErrorBoundary res={res || {}}>
+      <ApiErrorBoundary res={{ ...res, imgUrl, updating: updateBlogRes.isLoading }}>
         <form className={`d-flex flex-wrap ${classes.form}`} onSubmit={handleSubmit(submitHandler)}>
           <div className='w-100'>
             <h2 className='m-1'>Ochiq ma&apos;lumotlar</h2>
