@@ -2,7 +2,7 @@ import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } fr
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
@@ -19,7 +19,8 @@ import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 const { login, password, recaptcha } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
-  const [alert, setAlert] = useState<string>();
+  const [alert, setAlert] = useState<string>('');
+  const recaptchaReset = useRef<{ reset: () => void }>(null);
   const isOpen = useAppSelector(getIsModalOpen);
   const Title = useAppSelector(getLoginModalTitle);
   const dispatch = useAppDispatch();
@@ -30,6 +31,8 @@ export const LoginModal: FC = () => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
+    setValue: setFormValue,
   } = useForm();
 
   const closeModal = (): void => {
@@ -57,10 +60,13 @@ export const LoginModal: FC = () => {
       if (error.status === 404) {
         setAlert('Login yoki parol xato kiritilgan!');
       }
+    } finally {
+      recaptchaReset.current?.reset();
+      setFormValue('recaptcha', undefined);
     }
   };
 
-  const closeAlert = (): void => setAlert(undefined);
+  const closeAlert = (): void => setAlert('');
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
@@ -70,6 +76,14 @@ export const LoginModal: FC = () => {
       </Alert>
     );
   }, [alert]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      reset();
+      setAlert('');
+      recaptchaReset.current?.reset();
+    }
+  }, [isOpen]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
@@ -107,6 +121,7 @@ export const LoginModal: FC = () => {
                 siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                 onSuccess={onChange}
                 onExpired={(): void => onChange(null)}
+                ref={recaptchaReset}
               />
             )}
           />

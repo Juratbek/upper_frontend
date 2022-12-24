@@ -10,7 +10,7 @@ import {
   Textarea,
 } from 'components';
 import { useAuth } from 'hooks';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useRegisterMutation } from 'store/apis';
@@ -35,8 +35,11 @@ export const RegisterModal: FC = () => {
     setFocus,
     control,
     formState: { errors },
+    reset,
+    setValue: setFormValue,
   } = useForm();
   const [createBlog, createBlogResponse] = useRegisterMutation();
+  const recaptchaReset = useRef<{ reset: () => void }>(null);
 
   const closeModal = (): void => {
     dispatch(closeRegisterModal());
@@ -73,6 +76,9 @@ export const RegisterModal: FC = () => {
       if (error.status === 409) {
         setAlert(error.data.message);
       }
+    } finally {
+      recaptchaReset.current?.reset();
+      setFormValue('recaptcha', undefined);
     }
   };
 
@@ -101,6 +107,14 @@ export const RegisterModal: FC = () => {
       </Alert>
     );
   }, [alert]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      reset();
+      setActiveStep(1);
+      recaptchaReset.current?.reset();
+    }
+  }, [isOpen]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
@@ -174,6 +188,7 @@ export const RegisterModal: FC = () => {
                   siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                   onSuccess={onChange}
                   onExpired={(): void => onChange(null)}
+                  ref={recaptchaReset}
                 />
               )}
             />
