@@ -52,13 +52,17 @@ export const RegisterModal: FC = () => {
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     const { name, bio, login, password, email, recaptcha } = event;
+    const payload = {
+      ...(bio && { bio: bio }),
+      ...(email && { email: email }),
+      name,
+      username: login,
+      password,
+    };
+
     try {
       const res = await createBlog({
-        name,
-        bio,
-        username: login,
-        password,
-        email,
+        ...payload,
         reCaptchaResponse: recaptcha,
       }).unwrap();
       authenticate(res);
