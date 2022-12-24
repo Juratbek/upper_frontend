@@ -1,6 +1,6 @@
 export interface IBlogRegisterDto {
   name: string;
-  bio: string;
+  bio?: string;
   username: string;
   password: string;
   reCaptchaResponse: string;
