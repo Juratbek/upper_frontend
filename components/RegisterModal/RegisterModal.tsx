@@ -70,15 +70,19 @@ export const RegisterModal: FC = () => {
       }).unwrap();
       authenticate(res);
       closeModal();
+      reset();
+      setActiveStep(1);
+      recaptchaReset.current?.reset();
     } catch (e) {
       const error = e as IResponseError;
       console.error(error);
       if (error.status === 409) {
         setAlert(error.data.message);
       }
-    } finally {
-      recaptchaReset.current?.reset();
-      setFormValue('recaptcha', undefined);
+      if (error.status === 400) {
+        recaptchaReset.current?.reset();
+        setFormValue('recaptcha', undefined);
+      }
     }
   };
 
@@ -107,14 +111,6 @@ export const RegisterModal: FC = () => {
       </Alert>
     );
   }, [alert]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      reset();
-      setActiveStep(1);
-      recaptchaReset.current?.reset();
-    }
-  }, [isOpen]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>

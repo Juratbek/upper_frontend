@@ -2,7 +2,7 @@ import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } fr
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
@@ -54,6 +54,8 @@ export const LoginModal: FC = () => {
       }).unwrap();
       authenticate(res);
       closeModal();
+      reset();
+      recaptchaReset.current?.reset();
     } catch (e) {
       console.error(e);
       const error = e as IResponseError;
@@ -76,14 +78,6 @@ export const LoginModal: FC = () => {
       </Alert>
     );
   }, [alert]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      reset();
-      setAlert('');
-      recaptchaReset.current?.reset();
-    }
-  }, [isOpen]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
