@@ -6,8 +6,8 @@ import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
 import { getEditor, setArticle } from 'store/states';
-import { ILabel, IResponseError } from 'types';
-import { compressUnsplashImage, convertLabelsToOptions } from 'utils';
+import { IArticle, ILabel, IResponseError } from 'types';
+import { addUriToImageBlocks, compressUnsplashImage, convertLabelsToOptions } from 'utils';
 import { MAX_LABELS } from 'variables';
 
 export const SidebarContent: FC = () => {
@@ -54,7 +54,11 @@ export const SidebarContent: FC = () => {
         : setAlert(exception.data.message);
     }
     if (isSuccess) {
-      dispatch(setArticle(newArticle));
+      const aritcleWithAmazonUri: IArticle = {
+        ...newArticle,
+        blocks: addUriToImageBlocks(newArticle.blocks),
+      };
+      dispatch(setArticle(aritcleWithAmazonUri));
       router.push(`/user/articles/${newArticle.id}`);
     }
   }, [createArticleRes.status]);
