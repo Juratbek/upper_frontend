@@ -2,7 +2,7 @@ import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } fr
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
@@ -19,7 +19,8 @@ import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 const { login, password, recaptcha } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
-  const [alert, setAlert] = useState<string>();
+  const [alert, setAlert] = useState<string>('');
+  const recaptchaRef = useRef<{ reset: () => void }>(null);
   const isOpen = useAppSelector(getIsModalOpen);
   const Title = useAppSelector(getLoginModalTitle);
   const dispatch = useAppDispatch();
@@ -30,6 +31,7 @@ export const LoginModal: FC = () => {
     handleSubmit,
     formState: { errors },
     control,
+    reset,
   } = useForm();
 
   const closeModal = (): void => {
@@ -51,16 +53,22 @@ export const LoginModal: FC = () => {
       }).unwrap();
       authenticate(res);
       closeModal();
+      reset();
     } catch (e) {
       console.error(e);
       const error = e as IResponseError;
       if (error.status === 404) {
         setAlert('Login yoki parol xato kiritilgan!');
       }
+      if (error.status === 400) {
+        setAlert('Bot emasligingizni qayta tasdiqlang!');
+      }
+    } finally {
+      recaptchaRef.current?.reset();
     }
   };
 
-  const closeAlert = (): void => setAlert(undefined);
+  const closeAlert = (): void => setAlert('');
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
@@ -107,6 +115,7 @@ export const LoginModal: FC = () => {
                 siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                 onSuccess={onChange}
                 onExpired={(): void => onChange(null)}
+                ref={recaptchaRef}
               />
             )}
           />

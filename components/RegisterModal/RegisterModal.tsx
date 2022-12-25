@@ -10,7 +10,7 @@ import {
   Textarea,
 } from 'components';
 import { useAuth } from 'hooks';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useRegisterMutation } from 'store/apis';
@@ -35,8 +35,10 @@ export const RegisterModal: FC = () => {
     setFocus,
     control,
     formState: { errors },
+    reset,
   } = useForm();
   const [createBlog, createBlogResponse] = useRegisterMutation();
+  const recaptchaRef = useRef<{ reset: () => void }>(null);
 
   const closeModal = (): void => {
     dispatch(closeRegisterModal());
@@ -67,11 +69,18 @@ export const RegisterModal: FC = () => {
       }).unwrap();
       authenticate(res);
       closeModal();
+      reset();
+      setActiveStep(1);
+      recaptchaRef.current?.reset();
     } catch (e) {
       const error = e as IResponseError;
       console.error(error);
       if (error.status === 409) {
         setAlert(error.data.message);
+      }
+      if (error.status === 400) {
+        recaptchaRef.current?.reset();
+        setAlert('Iltimos bot emasligingizni qayta tasdiqlang');
       }
     }
   };
@@ -174,6 +183,7 @@ export const RegisterModal: FC = () => {
                   siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                   onSuccess={onChange}
                   onExpired={(): void => onChange(null)}
+                  ref={recaptchaRef}
                 />
               )}
             />
