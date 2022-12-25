@@ -43,8 +43,11 @@ export const Recaptcha = forwardRef<{ reset: () => void }, IRecaptchaProps>(
       () => {
         return {
           reset: (): void => {
-            // @ts-ignore
-            typeof widgetId === 'number' && grecaptcha.enterprise.reset(widgetId);
+            if (typeof widgetId === 'number') {
+              // @ts-ignore
+              grecaptcha.enterprise.reset(widgetId);
+              onExpired?.();
+            }
           },
         };
       },

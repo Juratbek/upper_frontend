@@ -20,7 +20,7 @@ const { login, password, recaptcha } = LOGIN_FORM_FIELDS;
 
 export const LoginModal: FC = () => {
   const [alert, setAlert] = useState<string>('');
-  const recaptchaReset = useRef<{ reset: () => void }>(null);
+  const recaptchaRef = useRef<{ reset: () => void }>(null);
   const isOpen = useAppSelector(getIsModalOpen);
   const Title = useAppSelector(getLoginModalTitle);
   const dispatch = useAppDispatch();
@@ -32,7 +32,6 @@ export const LoginModal: FC = () => {
     formState: { errors },
     control,
     reset,
-    setValue: setFormValue,
   } = useForm();
 
   const closeModal = (): void => {
@@ -55,7 +54,6 @@ export const LoginModal: FC = () => {
       authenticate(res);
       closeModal();
       reset();
-      recaptchaReset.current?.reset();
     } catch (e) {
       console.error(e);
       const error = e as IResponseError;
@@ -63,8 +61,7 @@ export const LoginModal: FC = () => {
         setAlert('Login yoki parol xato kiritilgan!');
       }
     } finally {
-      recaptchaReset.current?.reset();
-      setFormValue('recaptcha', undefined);
+      recaptchaRef.current?.reset();
     }
   };
 
@@ -115,7 +112,7 @@ export const LoginModal: FC = () => {
                 siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                 onSuccess={onChange}
                 onExpired={(): void => onChange(null)}
-                ref={recaptchaReset}
+                ref={recaptchaRef}
               />
             )}
           />
