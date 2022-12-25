@@ -36,10 +36,9 @@ export const RegisterModal: FC = () => {
     control,
     formState: { errors },
     reset,
-    setValue: setFormValue,
   } = useForm();
   const [createBlog, createBlogResponse] = useRegisterMutation();
-  const recaptchaReset = useRef<{ reset: () => void }>(null);
+  const recaptchaRef = useRef<{ reset: () => void }>(null);
 
   const closeModal = (): void => {
     dispatch(closeRegisterModal());
@@ -72,7 +71,7 @@ export const RegisterModal: FC = () => {
       closeModal();
       reset();
       setActiveStep(1);
-      recaptchaReset.current?.reset();
+      recaptchaRef.current?.reset();
     } catch (e) {
       const error = e as IResponseError;
       console.error(error);
@@ -80,8 +79,8 @@ export const RegisterModal: FC = () => {
         setAlert(error.data.message);
       }
       if (error.status === 400) {
-        recaptchaReset.current?.reset();
-        setFormValue('recaptcha', undefined);
+        recaptchaRef.current?.reset();
+        setAlert('Iltimos bot emasligingizni qayta tasdiqlang');
       }
     }
   };
@@ -184,7 +183,7 @@ export const RegisterModal: FC = () => {
                   siteKey={process.env.NEXT_PUBLIC_GOOGLE_SITE_KEY || ''}
                   onSuccess={onChange}
                   onExpired={(): void => onChange(null)}
-                  ref={recaptchaReset}
+                  ref={recaptchaRef}
                 />
               )}
             />

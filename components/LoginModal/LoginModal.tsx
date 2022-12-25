@@ -60,6 +60,9 @@ export const LoginModal: FC = () => {
       if (error.status === 404) {
         setAlert('Login yoki parol xato kiritilgan!');
       }
+      if (error.status === 400) {
+        setAlert('Bot emasligingizni qayta tasdiqlang!');
+      }
     } finally {
       recaptchaRef.current?.reset();
     }
