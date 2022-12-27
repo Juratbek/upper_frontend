@@ -8,22 +8,22 @@ export const Footer: FC = () => {
     <div className={styles.footerContainer}>
       <ul className={styles.footerNav}>
         <li>
-          <Link href={'/contacts'}>
+          <Link href='/contacts'>
             <a>Aloqa</a>
           </Link>
         </li>
         <li>
-          <Link href={'/about-us'}>
+          <Link href='/about-us'>
             <a>Biz haqimizda</a>
           </Link>
         </li>
         <li>
-          <Link href={'/docs'}>
-            <a>Qo`llanma</a>
+          <Link href='/docs/write-article_introduction_quick-start'>
+            <a>Qo&apos;llanma</a>
           </Link>
         </li>
         <li>
-          <Link href={'/team'}>
+          <Link href='/team'>
             <a>Jamoa</a>
           </Link>
         </li>
