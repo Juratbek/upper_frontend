@@ -51,7 +51,7 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
           // },
           {
             name: '"Hissa qo\'shish" hizmati',
-            url: 'support',
+            url: 'sponsor',
           },
           // {
           //   name: 'Havfsizlik',
