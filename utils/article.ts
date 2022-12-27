@@ -49,6 +49,7 @@ export const removeAmazonUriFromImgBlocks = async (
 
   const updatedBlocks = blocks.map(async (block): Promise<OutputBlockData> => {
     const blockType = block.type;
+
     if (blockType === BLOCK_TYPES.image) {
       const img = block.data.file;
       const imgUrl = img.url as string;
@@ -80,6 +81,14 @@ export const removeAmazonUriFromImgBlocks = async (
       }
 
       return compressUnsplashImage(block);
+    }
+
+    if (blockType === BLOCK_TYPES.embed) {
+      const data = block.data;
+      const embedUrl = data.embed?.replaceAll('amp;', '');
+      const sourceUrl = data.source?.replaceAll('amp;', '');
+
+      return { ...block, data: { ...data, embed: embedUrl, source: sourceUrl } };
     }
 
     return block;

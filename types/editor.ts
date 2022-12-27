@@ -1,1 +1,1 @@
-export type TBlock = 'image' | 'unsplash' | 'header';
+export type TBlock = 'image' | 'unsplash' | 'header' | 'embed';
