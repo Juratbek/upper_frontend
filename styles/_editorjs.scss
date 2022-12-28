@@ -8,12 +8,16 @@
   & .ce-block__content {
     max-width: unset;
   }
+
+  .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
+    height: unset;
+  }
 }
 
 .readMode {
   .inline-image__picture img,
   img.image-tool__image-picture {
-      cursor: zoom-in;
+    cursor: zoom-in;
   }
 }
 
