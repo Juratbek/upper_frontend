@@ -1,4 +1,5 @@
 import { Avatar } from 'components';
+import Link from 'next/link';
 
 import { team } from './TeamPage.constants';
 import classes from './TeamPage.module.scss';
@@ -18,15 +19,11 @@ export const TeamPage = (): JSX.Element => {
             <p>{member.position}</p>
             <div>
               {member.links.map((link) => (
-                <a
-                  key={link.url}
-                  href={link.url}
-                  target='_blank'
-                  rel='noreferrer'
-                  className={classes.icon}
-                >
-                  <link.icon />
-                </a>
+                <Link href={link.url} key={link.url} target={link.target || '_blank'}>
+                  <a className={classes.icon}>
+                    <link.icon />
+                  </a>
+                </Link>
               ))}
             </div>
           </div>
