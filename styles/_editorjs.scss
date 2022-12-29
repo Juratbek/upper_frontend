@@ -5,12 +5,26 @@
     padding-bottom: 0 !important;
   }
 
+  & .ce-toolbar {
+    z-index: 10;
+  }
+
   & .ce-block__content {
     max-width: unset;
   }
 
   .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
     height: unset;
+  }
+
+  .codeflask--has-line-numbers pre.codeflask__flatten {
+    width: unset;
+  }
+
+  .codeflask {
+    &.codeflask--has-line-numbers:before, & .codeflask__lines {
+      z-index: 4;
+    }
   }
 }
 
@@ -25,11 +39,6 @@
   background: rgba(240, 240, 240, 0.7) !important;
   color: black !important;
   padding: 3px 6px !important;
-}
-
-.codeflask__lines,
-.codeflask.codeflask--has-line-numbers:before {
-  z-index: unset !important;
 }
 
 .editor-container,
