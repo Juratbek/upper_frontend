@@ -13,8 +13,9 @@ export const team: ITeamMember[] = [
         icon: ICONS.linkedIn,
       },
       {
-        url: 'https://uppser.uz/blogs/2',
+        url: '/blogs/1',
         icon: ICONS.blackLogo,
+        target: '_self',
       },
     ],
   },
@@ -28,8 +29,9 @@ export const team: ITeamMember[] = [
         icon: ICONS.linkedIn,
       },
       {
-        url: 'https://upper.uz/blogs/2',
+        url: '/blogs/5',
         icon: ICONS.blackLogo,
+        target: '_self',
       },
     ],
   },
