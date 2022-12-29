@@ -43,7 +43,7 @@
   overflow-x: hidden;
 
   @include screenMax576 {
-    $width: 20rem;
+    $width: 23rem;
     background-color: white;
     width: $width;
     max-width: $width;
