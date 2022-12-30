@@ -1,5 +1,5 @@
 import { EditorConfig } from '@editorjs/editorjs';
-import { compressImage, toBase64 } from 'utils';
+import { compressImage, toBase64, updateQueryParam } from 'utils';
 
 import { IUploadedImage } from '../editor.types';
 
@@ -41,7 +41,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     import('@editorjs/delimiter'),
     import('editorjs-text-color-plugin'),
     import('editorjs-alert'),
-    import('editorjs-inline-image'),
+    import('@samandar.boymurodov/editorjs-inline-image'),
     import('@editorjs/inline-code'),
     import('@calumk/editorjs-codeflask'),
   ]);
@@ -75,6 +75,9 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
         unsplash: {
           appName: 'udas',
           clientId: 'YUiELidZbnKRhMEECKChvST2BMHOfCR6X3mPia5ZdbU',
+          updateUrlOnSelect: (url: string): string => {
+            return updateQueryParam(url, 'q', '10');
+          },
         },
       },
     },

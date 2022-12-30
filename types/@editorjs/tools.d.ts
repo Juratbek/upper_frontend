@@ -6,7 +6,7 @@ declare module '@editorjs/delimiter';
 declare module '@editorjs/inline-code';
 declare module '@editorjs/quote';
 declare module '@calumk/editorjs-codeflask';
-declare module 'editorjs-inline-image';
+declare module '@samandar.boymurodov/editorjs-inline-image';
 declare module 'editorjs-tooltip';
 declare module 'editorjs-text-color-plugin';
 declare module 'editorjs-alert';

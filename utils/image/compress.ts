@@ -68,18 +68,23 @@ export const compressDataImage = (dataImg: string): Promise<string> => {
   });
 };
 
+export const updateQueryParam = (url: string, q: string, value: string): string => {
+  const urlSearchParams = new URLSearchParams(url);
+
+  while (urlSearchParams.get(`amp;${q}`)) {
+    urlSearchParams.delete(`amp;${q}`);
+  }
+
+  urlSearchParams.set(q, value);
+
+  return decodeURIComponent(urlSearchParams.toString());
+};
+
 export const compressUnsplashImage = (block: OutputBlockData): OutputBlockData => {
   let url = block.data.url;
 
   if (url && url.startsWith(UNSPLASH_URL)) {
-    const urlSearchParams = new URLSearchParams(url);
-
-    while (urlSearchParams.get('amp;q')) {
-      urlSearchParams.delete('amp;q');
-    }
-
-    urlSearchParams.set('q', '10');
-    url = decodeURIComponent(urlSearchParams.toString());
+    url = updateQueryParam(url, 'q', '10');
 
     return {
       ...block,
