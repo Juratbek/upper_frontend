@@ -64,3 +64,13 @@
     bottom: unset;
   }
 }
+
+
+.inline-image .inline-image__tab {
+  cursor: default;
+
+  &:hover {
+    background: none;
+  }
+}
+
