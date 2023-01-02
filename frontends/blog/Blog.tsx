@@ -2,7 +2,7 @@ import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
 import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
@@ -37,6 +37,12 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
   const toggleUnfollowModal = (): void => {
     setIsUnfollowModalOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (blog?.isFollowed !== undefined) {
+      setIsFollowed(blog.isFollowed);
+    }
+  }, [id]);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
