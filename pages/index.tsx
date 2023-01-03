@@ -13,11 +13,11 @@ const Home: NextPage = () => {
   }, [isAuthenticated]);
 
   return (
-    <main className='container'>
+    <div className='container'>
       <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
       <TabsHeader tabs={tabMenus} />
       <TabBody tabs={HOME_TABS} />
-    </main>
+    </div>
   );
 };
 
