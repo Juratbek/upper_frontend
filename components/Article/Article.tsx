@@ -67,9 +67,12 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
             </>
           )}
         </div>
-        <div>
+        <div style={{ textAlign: 'end' }}>
           {labels?.map((label) => (
-            <span key={label.id} style={{ marginLeft: '.3rem' }}>
+            <span
+              key={label.id}
+              style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
+            >
               <Label>{label.name}</Label>
             </span>
           ))}
