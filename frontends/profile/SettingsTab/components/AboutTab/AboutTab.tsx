@@ -56,7 +56,9 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
     const formData = new FormData();
     if (avatar) {
       const compressedAvatarImage = await compressImage(avatar);
+      const mediumCompressedImage = await compressImage(avatar, { medium: true });
       formData.set('avatar', compressedAvatarImage);
+      formData.set('avatarWithMediumQuality', mediumCompressedImage);
     }
     formData.set('name', name);
     formData.set('bio', bio);
