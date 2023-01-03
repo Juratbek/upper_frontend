@@ -54,7 +54,8 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
     const avatar = event.avatar[0] as unknown as File;
 
     const formData = new FormData();
-    if (avatar) {
+    const isAvatarChanged = !imgUrl?.includes(currentBlog?.imgUrl as string);
+    if (avatar && isAvatarChanged) {
       const compressedAvatarImage = await compressImage(avatar);
       const mediumCompressedImage = await compressImage(avatar, { medium: true });
       formData.set('avatar', compressedAvatarImage);
@@ -64,7 +65,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
     formData.set('bio', bio);
     formData.set('links', JSON.stringify(socialMediaLinks));
 
-    await updateBlog(formData).unwrap();
+    updateBlog(formData);
   };
 
   const renderOpenSettings = (): JSX.Element => {
