@@ -1,3 +1,4 @@
+import { HTMLAttributeAnchorTarget } from 'react';
 import { TIconComponent } from 'types';
 
 export interface ITeamMember {
@@ -7,5 +8,6 @@ export interface ITeamMember {
   links: {
     url: string;
     icon: TIconComponent;
+    target?: HTMLAttributeAnchorTarget;
   }[];
 }

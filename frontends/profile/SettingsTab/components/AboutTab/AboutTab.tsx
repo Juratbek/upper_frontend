@@ -84,7 +84,15 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
             </div>
             <div>
               <h4 className='mb-1'>Bio</h4>
-              <Textarea defaultValue={currentBlog?.bio} {...register('bio', { required: true })} />
+              <Textarea
+                defaultValue={currentBlog?.bio}
+                {...register('bio', {
+                  maxLength: {
+                    value: 80,
+                    message: 'Bio o`ta uzun',
+                  },
+                })}
+              />
             </div>
           </div>
           <div className='w-50 w-mobile-100 p-1'>

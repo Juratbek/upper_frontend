@@ -45,18 +45,18 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
         name: 'Sozlamalar',
         url: 'settings',
         children: [
+          // {
+          //   name: 'Siz haqingizda',
+          //   url: 'about-you',
+          // },
           {
-            name: 'Siz haqingizda',
-            url: 'about-you',
+            name: '"Hissa qo\'shish" hizmati',
+            url: 'sponsor',
           },
-          {
-            name: "Rag'batlantirish",
-            url: 'support',
-          },
-          {
-            name: 'Havfsizlik',
-            url: 'security',
-          },
+          // {
+          //   name: 'Havfsizlik',
+          //   url: 'security',
+          // },
         ],
       },
     ],

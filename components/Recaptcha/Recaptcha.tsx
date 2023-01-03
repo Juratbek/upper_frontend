@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Spinner } from 'components';
 import { useAuth } from 'hooks';
-import { FC, useEffect, useId, useState } from 'react';
+import { forwardRef, useEffect, useId, useImperativeHandle, useState } from 'react';
 
 import { IRecaptchaProps } from './Recaptcha.types';
 
@@ -14,48 +14,71 @@ declare global {
 
 const googleScriptId = 'google-racaptcha';
 
-export const Recaptcha: FC<IRecaptchaProps> = ({ siteKey, onSuccess, onExpired, ...props }) => {
-  const [isScriptLoaded, setIsScriptLoaded] = useState(false);
-  const [isLoding, setIsLoading] = useState(true);
-  const id = useId();
-  const { isAuthenticated } = useAuth();
+export const Recaptcha = forwardRef<{ reset: () => void }, IRecaptchaProps>(
+  ({ siteKey, onSuccess, onExpired, ...props }, ref) => {
+    const [isScriptLoaded, setIsScriptLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [widgetId, setWidgetId] = useState<null | number>(null);
 
-  useEffect(() => {
-    if (!isScriptLoaded) return;
+    const id = useId();
+    const { isAuthenticated } = useAuth();
 
-    setTimeout(() => {
-      // @ts-ignore
-      grecaptcha.enterprise.render(id, {
-        sitekey: siteKey,
-        callback: onSuccess,
-        'expired-callback': onExpired,
-      });
-      setIsLoading(false);
-    }, 3000);
-  }, [isScriptLoaded]);
+    useEffect(() => {
+      if (!isScriptLoaded) return;
 
-  useEffect(() => {
-    if (isAuthenticated) return;
+      setTimeout(() => {
+        // @ts-ignore
+        const widgetId = grecaptcha.enterprise.render(id, {
+          sitekey: siteKey,
+          callback: onSuccess,
+          'expired-callback': onExpired,
+        });
+        setWidgetId(widgetId);
+        setIsLoading(false);
+      }, 3000);
+    }, [isScriptLoaded]);
 
-    const head = document.head;
-    const recaptchaScript = head.querySelector(`#${googleScriptId}`);
-    if (recaptchaScript) {
-      return setIsScriptLoaded(true);
-    }
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          reset: (): void => {
+            if (typeof widgetId === 'number') {
+              // @ts-ignore
+              grecaptcha.enterprise.reset(widgetId);
+              onExpired?.();
+            }
+          },
+        };
+      },
+      [widgetId],
+    );
 
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/enterprise.js?render=explicit&hl=ru';
-    script.id = googleScriptId;
-    script.async = true;
-    script.defer = true;
-    script.onload = (): void => setIsScriptLoaded(true);
-    head.append(script);
-  }, []);
+    useEffect(() => {
+      if (isAuthenticated) return;
 
-  return (
-    <div {...props}>
-      {isLoding && <Spinner color='light' />}
-      <div id={id} />
-    </div>
-  );
-};
+      const head = document.head;
+      const recaptchaScript = head.querySelector(`#${googleScriptId}`);
+      if (recaptchaScript) {
+        return setIsScriptLoaded(true);
+      }
+
+      const script = document.createElement('script');
+      script.src = 'https://www.google.com/recaptcha/enterprise.js?render=explicit&hl=ru';
+      script.id = googleScriptId;
+      script.async = true;
+      script.defer = true;
+      script.onload = (): void => setIsScriptLoaded(true);
+      head.append(script);
+    }, []);
+
+    return (
+      <div {...props}>
+        {isLoading && <Spinner color='light' />}
+        <div id={id} />
+      </div>
+    );
+  },
+);
+
+Recaptcha.displayName = 'Recaptcha';
