@@ -4,11 +4,11 @@ import { NOTIFICATIONS_TAB_MENUS, NOTIFICATIONS_TABS } from 'variables/notificat
 
 export default function NotificationsPage(): JSX.Element {
   return (
-    <main className='container'>
+    <div className='container'>
       <h1 className='mb-1'>Habarlar</h1>
       <TabsHeader tabs={NOTIFICATIONS_TAB_MENUS} />
       <TabBody tabs={NOTIFICATIONS_TABS} />
-    </main>
+    </div>
   );
 }
 
