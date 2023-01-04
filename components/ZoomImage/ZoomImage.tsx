@@ -11,7 +11,7 @@ export const ZoomImage: FC<ImageProps> = (props) => {
     <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>
       <div className={imageModalStyles['modal__overlay']}></div>
       <div className={imageModalStyles['modal__content']}>
-        <Image {...props} />
+        <Image {...props} src={`${props.src}_MEDIUM`} />
       </div>
     </div>
   ) : (
