@@ -88,8 +88,9 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
               <FileInput
                 {...register('avatar', {
                   validate: {
-                    lessThan5MB: (files) =>
-                      files[0]?.size / 2 ** 20 <= 5 || 'Rasm hajmi 5 MB dan katta',
+                    lessThan5MB: (files) => {
+                      if (files[0]?.size / 2 ** 20 >= 5) return 'Rasm hajmi 5 MB dan katta';
+                    },
                   },
                 })}
                 accept='image/jpeg, image/png'
