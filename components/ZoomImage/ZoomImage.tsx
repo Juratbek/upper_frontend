@@ -1,5 +1,5 @@
 import Image, { ImageProps } from 'next/image';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import imageModalStyles from '../ImageModal/ImageModal.module.scss';
 
@@ -9,6 +9,10 @@ export const ZoomImage: FC<ImageProps> = (props) => {
   const toggleModal = (): void => setIsModalOpen((prevState) => !prevState);
 
   const errorHandler = (): void => setMediumImgUrl(props.src.toString());
+
+  useEffect(() => {
+    setMediumImgUrl(`${props.src}_MEDIUM`);
+  }, [props.src]);
 
   return isModalOpen ? (
     <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>
