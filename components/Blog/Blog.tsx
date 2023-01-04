@@ -3,7 +3,7 @@ import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
-import { getClassName } from 'utils';
+import { getClassName, prefixHttp } from 'utils';
 import { ICONS } from 'variables';
 
 import classes from './Blog.module.scss';
@@ -12,13 +12,6 @@ import { IBlogProps } from './Blog.types';
 export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', ...props }) => {
   const { className, isLink, id, links = [] } = props;
   const rootClassName = getClassName(classes.blog, className);
-
-  const prefixHttp = (link: string): string => {
-    const https = 'https://';
-    const http = 'http://';
-    if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
-    return `//${link}`;
-  };
 
   const getBlog = useCallback(
     (className?: string) => (
