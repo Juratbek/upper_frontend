@@ -4,6 +4,7 @@ import {
   Avatar,
   Button,
   Divider,
+  Error,
   FileInput,
   Input,
   Textarea,
@@ -22,7 +23,12 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   const [alert, setAlert] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
-  const { register, handleSubmit, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     if (currentBlog) {
@@ -57,7 +63,9 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
     const isAvatarChanged = !imgUrl?.includes(currentBlog?.imgUrl as string);
     if (avatar && isAvatarChanged) {
       const compressedAvatarImage = await compressImage(avatar);
+      const mediumCompressedImage = await compressImage(avatar, { medium: true });
       formData.set('avatar', compressedAvatarImage);
+      formData.set('avatarWithMediumQuality', mediumCompressedImage);
     }
     formData.set('name', name);
     formData.set('bio', bio);
@@ -77,7 +85,16 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
           <div className='w-50 w-mobile-100 p-1'>
             <div>
               <Avatar imgUrl={imgUrl || ''} className='my-2' size='extra-large' />
-              <FileInput {...register('avatar')} accept='image/jpeg, image/png' />
+              <FileInput
+                {...register('avatar', {
+                  validate: {
+                    lessThan5MB: (files) =>
+                      files[0]?.size / 2 ** 20 <= 5 || 'Rasm hajmi 5 MB dan katta',
+                  },
+                })}
+                accept='image/jpeg, image/png'
+              />
+              <Error error={errors['avatar']} />
             </div>
             <div>
               <h4 className='mb-1'>Nomi</h4>
