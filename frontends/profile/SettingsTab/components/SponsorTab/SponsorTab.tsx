@@ -104,7 +104,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='donat-text' className='d-block mb-1'>
-            ` Hissa qo&apos;shish matni (ixtiyoriy)
+            Hissa qo&apos;shish matni (ixtiyoriy)
           </label>
           <Textarea
             defaultValue={currentBlog?.donatText}
