@@ -3,7 +3,7 @@ import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
-import { getClassName } from 'utils';
+import { addLinkPrefix, getClassName } from 'utils';
 import { ICONS } from 'variables';
 
 import classes from './Blog.module.scss';
@@ -13,13 +13,6 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
   const { className, isLink, id, links = [] } = props;
   const rootClassName = getClassName(classes.blog, className);
 
-  const prefixHttp = (link: string): string => {
-    const https = 'https://';
-    const http = 'http://';
-    if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
-    return `//${link}`;
-  };
-
   const getBlog = useCallback(
     (className?: string) => (
       <div className={`d-flex align-items-center mb-1 ${className}`}>
@@ -28,7 +21,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
             {links.map((link) => (
-              <a key={link.link} href={prefixHttp(link.link)} target='_blank' rel='noreferrer'>
+              <a key={link.link} href={addLinkPrefix(link)} target='_blank' rel='noreferrer'>
                 <HoverableIcon {...link} />
               </a>
             ))}
