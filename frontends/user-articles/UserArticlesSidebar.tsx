@@ -3,6 +3,7 @@ import {
   ArticleStatus,
   Button,
   Divider,
+  Error,
   Input,
   IOption,
   Modal,
@@ -28,13 +29,18 @@ import {
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
 } from 'utils';
-import { ARTICLE_STATUSES, MAX_LABELS } from 'variables';
+import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
   const { push } = useRouter();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
   const [isPublishModalOpen, togglePublishModal] = useModal(false);
@@ -86,7 +92,7 @@ export const UserArticlesSidebar: FC = () => {
 
   const deleteArticle = async (event: Record<string, string>): Promise<void> => {
     if (!article || !editor) return;
-    if (event.confirmation !== 'tasdiqlash') return;
+    if (event.confirmation !== DELETE_CONFIRMATION) return;
     try {
       await deleteArticleReq(article.id).unwrap();
       push('/articles');
@@ -160,17 +166,20 @@ export const UserArticlesSidebar: FC = () => {
             <label htmlFor='confirm' className='mb-1 d-block' style={{ userSelect: 'none' }}>
               Tasdiqlash uchun{' '}
               <strong>
-                <code>tasdiqlash</code>
+                <code>{DELETE_CONFIRMATION}</code>
               </strong>{' '}
               so`zini kiriting
             </label>
             <Input
-              placeholder='tasdiqlash'
+              placeholder={DELETE_CONFIRMATION}
               {...register('confirmation', {
                 required: true,
-                validate: (value) => value === 'tasdiqlash',
+                validate: (value) => value == DELETE_CONFIRMATION || `Noto'g'ri so'z kiritildi.`,
               })}
             />
+            {errors['confirmation']?.type === 'validate' && (
+              <Error error={errors['confirmation']} />
+            )}
           </div>
           <div className='d-flex justify-content-end'>
             <Button type='button' color='outline-dark' onClick={toggleDeleteModal} className='me-1'>
