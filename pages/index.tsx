@@ -1,11 +1,24 @@
-import { TabBody, TabsHeader } from 'components';
+import { Button, TabBody, TabsHeader } from 'components';
 import { HOME_TAB_MENUS, HOME_TABS } from 'frontends/home';
-import { useAuth } from 'hooks';
+import classes from 'frontends/home/Home.module.scss';
+import { useAuth, useUrlParams } from 'hooks';
 import type { NextPage } from 'next';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useLazyGetCurrentBlogLabelsQuery } from 'store/apis';
 
 const Home: NextPage = () => {
   const { isAuthenticated, isLoading } = useAuth();
+  const { setParam } = useUrlParams();
+  const [fetchCurrentBlogLabels, fetchCurrentBlogLabelsRes] = useLazyGetCurrentBlogLabelsQuery();
+  const { data: labels = [] } = fetchCurrentBlogLabelsRes;
+
+  const labelSelectHandler = (id: number): void => {
+    setParam('label', id);
+  };
+
+  useEffect(() => {
+    isAuthenticated && fetchCurrentBlogLabels();
+  }, [isAuthenticated]);
 
   const tabMenus = useMemo(() => {
     if (isLoading) return [];
@@ -16,6 +29,18 @@ const Home: NextPage = () => {
     <div className='container'>
       <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
       <TabsHeader tabs={tabMenus} />
+      <div className={classes['labels-container']}>
+        {[...labels, ...labels, ...labels, ...labels, ...labels, ...labels].map((label) => (
+          <Button
+            onClick={(): void => labelSelectHandler(label.id)}
+            size='small'
+            className='me-1'
+            key={label.id}
+          >
+            {label.name}
+          </Button>
+        ))}
+      </div>
       <TabBody tabs={HOME_TABS} />
     </div>
   );
