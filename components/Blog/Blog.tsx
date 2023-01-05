@@ -3,7 +3,7 @@ import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
-import { getClassName, prefixHttp } from 'utils';
+import { addLinkPrefix, addTelegramDomain, getClassName } from 'utils';
 import { ICONS } from 'variables';
 
 import classes from './Blog.module.scss';
@@ -12,6 +12,7 @@ import { IBlogProps } from './Blog.types';
 export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', ...props }) => {
   const { className, isLink, id, links = [] } = props;
   const rootClassName = getClassName(classes.blog, className);
+  addTelegramDomain(links);
 
   const getBlog = useCallback(
     (className?: string) => (
@@ -21,7 +22,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avaratSize = 'large', 
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
             {links.map((link) => (
-              <a key={link.link} href={prefixHttp(link.link)} target='_blank' rel='noreferrer'>
+              <a key={link.link} href={addLinkPrefix(link.link)} target='_blank' rel='noreferrer'>
                 <HoverableIcon {...link} />
               </a>
             ))}

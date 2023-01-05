@@ -15,15 +15,15 @@ const https = 'https://';
 const http = 'http://';
 const telegramUrl = 't.me/';
 
-export const prefixHttp = (link: string): string => {
+export const addLinkPrefix = (link: string): string => {
   if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
   return `//${link}`;
 };
 
-export const prefixTelegramLink = (links: Array<ILink>): void => {
-  const targetSocialMedia = links.find((socialMedia) => socialMedia.type === 'telegram');
-  if (!targetSocialMedia) return;
-  const telegramLink = targetSocialMedia.link;
+export const addTelegramDomain = (links: Array<ILink>): void => {
+  const telegramSocialMedia = links.find((socialMedia) => socialMedia.type === 'telegram');
+  if (!telegramSocialMedia) return;
+  const telegramLink = telegramSocialMedia.link;
   if (
     telegramLink.startsWith(https) ||
     telegramLink.startsWith(http) ||
@@ -31,7 +31,7 @@ export const prefixTelegramLink = (links: Array<ILink>): void => {
   )
     return;
 
-  targetSocialMedia.link = `t.me/${telegramLink}`;
+  telegramSocialMedia.link = `t.me/${telegramLink}`;
 };
 
 export const convertBlogToHeadProp = (blog: IBlog): IHeadProps => {

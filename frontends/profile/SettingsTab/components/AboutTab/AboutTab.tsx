@@ -13,7 +13,7 @@ import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUpdateBlogMutation } from 'store/apis';
 import { ILink, TIcon, TSubmitFormEvent } from 'types';
-import { addAmazonUri, compressImage, prefixTelegramLink, toBase64 } from 'utils';
+import { addAmazonUri, compressImage, toBase64 } from 'utils';
 import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 
 import { INavTab } from '../NavsTabs/NavsTabs.types';
@@ -57,7 +57,6 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
       }
       return res;
     }, [] as Array<ILink>);
-    prefixTelegramLink(socialMediaLinks);
     const avatar = event.avatar[0] as unknown as File;
 
     const formData = new FormData();
