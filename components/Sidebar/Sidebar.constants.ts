@@ -22,3 +22,5 @@ export const SIDEBAR_CONTENTS = {
 export const ADDITIONAL_SIDEBAR_CONTENTS = {
   [ADDITIONAL_CONTENT_URLS.readArticle]: ReadArticleSidebar,
 };
+
+export const SEARCH_RESULTS_SIZE = 5;
