@@ -13,7 +13,7 @@ export const BlogsTab: FC = () => {
 
   useEffect(() => {
     if (search && tab === SEARCH_PAGE_TAB_IDS.blogs && search.length > 1) {
-      searchBlog(search as string);
+      searchBlog({ search: search.toString() });
     }
   }, [search]);
 

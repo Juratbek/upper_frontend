@@ -7,6 +7,7 @@ import {
   SearchInput,
   SidebarSearchArticleSkeleton,
 } from 'components';
+import { SEARCH_RESULTS_SIZE } from 'components/Sidebar/Sidebar.constants';
 import { useClickOutside } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
@@ -29,8 +30,8 @@ export const SidebarSearch: FC = () => {
 
   const search = (value: string): void => {
     if (!value || value.length <= 1) return;
-    searchArticle(value);
-    searchBlog(value);
+    searchArticle({ search: value, limit: SEARCH_RESULTS_SIZE });
+    searchBlog({ search: value, limit: SEARCH_RESULTS_SIZE });
     setInputValue(value);
   };
 
