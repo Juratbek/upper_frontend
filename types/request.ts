@@ -4,5 +4,5 @@ export type TPagingRequest<T extends Record<string, unknown>> = Override<T, { pa
 
 export type TOptionalPagingRequest<T = Record<string, unknown>> = Override<
   T,
-  { page?: number; limit?: number }
+  { page?: number; size?: number }
 >;
