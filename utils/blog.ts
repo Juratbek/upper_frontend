@@ -1,6 +1,6 @@
 import { IHeadProps } from 'components';
 import { BLOG_BUCKET_URL } from 'store/apis';
-import { IBlog, IBlogSmall, ILink } from 'types';
+import { IBlog, IBlogSmall, ILink, TIcon } from 'types';
 
 export const addAmazonUri = <T extends IBlogSmall>(blog: T): T => {
   const imgUrl = blog.imgUrl;
@@ -13,25 +13,19 @@ export const addAmazonUri = <T extends IBlogSmall>(blog: T): T => {
 
 const https = 'https://';
 const http = 'http://';
-const telegramUrl = 't.me/';
 
-export const addLinkPrefix = (link: string): string => {
-  if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
-  return `//${link}`;
+const LINK_DOMAINS: Partial<{ [name in TIcon]: string }> = {
+  telegram: 't.me',
 };
 
-export const addTelegramDomain = (links: Array<ILink>): void => {
-  const telegramSocialMedia = links.find((socialMedia) => socialMedia.type === 'telegram');
-  if (!telegramSocialMedia) return;
-  const telegramLink = telegramSocialMedia.link;
-  if (
-    telegramLink.startsWith(https) ||
-    telegramLink.startsWith(http) ||
-    telegramLink.startsWith(telegramUrl)
-  )
-    return;
+export const addLinkPrefix = (linkObject: ILink): string => {
+  const { link, type } = linkObject;
+  if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
+  const domain = LINK_DOMAINS[type];
+  if (domain)
+    return link.startsWith('/') ? `https://${domain}${link}` : `https://${domain}/${link}`;
 
-  telegramSocialMedia.link = `t.me/${telegramLink}`;
+  return `//${link}`;
 };
 
 export const convertBlogToHeadProp = (blog: IBlog): IHeadProps => {
