@@ -52,7 +52,7 @@ export const useInfiniteScroll = <T>(
     setIsSuccess(false);
     setIsError(false);
     try {
-      const res = await fetchItems({ page: params?.page || page }).unwrap();
+      const res = await fetchItems({ ...params, page: params?.page || page }).unwrap();
       const newItemsFromApi = res.list;
       if (config.removeDublicates) {
         setListWithoutDiblicates(newItemsFromApi, params);

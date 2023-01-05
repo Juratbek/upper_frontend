@@ -13,7 +13,7 @@ const Home: NextPage = () => {
   const { data: labels = [] } = fetchCurrentBlogLabelsRes;
 
   const labelSelectHandler = (id: number): void => {
-    setParam('label', id);
+    setParam('labelId', id);
   };
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Home: NextPage = () => {
       <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
       <TabsHeader tabs={tabMenus} />
       <div className={classes['labels-container']}>
-        {[...labels, ...labels, ...labels, ...labels, ...labels, ...labels].map((label) => (
+        {labels.map((label) => (
           <Button
             onClick={(): void => labelSelectHandler(label.id)}
             size='small'

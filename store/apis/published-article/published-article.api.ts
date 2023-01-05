@@ -23,7 +23,10 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
-    getTop: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+    getTop: build.query<
+      IPagingResponse<IArticleResult>,
+      TOptionalPagingRequest<{ labelId?: number }>
+    >({
       query: (params) => ({
         url: 'open/top-articles',
         params,
