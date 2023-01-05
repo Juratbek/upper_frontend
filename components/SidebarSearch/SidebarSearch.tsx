@@ -30,8 +30,8 @@ export const SidebarSearch: FC = () => {
 
   const search = (value: string): void => {
     if (!value || value.length <= 1) return;
-    searchArticle({ search: value, limit: SEARCH_RESULTS_SIZE });
-    searchBlog({ search: value, limit: SEARCH_RESULTS_SIZE });
+    searchArticle({ search: value, size: SEARCH_RESULTS_SIZE });
+    searchBlog({ search: value, size: SEARCH_RESULTS_SIZE });
     setInputValue(value);
   };
 
