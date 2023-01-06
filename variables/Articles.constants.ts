@@ -23,3 +23,5 @@ export const ARTICLES_TABS: ITabBody = {
   [ARTICLE_STATUSES.PUBLISHED]: ArticlesTab,
   [ARTICLE_STATUSES.SAVED]: ArticlesTab,
 };
+
+export const DELETE_CONFIRMATION = 'tasdiqlash';
