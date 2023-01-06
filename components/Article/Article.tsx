@@ -53,36 +53,36 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
             </div>
             {imgUrl && <ArticleImg imgUrl={imgUrl} />}
           </div>
+          <div className={classes.footer}>
+            <div className={classes.stats}>
+              <span>{renderDate()}</span>
+              {viewCount > 0 && (
+                <>
+                  &nbsp; &nbsp;
+                  <span>
+                    <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
+                  </span>
+                </>
+              )}
+            </div>
+            <div style={{ textAlign: 'end' }}>
+              {labels?.map((label) => (
+                <span
+                  key={label.id}
+                  style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
+                >
+                  <Label>{label.name}</Label>
+                </span>
+              ))}
+            </div>
+          </div>
+          {author && (
+            <div className={classes.footer} style={{ marginTop: '.5rem' }}>
+              <Author {...addAmazonUri(author)} />
+            </div>
+          )}
         </a>
       </Link>
-      <div className={classes.footer}>
-        <div className={classes.stats}>
-          <span>{renderDate()}</span>
-          {viewCount > 0 && (
-            <>
-              &nbsp; &nbsp;
-              <span>
-                <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
-              </span>
-            </>
-          )}
-        </div>
-        <div style={{ textAlign: 'end' }}>
-          {labels?.map((label) => (
-            <span
-              key={label.id}
-              style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
-            >
-              <Label>{label.name}</Label>
-            </span>
-          ))}
-        </div>
-      </div>
-      {author && (
-        <div className={classes.footer} style={{ marginTop: '.5rem' }}>
-          <Author {...addAmazonUri(author)} />
-        </div>
-      )}
     </div>
   );
 };
