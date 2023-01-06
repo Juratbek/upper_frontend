@@ -1,11 +1,11 @@
 import { Actions, Label } from 'components';
 import { FC } from 'react';
+import { INotificationComponentProp } from 'types';
 import { getClassName } from 'utils';
 
 import classes from './CommentNotification.module.css';
-import { ICommentNotificationProps } from './CommentNotification.types';
 
-export const CommentNotification: FC<ICommentNotificationProps> = (props) => {
+export const CommentNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author } = props;
   const rootClassName = getClassName(className, classes['comment-notification']);
 
