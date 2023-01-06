@@ -174,7 +174,7 @@ export const UserArticlesSidebar: FC = () => {
               placeholder={DELETE_CONFIRMATION}
               {...register('confirmation', {
                 required: true,
-                validate: (value) => value == DELETE_CONFIRMATION || `Noto'g'ri so'z kiritildi.`,
+                validate: (value) => value === DELETE_CONFIRMATION || `Noto'g'ri so'z kiritildi.`,
               })}
             />
             {errors['confirmation']?.type === 'validate' && (
