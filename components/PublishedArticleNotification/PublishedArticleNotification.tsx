@@ -1,12 +1,12 @@
 import { Actions, Avatar, IAction } from 'components';
 import { FC, useMemo } from 'react';
+import { INotificationComponentProp } from 'types';
 import { addAmazonUri, getClassName, toDateString } from 'utils';
 import { NOTIFICATION_STATUSES } from 'variables';
 
 import classes from './PublishedArticleNotification.module.scss';
-import { IPublishedArticleNotificationProps } from './PublishedArticleNotification.types';
 
-export const PublishedArticleNotification: FC<IPublishedArticleNotificationProps> = (props) => {
+export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate } = props;
   const rootClassName = getClassName(
     className,
