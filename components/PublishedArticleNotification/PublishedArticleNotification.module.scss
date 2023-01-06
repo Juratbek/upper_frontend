@@ -14,9 +14,7 @@
 
 .published-article-notification {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  cursor: pointer;
 }
 
 .text {
@@ -30,10 +28,12 @@
 .date {
   font-size: 0.8rem;
   color: var(--gray);
-  @include screenMax576 {
-    margin-left: auto;
-  }
-  margin-right: 0.3rem;
+}
+
+.notificationMessage {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0.625rem;
 }
 
 .actions {
