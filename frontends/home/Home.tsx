@@ -29,7 +29,7 @@ export const HomePage: FC = () => {
 
   const labelSelectHandler = (id: number | string): void => {
     setParam(LABEL_ID_PARAM, id);
-    fetchArticles({ label: id }, { reset: true });
+    fetchArticles({ label: id, page: 0 }, { reset: true });
   };
 
   const fetchNextPage = (): Promise<void> => fetchNextArticlesPage({ label });
@@ -41,17 +41,17 @@ export const HomePage: FC = () => {
   useEffect(() => {
     if (isLoading || !isReady) return;
     if (label) {
-      fetchArticles({ label });
+      fetchArticles({ label, page: 0 });
       return;
     }
 
     if (isAuthenticated) {
       setParam(LABEL_ID_PARAM, ForYouLabel.id);
-      fetchArticles({ label: ForYouLabel.id });
+      fetchArticles({ label: ForYouLabel.id, page: 0 });
       return;
     }
     setParam(LABEL_ID_PARAM, TopLabel.id);
-    fetchArticles({ label: TopLabel.id });
+    fetchArticles({ label: TopLabel.id, page: 0 });
   }, [isAuthenticated, isLoading, isReady]);
 
   const labels = useMemo(() => {
