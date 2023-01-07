@@ -60,7 +60,7 @@ export const useInfiniteScroll = <T>(
     setIsSuccess(false);
     setIsError(false);
     try {
-      const res = await fetchItems({ ...params, page: params?.page || page }).unwrap();
+      const res = await fetchItems({ ...params, page: params?.page ?? page }).unwrap();
       const newItemsFromApi = res.list;
       if (fnConfig?.reset) {
         setPage(0);
