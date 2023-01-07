@@ -1,5 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IArticleResult, IBlog, IBlogMedium, ILabel, ITelegramUser } from 'types';
+import {
+  IArticleResult,
+  IBlog,
+  IBlogMedium,
+  ILabel,
+  ITelegramUser,
+  TOptionalPagingRequest,
+} from 'types';
 import { Authorization } from 'variables';
 
 import { baseQuery } from '../config';
@@ -49,8 +56,11 @@ export const blogApi = createApi({
     getSidebarSuggestions: build.query<IBlogMedium[], void>({
       query: () => 'open/sidebar-suggestions',
     }),
-    search: build.query<IBlogMedium[], string>({
-      query: (search) => `open/search?search=${search}`,
+    search: build.query<IBlogMedium[], TOptionalPagingRequest<{ search: string }>>({
+      query: (params) => ({
+        url: `open/search`,
+        params,
+      }),
     }),
     getCurrentBlog: build.query<IBlog, void>({
       query: () => 'get-current',

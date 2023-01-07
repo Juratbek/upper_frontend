@@ -104,7 +104,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='donat-text' className='d-block mb-1'>
-            ` Hissa qo&apos;shish matni (ixtiyoriy)
+            Hissa qo&apos;shish matni (ixtiyoriy)
           </label>
           <Textarea
             defaultValue={currentBlog?.donatText}
@@ -115,7 +115,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
         <div className='form-element'>
           <div className='mb-1 d-flex justify-content-between'>
             <label htmlFor='credit-card'>Plastik karta raqami</label>
-            <Link href='/docs/blogging/blogging_settings_sponsor'>
+            <Link href='/docs/blogging_settings_sponsor'>
               <a target='_blank' className='link'>
                 Karta raqam nega kerak?
               </a>

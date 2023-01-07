@@ -1,12 +1,13 @@
 import { FC, Fragment, useMemo } from 'react';
 
-import { IApiErrorBoundaryProps } from './ApiErrorBoundary.types';
+import { TApiErrorBoundaryProps } from './ApiErrorBoundary.types';
 
-export const ApiErrorBoundary: FC<IApiErrorBoundaryProps> = ({
+export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
   res,
   children,
   fallback,
   fallbackItemCount = 1,
+  onError,
   ...props
 }) => {
   const Fallback = useMemo(() => {
@@ -18,7 +19,10 @@ export const ApiErrorBoundary: FC<IApiErrorBoundaryProps> = ({
   const content = useMemo(() => {
     const { isLoading, isError, isFetching, error, isSuccess } = res;
     if (isLoading) return Fallback || 'Yuklanmoqda...';
-    if (isError) return <pre>{JSON.stringify(error, null, 2)}</pre>;
+    if (isError) {
+      const ErrorComponent = onError?.(error);
+      return ErrorComponent || <pre>{JSON.stringify(error, null, 2)}</pre>;
+    }
     if (isSuccess || isFetching) return <>{children}</>;
     return <></>;
   }, [res, props.memoizationDependencies]);

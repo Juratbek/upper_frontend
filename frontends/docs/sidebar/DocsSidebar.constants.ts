@@ -24,6 +24,14 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
         ],
       },
       {
+        name: 'Nashr qilish',
+        url: 'publish',
+        children: [
+          { name: 'Tezkor nashr qilish', url: 'quick-publish' },
+          { name: 'Maqola uchun talablar', url: 'requirements' },
+        ],
+      },
+      {
         name: 'Sozlamalar',
         url: 'settings',
         children: [

@@ -61,8 +61,11 @@ export const publishedArticleApi = createApi({
         body: token,
       }),
     }),
-    search: build.query<IArticleResult[], string>({
-      query: (search) => `open/search?search=${search}`,
+    search: build.query<IArticleResult[], TOptionalPagingRequest<{ search: string }>>({
+      query: (params) => ({
+        url: 'open/search',
+        params,
+      }),
     }),
   }),
 });
