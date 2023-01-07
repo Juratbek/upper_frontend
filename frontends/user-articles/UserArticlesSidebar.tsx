@@ -118,7 +118,7 @@ export const UserArticlesSidebar: FC = () => {
     return (
       <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
         <div>{alert}</div>
-        <Link href='/docs'>
+        <Link href='/docs/write-article_publish_requirements'>
           <a target='_blank' className='link'>
             Yo`riqnomani o`qish
           </a>
