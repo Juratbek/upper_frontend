@@ -53,8 +53,7 @@ export const Form: FC<IFormProps> = () => {
           },
         })}
       />
-
-      {errors.text?.type === 'maxLength' && <Error error={errors.text} />}
+      <Error error={errors.text} />
       <Button loading={isLoading} className='w-100 mx-auto mt-1' color='outline-dark'>
         Izoh qoldirish
       </Button>
