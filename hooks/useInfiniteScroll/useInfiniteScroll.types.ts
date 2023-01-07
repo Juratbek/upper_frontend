@@ -33,4 +33,4 @@ export type TFetch = (
   params?: TOptionalPagingRequest<{ [name: string]: unknown }>,
   config?: IFnConfig,
 ) => Promise<void>;
-export type TFetchNextPage = (params: Record<string, unknown>) => Promise<void>;
+export type TFetchNextPage = (params?: Record<string, unknown>) => Promise<void>;
