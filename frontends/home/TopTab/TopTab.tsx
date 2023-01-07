@@ -12,7 +12,7 @@ import { HOME_TAB_IDS } from '../Home.constants';
 
 export const TopTab: FC = () => {
   const {
-    query: { tab },
+    query: { tab, labelId },
   } = useRouter();
   const [fetchArticles, fetchArticlesRes, fetchNextArticlesPage] =
     useInfiniteScroll<IArticleResult>(useLazyGetTopArticlesQuery, {
@@ -22,8 +22,8 @@ export const TopTab: FC = () => {
   const { list: articles, hasMore } = fetchArticlesRes;
 
   useEffect(() => {
-    if (tab === HOME_TAB_IDS.top && articles.length === 0) fetchArticles();
-  }, [tab]);
+    if (tab === HOME_TAB_IDS.top && articles.length === 0) fetchArticles({ labelId });
+  }, [tab, labelId]);
 
   return (
     <ApiErrorBoundary

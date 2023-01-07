@@ -23,7 +23,16 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
-    getTop: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+    getByLabel: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+      query: (params) => ({
+        url: 'open/get-by-label',
+        params,
+      }),
+    }),
+    getTop: build.query<
+      IPagingResponse<IArticleResult>,
+      TOptionalPagingRequest<{ labelId?: number }>
+    >({
       query: (params) => ({
         url: 'open/top-articles',
         params,
@@ -69,4 +78,5 @@ export const {
   useLikeDislikeMutation,
   useIncrementViewCountMutation,
   useLazySearchQuery: useLazySearchArticleQuery,
+  useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
 } = publishedArticleApi;

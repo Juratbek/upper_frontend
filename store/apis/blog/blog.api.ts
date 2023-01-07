@@ -1,5 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IArticleResult, IBlog, IBlogMedium, ITelegramUser, TOptionalPagingRequest } from 'types';
+import {
+  IArticleResult,
+  IBlog,
+  IBlogMedium,
+  ILabel,
+  ITelegramUser,
+  TOptionalPagingRequest,
+} from 'types';
 import { Authorization } from 'variables';
 
 import { baseQuery } from '../config';
@@ -164,6 +171,9 @@ export const blogApi = createApi({
     getDonatCredentials: build.query<IBlogDonatCredentialsDto, number>({
       query: (id) => `donat-credentials/${id}`,
     }),
+    getCurrentBlogLabels: build.query<ILabel[], void>({
+      query: () => 'current-blog-labels',
+    }),
   }),
 });
 
@@ -172,6 +182,7 @@ export const {
   useRegisterMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
+  useLazyGetCurrentBlogLabelsQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
