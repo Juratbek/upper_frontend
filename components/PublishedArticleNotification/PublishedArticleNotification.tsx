@@ -35,7 +35,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
     <div className={rootClassName}>
       <div className={classes['published-article-notification']} onClick={clickHandler}>
         <Avatar className='me-1' imgUrl={addAmazonUri(author).imgUrl} />
-        <div className={classes.notificationMessage}>
+        <div>
           <div>
             {author?.name}&nbsp;
             <span className={classes.text}>

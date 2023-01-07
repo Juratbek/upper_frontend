@@ -30,12 +30,6 @@
   color: var(--gray);
 }
 
-.notificationMessage {
-  display: flex;
-  flex-direction: column;
-  grid-gap: 0.625rem;
-}
-
 .actions {
   position: absolute;
   top: 50%;
