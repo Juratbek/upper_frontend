@@ -1,5 +1,6 @@
 import { HTMLAttributes, ReactNode } from 'react';
 import { TRtkError } from 'types';
+import { Override } from 'utils';
 
 export interface IRes {
   isLoading?: boolean;
@@ -10,9 +11,13 @@ export interface IRes {
   [name: string]: unknown;
 }
 
-export interface IApiErrorBoundaryProps extends HTMLAttributes<HTMLDivElement> {
-  res: IRes;
-  fallback?: ReactNode;
-  fallbackItemCount?: number;
-  memoizationDependencies?: unknown[];
-}
+export type TApiErrorBoundaryProps = Override<
+  HTMLAttributes<HTMLDivElement>,
+  {
+    res: IRes;
+    fallback?: ReactNode;
+    fallbackItemCount?: number;
+    memoizationDependencies?: unknown[];
+    onError?: (error: TRtkError) => ReactNode | void;
+  }
+>;
