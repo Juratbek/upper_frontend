@@ -25,7 +25,12 @@ export interface IConfig {
   itemUniqueKey?: string;
 }
 
+export interface IFnConfig {
+  reset?: boolean;
+}
+
 export type TFetch = (
   params?: TOptionalPagingRequest<{ [name: string]: unknown }>,
+  config?: IFnConfig,
 ) => Promise<void>;
-export type TFetchNextPage = () => Promise<void>;
+export type TFetchNextPage = (params: Record<string, unknown>) => Promise<void>;

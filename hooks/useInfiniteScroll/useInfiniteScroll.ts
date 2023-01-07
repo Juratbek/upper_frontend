@@ -2,7 +2,14 @@
 import { useState } from 'react';
 import { TOptionalPagingRequest } from 'types';
 
-import { IConfig, IInfiniteScroll, TFetch, TFetchNextPage, THook } from './useInfiniteScroll.types';
+import {
+  IConfig,
+  IFnConfig,
+  IInfiniteScroll,
+  TFetch,
+  TFetchNextPage,
+  THook,
+} from './useInfiniteScroll.types';
 
 export const useInfiniteScroll = <T>(
   hook: THook<T>,
@@ -21,6 +28,7 @@ export const useInfiniteScroll = <T>(
   const setListWithoutDiblicates = (
     newItemsFromApi: T[],
     params: TOptionalPagingRequest | undefined,
+    fnConfig?: IFnConfig,
   ): void => {
     const { itemUniqueKey } = config;
     if (itemUniqueKey) {
@@ -35,7 +43,7 @@ export const useInfiniteScroll = <T>(
 
       if (newItemsFromApi.length !== 0 && newItemsWithoutDublicates.length === 0)
         setTimeout(() => {
-          fetchList({ page: (params?.page || page) + 1 });
+          fetchList({ ...params, page: (params?.page || page) + 1 }, fnConfig);
         }, 0);
     } else {
       const set = new Set(list);
@@ -47,15 +55,18 @@ export const useInfiniteScroll = <T>(
     setList(list);
   };
 
-  const fetchList: TFetch = async (params) => {
+  const fetchList: TFetch = async (params, fnConfig) => {
     list.length === 0 ? setIsLoading(true) : setIsFetching(true);
     setIsSuccess(false);
     setIsError(false);
     try {
       const res = await fetchItems({ ...params, page: params?.page || page }).unwrap();
       const newItemsFromApi = res.list;
-      if (config.removeDublicates) {
-        setListWithoutDiblicates(newItemsFromApi, params);
+      if (fnConfig?.reset) {
+        setPage(0);
+        setList(newItemsFromApi);
+      } else if (config.removeDublicates) {
+        setListWithoutDiblicates(newItemsFromApi, params, fnConfig);
       } else {
         setList((prev) => [...prev, ...newItemsFromApi]);
       }
@@ -74,8 +85,8 @@ export const useInfiniteScroll = <T>(
     }
   };
 
-  const fetchNextPage: TFetchNextPage = async () => {
-    fetchList({ page: page + 1 }).then(() => {
+  const fetchNextPage: TFetchNextPage = async (params) => {
+    fetchList({ ...params, page: page + 1 }).then(() => {
       setPage((prev) => prev + 1);
     });
   };
