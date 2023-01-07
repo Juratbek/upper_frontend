@@ -9,9 +9,9 @@ import classes from './PublishedArticleNotification.module.scss';
 export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate } = props;
   const rootClassName = getClassName(
+    classes.container,
     className,
-    classes['published-article-notification'],
-    status === 'UNREAD' && 'notification--unread',
+    status == 'UNREAD' && 'notification--unread',
   );
 
   const markAsRead = (): void => props.markAsRead?.(props);
@@ -32,15 +32,19 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
   };
 
   return (
-    <div className={classes.container}>
-      <div className={rootClassName} onClick={clickHandler}>
+    <div className={rootClassName}>
+      <div className={classes['published-article-notification']} onClick={clickHandler}>
         <Avatar className='me-1' imgUrl={addAmazonUri(author).imgUrl} />
-        {author?.name}&nbsp;
-        <span className={classes.text}>
-          <strong className='pointer'>&quot;{article.title}&quot;</strong>&nbsp;sarlavhali maqola
-          nashr qildi
-        </span>
-        <span className={classes.date}>{toDateString(createdDate)}</span>
+        <div>
+          <div>
+            {author?.name}&nbsp;
+            <span className={classes.text}>
+              <strong className='pointer'>&quot;{article.title}&quot;</strong>&nbsp;sarlavhali
+              maqola nashr qildi
+            </span>
+          </div>
+          <span className={classes.date}>{toDateString(createdDate)}</span>
+        </div>
       </div>
       <div className={classes.actions}>
         <Actions
