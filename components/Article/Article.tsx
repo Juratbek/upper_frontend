@@ -48,7 +48,7 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
         <a>
           <div className={classes.body}>
             <div className={classes['text-content']}>
-              <h2 className={classes.title}>{title}</h2>
+              <h2 className={classes.title} dangerouslySetInnerHTML={{ __html: title }} />
               <p className={classes.content} ref={contentRef} />
             </div>
             {imgUrl && <ArticleImg imgUrl={imgUrl} />}
