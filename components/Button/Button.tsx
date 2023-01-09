@@ -11,7 +11,7 @@ export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }
     () =>
       getClassName(
         classes.button,
-        props.disabled ? `${classes[`${color}-disabled`]}` : classes[color],
+        props.disabled ? classes[`${color}-disabled`] : classes[color],
         classes[size],
         props.className,
       ),

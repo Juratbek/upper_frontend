@@ -20,20 +20,23 @@ export const Actions: FC<IActinosProps> = ({
 
   const actionsContent = useMemo(() => {
     if (loading) return <Spinner color='light' />;
-    return actions.map(({ label, color = 'black', onClick }, index) => (
-      <Fragment key={index}>
-        <div
-          className={`${classes['popup__item']} ${classes[`popup__item--${color}`]}`}
-          onClick={(): void => {
-            onClick?.();
-            closePopup();
-          }}
-        >
-          {label}
-        </div>
-        {index + 1 !== actions.length && <Divider />}
-      </Fragment>
-    ));
+    return actions.map(({ label, color = 'black', onClick }, index) => {
+      const labelColorClassName = classes[`popup__item--${color}`];
+      return (
+        <Fragment key={index}>
+          <div
+            className={`${classes['popup__item']} ${labelColorClassName}`}
+            onClick={(): void => {
+              onClick?.();
+              closePopup();
+            }}
+          >
+            {label}
+          </div>
+          {index + 1 !== actions.length && <Divider />}
+        </Fragment>
+      );
+    });
   }, [loading]);
 
   return (
