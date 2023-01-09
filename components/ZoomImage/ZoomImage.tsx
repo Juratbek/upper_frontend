@@ -18,7 +18,7 @@ export const ZoomImage: FC<ImageProps> = (props) => {
         setMediumImgUrl(`${props.src}_MEDIUM`);
       };
     }
-  }, [isModalOpen]);
+  }, [isModalOpen, props.src]);
 
   return isModalOpen ? (
     <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>
