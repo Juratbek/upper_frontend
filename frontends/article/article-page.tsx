@@ -4,7 +4,7 @@ import { useAuth } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
-import { openLoginModal } from 'store/states';
+import { openLoginModal, toggleCommentsSidebar } from 'store/states';
 import { addUriToImageBlocks, toDateString } from 'utils';
 import { ICONS } from 'variables/icons';
 
@@ -14,6 +14,7 @@ import { ArticleActions } from './components';
 
 const LikeIcon = ICONS.like;
 const DislikeIcon = ICONS.dislike;
+const CommentIcon = ICONS.comment;
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
@@ -36,6 +37,10 @@ export const Article: FC<IArticleProps> = (props) => {
     likeDislikeArticle({ id, value }).then(() => {
       setLikeDislikeCount((prev) => prev + value - (isLikedOrDisliked || 0));
     });
+  };
+
+  const commentIconClickHandler = (): void => {
+    dispatch(toggleCommentsSidebar());
   };
 
   useEffect(() => {
@@ -87,6 +92,9 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
         <div className={styles.reactions}>
           <div className={styles.reactionButtons}>
+            <span id='comment-icon' className='pointer me-2' onClick={commentIconClickHandler}>
+              <CommentIcon />
+            </span>
             <span
               className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
               onClick={(): void => likeDislike(1)}
