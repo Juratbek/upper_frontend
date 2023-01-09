@@ -31,28 +31,32 @@ export const useInfiniteScroll = <T>(
     fnConfig?: IFnConfig,
   ): void => {
     const { itemUniqueKey } = config;
+
+    // filtering new items for dublicacy by unique key
     if (itemUniqueKey) {
       // @ts-ignore
       const set = new Set(list.map((item) => item[itemUniqueKey]));
+
       const newItemsWithoutDublicates = newItemsFromApi.filter((item) => {
         // @ts-ignore
         const hasInCurrentList = set.has(item[itemUniqueKey]);
-        if (!hasInCurrentList) list.push(item);
         return !hasInCurrentList;
       });
 
-      if (newItemsFromApi.length !== 0 && newItemsWithoutDublicates.length === 0)
+      if (newItemsFromApi.length !== 0 && newItemsWithoutDublicates.length === 0) {
         setTimeout(() => {
           fetchList({ ...params, page: (params?.page || page) + 1 }, fnConfig);
         }, 0);
-    } else {
-      const set = new Set(list);
-      newItems.forEach((item) => {
-        if (!set.has(item)) list.push(item);
-      });
+      } else {
+        setList([...list, ...newItemsWithoutDublicates]);
+      }
+      return;
     }
 
-    setList(list);
+    const set = new Set(list);
+
+    const newItemsWithoutDublicates = newItemsFromApi.filter((item) => !set.has(item));
+    setList([...list, ...newItemsWithoutDublicates]);
   };
 
   const fetchList: TFetch = async (params, fnConfig) => {
@@ -60,8 +64,9 @@ export const useInfiniteScroll = <T>(
     setIsSuccess(false);
     setIsError(false);
     try {
-      const res = await fetchItems({ ...params, page: params?.page ?? page }).unwrap();
-      const newItemsFromApi = res.list;
+      const res = await fetchItems({ ...params, page: params?.page ?? page });
+      const data = res.data || { list: [] };
+      const newItemsFromApi = data.list;
       if (fnConfig?.reset) {
         setPage(0);
         setList(newItemsFromApi);
