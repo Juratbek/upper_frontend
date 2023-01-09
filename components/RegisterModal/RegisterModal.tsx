@@ -39,7 +39,6 @@ export const RegisterModal: FC = () => {
   } = useForm();
   const [createBlog, createBlogResponse] = useRegisterMutation();
   const recaptchaRef = useRef<{ reset: () => void }>(null);
-  const IGNORING_NAMES: Array<string> = ['upper', 'upper admin'];
 
   const closeModal = (): void => {
     dispatch(closeRegisterModal());
@@ -121,13 +120,7 @@ export const RegisterModal: FC = () => {
             <label htmlFor='name' className='d-block mb-1'>
               Blog nomi
             </label>
-            <Input
-              id='name'
-              {...register(name.name, {
-                ...name.options,
-                validate: (value) => !IGNORING_NAMES.includes(value?.toLowerCase()),
-              })}
-            />
+            <Input id='name' {...register(name.name, name.options)} />
             <Error error={errors[name.name]} />
           </div>
           <div className='form-element'>
