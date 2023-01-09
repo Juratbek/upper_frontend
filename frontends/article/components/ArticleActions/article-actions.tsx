@@ -67,7 +67,11 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
         id={'articleActions'}
       >
         <div className={styles.iconsContainer}>
-          <div className={styles.icon} onClick={commentIconClickHandler} id='comment-icon'>
+          <div
+            className={styles.icon}
+            onClick={commentIconClickHandler}
+            id='actions-bar-comment-icon'
+          >
             <CommentIcon />
           </div>
           <div
