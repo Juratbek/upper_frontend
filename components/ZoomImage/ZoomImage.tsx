@@ -4,15 +4,21 @@ import { FC, useEffect, useState } from 'react';
 import imageModalStyles from '../ImageModal/ImageModal.module.scss';
 
 export const ZoomImage: FC<ImageProps> = (props) => {
-  const [mediumImgUrl, setMediumImgUrl] = useState<string>(`${props.src}_MEDIUM`);
+  const [mediumImgUrl, setMediumImgUrl] = useState<string>(props.src as string);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = (): void => setIsModalOpen((prevState) => !prevState);
 
   const errorHandler = (): void => setMediumImgUrl(props.src.toString());
 
   useEffect(() => {
-    setMediumImgUrl(`${props.src}_MEDIUM`);
-  }, [props.src]);
+    if (isModalOpen && props.src == mediumImgUrl) {
+      const image = new window.Image();
+      image.src = `${props.src}_MEDIUM`;
+      image.onload = (): void => {
+        setMediumImgUrl(`${props.src}_MEDIUM`);
+      };
+    }
+  }, [isModalOpen]);
 
   return isModalOpen ? (
     <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>

@@ -14,7 +14,7 @@ export default function ProfilePage(): JSX.Element {
       currentBlog && (
         <Blog
           {...addAmazonUri(currentBlog)}
-          avaratSize='extra-large'
+          avatarSize='extra-large'
           className='p-2 align-items-center'
         />
       )
