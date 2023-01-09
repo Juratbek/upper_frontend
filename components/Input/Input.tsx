@@ -8,7 +8,7 @@ import { TInputProps } from './Input.types';
 const EyeIcon = ICONS.eye;
 const EyeSlashIcon = ICONS.eyeSlash;
 
-export const Input = forwardRef<HTMLInputElement, TInputProps>(function withRef(
+export const Input = forwardRef<HTMLInputElement, TInputProps>(function Component(
   { className, ...props },
   ref,
 ) {

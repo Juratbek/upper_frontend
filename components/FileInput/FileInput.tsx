@@ -6,7 +6,7 @@ import { IFileInputProps } from './FileInput.types';
 
 const id = 'file-input';
 
-export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function withRef(
+export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function Component(
   props,
   ref,
 ) {
