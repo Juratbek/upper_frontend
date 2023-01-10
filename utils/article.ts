@@ -17,12 +17,14 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
   return '';
 };
 
+export const addAmazonBucketUriToArticle = <T extends ISidebarArticle>(article: T): T => {
+  const imgUrl = article.imgUrl;
+  if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;
+  return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
+};
+
 export const addUriToArticleImages = <T extends ISidebarArticle>(articles: T[] = []): T[] =>
-  articles.map((article) => {
-    const imgUrl = article.imgUrl;
-    if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;
-    return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
-  });
+  articles.map(addAmazonBucketUriToArticle);
 
 export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[] =>
   blocks.map((block) => {
