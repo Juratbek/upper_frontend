@@ -42,6 +42,10 @@
   overflow-y: auto;
   overflow-x: hidden;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   @include screenMax576 {
     $width: 23rem;
     background-color: white;
