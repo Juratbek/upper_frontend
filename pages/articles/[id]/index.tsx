@@ -8,7 +8,7 @@ import { useAppDispatch, wrapper } from 'store';
 import { publishedArticleApi, useIncrementViewCountMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
-import { addAmazonUri, convertToHeadProp, get } from 'utils';
+import { addAmazonBucketUriToArticle, addAmazonUri, convertToHeadProp, get } from 'utils';
 import { ICONS } from 'variables';
 
 interface IArticlePageProps {
@@ -55,7 +55,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
 
   return (
     <div className='container'>
-      <Head {...convertToHeadProp(article)} url={fullUrl} />
+      <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
       {isMobile && (
         <>
           <Blog {...addAmazonUri(article.author)} />

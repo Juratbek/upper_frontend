@@ -48,7 +48,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
 
   return (
     <div className='container'>
-      <Head {...convertBlogToHeadProp(blog)} url={fullUrl} />
+      <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
         size='small'
         isOpen={isUnfollowModalOpen}
