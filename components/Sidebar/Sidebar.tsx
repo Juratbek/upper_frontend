@@ -155,7 +155,12 @@ export const Sidebar = (): JSX.Element => {
       <div className={classes.outside} onClick={closeSidebarHandler}>
         <div className={classes.closeIcon}>&#10005;</div>
       </div>
-      <div className={classes.sidebar}>{content}</div>
+      <div
+        className={classes.sidebar}
+        style={{ overflowY: isCommentsSidebarOpen ? 'hidden' : 'auto' }}
+      >
+        {content}
+      </div>
     </div>
   );
 };
