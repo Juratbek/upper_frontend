@@ -44,9 +44,22 @@
   flex-direction: column;
   justify-content: space-between;
 
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+    border-radius: 10rem;
+    border: 2px solid white;
+  }
+
   @include screenMax576 {
     padding: 0 0.5rem;
     padding-top: 91px;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+    }
   }
 }
 
