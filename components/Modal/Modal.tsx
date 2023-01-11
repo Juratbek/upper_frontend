@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { useKeyboard } from 'hooks';
+import { FC, useEffect } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Modal.module.scss';
@@ -11,6 +12,7 @@ export const Modal: FC<IModalProps> = ({
   size = 'medium',
   bodyClassName,
 }) => {
+  const isPressedClose = useKeyboard('Escape');
   const rootClassName = getClassName(classes.modal, isOpen && classes['modal--open']);
   const dialogClassName = getClassName(
     classes['modal-dialog'],
@@ -18,6 +20,9 @@ export const Modal: FC<IModalProps> = ({
     bodyClassName,
   );
 
+  useEffect(() => {
+    isPressedClose && close();
+  }, [isPressedClose]);
   return (
     <div className={rootClassName}>
       <div className={classes['modal-bg']} onClick={close} />
