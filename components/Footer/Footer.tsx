@@ -1,32 +1,20 @@
 import Link from 'next/link';
 import { FC } from 'react';
 
+import { LINKS } from './Footer.constants';
 import styles from './Footer.module.scss';
 
 export const Footer: FC = () => {
   return (
     <div className={styles.footerContainer}>
       <ul className={styles.footerNav}>
-        <li>
-          <Link href='/contacts'>
-            <a>Aloqa</a>
-          </Link>
-        </li>
-        <li>
-          <Link href='/about-us'>
-            <a>Biz haqimizda</a>
-          </Link>
-        </li>
-        <li>
-          <Link href='/docs/write-article_introduction_quick-start'>
-            <a>Qo&apos;llanma</a>
-          </Link>
-        </li>
-        <li>
-          <Link href='/team'>
-            <a>Jamoa</a>
-          </Link>
-        </li>
+        {LINKS.map((link) => (
+          <li key={link.text}>
+            <Link href={link.url}>
+              <a>{link.text}</a>
+            </Link>
+          </li>
+        ))}
       </ul>
       <p className={styles.copyrightText}>
         © {new Date().getFullYear()} UPPER | Barcha huquqlar himoyalangan
