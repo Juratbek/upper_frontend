@@ -15,7 +15,9 @@ export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
           <Avatar imgUrl={author.imgUrl} size='small' />
           <div className='ms-1'>
             <Link href={`/blogs/${author.id}`}>
-              <h5 className='m-0 link pointer'>{author.name}</h5>
+              <a>
+                <h5 className='m-0 link pointer'>{author.name}</h5>
+              </a>
             </Link>
             <p className={`m-0 ${classes.date}`}>{toDateString(date)}</p>
           </div>
