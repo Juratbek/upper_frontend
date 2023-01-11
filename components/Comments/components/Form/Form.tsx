@@ -1,6 +1,7 @@
 import { Button, Error, Textarea } from 'components';
+import { useKeyboard } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
@@ -11,12 +12,16 @@ import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
 
 export const Form: FC<IFormProps> = () => {
+  const isEnterPressed = useKeyboard('Enter');
+  const isCtrlPressed = useKeyboard('Control');
+  const isCommandPressed = useKeyboard('Command');
   const {
     register,
     handleSubmit,
     reset,
     setValue,
     setError,
+    watch,
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
@@ -39,6 +44,10 @@ export const Form: FC<IFormProps> = () => {
   const closeComments = (): void => {
     dispatch(closeCommentsSidebar());
   };
+
+  useEffect(() => {
+    isEnterPressed && (isCtrlPressed || isCommandPressed) && submitHandler({ text: watch('text') });
+  }, [isEnterPressed, isCtrlPressed, isCommandPressed]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
