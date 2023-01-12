@@ -10,6 +10,7 @@ import {
   labelRequestApi,
   notificationApi,
   publishedArticleApi,
+  tutorialApi,
 } from './apis';
 import { apiErrorMiddleware } from './middlewares';
 import authReducer from './states/auth';
@@ -39,6 +40,7 @@ export const store = configureStore({
     [notificationApi.reducerPath]: notificationApi.reducer,
     [docsApi.reducerPath]: docsApi.reducer,
     [labelRequestApi.reducerPath]: labelRequestApi.reducer,
+    [tutorialApi.reducerPath]: tutorialApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -50,6 +52,7 @@ export const store = configureStore({
       notificationApi.middleware,
       docsApi.middleware,
       labelRequestApi.middleware,
+      tutorialApi.middleware,
       apiErrorMiddleware,
     ),
 });
