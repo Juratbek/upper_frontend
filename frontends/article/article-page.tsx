@@ -92,7 +92,11 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
         <div className={styles.reactions}>
           <div className={styles.reactionButtons}>
-            <span id='comment-icon' className='pointer me-2' onClick={commentIconClickHandler}>
+            <span
+              data-action='open-comments'
+              className='pointer me-2'
+              onClick={commentIconClickHandler}
+            >
               <CommentIcon />
             </span>
             <span
