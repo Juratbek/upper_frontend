@@ -14,7 +14,6 @@ import { RemoveArticleModal, RemoveSectionModal, Section } from './components';
 import classes from './TutorialSidebar.module.scss';
 
 const AddFolderIcon = ICONS.addFolder;
-const PlusIcon = ICONS.plus;
 
 export const TutorialSidebar: FC = () => {
   const tutorialName = useAppSelector(getTutorialName);

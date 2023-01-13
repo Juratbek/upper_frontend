@@ -1,2 +1,2 @@
-export * from './create/CreateTutorialPage';
+export * from './TutorialPage';
 export * from './sidebar/TutorialSidebar';
