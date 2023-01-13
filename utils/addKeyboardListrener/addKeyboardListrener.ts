@@ -1,33 +1,29 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// eslint-disable-next-line simple-import-sort/imports
-import { useEffect, useState, KeyboardEvent, KeyboardEventHandler } from 'react';
-
-export const addKeyboardListener = (targetKey: string): boolean => {
-  const [isPressed, setIsPressed] = useState<boolean>(false);
-
-  const downHandler: KeyboardEventHandler = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === targetKey) {
-      setIsPressed(true);
+export const addKeyboardListener = (
+  combinations: { key: string; ctrl: boolean | null },
+  callback: (props: object) => void,
+): { clear: () => void } => {
+  window.addEventListener('keydown', (event) => {
+    if (combinations.ctrl === null) {
+      debugger;
+      if (event.key === combinations.key) {
+        callback(event);
+      }
+    } else if (event.key === combinations.key && event.ctrlKey === combinations.ctrl) {
+      callback(event);
     }
+  });
+  const clear = (): void => {
+    window.removeEventListener('keydown', (event) => {
+      if (combinations.ctrl === null) {
+        if (event.key === combinations.key) {
+          callback(event);
+        }
+      } else if (event.key === combinations.key && event.ctrlKey === combinations.ctrl) {
+        callback(event);
+      }
+    });
   };
-  const upHandler: KeyboardEventHandler = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === targetKey) {
-      setIsPressed(false);
-    }
+  return {
+    clear,
   };
-
-  const eventListener = (): void => {
-    // @ts-ignore
-    window.addEventListener('keydown', downHandler);
-    // @ts-ignore
-    window.addEventListener('keyup', upHandler);
-  };
-
-  useEffect(() => {
-    eventListener();
-    return () => {
-      eventListener();
-    };
-  }, []);
-  return isPressed;
 };

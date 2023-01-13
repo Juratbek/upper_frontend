@@ -12,9 +12,6 @@ import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
 
 export const Form: FC<IFormProps> = () => {
-  const isEnterPressed = addKeyboardListener('Enter');
-  const isCtrlPressed = addKeyboardListener('Control');
-  const isCommandPressed = addKeyboardListener('Command');
   const {
     register,
     handleSubmit,
@@ -46,8 +43,11 @@ export const Form: FC<IFormProps> = () => {
   };
 
   useEffect(() => {
-    isEnterPressed && (isCtrlPressed || isCommandPressed) && submitHandler({ text: watch('text') });
-  }, [isEnterPressed, isCtrlPressed, isCommandPressed]);
+    const listener = addKeyboardListener({ key: 'Enter', ctrl: true }, () =>
+      submitHandler({ text: watch('text') }),
+    );
+    return listener.clear();
+  }, []);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
