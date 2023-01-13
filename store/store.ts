@@ -20,6 +20,7 @@ import logoutModalReducer from './states/logoutModal';
 import readArticleReducer from './states/readArticle';
 import registerModalReducer from './states/registerModal';
 import sidebarReducer from './states/sidebar';
+import tutorialsSidebarReducer from './states/tutorialsSidebar';
 import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
@@ -32,6 +33,7 @@ export const store = configureStore({
     comments: commentsSidebarReducer,
     sidebar: sidebarReducer,
     logoutModal: logoutModalReducer,
+    tutorialsSidebar: tutorialsSidebarReducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,

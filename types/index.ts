@@ -9,3 +9,5 @@ export * from './form';
 export * from './comment';
 export * from './editor';
 export * from './request';
+export * from './tutorial';
+export * from './section';

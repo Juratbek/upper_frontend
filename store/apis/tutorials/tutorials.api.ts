@@ -1,12 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { IPagingResponse, ITutorialMedium, TOptionalPagingRequest } from 'types';
 
 import { baseQuery } from '../config';
 
 export const tutorialApi = createApi({
-  reducerPath: 'totorial',
-  baseQuery: baseQuery('totorial'),
+  reducerPath: 'tutorial',
+  baseQuery: baseQuery('tutorial'),
   endpoints: (build) => ({
-    getAll: build.query({
+    getAll: build.query<IPagingResponse<ITutorialMedium>, TOptionalPagingRequest>({
       query: () => 'list',
     }),
   }),

@@ -1,4 +1,4 @@
-import { ArticlesTab } from 'frontends/articles';
+import { ArticlesTab, TutorialsTab } from 'frontends/articles';
 import { ITabBody, ITabHeader } from 'types';
 
 export const TAB_IDS = {
@@ -19,7 +19,7 @@ export const ARTICLES_TAB_MENUS: ITabHeader[] = [
 
 export const ARTICLES_TABS: ITabBody = {
   [TAB_IDS.articles]: ArticlesTab,
-  [TAB_IDS.tutorials]: ArticlesTab,
+  [TAB_IDS.tutorials]: TutorialsTab,
 };
 
 export const DELETE_CONFIRMATION = 'tasdiqlash';

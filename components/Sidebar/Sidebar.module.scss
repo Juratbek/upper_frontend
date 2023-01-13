@@ -36,6 +36,8 @@
   width: $width;
   min-width: $width;
   position: relative;
+
+  // DO NOT FORGET to change margin styling for other sidebars if you change this line
   padding: 1rem 1.8rem;
   max-height: 100vh;
   height: 100vh;

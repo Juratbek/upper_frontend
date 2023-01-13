@@ -73,6 +73,13 @@ export const SidebarContent: FC = () => {
       <Button onClick={save} className='w-100' loading={createArticleRes.isLoading}>
         Saqlash
       </Button>
+      <Link href='/tutorials/create'>
+        <a>
+          <Button className='w-100 mt-1' color='outline-dark' disabled={createArticleRes.isLoading}>
+            Maqolalar to&apos;plamini yaratish
+          </Button>
+        </a>
+      </Link>
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
       <div>

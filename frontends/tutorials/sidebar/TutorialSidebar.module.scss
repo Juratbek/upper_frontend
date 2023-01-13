@@ -1,0 +1,31 @@
+$icon-container: 30px;
+$icon-size: 20px;
+
+.root {
+  margin: -1rem -1.8rem;
+}
+
+.header {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  width: $icon-container;
+  height: $icon-container;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100rem;
+
+  & svg {
+    width: $icon-size;
+    height: $icon-size;
+  }
+  &:hover {
+    background-color: var(--mediumGray);
+    cursor: pointer;
+  }
+}
