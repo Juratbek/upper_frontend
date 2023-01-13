@@ -11,7 +11,6 @@ export const Modal: FC<IModalProps> = ({
   size = 'medium',
   bodyClassName,
 }) => {
-  const isPressedClose = addKeyboardListener('Escape');
   const rootClassName = getClassName(classes.modal, isOpen && classes['modal--open']);
   const dialogClassName = getClassName(
     classes['modal-dialog'],
@@ -20,8 +19,10 @@ export const Modal: FC<IModalProps> = ({
   );
 
   useEffect(() => {
-    isPressedClose && close();
-  }, [isPressedClose]);
+    const listener = addKeyboardListener({ key: 'Escape', ctrl: null }, () => close());
+    return listener.clear();
+  }, []);
+
   return (
     <div className={rootClassName}>
       <div className={classes['modal-bg']} onClick={close} />

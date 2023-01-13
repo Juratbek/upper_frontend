@@ -4,7 +4,6 @@ export const addKeyboardListener = (
 ): { clear: () => void } => {
   window.addEventListener('keydown', (event) => {
     if (combinations.ctrl === null) {
-      debugger;
       if (event.key === combinations.key) {
         callback(event);
       }
