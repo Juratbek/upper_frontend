@@ -18,7 +18,6 @@ export const useClickOutside = (
         const element = exceptedElementsNodeList[i];
         // @ts-ignore
         const isExceptElement = element?.contains?.(clickedTarget);
-        debugger;
         if (isExceptElement) return;
       }
     }
