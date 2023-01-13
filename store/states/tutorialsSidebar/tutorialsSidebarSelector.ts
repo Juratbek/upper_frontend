@@ -1,9 +1,9 @@
 import { TRootState } from 'store/store';
-import { ISection } from 'types';
+import { ITutorialSection } from 'types';
 
 export const getTutorialName = (store: TRootState): string => store.tutorialsSidebar.name;
 
-export const getTutorialSections = (store: TRootState): ISection[] =>
+export const getTutorialSections = (store: TRootState): ITutorialSection[] =>
   store.tutorialsSidebar.sections;
 
 export const getIsRemoveArticleModalOpen = (store: TRootState): boolean =>

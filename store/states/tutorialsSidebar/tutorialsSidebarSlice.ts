@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ISection } from 'types';
-import { IArticle } from 'types/section';
+import { ITutorialSection } from 'types';
+import { ITutorialArticle } from 'types/section';
 
 interface ICommentSidebarState {
   isRemoveArticleModalOpen: boolean;
-  selectedArticle?: IArticle;
+  selectedArticle?: ITutorialArticle;
   isRemoveSectionModalOpen: boolean;
-  selectedSection?: ISection;
+  selectedSection?: ITutorialSection;
   name: string;
-  sections: ISection[];
+  sections: ITutorialSection[];
 }
 
 const initialState: ICommentSidebarState = {
@@ -25,15 +25,18 @@ const tutorialsSidebarSlice = createSlice({
     changeName(state, { payload }: PayloadAction<string>) {
       state.name = payload;
     },
-    addSection(state, { payload }: PayloadAction<ISection>) {
+    addSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = [...state.sections, payload];
     },
-    editSection(state, { payload }: PayloadAction<ISection>) {
+    editSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = state.sections.map((section) =>
         section.id === payload.id ? payload : section,
       );
     },
-    addArticle(state, { payload }: PayloadAction<{ section: ISection; article: IArticle }>) {
+    addArticle(
+      state,
+      { payload }: PayloadAction<{ section: ITutorialSection; article: ITutorialArticle }>,
+    ) {
       const { section, article } = payload;
       state.sections = state.sections.map((s) => {
         if (s.id !== section.id) return s;
@@ -41,7 +44,10 @@ const tutorialsSidebarSlice = createSlice({
         return { ...section, articles: [...section.articles, article] };
       });
     },
-    changeArticle(state, { payload }: PayloadAction<{ section: ISection; article: IArticle }>) {
+    changeArticle(
+      state,
+      { payload }: PayloadAction<{ section: ITutorialSection; article: ITutorialArticle }>,
+    ) {
       const { section, article } = payload;
       state.sections = state.sections.map((s) => {
         if (s.id !== section.id) {
@@ -58,13 +64,13 @@ const tutorialsSidebarSlice = createSlice({
         return { ...section, articles: editedArticles };
       });
     },
-    setSelectedArticle(state, { payload }: PayloadAction<IArticle | undefined>) {
+    setSelectedArticle(state, { payload }: PayloadAction<ITutorialArticle | undefined>) {
       state.selectedArticle = payload;
     },
     toggleRemoveArticleModal(state) {
       state.isRemoveArticleModalOpen = !state.isRemoveArticleModalOpen;
     },
-    setSelectedSection(state, { payload }: PayloadAction<ISection | undefined>) {
+    setSelectedSection(state, { payload }: PayloadAction<ITutorialSection | undefined>) {
       state.selectedSection = payload;
     },
     toggleRemoveSectionModal(state) {

@@ -1,5 +1,5 @@
-import { ISection } from 'types';
+import { ITutorialSection } from 'types';
 
 export interface ISectionProps {
-  section: ISection;
+  section: ITutorialSection;
 }

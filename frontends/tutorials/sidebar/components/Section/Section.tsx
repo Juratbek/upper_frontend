@@ -9,7 +9,7 @@ import {
   setSelectedSection,
   toggleRemoveSectionModal,
 } from 'store/states';
-import { ISection } from 'types';
+import { ITutorialSection } from 'types';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
@@ -40,7 +40,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   };
 
   const addSectionHandler = (): void => {
-    const newSection: ISection = { id: uuid(), name: "Bo'lim nomi", articles: [] };
+    const newSection: ITutorialSection = { id: uuid(), name: "Bo'lim nomi", articles: [] };
     dispatch(addTutorialSection(newSection));
     closeAddPopover();
   };

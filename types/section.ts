@@ -1,11 +1,11 @@
-export interface IArticle {
+export interface ITutorialArticle {
   id: string;
   name: string;
 }
 
-export interface ISection {
+export interface ITutorialSection {
   id: string;
   name: string;
-  articles: IArticle[];
+  articles: ITutorialArticle[];
   defaultFocused?: boolean;
 }

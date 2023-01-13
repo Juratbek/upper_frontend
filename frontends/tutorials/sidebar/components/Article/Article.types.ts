@@ -1,6 +1,6 @@
-import { IArticle, ISection } from 'types/section';
+import { ITutorialArticle, ITutorialSection } from 'types/section';
 
 export interface IArticleProps {
-  article: IArticle;
-  section: ISection;
+  article: ITutorialArticle;
+  section: ITutorialSection;
 }
