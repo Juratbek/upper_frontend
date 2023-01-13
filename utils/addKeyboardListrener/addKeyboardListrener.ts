@@ -2,7 +2,7 @@
 // eslint-disable-next-line simple-import-sort/imports
 import { useEffect, useState, KeyboardEvent, KeyboardEventHandler } from 'react';
 
-export const useKeyboard = (targetKey: string): boolean => {
+export const addKeyboardListener = (targetKey: string): boolean => {
   const [isPressed, setIsPressed] = useState<boolean>(false);
 
   const downHandler: KeyboardEventHandler = (event: KeyboardEvent<HTMLElement>) => {

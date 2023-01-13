@@ -1,5 +1,4 @@
 import { Button, Error, Textarea } from 'components';
-import { useKeyboard } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -7,14 +6,15 @@ import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
 import { closeCommentsSidebar } from 'store/states';
 import { TSubmitFormEvent } from 'types';
+import { addKeyboardListener } from 'utils';
 
 import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
 
 export const Form: FC<IFormProps> = () => {
-  const isEnterPressed = useKeyboard('Enter');
-  const isCtrlPressed = useKeyboard('Control');
-  const isCommandPressed = useKeyboard('Command');
+  const isEnterPressed = addKeyboardListener('Enter');
+  const isCtrlPressed = addKeyboardListener('Control');
+  const isCommandPressed = addKeyboardListener('Command');
   const {
     register,
     handleSubmit,

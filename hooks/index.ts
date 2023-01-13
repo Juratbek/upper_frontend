@@ -9,4 +9,3 @@ export * from './useClipboard/useClipboard';
 export * from './useModal/useModal';
 export * from './useDevice/useDevice';
 export * from './useInfiniteScroll/useInfiniteScroll';
-export * from './useKeyboard/useKeyboard';
