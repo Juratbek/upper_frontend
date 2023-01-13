@@ -4,10 +4,12 @@ import { FC, useState } from 'react';
 import { useAppDispatch } from 'store';
 import {
   addTutorialArticle,
+  addTutorialSection,
   editTutorialSection,
   setSelectedSection,
   toggleRemoveSectionModal,
 } from 'store/states';
+import { ISection } from 'types';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
@@ -32,7 +34,14 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   };
 
   const addArticleHandler = (): void => {
-    dispatch(addTutorialArticle({ section, article: { id: uuid(5), name: 'Maqola nomi' } }));
+    const newArticle = { section, article: { id: uuid(5), name: 'Maqola nomi' } };
+    dispatch(addTutorialArticle(newArticle));
+    closeAddPopover();
+  };
+
+  const addSectionHandler = (): void => {
+    const newSection: ISection = { id: uuid(), name: "Bo'lim nomi", articles: [] };
+    dispatch(addTutorialSection(newSection));
     closeAddPopover();
   };
 
@@ -46,7 +55,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
     >
       <ul>
         <li onClick={addArticleHandler}>Maqola qo&apos;shish</li>
-        <li>Bo&apos;lim qo&apos;shish</li>
+        <li onClick={addSectionHandler}>Bo&apos;lim qo&apos;shish</li>
       </ul>
     </div>
   );
@@ -54,11 +63,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   return (
     <div>
       <div className={classes.header}>
-        <ChangeableText
-          value={section.name}
-          onSubmit={changeSectionName}
-          defaultFocused={section.defaultFocused}
-        />
+        <ChangeableText value={section.name} onSubmit={changeSectionName} defaultFocused />
         <div className={classes.actions}>
           <span
             className={classes.icon}
@@ -80,7 +85,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
       <ul className={classes.articles}>
         {section.articles.map((article) => (
           <li key={article.id}>
-            <Article article={article} sectionId={section.id} />
+            <Article article={article} section={section} />
           </li>
         ))}
       </ul>

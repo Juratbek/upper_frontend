@@ -1,6 +1,6 @@
-import { IArticle } from 'types/section';
+import { IArticle, ISection } from 'types/section';
 
 export interface IArticleProps {
   article: IArticle;
-  sectionId: string;
+  section: ISection;
 }

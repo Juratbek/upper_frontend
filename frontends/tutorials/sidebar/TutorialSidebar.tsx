@@ -22,7 +22,7 @@ export const TutorialSidebar: FC = () => {
   const dispatch = useAppDispatch();
 
   const addSectionHandler = (): void => {
-    const newSection = { id: uuid(), name: "Bo'lim nomi", defaultFocused: true, articles: [] };
+    const newSection = { id: uuid(), name: "Bo'lim nomi", articles: [] };
     dispatch(addTutorialSection(newSection));
   };
 

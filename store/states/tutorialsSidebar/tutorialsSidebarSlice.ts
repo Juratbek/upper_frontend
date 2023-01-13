@@ -41,11 +41,11 @@ const tutorialsSidebarSlice = createSlice({
         return { ...section, articles: [...section.articles, article] };
       });
     },
-    changeArticle(state, { payload }: PayloadAction<{ sectionId: string; article: IArticle }>) {
-      const { sectionId, article } = payload;
-      state.sections = state.sections.map((section) => {
-        if (section.id !== sectionId) {
-          return section;
+    changeArticle(state, { payload }: PayloadAction<{ section: ISection; article: IArticle }>) {
+      const { section, article } = payload;
+      state.sections = state.sections.map((s) => {
+        if (s.id !== section.id) {
+          return s;
         }
 
         const editedArticles = section.articles.map((a) => {
