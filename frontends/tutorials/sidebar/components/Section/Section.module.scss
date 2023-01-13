@@ -11,13 +11,14 @@ $icon-size: 16px;
     right: 0.5rem;
     transform: translateY(-50%);
     display: none;
+    gap: 0.3rem;
   }
 
   &:hover {
     background-color: var(--lightGray);
 
     & .actions {
-      display: block;
+      display: flex;
     }
   }
 }
@@ -47,6 +48,8 @@ $icon-size: 16px;
   bottom: 0;
   right: 0;
   border: 0.5px solid gray;
+  display: none;
+  z-index: 2;
 
   & ul {
     list-style: none;
@@ -62,6 +65,10 @@ $icon-size: 16px;
       }
     }
   }
+}
+
+.open {
+  display: block;
 }
 
 .articles {

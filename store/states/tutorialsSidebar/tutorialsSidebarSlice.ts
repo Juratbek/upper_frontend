@@ -3,11 +3,17 @@ import { ISection } from 'types';
 import { IArticle } from 'types/section';
 
 interface ICommentSidebarState {
+  isRemoveArticleModalOpen: boolean;
+  selectedArticle?: IArticle;
+  isRemoveSectionModalOpen: boolean;
+  selectedSection?: ISection;
   name: string;
   sections: ISection[];
 }
 
 const initialState: ICommentSidebarState = {
+  isRemoveArticleModalOpen: false,
+  isRemoveSectionModalOpen: false,
   name: "To'plam nomi",
   sections: [],
 };
@@ -27,7 +33,15 @@ const tutorialsSidebarSlice = createSlice({
         section.id === payload.id ? payload : section,
       );
     },
-    changeArticleName(state, { payload }: PayloadAction<{ sectionId: string; article: IArticle }>) {
+    addArticle(state, { payload }: PayloadAction<{ section: ISection; article: IArticle }>) {
+      const { section, article } = payload;
+      state.sections = state.sections.map((s) => {
+        if (s.id !== section.id) return s;
+
+        return { ...section, articles: [...section.articles, article] };
+      });
+    },
+    changeArticle(state, { payload }: PayloadAction<{ sectionId: string; article: IArticle }>) {
       const { sectionId, article } = payload;
       state.sections = state.sections.map((section) => {
         if (section.id !== sectionId) {
@@ -44,6 +58,18 @@ const tutorialsSidebarSlice = createSlice({
         return { ...section, articles: editedArticles };
       });
     },
+    setSelectedArticle(state, { payload }: PayloadAction<IArticle | undefined>) {
+      state.selectedArticle = payload;
+    },
+    toggleRemoveArticleModal(state) {
+      state.isRemoveArticleModalOpen = !state.isRemoveArticleModalOpen;
+    },
+    setSelectedSection(state, { payload }: PayloadAction<ISection | undefined>) {
+      state.selectedSection = payload;
+    },
+    toggleRemoveSectionModal(state) {
+      state.isRemoveSectionModalOpen = !state.isRemoveSectionModalOpen;
+    },
   },
 });
 
@@ -51,6 +77,11 @@ export const {
   changeName: changeTutorialName,
   addSection: addTutorialSection,
   editSection: editTutorialSection,
-  changeArticleName: changeTutorialArticleName,
+  addArticle: addTutorialArticle,
+  changeArticle: changeTutorialArticle,
+  toggleRemoveArticleModal,
+  toggleRemoveSectionModal,
+  setSelectedArticle,
+  setSelectedSection,
 } = tutorialsSidebarSlice.actions;
 export default tutorialsSidebarSlice.reducer;

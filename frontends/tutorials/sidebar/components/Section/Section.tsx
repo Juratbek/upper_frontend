@@ -1,7 +1,13 @@
 import { ChangeableText } from 'components';
+import { useClickOutside } from 'hooks';
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { editTutorialSection } from 'store/states';
+import { useAppDispatch } from 'store';
+import {
+  addTutorialArticle,
+  editTutorialSection,
+  setSelectedSection,
+  toggleRemoveSectionModal,
+} from 'store/states';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
@@ -13,22 +19,37 @@ const PlusIcon = ICONS.plus;
 
 export const Section: FC<ISectionProps> = ({ section }) => {
   const [isAddPopoverOpen, setIsAddPopoverOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const openAddItemsPopover = (): void => {
-    setIsAddPopoverOpen(true);
+  const closeAddPopover = (): void => setIsAddPopoverOpen(false);
+  const [popoverRef] = useClickOutside(closeAddPopover, '[data-action="open-add-popover"]');
+
+  const openAddItemsPopover = (): void => setIsAddPopoverOpen(true);
+
+  const openRemoveArticleModal = (): void => {
+    dispatch(setSelectedSection(section));
+    dispatch(toggleRemoveSectionModal());
   };
 
-  const addArticleHandler = (): unknown =>
-    dispatch(
-      editTutorialSection({
-        ...section,
-        articles: [...section.articles, { id: uuid(5), name: 'Yangi maqola' }],
-      }),
-    );
+  const addArticleHandler = (): void => {
+    dispatch(addTutorialArticle({ section, article: { id: uuid(5), name: 'Maqola nomi' } }));
+    closeAddPopover();
+  };
 
   const changeSectionName = (name: string): unknown =>
     dispatch(editTutorialSection({ ...section, name }));
+
+  const addPopover = (
+    <div
+      ref={popoverRef}
+      className={`${classes['add-popover']} ${isAddPopoverOpen && classes.open}`}
+    >
+      <ul>
+        <li onClick={addArticleHandler}>Maqola qo&apos;shish</li>
+        <li>Bo&apos;lim qo&apos;shish</li>
+      </ul>
+    </div>
+  );
 
   return (
     <div>
@@ -39,16 +60,22 @@ export const Section: FC<ISectionProps> = ({ section }) => {
           defaultFocused={section.defaultFocused}
         />
         <div className={classes.actions}>
-          <span className={classes.icon} onClick={openAddItemsPopover}>
+          <span
+            className={classes.icon}
+            style={{ transform: 'rotate(45deg)' }}
+            onClick={openRemoveArticleModal}
+          >
             <PlusIcon />
           </span>
-          <div className={`${classes['add-popover']} ${isAddPopoverOpen && classes.open}`}>
-            <ul>
-              <li onClick={addArticleHandler}>Maqola qo&apos;shish</li>
-              <li>Bo&apos;lim qo&apos;shish</li>
-            </ul>
-          </div>
+          <span
+            className={classes.icon}
+            data-action='open-add-popover'
+            onClick={openAddItemsPopover}
+          >
+            <PlusIcon />
+          </span>
         </div>
+        {addPopover}
       </div>
       <ul className={classes.articles}>
         {section.articles.map((article) => (
