@@ -4,6 +4,7 @@ import Script from 'next/script';
 export default function Document(): JSX.Element {
   return (
     <Html>
+      e3e
       <Head>
         <link rel='icon' href='/logo.svg' />
         <Script strategy='beforeInteractive' src='https://telegram.org/js/telegram-widget.js?19' />
