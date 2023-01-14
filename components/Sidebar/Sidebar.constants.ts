@@ -8,7 +8,7 @@ const CONTENT_URLS = {
   writeArticle: '/write-article',
   userArticles: '/user/articles/[id]',
   docs: '/docs*',
-  createTutorial: '/tutorials/create',
+  createTutorial: '/tutorials*',
 };
 
 export const ADDITIONAL_CONTENT_URLS = {

@@ -73,7 +73,7 @@ export const SidebarContent: FC = () => {
       <Button onClick={save} className='w-100' loading={createArticleRes.isLoading}>
         Saqlash
       </Button>
-      <Link href='/tutorials/create'>
+      <Link href='/tutorials/1'>
         <a>
           <Button className='w-100 mt-1' color='outline-dark' disabled={createArticleRes.isLoading}>
             Maqolalar to&apos;plamini yaratish

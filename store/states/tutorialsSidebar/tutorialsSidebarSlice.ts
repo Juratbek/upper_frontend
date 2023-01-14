@@ -15,7 +15,18 @@ const initialState: ICommentSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
   name: "To'plam nomi",
-  sections: [],
+  sections: [
+    {
+      id: '1',
+      name: "Bo'lim nomi",
+      articles: [
+        {
+          id: '2',
+          name: 'Maqola nomi',
+        },
+      ],
+    },
+  ],
 };
 
 const tutorialsSidebarSlice = createSlice({
