@@ -44,7 +44,7 @@
     "sass": "^1.53.0"
   },
   "devDependencies": {
-    "@calumk/editorjs-codeflask": "^1.0.9",
+    "@samandar.boymurodov/editorjs-codeflask":"1.0.10",
     "@editorjs/delimiter": "^1.2.0",
     "@editorjs/inline-code": "^1.3.1",
     "@editorjs/quote": "^2.4.0",
