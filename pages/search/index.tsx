@@ -12,12 +12,12 @@ const SearchPage: NextPage = () => {
   };
 
   return (
-    <main className='container'>
+    <div className='container'>
       <h1 className='mb-1'>Qidirish</h1>
       <SearchInput className={`${classes['search-input']} mb-2`} onDebounce={search} />
       <TabsHeader tabs={SEARCH_TAB_MENUS} />
       <TabBody tabs={SEARCH_TABS} />
-    </main>
+    </div>
   );
 };
 

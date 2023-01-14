@@ -48,38 +48,41 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
         <a>
           <div className={classes.body}>
             <div className={classes['text-content']}>
-              <h2 className={classes.title}>{title}</h2>
+              <h2 className={classes.title} dangerouslySetInnerHTML={{ __html: title }} />
               <p className={classes.content} ref={contentRef} />
             </div>
             {imgUrl && <ArticleImg imgUrl={imgUrl} />}
           </div>
+          <div className={classes.footer}>
+            <div className={classes.stats}>
+              <span>{renderDate()}</span>
+              {viewCount > 0 && (
+                <>
+                  &nbsp; &nbsp;
+                  <span>
+                    <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
+                  </span>
+                </>
+              )}
+            </div>
+            <div style={{ textAlign: 'end' }}>
+              {labels?.map((label) => (
+                <span
+                  key={label.id}
+                  style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
+                >
+                  <Label>{label.name}</Label>
+                </span>
+              ))}
+            </div>
+          </div>
+          {author && (
+            <div className={classes.footer} style={{ marginTop: '.5rem' }}>
+              <Author {...addAmazonUri(author)} />
+            </div>
+          )}
         </a>
       </Link>
-      <div className={classes.footer}>
-        <div className={classes.stats}>
-          <span>{renderDate()}</span>
-          {viewCount > 0 && (
-            <>
-              &nbsp; &nbsp;
-              <span>
-                <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
-              </span>
-            </>
-          )}
-        </div>
-        <div>
-          {labels?.map((label) => (
-            <span key={label.id} style={{ marginLeft: '.3rem' }}>
-              <Label>{label.name}</Label>
-            </span>
-          ))}
-        </div>
-      </div>
-      {author && (
-        <div className={classes.footer} style={{ marginTop: '.5rem' }}>
-          <Author {...addAmazonUri(author)} />
-        </div>
-      )}
     </div>
   );
 };

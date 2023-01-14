@@ -125,7 +125,7 @@ export const RegisterModal: FC = () => {
           </div>
           <div className='form-element'>
             <label htmlFor='bio' className='d-block mb-1'>
-              Bio (ihtiyoriy)
+              Bio (ixtiyoriy)
             </label>
             <Textarea id='bio' {...register(bio.name, bio.options)} />
             <Error error={errors[bio.name]} />
@@ -141,7 +141,7 @@ export const RegisterModal: FC = () => {
           </div>
           <div className='form-element'>
             <label htmlFor='email' className='d-block mb-1'>
-              Elektron pochta (ihtiyoriy)
+              Elektron pochta (ixtiyoriy)
             </label>
             <Input
               id='email'

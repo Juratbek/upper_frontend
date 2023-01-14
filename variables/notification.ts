@@ -1,5 +1,6 @@
 import { CommentNotification } from 'components/CommentNotification/CommentNotification';
 import { LikeNotification } from 'components/LikeNotification/LikeNotification';
+import { MessageNotification } from 'components/MessageNotification/MessageNotification';
 import { PublishedArticleNotification } from 'components/PublishedArticleNotification/PublishedArticleNotification';
 import { NotificationsTab } from 'frontends/notifications';
 import {
@@ -53,6 +54,7 @@ export const NOTIFICATIONS: Record<TNotification, TNotificationComponent> = {
   ARTICLE_PUBLISHED: PublishedArticleNotification,
   COMMENT: CommentNotification,
   LIKE: LikeNotification,
+  MESSAGE: MessageNotification,
 };
 
 export const NOTIFICATION_STATUSES: Record<TNotificationStatus, TNotificationStatus> = {

@@ -1,4 +1,4 @@
-import { Button, Textarea } from 'components';
+import { Button, Error, Textarea } from 'components';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
@@ -45,11 +45,15 @@ export const Form: FC<IFormProps> = () => {
       <Textarea
         placeholder='Izohingizni bu yerga yozing'
         color='transparent'
-        {...register('text', { required: true, maxLength: 150 })}
+        {...register('text', {
+          required: true,
+          maxLength: {
+            value: 200,
+            message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
+          },
+        })}
       />
-      {errors.text && (
-        <div className='text-start text-danger'>{JSON.stringify(errors.text.message)}</div>
-      )}
+      <Error error={errors.text} />
       <Button loading={isLoading} className='w-100 mx-auto mt-1' color='outline-dark'>
         Izoh qoldirish
       </Button>

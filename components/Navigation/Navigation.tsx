@@ -71,7 +71,7 @@ export const Navigation = (): JSX.Element => {
     <div className={classes.navigation}>
       <LogoutModal />
       <div className={`${classes.navigation} ${classes.positioned}`}>
-        <Link href='/about-us'>
+        <Link href='/'>
           <a className={classes.logo}>
             <Logo />
           </a>

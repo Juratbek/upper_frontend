@@ -45,6 +45,8 @@ export const NotificationsTab: FC = () => {
 
     return notifications.map((notification, index) => {
       const Notification = NOTIFICATIONS[notification.type];
+
+      if (!Notification) return <></>;
       return (
         <div key={notification.id}>
           <Notification

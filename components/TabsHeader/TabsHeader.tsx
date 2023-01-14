@@ -28,11 +28,11 @@ export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
 
   return (
     <div className={classes.tabs}>
-      {getTabs().map((tab, index) => (
+      {getTabs().map((tab) => (
         <span
           onClick={(): void => changeActiveTab(tab.id)}
           className={`${classes.tab} ${tab.active && classes.active}`}
-          key={index}
+          key={tab.id}
         >
           {tab.name}
         </span>

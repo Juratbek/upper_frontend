@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
+export type TButtonSize = 'small' | 'medium';
+
 export type TButtonColor =
   | 'dark'
   | 'outline-dark'
@@ -13,4 +15,5 @@ export type TButtonColor =
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: TButtonColor;
   loading?: boolean;
+  size?: TButtonSize;
 }

@@ -3,7 +3,7 @@ import { LegacyRef, MouseEvent, MouseEventHandler, useEffect, useRef, useState }
 
 export const useClickOutside = (
   callBack?: () => void,
-  exceptElementId?: string,
+  selector?: string,
 ): [LegacyRef<HTMLDivElement>, boolean] => {
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -11,16 +11,22 @@ export const useClickOutside = (
   const clickHandler: MouseEventHandler = (event: MouseEvent<HTMLElement>) => {
     const clickedTarget = event.target;
     const currentTarget = ref.current;
+
+    if (selector) {
+      const exceptedElementsNodeList = document.querySelectorAll(selector);
+      for (const i in exceptedElementsNodeList) {
+        const element = exceptedElementsNodeList[i];
+        // @ts-ignore
+        const isExceptElement = element?.contains?.(clickedTarget);
+        if (isExceptElement) return;
+      }
+    }
+
     // @ts-ignore
-    const doesElementContain = currentTarget?.contains(clickedTarget);
+    const doesElementContain = currentTarget?.contains?.(clickedTarget);
     setIsClickedOutside(!doesElementContain);
     if (doesElementContain) return;
-    if (exceptElementId) {
-      const exceptElement = document.getElementById(exceptElementId);
-      // @ts-ignore
-      const isExceptElement = exceptElement?.contains(clickedTarget);
-      if (isExceptElement) return;
-    }
+
     callBack?.();
   };
 

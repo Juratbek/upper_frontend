@@ -48,7 +48,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
 
   return (
     <div className='container'>
-      <Head {...convertBlogToHeadProp(blog)} url={fullUrl} />
+      <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
         size='small'
         isOpen={isUnfollowModalOpen}
@@ -71,7 +71,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
       >
         {blog && (
           <>
-            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' className='mb-2 flex-1' />
+            <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
             {!blog.isCurrentBlog && (
               <>
                 {isFollowed ? (

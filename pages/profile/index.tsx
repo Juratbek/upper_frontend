@@ -14,7 +14,7 @@ export default function ProfilePage(): JSX.Element {
       currentBlog && (
         <Blog
           {...addAmazonUri(currentBlog)}
-          avaratSize='extra-large'
+          avatarSize='extra-large'
           className='p-2 align-items-center'
         />
       )
@@ -22,11 +22,11 @@ export default function ProfilePage(): JSX.Element {
   }, [fetchCurrentBlogRes]);
 
   return (
-    <main className='container'>
+    <div className='container'>
       {currentBlog}
       <TabsHeader tabs={PROFILE_TAB_MENUS} />
       <TabBody tabs={PROFILE_TABS} />
-    </main>
+    </div>
   );
 }
 

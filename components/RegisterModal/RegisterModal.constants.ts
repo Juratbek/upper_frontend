@@ -3,6 +3,8 @@ import { validatePassword } from 'utils';
 
 import { TField } from './RegisterModal.types';
 
+const PROHIBITED_NAMES: Array<string> = ['upper', 'upper admin'];
+
 // form fields for register form, it is used all over the project
 export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
   name: {
@@ -13,6 +15,8 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
         value: 70,
         message: 'Blog nomi o`ta uzun',
       },
+      validate: (value) =>
+        !PROHIBITED_NAMES.includes(value?.toLowerCase()) || 'Taqiqlangan blog nomi',
     },
   },
   email: {

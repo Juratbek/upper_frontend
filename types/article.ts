@@ -27,7 +27,7 @@ export interface IArticleResult extends IArticleSmall {
 
 export interface IArticle extends IArticleSmall {
   blocks: OutputBlockData[];
-  imgUrl?: string;
+  imgUrl: string;
   author: IBlogSmall;
   labels: ILabel[];
   publishedDate?: string;

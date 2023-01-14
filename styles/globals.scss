@@ -43,6 +43,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   &::-webkit-scrollbar {
     width: 0.7rem;
   }
@@ -55,6 +56,7 @@
   @include screenMax576 {
     padding: 0 0.5rem;
     padding-top: 91px;
+
     &::-webkit-scrollbar {
       width: 0.5rem;
     }

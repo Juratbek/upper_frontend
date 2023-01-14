@@ -34,23 +34,27 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>
       </Head>
-      <Script
-        strategy='afterInteractive'
-        src='https://www.googletagmanager.com/gtag/js?id=G-6XYX2X34TV'
-      />
-      <Script
-        id='google-analytics'
-        strategy='afterInteractive'
-        dangerouslySetInnerHTML={{
-          __html: `
+      {process.env.NODE_ENV === 'production' && (
+        <>
+          <Script
+            strategy='afterInteractive'
+            src='https://www.googletagmanager.com/gtag/js?id=G-6XYX2X34TV'
+          />
+          <Script
+            id='google-analytics'
+            strategy='afterInteractive'
+            dangerouslySetInnerHTML={{
+              __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
             
               gtag('config', 'G-6XYX2X34TV');
             `,
-        }}
-      />
+            }}
+          />
+        </>
+      )}
       <div className='app'>
         <Navigation />
         <DynamicLoginModal />
