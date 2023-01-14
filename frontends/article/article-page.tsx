@@ -59,7 +59,7 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [isAuthenticated, id]);
 
   useEffect(() => {
-    editorInstance?.render({ blocks });
+    editorInstance?.render({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
 
   const article = useMemo(
