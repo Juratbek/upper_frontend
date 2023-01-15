@@ -1,11 +1,14 @@
 import { ChangeableText } from 'components';
 import { useClickOutside } from 'hooks';
+import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import { useAppDispatch } from 'store';
+import { useAppDispatch, useAppSelector } from 'store';
+import { useAddTutorialSectionMutation, useEditTutorialSectionMutation } from 'store/apis';
 import {
   addTutorialArticle,
-  addTutorialSection,
+  addTutorialSectionByTarget,
   editTutorialSection,
+  getTutorialSections,
   setSelectedSection,
   toggleRemoveSectionModal,
 } from 'store/states';
@@ -21,6 +24,12 @@ const PlusIcon = ICONS.plus;
 
 export const Section: FC<ISectionProps> = ({ section }) => {
   const [isAddPopoverOpen, setIsAddPopoverOpen] = useState(false);
+  const sections = useAppSelector(getTutorialSections);
+  const [addSection, addSectionRes] = useAddTutorialSectionMutation();
+  const [editSection, editSectionRes] = useEditTutorialSectionMutation();
+  const {
+    query: { id },
+  } = useRouter();
   const dispatch = useAppDispatch();
 
   const closeAddPopover = (): void => setIsAddPopoverOpen(false);
@@ -40,13 +49,43 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   };
 
   const addSectionHandler = (): void => {
-    const newSection: ITutorialSection = { id: uuid(), name: "Bo'lim nomi", articles: [] };
-    dispatch(addTutorialSection(newSection));
+    const newSection: ITutorialSection = {
+      id: uuid(),
+      name: "Bo'lim nomi",
+      articles: [],
+      defaultFocused: true,
+      new: true,
+    };
+    dispatch(addTutorialSectionByTarget({ newSection, targetSection: section }));
     closeAddPopover();
   };
 
-  const changeSectionName = (name: string): unknown =>
-    dispatch(editTutorialSection({ ...section, name }));
+  const submitHandler = async (name: string): Promise<void> => {
+    if (!id) return Promise.reject();
+
+    if (section.new) {
+      const targetSection = sections.reduce<ITutorialSection | undefined>((target, s, index) => {
+        if (s.id === section.id && index > 1 && index !== sections.length - 1)
+          return sections[index - 1];
+
+        return target;
+      }, undefined);
+
+      const res = await addSection({
+        tutorialId: +id,
+        newSection: { ...section, name },
+        targetSection: targetSection,
+      }).unwrap();
+      dispatch(editTutorialSection(res));
+      return Promise.resolve();
+    }
+
+    const res = await editSection({
+      tutorialId: +id,
+      section: { ...section, name },
+    }).unwrap();
+    dispatch(editTutorialSection(res));
+  };
 
   const addPopover = (
     <div
@@ -54,8 +93,8 @@ export const Section: FC<ISectionProps> = ({ section }) => {
       className={`${classes['add-popover']} ${isAddPopoverOpen && classes.open}`}
     >
       <ul>
-        <li onClick={addArticleHandler}>Maqola qo&apos;shish</li>
         <li onClick={addSectionHandler}>Bo&apos;lim qo&apos;shish</li>
+        <li onClick={addArticleHandler}>Maqola qo&apos;shish</li>
       </ul>
     </div>
   );
@@ -63,7 +102,12 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   return (
     <div>
       <div className={classes.header}>
-        <ChangeableText value={section.name} onSubmit={changeSectionName} defaultFocused />
+        <ChangeableText
+          value={section.name}
+          onSubmit={submitHandler}
+          defaultFocused={section.defaultFocused}
+          loading={addSectionRes.isLoading || editSectionRes.isLoading}
+        />
         <div className={classes.actions}>
           <span
             className={classes.icon}

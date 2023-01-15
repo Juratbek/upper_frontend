@@ -8,4 +8,5 @@ export interface ITutorialSection {
   name: string;
   articles: ITutorialArticle[];
   defaultFocused?: boolean;
+  new?: boolean;
 }

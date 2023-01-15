@@ -1,3 +1,4 @@
+import { Spinner } from 'components';
 import { FC, FocusEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import classes from './ChangeableText.module.scss';
@@ -25,10 +26,15 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
   };
   const blurChangeHandler = (event: FocusEvent<HTMLInputElement>): void => {
     const value = event.target.value;
+    if (value.length < 1) {
+      setIsBeingChanged(false);
+      return;
+    }
     submitHandler(value);
   };
 
   const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>): void => {
+    if (value.length < 1) return;
     if (event.key === 'Enter') {
       const target = event.target as HTMLInputElement;
       submitHandler(target.value);
@@ -44,8 +50,16 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
           defaultValue={value}
           hidden={!isBeingChanged}
           onKeyDown={keyDownHandler}
+          required
+          disabled={props.loading}
+          className={classes.input}
         />
       </div>
+      {props.loading && (
+        <span className={classes.spinner}>
+          <Spinner color='light' />
+        </span>
+      )}
       <p
         className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
         onDoubleClick={doubleClickhandler}

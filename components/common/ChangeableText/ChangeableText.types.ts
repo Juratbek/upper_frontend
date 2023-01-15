@@ -5,4 +5,6 @@ export interface IChangeableTextProps {
   onSubmit?: (value: string) => void;
   defaultFocused?: boolean;
   className?: string;
+  loading?: boolean;
+  placeholder?: string;
 }

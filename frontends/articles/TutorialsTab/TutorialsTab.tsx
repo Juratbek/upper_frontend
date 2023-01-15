@@ -14,8 +14,6 @@ import { useLazyGetAllTutorialsQuery } from 'store/apis';
 import { TArticleStatus } from 'types';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
 
-import { MOCK_TUTORIALS } from './TutorialsTab.constants';
-
 export const TutorialsTab: FC = () => {
   const [fetchTutorials, fetchTutorialsRes] = useLazyGetAllTutorialsQuery();
   const {
@@ -44,7 +42,7 @@ export const TutorialsTab: FC = () => {
         fallbackItemCount={ARTICLES_SKELETON_COUNT}
         className='tab'
       >
-        {/* {fetchTutorialsRes.data?.list.length === 0 && (
+        {fetchTutorialsRes.data?.list.length === 0 && (
           <div className='text-center mt-3'>
             <h2>To&apos;plamlar mavjud emas</h2>
             <Link href='/tutorials/create'>
@@ -53,8 +51,8 @@ export const TutorialsTab: FC = () => {
               </a>
             </Link>
           </div>
-        )} */}
-        {MOCK_TUTORIALS.map((tutorial) => {
+        )}
+        {fetchTutorialsRes.data?.list.map((tutorial) => {
           return (
             <Fragment key={tutorial.id}>
               <Tutorial {...tutorial} className='my-1 pointer' />

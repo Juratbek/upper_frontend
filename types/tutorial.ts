@@ -1,4 +1,5 @@
 import { ILabel } from './label';
+import { ITutorialSection } from './section';
 
 export type TTutorialStatus = 'PUBLISHED' | 'SAVED';
 
@@ -12,5 +13,5 @@ export interface ITutorialMedium {
 }
 
 export interface ITutorial extends ITutorialMedium {
-  list: unknown;
+  sections: ITutorialSection[];
 }

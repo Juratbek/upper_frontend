@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITutorialSection } from 'types';
+import { ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
+
+import { IAddSectionByTargetPayloadAction } from './tutorialsSidebarSlice.types';
 
 interface ICommentSidebarState {
   isRemoveArticleModalOpen: boolean;
@@ -14,19 +16,8 @@ interface ICommentSidebarState {
 const initialState: ICommentSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
-  name: "To'plam nomi",
-  sections: [
-    {
-      id: '1',
-      name: "Bo'lim nomi",
-      articles: [
-        {
-          id: '2',
-          name: 'Maqola nomi',
-        },
-      ],
-    },
-  ],
+  name: '',
+  sections: [],
 };
 
 const tutorialsSidebarSlice = createSlice({
@@ -38,6 +29,17 @@ const tutorialsSidebarSlice = createSlice({
     },
     addSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = [...state.sections, payload];
+    },
+    addSectionByTarget(state, { payload }: PayloadAction<IAddSectionByTargetPayloadAction>) {
+      const { newSection, targetSection } = payload;
+      const sections: ITutorialSection[] = [];
+      state.sections.forEach((section) => {
+        sections.push(section);
+        if (section.id === targetSection.id) {
+          sections.push(newSection);
+        }
+      });
+      state.sections = sections;
     },
     editSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = state.sections.map((section) =>
@@ -87,6 +89,15 @@ const tutorialsSidebarSlice = createSlice({
     toggleRemoveSectionModal(state) {
       state.isRemoveSectionModalOpen = !state.isRemoveSectionModalOpen;
     },
+    setTutorial(state, { payload }: PayloadAction<ITutorial>) {
+      const { name, sections } = payload;
+      state.sections = sections || [];
+      state.name = name;
+    },
+    clearTutorial(state) {
+      state.name = '';
+      state.sections = [];
+    },
   },
 });
 
@@ -96,6 +107,9 @@ export const {
   editSection: editTutorialSection,
   addArticle: addTutorialArticle,
   changeArticle: changeTutorialArticle,
+  addSectionByTarget: addTutorialSectionByTarget,
+  setTutorial,
+  clearTutorial,
   toggleRemoveArticleModal,
   toggleRemoveSectionModal,
   setSelectedArticle,
