@@ -9,6 +9,7 @@ import {
   addTutorialSectionByTarget,
   editTutorialSection,
   getTutorialSections,
+  IAddTutorialArticlePayloadAction,
   setSelectedSection,
   toggleRemoveSectionModal,
 } from 'store/states';
@@ -16,6 +17,7 @@ import { ITutorialSection } from 'types';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
+import { UUID_SIZE } from '../../TutorialSidebar.constants';
 import { Article } from '../Article/Article';
 import classes from './Section.module.scss';
 import { ISectionProps } from './Section.types';
@@ -43,14 +45,17 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   };
 
   const addArticleHandler = (): void => {
-    const newArticle = { section, article: { id: uuid(5), name: 'Maqola nomi' } };
-    dispatch(addTutorialArticle(newArticle));
+    const payload: IAddTutorialArticlePayloadAction = {
+      section,
+      article: { id: uuid(UUID_SIZE), name: 'Maqola nomi', defaultFocused: true, new: true },
+    };
+    dispatch(addTutorialArticle(payload));
     closeAddPopover();
   };
 
   const addSectionHandler = (): void => {
     const newSection: ITutorialSection = {
-      id: uuid(),
+      id: uuid(UUID_SIZE),
       name: "Bo'lim nomi",
       articles: [],
       defaultFocused: true,

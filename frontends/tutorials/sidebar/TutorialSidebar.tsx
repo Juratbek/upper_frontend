@@ -16,6 +16,7 @@ import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
 import { RemoveArticleModal, RemoveSectionModal, Section } from './components';
+import { UUID_SIZE } from './TutorialSidebar.constants';
 import classes from './TutorialSidebar.module.scss';
 
 const AddFolderIcon = ICONS.addFolder;
@@ -32,7 +33,7 @@ export const TutorialSidebar: FC = () => {
 
   const addSectionHandler = (): void => {
     const newSection: ITutorialSection = {
-      id: uuid(),
+      id: uuid(UUID_SIZE),
       name: "Bo'lim nomi",
       articles: [],
       defaultFocused: true,

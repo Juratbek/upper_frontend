@@ -1,6 +1,8 @@
 export interface ITutorialArticle {
   id: string;
   name: string;
+  defaultFocused?: boolean;
+  new?: boolean;
 }
 
 export interface ITutorialSection {

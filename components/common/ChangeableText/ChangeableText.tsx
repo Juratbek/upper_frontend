@@ -25,7 +25,7 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
     props.onSubmit?.(value);
   };
   const blurChangeHandler = (event: FocusEvent<HTMLInputElement>): void => {
-    const value = event.target.value;
+    const value = event.target.value.trim();
     if (value.length < 1) {
       setIsBeingChanged(false);
       return;
@@ -34,10 +34,11 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
   };
 
   const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>): void => {
-    if (value.length < 1) return;
     if (event.key === 'Enter') {
       const target = event.target as HTMLInputElement;
-      submitHandler(target.value);
+      const value = target.value.trim();
+      if (value.length < 1) return;
+      submitHandler(value);
     }
   };
 

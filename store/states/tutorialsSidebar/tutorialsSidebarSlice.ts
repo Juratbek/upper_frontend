@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
 
-import { IAddSectionByTargetPayloadAction } from './tutorialsSidebarSlice.types';
+import {
+  IAddSectionByTargetPayloadAction,
+  IAddTutorialArticleBytargetPayloadAction,
+  IAddTutorialArticlePayloadAction,
+} from './tutorialsSidebarSlice.types';
 
 interface ICommentSidebarState {
   isRemoveArticleModalOpen: boolean;
@@ -46,16 +50,30 @@ const tutorialsSidebarSlice = createSlice({
         section.id === payload.id ? payload : section,
       );
     },
-    addArticle(
-      state,
-      { payload }: PayloadAction<{ section: ITutorialSection; article: ITutorialArticle }>,
-    ) {
+    addArticle(state, { payload }: PayloadAction<IAddTutorialArticlePayloadAction>) {
       const { section, article } = payload;
       state.sections = state.sections.map((s) => {
         if (s.id !== section.id) return s;
 
         return { ...section, articles: [...section.articles, article] };
       });
+    },
+    addArticleByTarget(
+      state,
+      { payload }: PayloadAction<IAddTutorialArticleBytargetPayloadAction>,
+    ) {
+      const { section, article, target } = payload;
+      const articles: ITutorialArticle[] = [];
+      section.articles.forEach((a) => {
+        articles.push(a);
+        if (a.id === target.id) {
+          articles.push(article);
+        }
+      });
+
+      state.sections = state.sections.map((s) =>
+        s.id !== section.id ? s : { ...section, articles },
+      );
     },
     changeArticle(
       state,
@@ -106,6 +124,7 @@ export const {
   addSection: addTutorialSection,
   editSection: editTutorialSection,
   addArticle: addTutorialArticle,
+  addArticleByTarget: addTutorialArticleByTarget,
   changeArticle: changeTutorialArticle,
   addSectionByTarget: addTutorialSectionByTarget,
   setTutorial,

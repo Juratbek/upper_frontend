@@ -35,10 +35,10 @@ export const tutorialApi = createApi({
       }),
     }),
     editSection: build.mutation<ITutorialSection, IEditSectionDto>({
-      query: (section) => ({
+      query: (body) => ({
         url: 'edit-section',
         method: 'PUT',
-        body: section,
+        body,
       }),
     }),
     getAll: build.query<IPagingResponse<ITutorialMedium>, TOptionalPagingRequest>({
