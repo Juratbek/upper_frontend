@@ -21,6 +21,13 @@ export const useUrlParams = (): IUseUrl => {
     return query[name];
   };
 
+  const setParams = (params: { [name: string]: TParamValue }): void => {
+    push({
+      pathname: pathname,
+      query: { ...query, ...params },
+    });
+  };
+
   const setParam = (name: string, value: TParamValue | number): void => {
     push({
       pathname: pathname,
@@ -31,6 +38,7 @@ export const useUrlParams = (): IUseUrl => {
   return {
     getParam,
     setParam,
+    setParams,
     location,
     isReady,
   };

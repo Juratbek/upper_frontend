@@ -1,4 +1,5 @@
 import { ChangeableText } from 'components';
+import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useAppDispatch } from 'store';
@@ -18,11 +19,16 @@ import { IArticleProps } from './Article.types';
 const PlusIcon = ICONS.plus;
 
 export const Article: FC<IArticleProps> = ({ article, section }) => {
+  const { setParams } = useUrlParams();
   const dispatch = useAppDispatch();
   const [edsitSection, edsitSectionRes] = useEditTutorialSectionMutation();
   const {
     query: { id },
   } = useRouter();
+
+  const selectArticle = (): void => {
+    setParams({ sectionId: section.id, articleId: article.id });
+  };
 
   const changeArticleNameNandler = async (name: string): Promise<void> => {
     if (!id) return Promise.reject();
@@ -33,6 +39,7 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
       tutorialId: +id,
     }).unwrap();
     dispatch(editTutorialSection(res));
+    selectArticle();
   };
 
   const addArticleHandler = (): void => {
@@ -51,6 +58,7 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
         defaultFocused={article.defaultFocused}
         onSubmit={changeArticleNameNandler}
         loading={edsitSectionRes.isLoading}
+        onClick={selectArticle}
       />
       <div className={classes.actions}>
         <span className={classes.icon} onClick={addArticleHandler}>

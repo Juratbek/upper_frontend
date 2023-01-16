@@ -64,6 +64,7 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
       <p
         className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
         onDoubleClick={doubleClickhandler}
+        onClick={props.onClick}
       >
         {value}
       </p>
