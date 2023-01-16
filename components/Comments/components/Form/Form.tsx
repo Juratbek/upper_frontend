@@ -43,17 +43,20 @@ export const Form: FC<IFormProps> = () => {
   };
 
   useEffect(() => {
-    const ctrlListener = addKeyboardListener({ targetKey: 'Enter', keyName: 'ctrlKey' }, () =>
-      submitHandler({ text: watch('text') }),
+    const listener = addKeyboardListener(
+      [
+        { key: 'Enter', ctrlKey: true },
+        { key: 'Enter', metaKey: true },
+      ],
+      () => {
+        if (watch('text')) {
+          submitHandler({ text: watch('text') });
+        } else {
+          setError('text', { message: 'Izohingizni yozing' });
+        }
+      },
     );
-    return ctrlListener.clear;
-  }, []);
-
-  useEffect(() => {
-    const commandListener = addKeyboardListener({ targetKey: 'Enter', keyName: 'metaKey' }, () =>
-      submitHandler({ text: watch('text') }),
-    );
-    return commandListener.clear;
+    return listener.clear;
   }, []);
 
   return (

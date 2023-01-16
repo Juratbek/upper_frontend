@@ -1,21 +1,27 @@
-import { TKeyNameType } from './addKeyboardListrener.types';
+import {
+  ICombination,
+  IKeyboardListener,
+  TCallback,
+  TCombinationKey,
+} from './addKeyboardListrener.types';
 
 export const addKeyboardListener = (
-  combinations: { targetKey: string; keyName: TKeyNameType },
-  callback: (props: object) => void,
-): { clear: () => void } => {
-  function handeKeyboard(event: KeyboardEvent): void {
-    if (combinations.keyName) {
-      if (combinations.targetKey === event.key && event[combinations.keyName]) {
-        callback(event);
-      }
-    } else if (combinations.targetKey === event.key) {
-      callback(event);
-    }
+  combinations: ICombination[],
+  callback: TCallback,
+): IKeyboardListener => {
+  function keyboardListener(event: KeyboardEvent): void {
+    combinations.forEach((combination) => {
+      const combinationKeys = Object.keys(combination) as TCombinationKey[];
+      const doesMatch = combinationKeys.reduce((res, key) => {
+        return event[key] !== combination[key] ? false : res;
+      }, true);
+      if (doesMatch) callback(event);
+    });
   }
-  window.addEventListener('keydown', handeKeyboard);
+
+  window.addEventListener('keydown', keyboardListener);
   const clear = (): void => {
-    window.removeEventListener('keydown', handeKeyboard);
+    window.removeEventListener('keydown', keyboardListener);
   };
   return {
     clear,
