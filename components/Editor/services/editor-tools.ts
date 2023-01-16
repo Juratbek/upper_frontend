@@ -43,7 +43,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     import('editorjs-alert'),
     import('editorjs-inline-image'),
     import('@editorjs/inline-code'),
-    import('@calumk/editorjs-codeflask'),
+    import('@samandar.boymurodov/editorjs-codeflask'),
   ]);
 
   Object.keys(TOOLS).forEach((key, index) => {

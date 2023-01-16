@@ -70,6 +70,11 @@ export const Editor: FC<IEditorProps> = (props) => {
     editor?.isReady.then(() => {
       setIsEditorLoading(false);
       if (!isEditable) zoomInImage();
+      const renderFunc = editor.render;
+      editor.render = function (...args): Promise<void> {
+        setImages([]);
+        return renderFunc.apply(this, args).then(() => zoomInImage());
+      };
     });
   }, [editor]);
 

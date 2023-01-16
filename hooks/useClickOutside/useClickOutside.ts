@@ -1,42 +1,31 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
-  LegacyRef,
-  MouseEvent,
-  MouseEventHandler,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { LegacyRef, MouseEvent, MouseEventHandler, useEffect, useRef, useState } from 'react';
 
 export const useClickOutside = (
   callBack?: () => void,
-  exceptedElementIds: string[] = [],
+  selector?: string,
 ): [LegacyRef<HTMLDivElement>, boolean] => {
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const exceptedElements = useMemo(() => {
-    return exceptedElementIds.reduce<(HTMLElement | null)[]>(
-      (elements, id) => [...elements, document.getElementById(id)],
-      [],
-    );
-  }, [...exceptedElementIds]);
-
   const clickHandler: MouseEventHandler = (event: MouseEvent<HTMLElement>) => {
     const clickedTarget = event.target;
     const currentTarget = ref.current;
+
+    if (selector) {
+      const exceptedElementsNodeList = document.querySelectorAll(selector);
+      for (const i in exceptedElementsNodeList) {
+        const element = exceptedElementsNodeList[i];
+        // @ts-ignore
+        const isExceptElement = element?.contains?.(clickedTarget);
+        if (isExceptElement) return;
+      }
+    }
+
     // @ts-ignore
-    const doesElementContain = currentTarget?.contains(clickedTarget);
+    const doesElementContain = currentTarget?.contains?.(clickedTarget);
     setIsClickedOutside(!doesElementContain);
     if (doesElementContain) return;
-
-    for (let i = 0; i < exceptedElements.length; i++) {
-      const element = exceptedElements[i];
-      // @ts-ignore
-      const isExceptElement = element?.contains(clickedTarget);
-      if (isExceptElement) return;
-    }
 
     callBack?.();
   };

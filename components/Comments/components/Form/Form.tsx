@@ -43,10 +43,17 @@ export const Form: FC<IFormProps> = () => {
   };
 
   useEffect(() => {
-    const listener = addKeyboardListener({ key: 'Enter', ctrl: true }, () =>
+    const ctrlListener = addKeyboardListener({ targetKey: 'Enter', keyName: 'ctrlKey' }, () =>
       submitHandler({ text: watch('text') }),
     );
-    return listener.clear();
+    return ctrlListener.clear;
+  }, []);
+
+  useEffect(() => {
+    const commandListener = addKeyboardListener({ targetKey: 'Enter', keyName: 'metaKey' }, () =>
+      submitHandler({ text: watch('text') }),
+    );
+    return commandListener.clear;
   }, []);
 
   return (
