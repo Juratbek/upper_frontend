@@ -27,7 +27,7 @@ export const Comments = (): JSX.Element => {
 
   const [rootRef] = useClickOutside(() => {
     dispatch(closeCommentsSidebar());
-  }, ['comment-icon', 'actions-bar-comment-icon']);
+  }, '[data-action="open-comments"]');
 
   useEffect(() => {
     isOpen && id && fetchComments(+id);

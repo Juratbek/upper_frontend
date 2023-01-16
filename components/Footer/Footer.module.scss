@@ -4,7 +4,7 @@ $nav-item-color: #636262;
 
 .footerContainer {
   width: 100%;
-  border-top: 1px solid #C4C4C4;
+  border-top: 1px solid #c4c4c4;
 
   display: flex;
   flex-direction: column;
@@ -18,14 +18,20 @@ $nav-item-color: #636262;
   margin: 0.7rem 0;
 
   @include screenMax576 {
-    gap: 2rem;
+    flex-wrap: wrap;
+    gap: 5%;
   }
 
   & > li {
     list-style: none;
 
+    @include screenMax576 {
+      width: 45%;
+      margin-bottom: 1rem;
+    }
+
     a {
-     color: $nav-item-color;
+      color: $nav-item-color;
       &:hover {
         text-decoration: underline;
       }

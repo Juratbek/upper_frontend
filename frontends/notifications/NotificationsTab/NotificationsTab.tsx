@@ -45,11 +45,6 @@ export const NotificationsTab: FC = () => {
 
     return notifications.map((notification, index) => {
       const Notification = NOTIFICATIONS[notification.type];
-      console.log(
-        '🚀 ~ file: NotificationsTab.tsx:48 ~ returnnotifications.map ~ Notification',
-        NOTIFICATIONS,
-        notification.type,
-      );
 
       if (!Notification) return <></>;
       return (

@@ -52,11 +52,14 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [editorInstance?.isReady]);
 
   useEffect(() => {
-    isAuthenticated && checkIfLikedDislikedQuery(id);
-  }, [isAuthenticated]);
+    if (isAuthenticated) {
+      checkIfLikedDislikedQuery(id);
+      setLikeDislikeCount(likeCount - dislikeCount);
+    }
+  }, [isAuthenticated, id]);
 
   useEffect(() => {
-    editorInstance?.render({ blocks });
+    editorInstance?.render({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
 
   const article = useMemo(
@@ -92,7 +95,11 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
         <div className={styles.reactions}>
           <div className={styles.reactionButtons}>
-            <span id='comment-icon' className='pointer me-2' onClick={commentIconClickHandler}>
+            <span
+              data-action='open-comments'
+              className='pointer me-2'
+              onClick={commentIconClickHandler}
+            >
               <CommentIcon />
             </span>
             <span
