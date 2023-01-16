@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { getClassName } from 'utils';
+import { FC, useEffect } from 'react';
+import { addKeyboardListener, getClassName } from 'utils';
 
 import classes from './Modal.module.scss';
 import { IModalProps } from './Modal.types';
@@ -17,6 +17,11 @@ export const Modal: FC<IModalProps> = ({
     classes[`modal-dialog--${size}`],
     bodyClassName,
   );
+
+  useEffect(() => {
+    const listener = addKeyboardListener({ key: 'Escape' }, close);
+    return listener.clear;
+  }, []);
 
   return (
     <div className={rootClassName}>
