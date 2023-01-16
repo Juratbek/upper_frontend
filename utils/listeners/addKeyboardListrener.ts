@@ -4,7 +4,6 @@ export const addKeyboardListener = (
   combinations: { targetKey: string; keyName: TKeyNameType },
   callback: (props: object) => void,
 ): { clear: () => void } => {
-  console.log('log');
   function handeKeyboard(event: KeyboardEvent): void {
     if (combinations.keyName) {
       if (combinations.targetKey === event.key && event[combinations.keyName]) {
