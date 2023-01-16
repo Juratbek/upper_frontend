@@ -19,7 +19,7 @@ export const Modal: FC<IModalProps> = ({
   );
 
   useEffect(() => {
-    const listener = addKeyboardListener({ targetKey: 'Escape', keyName: false }, () => close());
+    const listener = addKeyboardListener({ key: 'Escape' }, close);
     return listener.clear;
   }, []);
 

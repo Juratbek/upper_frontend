@@ -1,4 +1,4 @@
-export type TKey = 'Enter';
+export type TKey = 'Enter' | 'Escape';
 
 export interface ICombination {
   key: TKey;

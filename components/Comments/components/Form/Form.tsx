@@ -6,7 +6,7 @@ import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
 import { closeCommentsSidebar } from 'store/states';
 import { TSubmitFormEvent } from 'types';
-import { addKeyboardListener } from 'utils';
+import { addKeyboardListeners } from 'utils';
 
 import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
@@ -43,7 +43,7 @@ export const Form: FC<IFormProps> = () => {
   };
 
   useEffect(() => {
-    const listener = addKeyboardListener(
+    const listener = addKeyboardListeners(
       [
         { key: 'Enter', ctrlKey: true },
         { key: 'Enter', metaKey: true },

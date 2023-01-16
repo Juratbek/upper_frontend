@@ -5,7 +5,7 @@ import {
   TCombinationKey,
 } from './addKeyboardListrener.types';
 
-export const addKeyboardListener = (
+export const addKeyboardListeners = (
   combinations: ICombination[],
   callback: TCallback,
 ): IKeyboardListener => {
@@ -17,6 +17,27 @@ export const addKeyboardListener = (
       }, true);
       if (doesMatch) callback(event);
     });
+  }
+
+  window.addEventListener('keydown', keyboardListener);
+  const clear = (): void => {
+    window.removeEventListener('keydown', keyboardListener);
+  };
+  return {
+    clear,
+  };
+};
+
+export const addKeyboardListener = (
+  combination: ICombination,
+  callback: TCallback,
+): IKeyboardListener => {
+  function keyboardListener(event: KeyboardEvent): void {
+    const combinationKeys = Object.keys(combination) as TCombinationKey[];
+    const doesMatch = combinationKeys.reduce((res, key) => {
+      return event[key] !== combination[key] ? false : res;
+    }, true);
+    if (doesMatch) callback(event);
   }
 
   window.addEventListener('keydown', keyboardListener);
