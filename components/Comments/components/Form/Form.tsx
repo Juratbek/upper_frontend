@@ -1,11 +1,12 @@
 import { Button, Error, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
 import { closeCommentsSidebar } from 'store/states';
 import { TSubmitFormEvent } from 'types';
+import { addKeyboardListeners } from 'utils';
 
 import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
@@ -17,6 +18,7 @@ export const Form: FC<IFormProps> = () => {
     reset,
     setValue,
     setError,
+    watch,
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
@@ -39,6 +41,23 @@ export const Form: FC<IFormProps> = () => {
   const closeComments = (): void => {
     dispatch(closeCommentsSidebar());
   };
+
+  useEffect(() => {
+    const listener = addKeyboardListeners(
+      [
+        { key: 'Enter', ctrlKey: true },
+        { key: 'Enter', metaKey: true },
+      ],
+      () => {
+        if (watch('text')) {
+          submitHandler({ text: watch('text') });
+        } else {
+          setError('text', { message: 'Izohingizni yozing' });
+        }
+      },
+    );
+    return listener.clear;
+  }, []);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
