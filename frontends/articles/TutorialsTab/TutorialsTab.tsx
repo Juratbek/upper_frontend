@@ -7,15 +7,19 @@ import {
   Tutorial,
 } from 'components';
 import { useUrlParams } from 'hooks';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
-import { useLazyGetAllTutorialsQuery } from 'store/apis';
+import { useAppDispatch } from 'store';
+import { useCreateTutorialMutation, useLazyGetAllTutorialsQuery } from 'store/apis';
+import { setTutorial } from 'store/states';
 import { TArticleStatus } from 'types';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
 
 export const TutorialsTab: FC = () => {
   const [fetchTutorials, fetchTutorialsRes] = useLazyGetAllTutorialsQuery();
+  const [createTutorial] = useCreateTutorialMutation();
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const {
     query: { tab, page },
   } = useRouter();
@@ -32,6 +36,12 @@ export const TutorialsTab: FC = () => {
     setParam('page', page);
   };
 
+  const createTutorialHandler = async (): Promise<void> => {
+    const res = await createTutorial().unwrap();
+    dispatch(setTutorial(res));
+    router.push(`/tutorials/${res.id}`);
+  };
+
   const { data } = fetchTutorialsRes;
 
   return (
@@ -45,11 +55,9 @@ export const TutorialsTab: FC = () => {
         {fetchTutorialsRes.data?.list.length === 0 && (
           <div className='text-center mt-3'>
             <h2>To&apos;plamlar mavjud emas</h2>
-            <Link href='/tutorials/create'>
-              <a>
-                <Button color='outline-dark'>To&apos;plam yaratish</Button>
-              </a>
-            </Link>
+            <Button color='outline-dark' onClick={createTutorialHandler}>
+              To&apos;plam yaratish
+            </Button>
           </div>
         )}
         {fetchTutorialsRes.data?.list.map((tutorial) => {

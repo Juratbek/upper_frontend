@@ -13,6 +13,10 @@
   flex-wrap: wrap;
 }
 
+.placeholder {
+  color: var(--gray);
+}
+
 .option {
   &-container {
     position: absolute;

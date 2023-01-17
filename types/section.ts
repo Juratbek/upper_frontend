@@ -3,6 +3,7 @@ export interface ITutorialArticle {
   name: string;
   defaultFocused?: boolean;
   new?: boolean;
+  articleId?: number;
 }
 
 export interface ITutorialSection {

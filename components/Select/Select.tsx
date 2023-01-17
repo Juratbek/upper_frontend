@@ -44,7 +44,7 @@ export const Select: FC<ISelectProps> = ({ options = [], ...props }) => {
   return (
     <div className={classes.container} ref={ref}>
       <div className={classes.select} onClick={openOptionsContainer}>
-        {selectedOption?.label}
+        {selectedOption?.label || <span className={classes.placeholder}>{props.placeholder}</span>}
       </div>
       <div
         className={`${classes['option-container']} ${

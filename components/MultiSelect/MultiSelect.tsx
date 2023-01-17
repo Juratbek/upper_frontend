@@ -1,6 +1,6 @@
 import { Spinner } from 'components';
 import { useDebounce } from 'hooks';
-import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './MultiSelect.module.scss';
@@ -15,6 +15,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   defaultValues = [],
   disabled = false,
   options = [],
+  multiple = true,
   ...props
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<IOption[]>(defaultValues);
@@ -33,14 +34,21 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     if (inputValue) {
       setInputValue('');
     }
-    setSelectedOptions([...selectedOptions, option]);
+    if (multiple) {
+      setSelectedOptions([...selectedOptions, option]);
+    } else {
+      setSelectedOptions([option]);
+    }
   };
 
-  const unselectOption = (option: IOption): void => {
-    if (disabled) return;
-    const filteredOptions = filterOptions(selectedOptions, option);
-    setSelectedOptions(filteredOptions);
-  };
+  const unselectOption = useCallback(
+    (option: IOption): void => {
+      if (disabled) return;
+      const filteredOptions = filterOptions(selectedOptions, option);
+      setSelectedOptions(filteredOptions);
+    },
+    [disabled, selectedOptions],
+  );
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
@@ -108,19 +116,25 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     );
   }, [options, selectedOptions, props.loading]);
 
+  const selectedOptionsContent = useMemo(() => {
+    if (selectOption.length === 0) return <span>{props.placeholder}</span>;
+
+    return selectedOptions.map((option) => (
+      <span
+        onClick={(): void => unselectOption(option)}
+        className={`${classes['option__selected']} me-1`}
+        key={option.value}
+      >
+        {option.label}
+        <span className={classes.x}>&#10005;</span>
+      </span>
+    ));
+  }, [selectedOptions, props.placeholder, unselectOption]);
+
   return (
     <div className={classes.container} ref={ref}>
       <div className={selectClassName}>
-        {selectedOptions.map((option) => (
-          <span
-            onClick={(): void => unselectOption(option)}
-            className={`${classes['option__selected']} me-1`}
-            key={option.value}
-          >
-            {option.label}
-            <span className={classes.x}>&#10005;</span>
-          </span>
-        ))}
+        {selectedOptionsContent}
         {!disabled && (
           <input
             type='text'
