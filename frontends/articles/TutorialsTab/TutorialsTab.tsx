@@ -9,16 +9,16 @@ import {
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
-import { useAppDispatch } from 'store';
+import { useDispatch } from 'react-redux';
 import { useCreateTutorialMutation, useLazyGetAllTutorialsQuery } from 'store/apis';
 import { setTutorial } from 'store/states';
 import { TArticleStatus } from 'types';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
 
 export const TutorialsTab: FC = () => {
+  const dispatch = useDispatch();
   const [fetchTutorials, fetchTutorialsRes] = useLazyGetAllTutorialsQuery();
   const [createTutorial] = useCreateTutorialMutation();
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const {
     query: { tab, page },

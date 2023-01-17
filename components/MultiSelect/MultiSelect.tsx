@@ -117,7 +117,8 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   }, [options, selectedOptions, props.loading]);
 
   const selectedOptionsContent = useMemo(() => {
-    if (selectOption.length === 0) return <span>{props.placeholder}</span>;
+    if (selectedOptions.length === 0)
+      return <span className={classes.placegolder}>{props.placeholder}</span>;
 
     return selectedOptions.map((option) => (
       <span
