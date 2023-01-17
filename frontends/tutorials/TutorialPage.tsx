@@ -1,4 +1,4 @@
-import { Article, Button, IOption, MultiSelect } from 'components';
+import { Article, Button, ISelectOption, Select } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from 'store';
@@ -50,8 +50,7 @@ export const TutorialPage: FC = () => {
     }
   };
 
-  const selectArticleHandler = (options: IOption[]): void => {
-    const option = options[0];
+  const selectArticleHandler = (option: ISelectOption): void => {
     const article = searchArticleRes.data?.find((article) => article.id === option.value);
     setSelectedArticle(article);
   };
@@ -86,13 +85,24 @@ export const TutorialPage: FC = () => {
           </Button>
         )}
       </div>
-      <MultiSelect
-        multiple={false}
+      <Select
+        searcheable
         placeholder='Qidirish uchun yozing'
         onChange={selectArticleHandler}
         onInputDebounce={searchArticles}
         options={convertToOptions(searchArticleRes.data, 'id', 'title')}
-        loading={searchArticleRes.isLoading}
+        // options={[
+        //   { label: 'Test', value: 1 },
+        //   { label: 'akl', value: 2 },
+        //   { label: 'a09s', value: 3 },
+        //   { label: 'fw2s', value: 4 },
+        //   { label: '2a2', value: 5 },
+        //   { label: 'test123', value: 6 },
+        //   { label: '2k', value: 7 },
+        //   { label: 'alw8', value: 8 },
+        //   { label: '1029', value: 9 },
+        // ]}
+        // loading={searchArticleRes.isLoading}
         className='mb-2'
       />
       {selectedArticle && (

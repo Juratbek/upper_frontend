@@ -12,3 +12,4 @@ export * from './image';
 export * from './device';
 export * from './uuid';
 export * from './listeners/addKeyboardListrener';
+export * from './debouncer';

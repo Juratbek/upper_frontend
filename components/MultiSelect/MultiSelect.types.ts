@@ -19,6 +19,5 @@ export type TMultiSelectProps = Override<
     renderItem?: (option: IOption) => JSX.Element;
     max?: number;
     loading?: boolean;
-    multiple?: boolean;
   }
 >;

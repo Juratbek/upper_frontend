@@ -1,5 +1,5 @@
 import { ChangeableText } from 'components';
-import { useClickOutside } from 'hooks';
+import { useClickOutside, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -13,7 +13,7 @@ import {
   setSelectedSection,
   toggleRemoveSectionModal,
 } from 'store/states';
-import { ITutorialSection } from 'types';
+import { ITutorialArticle, ITutorialSection } from 'types';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
@@ -32,6 +32,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   const {
     query: { id },
   } = useRouter();
+  const { setParams } = useUrlParams();
   const dispatch = useAppDispatch();
 
   const closeAddPopover = (): void => setIsAddPopoverOpen(false);
@@ -104,6 +105,10 @@ export const Section: FC<ISectionProps> = ({ section }) => {
     </div>
   );
 
+  const selectArticle = (article: ITutorialArticle): void => {
+    setParams({ sectionId: section.id, articleId: article.id });
+  };
+
   return (
     <div>
       <div className={classes.header}>
@@ -133,7 +138,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
       </div>
       <ul className={classes.articles}>
         {section.articles.map((article) => (
-          <li key={article.id}>
+          <li key={article.id} onClick={(): void => selectArticle(article)}>
             <Article article={article} section={section} />
           </li>
         ))}

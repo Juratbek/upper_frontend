@@ -58,7 +58,6 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
         defaultFocused={article.defaultFocused}
         onSubmit={changeArticleNameNandler}
         loading={edsitSectionRes.isLoading}
-        onClick={selectArticle}
       />
       <div className={classes.actions}>
         <span className={classes.icon} onClick={addArticleHandler}>

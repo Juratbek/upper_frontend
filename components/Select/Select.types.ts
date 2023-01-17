@@ -7,5 +7,7 @@ export interface ISelectProps {
   options?: ISelectOption[];
   defaultValue?: ISelectOption;
   onChange?: (option: ISelectOption) => void;
+  onInputDebounce?: (value: string) => void;
   placeholder?: string;
+  searcheable?: boolean;
 }

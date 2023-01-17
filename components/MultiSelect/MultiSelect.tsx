@@ -15,7 +15,6 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   defaultValues = [],
   disabled = false,
   options = [],
-  multiple = true,
   ...props
 }) => {
   const [selectedOptions, setSelectedOptions] = useState<IOption[]>(defaultValues);
@@ -37,13 +36,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     if (inputValue) {
       setInputValue('');
     }
-    if (multiple) {
-      setSelectedOptions([...selectedOptions, option]);
-    } else {
-      setSelectedOptions([option]);
-      setInputValue(option.label);
-      closePopover();
-    }
+    setSelectedOptions([...selectedOptions, option]);
   };
 
   const unselectOption = useCallback(
@@ -70,7 +63,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     const didOptionsContainerClicked = !document.contains(clickedElement);
     const didSelectClicked = select?.contains(clickedElement);
     if (didOptionsContainerClicked || didSelectClicked) return;
-    setIsOptionsContainerOpen(false);
+    closePopover();
   };
 
   const placeholderClickHandler = (): void => inputRef.current?.focus();
@@ -124,25 +117,23 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   }, [options, selectedOptions, props.loading]);
 
   const selectedOptionsContent = useMemo(() => {
-    if (selectedOptions.length === 0 && !inputValue)
+    if (selectedOptions.length === 0)
       return (
         <span className={classes.placegolder} onClick={placeholderClickHandler}>
           {props.placeholder}
         </span>
       );
 
-    if (multiple) {
-      return selectedOptions.map((option) => (
-        <span
-          onClick={(): void => unselectOption(option)}
-          className={`${classes['option__selected']} me-1`}
-          key={option.value}
-        >
-          {option.label}
-          <span className={classes.x}>&#10005;</span>
-        </span>
-      ));
-    }
+    return selectedOptions.map((option) => (
+      <span
+        onClick={(): void => unselectOption(option)}
+        className={`${classes['option__selected']} me-1`}
+        key={option.value}
+      >
+        {option.label}
+        <span className={classes.x}>&#10005;</span>
+      </span>
+    ));
   }, [selectedOptions, props.placeholder, unselectOption, inputValue]);
 
   return (
