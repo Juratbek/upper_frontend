@@ -28,3 +28,10 @@ export interface IAddArticleDto {
   section: ITutorialSection;
   article: ITutorialArticle;
 }
+
+export interface IChangeTutorialSelectedArticleDto {
+  tutorialId: number;
+  sectionId: string;
+  articleId: string;
+  selectedArticleId: number;
+}

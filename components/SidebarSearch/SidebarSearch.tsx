@@ -11,7 +11,7 @@ import { SEARCH_RESULTS_SIZE } from 'components/Sidebar/Sidebar.constants';
 import { useClickOutside } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
-import { useLazySearchArticleQuery, useLazySearchBlogQuery } from 'store/apis';
+import { useLazySearchBlogQuery, useLazySearchPublishedArticleQuery } from 'store/apis';
 import { addAmazonUri, addUriToArticleImages } from 'utils';
 
 import classes from './SidebarSearch.module.scss';
@@ -19,7 +19,7 @@ import classes from './SidebarSearch.module.scss';
 export const SidebarSearch: FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isResultsContainerOpen, setIsResultsContainerOpen] = useState<boolean>(false);
-  const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
+  const [searchArticle, searchArticleRes] = useLazySearchPublishedArticleQuery();
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
 
   const openResultsContainer = (): void => setIsResultsContainerOpen(true);

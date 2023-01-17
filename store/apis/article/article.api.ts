@@ -39,6 +39,15 @@ export const articleApi = createApi({
         method: 'DELETE',
       }),
     }),
+    search: build.query<IArticleResult[], { search: string }>({
+      query: (params) => ({
+        url: 'search',
+        params,
+      }),
+    }),
+    getMediumArticleById: build.query<IArticleResult, number>({
+      query: (id) => `medium/${id}`,
+    }),
   }),
 });
 
@@ -46,7 +55,9 @@ export const {
   useCreateMutation: useCreateArticleMutation,
   useUpdateMutation: useUpdateArticleMutaion,
   useDeleteMutation: useDeleteArticleMutation,
+  useLazySearchQuery: useLazySearchArticleQuery,
   usePublishMutation,
   useLazyGetBlogArticlesQuery,
   useLazyGetBlogArticleByIdQuery,
+  useLazyGetMediumArticleByIdQuery,
 } = articleApi;

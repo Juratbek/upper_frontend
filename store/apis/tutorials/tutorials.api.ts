@@ -8,7 +8,11 @@ import {
 } from 'types';
 
 import { baseQuery } from '../config';
-import { IAddSectionDto, IEditSectionDto } from './tutorials.types';
+import {
+  IAddSectionDto,
+  IChangeTutorialSelectedArticleDto,
+  IEditSectionDto,
+} from './tutorials.types';
 
 export const tutorialApi = createApi({
   reducerPath: 'tutorial',
@@ -47,6 +51,13 @@ export const tutorialApi = createApi({
     getById: build.query<ITutorial, number>({
       query: (id) => id.toString(),
     }),
+    changeArticle: build.mutation<void, IChangeTutorialSelectedArticleDto>({
+      query: (body) => ({
+        url: 'select-article',
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -57,4 +68,5 @@ export const {
   useLazyGetByIdQuery: useLazyGetTutorialByIdQuery,
   useAddSectionMutation: useAddTutorialSectionMutation,
   useEditSectionMutation: useEditTutorialSectionMutation,
+  useChangeArticleMutation: useChangeTutorialSelectedArticleMutation,
 } = tutorialApi;

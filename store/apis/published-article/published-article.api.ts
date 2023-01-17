@@ -77,6 +77,6 @@ export const {
   useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
   useIncrementViewCountMutation,
-  useLazySearchQuery: useLazySearchArticleQuery,
+  useLazySearchQuery: useLazySearchPublishedArticleQuery,
   useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
 } = publishedArticleApi;
