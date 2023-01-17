@@ -1,6 +1,6 @@
 import { Spinner } from 'components';
 import { useDebounce } from 'hooks';
-import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './MultiSelect.module.scss';
@@ -22,7 +22,10 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   const [inputValue, setInputValue] = useState<string>('');
   const selectClassName = getClassName(classes.select, className);
   const ref = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const debouncedValue = useDebounce(inputValue);
+
+  const closePopover = (): unknown => setIsOptionsContainerOpen(false);
 
   useEffect(() => {
     if (selectedOptions.length === props.max) return;
@@ -36,20 +39,23 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     setSelectedOptions([...selectedOptions, option]);
   };
 
-  const unselectOption = (option: IOption): void => {
-    if (disabled) return;
-    const filteredOptions = filterOptions(selectedOptions, option);
-    setSelectedOptions(filteredOptions);
-  };
+  const unselectOption = useCallback(
+    (option: IOption): void => {
+      if (disabled) return;
+      const filteredOptions = filterOptions(selectedOptions, option);
+      setSelectedOptions(filteredOptions);
+    },
+    [disabled, selectedOptions],
+  );
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setInputValue(value);
   };
 
-  const onInputFocus = (): void => {
-    setIsOptionsContainerOpen(true);
-  };
+  const openPopover = (): unknown => setIsOptionsContainerOpen(true);
+
+  const onInputFocus = (): unknown => openPopover();
 
   const clickListener = (event: MouseEvent): void => {
     const clickedElement = event.target as Node;
@@ -57,8 +63,10 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     const didOptionsContainerClicked = !document.contains(clickedElement);
     const didSelectClicked = select?.contains(clickedElement);
     if (didOptionsContainerClicked || didSelectClicked) return;
-    setIsOptionsContainerOpen(false);
+    closePopover();
   };
+
+  const placeholderClickHandler = (): void => inputRef.current?.focus();
 
   useEffect(() => {
     window.addEventListener('click', clickListener);
@@ -108,21 +116,33 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     );
   }, [options, selectedOptions, props.loading]);
 
+  const selectedOptionsContent = useMemo(() => {
+    if (selectedOptions.length === 0)
+      return (
+        <span className={classes.placegolder} onClick={placeholderClickHandler}>
+          {props.placeholder}
+        </span>
+      );
+
+    return selectedOptions.map((option) => (
+      <span
+        onClick={(): void => unselectOption(option)}
+        className={`${classes['option__selected']} me-1`}
+        key={option.value}
+      >
+        {option.label}
+        <span className={classes.x}>&#10005;</span>
+      </span>
+    ));
+  }, [selectedOptions, props.placeholder, unselectOption, inputValue]);
+
   return (
     <div className={classes.container} ref={ref}>
       <div className={selectClassName}>
-        {selectedOptions.map((option) => (
-          <span
-            onClick={(): void => unselectOption(option)}
-            className={`${classes['option__selected']} me-1`}
-            key={option.value}
-          >
-            {option.label}
-            <span className={classes.x}>&#10005;</span>
-          </span>
-        ))}
+        {selectedOptionsContent}
         {!disabled && (
           <input
+            ref={inputRef}
             type='text'
             value={inputValue}
             onFocus={onInputFocus}

@@ -52,11 +52,14 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [editorInstance?.isReady]);
 
   useEffect(() => {
-    isAuthenticated && checkIfLikedDislikedQuery(id);
-  }, [isAuthenticated]);
+    if (isAuthenticated) {
+      checkIfLikedDislikedQuery(id);
+      setLikeDislikeCount(likeCount - dislikeCount);
+    }
+  }, [isAuthenticated, id]);
 
   useEffect(() => {
-    editorInstance?.render({ blocks });
+    editorInstance?.render({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
 
   const article = useMemo(

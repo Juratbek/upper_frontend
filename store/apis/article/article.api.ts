@@ -17,9 +17,6 @@ export const articleApi = createApi({
   endpoints: (build) => ({
     create: create(build),
     update: update(build),
-    getById: build.query<IArticle, number>({
-      query: (id: number) => id.toString(),
-    }),
     getBlogArticleById: build.query<IArticle, number>({
       query: (id: number) => `need-auth/${id}`,
     }),
@@ -42,15 +39,25 @@ export const articleApi = createApi({
         method: 'DELETE',
       }),
     }),
+    search: build.query<IArticleResult[], { search: string }>({
+      query: (params) => ({
+        url: 'search',
+        params,
+      }),
+    }),
+    getMediumArticleById: build.query<IArticleResult, number>({
+      query: (id) => `medium/${id}`,
+    }),
   }),
 });
 
 export const {
   useCreateMutation: useCreateArticleMutation,
   useUpdateMutation: useUpdateArticleMutaion,
-  useLazyGetByIdQuery: useLazyGetArticleByIdQuery,
   useDeleteMutation: useDeleteArticleMutation,
+  useLazySearchQuery: useLazySearchArticleQuery,
   usePublishMutation,
   useLazyGetBlogArticlesQuery,
   useLazyGetBlogArticleByIdQuery,
+  useLazyGetMediumArticleByIdQuery,
 } = articleApi;
