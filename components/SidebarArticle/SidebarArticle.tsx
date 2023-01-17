@@ -21,7 +21,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
       <div className={classes.title}>
         <Link href={`/articles/${id}`}>
           <a>
-            <h4 className='m-0 mb-1 pointer'>{title}</h4>
+            <h4 className='m-0 mb-1 pointer' dangerouslySetInnerHTML={{ __html: title }} />
           </a>
         </Link>
         {author && <Author {...addAmazonUri(author)} />}
