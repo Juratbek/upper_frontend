@@ -52,3 +52,5 @@ export * from './LogoutModal/LogoutModal';
 export * from './Recaptcha/Recaptcha';
 export * from './WithPopover';
 export * from './MessageNotification';
+export * from './totorials';
+export * from './common';

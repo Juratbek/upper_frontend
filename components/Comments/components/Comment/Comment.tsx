@@ -2,7 +2,7 @@ import { Avatar } from 'components';
 import { Divider } from 'components/Divider/Divider';
 import Link from 'next/link';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'store';
 import { closeCommentsSidebar } from 'store/states';
 import { addAmazonUri, toDateString } from 'utils';
 
@@ -10,7 +10,7 @@ import classes from './Comment.module.scss';
 import { TCommentProps } from './Comment.types';
 
 export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const closeComments = (): unknown => dispatch(closeCommentsSidebar());
 

@@ -22,6 +22,12 @@
   }
 }
 
+.placegolder {
+  color: var(--gray);
+  position: absolute;
+  padding-left: 0.2rem;
+}
+
 .option {
   &-container {
     position: absolute;
@@ -54,6 +60,10 @@
     margin-bottom: 0.1rem;
     margin-top: 0.1rem;
     cursor: pointer;
+  }
+
+  &__single-selected {
+    width: 100%;
   }
 }
 
