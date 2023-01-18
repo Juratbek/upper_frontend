@@ -1,16 +1,18 @@
 import { createApi } from '@reduxjs/toolkit/dist/query/react';
-import { IComment } from 'types';
+import { IComment, IPagingResponse } from 'types';
 
 import { baseQuery } from '../config';
+import { TGetByArticleIdDto } from './comment.types';
 
 export const commentApi = createApi({
   reducerPath: 'comment',
   baseQuery: baseQuery('comment'),
-  tagTypes: ['list'],
   endpoints: (build) => ({
-    getByArticleId: build.query<IComment[], number>({
-      query: (id) => `open/${id}`,
-      providesTags: ['list'],
+    getByArticleId: build.query<IPagingResponse<IComment>, TGetByArticleIdDto>({
+      query: ({ articleId, ...params }) => ({
+        url: `open/${articleId}`,
+        params,
+      }),
     }),
     create: build.mutation<void, { articleId: number; text: string }>({
       query: (comment) => ({
@@ -18,7 +20,6 @@ export const commentApi = createApi({
         url: 'create',
         body: comment,
       }),
-      invalidatesTags: ['list'],
     }),
   }),
 });
