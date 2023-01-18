@@ -16,7 +16,6 @@ export const Form: FC<IFormProps> = () => {
     register,
     handleSubmit,
     reset,
-    setValue,
     setError,
     watch,
     formState: { errors },
@@ -28,11 +27,6 @@ export const Form: FC<IFormProps> = () => {
   } = useRouter();
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const text = event.text.trim();
-    if (!text) {
-      setValue('text', '');
-      setError('text', { message: 'Bo`sh izoh' });
-    }
     if (!id) return Promise.reject();
     await createComment({ text: event.text, articleId: +id });
     reset();
@@ -70,6 +64,7 @@ export const Form: FC<IFormProps> = () => {
             value: 200,
             message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
           },
+          validate: (value) => (value.trim() ? true : "Bo'sh izoh"),
         })}
       />
       <Error error={errors.text} />
