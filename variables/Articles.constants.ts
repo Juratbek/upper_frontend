@@ -11,10 +11,10 @@ export const ARTICLES_TAB_MENUS: ITabHeader[] = [
     name: 'Maqolalar',
     id: TAB_IDS.articles,
   },
-  {
-    name: "To'plamlar",
-    id: TAB_IDS.tutorials,
-  },
+  // {
+  //   name: "To'plamlar",
+  //   id: TAB_IDS.tutorials,
+  // },
 ];
 
 export const ARTICLES_TABS: ITabBody = {
