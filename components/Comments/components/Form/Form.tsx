@@ -1,6 +1,6 @@
 import { Button, Error, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { ChangeEvent, ChangeEventHandler, FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
@@ -18,6 +18,8 @@ export const Form: FC<IFormProps> = () => {
     reset,
     setError,
     watch,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
@@ -28,12 +30,20 @@ export const Form: FC<IFormProps> = () => {
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     if (!id) return Promise.reject();
-    await createComment({ text: event.text, articleId: +id });
+    await createComment({ text: event.text.trim(), articleId: +id });
     reset();
   };
 
   const closeComments = (): void => {
     dispatch(closeCommentsSidebar());
+  };
+
+  const onChangeComment = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    const value = event.target.value;
+    setValue('text', value);
+    if (errors.text && value.trim()) {
+      clearErrors('text');
+    }
   };
 
   useEffect(() => {
@@ -44,7 +54,9 @@ export const Form: FC<IFormProps> = () => {
       ],
       () => {
         if (watch('text')) {
-          submitHandler({ text: watch('text') });
+          watch('text').trim()
+            ? submitHandler({ text: watch('text') })
+            : setError('text', { message: "Bo'sh izoh" });
         } else {
           setError('text', { message: 'Izohingizni yozing' });
         }
@@ -64,8 +76,9 @@ export const Form: FC<IFormProps> = () => {
             value: 200,
             message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
           },
-          validate: (value) => (value.trim() ? true : "Bo'sh izoh"),
+          validate: (value) => !!value.trim() || "Bo'sh izoh",
         })}
+        onChange={onChangeComment}
       />
       <Error error={errors.text} />
       <Button loading={isLoading} className='w-100 mx-auto mt-1' color='outline-dark'>
