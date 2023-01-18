@@ -30,6 +30,10 @@ export const TutorialPage: FC = () => {
     }
   }, [articleId, sectionId, sections]);
 
+  const hasArticle = useMemo(() => {
+    return sections.some((section) => section.articles.length > 0);
+  }, [sections]);
+
   useEffect(() => {
     if (currentTutorialArticle?.articleId) {
       fetchMediumArticleById(currentTutorialArticle.articleId).then((res) =>
@@ -68,7 +72,13 @@ export const TutorialPage: FC = () => {
   };
 
   if (!currentTutorialArticle) {
-    return <div>tanlanmagan</div>;
+    return (
+      <h3 className='text-center'>
+        {hasArticle
+          ? "O'ng tarafdan maqolani tanlang"
+          : "Tanlash uchun o'ng tarafda maqola yarating"}
+      </h3>
+    );
   }
 
   return (
