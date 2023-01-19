@@ -1,6 +1,6 @@
 import { Button, Error, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { ChangeEvent, FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
@@ -16,9 +16,10 @@ export const Form: FC<IFormProps> = (props) => {
     register,
     handleSubmit,
     reset,
-    setValue,
     setError,
     watch,
+    setValue,
+    clearErrors,
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
@@ -28,19 +29,22 @@ export const Form: FC<IFormProps> = (props) => {
   } = useRouter();
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const text = event.text.trim();
-    if (!text) {
-      setValue('text', '');
-      setError('text', { message: 'Bo`sh izoh' });
-    }
     if (!id) return Promise.reject();
-    await createComment({ text: event.text, articleId: +id }).unwrap();
+    await createComment({ text: event.text.trim(), articleId: +id }).unwrap();
     reset();
     props.onSubmit?.();
   };
 
   const closeComments = (): void => {
     dispatch(closeCommentsSidebar());
+  };
+
+  const onChangeComment = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    const value = event.target.value;
+    setValue('text', value);
+    if (errors.text && value.trim()) {
+      clearErrors('text');
+    }
   };
 
   useEffect(() => {
@@ -50,10 +54,11 @@ export const Form: FC<IFormProps> = (props) => {
         { key: 'Enter', metaKey: true },
       ],
       () => {
-        if (watch('text')) {
-          submitHandler({ text: watch('text') });
+        const text = (watch('text') as string)?.trim();
+        if (text) {
+          submitHandler({ text });
         } else {
-          setError('text', { message: 'Izohingizni yozing' });
+          setError('text', { message: "Izoh bo'sh bo'lishi mumkin emas" }, { shouldFocus: true });
         }
       },
     );
@@ -66,12 +71,17 @@ export const Form: FC<IFormProps> = (props) => {
         placeholder='Izohingizni bu yerga yozing'
         color='transparent'
         {...register('text', {
-          required: true,
+          required: {
+            value: true,
+            message: "Izoh bo'sh bo'lishi mumkin emas",
+          },
           maxLength: {
             value: 200,
             message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
           },
+          validate: (value) => !!value.trim() || "Izoh bo'sh bo'lishi mumkin emas",
         })}
+        onChange={onChangeComment}
       />
       <Error error={errors.text} />
       <Button loading={isLoading} className='w-100 mx-auto mt-1' color='outline-dark'>
