@@ -23,7 +23,7 @@ import {
 export const blogApi = createApi({
   reducerPath: 'blog',
   baseQuery: baseQuery('blog'),
-  tagTypes: ['current-blog'],
+  tagTypes: ['current-blog', 'folowers'],
   endpoints: (build) => ({
     login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
@@ -92,6 +92,7 @@ export const blogApi = createApi({
         url: `follow/${id}`,
         method: 'POST',
       }),
+      invalidatesTags: ['folowers'],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
@@ -107,6 +108,7 @@ export const blogApi = createApi({
         url: `unfollow/${id}`,
         method: 'POST',
       }),
+      invalidatesTags: ['folowers'],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
@@ -122,6 +124,7 @@ export const blogApi = createApi({
     }),
     getFollowers: build.query<IBlogMedium[], number>({
       query: (id) => `open/followers/${id}`,
+      providesTags: ['folowers'],
     }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({
