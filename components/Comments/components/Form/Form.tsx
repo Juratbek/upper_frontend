@@ -1,6 +1,6 @@
 import { Button, Error, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { ChangeEvent, ChangeEventHandler, FC, useEffect } from 'react';
+import { ChangeEvent, FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
@@ -53,12 +53,11 @@ export const Form: FC<IFormProps> = () => {
         { key: 'Enter', metaKey: true },
       ],
       () => {
-        if (watch('text')) {
-          watch('text').trim()
-            ? submitHandler({ text: watch('text') })
-            : setError('text', { message: "Bo'sh izoh" });
+        const text = (watch('text') as string)?.trim();
+        if (text) {
+          submitHandler({ text });
         } else {
-          setError('text', { message: 'Izohingizni yozing' });
+          setError('text', { message: "Izoh bo'sh bo'lishi mumkin emas" }, { shouldFocus: true });
         }
       },
     );
@@ -76,7 +75,7 @@ export const Form: FC<IFormProps> = () => {
             value: 200,
             message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
           },
-          validate: (value) => !!value.trim() || "Bo'sh izoh",
+          validate: (value) => !!value.trim() || "Izoh bo'sh bo'lishi mumkin emas",
         })}
         onChange={onChangeComment}
       />
