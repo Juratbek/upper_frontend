@@ -1,4 +1,4 @@
-import { Blog, TabBody, TabsHeader } from 'components';
+import { Blog, Head, TabBody, TabsHeader } from 'components';
 import { useMemo } from 'react';
 import { useGetCurrentBlogQuery } from 'store/apis';
 import { addAmazonUri, checkAuthInServer } from 'utils';
@@ -23,6 +23,7 @@ export default function ProfilePage(): JSX.Element {
 
   return (
     <div className='container'>
+      <Head title='Profil' url='/profile' />
       {currentBlog}
       <TabsHeader tabs={PROFILE_TAB_MENUS} />
       <TabBody tabs={PROFILE_TABS} />

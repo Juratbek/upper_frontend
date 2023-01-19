@@ -4,7 +4,7 @@ type TOgType = 'article' | 'blog';
 
 export interface IHeadProps {
   title: string;
-  imgUrl: string;
+  imgUrl?: string;
   url: string;
   description?: string;
   type?: TOgType;
