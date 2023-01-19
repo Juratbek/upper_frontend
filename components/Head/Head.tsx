@@ -1,10 +1,23 @@
 import NextHead from 'next/head';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 import { IHeadProps } from './Head.types';
 
 export const Head: FC<IHeadProps> = (props) => {
-  const { title, imgUrl, description, type, url, author, publishedDate } = props;
+  const { title, imgUrl, type, url, author, publishedDate } = props;
+
+  const description = useMemo(() => {
+    const { description } = props;
+    if (!description) return '';
+    try {
+      const div = document.createElement('div');
+      div.innerHTML = description;
+      return div.textContent;
+    } catch (e) {
+      return '';
+    }
+  }, [props.description]);
+
   return (
     <NextHead>
       <meta property='og:site_name' content='UPPER' />
