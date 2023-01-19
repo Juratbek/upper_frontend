@@ -1,4 +1,4 @@
-import { Alert, Button, Divider, Modal } from 'components';
+import { Alert, Button, Divider, Head, Modal } from 'components';
 import { useAuth, useClipboard, useModal } from 'hooks';
 import { FC, useMemo } from 'react';
 import { convertToCardNumbers } from 'utils';
@@ -37,6 +37,7 @@ export const SponsorPage: FC = () => {
 
   return (
     <div className='container mt-4'>
+      <Head title="Platformani qo'llab quvvatlash" url='/sponsor-platform' />
       {sponsorModal}
       <h1>Biz uchun eng katta yordam bu biz orqali bilim ulashishingizdir</h1>
       {actionButton}

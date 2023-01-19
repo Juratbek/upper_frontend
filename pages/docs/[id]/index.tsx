@@ -1,5 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { ApiErrorBoundary, Editor } from 'components';
+import { ApiErrorBoundary, Editor, Head } from 'components';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useState } from 'react';
@@ -27,24 +27,27 @@ const DocPage: NextPage = () => {
   }, [id]);
 
   return (
-    <ApiErrorBoundary
-      onError={(): ReactNode => (
-        <div className='text-center'>
-          <h2>Qo&apos;llanma topilamdi</h2>
-          <p>Tez orada qo&apos;llanma joylanadi. Iltimos kuting...</p>
-        </div>
-      )}
-      res={fetchDocRes}
-      className='editor-container'
-    >
-      {fetchDocRes.data && (
-        <Editor
-          content={{ blocks: addUriToImageBlocks(fetchDocRes.data) }}
-          isEditable={false}
-          handleInstance={setEditorInstance}
-        />
-      )}
-    </ApiErrorBoundary>
+    <div>
+      <Head title="Qo'llanma" url='/documentation' />
+      <ApiErrorBoundary
+        onError={(): ReactNode => (
+          <div className='text-center'>
+            <h2>Qo&apos;llanma topilamdi</h2>
+            <p>Tez orada qo&apos;llanma joylanadi. Iltimos kuting...</p>
+          </div>
+        )}
+        res={fetchDocRes}
+        className='editor-container'
+      >
+        {fetchDocRes.data && (
+          <Editor
+            content={{ blocks: addUriToImageBlocks(fetchDocRes.data) }}
+            isEditable={false}
+            handleInstance={setEditorInstance}
+          />
+        )}
+      </ApiErrorBoundary>
+    </div>
   );
 };
 
