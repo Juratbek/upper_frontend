@@ -1,15 +1,18 @@
 import { Button, CommentSkeleton, Divider } from 'components';
-import { useAuth, useClickOutside } from 'hooks';
+import { useAuth, useClickOutside, useInfiniteScrollV2 } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
+import { TGetByArticleIdDto } from 'store/apis/comment/comment.types';
 import {
   closeCommentsSidebar,
   getIsCommentsSidebarOpen,
   openLoginModal,
   openRegisterModal,
 } from 'store/states';
+import { IComment } from 'types';
 import { getClassName } from 'utils';
 
 import classes from './Comments.module.scss';
@@ -21,16 +24,27 @@ export const Comments = (): JSX.Element => {
   const {
     query: { id },
   } = useRouter();
-  const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
+  // const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
   const isOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
+  const {
+    hasMore,
+    fetchFirstPage,
+    fetchNextPage,
+    list: comments,
+    isLoading,
+  } = useInfiniteScrollV2<IComment>(useLazyGetCommentsByArticleIdQuery);
 
   const [rootRef] = useClickOutside(() => {
     dispatch(closeCommentsSidebar());
   }, '[data-action="open-comments"]');
 
+  const fetchFirstPageHandler = (articleId: string | string[] | undefined): void => {
+    articleId && fetchFirstPage<TGetByArticleIdDto>({ articleId: +articleId });
+  };
+
   useEffect(() => {
-    isOpen && id && fetchComments(+id);
+    isOpen && fetchFirstPageHandler(id);
   }, [id, isOpen]);
 
   const loginClickHandler = (): void => {
@@ -41,8 +55,19 @@ export const Comments = (): JSX.Element => {
     dispatch(openRegisterModal());
   };
 
-  const comments = useMemo(() => {
-    const { data: comments, isLoading } = fetchCommentsRes;
+  const fetchNextPageHandler = (): void => {
+    id && fetchNextPage({ articleId: +id });
+  };
+
+  const submitHandler = (): void => {
+    const commentsElement = document.getElementById('comments');
+    if (commentsElement) {
+      commentsElement.scrollTop = 0;
+    }
+    fetchFirstPageHandler(id);
+  };
+
+  const commentsRender = useMemo(() => {
     if (isLoading)
       return Array(3)
         .fill('')
@@ -50,20 +75,31 @@ export const Comments = (): JSX.Element => {
     if (!comments) return <></>;
     if (comments.length === 0) return <p className='text-center'>Izohlar mavjud emas</p>;
 
-    const clone = [...comments];
-    return clone.reverse().map((comment) => <Comment {...comment} key={comment.id} />);
-  }, [fetchCommentsRes]);
+    return comments.map((comment) => <Comment {...comment} key={comment.id} />);
+  }, [comments, isLoading]);
 
   return (
     <div ref={rootRef} className={rootClassName}>
-      <div className={classes['comments-list']}>
-        <h3 className='m-1'>Izohlar</h3>
-        <Divider />
-        {comments}
+      <div className={classes['comments-list']} id='comments'>
+        <InfiniteScroll
+          hasMore={hasMore}
+          loader={Array(3)
+            .fill('')
+            .map((_, index) => (
+              <CommentSkeleton key={index} className='p-1' />
+            ))}
+          dataLength={comments.length}
+          next={fetchNextPageHandler}
+          scrollableTarget='comments'
+        >
+          <h3 className='m-1'>Izohlar</h3>
+          <Divider />
+          {commentsRender}
+        </InfiniteScroll>
       </div>
       <div className={classes.form}>
         {isAuthenticated ? (
-          <Form />
+          <Form onSubmit={submitHandler} />
         ) : (
           <div>
             <p className='mt-0'>Izoh qoldirish uchun ro`yxatdan o`ting</p>

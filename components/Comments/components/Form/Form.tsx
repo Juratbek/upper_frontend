@@ -11,7 +11,7 @@ import { addKeyboardListeners } from 'utils';
 import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
 
-export const Form: FC<IFormProps> = () => {
+export const Form: FC<IFormProps> = (props) => {
   const {
     register,
     handleSubmit,
@@ -30,8 +30,9 @@ export const Form: FC<IFormProps> = () => {
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     if (!id) return Promise.reject();
-    await createComment({ text: event.text.trim(), articleId: +id });
+    await createComment({ text: event.text.trim(), articleId: +id }).unwrap();
     reset();
+    props.onSubmit?.();
   };
 
   const closeComments = (): void => {

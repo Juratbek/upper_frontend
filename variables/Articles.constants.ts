@@ -1,27 +1,25 @@
-import { ArticlesTab } from 'frontends/articles';
+import { ArticlesTab, TutorialsTab } from 'frontends/articles';
 import { ITabBody, ITabHeader } from 'types';
 
-import { ARTICLE_STATUSES } from './article';
-
 export const TAB_IDS = {
-  published: 'published',
-  saved: 'saved',
+  articles: 'articles',
+  tutorials: 'tutorials',
 };
 
 export const ARTICLES_TAB_MENUS: ITabHeader[] = [
   {
-    name: 'Nashr qilingan',
-    id: ARTICLE_STATUSES.PUBLISHED,
+    name: 'Maqolalar',
+    id: TAB_IDS.articles,
   },
-  {
-    name: 'Saqlangan',
-    id: ARTICLE_STATUSES.SAVED,
-  },
+  // {
+  //   name: "To'plamlar",
+  //   id: TAB_IDS.tutorials,
+  // },
 ];
 
 export const ARTICLES_TABS: ITabBody = {
-  [ARTICLE_STATUSES.PUBLISHED]: ArticlesTab,
-  [ARTICLE_STATUSES.SAVED]: ArticlesTab,
+  [TAB_IDS.articles]: ArticlesTab,
+  [TAB_IDS.tutorials]: TutorialsTab,
 };
 
 export const DELETE_CONFIRMATION = 'tasdiqlash';

@@ -11,6 +11,11 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.placeholder {
+  color: var(--gray);
 }
 
 .option {

@@ -4,8 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useCreateArticleMutation, useLazySearchLabelsQuery } from 'store/apis';
-import { getEditor, setArticle } from 'store/states';
+import {
+  useCreateArticleMutation,
+  useCreateTutorialMutation,
+  useLazySearchLabelsQuery,
+} from 'store/apis';
+import { getEditor, setArticle, setTutorial } from 'store/states';
 import { IArticle, ILabel, IResponseError } from 'types';
 import { addUriToImageBlocks, compressUnsplashImage, convertLabelsToOptions } from 'utils';
 import { MAX_LABELS } from 'variables';
@@ -13,6 +17,7 @@ import { MAX_LABELS } from 'variables';
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
   const [createArticle, createArticleRes] = useCreateArticleMutation();
+  const [createTutorial] = useCreateTutorialMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
   const [alert, setAlert] = useState<string>();
   const dispatch = useAppDispatch();
@@ -29,6 +34,12 @@ export const SidebarContent: FC = () => {
     const labels: ILabel[] = selectedLabels.map((l) => ({ name: l.label, id: +l.value }));
 
     createArticle({ title, blocks, labels });
+  };
+
+  const createTutorialHandler = async (): Promise<void> => {
+    const res = await createTutorial().unwrap();
+    dispatch(setTutorial(res));
+    router.push(`/tutorials/${res.id}`);
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
@@ -73,6 +84,14 @@ export const SidebarContent: FC = () => {
       <Button onClick={save} className='w-100' loading={createArticleRes.isLoading}>
         Saqlash
       </Button>
+      {/* <Button
+        className='w-100 mt-1'
+        color='outline-dark'
+        onClick={createTutorialHandler}
+        disabled={createArticleRes.isLoading}
+      >
+        Maqolalar to&apos;plamini yaratish
+      </Button> */}
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
       <div>

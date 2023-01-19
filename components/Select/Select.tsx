@@ -1,14 +1,21 @@
 import { useClickOutside } from 'hooks';
-import { FC, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useMemo, useState } from 'react';
+import { debouncer, getClassName } from 'utils';
 
 import classes from './Select.module.scss';
 import { ISelectOption, ISelectProps } from './Select.types';
 
-export const Select: FC<ISelectProps> = ({ options = [], ...props }) => {
+const debounce = debouncer(500);
+
+export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ...props }) => {
+  const { onInputDebounce } = props;
+  const containerClassName = getClassName(classes.container, props.className);
+
   const [selectedOption, setSelectedOption] = useState<ISelectOption | undefined>(
     props.defaultValue,
   );
   const [isOptionsContainerOpen, setIsOptionsContainerOpen] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>();
 
   const closeOptionsContainer = (): void => {
     setIsOptionsContainerOpen(false);
@@ -19,16 +26,31 @@ export const Select: FC<ISelectProps> = ({ options = [], ...props }) => {
   const selectOption = (option: ISelectOption): void => {
     setSelectedOption(option);
     closeOptionsContainer();
+    searcheable && setInputValue(option.label);
     props.onChange?.(option);
   };
 
-  const openOptionsContainer = (): void => {
-    setIsOptionsContainerOpen(true);
+  const openOptionsContainer = (): unknown => setIsOptionsContainerOpen(true);
+
+  const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target?.value;
+    setInputValue(value);
+    onInputDebounce && debounce(value, onInputDebounce);
   };
 
   const optionsContent = useMemo(() => {
-    if (options.length === 0) return <div className={classes['option__item']}>No options</div>;
-    const unselectedOptions = options.filter((option) => option.value !== selectedOption?.value);
+    if (options.length === 0) {
+      return <div className={classes['option__item']}>Varyantlar masjud emas</div>;
+    }
+    const unselectedOptions = options.filter((option) => {
+      const isSelected = option.value === selectedOption?.value;
+      if (searcheable && inputValue) {
+        const label = option.label.toString().toLowerCase();
+        const doesMatchForSearch = label.includes(inputValue.toLowerCase());
+        return !isSelected && doesMatchForSearch;
+      }
+      return !isSelected;
+    });
 
     return unselectedOptions.map((option) => (
       <div
@@ -39,13 +61,31 @@ export const Select: FC<ISelectProps> = ({ options = [], ...props }) => {
         {option.label}
       </div>
     ));
-  }, [options, selectedOption]);
+  }, [options, selectedOption, inputValue]);
+
+  const renderSelect = useMemo(() => {
+    if (searcheable) {
+      return (
+        <input
+          type='text'
+          onFocus={openOptionsContainer}
+          className={classes.select}
+          placeholder={props.placeholder}
+          value={inputValue}
+          onChange={inputChangeHandler}
+        />
+      );
+    }
+    return (
+      <div className={classes.select} onClick={openOptionsContainer}>
+        {selectedOption?.label || <span className={classes.placeholder}>{props.placeholder}</span>}
+      </div>
+    );
+  }, [selectedOption]);
 
   return (
-    <div className={classes.container} ref={ref}>
-      <div className={classes.select} onClick={openOptionsContainer}>
-        {selectedOption?.label}
-      </div>
+    <div className={containerClassName} ref={ref}>
+      {renderSelect}
       <div
         className={`${classes['option-container']} ${
           isOptionsContainerOpen ? 'd-block' : 'd-none'

@@ -1,0 +1,78 @@
+$icon-container: 25px;
+$icon-size: 16px;
+
+.header {
+  padding: 0.5rem;
+  position: relative;
+
+  & .actions {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    transform: translateY(-50%);
+    display: none;
+    gap: 0.3rem;
+  }
+
+  &:hover {
+    background-color: var(--lightGray);
+
+    & .actions {
+      display: flex;
+    }
+  }
+}
+
+.icon {
+  width: $icon-container;
+  height: $icon-container;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100rem;
+  position: relative;
+
+  & svg {
+    width: $icon-size;
+    height: $icon-size;
+  }
+  &:hover {
+    background-color: var(--mediumGray);
+    cursor: pointer;
+  }
+}
+
+.add-popover {
+  position: absolute;
+  transform: translateY(100%);
+  bottom: 0;
+  right: 0;
+  border: 0.5px solid gray;
+  display: none;
+  z-index: 2;
+
+  & ul {
+    list-style: none;
+    margin: 0.2rem 0;
+    padding: 0;
+    width: max-content;
+
+    & li {
+      padding: 0.2rem 0.4rem;
+
+      &:hover {
+        background-color: var(--lightGray);
+      }
+    }
+  }
+}
+
+.open {
+  display: block;
+}
+
+.articles {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
