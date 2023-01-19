@@ -71,7 +71,10 @@ export const Form: FC<IFormProps> = (props) => {
         placeholder='Izohingizni bu yerga yozing'
         color='transparent'
         {...register('text', {
-          required: true,
+          required: {
+            value: true,
+            message: "Izoh bo'sh bo'lishi mumkin emas",
+          },
           maxLength: {
             value: 200,
             message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
