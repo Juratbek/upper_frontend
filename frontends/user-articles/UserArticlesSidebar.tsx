@@ -43,8 +43,8 @@ export const UserArticlesSidebar: FC = () => {
 
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
-  const [isPublishModalOpen, togglePublishModal] = useModal(false);
-  const [isDeleteModalOpen, toggleDeleteModal] = useModal(false);
+  const [isPublishModalOpen, togglePublishModal, , closePublishModal] = useModal(false);
+  const [isDeleteModalOpen, toggleDeleteModal, , closeDeleteModal] = useModal(false);
 
   const [updateArticle, updateArticleRes] = useUpdateArticleMutaion();
   const [publishArticle, publishArticleRes] = usePublishMutation();
@@ -132,7 +132,7 @@ export const UserArticlesSidebar: FC = () => {
       <Modal
         size='small'
         isOpen={isPublishModalOpen}
-        close={togglePublishModal}
+        close={closePublishModal}
         bodyClassName='text-center'
       >
         {alertComponent}
@@ -156,7 +156,7 @@ export const UserArticlesSidebar: FC = () => {
       <Modal
         size='small'
         isOpen={isDeleteModalOpen}
-        close={toggleDeleteModal}
+        close={closeDeleteModal}
         bodyClassName='text-center'
       >
         {alertComponent}
