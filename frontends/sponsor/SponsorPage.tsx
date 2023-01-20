@@ -8,12 +8,12 @@ const CARD_NUMBER = '8600490418761045';
 
 export const SponsorPage: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
-  const [isSponsorModalOpen, toggleSponsorModal] = useModal();
+  const [isSponsorModalOpen, toggleSponsorModal, { close: closeSponsorModal }] = useModal();
   const { writeText, isCopied, isLoading: isCopying, isError } = useClipboard();
 
   const sponsorModal = useMemo(
     () => (
-      <Modal isOpen={isSponsorModalOpen} close={toggleSponsorModal}>
+      <Modal isOpen={isSponsorModalOpen} close={closeSponsorModal}>
         {isError && <Alert color='red'>Xatolik yuz berdi, iltimos qayta urinib ko&apos;ring</Alert>}
         <h3>Birodar, muhimi miqdor emas, muhimi niyat :)</h3>
         <p>{convertToCardNumbers(CARD_NUMBER)}</p>

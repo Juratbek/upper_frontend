@@ -101,11 +101,17 @@ const tutorialsSidebarSlice = createSlice({
     toggleRemoveArticleModal(state) {
       state.isRemoveArticleModalOpen = !state.isRemoveArticleModalOpen;
     },
+    closeRemoveArticleModal(state) {
+      state.isRemoveArticleModalOpen = false;
+    },
     setSelectedSection(state, { payload }: PayloadAction<ITutorialSection | undefined>) {
       state.selectedSection = payload;
     },
     toggleRemoveSectionModal(state) {
       state.isRemoveSectionModalOpen = !state.isRemoveSectionModalOpen;
+    },
+    closeRemoveSectionModal(state) {
+      state.isRemoveSectionModalOpen = false;
     },
     setTutorial(state, { payload }: PayloadAction<ITutorial>) {
       const { name, sections } = payload;
@@ -130,7 +136,9 @@ export const {
   setTutorial,
   clearTutorial,
   toggleRemoveArticleModal,
+  closeRemoveArticleModal,
   toggleRemoveSectionModal,
+  closeRemoveSectionModal,
   setSelectedArticle,
   setSelectedSection,
 } = tutorialsSidebarSlice.actions;
