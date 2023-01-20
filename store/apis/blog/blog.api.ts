@@ -18,6 +18,8 @@ import {
   IChangeCredentiasDto,
   IChangeLoginDto,
   IChangePasswordDto,
+  TGetByFollowerIdDto,
+  TGetCurrentFollowerDto,
 } from './blog.types';
 
 export const blogApi = createApi({
@@ -74,8 +76,11 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['current-blog'],
     }),
-    getCurrentBlogFollowers: build.query<IBlogMedium[], void>({
-      query: () => 'current-blog-followers',
+    getCurrentBlogFollowers: build.query<IBlogMedium[], TGetCurrentFollowerDto>({
+      query: ({ ...params }) => ({
+        url: 'current-blog-followers',
+        params,
+      }),
     }),
     getById: build.query<IBlog, { id: number; token?: string | null }>({
       query: ({ id, token }) => ({
@@ -122,9 +127,8 @@ export const blogApi = createApi({
     getPublishedArticles: build.query<IArticleResult[], number>({
       query: (id) => `open/published-articles/${id}`,
     }),
-    getFollowers: build.query<IBlogMedium[], number>({
-      query: (id) => `open/followers/${id}`,
-      providesTags: ['folowers'],
+    getFollowers: build.query<IBlogMedium[], TGetByFollowerIdDto>({
+      query: ({ blogId, ...params }) => ({ url: `open/followers/${blogId}`, params }),
     }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({

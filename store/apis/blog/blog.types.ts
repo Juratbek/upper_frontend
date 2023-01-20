@@ -1,3 +1,5 @@
+import { TOptionalPagingRequest } from 'types';
+
 export interface IBlogRegisterDto {
   name: string;
   bio?: string;
@@ -41,3 +43,6 @@ export interface IBlogDonatCredentialsDto {
   donatText?: string;
   cardNumber: string;
 }
+
+export type TGetByFollowerIdDto = TOptionalPagingRequest<{ blogId: number }>;
+export type TGetCurrentFollowerDto = { page?: number; size?: number };
