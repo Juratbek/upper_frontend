@@ -7,11 +7,9 @@ import classes from './WithPopover.module.scss';
 import { IWithPopoverProps } from './WithPopover.types';
 
 export const WithPopoverButton: FC<IWithPopoverProps> = ({ children, popover, ...props }) => {
-  const [isPopoverOpen, togglePopover, setIsPopoverOpen] = useModal(false);
+  const [isPopoverOpen, togglePopover, { close: closePopover }] = useModal(false);
   const popoverClassName = getClassName(classes.popover, isPopoverOpen && classes['popover--open']);
   const iconClassName = getClassName(classes.icon, isPopoverOpen && classes['icon--open']);
-
-  const closePopover = (): void => setIsPopoverOpen(false);
 
   const [ref] = useClickOutside(closePopover);
 

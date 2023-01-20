@@ -8,7 +8,7 @@ const CARD_NUMBER = '8600490418761045';
 
 export const SponsorPage: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
-  const [isSponsorModalOpen, toggleSponsorModal, , closeSponsorModal] = useModal();
+  const [isSponsorModalOpen, toggleSponsorModal, { close: closeSponsorModal }] = useModal();
   const { writeText, isCopied, isLoading: isCopying, isError } = useClipboard();
 
   const sponsorModal = useMemo(

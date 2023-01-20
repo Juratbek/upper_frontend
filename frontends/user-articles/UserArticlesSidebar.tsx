@@ -43,8 +43,8 @@ export const UserArticlesSidebar: FC = () => {
 
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
-  const [isPublishModalOpen, togglePublishModal, , closePublishModal] = useModal(false);
-  const [isDeleteModalOpen, toggleDeleteModal, , closeDeleteModal] = useModal(false);
+  const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
+  const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
 
   const [updateArticle, updateArticleRes] = useUpdateArticleMutaion();
   const [publishArticle, publishArticleRes] = usePublishMutation();
