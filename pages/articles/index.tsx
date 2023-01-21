@@ -1,4 +1,5 @@
 import { Head, TabBody, TabsHeader } from 'components';
+import { checkAuthInServer } from 'utils';
 import { ARTICLES_TAB_MENUS, ARTICLES_TABS } from 'variables';
 
 export default function ArticlesPage(): JSX.Element {
@@ -11,3 +12,5 @@ export default function ArticlesPage(): JSX.Element {
     </div>
   );
 }
+
+export const getServerSideProps = checkAuthInServer;
