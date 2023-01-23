@@ -15,4 +15,4 @@ const WriteArticleNextPage: FC = () => {
 
 export default WriteArticleNextPage;
 
-export const getServerSideProps = checkAuthInServer;
+// export const getServerSideProps = checkAuthInServer;
