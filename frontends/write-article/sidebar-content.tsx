@@ -122,6 +122,14 @@ export const SidebarContent: FC = () => {
           inputPlacegolder='Qidirish uchun yozing'
         />
       </div>
+      <div>
+        <h3 className='mb-0'>Saytimizda yangimisiz?</h3>
+        <Link href='/docs/write-article_introduction_quick-start'>
+          <a>
+            <p className='mt-1 link'>Maqola yozish haqida qo&apos;llanma</p>
+          </a>
+        </Link>
+      </div>
     </>
   );
 };
