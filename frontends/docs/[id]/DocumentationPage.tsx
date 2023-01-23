@@ -44,7 +44,7 @@ export const DocumentationPage: FC = () => {
     const urlsWithoutCurrentDocId = idUrls.slice(0, idUrls.length - 1);
 
     return (
-      <div className='editor-container d-flex justify-content-between mx-2'>
+      <div className='editor-container d-flex justify-content-between my-2'>
         {prevDoc ? (
           <Link href={getDocUrl('/docs/', urlsWithoutCurrentDocId, prevDoc.url)}>
             <a>
