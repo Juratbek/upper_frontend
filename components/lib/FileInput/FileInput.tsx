@@ -1,4 +1,4 @@
-import { Button } from 'components/Button/Button';
+import { Button } from 'components';
 import { ChangeEvent, forwardRef, useState } from 'react';
 
 import classes from './FileInput.module.scss';

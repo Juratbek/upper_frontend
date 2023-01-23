@@ -1,5 +1,4 @@
-import { Label } from 'components';
-import { Status } from 'components/common';
+import { Label, Status } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { toDateString } from 'utils';

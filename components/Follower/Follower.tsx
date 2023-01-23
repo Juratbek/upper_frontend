@@ -1,4 +1,4 @@
-import { Avatar } from 'components/Avatar/Avatar';
+import { Avatar } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 
