@@ -14,9 +14,9 @@
   --scrollbar-thumb-color: #d3d3d3;
 
   // status component colors
-  --color-status-saved-font: #0FB972;
-  --color-status-saved-border: #0FB972;
-  --color-status-published-font: #152C70;
+  --color-status-saved-font: #0fb972;
+  --color-status-saved-border: #0fb972;
+  --color-status-published-font: #152c70;
   --color-status-published-border: #213f9b;
 }
 
@@ -167,6 +167,42 @@
 }
 
 /* margins */
+
+.my-1 {
+  margin-top: $size1;
+  margin-bottom: $size1;
+}
+
+.my-2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-3 {
+  margin-top: 1.7rem;
+  margin-bottom: 1.7rem;
+}
+
+.mx-1 {
+  margin-right: $size1;
+  margin-left: $size1;
+}
+
+.mx-2 {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.mx-3 {
+  margin-right: 1.7rem;
+  margin-left: 1.7rem;
+}
+
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .m-0 {
   margin: 0;
 }
@@ -253,41 +289,6 @@
 
 .mb-4 {
   margin-bottom: $size4;
-}
-
-.my-1 {
-  margin-top: $size1;
-  margin-bottom: $size1;
-}
-
-.my-2 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.my-3 {
-  margin-top: 1.7rem;
-  margin-bottom: 1.7rem;
-}
-
-.mx-1 {
-  margin-right: $size1;
-  margin-left: $size1;
-}
-
-.mx-2 {
-  margin-right: 1rem;
-  margin-left: 1rem;
-}
-
-.mx-3 {
-  margin-right: 1.7rem;
-  margin-left: 1.7rem;
-}
-
-.mx-auto {
-  margin-right: auto;
-  margin-left: auto;
 }
 
 // margins for screens smaller than 576px

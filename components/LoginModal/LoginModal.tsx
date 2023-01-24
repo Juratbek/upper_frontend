@@ -89,7 +89,7 @@ export const LoginModal: FC = () => {
       </Head>
       {alertComponent}
       <form onSubmit={handleSubmit(submitHandler)}>
-        {Boolean(Title) && Title}
+        {Boolean(Title) && <h3 className='my-1 mt-0'>{Title}</h3>}
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>
             Loginni kiriting
