@@ -17,7 +17,7 @@ export const ForgotCredentialsForm: FC = () => {
 
   const submitHandler = async (event: Record<string, string>): Promise<void> => {
     await sendEmailForPassword(event.email);
-    setAlert('Elektron pochtangizga havola jo`natildi');
+    setAlert("Elektron pochtangizga havola jo'natildi");
   };
 
   const closeAlert = (): void => {
@@ -48,10 +48,10 @@ export const ForgotCredentialsForm: FC = () => {
         <Error error={errors.email} />
       </div>
       <Button className='w-100' loading={sendEmailForPasswordRes.isLoading}>
-        Havola jo`natish
+        Havola jo&apos;natish
       </Button>
       <p className='text-gray'>
-        Elektron pochtangizga parolni o`zgartirish uchun havola jo`natiladi
+        Elektron pochtangizga parolni o&apos;zgartirish uchun havola jo&apos;natiladi
       </p>
     </form>
   );

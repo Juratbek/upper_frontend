@@ -80,11 +80,11 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
               <>
                 {isFollowed ? (
                   <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                    Obuna bo`lingan
+                    Obuna bo&apos;lingan
                   </Button>
                 ) : (
                   <Button onClick={follow} loading={followBlogRes.isLoading}>
-                    Obuna bo`lish
+                    Obuna bo&apos;lish
                   </Button>
                 )}
                 {Boolean(blog.cardNumber) && (

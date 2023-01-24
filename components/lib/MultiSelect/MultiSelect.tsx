@@ -92,7 +92,9 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     );
     if (selectedOptions.length === props.max) {
       return (
-        <div className={classes['option__item']}>{props.max} tadan ko`p tanlash mumkin emas</div>
+        <div className={classes['option__item']}>
+          {props.max} tadan ko&apos;p tanlash mumkin emas
+        </div>
       );
     }
     if (props.loading) {
@@ -103,7 +105,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
       );
     }
     if (availableOptions.length === 0) {
-      return <div className={classes['option__item']}>Varintlar yo`q</div>;
+      return <div className={classes['option__item']}>Varintlar yo&apos;q</div>;
     }
     return (
       <>

@@ -72,8 +72,8 @@ export default function UserArticlePage(): JSX.Element {
       <Head title='Blog maqolasi' url='/user/articles' />
       {hasAlert && (
         <Alert className='mt-2' onClose={closeAlert}>
-          Saqlangan lekin nashr etilmagan o`zgarishlar mavjud. Ularni nashr qilish uchun &quot;Nashr
-          qilish&quot; tugmasini bosing
+          Saqlangan lekin nashr etilmagan o&apos;zgarishlar mavjud. Ularni nashr qilish uchun
+          &quot;Nashr qilish&quot; tugmasini bosing
         </Alert>
       )}
       {renderEditor()}

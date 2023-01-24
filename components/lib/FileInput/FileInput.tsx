@@ -38,7 +38,7 @@ export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function 
       <input
         value={file?.name}
         disabled
-        placeholder='O`zgartirish uchun faylni yuklang'
+        placeholder="O'zgartirish uchun faylni yuklang"
         className={classes.input}
       />
       <Button type='button' onClick={clickHandler} color='outline-dark'>

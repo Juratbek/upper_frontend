@@ -126,7 +126,7 @@ export const LoginModal: FC = () => {
           Kirish
         </Button>
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
-          Ro`yxatdan o`tish
+          Ro&apos;yxatdan o&apos;tish
         </Button>
         <p className='text-gray text-center' onClick={closeModal}>
           <Link href='/forgot-credentials'>

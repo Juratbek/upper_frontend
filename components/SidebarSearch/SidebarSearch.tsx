@@ -43,7 +43,7 @@ export const SidebarSearch: FC = () => {
         res={searchBlogRes}
       >
         {!blogs || blogs.length === 0 ? (
-          <p className='my-1'>Bloglar yo`q</p>
+          <p className='my-1'>Bloglar yo&apos;q</p>
         ) : (
           blogs.map((blog) => (
             <Link href={`/blogs/${blog.id}`} key={blog.id}>
