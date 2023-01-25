@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FC, useMemo } from 'react';
 import { getClassName } from 'utils';
 
-import { ZoomImage } from '../ZoomImage';
+import { ZoomImage } from '../../ZoomImage';
 import classes from './Avatar.module.scss';
 import { IAvatarProps } from './Avatar.types';
 

@@ -22,7 +22,7 @@ export interface IArticleResult extends IArticleSmall {
   publishedDate: Date;
   updatedDate?: Date;
   viewCount: number;
-  likes?: number;
+  likeCount: number;
 }
 
 export interface IArticle extends IArticleSmall {

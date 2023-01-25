@@ -1,5 +1,4 @@
-import { Avatar } from 'components';
-import { Divider } from 'components/Divider/Divider';
+import { Avatar, Divider } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { useAppDispatch } from 'store';
