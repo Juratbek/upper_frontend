@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazyGetBlogArticlesQuery } from 'store/apis';
-import { TArticleStatus } from 'types';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, ARTICLES_TAB_MENUS, PAGINATION_SIZE } from 'variables';
 
@@ -20,7 +19,7 @@ export const ArticlesTab: FC = () => {
   useEffect(() => {
     if (tab) {
       const p = (page as unknown as number) || 1;
-      getBlogArticles({ statuses: [tab as TArticleStatus], page: p - 1 });
+      getBlogArticles({ page: p - 1 });
     }
   }, [tab, page]);
 
@@ -55,6 +54,8 @@ export const ArticlesTab: FC = () => {
               className='p-2 px-xs-1 my-2'
               key={article.id}
               article={article}
+              showStatus
+              showLikeCount
             />
           );
         })}

@@ -1,4 +1,5 @@
-import { ArticleImg, Author, Label } from 'components';
+import { ArticleImg, Author, Label, Status } from 'components';
+import { Divider } from 'components/lib';
 import Link from 'next/link';
 import { FC, useEffect, useRef } from 'react';
 import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
@@ -6,18 +7,20 @@ import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
 
-export const Article: FC<IArticleProps> = ({ className, article, author, redirectUrl }) => {
+export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...props }) => {
   const {
     title,
     content,
     updatedDate,
     publishedDate,
     viewCount,
+    likeCount,
     labels = [],
     id,
     imgUrl,
+    status,
   } = article;
-  const rootClassName = getClassName(classes.article, className, 'card');
+  const rootClassName = getClassName(classes.article, props.className, 'card');
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,9 +61,18 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
               <span>{renderDate()}</span>
               {viewCount > 0 && (
                 <>
+                  <Divider type='vertical' />
                   &nbsp; &nbsp;
                   <span>
                     <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
+                  </span>
+                </>
+              )}
+              {props.showLikeCount && likeCount > 0 && (
+                <>
+                  &nbsp; &nbsp;
+                  <span>
+                    <strong>{formatToKMB(likeCount)}</strong> marta layk bosilgan
                   </span>
                 </>
               )}
@@ -74,6 +86,11 @@ export const Article: FC<IArticleProps> = ({ className, article, author, redirec
                   <Label>{label.name}</Label>
                 </span>
               ))}
+              {props.showStatus && status && (
+                <Status className='ms-1' status={status}>
+                  {status}
+                </Status>
+              )}
             </div>
           </div>
           {author && (
