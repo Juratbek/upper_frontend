@@ -19,7 +19,7 @@ export const Tutorial: FC<ITutorialProps> = ({
       <a className={`${classes.container} ${className}`}>
         <div className={classes.body}>
           <h2 className='my-1'>{name}</h2>
-          <Status status={status}>{status}</Status>
+          <Status status={status} />
         </div>
         <div className={classes.footer}>
           <span className={classes.stats}>
