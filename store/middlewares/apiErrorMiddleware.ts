@@ -12,7 +12,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
     if (isGetNewTokenApi && [401, 400, 500, 403, 404].includes(status)) {
       const { dispatch } = api;
       dispatch(unauthenticate());
-      window.location.reload();
+      window.location.replace('/');
     }
 
     if (status === 401) {
