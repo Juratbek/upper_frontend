@@ -86,11 +86,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
                   <Label>{label.name}</Label>
                 </span>
               ))}
-              {props.showStatus && status && (
-                <Status className='ms-1' status={status}>
-                  {status}
-                </Status>
-              )}
+              {props.showStatus && status && <Status className='ms-1' status={status} />}
             </div>
           </div>
           {author && (
