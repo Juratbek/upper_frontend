@@ -54,7 +54,7 @@
     width: 0.7rem;
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb-color);
+    background-color: transparent;
     border-radius: 10rem;
     border: 2px solid white;
   }
@@ -482,4 +482,8 @@
 // font sizes
 .fs-1 {
   font-size: 0.8rem;
+}
+
+.on-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color) !important;
 }
