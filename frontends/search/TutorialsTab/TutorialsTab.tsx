@@ -1,7 +1,8 @@
-import { ApiErrorBoundary, Blog, BlogSkeleton, Button } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, Button, PublishedTutorial } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
-import { useLazySearchBlogQuery, useLazySearchPublishedTutorialQuery } from 'store/apis';
+import { useLazySearchPublishedTutorialQuery } from 'store/apis';
+import { IPublishedTutorialMedim } from 'types';
 import { addAmazonUri } from 'utils';
 import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
@@ -32,8 +33,7 @@ export const TutorialsTab: FC = () => {
           className='d-flex align-items-center justify-content-between px-3 py-2 px-xs-1'
           key={tutorial.id}
         >
-          <Blog {...addAmazonUri(tutorial)} isLink />
-          <Button color='outline-dark'>Follow</Button>
+          <PublishedTutorial {...addAmazonUri<IPublishedTutorialMedim>(tutorial)} />
         </div>
       ))}
     </ApiErrorBoundary>

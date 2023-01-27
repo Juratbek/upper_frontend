@@ -1,5 +1,5 @@
-import { ITutorialMedium } from 'types';
+import { IPublishedTutorialMedim } from 'types';
 
-export interface ITutorialProps extends ITutorialMedium {
+export interface ITutorialProps extends IPublishedTutorialMedim {
   className?: string;
 }
