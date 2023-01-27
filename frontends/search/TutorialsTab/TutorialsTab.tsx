@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, BlogSkeleton, Button, PublishedTutorial } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, PublishedTutorial } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
@@ -13,10 +13,10 @@ export const TutorialsTab: FC = () => {
   } = useRouter();
 
   useEffect(() => {
-    if (search && tab === SEARCH_PAGE_TAB_IDS.blogs && search.length > 1) {
+    if (search && tab === SEARCH_PAGE_TAB_IDS.tutorials && search.length > 1) {
       searchTutorial({ search: search.toString() });
     }
-  }, [search]);
+  }, [search, tab]);
 
   return (
     <ApiErrorBoundary
