@@ -22,7 +22,6 @@ import {
   getIsCommentsSidebarOpen,
   getIsSidebarOpen,
   openLoginModal,
-  openRegisterModal,
 } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
@@ -50,10 +49,9 @@ export const Sidebar = (): JSX.Element => {
     dispatch(openLoginModal());
   };
 
-  const registerHandler = (): void => {
-    dispatch(openRegisterModal());
+  const writeArticleHandler = (): void => {
+    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
   };
-
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());
   };
@@ -124,12 +122,12 @@ export const Sidebar = (): JSX.Element => {
       <>
         {!isAuthenticated && (
           <>
-            <div className='d-flex justify-content-around'>
+            <div className='d-flex justify-content-between f-gap-1'>
               <Button color='outline-dark' onClick={loginHandler}>
-                Kirish
+                Profilga kirish
               </Button>
-              <Button className='float-right' onClick={registerHandler}>
-                Ro`yxatdan o`tish
+              <Button className='flex-1' onClick={writeArticleHandler}>
+                Maqola yozish
               </Button>
             </div>
             <Divider className='my-2' />

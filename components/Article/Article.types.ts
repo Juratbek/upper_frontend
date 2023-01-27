@@ -6,4 +6,6 @@ export interface IArticleProps {
   redirectUrl?: string;
   article: IArticleResult;
   author?: IBlogSmall;
+  showStatus?: boolean;
+  showLikeCount?: boolean;
 }
