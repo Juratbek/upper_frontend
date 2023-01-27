@@ -7,7 +7,7 @@ export const VALIDITY_REQUIREMENTS = {
 };
 
 export const PASSWORD_VALIDITY_REQUIREMENTS: Record<TValidityRequirement, string> = {
-  length: 'Parol 8 harfdan kam bo`lmasligi kerak',
-  upperLowerCase: 'Kamida bitta katta va kichik harf bo`lishi kerak',
-  numberContains: 'Kamida bitta raqam bo`lishi kerak',
+  length: "Parol 8 harfdan kam bo'lmasligi kerak",
+  upperLowerCase: "Kamida bitta katta va kichik harf bo'lishi kerak",
+  numberContains: "Kamida bitta raqam bo'lishi kerak",
 };

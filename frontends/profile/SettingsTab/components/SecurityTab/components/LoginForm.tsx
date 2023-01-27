@@ -24,7 +24,7 @@ export const LoginForm: FC = () => {
     const { data, isSuccess, isError, error } = changeLoginRes;
     if (isSuccess) {
       authenticate(data);
-      setAlert({ message: 'Login o`zgartirildi', color: 'green' });
+      setAlert({ message: "Login o'zgartirildi", color: 'green' });
     }
     const apiError = error as IResponseError;
     isError && setAlert({ message: apiError.data.message, color: 'red' });
@@ -37,7 +37,7 @@ export const LoginForm: FC = () => {
           {alert.message}
         </Alert>
       )}
-      <h3>Loginni o`zgartirish</h3>
+      <h3>Loginni o&apos;zgartirish</h3>
       <div className='mb-1'>
         <label className='mb-1 d-block' htmlFor='newLogin'>
           Yangi Login
@@ -53,7 +53,7 @@ export const LoginForm: FC = () => {
         <Error error={errors.password} />
       </div>
       <Button color='outline-dark' loading={changeLoginRes.isLoading}>
-        O`zgartirish
+        O&apos;zgartirish
       </Button>
     </form>
   );

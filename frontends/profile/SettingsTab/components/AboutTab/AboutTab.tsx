@@ -108,7 +108,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
                 {...register('bio', {
                   maxLength: {
                     value: 80,
-                    message: 'Bio o`ta uzun',
+                    message: "Bio o'ta uzun",
                   },
                 })}
               />

@@ -59,7 +59,7 @@ export const Navigation = (): JSX.Element => {
     () => (
       <div className={isMobile && !isAuthenticated ? 'd-flex align-items-center' : 'd-none'}>
         <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
-          Ro`yxatdan o`tish
+          Ro&apos;yxatdan o&apos;tish
         </Button>
         <Button onClick={loginClickHandler}>Kirish</Button>
       </div>

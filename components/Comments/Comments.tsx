@@ -102,13 +102,13 @@ export const Comments = (): JSX.Element => {
           <Form onSubmit={submitHandler} />
         ) : (
           <div>
-            <p className='mt-0'>Izoh qoldirish uchun ro`yxatdan o`ting</p>
+            <p className='mt-0'>Izoh qoldirish uchun ro&apos;yxatdan o&apos;ting</p>
             <div className='d-flex f-gap-1'>
               <Button className='flex-auto' color='outline-dark' onClick={loginClickHandler}>
                 Profilga kirish
               </Button>
               <Button className='flex-auto' onClick={registerClickHandler}>
-                Ro`yxatdan o&apos;tish
+                Ro&apos;yxatdan o&apos;tish
               </Button>
             </div>
           </div>

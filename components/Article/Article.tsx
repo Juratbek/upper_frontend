@@ -64,7 +64,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
                   <Divider type='vertical' />
                   &nbsp; &nbsp;
                   <span>
-                    <strong>{formatToKMB(viewCount)}</strong> marta o`qilgan
+                    <strong>{formatToKMB(viewCount)}</strong> marta o&apos;qilgan
                   </span>
                 </>
               )}

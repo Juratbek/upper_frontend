@@ -24,7 +24,7 @@ export const FollowersTab: FC = () => {
       fallbackItemCount={3}
       res={fetchFollowersRes}
     >
-      {followers?.length === 0 && <p className='text-center'>Kuzatuvchilar yo`q</p>}
+      {followers?.length === 0 && <p className='text-center'>Kuzatuvchilar yo&apos;q</p>}
       {followers?.map((follower) => (
         <Fragment key={follower.id}>
           <Follower {...addAmazonUri(follower)} className='px-3 py-2' />

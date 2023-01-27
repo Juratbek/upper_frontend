@@ -10,10 +10,10 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
   name: {
     name: 'name',
     options: {
-      required: 'Blog nomi bo`sh bo`lishi mumkin emas',
+      required: "Blog nomi bo'sh bo'lishi mumkin emas",
       maxLength: {
         value: 70,
-        message: 'Blog nomi o`ta uzun',
+        message: "Blog nomi o'ta uzun",
       },
       validate: (value) =>
         !PROHIBITED_NAMES.includes(value?.toLowerCase()) || 'Taqiqlangan blog nomi',
@@ -24,7 +24,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
     options: {
       maxLength: {
         value: 100,
-        message: 'Email o`ta uzun',
+        message: "Email o'ta uzun",
       },
     },
   },
@@ -33,35 +33,35 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
     options: {
       maxLength: {
         value: 80,
-        message: 'Bio o`ta uzun',
+        message: "Bio o'ta uzun",
       },
     },
   },
   login: {
     name: 'login',
     options: {
-      required: 'Login bo`sh bo`lishi mumkin eams',
+      required: "Login bo'sh bo'lishi mumkin eams",
       minLength: {
         value: 8,
-        message: 'Login 8 harfdan kam bo`lmasligi kerak',
+        message: "Login 8 harfdan kam bo'lmasligi kerak",
       },
       maxLength: {
         value: 60,
-        message: 'Login o`ta uzun',
+        message: "Login o'ta uzun",
       },
     },
   },
   password: {
     name: 'password',
     options: {
-      required: 'Parol bo`sh bo`lishi mumkin emas',
+      required: "Parol bo'sh bo'lishi mumkin emas",
       minLength: {
         value: 8,
-        message: 'Parol 8 harfdan kam bo`lmasligi kerak',
+        message: "Parol 8 harfdan kam bo'lmasligi kerak",
       },
       maxLength: {
         value: 60,
-        message: 'Parol o`ta uzun',
+        message: "Parol o'ta uzun",
       },
       validate: validatePassword,
     },
