@@ -10,6 +10,7 @@ import {
 
 interface ICommentSidebarState {
   isRemoveArticleModalOpen: boolean;
+  isPublishTutorialModalOpen: boolean;
   selectedArticle?: ITutorialArticle;
   isRemoveSectionModalOpen: boolean;
   selectedSection?: ITutorialSection;
@@ -20,6 +21,7 @@ interface ICommentSidebarState {
 const initialState: ICommentSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
+  isPublishTutorialModalOpen: true,
   name: '',
   sections: [],
 };
@@ -113,6 +115,9 @@ const tutorialsSidebarSlice = createSlice({
     closeRemoveSectionModal(state) {
       state.isRemoveSectionModalOpen = false;
     },
+    publishTutorialModalHandler(state, action: PayloadAction<{ isOpen: boolean }>) {
+      state.isPublishTutorialModalOpen = action.payload.isOpen;
+    },
     setTutorial(state, { payload }: PayloadAction<ITutorial>) {
       const { name, sections } = payload;
       state.sections = sections || [];
@@ -141,5 +146,6 @@ export const {
   closeRemoveSectionModal,
   setSelectedArticle,
   setSelectedSection,
+  publishTutorialModalHandler,
 } = tutorialsSidebarSlice.actions;
 export default tutorialsSidebarSlice.reducer;

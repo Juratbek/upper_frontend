@@ -1,8 +1,8 @@
 import { IHeadProps } from 'components';
 import { BLOG_BUCKET_URL } from 'store/apis';
-import { IBlog, IBlogSmall, ILink, TIcon } from 'types';
+import { IBlog, ILink, TIcon } from 'types';
 
-export const addAmazonUri = <T extends IBlogSmall>(blog: T): T => {
+export const addAmazonUri = <T extends { imgUrl: string }>(blog: T): T => {
   const imgUrl = blog.imgUrl;
   if (!imgUrl || imgUrl.startsWith('http')) return blog;
   return {

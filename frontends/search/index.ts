@@ -1,2 +1,3 @@
-export * from '../search/ArticlesTab/ArticlesTab';
-export * from '../search/BlogsTab/BlogsTab';
+export * from './ArticlesTab/ArticlesTab';
+export * from './BlogsTab/BlogsTab';
+export * from './TutorialsTab/TutorialsTab';

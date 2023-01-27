@@ -9,5 +9,8 @@ export const getTutorialSections = (store: TRootState): ITutorialSection[] =>
 export const getIsRemoveArticleModalOpen = (store: TRootState): boolean =>
   store.tutorialsSidebar.isRemoveArticleModalOpen;
 
+export const getIsPublishTutorialModalOpen = (store: TRootState): boolean =>
+  store.tutorialsSidebar.isPublishTutorialModalOpen;
+
 export const getIsRemoveSectionModalOpen = (store: TRootState): boolean =>
   store.tutorialsSidebar.isRemoveSectionModalOpen;

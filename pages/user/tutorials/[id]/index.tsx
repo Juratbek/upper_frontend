@@ -1,4 +1,4 @@
-import { TutorialPage } from 'frontends/tutorials';
+import { TutorialPage } from 'frontends/user-tutorials';
 import { NextPage } from 'next';
 import { checkAuthInServer } from 'utils';
 

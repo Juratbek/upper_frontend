@@ -6,16 +6,17 @@ import {
   IChangeTutorialSelectedArticleDto,
   useChangeTutorialSelectedArticleMutation,
   useLazyGetMediumArticleByIdQuery,
-  useLazySearchArticleQuery,
+  useLazySearchCurrentBlogPublishedArticlesQuery,
 } from 'store/apis';
 import { getTutorialSections } from 'store/states';
 import { IArticleResult } from 'types';
 import { addAmazonBucketUriToArticle, convertToOptions } from 'utils';
+import { PUBLISHED_ARTICLE_STATUSES } from 'variables';
 
 export const TutorialPage: FC = () => {
   const sections = useAppSelector(getTutorialSections);
   const [selectedArticle, setSelectedArticle] = useState<IArticleResult>();
-  const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
+  const [searchArticle, searchArticleRes] = useLazySearchCurrentBlogPublishedArticlesQuery();
   const [fetchMediumArticleById] = useLazyGetMediumArticleByIdQuery();
   const [changeSelectedArticle, changeSelectedArticleRes] =
     useChangeTutorialSelectedArticleMutation();
@@ -50,7 +51,7 @@ export const TutorialPage: FC = () => {
 
   const searchArticles = (value: string): void => {
     if (value?.length > 1) {
-      searchArticle({ search: value });
+      searchArticle({ search: value, statuses: PUBLISHED_ARTICLE_STATUSES.ACTIVE });
     }
   };
 
@@ -84,7 +85,10 @@ export const TutorialPage: FC = () => {
   return (
     <div className='container mt-3'>
       <div className='d-flex align-items-center justify-content-between'>
-        <h3>Biriktirish uchun maqola tanlang</h3>
+        <div>
+          <h2 className='mb-0'>Biriktirish uchun maqola tanlang</h2>
+          <p className='my-1 text-gray'>Maqolangiz nashr qilingan bo&apos;lishi kerak</p>
+        </div>
         {selectedArticle && (
           <Button
             disabled={selectedArticle.id === currentTutorialArticle.articleId}
@@ -101,18 +105,6 @@ export const TutorialPage: FC = () => {
         onChange={selectArticleHandler}
         onInputDebounce={searchArticles}
         options={convertToOptions(searchArticleRes.data, 'id', 'title')}
-        // options={[
-        //   { label: 'Test', value: 1 },
-        //   { label: 'akl', value: 2 },
-        //   { label: 'a09s', value: 3 },
-        //   { label: 'fw2s', value: 4 },
-        //   { label: '2a2', value: 5 },
-        //   { label: 'test123', value: 6 },
-        //   { label: '2k', value: 7 },
-        //   { label: 'alw8', value: 8 },
-        //   { label: '1029', value: 9 },
-        // ]}
-        // loading={searchArticleRes.isLoading}
         className='mb-2'
       />
       {selectedArticle && (

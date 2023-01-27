@@ -39,7 +39,7 @@ export const TutorialsTab: FC = () => {
   const createTutorialHandler = async (): Promise<void> => {
     const res = await createTutorial().unwrap();
     dispatch(setTutorial(res));
-    router.push(`/tutorials/${res.id}`);
+    router.push(`/user/tutorials/${res.id}`);
   };
 
   const { data } = fetchTutorialsRes;

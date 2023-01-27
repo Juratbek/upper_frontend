@@ -67,6 +67,15 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
+    searchCurrentBlogArticles: build.query<
+      IArticleResult[],
+      TOptionalPagingRequest<{ search: string; statuses: string }>
+    >({
+      query: (params) => ({
+        url: 'search-current-blog-articles',
+        params,
+      }),
+    }),
   }),
 });
 
@@ -79,4 +88,5 @@ export const {
   useIncrementViewCountMutation,
   useLazySearchQuery: useLazySearchPublishedArticleQuery,
   useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
+  useLazySearchCurrentBlogArticlesQuery: useLazySearchCurrentBlogPublishedArticlesQuery,
 } = publishedArticleApi;

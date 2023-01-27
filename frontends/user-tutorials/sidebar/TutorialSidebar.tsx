@@ -1,4 +1,4 @@
-import { ChangeableText } from 'components';
+import { Button, ChangeableText } from 'components';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -9,13 +9,19 @@ import {
   clearTutorial,
   getTutorialName,
   getTutorialSections,
+  publishTutorialModalHandler,
   setTutorial,
 } from 'store/states';
 import { ITutorialSection } from 'types';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
-import { RemoveArticleModal, RemoveSectionModal, Section } from './components';
+import {
+  PublishTutorialModal,
+  RemoveArticleModal,
+  RemoveSectionModal,
+  Section,
+} from './components';
 import { UUID_SIZE } from './TutorialSidebar.constants';
 import classes from './TutorialSidebar.module.scss';
 
@@ -49,6 +55,9 @@ export const TutorialSidebar: FC = () => {
     });
   };
 
+  const openPublishTutorialModal = (): unknown =>
+    dispatch(publishTutorialModalHandler({ isOpen: true }));
+
   useEffect(() => {
     if (!tutorialName && id) {
       getById(+id).then((res) => {
@@ -65,6 +74,12 @@ export const TutorialSidebar: FC = () => {
     <div className={classes.root}>
       <RemoveArticleModal />
       <RemoveSectionModal />
+      <PublishTutorialModal />
+      <div className='px-2 py-1'>
+        <Button className='w-100' onClick={openPublishTutorialModal}>
+          Nashr qilish
+        </Button>
+      </div>
       <div className={classes.header}>
         <ChangeableText
           value={tutorialName}
