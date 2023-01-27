@@ -59,6 +59,11 @@
     border: 2px solid white;
   }
 
+  &.on-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb-color);
+  }
+
+
   @include screenMax576 {
     padding: 0 0.5rem;
     padding-top: 91px;
@@ -483,8 +488,4 @@
 // font sizes
 .fs-1 {
   font-size: 0.8rem;
-}
-
-.on-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb-color) !important;
 }

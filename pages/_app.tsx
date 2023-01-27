@@ -1,7 +1,7 @@
 import 'styles/index.scss';
 
 import { Footer, GoogleOneTap, Navigation, Sidebar } from 'components';
-import { useAuth, UseScrollToggle } from 'hooks';
+import { useAuth, useScrollToggler } from 'hooks';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -17,7 +17,7 @@ const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal')
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const { getToken, getRefreshToken, authenticate, unauthenticate } = useAuth();
 
-  UseScrollToggle('.main');
+  useScrollToggler('.main');
 
   useEffect(() => {
     const token = getToken();

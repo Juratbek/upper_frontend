@@ -2,18 +2,18 @@ import { useEffect } from 'react';
 
 const SCROLL_BAR_ON_CLASS = 'on-scrollbar';
 
-export const UseScrollToggle = (selector: string): void => {
+export const useScrollToggler = (selector: string): void => {
   const handleScroll = (): ((e: Event) => void) => {
-    let isScrolling: NodeJS.Timeout;
+    let scrollTimeout: NodeJS.Timeout;
 
     return (e: Event): void => {
       const target = e.target as HTMLElement;
       if (!target.classList.contains(SCROLL_BAR_ON_CLASS)) {
         target.classList.add(SCROLL_BAR_ON_CLASS);
       }
-      window.clearTimeout(isScrolling);
+      window.clearTimeout(scrollTimeout);
 
-      isScrolling = setTimeout(() => {
+      scrollTimeout = setTimeout(() => {
         target.classList.remove(SCROLL_BAR_ON_CLASS);
       }, 1000);
     };
