@@ -120,7 +120,7 @@ export const UserArticlesSidebar: FC = () => {
         <div>{alert}</div>
         <Link href='/docs/write-article_publish_requirements'>
           <a target='_blank' className='link'>
-            Yo`riqnomani o`qish
+            Yo&apos;riqnomani o&apos;qish
           </a>
         </Link>
       </Alert>
@@ -161,14 +161,14 @@ export const UserArticlesSidebar: FC = () => {
       >
         {alertComponent}
         <form onSubmit={handleSubmit(deleteArticle)}>
-          <h3 className='mt-1'>Maqolani o`chirmoqchimisiz</h3>
+          <h3 className='mt-1'>Maqolani o&apos;chirmoqchimisiz</h3>
           <div className='mb-2'>
             <label htmlFor='confirm' className='mb-1 d-block' style={{ userSelect: 'none' }}>
               Tasdiqlash uchun{' '}
               <strong>
                 <code>{DELETE_CONFIRMATION}</code>
               </strong>{' '}
-              so`zini kiriting
+              so&apos;zini kiriting
             </label>
             <Input
               placeholder={DELETE_CONFIRMATION}
@@ -186,7 +186,7 @@ export const UserArticlesSidebar: FC = () => {
               Modalni yopish
             </Button>
             <Button color='outline-red' loading={deleteArticleRes.isLoading}>
-              O`chirish
+              O&apos;chirish
             </Button>
           </div>
         </form>
@@ -208,7 +208,7 @@ export const UserArticlesSidebar: FC = () => {
               onClick={toggleDeleteModal}
               disabled={isDisabled}
             >
-              O`chirish
+              O&apos;chirish
             </Button>
             <Button
               className='flex-auto m-1 mb-0'

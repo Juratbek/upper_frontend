@@ -47,7 +47,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
         <div className='text-center mt-4'>
           <h1>Maqola topilmadi</h1>
           <h3>404 :(</h3>
-          <p className='text-gray'>Maqola o`chirilgan yoki bloklangan bo`lishi mumkin</p>
+          <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
         </div>
       );
     return <h2>{get(error, 'data.message')}</h2>;

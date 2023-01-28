@@ -11,7 +11,7 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
   const mainImg = blocks.find(
     (block) => block.type === BLOCK_TYPES.unsplash || block.type === BLOCK_TYPES.image,
   );
-  if (!mainImg) return 'Kamida bitta rasm bo`lishi kerak';
+  if (!mainImg) return "Kamida bitta rasm bo'lishi kerak";
   if (!title) return 'Maqola sarlavhasini kiriting';
   if (article.labels.length === 0) return 'Iltimos teglarni tanlang';
   return '';
