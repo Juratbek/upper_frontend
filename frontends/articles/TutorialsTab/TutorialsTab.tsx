@@ -52,22 +52,21 @@ export const TutorialsTab: FC = () => {
         fallbackItemCount={ARTICLES_SKELETON_COUNT}
         className='tab'
       >
-        {fetchTutorialsRes.data?.list.length === 0 && (
-          <div className='text-center mt-3'>
-            <h2>To&apos;plamlar mavjud emas</h2>
-            <Button color='outline-dark' onClick={createTutorialHandler}>
-              To&apos;plam yaratish
-            </Button>
-          </div>
-        )}
+        <div className='text-center my-2'>
+          {fetchTutorialsRes.data?.list.length === 0 && <h2>To&apos;plamlar mavjud emas</h2>}
+          <Button color='outline-dark' onClick={createTutorialHandler}>
+            To&apos;plam yaratish
+          </Button>
+        </div>
         {fetchTutorialsRes.data?.list.map((tutorial) => {
           return (
             <Fragment key={tutorial.id}>
-              <Tutorial {...tutorial} className='my-1 pointer' />
               <Divider />
+              <Tutorial {...tutorial} className='my-1 pointer' />
             </Fragment>
           );
         })}
+        <Divider />
       </ApiErrorBoundary>
       <div className='text-center'>
         {data && (

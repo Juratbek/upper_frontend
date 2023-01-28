@@ -43,8 +43,8 @@ export const store = configureStore({
     [notificationApi.reducerPath]: notificationApi.reducer,
     [docsApi.reducerPath]: docsApi.reducer,
     [labelRequestApi.reducerPath]: labelRequestApi.reducer,
+    [publishedTutorialApi.reducerPath]: publishedTutorialApi.reducer,
     [tutorialApi.reducerPath]: tutorialApi.reducer,
-    [publishedTutorialApi.reducerPath]: publishedArticleApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -56,8 +56,8 @@ export const store = configureStore({
       notificationApi.middleware,
       docsApi.middleware,
       labelRequestApi.middleware,
-      tutorialApi.middleware,
       publishedArticleApi.middleware,
+      tutorialApi.middleware,
       apiErrorMiddleware,
     ),
 });
