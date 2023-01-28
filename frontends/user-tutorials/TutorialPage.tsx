@@ -1,14 +1,14 @@
 import { Article, Button, ISelectOption, Select } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { useAppSelector } from 'store';
+import { useAppDispatch, useAppSelector } from 'store';
 import {
   IChangeTutorialSelectedArticleDto,
   useChangeTutorialSelectedArticleMutation,
-  useLazyGetMediumArticleByIdQuery,
+  useLazyGetMediumPublishedArticleByIdQuery,
   useLazySearchCurrentBlogPublishedArticlesQuery,
 } from 'store/apis';
-import { getTutorialSections } from 'store/states';
+import { changeTutorialArticle, getTutorialSections } from 'store/states';
 import { IArticleResult } from 'types';
 import { addAmazonBucketUriToArticle, convertToOptions } from 'utils';
 import { PUBLISHED_ARTICLE_STATUSES } from 'variables';
@@ -17,18 +17,24 @@ export const TutorialPage: FC = () => {
   const sections = useAppSelector(getTutorialSections);
   const [selectedArticle, setSelectedArticle] = useState<IArticleResult>();
   const [searchArticle, searchArticleRes] = useLazySearchCurrentBlogPublishedArticlesQuery();
-  const [fetchMediumArticleById] = useLazyGetMediumArticleByIdQuery();
+  const [fetchMediumArticleById] = useLazyGetMediumPublishedArticleByIdQuery();
+  const dispatch = useAppDispatch();
   const [changeSelectedArticle, changeSelectedArticleRes] =
     useChangeTutorialSelectedArticleMutation();
   const {
     query: { articleId, sectionId, id },
   } = useRouter();
 
-  const currentTutorialArticle = useMemo(() => {
+  const { currentTutorialArticle, currentSection } = useMemo(() => {
     if (sectionId && articleId) {
       const section = sections.find((section) => section.id === sectionId);
-      return section?.articles.find((article) => article.id === articleId);
+      const article = section?.articles.find((article) => article.id === articleId);
+      return {
+        currentSection: section,
+        currentTutorialArticle: article,
+      };
     }
+    return {};
   }, [articleId, sectionId, sections]);
 
   const hasArticle = useMemo(() => {
@@ -60,16 +66,22 @@ export const TutorialPage: FC = () => {
     setSelectedArticle(article);
   };
 
-  const confirmArticleSelection = (): void => {
-    if (!(sectionId && articleId && id && selectedArticle?.id)) return;
+  const confirmArticleSelection = async (): Promise<void> => {
+    if (!(id && selectedArticle?.id && currentSection && currentTutorialArticle)) return;
 
     const dto: IChangeTutorialSelectedArticleDto = {
       sectionId: sectionId as string,
       articleId: articleId as string,
       tutorialId: +id,
-      selectedArticleId: selectedArticle?.id,
+      selectedArticleId: selectedArticle.id,
     };
-    changeSelectedArticle(dto);
+    await changeSelectedArticle(dto).unwrap();
+    dispatch(
+      changeTutorialArticle({
+        section: currentSection,
+        article: { ...currentTutorialArticle, articleId: selectedArticle.id },
+      }),
+    );
   };
 
   if (!currentTutorialArticle) {

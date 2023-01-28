@@ -21,7 +21,7 @@ interface ICommentSidebarState {
 const initialState: ICommentSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
-  isPublishTutorialModalOpen: true,
+  isPublishTutorialModalOpen: false,
   name: '',
   sections: [],
 };

@@ -76,6 +76,9 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
+    getMediumArticleById: build.query<IArticleResult, number>({
+      query: (id) => `medium/${id}`,
+    }),
   }),
 });
 
@@ -89,4 +92,5 @@ export const {
   useLazySearchQuery: useLazySearchPublishedArticleQuery,
   useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
   useLazySearchCurrentBlogArticlesQuery: useLazySearchCurrentBlogPublishedArticlesQuery,
+  useLazyGetMediumArticleByIdQuery: useLazyGetMediumPublishedArticleByIdQuery,
 } = publishedArticleApi;
