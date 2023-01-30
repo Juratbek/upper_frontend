@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <Head>
         <meta name='description' content='Biz bilan yanada yuqoriroq' key='description' />
         <meta property='og:title' content='UPPER' key='og-title' />
-        <title key='title'>UPPERQ</title>
+        <title key='title'>UPPER</title>
       </Head>
       {process.env.NODE_ENV === 'production' && (
         <>

@@ -20,7 +20,7 @@ export const Head: FC<IHeadProps> = (props) => {
 
   return (
     <NextHead>
-      <meta property='og:site_name' content='UPPERT' />
+      <meta property='og:site_name' content='UPPER' />
       <meta property='og:title' content={title} key='og-title' />
       <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
       <meta property='og:description' content={description || ''} />
