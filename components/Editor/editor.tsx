@@ -73,7 +73,9 @@ export const Editor: FC<IEditorProps> = (props) => {
       const renderFunc = editor.render;
       editor.render = function (...args): Promise<void> {
         setImages([]);
-        return renderFunc.apply(this, args).then(() => zoomInImage());
+        return renderFunc.apply(this, args).then(() => {
+          if (!isEditable) zoomInImage();
+        });
       };
     });
   }, [editor]);
