@@ -19,5 +19,6 @@ export const createEditor = async ({
     placeholder,
     data: content,
     tools,
+    autofocus: true,
   });
 };
