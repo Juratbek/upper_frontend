@@ -26,7 +26,7 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
       <meta property='og:image:width' content='12000' />
       <meta property='og:image:height' content='6300' />
-      <meta property='og:description' content={'description'} />
+      <meta property='og:description' content={description?.slice(0, 200) || ''} />
       <meta name='viewport' content='width=1200, initial-scale=5' />
       <meta property='og:type' content={type || ''} />
       <meta property='og:locale' content='uz' />
