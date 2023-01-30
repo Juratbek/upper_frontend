@@ -24,8 +24,6 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='og:site_name' content='UPPER' />
       <meta property='og:title' content={`${author} da Upper:${title}`} key='og-title' />
       <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
-      <meta property='og:image:width' content='12000' />
-      <meta property='og:image:height' content='6300' />
       <meta property='og:description' content={description?.slice(0, 200) || ''} />
       <meta name='viewport' content='width=device-width' />
       <meta property='og:type' content={type || ''} />
