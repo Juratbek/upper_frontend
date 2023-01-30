@@ -102,6 +102,10 @@ export const RegisterModal: FC = () => {
     }
   }, [activeStep]);
 
+  useEffect(() => {
+    isOpen && setFocus(name.name);
+  }, [isOpen]);
+
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
     return (
