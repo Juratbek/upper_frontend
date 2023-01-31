@@ -130,7 +130,7 @@ export const Sidebar = (): JSX.Element => {
                 Maqola yozish
               </Button>
             </div>
-            <Divider className='my-2' />
+            <Divider className='my-2' color='medium-gray' />
           </>
         )}
         {AdditionalComponent && <AdditionalComponent />}
@@ -139,7 +139,7 @@ export const Sidebar = (): JSX.Element => {
           <>
             <h3>Siz uchun maqolalar</h3>
             {suggestedArticles}
-            <Divider className='my-2' />
+            <Divider className='my-2' color='medium-gray' />
             <h3>Kuzatib boring</h3>
             {suggestedBlogs}
           </>
