@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
 
 import { ZoomImage } from '../../ZoomImage';
@@ -12,11 +12,22 @@ export const Avatar: FC<IAvatarProps> = ({
   zoomable = false,
   ...props
 }) => {
+  const [error, setError] = useState<string>();
   const className = getClassName(classes.avatar, classes[`avatar--${size}`], props.className);
-  const image = useMemo(() => {
-    if (!imgUrl) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
 
-    if (!zoomable) return <Image src={imgUrl} alt='UPPER' layout='fill' objectFit='cover' />;
+  const image = useMemo(() => {
+    if (!imgUrl || error) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
+
+    if (!zoomable)
+      return (
+        <Image
+          src={imgUrl}
+          onError={(): unknown => setError('Image load error')}
+          alt='UPPER'
+          layout='fill'
+          objectFit='cover'
+        />
+      );
 
     return (
       <ZoomImage
@@ -27,7 +38,7 @@ export const Avatar: FC<IAvatarProps> = ({
         className={classes.zoomable}
       />
     );
-  }, [imgUrl, zoomable]);
+  }, [imgUrl, zoomable, error]);
 
   return (
     <>
