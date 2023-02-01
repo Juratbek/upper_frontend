@@ -11,3 +11,4 @@ export * from './editor';
 export * from './request';
 export * from './tutorial';
 export * from './section';
+export * from './images';

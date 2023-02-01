@@ -1,8 +1,8 @@
-import { IMAGE_TYPES, IMAGES } from 'variables';
+import { IMAGES } from 'variables';
 
 import classes from './NotFound.module.scss';
 
-const NotFoundImg = IMAGES[IMAGE_TYPES.notFound];
+const NotFoundImg = IMAGES.notFound;
 
 export const NotFound = (): JSX.Element => {
   return (

@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
+import { ApiErrorBoundary, Article, ArticleSkeleton, StorysetImage } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedArticleQuery } from 'store/apis';
@@ -20,6 +20,16 @@ export const ArticlesTab: FC = () => {
   return (
     <ApiErrorBoundary
       res={searchArticleRes}
+      defaultComponent={
+        <div className='text-center mt-5'>
+          <StorysetImage
+            storysetUri='data'
+            width={200}
+            height={200}
+            src='/storyset/search_data.svg'
+          />
+        </div>
+      }
       fallback={<ArticleSkeleton className='px-2 py-2' />}
       fallbackItemCount={ARTICLES_SKELETON_COUNT}
       className='tab'
