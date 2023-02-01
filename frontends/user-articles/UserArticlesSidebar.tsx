@@ -9,7 +9,7 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
-import { useModal, useShortCut } from 'hooks';
+import { useKeyboard, useModal } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
@@ -51,8 +51,8 @@ export const UserArticlesSidebar: FC = () => {
   const [deleteArticleReq, deleteArticleRes] = useDeleteArticleMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
-  const isSavePressed = useShortCut('s');
-  const isPublishPressed = useShortCut('p');
+  const isSavePressed = useKeyboard('s');
+  const isPublishPressed = useKeyboard('p');
 
   const isDisabled = useMemo(
     () => updateArticleRes.isLoading || publishArticleRes.isLoading || deleteArticleRes.isLoading,
