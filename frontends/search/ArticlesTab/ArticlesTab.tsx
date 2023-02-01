@@ -24,8 +24,8 @@ export const ArticlesTab: FC = () => {
         <div className='text-center mt-5'>
           <StorysetImage
             storysetUri='data'
-            width={200}
-            height={200}
+            width={300}
+            height={300}
             src='/storyset/search_data.svg'
           />
         </div>
@@ -34,7 +34,12 @@ export const ArticlesTab: FC = () => {
       fallbackItemCount={ARTICLES_SKELETON_COUNT}
       className='tab'
     >
-      {searchArticleRes.data?.length === 0 && <h3 className='text-center'>Maqola topilmadi</h3>}
+      {searchArticleRes.data?.length === 0 && (
+        <div className='text-center mt-5'>
+          <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
+          <h3 className='text-center'>Maqola topilmadi</h3>
+        </div>
+      )}
       {addUriToArticleImages(searchArticleRes.data).map((article) => (
         <Article
           className='p-2 px-xs-1 my-2'
