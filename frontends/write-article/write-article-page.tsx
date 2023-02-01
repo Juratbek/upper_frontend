@@ -20,7 +20,7 @@ export const WriteArticlePage: FC = () => {
 
   return (
     <div className='editor-container container pb-4'>
-      <Editor content={{ blocks: [] }} handleInstance={getInstance} />
+      <Editor autofocus={true} content={{ blocks: [] }} handleInstance={getInstance} />
     </div>
   );
 };
