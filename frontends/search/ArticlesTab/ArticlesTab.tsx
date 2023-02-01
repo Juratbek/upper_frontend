@@ -37,7 +37,7 @@ export const ArticlesTab: FC = () => {
       {searchArticleRes.data?.length === 0 && (
         <div className='text-center mt-5'>
           <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
-          <h3 className='text-center'>Maqola topilmadi</h3>
+          <h3>Maqola topilmadi</h3>
         </div>
       )}
       {addUriToArticleImages(searchArticleRes.data).map((article) => (
