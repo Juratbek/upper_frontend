@@ -13,7 +13,7 @@ export const SearchInput: FC<ISearchInputProps> = ({
   onDebounce,
   ...props
 }) => {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(props.defaultValue as string);
   const debauncedValue = useDebounce(value);
 
   useEffect(() => {
