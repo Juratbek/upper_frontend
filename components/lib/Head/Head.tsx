@@ -17,11 +17,12 @@ export const Head: FC<IHeadProps> = (props) => {
       return '';
     }
   }, [props.description]);
-
+  console.log(props.description);
   return (
     <NextHead>
       <meta property='og:site_name' content='UPPER' />
       <meta property='og:title' content={title} key='og-title' />
+      <meta name='viewport' content='width=device-width, initial-scale=1.0' />
       <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
       <meta property='og:description' content={description || ''} />
       <meta property='og:type' content={type || ''} />
