@@ -1,7 +1,7 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
-import { useLazySearchArticleQuery } from 'store/apis';
+import { useLazySearchPublishedArticleQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, SEARCH_PAGE_ARTICLE_ICONS, SEARCH_PAGE_TAB_IDS } from 'variables';
 
@@ -9,7 +9,7 @@ export const ArticlesTab: FC = () => {
   const {
     query: { search, tab },
   } = useRouter();
-  const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
+  const [searchArticle, searchArticleRes] = useLazySearchPublishedArticleQuery();
 
   useEffect(() => {
     if (search && search.length > 1 && tab === SEARCH_PAGE_TAB_IDS.articles) {
