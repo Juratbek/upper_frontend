@@ -3,11 +3,14 @@ import {
   IKeyboardListener,
   TCallback,
   TCombinationKey,
+  TDownCallback,
+  TUpCallback,
 } from './addKeyboardListrener.types';
 
 export const addKeyboardListeners = (
   combinations: ICombination[],
-  callback: TCallback,
+  downCallback: TDownCallback,
+  upCallBack?: TUpCallback,
 ): IKeyboardListener => {
   function keyboardListener(event: KeyboardEvent): void {
     combinations.forEach((combination) => {
@@ -15,13 +18,19 @@ export const addKeyboardListeners = (
       const doesMatch = combinationKeys.reduce((res, key) => {
         return event[key] !== combination[key] ? false : res;
       }, true);
-      if (doesMatch) callback(event);
+      if (doesMatch) downCallback(event);
     });
   }
 
+  function keyupListener(event: KeyboardEvent): void {
+    upCallBack && upCallBack(event);
+  }
+
   window.addEventListener('keydown', keyboardListener);
+  window.addEventListener('keyup', keyupListener);
   const clear = (): void => {
     window.removeEventListener('keydown', keyboardListener);
+    window.removeEventListener('keyup', keyupListener);
   };
   return {
     clear,

@@ -1,5 +1,5 @@
 import { Alert, Button, Divider, IOption, MultiSelect } from 'components';
-import { useShortCut } from 'hooks';
+import { useKeyboard } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ export const SidebarContent: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const editor = useAppSelector(getEditor);
-  const isSavePressed = useShortCut('s');
+  const isSavePressed = useKeyboard('s');
 
   const save = async (): Promise<void> => {
     if (!editor) return Promise.reject();

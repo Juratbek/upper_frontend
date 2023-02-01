@@ -1,4 +1,5 @@
 import { Button, Error, Textarea } from 'components';
+import { useKeyboard } from 'hooks';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -6,7 +7,6 @@ import { useAppDispatch } from 'store';
 import { useCreateCommentMutation } from 'store/apis';
 import { closeCommentsSidebar } from 'store/states';
 import { TSubmitFormEvent } from 'types';
-import { addKeyboardListeners } from 'utils';
 
 import classes from './Form.module.scss';
 import { IFormProps } from './Form.types';
@@ -27,6 +27,7 @@ export const Form: FC<IFormProps> = (props) => {
   const {
     query: { id },
   } = useRouter();
+  const isEnterPressed = useKeyboard('Enter');
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
     if (!id) return Promise.reject();
@@ -48,22 +49,15 @@ export const Form: FC<IFormProps> = (props) => {
   };
 
   useEffect(() => {
-    const listener = addKeyboardListeners(
-      [
-        { key: 'Enter', ctrlKey: true },
-        { key: 'Enter', metaKey: true },
-      ],
-      () => {
-        const text = (watch('text') as string)?.trim();
-        if (text) {
-          submitHandler({ text });
-        } else {
-          setError('text', { message: "Izoh bo'sh bo'lishi mumkin emas" }, { shouldFocus: true });
-        }
-      },
-    );
-    return listener.clear;
-  }, []);
+    if (isEnterPressed) {
+      const text = (watch('text') as string)?.trim();
+      if (text) {
+        submitHandler({ text });
+      } else {
+        setError('text', { message: "Izoh bo'sh bo'lishi mumkin emas" }, { shouldFocus: true });
+      }
+    }
+  }, [isEnterPressed]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
