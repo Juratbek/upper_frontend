@@ -8,7 +8,7 @@ export const createEditor = async ({
   isEditable = true,
   content = { blocks: [] },
   placeholder = EDITOR_PLACEHOLDER,
-  autofocus = false,
+  autoFocus = false,
 }: IEditorProps = {}): Promise<EditorJs> => {
   const editorJS = (await import('@editorjs/editorjs')).default;
   const tools = await getTools();
@@ -20,6 +20,6 @@ export const createEditor = async ({
     placeholder,
     data: content,
     tools,
-    autofocus,
+    autofocus: autoFocus,
   });
 };
