@@ -17,7 +17,7 @@ export const Head: FC<IHeadProps> = (props) => {
       return '';
     }
   }, [props.description]);
-
+  console.log(description);
   return (
     <NextHead>
       <meta property='og:site_name' content='UPPER' />
@@ -25,11 +25,14 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
       <meta property='og:image:url' content={imgUrl || '/social_medi_logo.png'} />
       <meta property='og:type' content={type || ''} />
+      <meta property='og:image:width' content='800' />
+      <meta property='og:image:height' content='400' />
+      <meta name='viewport' content='width=device-width, initial-scale=1' />
+      <meta property='og:description' content={description || ''} />
       <meta property='og:locale' content='uz' />
       <meta property='og:url' content={url} />
       <meta name='author' content={author || ''} />
       <meta name='published_date' content={publishedDate || ''} />
-      <meta name='description' content={description || ''} />
       <title key='title'>{title}</title>
       {props.children}
     </NextHead>
