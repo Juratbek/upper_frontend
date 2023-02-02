@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, Divider, Pagination } from 'components';
+import { ApiErrorBoundary, Divider, Pagination, StorysetImage } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {
@@ -41,7 +41,18 @@ export const NotificationsTab: FC = () => {
     const { data } = fetchNotificationsRes;
     const notifications = data?.list || [];
     if (!notifications || notifications.length === 0)
-      return <p className='text-center'>Habarlar mavjud emas</p>;
+      return (
+        <div className='text-center'>
+          <StorysetImage
+            src='/storyset/notifications.svg'
+            width={400}
+            height={400}
+            storysetUri='internet'
+          />
+          <p>Bloglarga obuna bo&apos;ling va maqolalar haqida habarlar oling</p>
+          <p className='fs-1'>Hozirda habarlar mavjud emas</p>
+        </div>
+      );
 
     return notifications.map((notification, index) => {
       const Notification = NOTIFICATIONS[notification.type];
