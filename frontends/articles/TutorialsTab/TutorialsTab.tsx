@@ -1,25 +1,13 @@
-import {
-  ApiErrorBoundary,
-  ArticleSkeleton,
-  Button,
-  Divider,
-  Pagination,
-  Tutorial,
-} from 'components';
+import { ApiErrorBoundary, ArticleSkeleton, Divider, Pagination, Tutorial } from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { useCreateTutorialMutation, useLazyGetAllTutorialsQuery } from 'store/apis';
-import { setTutorial } from 'store/states';
+import { useLazyGetAllTutorialsQuery } from 'store/apis';
 import { TArticleStatus } from 'types';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
 
 export const TutorialsTab: FC = () => {
-  const dispatch = useDispatch();
   const [fetchTutorials, fetchTutorialsRes] = useLazyGetAllTutorialsQuery();
-  const [createTutorial] = useCreateTutorialMutation();
-  const router = useRouter();
   const {
     query: { tab, page },
   } = useRouter();
@@ -36,12 +24,6 @@ export const TutorialsTab: FC = () => {
     setParam('page', page);
   };
 
-  const createTutorialHandler = async (): Promise<void> => {
-    const res = await createTutorial().unwrap();
-    dispatch(setTutorial(res));
-    router.push(`/user/tutorials/${res.id}`);
-  };
-
   const { data } = fetchTutorialsRes;
 
   return (
@@ -52,12 +34,9 @@ export const TutorialsTab: FC = () => {
         fallbackItemCount={ARTICLES_SKELETON_COUNT}
         className='tab'
       >
-        <div className='text-center my-2'>
-          {fetchTutorialsRes.data?.list.length === 0 && <h2>To&apos;plamlar mavjud emas</h2>}
-          <Button color='outline-dark' onClick={createTutorialHandler}>
-            To&apos;plam yaratish
-          </Button>
-        </div>
+        {fetchTutorialsRes.data?.list.length === 0 && (
+          <h2 className='text-center my-2'>To&apos;plamlar mavjud emas</h2>
+        )}
         {fetchTutorialsRes.data?.list.map((tutorial) => {
           return (
             <Fragment key={tutorial.id}>
