@@ -63,7 +63,6 @@
     background-color: var(--scrollbar-thumb-color);
   }
 
-
   @include screenMax576 {
     padding: 0 0.5rem;
     padding-top: 91px;
@@ -392,6 +391,10 @@
 
 .justify-content-between {
   justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 .justify-content-around {

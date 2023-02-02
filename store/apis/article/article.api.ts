@@ -17,10 +17,11 @@ export const articleApi = createApi({
     getBlogArticles: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
       query: ({ page = 0 }) => `need-auth/list?page=${page}&size=${PAGINATION_SIZE}`,
     }),
-    publish: build.mutation<IArticle, number>({
-      query: (id) => ({
+    publish: build.mutation<IArticle, { id: number; notificationsOn: boolean }>({
+      query: ({ id, ...body }) => ({
         url: `publish/${id}`,
         method: 'POST',
+        body,
       }),
     }),
     delete: build.mutation<void, number>({
