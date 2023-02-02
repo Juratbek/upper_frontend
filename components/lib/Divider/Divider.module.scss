@@ -1,6 +1,4 @@
 .divider {
-  background-color: var(--lightGray);
-
   &--horisontal {
     height: 1px;
   }
@@ -13,4 +11,11 @@
     background-color: transparent;
   }
 
+  &--medium-gray {
+    background-color: var(--mediumGray);
+  }
+
+  &--light-gray {
+    background-color: rgb(199 199 199 / 33%);
+  }
 }

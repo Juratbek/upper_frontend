@@ -2,8 +2,8 @@
 
 .title {
   margin: 0;
-  font-size: 1.4rem;
-  margin-bottom: 0.4rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
   @include screenMax576 {
     font-size: 1.3rem;
   }
@@ -24,7 +24,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
 
   &:hover {
     cursor: pointer;
@@ -44,6 +44,22 @@
   justify-content: space-between;
 
   & .stats {
-    font-size: 0.8rem;
+    font-size: 0.65rem;
+    color: var(--gray);
+    display: flex;
+
+    & .icon > svg {
+      $size: 0.7rem;
+      width: $size;
+      height: $size;
+      margin-right: 0.3rem;
+    }
+    & .eye > svg {
+      $size: 1rem;
+      width: $size;
+      height: $size;
+      display: flex;
+      margin-right: 0.2rem;
+    }
   }
 }

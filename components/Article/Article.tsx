@@ -3,9 +3,13 @@ import { Divider } from 'components/lib';
 import Link from 'next/link';
 import { FC, useEffect, useRef } from 'react';
 import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
+import { ICONS } from 'variables';
 
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
+
+const CalendarIcon = ICONS.calendar;
+const EyeIcon = ICONS.eye;
 
 export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...props }) => {
   const {
@@ -34,14 +38,9 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
     }
   }, [content]);
 
-  const renderDate = (): JSX.Element => {
-    if (updatedDate)
-      return (
-        <>
-          <strong>{toDateString(updatedDate)}</strong> da yangilangan
-        </>
-      );
-    if (publishedDate) return <strong>{toDateString(publishedDate)}</strong>;
+  const renderDate = (): JSX.Element | string => {
+    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
+    if (publishedDate) return toDateString(publishedDate);
     return <></>;
   };
 
@@ -58,13 +57,20 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
           </div>
           <div className={classes.footer}>
             <div className={classes.stats}>
-              <span>{renderDate()}</span>
+              <time>
+                <span className={classes.icon}>
+                  <CalendarIcon color='gray' />
+                </span>
+                {renderDate()}
+              </time>
               {viewCount > 0 && (
                 <>
-                  <Divider type='vertical' />
-                  &nbsp; &nbsp;
-                  <span>
-                    <strong>{formatToKMB(viewCount)}</strong> marta o&apos;qilgan
+                  <Divider type='vertical' className='mx-1' />
+                  <div className={`${classes.icon} ${classes.eye}`}>
+                    <EyeIcon color='gray' />
+                  </div>
+                  <span className='d-flex align-items-center'>
+                    {formatToKMB(viewCount)} marta o&apos;qilgan
                   </span>
                 </>
               )}
@@ -90,7 +96,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
             </div>
           </div>
           {author && (
-            <div className={classes.footer} style={{ marginTop: '.5rem' }}>
+            <div className={classes.footer} style={{ marginTop: '.2rem' }}>
               <Author {...addAmazonUri(author)} />
             </div>
           )}

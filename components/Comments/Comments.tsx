@@ -1,4 +1,5 @@
 import { Button, CommentSkeleton, Divider } from 'components';
+import { StorysetImage } from 'components/lib';
 import { useAuth, useClickOutside, useInfiniteScrollV2 } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
@@ -73,7 +74,18 @@ export const Comments = (): JSX.Element => {
         .fill('')
         .map((_, index) => <CommentSkeleton key={index} className='p-1' />);
     if (!comments) return <></>;
-    if (comments.length === 0) return <p className='text-center'>Izohlar mavjud emas</p>;
+    if (comments.length === 0)
+      return (
+        <div className='text-center mt-3'>
+          <StorysetImage
+            width={200}
+            height={200}
+            src='/storyset/comments.svg'
+            storysetUri='social-media'
+          />
+          <p>Maqola haqida o&apos;z fikringizni bildiring</p>
+        </div>
+      );
 
     return comments.map((comment) => <Comment {...comment} key={comment.id} />);
   }, [comments, isLoading]);

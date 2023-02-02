@@ -18,6 +18,16 @@
 
   & .icon {
     margin-right: 0.6rem;
+    $container-size: 1.7rem;
+    min-width: $container-size;
+    height: $container-size;
+    border-radius: 100rem;
+    display: grid;
+    place-items: center;
+
+    &:hover {
+      background-color: var(--lightGray);
+    }
    
     & > svg {
       $size: 1.0rem;

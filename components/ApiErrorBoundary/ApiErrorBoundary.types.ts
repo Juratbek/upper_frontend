@@ -7,6 +7,7 @@ export interface IRes {
   isFetching?: boolean;
   isError?: boolean;
   isSuccess?: boolean;
+  isUninitialized?: boolean;
   error?: TRtkError;
   [name: string]: unknown;
 }
@@ -19,5 +20,6 @@ export type TApiErrorBoundaryProps = Override<
     fallbackItemCount?: number;
     memoizationDependencies?: unknown[];
     onError?: (error: TRtkError) => ReactNode | void;
+    defaultComponent?: ReactNode;
   }
 >;

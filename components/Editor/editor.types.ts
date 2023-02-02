@@ -6,6 +6,7 @@ export interface IEditorProps {
   content?: OutputData;
   placeholder?: string;
   handleInstance?: (editor: EditorJS) => void;
+  autoFocus?: boolean;
 }
 
 export const EDITOR_HOLDER = 'editorjs';

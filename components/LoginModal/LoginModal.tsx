@@ -2,7 +2,7 @@ import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } fr
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
@@ -28,6 +28,7 @@ export const LoginModal: FC = () => {
   const { authenticate } = useAuth();
   const {
     register,
+    setFocus,
     handleSubmit,
     formState: { errors },
     control,
@@ -69,6 +70,10 @@ export const LoginModal: FC = () => {
   };
 
   const closeAlert = (): void => setAlert('');
+
+  useEffect(() => {
+    isOpen && setFocus(login.name);
+  }, [isOpen]);
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
