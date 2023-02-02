@@ -1,4 +1,4 @@
-import { ApiError, Blog, Button, Divider, Head } from 'components';
+import { ApiError, Blog, Button, Divider, Head, StorysetImage } from 'components';
 import { Article } from 'frontends/article';
 import { useDevice } from 'hooks';
 import { GetServerSideProps, NextPage } from 'next';
@@ -44,10 +44,13 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
     if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
     if (error?.status === 404)
       return (
-        <div className='text-center mt-4'>
-          <h1>Maqola topilmadi</h1>
-          <h3>404 :(</h3>
+        <div className='text-center mt-3'>
+          <StorysetImage width={400} height={400} src='/storyset/hidden.svg' storysetUri='data' />
+          <h3>Maqola topilmadi</h3>
           <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
+          <Link href='/'>
+            <Button>Bosh sahifaga qaytish</Button>
+          </Link>
         </div>
       );
     return <h2>{get(error, 'data.message')}</h2>;
