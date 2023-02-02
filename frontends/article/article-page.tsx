@@ -1,6 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
 import { useAuth } from 'hooks';
+import Image from 'next/image';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
@@ -79,6 +80,17 @@ export const Article: FC<IArticleProps> = (props) => {
     return <></>;
   }, [publishedDate, updatedDate]);
 
+  const likeIcon = useMemo((): JSX.Element => {
+    if (isLikedOrDisliked === 0) {
+      return (
+        <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
+          <Image width={40} height={40} src='/icons/dislike.webp' />
+        </div>
+      );
+    }
+    return <LikeIcon color={isLikedOrDisliked === 1 ? '#54A9EB' : 'black'} />;
+  }, [isLikedOrDisliked]);
+
   return (
     <div className={`${styles.articleContainer} editor-container`}>
       <article>{article}</article>
@@ -106,14 +118,14 @@ export const Article: FC<IArticleProps> = (props) => {
               className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
               onClick={(): void => likeDislike(1)}
             >
-              <LikeIcon />
+              {likeIcon}
             </span>
             {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
             <span
               className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
               onClick={(): void => likeDislike(-1)}
             >
-              <DislikeIcon />
+              <DislikeIcon color={isLikedOrDisliked === -1 ? '#54A9EB' : 'black'} />
             </span>
           </div>
         </div>

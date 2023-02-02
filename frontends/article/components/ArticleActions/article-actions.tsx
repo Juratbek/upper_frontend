@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import Image from 'next/image';
+import { FC, useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
@@ -47,6 +48,17 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     dispatch(toggleCommentsSidebar());
   };
 
+  const likeIcon = useMemo((): JSX.Element => {
+    if (isLikedOrDisliked === 0) {
+      return (
+        <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
+          <Image width={40} height={40} src='/icons/dislike.webp' />
+        </div>
+      );
+    }
+    return <LikeIcon color={isLikedOrDisliked === 1 ? '#54A9EB' : 'black'} />;
+  }, [isLikedOrDisliked]);
+
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
 
@@ -74,20 +86,14 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
           >
             <CommentIcon />
           </div>
-          <div
-            className={`${styles.icon} icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
-            onClick={(): void => likeDislike(1)}
-          >
-            <LikeIcon />
+          <div className={styles.icon} onClick={(): void => likeDislike(1)}>
+            {likeIcon}
           </div>
           {Boolean(likeDislikeCount) && (
             <span className={styles.reactionsText}>{likeDislikeCount}</span>
           )}
-          <div
-            className={`${styles.icon} icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
-            onClick={(): void => likeDislike(-1)}
-          >
-            <DislikeIcon />
+          <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
+            <DislikeIcon color={isLikedOrDisliked === -1 ? '#54A9EB' : 'black'} />
           </div>
           <div
             className={styles.icon}

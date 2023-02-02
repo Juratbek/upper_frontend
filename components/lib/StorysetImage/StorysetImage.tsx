@@ -10,7 +10,7 @@ export const StorysetImage: FC<IStorysetImageProps> = ({ storysetUri, ...props }
       <Image {...props} />
       <br />
       <a
-        className={classes['storyset-link']}
+        className={`${classes['storyset-link']} link`}
         href={`https://storyset.com/${storysetUri}`}
         target='_blank'
         rel='noreferrer'
