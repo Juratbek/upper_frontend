@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
 import { appDynamic } from 'utils';
+import { UPPER_BLUE_COLOR } from 'variables';
 import { ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
@@ -56,7 +57,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
         </div>
       );
     }
-    return <LikeIcon color={isLikedOrDisliked === 1 ? '#54A9EB' : 'black'} />;
+    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : 'black'} />;
   }, [isLikedOrDisliked]);
 
   useEffect(() => {
@@ -93,7 +94,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
             <span className={styles.reactionsText}>{likeDislikeCount}</span>
           )}
           <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
-            <DislikeIcon color={isLikedOrDisliked === -1 ? '#54A9EB' : 'black'} />
+            <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : 'black'} />
           </div>
           <div
             className={styles.icon}

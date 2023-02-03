@@ -17,7 +17,7 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
   return '';
 };
 
-export const addAmazonBucketUriToArticle = <T extends ISidebarArticle>(article: T): T => {
+export const addAmazonBucketUriToArticle = <T extends { imgUrl: string }>(article: T): T => {
   const imgUrl = article.imgUrl;
   if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;
   return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
@@ -106,7 +106,7 @@ export const convertToHeadProp = (article: IArticle): IHeadProps => {
     imgUrl,
     url: '',
     description: content,
-    author: author.name,
+    author: author?.name,
     publishedDate,
     type: 'article',
   };

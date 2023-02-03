@@ -50,8 +50,11 @@ export const publishedArticleApi = createApi({
     checkIfLikedDisliked: build.query<number, number>({
       query: (id) => `check-like-dislike/${id}`,
     }),
-    getById: build.query<IArticle, number>({
-      query: (id: number) => `open/${id}`,
+    getById: build.query<IArticle, { id: number; withAuthor?: boolean }>({
+      query: ({ id, ...params }) => ({
+        url: `open/${id}`,
+        params,
+      }),
       keepUnusedDataFor: 15,
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({

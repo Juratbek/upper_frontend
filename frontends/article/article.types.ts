@@ -1,5 +1,9 @@
-import { IArticle } from 'types';
+import { IArticle, IResponseError } from 'types';
 
-export interface IArticleProps extends IArticle {
+export interface IArticleProps {
   className?: string;
+  showAuthor?: boolean;
+  article: IArticle | null;
+  error: IResponseError;
+  fullUrl: string;
 }

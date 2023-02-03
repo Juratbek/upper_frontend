@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IPublishedTutorialMedim, TOptionalPagingRequest } from 'types';
+import { IPublishedTutorial, IPublishedTutorialMedim, TOptionalPagingRequest } from 'types';
 
 import { baseQuery } from '../config';
 
@@ -13,7 +13,13 @@ export const publishedTutorialApi = createApi({
         params,
       }),
     }),
+    getById: build.query<IPublishedTutorial, number>({
+      query: (id) => `open/${id}`,
+    }),
   }),
 });
 
-export const { useLazySearchQuery: useLazySearchPublishedTutorialQuery } = publishedTutorialApi;
+export const {
+  useLazySearchQuery: useLazySearchPublishedTutorialQuery,
+  useLazyGetByIdQuery: useLazyGetPublishedTutorialByIdQuery,
+} = publishedTutorialApi;

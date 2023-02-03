@@ -8,7 +8,7 @@ import {
   IAddTutorialArticlePayloadAction,
 } from './tutorialsSidebarSlice.types';
 
-interface ICommentSidebarState {
+interface ITutorialSidebarState {
   isRemoveArticleModalOpen: boolean;
   isPublishTutorialModalOpen: boolean;
   selectedArticle?: ITutorialArticle;
@@ -18,7 +18,7 @@ interface ICommentSidebarState {
   sections: ITutorialSection[];
 }
 
-const initialState: ICommentSidebarState = {
+const initialState: ITutorialSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
   isPublishTutorialModalOpen: false,

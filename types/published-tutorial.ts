@@ -1,4 +1,5 @@
 import { IBlogSmall } from './blog';
+import { ITutorialSection } from './section';
 
 export interface IPublishedTutorialMedim {
   id: number;
@@ -6,4 +7,11 @@ export interface IPublishedTutorialMedim {
   imgUrl: string;
   publishedDate: string;
   author: IBlogSmall;
+}
+
+export interface IPublishedTutorial extends IPublishedTutorialMedim {
+  id: number;
+  name: string;
+  author: IBlogSmall;
+  sections: ITutorialSection[];
 }
