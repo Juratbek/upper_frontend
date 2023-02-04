@@ -29,13 +29,14 @@ const AddFolderIcon = ICONS.addFolder;
 
 export const TutorialSidebar: FC = () => {
   const [changeName, changeNameRes] = useChangeTutorialNameMutation();
-  const [getById] = useLazyGetTutorialByIdQuery();
+  const [getById, getByIdRes] = useLazyGetTutorialByIdQuery();
   const {
     query: { id },
   } = useRouter();
   const tutorialName = useAppSelector(getTutorialName);
   const sections = useAppSelector(getTutorialSections);
   const dispatch = useAppDispatch();
+  const { data: tutorial } = getByIdRes;
 
   const addSectionHandler = (): void => {
     const newSection: ITutorialSection = {
@@ -77,7 +78,7 @@ export const TutorialSidebar: FC = () => {
       {tutorialName && <PublishTutorialModal />}
       <div className='px-2 py-1'>
         <Button className='w-100' onClick={openPublishTutorialModal}>
-          Nashr qilish
+          {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
         </Button>
       </div>
       <div className={classes.header}>
