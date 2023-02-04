@@ -5,6 +5,7 @@ import {
   Error,
   FileDragDrop,
   IOption,
+  Lordicon,
   Modal,
   MultiSelect,
 } from 'components';
@@ -22,6 +23,8 @@ import {
 import { ILabel, IResponseError } from 'types';
 import { addTutorialAmazonUri, compressImage, convertLabelsToOptions, toBase64 } from 'utils';
 import { TUTORIAL_MAX_LABELS } from 'variables';
+
+import classes from './PublishTutorialModal.module.scss';
 
 export const PublishTutorialModal: FC = () => {
   const [selectedImageBase64, setSelectedImageBase64] = useState<string>();
@@ -77,59 +80,73 @@ export const PublishTutorialModal: FC = () => {
           {(publishRes.error as IResponseError).data.message}
         </Alert>
       )}
-      <form onSubmit={handleSubmit(submitHandler, console.error)}>
-        <h3 className='mt-0'>To&apos;plamni nashr qilish uchun quidagilarni kiriting</h3>
-        <div className='form-element'>
-          <label className='form-label'>Teglarni tanlang</label>
-          <Controller
-            name='labels'
-            control={control}
-            rules={{ required: 'Teglarni tanlang' }}
-            render={({ field }): JSX.Element => (
-              <MultiSelect
-                {...field}
-                max={TUTORIAL_MAX_LABELS}
-                onInputDebounce={SearchLabels}
-                defaultValues={convertLabelsToOptions(labels)}
-                renderItem={(item): JSX.Element => {
-                  return (
-                    <div className='p-1 pointer'>
-                      <h4 className='m-0'>{item.label}</h4>
-                      <p className='m-0 mt-1 fs-1'>{item.description}</p>
-                    </div>
-                  );
-                }}
-                loading={searchLabelsRes.isLoading}
-                options={convertLabelsToOptions(searchLabelsRes.data)}
-                inputPlacegolder='Qidirish uchun yozing'
-              />
-            )}
+      {publishRes.isSuccess ? (
+        <div className='text-center'>
+          <Lordicon
+            className={classes.congrats}
+            width={100}
+            height={100}
+            src='/icons/congrats.webp'
           />
-          <Error error={errors.labels} />
+          <h3>Maqolangiz nashr qilindi</h3>
         </div>
-        <div className='form-element'>
-          <label htmlFor='file' className='form-label'>
-            Rasm tanlang
-          </label>
-          <FileDragDrop
-            {...register('image', { required: imgUrl ? false : 'Rasmni tanlang' })}
-            selectedFileRenderer={(): JSX.Element => {
-              if (selectedImageBase64) return <ArticleImg imgUrl={selectedImageBase64} />;
-              if (imgUrl) return <ArticleImg imgUrl={addTutorialAmazonUri({ imgUrl }).imgUrl} />;
-              return <></>;
-            }}
-            onChange={fileChangeHandler}
-            defaultValue={imgUrl}
-          />
-          <Error error={errors.image} />
-        </div>
-        <div className='d-flex justify-content-end'>
-          <Button type='button' color='outline-dark' className='me-1'>
-            Bekor qilish
-          </Button>
-          <Button className='w-30'>Nashr qilish</Button>
-        </div>
-      </form>
+      ) : (
+        <form onSubmit={handleSubmit(submitHandler, console.error)}>
+          <h3 className='mt-0'>To&apos;plamni nashr qilish uchun quidagilarni kiriting</h3>
+          <div className='form-element'>
+            <label className='form-label'>Teglarni tanlang</label>
+            <Controller
+              name='labels'
+              control={control}
+              rules={{ required: 'Teglarni tanlang' }}
+              render={({ field }): JSX.Element => (
+                <MultiSelect
+                  {...field}
+                  max={TUTORIAL_MAX_LABELS}
+                  onInputDebounce={SearchLabels}
+                  defaultValues={convertLabelsToOptions(labels)}
+                  renderItem={(item): JSX.Element => {
+                    return (
+                      <div className='p-1 pointer'>
+                        <h4 className='m-0'>{item.label}</h4>
+                        <p className='m-0 mt-1 fs-1'>{item.description}</p>
+                      </div>
+                    );
+                  }}
+                  loading={searchLabelsRes.isLoading}
+                  options={convertLabelsToOptions(searchLabelsRes.data)}
+                  inputPlacegolder='Qidirish uchun yozing'
+                />
+              )}
+            />
+            <Error error={errors.labels} />
+          </div>
+          <div className='form-element'>
+            <label htmlFor='file' className='form-label'>
+              Rasm tanlang
+            </label>
+            <FileDragDrop
+              {...register('image', { required: imgUrl ? false : 'Rasmni tanlang' })}
+              selectedFileRenderer={(): JSX.Element => {
+                if (selectedImageBase64) return <ArticleImg imgUrl={selectedImageBase64} />;
+                if (imgUrl) return <ArticleImg imgUrl={addTutorialAmazonUri({ imgUrl }).imgUrl} />;
+                return <></>;
+              }}
+              onChange={fileChangeHandler}
+              defaultValue={imgUrl}
+            />
+            <Error error={errors.image} />
+          </div>
+          <div className='d-flex justify-content-end'>
+            <Button type='button' color='outline-dark' className='me-1'>
+              Bekor qilish
+            </Button>
+            <Button className='w-30' loading={publishRes.isLoading}>
+              Nashr qilish
+            </Button>
+          </div>
+        </form>
+      )}
     </Modal>
   );
 };

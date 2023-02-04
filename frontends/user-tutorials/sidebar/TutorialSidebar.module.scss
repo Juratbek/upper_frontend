@@ -6,12 +6,14 @@ $icon-size: 20px;
 }
 
 .header {
-  padding: 0.5rem;
+  padding: 0.7rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid var(--lightGray);
   border-bottom: 1px solid var(--lightGray);
+  font-weight: 600;
+  font-size: 1.4rem;
 }
 
 .icon {
