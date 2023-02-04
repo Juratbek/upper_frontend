@@ -16,7 +16,7 @@ import { useLazySearchLabelsQuery, usePublishTutorialMutation } from 'store/apis
 import { getIsPublishTutorialModalOpen, publishTutorialModalHandler } from 'store/states';
 import { ILabel, IResponseError } from 'types';
 import { compressImage, convertLabelsToOptions, toBase64 } from 'utils';
-import { MAX_LABELS } from 'variables';
+import { TUTORIAL_MAX_LABELS } from 'variables';
 
 export const PublishTutorialModal: FC = () => {
   const [selectedImageBase64, setSelectedImageBase64] = useState<string>();
@@ -79,7 +79,7 @@ export const PublishTutorialModal: FC = () => {
             render={({ field }): JSX.Element => (
               <MultiSelect
                 {...field}
-                max={MAX_LABELS}
+                max={TUTORIAL_MAX_LABELS}
                 onInputDebounce={SearchLabels}
                 renderItem={(item): JSX.Element => {
                   return (

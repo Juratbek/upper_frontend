@@ -34,3 +34,4 @@ export * from './WithPopover';
 export * from './MessageNotification';
 export * from './totorials';
 export * from './lib';
+export * from './SidebarTutorial';

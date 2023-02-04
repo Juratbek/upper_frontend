@@ -2,14 +2,10 @@ import { IHeadProps } from 'components';
 import { BLOG_BUCKET_URL } from 'store/apis';
 import { IBlog, ILink, TIcon } from 'types';
 
-export const addAmazonUri = <T extends { imgUrl: string }>(blog: T): T => {
-  const imgUrl = blog.imgUrl;
-  if (!imgUrl || imgUrl.startsWith('http')) return blog;
-  return {
-    ...blog,
-    imgUrl: `${BLOG_BUCKET_URL}${imgUrl}`,
-  };
-};
+import { addAmazonBucketUri } from './common';
+
+export const addAmazonUri = <T extends { imgUrl: string }>(blog: T): T =>
+  addAmazonBucketUri(blog, BLOG_BUCKET_URL);
 
 const https = 'https://';
 const http = 'http://';

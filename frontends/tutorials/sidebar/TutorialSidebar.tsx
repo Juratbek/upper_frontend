@@ -3,7 +3,7 @@ import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useAppDispatch } from 'store';
-import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis/published-tutorials';
+import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis';
 import { setPublishedTutorialAuthor } from 'store/states';
 import { ITutorialArticle } from 'types';
 

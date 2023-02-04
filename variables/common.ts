@@ -10,4 +10,6 @@ export const PAGINATION_SIZE = 10;
 
 export const MAX_LABELS = 5;
 
+export const TUTORIAL_MAX_LABELS = 3;
+
 export const COMING_SOON_TEXT = 'Tez orada...';
