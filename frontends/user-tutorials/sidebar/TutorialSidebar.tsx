@@ -74,7 +74,7 @@ export const TutorialSidebar: FC = () => {
     <div className={classes.root}>
       <RemoveArticleModal />
       <RemoveSectionModal />
-      <PublishTutorialModal />
+      {tutorialName && <PublishTutorialModal />}
       <div className='px-2 py-1'>
         <Button className='w-100' onClick={openPublishTutorialModal}>
           Nashr qilish

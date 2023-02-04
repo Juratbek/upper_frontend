@@ -4,7 +4,8 @@ import { Override } from 'utils';
 export type TFileDragDropProps = Override<
   HTMLAttributes<HTMLInputElement>,
   {
-    selectedFileRenderer?: (file: File) => JSX.Element;
+    defaultValue: File | string;
+    selectedFileRenderer?: (file: File | string) => JSX.Element;
     onChange?: (file: File) => void;
   }
 >;

@@ -14,4 +14,5 @@ export interface ITutorialMedium {
 
 export interface ITutorial extends ITutorialMedium {
   sections: ITutorialSection[];
+  imgUrl: string;
 }

@@ -13,9 +13,14 @@ import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazySearchLabelsQuery, usePublishTutorialMutation } from 'store/apis';
-import { getIsPublishTutorialModalOpen, publishTutorialModalHandler } from 'store/states';
+import {
+  getIsPublishTutorialModalOpen,
+  getTutorialImgUrl,
+  getTutorialLabels,
+  publishTutorialModalHandler,
+} from 'store/states';
 import { ILabel, IResponseError } from 'types';
-import { compressImage, convertLabelsToOptions, toBase64 } from 'utils';
+import { addTutorialAmazonUri, compressImage, convertLabelsToOptions, toBase64 } from 'utils';
 import { TUTORIAL_MAX_LABELS } from 'variables';
 
 export const PublishTutorialModal: FC = () => {
@@ -32,6 +37,8 @@ export const PublishTutorialModal: FC = () => {
     formState: { errors },
   } = useForm();
   const { query } = useRouter();
+  const imgUrl = useAppSelector(getTutorialImgUrl);
+  const labels = useAppSelector(getTutorialLabels);
 
   const close = (): unknown => dispatch(publishTutorialModalHandler({ isOpen: false }));
 
@@ -48,14 +55,16 @@ export const PublishTutorialModal: FC = () => {
   };
 
   const submitHandler = (event: Record<string, unknown>): void => {
-    if (!selectedImage) return;
+    if (!selectedImage && !imgUrl) return;
     const labels: ILabel[] = (event.labels as IOption[]).map<ILabel>((l) => ({
       name: l.label,
       id: +l.value,
     }));
 
     const formData = new FormData();
-    formData.set('image', selectedImage);
+    if (selectedImage) {
+      formData.set('image', selectedImage);
+    }
     formData.set('labels', JSON.stringify(labels));
     formData.set('tutorialId', query.id as string);
     publish(formData);
@@ -68,7 +77,7 @@ export const PublishTutorialModal: FC = () => {
           {(publishRes.error as IResponseError).data.message}
         </Alert>
       )}
-      <form onSubmit={handleSubmit(submitHandler)}>
+      <form onSubmit={handleSubmit(submitHandler, console.error)}>
         <h3 className='mt-0'>To&apos;plamni nashr qilish uchun quidagilarni kiriting</h3>
         <div className='form-element'>
           <label className='form-label'>Teglarni tanlang</label>
@@ -81,6 +90,7 @@ export const PublishTutorialModal: FC = () => {
                 {...field}
                 max={TUTORIAL_MAX_LABELS}
                 onInputDebounce={SearchLabels}
+                defaultValues={convertLabelsToOptions(labels)}
                 renderItem={(item): JSX.Element => {
                   return (
                     <div className='p-1 pointer'>
@@ -101,26 +111,15 @@ export const PublishTutorialModal: FC = () => {
           <label htmlFor='file' className='form-label'>
             Rasm tanlang
           </label>
-          {/* <Controller
-            name='image'
-            rules={{ required: 'Rasmni tanlang' }}
-            control={control}
-            render={({ field }): JSX.Element => (
-              <FileDragDrop
-                {...field}
-                selectedFileRenderer={(): JSX.Element =>
-                  selectedImageBase64 ? <ArticleImg imgUrl={selectedImageBase64} /> : <></>
-                }
-                onChange={fileChangeHandler}
-              />
-            )}
-          /> */}
           <FileDragDrop
-            {...register('image', { required: 'Rasmni tanlang' })}
-            selectedFileRenderer={(): JSX.Element =>
-              selectedImageBase64 ? <ArticleImg imgUrl={selectedImageBase64} /> : <></>
-            }
+            {...register('image', { required: imgUrl ? false : 'Rasmni tanlang' })}
+            selectedFileRenderer={(): JSX.Element => {
+              if (selectedImageBase64) return <ArticleImg imgUrl={selectedImageBase64} />;
+              if (imgUrl) return <ArticleImg imgUrl={addTutorialAmazonUri({ imgUrl }).imgUrl} />;
+              return <></>;
+            }}
             onChange={fileChangeHandler}
+            defaultValue={imgUrl}
           />
           <Error error={errors.image} />
         </div>

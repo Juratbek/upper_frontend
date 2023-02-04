@@ -4,10 +4,10 @@ import classes from './FileDragDrop.module.scss';
 import { TFileDragDropProps } from './FileDragDrop.types';
 
 export const FileDragDrop = forwardRef<HTMLInputElement, TFileDragDropProps>(function Component(
-  props,
+  { defaultValue, ...props },
   ref,
 ) {
-  const [file, setFile] = useState<File>();
+  const [file, setFile] = useState<File | string>(defaultValue);
   const id = useId();
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -33,7 +33,10 @@ export const FileDragDrop = forwardRef<HTMLInputElement, TFileDragDropProps>(fun
     if (props.selectedFileRenderer) {
       return props.selectedFileRenderer(file);
     }
-    return <p>{file?.name}</p>;
+    if (file instanceof File) {
+      return <p>{file?.name}</p>;
+    }
+    return <p>{file}</p>;
   }, [file, props.selectedFileRenderer]);
 
   return (

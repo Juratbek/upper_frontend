@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITutorial, ITutorialSection } from 'types';
+import { ILabel, ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
 
 import {
@@ -16,6 +16,8 @@ interface ITutorialSidebarState {
   selectedSection?: ITutorialSection;
   name: string;
   sections: ITutorialSection[];
+  labels: ILabel[];
+  imgUrl: string;
 }
 
 const initialState: ITutorialSidebarState = {
@@ -24,6 +26,8 @@ const initialState: ITutorialSidebarState = {
   isPublishTutorialModalOpen: false,
   name: '',
   sections: [],
+  labels: [],
+  imgUrl: '',
 };
 
 const tutorialsSidebarSlice = createSlice({
@@ -119,9 +123,11 @@ const tutorialsSidebarSlice = createSlice({
       state.isPublishTutorialModalOpen = action.payload.isOpen;
     },
     setTutorial(state, { payload }: PayloadAction<ITutorial>) {
-      const { name, sections } = payload;
+      const { name, sections, labels, imgUrl } = payload;
       state.sections = sections || [];
       state.name = name;
+      state.labels = labels;
+      state.imgUrl = imgUrl;
     },
     clearTutorial(state) {
       state.name = '';
