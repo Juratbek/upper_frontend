@@ -1,13 +1,19 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
+
+import { TVoidFn } from './useModal.types';
 
 export const useModal = (
   defaultState = false,
-): [boolean, () => void, Dispatch<SetStateAction<boolean>>] => {
+): [boolean, () => void, { open: TVoidFn; close: TVoidFn }] => {
   const [isOpen, setIsOpen] = useState(defaultState);
 
   const toggle = (): void => {
     setIsOpen((prev) => !prev);
   };
 
-  return [isOpen, toggle, setIsOpen];
+  const open = (): void => setIsOpen(true);
+
+  const close = (): void => setIsOpen(false);
+
+  return [isOpen, toggle, { open, close }];
 };

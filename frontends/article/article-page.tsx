@@ -1,12 +1,28 @@
 import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
+import { ApiError, Blog, Button, Head, StorysetImage } from 'components';
 import { useAuth } from 'hooks';
+import Image from 'next/image';
+import Link from 'next/link';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
+import {
+  useIncrementViewCountMutation,
+  useLazyCheckIfLikedDislikedQuery,
+  useLikeDislikeMutation,
+} from 'store/apis';
 import { openLoginModal, toggleCommentsSidebar } from 'store/states';
-import { addUriToImageBlocks, toDateString } from 'utils';
-import { ICONS } from 'variables/icons';
+import { setArticleAuthor } from 'store/states/readArticle';
+import { IArticle } from 'types';
+import {
+  addAmazonBucketUriToArticle,
+  addAmazonUri,
+  addUriToImageBlocks,
+  convertToHeadProp,
+  get,
+  toDateString,
+} from 'utils';
+import { ICONS, UPPER_BLUE_COLOR } from 'variables';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
@@ -15,15 +31,31 @@ import { ArticleActions } from './components';
 const LikeIcon = ICONS.like;
 const DislikeIcon = ICONS.dislike;
 const CommentIcon = ICONS.comment;
+const HeartIcon = ICONS.heart;
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
-export const Article: FC<IArticleProps> = (props) => {
-  const { viewCount, publishedDate, updatedDate, blocks, id, likeCount, dislikeCount } = props;
+export const Article: FC<IArticleProps> = ({
+  article,
+  error,
+  fullUrl,
+  showAuthor = false,
+  ...props
+}) => {
+  const {
+    viewCount = 0,
+    publishedDate,
+    updatedDate,
+    blocks = [],
+    id,
+    likeCount = 0,
+    dislikeCount = 0,
+  } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
+  const [incrementViewCountRequest] = useIncrementViewCountMutation();
   const [likeDislikeArticle, likeDislikeRes] = useLikeDislikeMutation();
   const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
     useLazyCheckIfLikedDislikedQuery();
@@ -33,7 +65,7 @@ export const Article: FC<IArticleProps> = (props) => {
       dispatch(openLoginModal());
       return;
     }
-    if (likeDislikeRes.isLoading || value === isLikedOrDisliked) return;
+    if (likeDislikeRes.isLoading || value === isLikedOrDisliked || !id) return;
     likeDislikeArticle({ id, value }).then(() => {
       setLikeDislikeCount((prev) => prev + value - (isLikedOrDisliked || 0));
     });
@@ -52,17 +84,29 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [editorInstance?.isReady]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && id) {
       checkIfLikedDislikedQuery(id);
       setLikeDislikeCount(likeCount - dislikeCount);
     }
   }, [isAuthenticated, id]);
 
   useEffect(() => {
-    editorInstance?.render({ blocks: addUriToImageBlocks(blocks) });
+    editorInstance?.render?.({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
 
-  const article = useMemo(
+  useEffect(() => {
+    if (!article) return;
+    article.author && dispatch(setArticleAuthor(article.author));
+    const timeout = setTimeout(() => {
+      if (article.token) {
+        const { id, token } = article;
+        incrementViewCountRequest({ id, token });
+      }
+    }, 15 * 1000);
+    return () => clearTimeout(timeout);
+  }, [article?.id]);
+
+  const articleComponent = useMemo(
     () => (
       <Editor
         content={{ blocks: addUriToImageBlocks(blocks) }}
@@ -79,51 +123,102 @@ export const Article: FC<IArticleProps> = (props) => {
     return <></>;
   }, [publishedDate, updatedDate]);
 
+  const likeIcon = useMemo((): JSX.Element => {
+    if (isLikedOrDisliked === 0) {
+      return (
+        <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
+          <Image width={40} height={40} src='/icons/dislike.webp' />
+        </div>
+      );
+    }
+    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : 'black'} />;
+  }, [isLikedOrDisliked]);
+
+  if (!article) {
+    if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
+    if (error?.status === 404)
+      return (
+        <div className='text-center mt-3'>
+          <StorysetImage width={400} height={400} src='/storyset/hidden.svg' storysetUri='data' />
+          <h3>Maqola topilmadi</h3>
+          <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
+          <Link href='/'>
+            <Button>Bosh sahifaga qaytish</Button>
+          </Link>
+        </div>
+      );
+    return <h2>{get(error, 'data.message')}</h2>;
+  }
+
   return (
-    <div className={`${styles.articleContainer} editor-container`}>
-      <article>{article}</article>
-      <Divider className='my-2' />
-      <div className={styles.articleDetail}>
-        <div className='d-flex'>
-          {viewCount > 0 && (
+    <div className={`container ${props.className}`}>
+      <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
+      {showAuthor && article.author && (
+        <>
+          <Blog {...addAmazonUri(article.author)} isLink />
+          {Boolean(article.author.cardNumber) && (
             <>
-              <span>{viewCount} marta ko&apos;rilgan</span>
-              <Divider type='vertical' className='mx-1' />
+              <div style={{ height: '1rem' }} />
+              <Link href={`/blogs/${article.author.id}/support`}>
+                <a className='link'>
+                  <Button className='w-100'>
+                    <span className='sponsor-icon'>
+                      <HeartIcon />
+                    </span>
+                    Blog faoliyatiga hissa qo&apos;shing
+                  </Button>
+                </a>
+              </Link>
             </>
           )}
-          {dateContent}
-        </div>
-        <div className={styles.reactions}>
-          <div className={styles.reactionButtons}>
-            <span
-              data-action='open-comments'
-              className='pointer me-2'
-              onClick={commentIconClickHandler}
-            >
-              <CommentIcon />
-            </span>
-            <span
-              className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
-              onClick={(): void => likeDislike(1)}
-            >
-              <LikeIcon />
-            </span>
-            {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
-            <span
-              className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
-              onClick={(): void => likeDislike(-1)}
-            >
-              <DislikeIcon />
-            </span>
+          <Divider className='mt-1' />
+        </>
+      )}
+      <div className={`${styles.articleContainer} editor-container`}>
+        <article>{articleComponent}</article>
+        <Divider className='my-2' />
+        <div className={styles.articleDetail}>
+          <div className='d-flex'>
+            {viewCount > 0 && (
+              <>
+                <span>{viewCount} marta ko&apos;rilgan</span>
+                <Divider type='vertical' className='mx-1' />
+              </>
+            )}
+            {dateContent}
+          </div>
+          <div className={styles.reactions}>
+            <div className={styles.reactionButtons}>
+              <span
+                data-action='open-comments'
+                className='pointer me-2'
+                onClick={commentIconClickHandler}
+              >
+                <CommentIcon />
+              </span>
+              <span
+                className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
+                onClick={(): void => likeDislike(1)}
+              >
+                {likeIcon}
+              </span>
+              {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
+              <span
+                className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
+                onClick={(): void => likeDislike(-1)}
+              >
+                <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : 'black'} />
+              </span>
+            </div>
           </div>
         </div>
+        <ArticleActions
+          editor={editorInstance}
+          likeDislike={likeDislike}
+          isLikedOrDisliked={isLikedOrDisliked}
+          likeDislikeCount={likeDislikeCount}
+        />
       </div>
-      <ArticleActions
-        editor={editorInstance}
-        likeDislike={likeDislike}
-        isLikedOrDisliked={isLikedOrDisliked}
-        likeDislikeCount={likeDislikeCount}
-      />
     </div>
   );
 };

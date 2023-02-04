@@ -69,6 +69,7 @@ export const useInfiniteScroll = <T>(
       const newItemsFromApi = data.list;
       if (fnConfig?.reset) {
         setPage(0);
+        setHasMore(true);
         setList(newItemsFromApi);
       } else if (config.removeDublicates) {
         setListWithoutDiblicates(newItemsFromApi, params, fnConfig);

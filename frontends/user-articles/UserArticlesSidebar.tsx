@@ -12,7 +12,7 @@ import {
 import { useModal, useShortCut } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
@@ -33,6 +33,7 @@ import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
+  const [isNotificationOn, setIsNotificationOn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const { push } = useRouter();
   const {
@@ -43,8 +44,8 @@ export const UserArticlesSidebar: FC = () => {
 
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
-  const [isPublishModalOpen, togglePublishModal] = useModal(false);
-  const [isDeleteModalOpen, toggleDeleteModal] = useModal(false);
+  const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
+  const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
 
   const [updateArticle, updateArticleRes] = useUpdateArticleMutaion();
   const [publishArticle, publishArticleRes] = usePublishMutation();
@@ -81,13 +82,19 @@ export const UserArticlesSidebar: FC = () => {
     let res;
     try {
       await saveChanges();
-      res = await publishArticle(article.id).unwrap();
+      res = await publishArticle({ id: article.id, notificationsOn: isNotificationOn }).unwrap();
     } catch (e) {
       const error = e as IResponseError;
       return setAlert(error.data.message);
     }
     dispatch(setArticle({ ...article, ...res }));
     togglePublishModal();
+  };
+
+  const notificationRadioInputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target?.value;
+    if (value === 'false') setIsNotificationOn(false);
+    if (value === 'true') setIsNotificationOn(true);
   };
 
   const deleteArticle = async (event: Record<string, string>): Promise<void> => {
@@ -120,7 +127,7 @@ export const UserArticlesSidebar: FC = () => {
         <div>{alert}</div>
         <Link href='/docs/write-article_publish_requirements'>
           <a target='_blank' className='link'>
-            Yo`riqnomani o`qish
+            Yo&apos;riqnomani o&apos;qish
           </a>
         </Link>
       </Alert>
@@ -132,14 +139,37 @@ export const UserArticlesSidebar: FC = () => {
       <Modal
         size='small'
         isOpen={isPublishModalOpen}
-        close={togglePublishModal}
+        close={closePublishModal}
         bodyClassName='text-center'
       >
         {alertComponent}
+        <h3 className='my-1'>Maqolani nashr qilmoqchimisiz?</h3>
         {status === ARTICLE_STATUSES.SAVED && (
-          <Alert color='yellow'>Obunalar maqola nashr qilingani haqida habar olishadi</Alert>
+          <div className='form-element'>
+            <p>Obunachilar maqola nashr qilingani haqida habar olishlarini hohlaysizmi?</p>
+            <div className='d-flex justify-content-center'>
+              <div className='d-flex me-2'>
+                <Input
+                  type='radio'
+                  name='notificationOn'
+                  value='true'
+                  defaultChecked
+                  onChange={notificationRadioInputChangeHandler}
+                />
+                <label className='ms-1'>Ha, albatta</label>
+              </div>
+              <div className='d-flex'>
+                <Input
+                  type='radio'
+                  name='notificationOn'
+                  value='false'
+                  onChange={notificationRadioInputChangeHandler}
+                />
+                <label className='ms-1'>Yo&apos;q</label>
+              </div>
+            </div>
+          </div>
         )}
-        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz?</h3>
         <div className='d-flex'>
           <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
             Modalni yopish
@@ -156,19 +186,19 @@ export const UserArticlesSidebar: FC = () => {
       <Modal
         size='small'
         isOpen={isDeleteModalOpen}
-        close={toggleDeleteModal}
+        close={closeDeleteModal}
         bodyClassName='text-center'
       >
         {alertComponent}
         <form onSubmit={handleSubmit(deleteArticle)}>
-          <h3 className='mt-1'>Maqolani o`chirmoqchimisiz</h3>
+          <h3 className='mt-1'>Maqolani o&apos;chirmoqchimisiz</h3>
           <div className='mb-2'>
             <label htmlFor='confirm' className='mb-1 d-block' style={{ userSelect: 'none' }}>
               Tasdiqlash uchun{' '}
               <strong>
                 <code>{DELETE_CONFIRMATION}</code>
               </strong>{' '}
-              so`zini kiriting
+              so&apos;zini kiriting
             </label>
             <Input
               placeholder={DELETE_CONFIRMATION}
@@ -186,7 +216,7 @@ export const UserArticlesSidebar: FC = () => {
               Modalni yopish
             </Button>
             <Button color='outline-red' loading={deleteArticleRes.isLoading}>
-              O`chirish
+              O&apos;chirish
             </Button>
           </div>
         </form>
@@ -208,7 +238,7 @@ export const UserArticlesSidebar: FC = () => {
               onClick={toggleDeleteModal}
               disabled={isDisabled}
             >
-              O`chirish
+              O&apos;chirish
             </Button>
             <Button
               className='flex-auto m-1 mb-0'

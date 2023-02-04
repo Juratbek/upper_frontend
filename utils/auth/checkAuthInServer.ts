@@ -6,7 +6,7 @@ export const checkAuthInServer: GetServerSideProps = async ({ req, res }) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/404',
         permanent: false,
       },
     };

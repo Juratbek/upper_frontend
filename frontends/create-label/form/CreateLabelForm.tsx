@@ -24,7 +24,7 @@ export const CreateLabelForm = (): JSX.Element => {
       const exception = error as IResponseError;
       setAlert({ message: exception.data.message || 'Xatolik yuz berdi', color: 'red' });
     }
-    if (isSuccess) setAlert({ message: 'So`rov jo`natildi', color: 'green' });
+    if (isSuccess) setAlert({ message: "So'rov jo'natildi", color: 'green' });
   }, [createLabelRes.status]);
 
   return (
@@ -49,9 +49,11 @@ export const CreateLabelForm = (): JSX.Element => {
         <Error error={errors.description} />
       </div>
       <Button loading={createLabelRes.isLoading} className='w-100'>
-        So`rov yuborish
+        So&apos;rov yuborish
       </Button>
-      <p className='text-gray'>Tag yaratish uchun so`riv yuboriladi va ko`rib chiqiladi</p>
+      <p className='text-gray'>
+        Tag yaratish uchun so&apos;riv yuboriladi va ko&apos;rib chiqiladi
+      </p>
     </form>
   );
 };

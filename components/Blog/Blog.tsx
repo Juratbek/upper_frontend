@@ -1,4 +1,4 @@
-import { Avatar } from 'components/Avatar/Avatar';
+import { Avatar } from 'components';
 import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
@@ -16,7 +16,12 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
   const getBlog = useCallback(
     (className?: string) => (
       <div className={`d-flex align-items-center mb-1 ${className}`}>
-        <Avatar imgUrl={imgUrl} size={avatarSize} className={classes.avatar} zoomable />
+        <Avatar
+          imgUrl={imgUrl}
+          size={avatarSize}
+          className={classes.avatar}
+          zoomable={!isLink ?? true}
+        />
         <div className='position-relative flex-1'>
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>

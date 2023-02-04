@@ -9,7 +9,8 @@ import { convertToCardNumbers } from 'utils';
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 
 export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
-  const [isConfirmationModalOpen, toggleConfirmationModal] = useModal();
+  const [isConfirmationModalOpen, toggleConfirmationModal, { close: closeConfirmationModal }] =
+    useModal();
   const [isTurnOffModalOpen, toggleTurnOffModal] = useModal();
   const [changeDonatCredentials, changeDonatCredentialsRes] = useChangeDonatCredentialsMutation();
   const [cardNumber, setCardNumber] = useState(currentBlog?.cardNumber);
@@ -45,7 +46,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
       <Modal
         isOpen={isConfirmationModalOpen}
         bodyClassName='text-center'
-        close={toggleConfirmationModal}
+        close={closeConfirmationModal}
       >
         <h4>
           {cardNumber

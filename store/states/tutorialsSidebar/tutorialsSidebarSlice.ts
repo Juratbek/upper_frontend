@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITutorial, ITutorialSection } from 'types';
+import { ILabel, ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
 
 import {
@@ -8,20 +8,26 @@ import {
   IAddTutorialArticlePayloadAction,
 } from './tutorialsSidebarSlice.types';
 
-interface ICommentSidebarState {
+interface ITutorialSidebarState {
   isRemoveArticleModalOpen: boolean;
+  isPublishTutorialModalOpen: boolean;
   selectedArticle?: ITutorialArticle;
   isRemoveSectionModalOpen: boolean;
   selectedSection?: ITutorialSection;
   name: string;
   sections: ITutorialSection[];
+  labels: ILabel[];
+  imgUrl: string;
 }
 
-const initialState: ICommentSidebarState = {
+const initialState: ITutorialSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
+  isPublishTutorialModalOpen: false,
   name: '',
   sections: [],
+  labels: [],
+  imgUrl: '',
 };
 
 const tutorialsSidebarSlice = createSlice({
@@ -101,16 +107,27 @@ const tutorialsSidebarSlice = createSlice({
     toggleRemoveArticleModal(state) {
       state.isRemoveArticleModalOpen = !state.isRemoveArticleModalOpen;
     },
+    closeRemoveArticleModal(state) {
+      state.isRemoveArticleModalOpen = false;
+    },
     setSelectedSection(state, { payload }: PayloadAction<ITutorialSection | undefined>) {
       state.selectedSection = payload;
     },
     toggleRemoveSectionModal(state) {
       state.isRemoveSectionModalOpen = !state.isRemoveSectionModalOpen;
     },
+    closeRemoveSectionModal(state) {
+      state.isRemoveSectionModalOpen = false;
+    },
+    publishTutorialModalHandler(state, action: PayloadAction<{ isOpen: boolean }>) {
+      state.isPublishTutorialModalOpen = action.payload.isOpen;
+    },
     setTutorial(state, { payload }: PayloadAction<ITutorial>) {
-      const { name, sections } = payload;
+      const { name, sections, labels, imgUrl } = payload;
       state.sections = sections || [];
       state.name = name;
+      state.labels = labels;
+      state.imgUrl = imgUrl;
     },
     clearTutorial(state) {
       state.name = '';
@@ -130,8 +147,11 @@ export const {
   setTutorial,
   clearTutorial,
   toggleRemoveArticleModal,
+  closeRemoveArticleModal,
   toggleRemoveSectionModal,
+  closeRemoveSectionModal,
   setSelectedArticle,
   setSelectedSection,
+  publishTutorialModalHandler,
 } = tutorialsSidebarSlice.actions;
 export default tutorialsSidebarSlice.reducer;

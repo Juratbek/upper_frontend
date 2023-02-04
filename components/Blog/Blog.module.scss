@@ -13,11 +13,22 @@
 .social-media-links {
   position: absolute;
   left: 0;
-  bottom: 0;
-  transform: translateY(130%);
+  bottom: -0.1rem;
+  transform: translateY(100%);
+  display: flex;
 
   & .icon {
-    margin-right: 0.6rem;
+    margin-right: 0.2rem;
+    $container-size: 1.7rem;
+    min-width: $container-size;
+    height: $container-size;
+    border-radius: 100rem;
+    display: grid;
+    place-items: center;
+
+    &:hover {
+      background-color: var(--lightGray);
+    }
    
     & > svg {
       $size: 1.0rem;

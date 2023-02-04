@@ -1,5 +1,5 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
-import { Alert, EditorSpinner } from 'components';
+import { Alert, EditorSpinner, Head } from 'components';
 import { Editor } from 'components/Editor';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
@@ -69,10 +69,11 @@ export default function UserArticlePage(): JSX.Element {
 
   return (
     <div className='editor-container container pb-4'>
+      <Head title='Blog maqolasi' url='/user/articles' />
       {hasAlert && (
         <Alert className='mt-2' onClose={closeAlert}>
-          Saqlangan lekin nashr etilmagan o`zgarishlar mavjud. Ularni nashr qilish uchun &quot;Nashr
-          qilish&quot; tugmasini bosing
+          Saqlangan lekin nashr etilmagan o&apos;zgarishlar mavjud. Ularni nashr qilish uchun
+          &quot;Nashr qilish&quot; tugmasini bosing
         </Alert>
       )}
       {renderEditor()}

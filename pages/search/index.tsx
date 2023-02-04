@@ -1,4 +1,4 @@
-import { SearchInput, TabBody, TabsHeader } from 'components';
+import { Head, SearchInput, TabBody, TabsHeader } from 'components';
 import { useUrlParams } from 'hooks';
 import type { NextPage } from 'next';
 import classes from 'styles/Search.module.scss';
@@ -13,8 +13,12 @@ const SearchPage: NextPage = () => {
 
   return (
     <div className='container'>
-      <h1 className='mb-1'>Qidirish</h1>
-      <SearchInput className={`${classes['search-input']} mb-2`} onDebounce={search} />
+      <Head title='Qidirish' url='/search' />
+      <SearchInput
+        className={`${classes['search-input']} my-2`}
+        placeholder='Qidirish uchun yozing'
+        onDebounce={search}
+      />
       <TabsHeader tabs={SEARCH_TAB_MENUS} />
       <TabBody tabs={SEARCH_TABS} />
     </div>

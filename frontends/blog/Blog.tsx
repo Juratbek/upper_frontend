@@ -38,6 +38,10 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
     setIsUnfollowModalOpen((prev) => !prev);
   };
 
+  const closeModal = (): void => {
+    setIsUnfollowModalOpen(false);
+  };
+
   useEffect(() => {
     if (blog?.isFollowed !== undefined) {
       setIsFollowed(blog.isFollowed);
@@ -52,7 +56,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
       <Modal
         size='small'
         isOpen={isUnfollowModalOpen}
-        close={toggleUnfollowModal}
+        close={closeModal}
         bodyClassName='text-center'
       >
         <strong>{blog.name}</strong> obunasini bekor qilmoqchimisiz
@@ -76,11 +80,11 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
               <>
                 {isFollowed ? (
                   <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                    Obuna bo`lingan
+                    Obuna bo&apos;lingan
                   </Button>
                 ) : (
                   <Button onClick={follow} loading={followBlogRes.isLoading}>
-                    Obuna bo`lish
+                    Obuna bo&apos;lish
                   </Button>
                 )}
                 {Boolean(blog.cardNumber) && (

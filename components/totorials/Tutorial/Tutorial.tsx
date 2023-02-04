@@ -1,5 +1,4 @@
-import { Label } from 'components';
-import { Status } from 'components/common';
+import { Label, Status } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { toDateString } from 'utils';
@@ -16,11 +15,11 @@ export const Tutorial: FC<ITutorialProps> = ({
   publishedDate,
 }) => {
   return (
-    <Link href={`/tutorials/${id}`}>
+    <Link href={`user/tutorials/${id}`}>
       <a className={`${classes.container} ${className}`}>
         <div className={classes.body}>
           <h2 className='my-1'>{name}</h2>
-          <Status status={status}>{status}</Status>
+          <Status status={status} />
         </div>
         <div className={classes.footer}>
           <span className={classes.stats}>

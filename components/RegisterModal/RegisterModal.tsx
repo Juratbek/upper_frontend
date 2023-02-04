@@ -102,6 +102,10 @@ export const RegisterModal: FC = () => {
     }
   }, [activeStep]);
 
+  useEffect(() => {
+    isOpen && setFocus(name.name);
+  }, [isOpen]);
+
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
     return (
@@ -191,7 +195,7 @@ export const RegisterModal: FC = () => {
           </div>
         </div>
         <Button className='d-block w-100 mb-1' loading={createBlogResponse.isLoading}>
-          {activeStep === 2 ? 'Ro`yxatdan o`tish' : 'Davom etish'}
+          {activeStep === 2 ? "Ro'yxatdan o'tish" : 'Davom etish'}
         </Button>
         {activeStep !== 1 && (
           <Button color='outline-dark' className='w-100' onClick={decrementStep}>

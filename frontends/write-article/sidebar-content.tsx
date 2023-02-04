@@ -39,11 +39,7 @@ export const SidebarContent: FC = () => {
   const createTutorialHandler = async (): Promise<void> => {
     const res = await createTutorial().unwrap();
     dispatch(setTutorial(res));
-    router.push(`/tutorials/${res.id}`);
-  };
-
-  const labelsChangeHandler = (options: IOption[]): void => {
-    setSelectedLabels(options);
+    router.push(`/user/tutorials/${res.id}`);
   };
 
   const SearchLabels = (value: string): void => {
@@ -84,14 +80,14 @@ export const SidebarContent: FC = () => {
       <Button onClick={save} className='w-100' loading={createArticleRes.isLoading}>
         Saqlash
       </Button>
-      <Button
+      {/* <Button
         className='w-100 mt-1'
         color='outline-dark'
         onClick={createTutorialHandler}
         disabled={createArticleRes.isLoading}
       >
         Maqolalar to&apos;plamini yaratish
-      </Button>
+      </Button> */}
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
       <div>
@@ -107,7 +103,7 @@ export const SidebarContent: FC = () => {
         </div>
         <MultiSelect
           max={MAX_LABELS}
-          onChange={labelsChangeHandler}
+          onChange={setSelectedLabels}
           onInputDebounce={SearchLabels}
           renderItem={(item): JSX.Element => {
             return (
@@ -121,6 +117,14 @@ export const SidebarContent: FC = () => {
           options={convertLabelsToOptions(searchLabelsRes.data)}
           inputPlacegolder='Qidirish uchun yozing'
         />
+      </div>
+      <div>
+        <h3 className='mb-0'>Saytimizda yangimisiz?</h3>
+        <Link href='/docs/write-article_introduction_quick-start'>
+          <a>
+            <p className='mt-1 link'>Maqola yozish haqida qo&apos;llanma</p>
+          </a>
+        </Link>
       </div>
     </>
   );

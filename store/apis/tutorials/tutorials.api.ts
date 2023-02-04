@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import {
   IPagingResponse,
   ITutorial,
@@ -58,6 +58,13 @@ export const tutorialApi = createApi({
         body,
       }),
     }),
+    publish: build.mutation<void, FormData>({
+      query: (body) => ({
+        url: 'publish',
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -69,4 +76,5 @@ export const {
   useAddSectionMutation: useAddTutorialSectionMutation,
   useEditSectionMutation: useEditTutorialSectionMutation,
   useChangeArticleMutation: useChangeTutorialSelectedArticleMutation,
+  usePublishMutation: usePublishTutorialMutation,
 } = tutorialApi;

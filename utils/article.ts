@@ -11,13 +11,13 @@ export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): s
   const mainImg = blocks.find(
     (block) => block.type === BLOCK_TYPES.unsplash || block.type === BLOCK_TYPES.image,
   );
-  if (!mainImg) return 'Kamida bitta rasm bo`lishi kerak';
+  if (!mainImg) return "Kamida bitta rasm bo'lishi kerak";
   if (!title) return 'Maqola sarlavhasini kiriting';
   if (article.labels.length === 0) return 'Iltimos teglarni tanlang';
   return '';
 };
 
-export const addAmazonBucketUriToArticle = <T extends ISidebarArticle>(article: T): T => {
+export const addAmazonBucketUriToArticle = <T extends { imgUrl: string }>(article: T): T => {
   const imgUrl = article.imgUrl;
   if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;
   return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
@@ -106,7 +106,7 @@ export const convertToHeadProp = (article: IArticle): IHeadProps => {
     imgUrl,
     url: '',
     description: content,
-    author: author.name,
+    author: author?.name,
     publishedDate,
     type: 'article',
   };

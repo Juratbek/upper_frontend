@@ -2,7 +2,7 @@ import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } fr
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
-import { FC, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
@@ -28,6 +28,7 @@ export const LoginModal: FC = () => {
   const { authenticate } = useAuth();
   const {
     register,
+    setFocus,
     handleSubmit,
     formState: { errors },
     control,
@@ -70,6 +71,10 @@ export const LoginModal: FC = () => {
 
   const closeAlert = (): void => setAlert('');
 
+  useEffect(() => {
+    isOpen && setFocus(login.name);
+  }, [isOpen]);
+
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
     return (
@@ -89,7 +94,7 @@ export const LoginModal: FC = () => {
       </Head>
       {alertComponent}
       <form onSubmit={handleSubmit(submitHandler)}>
-        {Boolean(Title) && Title}
+        {Boolean(Title) && <h3 className='my-1 mt-0'>{Title}</h3>}
         <div className='form-element'>
           <label htmlFor='login' className='d-block mb-1'>
             Loginni kiriting
@@ -126,7 +131,7 @@ export const LoginModal: FC = () => {
           Kirish
         </Button>
         <Button className='d-block w-100' color='outline-dark' type='button' onClick={registerUser}>
-          Ro`yxatdan o`tish
+          Ro&apos;yxatdan o&apos;tish
         </Button>
         <p className='text-gray text-center' onClick={closeModal}>
           <Link href='/forgot-credentials'>
