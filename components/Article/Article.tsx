@@ -41,7 +41,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
   const renderDate = (): JSX.Element | string => {
     if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
     if (publishedDate) return toDateString(publishedDate);
-    return <></>;
+    return '';
   };
 
   return (
@@ -57,12 +57,15 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
           </div>
           <div className={classes.footer}>
             <div className={classes.stats}>
-              <time>
-                <span className={classes.icon}>
-                  <CalendarIcon color='gray' />
-                </span>
-                {renderDate()}
-              </time>
+              {renderDate() ? (
+                <time>
+                  <span className={classes.icon}>
+                    <CalendarIcon color='gray' />
+                  </span>
+                  {renderDate()}
+                </time>
+              ) : null}
+
               {viewCount > 0 && (
                 <>
                   <Divider type='vertical' className='mx-1' />
