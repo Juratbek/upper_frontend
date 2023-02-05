@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Error,
+  GitHubLoginButton,
   Input,
   Modal,
   PasswordValidityLevel,
@@ -14,6 +15,7 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useRegisterMutation } from 'store/apis';
+import { useGetAcessTokenByCodeMutation } from 'store/apis/auth';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
 import { IResponseError, TSubmitFormEvent } from 'types';
 
@@ -208,6 +210,7 @@ export const RegisterModal: FC = () => {
         botName={process.env.NEXT_PUBLIC_REGISTER_BOT_USERNAME || 'upper_test_bot'}
         onAuth={closeModal}
       />
+      <GitHubLoginButton />
     </Modal>
   );
 };

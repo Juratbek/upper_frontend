@@ -11,6 +11,7 @@ export * from './SidebarBlog/SidebarBlog';
 export * from './CommentNotification/CommentNotification';
 export * from './LikeNotification/LikeNotification';
 export * from './TelegramLoginButton/TelegramLoginButton';
+export * from './GitHubLoginButton/GitHubLoginButton';
 export * from './SidebarSearch/SidebarSearch';
 export * from './ArticleStatus/ArticleStatus';
 export * from './Editor/editor';

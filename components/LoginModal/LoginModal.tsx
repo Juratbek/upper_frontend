@@ -1,4 +1,13 @@
-import { Alert, Button, Error, Input, Modal, Recaptcha, TelegramLoginButton } from 'components';
+import {
+  Alert,
+  Button,
+  Error,
+  GitHubLoginButton,
+  Input,
+  Modal,
+  Recaptcha,
+  TelegramLoginButton,
+} from 'components';
 import { useAuth } from 'hooks';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -144,6 +153,7 @@ export const LoginModal: FC = () => {
           botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}
           onAuth={closeModal}
         />
+        <GitHubLoginButton />
       </form>
     </Modal>
   );

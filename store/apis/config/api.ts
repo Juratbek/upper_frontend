@@ -1,7 +1,7 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { Authorization, TOKEN } from 'variables';
 
-import { BASE_URL } from './api.constants';
+import { BASE_URL, GITHUB_BASE_URL } from './api.constants';
 import { TBaseQuery } from './api.types';
 
 export const baseQuery = (uri?: string): TBaseQuery =>
@@ -17,6 +17,15 @@ export const baseQuery = (uri?: string): TBaseQuery =>
       } catch (e) {
         // console.error(e);
       }
+      return headers;
+    },
+  });
+
+export const githubBaseQuery = (uri?: string): TBaseQuery =>
+  fetchBaseQuery({
+    baseUrl: `${GITHUB_BASE_URL}${uri && `/${uri}`}`,
+    prepareHeaders: (headers) => {
+      headers.set('accept', 'application/json');
       return headers;
     },
   });
