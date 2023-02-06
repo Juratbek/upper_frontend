@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, BlogSkeleton, PublishedTutorial } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, PublishedTutorial, StorysetImage } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
@@ -22,8 +22,18 @@ export const TutorialsTab: FC = () => {
     <ApiErrorBoundary
       fallback={<BlogSkeleton size='large' className='px-3 py-2' />}
       fallbackItemCount={SIDEBAR_BLOGS_SKELETON_COUNT}
+      defaultComponent={
+        <div className='text-center mt-5'>
+          <StorysetImage
+            storysetUri='data'
+            width={300}
+            height={300}
+            src='/storyset/search_data.svg'
+          />
+        </div>
+      }
       res={searchTutorialRes}
-      className='tab d-flex mt-2'
+      className={searchTutorialRes?.isUninitialized ? '' : 'tab d-flex mt-2'}
       style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
     >
       {searchTutorialRes.data?.length === 0 && (
