@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, BlogSkeleton, PublishedTutorial, StorysetImage } from 'components';
+import { ApiErrorBoundary, PublishedTutorial, StorysetImage, TutorialSkeleton } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
@@ -25,7 +25,7 @@ export const TutorialsTab: FC = () => {
 
   return (
     <ApiErrorBoundary
-      fallback={<BlogSkeleton size='large' className='px-3 py-2' />}
+      fallback={<TutorialSkeleton />}
       fallbackItemCount={SIDEBAR_BLOGS_SKELETON_COUNT}
       defaultComponent={
         <div className='text-center mt-5'>
