@@ -33,11 +33,18 @@ export const TutorialsTab: FC = () => {
         </div>
       }
       res={searchTutorialRes}
-      className={searchTutorialRes?.isUninitialized ? '' : 'tab d-flex mt-2'}
+      className={
+        searchTutorialRes?.isUninitialized || searchTutorialRes.data?.length === 0
+          ? ''
+          : 'tab d-flex mt-2'
+      }
       style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
     >
       {searchTutorialRes.data?.length === 0 && (
-        <h3 className='text-center'>To&apos;plamlar topilmadi</h3>
+        <div className='text-center mt-5'>
+          <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
+          <h3>To&apos;plamlar topilmadi</h3>
+        </div>
       )}
       {searchTutorialRes.data?.map((tutorial) => (
         <div key={tutorial.id} className='mb-2'>
