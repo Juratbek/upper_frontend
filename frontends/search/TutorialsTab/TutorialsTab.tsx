@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
 import { IPublishedTutorialMedim } from 'types';
-import { addTutorialAmazonUri } from 'utils';
+import { addTutorialAmazonUri, getClassName } from 'utils';
 import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 export const TutorialsTab: FC = () => {
@@ -11,6 +11,11 @@ export const TutorialsTab: FC = () => {
   const {
     query: { search, tab },
   } = useRouter();
+  const tabClassName = getClassName(
+    searchTutorialRes?.isUninitialized || searchTutorialRes.data?.length === 0
+      ? ''
+      : 'tab d-flex mt-2',
+  );
 
   useEffect(() => {
     if (search && tab === SEARCH_PAGE_TAB_IDS.tutorials && search.length > 1) {
@@ -33,11 +38,7 @@ export const TutorialsTab: FC = () => {
         </div>
       }
       res={searchTutorialRes}
-      className={
-        searchTutorialRes?.isUninitialized || searchTutorialRes.data?.length === 0
-          ? ''
-          : 'tab d-flex mt-2'
-      }
+      className={tabClassName}
       style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
     >
       {searchTutorialRes.data?.length === 0 && (
