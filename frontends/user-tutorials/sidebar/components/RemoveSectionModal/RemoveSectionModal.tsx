@@ -23,11 +23,10 @@ export const RemoveSectionModal: FC = () => {
 
   if (!selectedSection || !id) return null;
 
-  const removeSection = (): void => {
-    sendRemoveSectionReq({ tutorialId: +id, sectionId: selectedSection.id }).then(() => {
-      dispatch(removeTutorialSection(selectedSection.id));
-      dispatch(closeRemoveSectionModal());
-    });
+  const removeSection = async (): Promise<void> => {
+    await sendRemoveSectionReq({ tutorialId: +id, sectionId: selectedSection.id }).unwrap();
+    dispatch(removeTutorialSection(selectedSection.id));
+    dispatch(closeRemoveSectionModal());
   };
 
   return (
