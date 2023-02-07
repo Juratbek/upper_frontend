@@ -10,3 +10,13 @@ export const removeSection = (
   sections: ITutorialSection[],
   sectionId: string,
 ): ITutorialSection[] => sections.filter((section) => section.id !== sectionId);
+
+export const removeArticle = (
+  sections: ITutorialSection[],
+  articleId: string,
+): ITutorialSection[] =>
+  sections.map((section) => {
+    const articles = section.articles;
+    section.articles = articles.filter((article) => article.id !== articleId);
+    return section;
+  });

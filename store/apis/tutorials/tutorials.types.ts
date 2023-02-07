@@ -40,3 +40,8 @@ export interface IRemoveSectionDto {
   tutorialId: number;
   sectionId: string;
 }
+
+export interface IRemoveArticleDto {
+  tutorialId: number;
+  articleId: string;
+}
