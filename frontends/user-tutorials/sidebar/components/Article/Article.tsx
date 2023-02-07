@@ -22,6 +22,7 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
   const { setParams } = useUrlParams();
   const dispatch = useAppDispatch();
   const [edsitSection, edsitSectionRes] = useEditTutorialSectionMutation();
+  const isLoading = edsitSectionRes.isLoading;
   const {
     query: { id },
   } = useRouter();
@@ -57,13 +58,15 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
         value={article.name}
         defaultFocused={article.defaultFocused}
         onSubmit={changeArticleNameNandler}
-        loading={edsitSectionRes.isLoading}
+        loading={isLoading}
       />
-      <div className={classes.actions}>
-        <span className={classes.icon} onClick={addArticleHandler}>
-          <PlusIcon />
-        </span>
-      </div>
+      {!isLoading && (
+        <div className={classes.actions}>
+          <span className={classes.icon} onClick={addArticleHandler}>
+            <PlusIcon />
+          </span>
+        </div>
+      )}
     </div>
   );
 };

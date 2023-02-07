@@ -87,9 +87,11 @@ export const TutorialSidebar: FC = () => {
           onSubmit={tutorialNameChangeHandler}
           loading={changeNameRes.isLoading}
         />
-        <span className={classes.icon} onClick={addSectionHandler}>
-          <AddFolderIcon />
-        </span>
+        {!changeNameRes.isLoading && (
+          <span className={classes.icon} onClick={addSectionHandler}>
+            <AddFolderIcon />
+          </span>
+        )}
       </div>
       <div className={classes.body}>
         {sections?.map((section) => (

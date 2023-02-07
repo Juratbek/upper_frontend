@@ -34,6 +34,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   } = useRouter();
   const { setParams } = useUrlParams();
   const dispatch = useAppDispatch();
+  const isLoading = addSectionRes.isLoading || editSectionRes.isLoading;
 
   const closeAddPopover = (): void => setIsAddPopoverOpen(false);
   const [popoverRef] = useClickOutside(closeAddPopover, '[data-action="open-add-popover"]');
@@ -116,24 +117,26 @@ export const Section: FC<ISectionProps> = ({ section }) => {
           value={section.name}
           onSubmit={submitHandler}
           defaultFocused={section.defaultFocused}
-          loading={addSectionRes.isLoading || editSectionRes.isLoading}
+          loading={isLoading}
         />
-        <div className={classes.actions}>
-          <span
-            className={classes.icon}
-            style={{ transform: 'rotate(45deg)' }}
-            onClick={openRemoveArticleModal}
-          >
-            <PlusIcon />
-          </span>
-          <span
-            className={classes.icon}
-            data-action='open-add-popover'
-            onClick={openAddItemsPopover}
-          >
-            <PlusIcon />
-          </span>
-        </div>
+        {!isLoading && (
+          <div className={classes.actions}>
+            <span
+              className={classes.icon}
+              style={{ transform: 'rotate(45deg)' }}
+              onClick={openRemoveArticleModal}
+            >
+              <PlusIcon />
+            </span>
+            <span
+              className={classes.icon}
+              data-action='open-add-popover'
+              onClick={openAddItemsPopover}
+            >
+              <PlusIcon />
+            </span>
+          </div>
+        )}
         {addPopover}
       </div>
       <ul className={classes.articles}>
