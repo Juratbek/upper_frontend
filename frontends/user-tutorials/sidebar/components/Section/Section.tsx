@@ -41,7 +41,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
 
   const openAddItemsPopover = (): void => setIsAddPopoverOpen(true);
 
-  const openRemoveArticleModal = (): void => {
+  const openRemoveSectionModal = (): void => {
     dispatch(setSelectedSection(section));
     dispatch(toggleRemoveSectionModal());
   };
@@ -124,7 +124,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
             <span
               className={classes.icon}
               style={{ transform: 'rotate(45deg)' }}
-              onClick={openRemoveArticleModal}
+              onClick={openRemoveSectionModal}
             >
               <PlusIcon />
             </span>
