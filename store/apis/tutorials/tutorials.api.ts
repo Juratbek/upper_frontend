@@ -12,6 +12,7 @@ import {
   IAddSectionDto,
   IChangeTutorialSelectedArticleDto,
   IEditSectionDto,
+  IRemoveSectionDto,
 } from './tutorials.types';
 
 export const tutorialApi = createApi({
@@ -65,6 +66,13 @@ export const tutorialApi = createApi({
         body,
       }),
     }),
+    removeSection: build.mutation<void, IRemoveSectionDto>({
+      query: (body) => ({
+        url: 'remove-section',
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -77,4 +85,5 @@ export const {
   useEditSectionMutation: useEditTutorialSectionMutation,
   useChangeArticleMutation: useChangeTutorialSelectedArticleMutation,
   usePublishMutation: usePublishTutorialMutation,
+  useRemoveSectionMutation,
 } = tutorialApi;

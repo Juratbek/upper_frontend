@@ -38,6 +38,10 @@
   &--large {
     width: 800px;
   }
+
+  &--outline-red {
+    border: 1px solid var(--color-modal-border-red);
+  }
 }
 
 .modal-body {

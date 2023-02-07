@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILabel, ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
+import { removeSection } from 'utils';
 
 import {
   IAddSectionByTargetPayloadAction,
@@ -39,6 +40,10 @@ const tutorialsSidebarSlice = createSlice({
     },
     addSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = [...state.sections, payload];
+    },
+    removeSection(state, { payload }: PayloadAction<string>) {
+      const sectionId = payload;
+      state.sections = removeSection(state.sections, sectionId);
     },
     addSectionByTarget(state, { payload }: PayloadAction<IAddSectionByTargetPayloadAction>) {
       const { newSection, targetSection } = payload;
@@ -144,6 +149,7 @@ export const {
   addArticleByTarget: addTutorialArticleByTarget,
   changeArticle: changeTutorialArticle,
   addSectionByTarget: addTutorialSectionByTarget,
+  removeSection: removeTutorialSection,
   setTutorial,
   clearTutorial,
   toggleRemoveArticleModal,
