@@ -24,11 +24,10 @@ export const RemoveArticleModal: FC = () => {
 
   if (!selectedArticle || !id) return null;
 
-  const removeArticle = (): void => {
-    sendRemoveArticleReq({ tutorialId: +id, articleId: selectedArticle.id }).then(() => {
-      close();
-      dispatch(removeTutorialArticle(selectedArticle.id));
-    });
+  const removeArticle = async (): Promise<void> => {
+    await sendRemoveArticleReq({ tutorialId: +id, articleId: selectedArticle.id }).unwrap();
+    close();
+    dispatch(removeTutorialArticle(selectedArticle.id));
   };
 
   return (
