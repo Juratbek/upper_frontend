@@ -9,6 +9,7 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
   const inputRef = useRef<HTMLInputElement>(null);
 
   const doubleClickhandler = (): void => {
+    if (props.loading) return;
     setIsBeingChanged(true);
   };
 
