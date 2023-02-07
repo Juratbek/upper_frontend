@@ -18,3 +18,6 @@ export const getIsPublishTutorialModalOpen = (store: TRootState): boolean =>
 
 export const getIsRemoveSectionModalOpen = (store: TRootState): boolean =>
   store.tutorialsSidebar.isRemoveSectionModalOpen;
+
+export const getTutorialSelectedSection = (store: TRootState): ITutorialSection | undefined =>
+  store.tutorialsSidebar.selectedSection;

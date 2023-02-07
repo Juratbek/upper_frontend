@@ -35,3 +35,8 @@ export interface IChangeTutorialSelectedArticleDto {
   articleId: string;
   selectedArticleId: number;
 }
+
+export interface IRemoveSectionDto {
+  tutorialId: number;
+  sectionId: string;
+}
