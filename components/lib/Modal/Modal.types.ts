@@ -9,5 +9,5 @@ export interface IModalProps extends HTMLAttributes<HTMLElement> {
   size?: TSize;
   close: () => void;
   bodyClassName?: string;
-  color: TColor;
+  color?: TColor;
 }
