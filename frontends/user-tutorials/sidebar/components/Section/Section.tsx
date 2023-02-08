@@ -107,7 +107,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   );
 
   const selectArticle = (article: ITutorialArticle): void => {
-    setParams({ sectionId: section.id, articleId: article.id });
+    setParams({ sectionId: section.id, articleId: article.id, alert: '' });
   };
 
   return (

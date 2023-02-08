@@ -30,7 +30,7 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
   } = useRouter();
 
   const selectArticle = (): void => {
-    setParams({ sectionId: section.id, articleId: article.id });
+    setParams({ sectionId: section.id, articleId: article.id, alert: '' });
   };
 
   const changeArticleNameNandler = async (name: string): Promise<void> => {

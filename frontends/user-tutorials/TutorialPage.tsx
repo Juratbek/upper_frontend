@@ -1,4 +1,4 @@
-import { Article, Button, ISelectOption, Select } from 'components';
+import { Alert, Article, Button, ISelectOption, Select } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -22,7 +22,7 @@ export const TutorialPage: FC = () => {
   const [changeSelectedArticle, changeSelectedArticleRes] =
     useChangeTutorialSelectedArticleMutation();
   const {
-    query: { articleId, sectionId, id },
+    query: { articleId, sectionId, id, alert },
   } = useRouter();
 
   const { currentTutorialArticle, currentSection } = useMemo(() => {
@@ -84,6 +84,11 @@ export const TutorialPage: FC = () => {
     );
   };
 
+  const alertComponent = useMemo(() => {
+    if (!alert || currentTutorialArticle?.articleId) return null;
+    return <Alert color='red'>{alert}</Alert>;
+  }, [alert, currentTutorialArticle?.articleId]);
+
   if (!currentTutorialArticle) {
     return (
       <h3 className='text-center'>
@@ -96,6 +101,7 @@ export const TutorialPage: FC = () => {
 
   return (
     <div className='container mt-3'>
+      {alertComponent}
       <div className='d-flex align-items-center justify-content-between'>
         <div>
           <h2 className='mb-0'>Biriktirish uchun maqola tanlang</h2>
