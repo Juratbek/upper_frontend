@@ -10,7 +10,7 @@ import {
   MultiSelect,
 } from 'components';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazySearchLabelsQuery, usePublishTutorialMutation } from 'store/apis';
@@ -74,12 +74,10 @@ export const PublishTutorialModal: FC = () => {
     }
     formData.set('labels', JSON.stringify(labels));
     formData.set('tutorialId', query.id as string);
-    publish(formData);
+    publish(formData).then((res) => {
+      res?.error && setIsPublishError(true);
+    });
   };
-
-  useEffect(() => {
-    setIsPublishError(publishRes.isError);
-  }, [publishRes.isError]);
 
   return (
     <Modal isOpen={isOpen} close={close}>
