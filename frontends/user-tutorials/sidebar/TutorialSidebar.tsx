@@ -1,6 +1,6 @@
 import { Button, ChangeableText } from 'components';
 import { useRouter } from 'next/router';
-import { FC, Fragment, useEffect } from 'react';
+import { FC, Fragment, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useChangeTutorialNameMutation, useLazyGetTutorialByIdQuery } from 'store/apis';
 import {
@@ -13,7 +13,7 @@ import {
   setTutorial,
 } from 'store/states';
 import { ITutorialSection } from 'types';
-import { uuid } from 'utils';
+import { uuid, validateTutorial } from 'utils';
 import { ICONS } from 'variables';
 
 import {
@@ -56,8 +56,18 @@ export const TutorialSidebar: FC = () => {
     });
   };
 
-  const openPublishTutorialModal = (): unknown =>
+  const publishHandler = (): void => {
+    validateTutorial(sections);
     dispatch(publishTutorialModalHandler({ isOpen: true }));
+  };
+
+  const shouldShowPublishBtn = useMemo(() => {
+    if (tutorialName && sections.length > 0) {
+      const firstSectionArticles = sections[0].articles;
+      return firstSectionArticles.length > 0 || sections.length > 1;
+    }
+    return false;
+  }, [tutorialName, sections]);
 
   useEffect(() => {
     if (!tutorialName && id) {
@@ -75,12 +85,17 @@ export const TutorialSidebar: FC = () => {
     <div className={classes.root}>
       <RemoveArticleModal />
       <RemoveSectionModal />
-      {tutorialName && <PublishTutorialModal />}
-      <div className='px-2 py-1'>
-        <Button className='w-100' onClick={openPublishTutorialModal}>
-          {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
-        </Button>
-      </div>
+      <PublishTutorialModal />
+      {shouldShowPublishBtn && (
+        <>
+          <div className='px-2 py-1'>
+            <Button className='w-100' onClick={publishHandler}>
+              {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
+            </Button>
+          </div>
+        </>
+      )}
+
       <div className={classes.header}>
         <ChangeableText
           value={tutorialName}
