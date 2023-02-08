@@ -39,7 +39,7 @@ export const TutorialsTab: FC = () => {
       }
       res={searchTutorialRes}
       className={tabClassName}
-      style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
+      style={{ justifyContent: 'center', flexWrap: 'wrap', display: 'flex' }}
     >
       {searchTutorialRes.data?.length === 0 && (
         <div className='text-center mt-5'>
@@ -48,7 +48,7 @@ export const TutorialsTab: FC = () => {
         </div>
       )}
       {searchTutorialRes.data?.map((tutorial) => (
-        <div key={tutorial.id} className='mb-2'>
+        <div style={{ margin: '10px' }} key={tutorial.id} className='mb-2'>
           <PublishedTutorial {...addTutorialAmazonUri<IPublishedTutorialMedim>(tutorial)} />
         </div>
       ))}
