@@ -15,7 +15,7 @@ export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ..
     props.defaultValue,
   );
   const [isOptionsContainerOpen, setIsOptionsContainerOpen] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>();
+  const [inputValue, setInputValue] = useState<string>('');
 
   const closeOptionsContainer = (): void => {
     setIsOptionsContainerOpen(false);
@@ -81,7 +81,7 @@ export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ..
         {selectedOption?.label || <span className={classes.placeholder}>{props.placeholder}</span>}
       </div>
     );
-  }, [selectedOption]);
+  }, [selectedOption, inputValue]);
 
   return (
     <div className={containerClassName} ref={ref}>
