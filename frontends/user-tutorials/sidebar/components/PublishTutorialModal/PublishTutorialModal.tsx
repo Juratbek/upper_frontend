@@ -78,10 +78,9 @@ export const PublishTutorialModal: FC = () => {
     }
     formData.set('labels', JSON.stringify(labels));
     formData.set('tutorialId', query.id as string);
-    publish(formData).then((res) => {
-      const errorRes = res as IErrorResponse;
-      errorRes.error && setIsPublishError(true);
-    });
+    publish(formData)
+      .unwrap()
+      .catch(() => setIsPublishError(true));
   };
 
   return (
