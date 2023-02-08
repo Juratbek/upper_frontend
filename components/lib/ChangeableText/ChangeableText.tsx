@@ -57,18 +57,25 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
           className={classes.input}
         />
       </div>
-      {props.loading && (
+      {/* {props.loading && (
         <span className={classes.spinner}>
+
           <Spinner color='light' />
         </span>
+       
+      )} */}
+
+      {props.loading ? (
+        <p className={`${classes.text}  w-100 skeleton`} />
+      ) : (
+        <p
+          className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
+          onDoubleClick={doubleClickhandler}
+          onClick={props.onClick}
+        >
+          {value}
+        </p>
       )}
-      <p
-        className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
-        onDoubleClick={doubleClickhandler}
-        onClick={props.onClick}
-      >
-        {value}
-      </p>
     </div>
   );
 };
