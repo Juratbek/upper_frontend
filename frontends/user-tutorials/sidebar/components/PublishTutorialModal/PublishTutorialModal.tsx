@@ -38,6 +38,7 @@ export const PublishTutorialModal: FC = () => {
     control,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm();
   const { query } = useRouter();
   const imgUrl = useAppSelector(getTutorialImgUrl);
@@ -50,11 +51,16 @@ export const PublishTutorialModal: FC = () => {
   };
 
   const fileChangeHandler = async (file: File): Promise<void> => {
-    const compressedImage = await compressImage(file);
-    setSelectedImage(compressedImage);
+    try {
+      const compressedImage = await compressImage(file);
+      setSelectedImage(compressedImage);
 
-    const imgUrl = await toBase64(compressedImage);
-    imgUrl && setSelectedImageBase64(imgUrl.toString());
+      const imgUrl = await toBase64(compressedImage);
+      imgUrl && setSelectedImageBase64(imgUrl.toString());
+      clearErrors('image');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const submitHandler = (event: Record<string, unknown>): void => {
