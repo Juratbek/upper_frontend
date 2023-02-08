@@ -1,9 +1,9 @@
-import { ApiErrorBoundary, BlogSkeleton, PublishedTutorial } from 'components';
+import { ApiErrorBoundary, PublishedTutorial, StorysetImage, TutorialSkeleton } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
 import { IPublishedTutorialMedim } from 'types';
-import { addTutorialAmazonUri } from 'utils';
+import { addTutorialAmazonUri, getClassName } from 'utils';
 import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 export const TutorialsTab: FC = () => {
@@ -11,6 +11,11 @@ export const TutorialsTab: FC = () => {
   const {
     query: { search, tab },
   } = useRouter();
+  const tabClassName = getClassName(
+    searchTutorialRes?.isUninitialized || searchTutorialRes.data?.length === 0
+      ? ''
+      : 'tab d-flex mt-2',
+  );
 
   useEffect(() => {
     if (search && tab === SEARCH_PAGE_TAB_IDS.tutorials && search.length > 1) {
@@ -20,14 +25,27 @@ export const TutorialsTab: FC = () => {
 
   return (
     <ApiErrorBoundary
-      fallback={<BlogSkeleton size='large' className='px-3 py-2' />}
+      fallback={<TutorialSkeleton />}
       fallbackItemCount={SIDEBAR_BLOGS_SKELETON_COUNT}
+      defaultComponent={
+        <div className='text-center mt-5'>
+          <StorysetImage
+            storysetUri='data'
+            width={300}
+            height={300}
+            src='/storyset/search_data.svg'
+          />
+        </div>
+      }
       res={searchTutorialRes}
-      className='tab d-flex mt-2'
+      className={tabClassName}
       style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
     >
       {searchTutorialRes.data?.length === 0 && (
-        <h3 className='text-center'>To&apos;plamlar topilmadi</h3>
+        <div className='text-center mt-5'>
+          <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
+          <h3>To&apos;plamlar topilmadi</h3>
+        </div>
       )}
       {searchTutorialRes.data?.map((tutorial) => (
         <div key={tutorial.id} className='mb-2'>

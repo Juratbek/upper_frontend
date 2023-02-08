@@ -2,13 +2,13 @@ $icon-container: 25px;
 $icon-size: 16px;
 
 .header {
-  padding: 0.5rem 2rem;
+  padding: 0.4rem 0.7rem 0.4rem 2rem;
   position: relative;
 
   .actions {
     display: none;
     position: absolute;
-    right: 0.5rem;
+    right: 0.7rem;
     top: 50%;
     transform: translateY(-50%);
   }
@@ -17,7 +17,7 @@ $icon-size: 16px;
     background-color: var(--lightGray);
 
     & .actions {
-      display: block;
+      display: flex;
     }
   }
 }

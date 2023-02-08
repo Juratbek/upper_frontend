@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILabel, ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
+import { removeArticle, removeSection } from 'utils';
 
 import {
   IAddSectionByTargetPayloadAction,
@@ -40,6 +41,10 @@ const tutorialsSidebarSlice = createSlice({
     addSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = [...state.sections, payload];
     },
+    removeSection(state, { payload }: PayloadAction<string>) {
+      const sectionId = payload;
+      state.sections = removeSection(state.sections, sectionId);
+    },
     addSectionByTarget(state, { payload }: PayloadAction<IAddSectionByTargetPayloadAction>) {
       const { newSection, targetSection } = payload;
       const sections: ITutorialSection[] = [];
@@ -63,6 +68,9 @@ const tutorialsSidebarSlice = createSlice({
 
         return { ...section, articles: [...section.articles, article] };
       });
+    },
+    removeArticle(state, { payload }: PayloadAction<string>) {
+      state.sections = removeArticle(state.sections, payload);
     },
     addArticleByTarget(
       state,
@@ -104,12 +112,6 @@ const tutorialsSidebarSlice = createSlice({
     setSelectedArticle(state, { payload }: PayloadAction<ITutorialArticle | undefined>) {
       state.selectedArticle = payload;
     },
-    toggleRemoveArticleModal(state) {
-      state.isRemoveArticleModalOpen = !state.isRemoveArticleModalOpen;
-    },
-    closeRemoveArticleModal(state) {
-      state.isRemoveArticleModalOpen = false;
-    },
     setSelectedSection(state, { payload }: PayloadAction<ITutorialSection | undefined>) {
       state.selectedSection = payload;
     },
@@ -133,6 +135,9 @@ const tutorialsSidebarSlice = createSlice({
       state.name = '';
       state.sections = [];
     },
+    removeArticleModalHandler(state, { payload }: PayloadAction<boolean>) {
+      state.isRemoveArticleModalOpen = payload;
+    },
   },
 });
 
@@ -144,14 +149,15 @@ export const {
   addArticleByTarget: addTutorialArticleByTarget,
   changeArticle: changeTutorialArticle,
   addSectionByTarget: addTutorialSectionByTarget,
+  removeSection: removeTutorialSection,
+  removeArticle: removeTutorialArticle,
   setTutorial,
   clearTutorial,
-  toggleRemoveArticleModal,
-  closeRemoveArticleModal,
   toggleRemoveSectionModal,
   closeRemoveSectionModal,
   setSelectedArticle,
   setSelectedSection,
   publishTutorialModalHandler,
+  removeArticleModalHandler,
 } = tutorialsSidebarSlice.actions;
 export default tutorialsSidebarSlice.reducer;

@@ -1,13 +1,15 @@
 import { ChangeableText } from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { useAppDispatch } from 'store';
 import { useEditTutorialSectionMutation } from 'store/apis';
 import {
   addTutorialArticleByTarget,
   editTutorialSection,
   IAddTutorialArticleBytargetPayloadAction,
+  removeArticleModalHandler,
+  setSelectedArticle,
 } from 'store/states';
 import { uuid } from 'utils';
 import { ICONS } from 'variables';
@@ -22,6 +24,7 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
   const { setParams } = useUrlParams();
   const dispatch = useAppDispatch();
   const [edsitSection, edsitSectionRes] = useEditTutorialSectionMutation();
+  const isLoading = edsitSectionRes.isLoading;
   const {
     query: { id },
   } = useRouter();
@@ -42,7 +45,14 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
     selectArticle();
   };
 
-  const addArticleHandler = (): void => {
+  const openRemoveArticleModal = (event: MouseEvent<HTMLSpanElement>): void => {
+    event.stopPropagation();
+    dispatch(removeArticleModalHandler(true));
+    dispatch(setSelectedArticle(article));
+  };
+
+  const addArticleHandler = (event: MouseEvent<HTMLSpanElement>): void => {
+    event.stopPropagation();
     const payload: IAddTutorialArticleBytargetPayloadAction = {
       section,
       article: { id: uuid(UUID_SIZE), name: 'Maqola nomi', defaultFocused: true, new: true },
@@ -57,13 +67,22 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
         value={article.name}
         defaultFocused={article.defaultFocused}
         onSubmit={changeArticleNameNandler}
-        loading={edsitSectionRes.isLoading}
+        loading={isLoading}
       />
-      <div className={classes.actions}>
-        <span className={classes.icon} onClick={addArticleHandler}>
-          <PlusIcon />
-        </span>
-      </div>
+      {!isLoading && (
+        <div className={classes.actions}>
+          <span
+            className={classes.icon}
+            style={{ transform: 'rotate(45deg)' }}
+            onClick={openRemoveArticleModal}
+          >
+            <PlusIcon />
+          </span>
+          <span className={classes.icon} onClick={addArticleHandler}>
+            <PlusIcon />
+          </span>
+        </div>
+      )}
     </div>
   );
 };
