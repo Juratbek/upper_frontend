@@ -26,10 +26,6 @@ import { TUTORIAL_MAX_LABELS } from 'variables';
 
 import classes from './PublishTutorialModal.module.scss';
 
-interface IErrorResponse {
-  error: IResponseError;
-}
-
 export const PublishTutorialModal: FC = () => {
   const [selectedImageBase64, setSelectedImageBase64] = useState<string>();
   const [selectedImage, setSelectedImage] = useState<File>();
