@@ -26,6 +26,10 @@ import { TUTORIAL_MAX_LABELS } from 'variables';
 
 import classes from './PublishTutorialModal.module.scss';
 
+interface IErrorResponse {
+  error: IResponseError;
+}
+
 export const PublishTutorialModal: FC = () => {
   const [selectedImageBase64, setSelectedImageBase64] = useState<string>();
   const [selectedImage, setSelectedImage] = useState<File>();
@@ -75,7 +79,8 @@ export const PublishTutorialModal: FC = () => {
     formData.set('labels', JSON.stringify(labels));
     formData.set('tutorialId', query.id as string);
     publish(formData).then((res) => {
-      res?.error && setIsPublishError(true);
+      const errorRes = res as IErrorResponse;
+      errorRes.error && setIsPublishError(true);
     });
   };
 
