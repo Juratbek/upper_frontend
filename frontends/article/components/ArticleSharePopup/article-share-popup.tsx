@@ -54,7 +54,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
         <a
           className={styles.socialIcon}
           target='_blank'
-          href={`https://t.me/share/url?url=${url}&text=Test`}
+          href={`https://t.me/share/url?url=${url}`}
           rel='noreferrer'
         >
           <TelegramIcon />
