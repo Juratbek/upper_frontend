@@ -6,8 +6,11 @@ import { useAppDispatch } from 'store';
 import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis';
 import { setPublishedTutorialAuthor } from 'store/states';
 import { ITutorialArticle } from 'types';
+import { appDynamic } from 'utils';
 
 import classes from './TutorialSidebar.module.scss';
+
+const DynamicComments = appDynamic(() => import('components/Comments'));
 
 export const TutorialSidebar: FC = () => {
   const {
@@ -38,6 +41,7 @@ export const TutorialSidebar: FC = () => {
 
   return (
     <div className={classes.root}>
+      <DynamicComments />
       <ApiErrorBoundary res={fetchPublishedTutorialRes}>
         <h2 className={classes.header}>{name}</h2>
         {sections.map((section) => (
