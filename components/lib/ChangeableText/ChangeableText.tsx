@@ -13,20 +13,21 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
   const doubleClickhandler = (): void => {
     if (props.loading) return;
     setIsBeingChanged(true);
-    clickFnRef.current = true;
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
   };
 
   const clickHandler = (): void => {
-    const { current } = timeoutRef;
-    if (current) clearTimeout(current);
+    if (!props.onClick) return;
 
-    const timeout = setTimeout(() => {
-      const isCancelled = clickFnRef.current;
-      if (!isCancelled) {
-        props.onClick?.();
-      }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      props.onClick?.();
     }, 400);
-    timeoutRef.current = timeout;
   };
 
   useEffect(() => {
