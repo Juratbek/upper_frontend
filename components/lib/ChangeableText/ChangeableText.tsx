@@ -7,10 +7,26 @@ import { IChangeableTextProps } from './ChangeableText.types';
 export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) => {
   const [isBeingChanged, setIsBeingChanged] = useState(props.defaultFocused);
   const inputRef = useRef<HTMLInputElement>(null);
+  const clickFnRef = useRef<boolean>(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const doubleClickhandler = (): void => {
     if (props.loading) return;
     setIsBeingChanged(true);
+    clickFnRef.current = true;
+  };
+
+  const clickHandler = (): void => {
+    const { current } = timeoutRef;
+    if (current) clearTimeout(current);
+
+    const timeout = setTimeout(() => {
+      const isCancelled = clickFnRef.current;
+      if (!isCancelled) {
+        props.onClick?.();
+      }
+    }, 400);
+    timeoutRef.current = timeout;
   };
 
   useEffect(() => {
@@ -25,7 +41,9 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
     setIsBeingChanged(false);
     props.onSubmit?.(value);
   };
+
   const blurChangeHandler = (event: FocusEvent<HTMLInputElement>): void => {
+    clickFnRef.current = false;
     const value = event.target.value.trim();
     if (value.length < 1) {
       setIsBeingChanged(false);
@@ -65,7 +83,7 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
       <p
         className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
         onDoubleClick={doubleClickhandler}
-        onClick={props.onClick}
+        onClick={clickHandler}
       >
         {value}
       </p>

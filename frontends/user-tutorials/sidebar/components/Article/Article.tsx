@@ -1,5 +1,4 @@
 import { ChangeableText } from 'components';
-import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, MouseEvent } from 'react';
 import { useAppDispatch } from 'store';
@@ -20,18 +19,13 @@ import { IArticleProps } from './Article.types';
 
 const PlusIcon = ICONS.plus;
 
-export const Article: FC<IArticleProps> = ({ article, section }) => {
-  const { setParams } = useUrlParams();
+export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
   const dispatch = useAppDispatch();
   const [edsitSection, edsitSectionRes] = useEditTutorialSectionMutation();
   const isLoading = edsitSectionRes.isLoading;
   const {
     query: { id },
   } = useRouter();
-
-  const selectArticle = (): void => {
-    setParams({ sectionId: section.id, articleId: article.id, alert: '' });
-  };
 
   const changeArticleNameNandler = async (name: string): Promise<void> => {
     if (!id) return Promise.reject();
@@ -42,7 +36,6 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
       tutorialId: +id,
     }).unwrap();
     dispatch(editTutorialSection(res));
-    selectArticle();
   };
 
   const openRemoveArticleModal = (event: MouseEvent<HTMLSpanElement>): void => {
@@ -68,6 +61,7 @@ export const Article: FC<IArticleProps> = ({ article, section }) => {
         defaultFocused={article.defaultFocused}
         onSubmit={changeArticleNameNandler}
         loading={isLoading}
+        onClick={onClick}
       />
       {!isLoading && (
         <div className={classes.actions}>
