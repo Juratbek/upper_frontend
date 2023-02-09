@@ -141,8 +141,12 @@ export const Section: FC<ISectionProps> = ({ section }) => {
       </div>
       <ul className={classes.articles}>
         {section.articles.map((article) => (
-          <li key={article.id} onClick={(): void => selectArticle(article)}>
-            <Article article={article} section={section} />
+          <li key={article.id}>
+            <Article
+              article={article}
+              section={section}
+              onClick={(): void => selectArticle(article)}
+            />
           </li>
         ))}
       </ul>

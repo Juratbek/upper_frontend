@@ -37,3 +37,5 @@ export interface ITag {
   id: number;
   name: string;
 }
+
+export type TFn = (...args: unknown[]) => unknown;
