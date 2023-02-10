@@ -35,6 +35,5 @@ export const convertBlogToHeadProp = (blog: IBlog): IHeadProps => {
     imgUrl,
     url: '',
     description: bio,
-    type: 'blog',
   };
 };
