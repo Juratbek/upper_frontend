@@ -107,11 +107,11 @@ export const TutorialSidebar: FC = () => {
     <div className={classes.root}>
       <RemoveArticleModal />
       <RemoveSectionModal />
-      <PublishTutorialModal />
       {alertComponent}
       {shouldShowPublishBtn && (
         <>
           <div className='px-2 py-1'>
+            <PublishTutorialModal />
             <Button className='w-100' onClick={publishHandler}>
               {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
             </Button>

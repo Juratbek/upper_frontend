@@ -9,6 +9,7 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -153,6 +154,7 @@ export const PublishTutorialModal: FC = () => {
           </div>
         </form>
       )}
+      <Image width={0} height={0} src='/icons/congrats.webp' hidden />
     </Modal>
   );
 };
