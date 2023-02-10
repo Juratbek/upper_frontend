@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import classes from './TutorialSkeleton.module.scss';
-import { ITutorialSkeletonProps } from './TutorialSkeleton.types';
+import classes from './TutorialCardSkeleton.module.scss';
+import { ITutorialCardSkeletonProps } from './TutorialCardSkeleton.types';
 
-export const TutorialSkeleton: FC<ITutorialSkeletonProps> = (props) => {
+export const TutorialCardSkeleton: FC<ITutorialCardSkeletonProps> = (props) => {
   return (
     <div className={props.className}>
       <div className={`${classes.img} skeleton`} />

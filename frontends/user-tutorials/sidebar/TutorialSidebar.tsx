@@ -1,4 +1,10 @@
-import { Alert, Button, ChangeableText } from 'components';
+import {
+  Alert,
+  ApiErrorBoundary,
+  Button,
+  ChangeableText,
+  TutorialSidebarSkeleton,
+} from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect, useMemo, useState } from 'react';
@@ -104,7 +110,11 @@ export const TutorialSidebar: FC = () => {
   );
 
   return (
-    <div className={classes.root}>
+    <ApiErrorBoundary
+      res={getByIdRes}
+      fallback={<TutorialSidebarSkeleton isShowAddSectionIcon={!changeNameRes.isLoading} />}
+      className={classes.root}
+    >
       <RemoveArticleModal />
       <RemoveSectionModal />
       {alertComponent}
@@ -138,6 +148,6 @@ export const TutorialSidebar: FC = () => {
           </Fragment>
         ))}
       </div>
-    </div>
+    </ApiErrorBoundary>
   );
 };
