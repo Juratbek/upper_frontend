@@ -1,4 +1,10 @@
-import { ApiErrorBoundary, Divider, Pagination, StorysetImage } from 'components';
+import {
+  ApiErrorBoundary,
+  Divider,
+  NotificationSkeleton,
+  Pagination,
+  StorysetImage,
+} from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {
@@ -83,7 +89,12 @@ export const NotificationsTab: FC = () => {
 
   return (
     <div>
-      <ApiErrorBoundary res={fetchNotificationsRes} className='tab'>
+      <ApiErrorBoundary
+        res={fetchNotificationsRes}
+        fallback={<NotificationSkeleton className='px-3 py-2' />}
+        fallbackItemCount={3}
+        className='tab'
+      >
         {notifications}
       </ApiErrorBoundary>
       {fetchNotificationsRes.data && (
