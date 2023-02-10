@@ -46,12 +46,14 @@ $icon-size: 16px;
 
 .add-popover {
   position: absolute;
-  transform: translateY(100%);
+  transform: translateY(90%);
   bottom: 0;
-  right: 0;
+  right: 0.3rem;
   border: 0.5px solid gray;
   display: none;
   z-index: 2;
+  background-color: white;
+  border-radius: 0.3em;
 
   & ul {
     list-style: none;
@@ -60,7 +62,8 @@ $icon-size: 16px;
     width: max-content;
 
     & li {
-      padding: 0.2rem 0.4rem;
+      padding: 0.2rem 0.5rem;
+      font-weight: 400;
 
       &:hover {
         background-color: var(--lightGray);
