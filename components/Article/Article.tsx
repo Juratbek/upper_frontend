@@ -55,10 +55,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
             </div>
             {imgUrl && <ArticleImg imgUrl={imgUrl} />}
           </div>
-          <div
-            className={classes.footer}
-            style={{ marginTop: props.showStatus && status ? '0.5rem' : '0.3rem' }}
-          >
+          <div className={classes.footer} style={{ marginTop: props.showStatus ? '0.5rem' : 0 }}>
             <div className={classes.stats}>
               <time>
                 <span className={classes.icon}>
