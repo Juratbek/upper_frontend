@@ -22,10 +22,10 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='og:description' content={description} />
       <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
       <meta property='og:locale' content='uz' />
-      <meta property='og:site_name' content='UPPER' />
+      <meta property='og:site_name' content='upper.uz' />
 
       {/* Twitter */}
-      <meta property='twitter:card' content={imgUrl} />
+      <meta property='twitter:card' content='summary_large_image' />
       <meta property='twitter:url' content={url} />
       <meta property='twitter:title' content={title} />
       <meta property='twitter:description' content={description} />
