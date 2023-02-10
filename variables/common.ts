@@ -11,3 +11,10 @@ export const PAGINATION_SIZE = 10;
 export const MAX_LABELS = 5;
 
 export const COMING_SOON_TEXT = 'Tez orada...';
+
+export const APPS = {
+  upperuz: {
+    domains: ['upper.uz'],
+    name: 'upper',
+  },
+};
