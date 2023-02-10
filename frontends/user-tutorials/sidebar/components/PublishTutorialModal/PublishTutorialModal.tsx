@@ -153,6 +153,7 @@ export const PublishTutorialModal: FC = () => {
           </div>
         </form>
       )}
+      <Lordicon width={0} height={0} src='/icons/congrats.webp' hidden />
     </Modal>
   );
 };
