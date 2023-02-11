@@ -1,4 +1,3 @@
-import { Spinner } from 'components';
 import { FC, FocusEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import classes from './ChangeableText.module.scss';
@@ -57,16 +56,9 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
           className={classes.input}
         />
       </div>
-      {/* {props.loading && (
-        <span className={classes.spinner}>
-
-          <Spinner color='light' />
-        </span>
-       
-      )} */}
 
       {props.loading ? (
-        <p className={`${classes.text}  w-100 skeleton`} />
+        <p className={`${classes['text-skeleton']}  w-100 skeleton`} />
       ) : (
         <p
           className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}

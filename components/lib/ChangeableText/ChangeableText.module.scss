@@ -11,14 +11,7 @@
   display: none;
 }
 
-.spinner {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.text {
+.text-skeleton {
   height: 0.8rem;
   border-radius: 10rem;
   margin: 2px 0;
