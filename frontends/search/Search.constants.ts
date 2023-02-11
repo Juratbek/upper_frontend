@@ -1,5 +1,6 @@
-import { ArticlesTab, BlogsTab, TutorialsTab } from 'frontends/search';
 import { ITabBody, ITabHeader, TIcon } from 'types';
+
+import { ArticlesTab, BlogsTab, TutorialsTab } from './components';
 
 export const SEARCH_PAGE_TAB_IDS = {
   articles: 'articles',
