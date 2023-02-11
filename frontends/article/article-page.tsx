@@ -83,8 +83,8 @@ export const Article: FC<IArticleProps> = (props) => {
   const likeIcon = useMemo((): JSX.Element => {
     if (isLikedOrDisliked === 0) {
       return (
-        <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
-          <Image width={40} height={40} src='/icons/dislike.webp' />
+        <div style={{ transform: 'rotate(180deg)', display: 'flex' }}>
+          <Image width={30} height={30} src='/icons/dislike.webp' />
         </div>
       );
     }
