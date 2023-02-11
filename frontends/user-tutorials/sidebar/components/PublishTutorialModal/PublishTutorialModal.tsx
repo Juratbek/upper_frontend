@@ -51,16 +51,12 @@ export const PublishTutorialModal: FC = () => {
   };
 
   const fileChangeHandler = async (file: File): Promise<void> => {
-    try {
-      const compressedImage = await compressImage(file);
-      setSelectedImage(compressedImage);
+    const compressedImage = await compressImage(file);
+    setSelectedImage(compressedImage);
 
-      const imgUrl = await toBase64(compressedImage);
-      imgUrl && setSelectedImageBase64(imgUrl.toString());
-      clearErrors('image');
-    } catch (err) {
-      console.log(err);
-    }
+    const imgUrl = await toBase64(compressedImage);
+    imgUrl && setSelectedImageBase64(imgUrl.toString());
+    clearErrors('image');
   };
 
   const submitHandler = (event: Record<string, unknown>): void => {
