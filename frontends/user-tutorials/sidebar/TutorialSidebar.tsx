@@ -116,7 +116,7 @@ export const TutorialSidebar: FC = () => {
       <ApiErrorBoundary
         res={getByIdRes}
         memoizationDependencies={[tutorialName, sections]}
-        fallback={<TutorialSidebarSkeleton withActionIcons={!changeNameRes.isLoading} />}
+        fallback={<TutorialSidebarSkeleton withActionIcons />}
       >
         {alertComponent}
         {shouldShowPublishBtn && (
