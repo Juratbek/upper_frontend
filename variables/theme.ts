@@ -34,7 +34,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
       border: '#4b535d',
     },
     input: {
-      border: '#ffffffb3',
+      border: '#ffffff99',
     },
   },
 };

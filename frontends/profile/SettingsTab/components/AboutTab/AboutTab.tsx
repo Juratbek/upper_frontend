@@ -9,6 +9,7 @@ import {
   Input,
   Textarea,
 } from 'components';
+import { useTheme } from 'hooks';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUpdateBlogMutation } from 'store/apis';
@@ -23,6 +24,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   const [alert, setAlert] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
+  const { themeColors } = useTheme();
   const {
     register,
     handleSubmit,
@@ -124,7 +126,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
                 return (
                   <div key={index} className='d-flex my-2 w-100 align-items-center'>
                     <span className={classes['media-icon']}>
-                      <Icon />
+                      <Icon color={themeColors.icon} />
                     </span>
                     <span className='flex-auto'>
                       <Input defaultValue={link} {...register(icon, { minLength: 5 })} />

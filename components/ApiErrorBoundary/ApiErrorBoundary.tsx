@@ -20,7 +20,7 @@ export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
   const content = useMemo(() => {
     const { isLoading, isError, isFetching, error, isSuccess, isUninitialized } = res;
     if (isUninitialized) return defaultComponent;
-    if (isLoading || true) return Fallback || 'Yuklanmoqda...';
+    if (isLoading) return Fallback || 'Yuklanmoqda...';
     if (isError) {
       const ErrorComponent = onError?.(error);
       return ErrorComponent || <pre>{JSON.stringify(error, null, 2)}</pre>;

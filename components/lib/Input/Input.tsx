@@ -1,3 +1,4 @@
+import { useTheme } from 'hooks';
 import { forwardRef, useState } from 'react';
 import { getClassName } from 'utils';
 import { ICONS } from 'variables';
@@ -14,6 +15,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(function Componen
 ) {
   const rootClassName = getClassName(className, classes.input);
   const [type, setType] = useState(props.type);
+  const { themeColors } = useTheme();
 
   const toggleType = (): void => {
     setType((prev) => (prev === 'password' ? 'text' : 'password'));
@@ -21,7 +23,13 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(function Componen
 
   return (
     <div className='position-relative'>
-      <input {...props} ref={ref} className={rootClassName} type={type} />
+      <input
+        style={{ borderColor: themeColors.input.border }}
+        {...props}
+        ref={ref}
+        className={rootClassName}
+        type={type}
+      />
       {props.type === 'password' && (
         <span className={classes.eye} onClick={toggleType}>
           {type === 'password' ? <EyeIcon /> : <EyeSlashIcon />}

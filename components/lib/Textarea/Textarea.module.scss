@@ -5,6 +5,8 @@
     resize: none;
     border-radius: var(--smallBorderRadius);
     border: 1px solid var(--lightBlack);
+    background-color: transparent;
+    color: inherit;
     outline: transparent solid 1px;
 
     &--transparent {
