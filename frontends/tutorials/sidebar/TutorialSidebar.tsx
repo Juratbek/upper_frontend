@@ -1,4 +1,4 @@
-import { ApiErrorBoundary } from 'components';
+import { ApiErrorBoundary, TutorialSidebarSkeleton } from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
@@ -42,7 +42,7 @@ export const TutorialSidebar: FC = () => {
   return (
     <div className={classes.root}>
       <DynamicComments />
-      <ApiErrorBoundary res={fetchPublishedTutorialRes}>
+      <ApiErrorBoundary fallback={<TutorialSidebarSkeleton />} res={fetchPublishedTutorialRes}>
         <h2 className={classes.header}>{name}</h2>
         {sections.map((section) => (
           <div key={section.id} className={classes['section-container']}>

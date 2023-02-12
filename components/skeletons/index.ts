@@ -3,4 +3,5 @@ export * from './SidebarArticleSkeleton/SidebarArticleSkeleton';
 export * from './BlogSkeleton/BlogSkeleton';
 export * from './SidebarSearchArticleSkeleton/SidebarSearchArticleSkeleton';
 export * from './CommentSkeleton/CommentSkeleton';
-export * from './TutorialSkeleton/TutorialSkeleton';
+export * from './TutorialCardSkeleton/TutorialCardSkeleton';
+export * from './TutorialSidebarSkeleton/TutorialSidebarSkeleton';

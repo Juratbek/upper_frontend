@@ -1,4 +1,10 @@
-import { Alert, Button, ChangeableText } from 'components';
+import {
+  Alert,
+  ApiErrorBoundary,
+  Button,
+  ChangeableText,
+  TutorialSidebarSkeleton,
+} from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect, useMemo, useState } from 'react';
@@ -107,37 +113,43 @@ export const TutorialSidebar: FC = () => {
     <div className={classes.root}>
       <RemoveArticleModal />
       <RemoveSectionModal />
-      {alertComponent}
-      {shouldShowPublishBtn && (
-        <>
-          <div className='px-2 py-1'>
-            <PublishTutorialModal />
-            <Button className='w-100' onClick={publishHandler}>
-              {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
-            </Button>
-          </div>
-        </>
-      )}
-
-      <div className={classes.header}>
-        <ChangeableText
-          value={tutorialName}
-          onSubmit={tutorialNameChangeHandler}
-          loading={changeNameRes.isLoading}
-        />
-        {!changeNameRes.isLoading && (
-          <span className={classes.icon} onClick={addSectionHandler}>
-            <AddFolderIcon />
-          </span>
+      <ApiErrorBoundary
+        res={getByIdRes}
+        memoizationDependencies={[tutorialName, sections]}
+        fallback={<TutorialSidebarSkeleton withActionIcons />}
+      >
+        {alertComponent}
+        {shouldShowPublishBtn && (
+          <>
+            <div className='px-2 py-1'>
+              <PublishTutorialModal />
+              <Button className='w-100' onClick={publishHandler}>
+                {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
+              </Button>
+            </div>
+          </>
         )}
-      </div>
-      <div className={classes.body}>
-        {sections?.map((section) => (
-          <Fragment key={section.id}>
-            <Section section={section} />
-          </Fragment>
-        ))}
-      </div>
+
+        <div className={classes.header}>
+          <ChangeableText
+            value={tutorialName}
+            onSubmit={tutorialNameChangeHandler}
+            loading={changeNameRes.isLoading}
+          />
+          {!changeNameRes.isLoading && (
+            <span className={classes.icon} onClick={addSectionHandler}>
+              <AddFolderIcon />
+            </span>
+          )}
+        </div>
+        <div className={classes.body}>
+          {sections?.map((section) => (
+            <Fragment key={section.id}>
+              <Section section={section} />
+            </Fragment>
+          ))}
+        </div>
+      </ApiErrorBoundary>
     </div>
   );
 };
