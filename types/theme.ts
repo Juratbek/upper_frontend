@@ -14,4 +14,7 @@ export interface ITheme {
     bg: string;
     border: string;
   };
+  input: {
+    border: string;
+  };
 }

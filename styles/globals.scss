@@ -63,7 +63,6 @@
     background-color: var(--scrollbar-thumb-color);
   }
 
-
   @include screenMax576 {
     padding: 0 0.5rem;
     padding-top: 91px;
@@ -150,20 +149,36 @@
     background-color: var(--lightGray);
   }
 }
+// light theme
+.theme-light {
+  .skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.5) 60%,
+        rgba(255, 255, 255, 0) 70%
+      )
+      #ededed;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 800ms loading ease-in-out infinite;
+  }
+}
 
-.skeleton {
-  height: 100px;
-  width: 100px;
-  background: linear-gradient(
-      100deg,
-      rgba(255, 255, 255, 0) 50%,
-      rgba(255, 255, 255, 0.5) 60%,
-      rgba(255, 255, 255, 0) 70%
-    )
-    #ededed;
-  background-size: 200% 100%;
-  background-position-x: 180%;
-  animation: 800ms loading ease-in-out infinite;
+// dark theme
+.theme-dark {
+  .skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(255, 255, 255, 0) 70%
+      )
+      #3b4048;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 800ms loading ease-in-out infinite;
+  }
 }
 
 @keyframes loading {

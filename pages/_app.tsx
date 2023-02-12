@@ -16,7 +16,7 @@ const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal')
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const { getToken, getRefreshToken, authenticate, unauthenticate } = useAuth();
-  const { themeColors } = useTheme();
+  const { themeColors, theme } = useTheme();
 
   useScrollToggler('.main');
 
@@ -57,7 +57,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className='app' style={{ backgroundColor: themeColors.bg, color: themeColors.font }}>
+      <div
+        className={`app theme-${theme}`}
+        style={{ backgroundColor: themeColors.bg, color: themeColors.font }}
+      >
         <Navigation />
         <DynamicLoginModal />
         <DynamicRegisterModal />

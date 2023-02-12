@@ -141,7 +141,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
 
   return (
     <div className={classes.container} ref={ref}>
-      <div className={selectClassName}>
+      <div className={selectClassName} style={{ borderColor: themeColors.input.border }}>
         {selectedOptionsContent}
         {!disabled && (
           <input
@@ -159,7 +159,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
         className={`${classes['option-container']} ${
           isOptionsContainerOpen && !disabled ? 'd-block' : 'd-none'
         }`}
-        style={{ backgroundColor: themeColors.bg }}
+        style={{ backgroundColor: themeColors.popover.bg, borderColor: themeColors.popover.border }}
       >
         {optionsContent}
       </div>

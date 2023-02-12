@@ -15,12 +15,15 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
       bg: 'white',
       border: 'white',
     },
+    input: {
+      border: 'rgba(0, 0, 0, 0.25)',
+    },
   },
   dark: {
     font: '#ffffffd9',
     icon: '#ffffffd9',
     bg: '#252a31',
-    border: 'rgba(0, 0, 0, 0.25)',
+    border: '#4b535d',
     modal: {
       bg: 'rgba(0, 0, 0, 0.3)',
       dialogBg: '#343a42',
@@ -29,6 +32,9 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     popover: {
       bg: '#343a42',
       border: '#4b535d',
+    },
+    input: {
+      border: '#ffffffb3',
     },
   },
 };
