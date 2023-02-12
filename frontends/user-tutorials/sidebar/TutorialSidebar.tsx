@@ -1,6 +1,7 @@
-import { Button, ChangeableText } from 'components';
+import { Alert, Button, ChangeableText } from 'components';
+import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, Fragment, useEffect } from 'react';
+import { FC, Fragment, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useChangeTutorialNameMutation, useLazyGetTutorialByIdQuery } from 'store/apis';
 import {
@@ -13,7 +14,7 @@ import {
   setTutorial,
 } from 'store/states';
 import { ITutorialSection } from 'types';
-import { uuid } from 'utils';
+import { uuid, validateTutorial } from 'utils';
 import { ICONS } from 'variables';
 
 import {
@@ -30,9 +31,11 @@ const AddFolderIcon = ICONS.addFolder;
 export const TutorialSidebar: FC = () => {
   const [changeName, changeNameRes] = useChangeTutorialNameMutation();
   const [getById, getByIdRes] = useLazyGetTutorialByIdQuery();
+  const [alert, setAlert] = useState<string>();
   const {
     query: { id },
   } = useRouter();
+  const { setParams } = useUrlParams();
   const tutorialName = useAppSelector(getTutorialName);
   const sections = useAppSelector(getTutorialSections);
   const dispatch = useAppDispatch();
@@ -56,8 +59,27 @@ export const TutorialSidebar: FC = () => {
     });
   };
 
-  const openPublishTutorialModal = (): unknown =>
-    dispatch(publishTutorialModalHandler({ isOpen: true }));
+  const publishHandler = (): void => {
+    const { isValid, message, cause, sectionId, articleId } = validateTutorial(sections);
+    if (isValid) {
+      dispatch(publishTutorialModalHandler({ isOpen: true }));
+      return;
+    }
+    if (cause === 'article-not-assigned') {
+      setParams({ sectionId, articleId, alert: message });
+    }
+    if (cause === 'empty-section' || cause === 'empty-tuturial') {
+      setAlert(message);
+    }
+  };
+
+  const shouldShowPublishBtn = useMemo(() => {
+    if (tutorialName && sections.length > 0) {
+      const firstSectionArticles = sections[0].articles;
+      return firstSectionArticles.length > 0 || sections.length > 1;
+    }
+    return false;
+  }, [tutorialName, sections]);
 
   useEffect(() => {
     if (!tutorialName && id) {
@@ -71,16 +93,32 @@ export const TutorialSidebar: FC = () => {
     };
   }, [id]);
 
+  const alertComponent = useMemo(
+    () =>
+      alert && (
+        <Alert className='mt-1 mx-1' onClose={(): void => setAlert('')} color='red'>
+          {alert}
+        </Alert>
+      ),
+    [alert],
+  );
+
   return (
     <div className={classes.root}>
       <RemoveArticleModal />
       <RemoveSectionModal />
-      {tutorialName && <PublishTutorialModal />}
-      <div className='px-2 py-1'>
-        <Button className='w-100' onClick={openPublishTutorialModal}>
-          {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
-        </Button>
-      </div>
+      {alertComponent}
+      {shouldShowPublishBtn && (
+        <>
+          <div className='px-2 py-1'>
+            <PublishTutorialModal />
+            <Button className='w-100' onClick={publishHandler}>
+              {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}
+            </Button>
+          </div>
+        </>
+      )}
+
       <div className={classes.header}>
         <ChangeableText
           value={tutorialName}

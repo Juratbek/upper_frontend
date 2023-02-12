@@ -12,6 +12,9 @@
         border-color: transparent;
         color: white;
     }
+    &--outline-red {
+        border-color: var(--red);
+    }
     &--green {
         background-color: var(--green);
         border-color: transparent;

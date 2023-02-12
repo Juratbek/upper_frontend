@@ -7,9 +7,11 @@ export const Lordicon: FC<ImageProps> = ({ className, ...props }) => {
   return (
     <div className={className}>
       <Image {...props} />
-      <a className={classes.link} href='https://lordicon.com/'>
-        Animated icons by Lordicon.com
-      </a>
+      {!props.hidden && (
+        <a className={classes.link} href='https://lordicon.com/'>
+          Animated icons by Lordicon.com
+        </a>
+      )}
     </div>
   );
 };

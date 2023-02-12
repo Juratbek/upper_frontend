@@ -9,6 +9,7 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -33,6 +34,7 @@ export const PublishTutorialModal: FC = () => {
   const [publish, publishRes] = usePublishTutorialMutation();
   const isOpen = useAppSelector(getIsPublishTutorialModalOpen);
   const dispatch = useAppDispatch();
+  const [isPublishError, setIsPublishError] = useState<boolean>(publishRes.isError);
   const {
     register,
     control,
@@ -43,7 +45,10 @@ export const PublishTutorialModal: FC = () => {
   const imgUrl = useAppSelector(getTutorialImgUrl);
   const labels = useAppSelector(getTutorialLabels);
 
-  const close = (): unknown => dispatch(publishTutorialModalHandler({ isOpen: false }));
+  const close = (): void => {
+    dispatch(publishTutorialModalHandler({ isOpen: false }));
+    setIsPublishError(false);
+  };
 
   const SearchLabels = (value: string): void => {
     value && searchLabels(value);
@@ -70,12 +75,14 @@ export const PublishTutorialModal: FC = () => {
     }
     formData.set('labels', JSON.stringify(labels));
     formData.set('tutorialId', query.id as string);
-    publish(formData);
+    publish(formData)
+      .unwrap()
+      .catch(() => setIsPublishError(true));
   };
 
   return (
     <Modal isOpen={isOpen} close={close}>
-      {publishRes.isError && (
+      {isPublishError && (
         <Alert className='mb-1' color='red'>
           {(publishRes.error as IResponseError).data.message}
         </Alert>
@@ -138,7 +145,7 @@ export const PublishTutorialModal: FC = () => {
             <Error error={errors.image} />
           </div>
           <div className='d-flex justify-content-end'>
-            <Button type='button' color='outline-dark' className='me-1'>
+            <Button type='button' onClick={close} color='outline-dark' className='me-1'>
               Bekor qilish
             </Button>
             <Button className='w-30' loading={publishRes.isLoading}>
@@ -147,6 +154,7 @@ export const PublishTutorialModal: FC = () => {
           </div>
         </form>
       )}
+      <Image width={0} height={0} src='/icons/congrats.webp' hidden />
     </Modal>
   );
 };
