@@ -1,10 +1,10 @@
-import { FC, useMemo } from 'react';
+import { FC, Fragment, useMemo } from 'react';
 
 import classes from './TutorialSidebarSkeleton.module.scss';
 import { ITutorialSidebarSkeletonProps } from './TutorialSidebarSkeleton.types';
 
 export const TutorialSidebarSkeleton: FC<ITutorialSidebarSkeletonProps> = ({
-  isShowAddSectionIcon = false,
+  withActionIcons = false,
   ...props
 }) => {
   const section = useMemo(
@@ -29,15 +29,18 @@ export const TutorialSidebarSkeleton: FC<ITutorialSidebarSkeletonProps> = ({
     ),
     [],
   );
+
   return (
     <div className={`${props.className}`}>
       <div className={classes.header}>
         <p className={`${classes.text} skeleton`} />
-        {isShowAddSectionIcon && <div className={`${classes.icon} skeleton`} />}
+        {withActionIcons && <div className={`${classes.icon} skeleton`} />}
       </div>
-      {section}
-      {section}
-      {section}
+      {Array(5)
+        .fill('')
+        .map((_, index) => (
+          <Fragment key={index}>{section}</Fragment>
+        ))}
     </div>
   );
 };

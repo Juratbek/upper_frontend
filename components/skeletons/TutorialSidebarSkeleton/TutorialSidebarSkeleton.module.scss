@@ -5,13 +5,17 @@
   padding: 0.7rem;
   border-top: 1px solid var(--lightGray);
   border-bottom: 1px solid var(--lightGray);
+  gap: 4rem;
+
   .text {
+    width: 100%;
     border-radius: 10rem;
     height: 1.3rem;
     margin: 0;
   }
   .icon {
     height: 1.3rem;
+    min-width: 1.3rem;
     width: 1.3rem;
     border-radius: 0.3rem;
   }
@@ -21,6 +25,7 @@
   .section {
     padding: 0.7rem;
     .text {
+      width: 15rem;
       height: 1rem;
       border-radius: 10rem;
       margin: 0;
@@ -37,6 +42,7 @@
       border-radius: 10rem;
     }
     .text {
+      width: 10rem;
       margin: 0;
       margin-left: 10px;
       height: 1rem;
