@@ -4,9 +4,9 @@ import { FC } from 'react';
 import classes from './StorysetImage.module.scss';
 import { IStorysetImageProps } from './StorysetImage.types';
 
-export const StorysetImage: FC<IStorysetImageProps> = ({ storysetUri, ...props }) => {
+export const StorysetImage: FC<IStorysetImageProps> = ({ storysetUri, className, ...props }) => {
   return (
-    <span>
+    <span className={className}>
       <Image {...props} />
       <br />
       <a

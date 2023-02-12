@@ -11,6 +11,8 @@ import { IPublishedTutorialMedim } from 'types';
 import { addTutorialAmazonUri, getClassName } from 'utils';
 import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
+import classes from './TutorialsTab.module.scss';
+
 export const TutorialsTab: FC = () => {
   const [searchTutorial, searchTutorialRes] = useLazySearchPublishedTutorialQuery();
   const {
@@ -19,7 +21,7 @@ export const TutorialsTab: FC = () => {
   const tabClassName = getClassName(
     searchTutorialRes?.isUninitialized || searchTutorialRes.data?.length === 0
       ? ''
-      : 'tab d-flex mt-2',
+      : `tab d-flex mt-2 ${classes.tab}`,
   );
 
   useEffect(() => {
@@ -44,7 +46,6 @@ export const TutorialsTab: FC = () => {
       }
       res={searchTutorialRes}
       className={tabClassName}
-      style={{ justifyContent: 'space-between', flexWrap: 'wrap' }}
     >
       {searchTutorialRes.data?.length === 0 && (
         <div className='text-center mt-5'>
@@ -53,7 +54,7 @@ export const TutorialsTab: FC = () => {
         </div>
       )}
       {searchTutorialRes.data?.map((tutorial) => (
-        <div key={tutorial.id} className='mb-2'>
+        <div key={tutorial.id} className={classes.item}>
           <PublishedTutorial {...addTutorialAmazonUri<IPublishedTutorialMedim>(tutorial)} />
         </div>
       ))}

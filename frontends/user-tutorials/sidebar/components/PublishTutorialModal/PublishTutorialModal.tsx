@@ -40,6 +40,7 @@ export const PublishTutorialModal: FC = () => {
     control,
     handleSubmit,
     formState: { errors },
+    clearErrors,
   } = useForm();
   const { query } = useRouter();
   const imgUrl = useAppSelector(getTutorialImgUrl);
@@ -60,6 +61,7 @@ export const PublishTutorialModal: FC = () => {
 
     const imgUrl = await toBase64(compressedImage);
     imgUrl && setSelectedImageBase64(imgUrl.toString());
+    clearErrors('image');
   };
 
   const submitHandler = (event: Record<string, unknown>): void => {
