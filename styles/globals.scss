@@ -56,7 +56,7 @@
   &::-webkit-scrollbar-thumb {
     background-color: transparent;
     border-radius: 10rem;
-    border: 2px solid white;
+    border: 2px solid transparent;
   }
 
   &.on-scrollbar::-webkit-scrollbar-thumb {

@@ -26,7 +26,7 @@ $mobile-screen-padding: 0.8rem;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 1;
-  background-color: white;
+  // background-color: white;
 
   @include screenMax576 {
     width: 100%;

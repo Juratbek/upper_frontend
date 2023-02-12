@@ -1,7 +1,7 @@
 import 'styles/index.scss';
 
 import { Footer, GoogleOneTap, Navigation, Sidebar } from 'components';
-import { useAuth, useScrollToggler } from 'hooks';
+import { useAuth, useScrollToggler, useTheme } from 'hooks';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
@@ -16,6 +16,7 @@ const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal')
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const { getToken, getRefreshToken, authenticate, unauthenticate } = useAuth();
+  const { themeColors } = useTheme();
 
   useScrollToggler('.main');
 
@@ -56,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className='app'>
+      <div className='app' style={{ backgroundColor: themeColors.bg, color: themeColors.font }}>
         <Navigation />
         <DynamicLoginModal />
         <DynamicRegisterModal />

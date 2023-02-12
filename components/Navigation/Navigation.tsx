@@ -1,5 +1,5 @@
 import { Button, LogoutModal, Tooltip } from 'components';
-import { useAuth, useDevice } from 'hooks';
+import { useAuth, useDevice, useTheme } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
@@ -19,6 +19,7 @@ const Burger = ICONS.burger;
 
 export const Navigation = (): JSX.Element => {
   const { isAuthenticated } = useAuth();
+  const { themeColors } = useTheme();
   const [fetchBlogNotificationsCount, fetchBlogNotificationsCountRes] =
     useLazyGetBlogNotificationsCountQuery();
   const dispatch = useAppDispatch();
@@ -73,7 +74,7 @@ export const Navigation = (): JSX.Element => {
       <div className={`${classes.navigation} ${classes.positioned}`}>
         <Link href='/'>
           <a className={classes.logo}>
-            <Logo />
+            <Logo color={themeColors.icon} />
           </a>
         </Link>
         <div className={classes.icons}>
@@ -97,7 +98,7 @@ export const Navigation = (): JSX.Element => {
           <div className={`${classes.logOut} ${classes.icon} pointer`} onClick={logOut}>
             {isAuthenticated && (
               <Tooltip tooltip='Profildan chiqish' invisible={isMobile}>
-                <LogOutIcon />
+                <LogOutIcon color={themeColors.icon} />
               </Tooltip>
             )}
           </div>
