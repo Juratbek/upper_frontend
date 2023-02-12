@@ -6,11 +6,11 @@
 }
 
 // colors
+
 .dark {
     background-color: black;
     color: white;
 }
-
 .dark-disabled {
     background-color: var(--mediumGray);
     color: white;
@@ -20,6 +20,19 @@
     background-color: transparent;
     border: 1px solid black;
     color: black;
+}
+.outline-dark-disabled {
+    border: 1px solid var(--gray);
+    color: var(--gray);
+    cursor: unset;
+}
+.outline-dark:hover {
+    background-color: black;
+    color: white;
+
+    & .spinner {
+        border-color: white;
+    }
 }
 
 .white {
@@ -43,21 +56,6 @@
     color: var(--blue);
 }
 
-.outline-dark-disabled {
-    border: 1px solid var(--gray);
-    color: var(--gray);
-    cursor: unset;
-}
-
-.outline-dark:hover {
-    background-color: black;
-    color: white;
-
-    & .spinner {
-        border-color: white;
-    }
-}
-
 .light {
     background-color: transparent;
     border: transparent;
@@ -69,13 +67,11 @@
     border: 1px solid var(--red);
     color: var(--red);
 }
-
 .outline-red-disabled {
     background-color: white;
     border: 1px solid var(--lightRed);
     color: var(--lightRed);
 }
-
 .outline-red:hover {
     background-color: var(--red);
     color: white;

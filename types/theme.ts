@@ -5,4 +5,13 @@ export interface ITheme {
   icon: string;
   bg: string;
   border: string;
+  modal: {
+    bg: string;
+    dialogBg: string;
+    dialogBorder: string;
+  };
+  popover: {
+    bg: string;
+    border: string;
+  };
 }

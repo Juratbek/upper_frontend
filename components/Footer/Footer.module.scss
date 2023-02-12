@@ -1,7 +1,5 @@
 @import 'styles/_mixins';
 
-$nav-item-color: #636262;
-
 .footerContainer {
   width: 100%;
   border-top: 1px solid #c4c4c4;
@@ -31,7 +29,6 @@ $nav-item-color: #636262;
     }
 
     a {
-      color: $nav-item-color;
       &:hover {
         text-decoration: underline;
       }
@@ -40,7 +37,7 @@ $nav-item-color: #636262;
 }
 
 .copyrightText {
-  color: $nav-item-color;
+  color: #636262;
   font-size: 0.8rem;
   font-weight: 300;
   margin-top: 0;

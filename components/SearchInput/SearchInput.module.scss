@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   border-radius: 100rem;
-  border: 1px solid black;
+  border: 1px solid;
   padding: 0.1rem 0.5rem;
 
   & input {
@@ -10,6 +10,7 @@
     border: none;
     font-size: 0.9rem;
     background-color: transparent;
+    color: inherit;
 
     &:focus {
       outline: none;
