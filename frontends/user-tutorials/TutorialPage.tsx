@@ -43,17 +43,15 @@ export const TutorialPage: FC = () => {
 
   useEffect(() => {
     if (currentTutorialArticle?.articleId) {
-      fetchMediumArticleById(currentTutorialArticle.articleId).then((res) =>
-        setSelectedArticle(res.data),
-      );
+      if (selectedArticle?.id !== currentTutorialArticle?.articleId) {
+        fetchMediumArticleById(currentTutorialArticle.articleId).then((res) =>
+          setSelectedArticle(res.data),
+        );
+      }
+    } else {
+      setSelectedArticle(undefined);
     }
   }, [currentTutorialArticle?.articleId]);
-
-  useEffect(() => {
-    return () => {
-      setSelectedArticle(undefined);
-    };
-  }, [articleId]);
 
   const searchArticles = (value: string): void => {
     if (value?.length > 1) {
