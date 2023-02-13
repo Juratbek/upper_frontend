@@ -26,9 +26,11 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   isLikedOrDisliked,
   likeDislikeCount,
   likeDislike,
+  isSharePopupOpen,
+  shareIconClickHandler,
+  setIsSharePopupOpen,
 }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
-  const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
   const dispatch = useAppDispatch();
 
   const detectScrollDirection = (e: Event): void => {
@@ -95,13 +97,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
           <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
             <DislikeIcon color={isLikedOrDisliked === -1 ? '#54A9EB' : 'black'} />
           </div>
-          <div
-            className={styles.icon}
-            onClick={(e): void => {
-              e.stopPropagation();
-              setIsSharePopupOpen((prev) => !prev);
-            }}
-          >
+          <div className={styles.icon} onClick={shareIconClickHandler}>
             <ShareIcon />
           </div>
         </div>

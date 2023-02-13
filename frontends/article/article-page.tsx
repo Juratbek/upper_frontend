@@ -2,7 +2,7 @@ import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
 import { useAuth } from 'hooks';
 import Image from 'next/image';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, FormEvent, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal, toggleCommentsSidebar } from 'store/states';
@@ -16,6 +16,7 @@ import { ArticleActions } from './components';
 const LikeIcon = ICONS.like;
 const DislikeIcon = ICONS.dislike;
 const CommentIcon = ICONS.comment;
+const ShareIcon = ICONS.share;
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
@@ -23,6 +24,7 @@ export const Article: FC<IArticleProps> = (props) => {
   const { viewCount, publishedDate, updatedDate, blocks, id, likeCount, dislikeCount } = props;
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
+  const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle, likeDislikeRes] = useLikeDislikeMutation();
@@ -42,6 +44,11 @@ export const Article: FC<IArticleProps> = (props) => {
 
   const commentIconClickHandler = (): void => {
     dispatch(toggleCommentsSidebar());
+  };
+
+  const shareIconClickHandler = (event: FormEvent<Element>): void => {
+    event?.stopPropagation();
+    setIsSharePopupOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -122,10 +129,13 @@ export const Article: FC<IArticleProps> = (props) => {
             </span>
             {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
             <span
-              className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
+              className={`pointer icon  me-2 ${isLikedOrDisliked === -1 && 'icon--active'}`}
               onClick={(): void => likeDislike(-1)}
             >
               <DislikeIcon color={isLikedOrDisliked === -1 ? '#54A9EB' : 'black'} />
+            </span>
+            <span className='pointer' onClick={shareIconClickHandler}>
+              <ShareIcon />
             </span>
           </div>
         </div>
@@ -135,6 +145,9 @@ export const Article: FC<IArticleProps> = (props) => {
         likeDislike={likeDislike}
         isLikedOrDisliked={isLikedOrDisliked}
         likeDislikeCount={likeDislikeCount}
+        isSharePopupOpen={isSharePopupOpen}
+        setIsSharePopupOpen={setIsSharePopupOpen}
+        shareIconClickHandler={shareIconClickHandler}
       />
     </div>
   );
