@@ -17,4 +17,10 @@ export interface ITheme {
   input: {
     border: string;
   };
+  avatar: {
+    border: string;
+  };
+  label: {
+    color: string;
+  };
 }

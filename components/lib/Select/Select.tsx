@@ -1,4 +1,4 @@
-import { useClickOutside } from 'hooks';
+import { useClickOutside, useTheme } from 'hooks';
 import { ChangeEvent, FC, useMemo, useState } from 'react';
 import { debouncer, getClassName } from 'utils';
 
@@ -10,7 +10,7 @@ const debounce = debouncer(500);
 export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ...props }) => {
   const { onInputDebounce } = props;
   const containerClassName = getClassName(classes.container, props.className);
-
+  const { themeColors } = useTheme();
   const [selectedOption, setSelectedOption] = useState<ISelectOption | undefined>(
     props.defaultValue,
   );
@@ -73,6 +73,7 @@ export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ..
           placeholder={props.placeholder}
           value={inputValue}
           onChange={inputChangeHandler}
+          style={{ borderColor: themeColors.input.border }}
         />
       );
     }
@@ -81,7 +82,7 @@ export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ..
         {selectedOption?.label || <span className={classes.placeholder}>{props.placeholder}</span>}
       </div>
     );
-  }, [selectedOption]);
+  }, [selectedOption, themeColors]);
 
   return (
     <div className={containerClassName} ref={ref}>
@@ -90,6 +91,7 @@ export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ..
         className={`${classes['option-container']} ${
           isOptionsContainerOpen ? 'd-block' : 'd-none'
         }`}
+        style={{ backgroundColor: themeColors.bg, borderColor: themeColors.input.border }}
       >
         {optionsContent}
       </div>

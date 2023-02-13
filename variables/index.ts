@@ -9,3 +9,4 @@ export * from './images';
 export * from './article';
 export * from './editor';
 export * from './colors';
+export * from './theme';

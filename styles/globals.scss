@@ -18,9 +18,6 @@
   --color-status-saved-border: #0fb972;
   --color-status-published-font: #517dff;
   --color-status-published-border: #7899ff;
-
-  // dark theme colors
-  --popover-bg: #343a42;
 }
 
 * {
@@ -112,6 +109,10 @@
 .form-element {
   margin-bottom: 0.8em;
 }
+.form-label {
+  margin-bottom: $size1;
+  display: block;
+}
 
 .pointer {
   cursor: pointer;
@@ -170,6 +171,10 @@
 
 // dark theme
 .theme-dark {
+  --popover-bg: #343a42;
+  --scrollbar-thumb-color: #3b4048;
+  --gray: #c2c2c2;
+
   .skeleton {
     background: linear-gradient(
         100deg,

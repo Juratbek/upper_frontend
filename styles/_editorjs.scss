@@ -170,5 +170,8 @@
 
   .image-tool {
     --bg-color: transparent;
+    &.image-tool--loading .image-tool__image {
+      background-color: transparent;
+    }
   }
 }

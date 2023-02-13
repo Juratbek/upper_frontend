@@ -8,7 +8,7 @@ import {
   SidebarSearch,
 } from 'components';
 import { BlogSkeleton } from 'components/skeletons';
-import { useAuth, useDevice } from 'hooks';
+import { useAuth, useDevice, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -39,6 +39,7 @@ export const Sidebar = (): JSX.Element => {
     useLazyGetSidebarArticleSuggestionsQuery();
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
+  const { themeColors } = useTheme();
   const isCommentsSidebarOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
     classes.container,
@@ -155,7 +156,10 @@ export const Sidebar = (): JSX.Element => {
       </div>
       <div
         className={classes.sidebar}
-        style={{ overflowY: isCommentsSidebarOpen ? 'hidden' : 'auto' }}
+        style={{
+          overflowY: isCommentsSidebarOpen ? 'hidden' : 'auto',
+          backgroundColor: themeColors.bg,
+        }}
       >
         {content}
       </div>

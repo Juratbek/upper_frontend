@@ -71,13 +71,16 @@ export const Navigation = (): JSX.Element => {
   return (
     <div className={classes.navigation}>
       <LogoutModal />
-      <div className={`${classes.navigation} ${classes.positioned}`}>
+      <div
+        className={`${classes.navigation} ${classes.positioned}`}
+        style={{ backgroundColor: themeColors.bg }}
+      >
         <Link href='/'>
           <a className={classes.logo}>
             <Logo color={themeColors.icon} />
           </a>
         </Link>
-        <div className={classes.icons}>
+        <div className={classes.icons} style={{ backgroundColor: themeColors.bg }}>
           {icons.map((navigationIcon) => {
             const { icon, tooltip, href } = navigationIcon;
             const Icon = ICONS[icon];
@@ -104,7 +107,7 @@ export const Navigation = (): JSX.Element => {
           </div>
           {buttons}
           <div className={`${classes.burger} ${classes.icon}`} onClick={openSidebarHandler}>
-            <Burger />
+            <Burger color={themeColors.icon} />
           </div>
         </div>
       </div>

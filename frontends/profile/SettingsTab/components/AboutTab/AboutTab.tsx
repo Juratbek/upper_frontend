@@ -19,6 +19,7 @@ import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 import classes from './AboutTab.module.scss';
+import { ThemeSettings } from './components';
 
 export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   const [alert, setAlert] = useState<string>();
@@ -152,6 +153,8 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
         </Alert>
       )}
       {renderOpenSettings()}
+      <Divider className='my-1' />
+      <ThemeSettings />
     </>
   );
 };

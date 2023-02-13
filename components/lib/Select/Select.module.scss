@@ -4,7 +4,7 @@
 
 .select {
   border-radius: var(--mediumBorderRadius);
-  border: 1px solid var(--lightBlack);
+  border: 1px solid;
   min-height: 2rem;
   min-width: 100px;
   padding: 0.4rem 0.5rem;
@@ -25,9 +25,8 @@
     left: 0;
     right: 0;
     transform: translateY(100%);
-    background-color: white;
     border-radius: var(--mediumBorderRadius);
-    border: 1px solid var(--lightBlack);
+    border: 1px solid;
     overflow: hidden;
     z-index: 100;
   }

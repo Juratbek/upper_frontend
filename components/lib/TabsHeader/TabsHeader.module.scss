@@ -1,7 +1,6 @@
 .tabs {
-  border-bottom: 0.5px solid black;
+  border-bottom: 0.5px solid;
   display: flex;
-  overflow-x: scroll;
 
   &::-webkit-scrollbar {
     display: none;

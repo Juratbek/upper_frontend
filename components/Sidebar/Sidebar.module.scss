@@ -50,7 +50,6 @@
 
   @include screenMax576 {
     $width: 23rem;
-    background-color: white;
     width: $width;
     max-width: $width;
     min-width: $width;

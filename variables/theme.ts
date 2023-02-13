@@ -18,6 +18,12 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     input: {
       border: 'rgba(0, 0, 0, 0.25)',
     },
+    avatar: {
+      border: 'rgba(245, 245, 245, 0.1)',
+    },
+    label: {
+      color: 'rgb(117 117 117)',
+    },
   },
   dark: {
     font: '#ffffffd9',
@@ -26,7 +32,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     border: '#4b535d',
     modal: {
       bg: 'rgba(0, 0, 0, 0.3)',
-      dialogBg: '#343a42',
+      dialogBg: 'hsl(213 12% 21% / 1)',
       dialogBorder: '1px solid #4b535d',
     },
     popover: {
@@ -36,5 +42,22 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     input: {
       border: '#ffffff99',
     },
+    avatar: {
+      border: '#252a31',
+    },
+    label: {
+      color: '#c2c2c2',
+    },
   },
 };
+
+export const THEMES: { label: string; value: TTheme }[] = [
+  {
+    label: "Qoron'gu",
+    value: 'dark',
+  },
+  {
+    label: "Yoru'g",
+    value: 'light',
+  },
+];
