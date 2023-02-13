@@ -13,9 +13,8 @@
 }
 
 .published {
-    $blue: #152C70;
-    border-color: $blue;
-    color: $blue;
+    border-color: var(--color-status-published-border);
+    color: var(--color-status-published-font);
 }
 
 .saved {

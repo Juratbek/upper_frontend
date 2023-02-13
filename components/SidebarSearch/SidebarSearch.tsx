@@ -8,7 +8,7 @@ import {
   SidebarSearchArticleSkeleton,
 } from 'components';
 import { SEARCH_RESULTS_SIZE } from 'components/Sidebar/Sidebar.constants';
-import { useClickOutside } from 'hooks';
+import { useClickOutside, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
 import { useLazySearchBlogQuery, useLazySearchPublishedArticleQuery } from 'store/apis';
@@ -21,6 +21,7 @@ export const SidebarSearch: FC = () => {
   const [isResultsContainerOpen, setIsResultsContainerOpen] = useState<boolean>(false);
   const [searchArticle, searchArticleRes] = useLazySearchPublishedArticleQuery();
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
+  const { themeColors } = useTheme();
 
   const openResultsContainer = (): void => setIsResultsContainerOpen(true);
 
@@ -118,7 +119,10 @@ export const SidebarSearch: FC = () => {
   return (
     <div className={classes.container} ref={ref}>
       <SearchInput onFocus={openResultsContainer} onDebounce={search} />
-      <div className={`${classes['results-container']} ${!isResultsContainerOpen && 'd-none'}`}>
+      <div
+        className={`${classes['results-container']} ${!isResultsContainerOpen && 'd-none'}`}
+        style={{ backgroundColor: themeColors.popover.bg, borderColor: themeColors.popover.border }}
+      >
         {content}
       </div>
     </div>

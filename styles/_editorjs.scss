@@ -22,7 +22,8 @@
   }
 
   .codeflask {
-    &.codeflask--has-line-numbers:before, & .codeflask__lines {
+    &.codeflask--has-line-numbers:before,
+    & .codeflask__lines {
       z-index: 4;
     }
   }
@@ -62,5 +63,115 @@
   @include screenMax576 {
     top: 40px;
     bottom: unset;
+  }
+}
+
+// styles for dark theme
+.theme-dark .codex-editor {
+  * {
+    color: inherit;
+  }
+
+  .ce-inline-toolbar {
+    background-color: var(--popover-bg);
+    border-width: 0.5px;
+
+    .ce-inline-toolbar__dropdown {
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      &:hover {
+        background-color: var(--lightBlack);
+      }
+    }
+
+    .ce-inline-tool:hover {
+      background-color: var(--lightBlack);
+    }
+
+    .ce-conversion-toolbar {
+      background-color: var(--popover-bg);
+
+      .ce-conversion-tool {
+        .ce-conversion-tool__icon {
+          background-color: transparent;
+        }
+        &:hover {
+          background-color: var(--lightBlack);
+        }
+      }
+    }
+  }
+
+  .inline-image {
+    .inline-image__picture--withBackground {
+      background-color: transparent;
+    }
+  }
+
+  .editorjs-codeFlask_Wrapper {
+    border: 0.5px solid;
+    background-color: transparent;
+    .editorjs-codeFlask_LangDisplay {
+      background-color: transparent;
+      border-top: 0.5px solid;
+      border-left: 0.5px solid;
+    }
+    .codeflask.codeflask--has-line-numbers {
+      border: 1px solid transparent;
+      &:before {
+        background-color: var(--popover-bg);
+        border-right: 0.5px solid;
+        border-bottom: 0.5px solid;
+      }
+    }
+  }
+
+  .cdx-alert {
+    background-color: transparent;
+  }
+
+  .ce-toolbar {
+    .ce-toolbar__actions {
+      .ce-toolbar__plus:hover,
+      .ce-toolbar__settings-btn:hover {
+        background-color: transparent;
+        border: 0.5px solid;
+      }
+    }
+
+    .ce-settings {
+      background-color: var(--popover-bg);
+      border-width: 0.5px;
+
+      .cdx-settings-button:hover,
+      .ce-settings__button:hover {
+        background-color: var(--lightBlack);
+      }
+    }
+
+    .ce-popover {
+      background-color: var(--popover-bg);
+      border-width: 0.5px;
+
+      .ce-popover__item {
+        &:hover {
+          background-color: var(--lightBlack);
+        }
+        .ce-popover__item-icon {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .ce-block--selected .ce-block__content {
+    background-color: var(--popover-bg);
+  }
+
+  .image-tool {
+    --bg-color: transparent;
+    &.image-tool--loading .image-tool__image {
+      background-color: transparent;
+    }
   }
 }

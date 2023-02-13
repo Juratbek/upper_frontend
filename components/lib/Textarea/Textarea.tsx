@@ -1,3 +1,4 @@
+import { useTheme } from 'hooks';
 import { forwardRef } from 'react';
 import { getClassName } from 'utils';
 
@@ -9,6 +10,14 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>(function
   ref,
 ) {
   const rootClassName = getClassName(classes.textarea, className, classes[`textarea--${color}`]);
+  const { themeColors } = useTheme();
 
-  return <textarea {...props} className={rootClassName} ref={ref} />;
+  return (
+    <textarea
+      style={{ borderColor: themeColors.input.border }}
+      {...props}
+      className={rootClassName}
+      ref={ref}
+    />
+  );
 });
