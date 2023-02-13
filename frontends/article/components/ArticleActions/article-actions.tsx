@@ -60,7 +60,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
       );
     }
     return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : themeColors.icon} />;
-  }, [isLikedOrDisliked]);
+  }, [isLikedOrDisliked, themeColors]);
 
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
