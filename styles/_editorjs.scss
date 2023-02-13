@@ -53,6 +53,9 @@
 .editor-container {
   margin: 0 auto;
   position: relative;
+  .ce-inline-toolbar {
+    z-index: 4;
+  }
 }
 
 .codex-editor__loader {
