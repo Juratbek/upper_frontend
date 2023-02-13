@@ -1,4 +1,4 @@
-import { ITheme, TTheme } from 'types/theme';
+import { ITheme, TSelectedThemeOption, TTheme } from 'types';
 
 export const THEME_COLORS: Record<TTheme, ITheme> = {
   light: {
@@ -13,7 +13,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     },
     popover: {
       bg: 'white',
-      border: 'white',
+      border: 'rgba(0, 0, 0, 0.25)',
     },
     input: {
       border: 'rgba(0, 0, 0, 0.25)',
@@ -51,13 +51,17 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
   },
 };
 
-export const THEMES: { label: string; value: TTheme }[] = [
+export const THEME_OPTIONS: { label: string; value: TSelectedThemeOption }[] = [
   {
-    label: "Qoron'gu",
+    label: "Qorong'u",
     value: 'dark',
   },
   {
-    label: "Yoru'g",
+    label: "Yorug'",
     value: 'light',
+  },
+  {
+    label: 'Qurilma temasi',
+    value: 'device-theme',
   },
 ];

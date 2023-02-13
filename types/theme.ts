@@ -1,5 +1,7 @@
 export type TTheme = 'light' | 'dark';
 
+export type TSelectedThemeOption = TTheme | 'device-theme';
+
 export interface ITheme {
   font: string;
   icon: string;

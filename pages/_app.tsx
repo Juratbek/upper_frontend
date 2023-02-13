@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   }, []);
 
   return (
-    <div>
+    <div style={{ backgroundColor: themeColors.bg, color: themeColors.font }}>
       <Head>
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>
@@ -57,10 +57,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </>
       )}
-      <div
-        className={`app theme-${theme}`}
-        style={{ backgroundColor: themeColors.bg, color: themeColors.font }}
-      >
+      <div className={`app theme-${theme}`}>
         <Navigation />
         <DynamicLoginModal />
         <DynamicRegisterModal />
