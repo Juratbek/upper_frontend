@@ -27,3 +27,21 @@
         right: 0.3rem;
     }
 }
+
+.theme-dark.alert {
+    &--yellow {
+        background-color: transparent;
+        border-color: var(--yellow);
+        color: var(--yellow);
+    }
+    &--red {
+        background-color: var(--red);
+        border-color: transparent;
+        color: white;
+    }
+    &--green {
+        background-color: var(--green);
+        border-color: transparent;
+        color: white;
+    }
+}

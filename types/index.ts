@@ -14,3 +14,4 @@ export * from './section';
 export * from './published-article';
 export * from './published-tutorial';
 export * from './images';
+export * from './theme';

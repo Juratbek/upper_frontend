@@ -14,3 +14,4 @@ export * from './uuid';
 export * from './listeners/addKeyboardListrener';
 export * from './debouncer';
 export * from './tutorial';
+export * from './theme';

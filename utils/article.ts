@@ -108,6 +108,5 @@ export const convertToHeadProp = (article: IArticle): IHeadProps => {
     description: content,
     author: author?.name,
     publishedDate,
-    type: 'article',
   };
 };

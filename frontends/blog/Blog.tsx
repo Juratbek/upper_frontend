@@ -89,7 +89,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
                 )}
                 {Boolean(blog.cardNumber) && (
                   <Link href={`/blogs/${id}/support`}>
-                    <a className='link d-flex mt-xs-2'>
+                    <a className='link d-flex mt-xs-2 w-100'>
                       {isMobile ? (
                         <Button className='w-100' color='outline-dark'>
                           <span className='sponsor-icon'>

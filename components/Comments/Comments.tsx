@@ -1,6 +1,6 @@
 import { Button, CommentSkeleton, Divider } from 'components';
 import { StorysetImage } from 'components/lib';
-import { useAuth, useClickOutside, useInfiniteScrollV2 } from 'hooks';
+import { useAuth, useClickOutside, useInfiniteScrollV2, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -25,7 +25,7 @@ export const Comments = (): JSX.Element => {
   const {
     query: { id },
   } = useRouter();
-  // const [fetchComments, fetchCommentsRes] = useLazyGetCommentsByArticleIdQuery();
+  const { themeColors } = useTheme();
   const isOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
   const {
@@ -91,7 +91,7 @@ export const Comments = (): JSX.Element => {
   }, [comments, isLoading]);
 
   return (
-    <div ref={rootRef} className={rootClassName}>
+    <div ref={rootRef} className={rootClassName} style={{ backgroundColor: themeColors.bg }}>
       <div className={classes['comments-list']} id='comments'>
         <InfiniteScroll
           hasMore={hasMore}
