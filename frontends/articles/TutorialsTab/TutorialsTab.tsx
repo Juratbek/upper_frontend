@@ -1,13 +1,27 @@
-import { ApiErrorBoundary, ArticleSkeleton, Divider, Pagination, Tutorial } from 'components';
+import {
+  ApiErrorBoundary,
+  ArticleSkeleton,
+  Button,
+  Divider,
+  Pagination,
+  StorysetImage,
+  Tutorial,
+} from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
-import { useLazyGetAllTutorialsQuery } from 'store/apis';
+import { useAppDispatch } from 'store';
+import { useCreateTutorialMutation, useLazyGetAllTutorialsQuery } from 'store/apis';
+import { setTutorial } from 'store/states';
 import { TArticleStatus } from 'types';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
 
 export const TutorialsTab: FC = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const [createTutorial] = useCreateTutorialMutation();
   const [fetchTutorials, fetchTutorialsRes] = useLazyGetAllTutorialsQuery();
+
   const {
     query: { tab, page },
   } = useRouter();
@@ -24,6 +38,12 @@ export const TutorialsTab: FC = () => {
     setParam('page', page);
   };
 
+  const createTutorialHandler = async (): Promise<void> => {
+    const res = await createTutorial().unwrap();
+    dispatch(setTutorial(res));
+    router.push(`/user/tutorials/${res.id}`);
+  };
+
   const { data } = fetchTutorialsRes;
 
   return (
@@ -35,7 +55,18 @@ export const TutorialsTab: FC = () => {
         className='tab'
       >
         {fetchTutorialsRes.data?.list.length === 0 && (
-          <h2 className='text-center my-2'>To&apos;plamlar mavjud emas</h2>
+          <div className='text-center'>
+            <StorysetImage
+              width={400}
+              height={400}
+              src='/storyset/write_article.svg'
+              storysetUri='creativity'
+            />
+            <p>Maqola to&apos;plamlarini yarating va bilimlaringizni ulashing</p>
+            <Button color='outline-dark' onClick={createTutorialHandler}>
+              To&apos;plam yaratish
+            </Button>
+          </div>
         )}
         {fetchTutorialsRes.data?.list.map((tutorial) => {
           return (
@@ -45,7 +76,7 @@ export const TutorialsTab: FC = () => {
             </Fragment>
           );
         })}
-        <Divider />
+        {data && <Divider />}
       </ApiErrorBoundary>
       <div className='text-center'>
         {data && (
