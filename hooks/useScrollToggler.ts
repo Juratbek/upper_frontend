@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 const SCROLL_BAR_ON_CLASS = 'on-scrollbar';
 
-export const useScrollToggler = (selector: string): void => {
+export const useScrollToggler = (selector: string, shouldAddListener = true): void => {
   const handleScroll = (): ((e: Event) => void) => {
     let scrollTimeout: NodeJS.Timeout;
 
@@ -20,11 +20,13 @@ export const useScrollToggler = (selector: string): void => {
   };
 
   useEffect(() => {
+    if (!shouldAddListener) return;
+
     const scrollBarCallback = handleScroll();
     document.querySelector(selector)?.addEventListener('scroll', scrollBarCallback);
 
     return () => {
       document.querySelector(selector)?.removeEventListener('scroll', scrollBarCallback);
     };
-  }, []);
+  }, [shouldAddListener]);
 };

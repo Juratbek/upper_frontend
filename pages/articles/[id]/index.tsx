@@ -67,7 +67,7 @@ const ArticlePage: NextPage<IArticlePageProps> = ({
               <div style={{ height: '1rem' }} />
               <Link href={`/blogs/${article.author.id}/support`}>
                 <a className='link'>
-                  <Button className='w-100'>
+                  <Button className='w-100 d-flex justify-content-center'>
                     <span className='sponsor-icon'>
                       <HeartIcon />
                     </span>
