@@ -73,6 +73,9 @@
 .theme-dark .codex-editor {
   * {
     color: inherit;
+    &:host {
+      background-color: var(--popover-bg);
+    }
   }
 
   .ce-inline-toolbar {
@@ -87,8 +90,16 @@
       }
     }
 
-    .ce-inline-tool:hover {
-      background-color: var(--lightBlack);
+    .ce-inline-tool {
+      &:hover {
+        background-color: var(--lightBlack);
+      }
+    }
+
+    .ce-inline-toolbar__actions {
+      input {
+        color: black;
+      }
     }
 
     .ce-conversion-toolbar {
