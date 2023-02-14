@@ -51,8 +51,8 @@ export const NotificationsTab: FC = () => {
         <div className='text-center'>
           <StorysetImage
             src='/storyset/notifications.svg'
-            width={400}
-            height={400}
+            width={350}
+            height={350}
             storysetUri='internet'
           />
           <p>Bloglarga obuna bo&apos;ling va maqolalar haqida habarlar oling</p>
