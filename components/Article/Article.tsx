@@ -57,7 +57,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
           </div>
           <div className={classes.footer} style={{ marginTop: props.showStatus ? '0.5rem' : 0 }}>
             <div className={classes.stats}>
-              <time>
+              <time style={{ flex: 1 }}>
                 <span className={classes.icon}>
                   <CalendarIcon color='gray' />
                 </span>
@@ -66,12 +66,14 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
               {viewCount > 0 && (
                 <>
                   <Divider type='vertical' className='mx-1' />
-                  <div className={`${classes.icon} ${classes.eye}`}>
-                    <EyeIcon color='gray' />
+                  <div className='d-flex align-items-center'>
+                    <span className={`${classes.icon} ${classes.eye}`}>
+                      <EyeIcon color='gray' />
+                    </span>
+                    <span className='d-flex align-items-center'>
+                      {formatToKMB(viewCount)} marta o&apos;qilgan
+                    </span>
                   </div>
-                  <span className='d-flex align-items-center'>
-                    {formatToKMB(viewCount)} marta o&apos;qilgan
-                  </span>
                 </>
               )}
               {props.showLikeCount && likeCount > 0 && (

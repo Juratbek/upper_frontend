@@ -53,6 +53,9 @@
 .editor-container {
   margin: 0 auto;
   position: relative;
+  .ce-inline-toolbar {
+    z-index: 4;
+  }
 }
 
 .codex-editor__loader {
@@ -70,6 +73,9 @@
 .theme-dark .codex-editor {
   * {
     color: inherit;
+    &:host {
+      background-color: var(--popover-bg);
+    }
   }
 
   .ce-inline-toolbar {
@@ -84,8 +90,16 @@
       }
     }
 
-    .ce-inline-tool:hover {
-      background-color: var(--lightBlack);
+    .ce-inline-tool {
+      &:hover {
+        background-color: var(--lightBlack);
+      }
+    }
+
+    .ce-inline-toolbar__actions {
+      input {
+        color: black;
+      }
     }
 
     .ce-conversion-toolbar {
