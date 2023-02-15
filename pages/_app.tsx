@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>
       </Head>
-      {window.location.host === PRODUCTION_HOST && (
+      {typeof window === 'object' && window.location.host === PRODUCTION_HOST && (
         <>
           <Script
             strategy='afterInteractive'
