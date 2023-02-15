@@ -13,7 +13,12 @@ import { IArticleSharePopupProps } from './article-share-popup.types';
 
 const url = window.location.href;
 
-export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
+export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
+  id,
+  right,
+  visible,
+  setVisible,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { writeText, isLoading, isCopied, isError } = useClipboard();
   const { themeColors } = useTheme();
@@ -39,8 +44,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
   useEffect(() => {
     const popover = (sharePopupRef as RefObject<HTMLDivElement>).current;
     if (popover) {
-      const targetOffSetTop = (document.getElementById('articleActions') as HTMLDivElement)
-        .offsetTop;
+      const targetOffSetTop = (document.getElementById(id) as HTMLDivElement).offsetTop;
       const popoverHeight = popover.getBoundingClientRect().height;
       popover.style.top = targetOffSetTop - popoverHeight - 24 + 'px';
     }
@@ -49,7 +53,11 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
   return (
     <div
       className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''}`}
-      style={{ backgroundColor: themeColors.bg, borderColor: themeColors.popover.border }}
+      style={{
+        backgroundColor: themeColors.bg,
+        borderColor: themeColors.popover.border,
+        right: right,
+      }}
       ref={sharePopupRef}
     >
       <div className={styles.iconsContainer}>

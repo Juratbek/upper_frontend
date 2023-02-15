@@ -21,29 +21,26 @@
     opacity: 1;
     visibility: visible;
   }
+}
 
-  .iconsContainer {
-    display: flex;
-    align-items: center;
+.iconsContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  .icon {
+    $size: 25px;
+    width: $size;
+    height: $size;
+    cursor: pointer;
+    transition: all 0.2s ease-in;
 
-    & > *:not(:last-child) {
-      margin-right: 22px;
+    &:hover {
+      transform: scale(1.25);
     }
+  }
 
-    .icon {
-      $size: 25px;
-      width: $size;
-      height: $size;
-      cursor: pointer;
-      transition: all 0.2s ease-in;
-
-      &:hover {
-        transform: scale(1.25);
-      }
-    }
-
-    .reactionsText {
-      font-weight: 500;
-    }
+  .reactionsText {
+    font-weight: 500;
   }
 }
