@@ -25,4 +25,5 @@ export interface ITheme {
   label: {
     color: string;
   };
+  progressbar: string;
 }

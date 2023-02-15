@@ -68,7 +68,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         </main>
         <Sidebar />
       </div>
-      <NextNProgress color='#7a7e80' height={3} showOnShallow={true} />
+      <NextNProgress color={themeColors.progressbar} height={3} showOnShallow={true} />
       <GoogleOneTap />
     </div>
   );

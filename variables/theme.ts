@@ -1,5 +1,7 @@
 import { ITheme, TSelectedThemeOption, TTheme } from 'types';
 
+import { UPPER_BLUE_COLOR } from './colors';
+
 export const THEME_COLORS: Record<TTheme, ITheme> = {
   light: {
     font: 'black',
@@ -24,6 +26,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     label: {
       color: 'rgb(117 117 117)',
     },
+    progressbar: '#7a7e80',
   },
   dark: {
     font: '#ffffffd9',
@@ -48,6 +51,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     label: {
       color: '#c2c2c2',
     },
+    progressbar: UPPER_BLUE_COLOR,
   },
 };
 
