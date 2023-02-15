@@ -4,19 +4,16 @@
   .articleDetail {
     display: flex;
     justify-content: space-between;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     font-size: 0.9rem;
     align-items: center;
 
     .reactions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .reactionButtons {
-        display: flex;
-        align-items: center;
-      }
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      position: relative;
     }
 
     .navigation {

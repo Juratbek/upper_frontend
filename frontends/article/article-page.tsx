@@ -1,57 +1,18 @@
 import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
-import { useAuth, useTheme } from 'hooks';
-import Image from 'next/image';
-import { FC, FormEvent, useEffect, useMemo, useState } from 'react';
-import { useAppDispatch } from 'store';
-import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
-import { openLoginModal, toggleCommentsSidebar } from 'store/states';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { addUriToImageBlocks, toDateString } from 'utils';
-import { UPPER_BLUE_COLOR } from 'variables';
-import { ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
-import { ArticleActions } from './components';
-
-const LikeIcon = ICONS.like;
-const DislikeIcon = ICONS.dislike;
-const CommentIcon = ICONS.comment;
-const ShareIcon = ICONS.share;
+import { ArticleActionIcons, ArticleActions } from './components';
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
-export const Article: FC<IArticleProps> = (props) => {
-  const { viewCount, publishedDate, updatedDate, blocks, id, likeCount, dislikeCount } = props;
+export const Article: FC<IArticleProps> = (article) => {
+  const { viewCount = 0, publishedDate, updatedDate, blocks = [] } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
-  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
-  const { isAuthenticated } = useAuth();
-  const { themeColors } = useTheme();
-  const dispatch = useAppDispatch();
-  const [likeDislikeArticle, likeDislikeRes] = useLikeDislikeMutation();
-  const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
-    useLazyCheckIfLikedDislikedQuery();
-
-  const likeDislike = (value: -1 | 1): void => {
-    if (!isAuthenticated) {
-      dispatch(openLoginModal());
-      return;
-    }
-    if (likeDislikeRes.isLoading || value === isLikedOrDisliked) return;
-    likeDislikeArticle({ id, value }).then(() => {
-      setLikeDislikeCount((prev) => prev + value - (isLikedOrDisliked || 0));
-    });
-  };
-
-  const commentIconClickHandler = (): void => {
-    dispatch(toggleCommentsSidebar());
-  };
-
-  const shareIconClickHandler = (event: FormEvent<Element>): void => {
-    event?.stopPropagation();
-    setIsSharePopupOpen((prev) => !prev);
-  };
 
   useEffect(() => {
     if (editorInstance?.isReady) {
@@ -62,17 +23,10 @@ export const Article: FC<IArticleProps> = (props) => {
   }, [editorInstance?.isReady]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      checkIfLikedDislikedQuery(id);
-      setLikeDislikeCount(likeCount - dislikeCount);
-    }
-  }, [isAuthenticated, id]);
-
-  useEffect(() => {
-    editorInstance?.render({ blocks: addUriToImageBlocks(blocks) });
+    editorInstance?.render?.({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
 
-  const article = useMemo(
+  const articleComponent = useMemo(
     () => (
       <Editor
         content={{ blocks: addUriToImageBlocks(blocks) }}
@@ -89,20 +43,9 @@ export const Article: FC<IArticleProps> = (props) => {
     return <></>;
   }, [publishedDate, updatedDate]);
 
-  const likeIcon = useMemo((): JSX.Element => {
-    if (isLikedOrDisliked === 0) {
-      return (
-        <div style={{ transform: 'rotate(180deg)', display: 'flex' }}>
-          <Image width={30} height={30} src='/icons/dislike.webp' />
-        </div>
-      );
-    }
-    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : themeColors.icon} />;
-  }, [isLikedOrDisliked, themeColors]);
-
   return (
     <div className={`${styles.articleContainer} editor-container`}>
-      <article>{article}</article>
+      <article>{articleComponent}</article>
       <Divider className='my-2' />
       <div className={styles.articleDetail}>
         <div className='d-flex'>
@@ -115,42 +58,16 @@ export const Article: FC<IArticleProps> = (props) => {
           {dateContent}
         </div>
         <div className={styles.reactions}>
-          <div className={styles.reactionButtons}>
-            <span
-              data-action='open-comments'
-              className='pointer me-2'
-              onClick={commentIconClickHandler}
-            >
-              <CommentIcon color={themeColors.icon} />
-            </span>
-            <span
-              className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
-              onClick={(): void => likeDislike(1)}
-            >
-              {likeIcon}
-            </span>
-            {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
-            <span
-              className={`pointer icon  me-2 ${isLikedOrDisliked === -1 && 'icon--active'}`}
-              onClick={(): void => likeDislike(-1)}
-            >
-              <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
-            </span>
-            <span className='pointer' onClick={shareIconClickHandler}>
-              <ShareIcon />
-            </span>
-          </div>
+          <ArticleActionIcons
+            right={0}
+            popupId='articleDetail'
+            isSharePopupOpen={isSharePopupOpen}
+            setIsSharePopupOpen={setIsSharePopupOpen}
+            article={article}
+          />
         </div>
       </div>
-      <ArticleActions
-        editor={editorInstance}
-        likeDislike={likeDislike}
-        isLikedOrDisliked={isLikedOrDisliked}
-        likeDislikeCount={likeDislikeCount}
-        isSharePopupOpen={isSharePopupOpen}
-        setIsSharePopupOpen={setIsSharePopupOpen}
-        shareIconClickHandler={shareIconClickHandler}
-      />
+      <ArticleActions editor={editorInstance} article={article} />
     </div>
   );
 };

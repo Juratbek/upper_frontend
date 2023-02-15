@@ -5,16 +5,14 @@
   box-shadow: 0 0 toRem(10px) rgba(#000000, 0.4);
   border-radius: 6px;
   padding: toRem(10px) toRem(18px);
-  margin-left: 15rem;
   border: 1px solid;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: toRem(8px);
-
+  margin-right: 0;
   position: fixed;
-  z-index: 1;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s;
