@@ -77,25 +77,6 @@
       background-color: var(--popover-bg);
     }
   }
-  .nice-select .option:hover,
-  .nice-select .option.focus,
-  .nice-select .option.selected.focus {
-    background-color: var(--darkGray);
-    color: #fff;
-  }
-  .nice-select {
-    background-color: var(--lightBlack);
-    .nice-select-dropdown {
-      background-color: var(--lightBlack);
-      margin-left: -2.5px;
-      .list {
-        li:hover {
-          background-color: var(--darkGray);
-          color: #fff;
-        }
-      }
-    }
-  }
 
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
@@ -173,6 +154,10 @@
       }
     }
 
+    .ce-settings__default-zone {
+      text-align: center;
+    }
+
     .ce-settings {
       background-color: var(--popover-bg);
       border-width: 0.5px;
@@ -193,6 +178,25 @@
         }
         .ce-popover__item-icon {
           background-color: transparent;
+        }
+      }
+    }
+
+    .nice-select {
+      $min-width: 118px;
+      min-width: $min-width;
+      width: 100%;
+      background-color: var(--lightBlack);
+      .nice-select-dropdown {
+        background-color: var(--popover-bg);
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: $min-width;
+      }
+      .option {
+        &:hover,
+        &.focus {
+          background-color: var(--lightBlack);
         }
       }
     }

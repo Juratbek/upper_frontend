@@ -26,7 +26,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     label: {
       color: 'rgb(117 117 117)',
     },
-    progressbar: '#7a7e80',
+    progressbar: UPPER_BLUE_COLOR,
   },
   dark: {
     font: '#ffffffd9',
