@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer, GoogleOneTap, Navigation, Sidebar } from 'components';
+import { Footer, Navigation, Sidebar } from 'components';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -69,7 +69,6 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <Sidebar />
       </div>
       <NextNProgress color={themeColors.progressbar} height={3} showOnShallow={true} />
-      <GoogleOneTap />
     </div>
   );
 }
