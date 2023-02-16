@@ -503,7 +503,7 @@ export const PlusIcon = () => (
 
 export const CalendarIcon = ({ color = 'black' }) => (
   <svg viewBox='0 0 15 15' fill='none' xmlns='http://www.w3.org/2000/svg'>
-    <g clip-path='url(#clip0_1187_342)'>
+    <g clipPath='url(#clip0_1187_342)'>
       <path
         d='M4.37079 3.03296C4.83937 3.03296 5.21935 2.65298 5.21935 2.18417V0.848555C5.21935 0.37998 4.83937 0 4.37079 0C3.90195 0 3.52197 0.37998 3.52197 0.848555V2.18417C3.52197 2.65301 3.90195 3.03296 4.37079 3.03296Z'
         fill={color}
