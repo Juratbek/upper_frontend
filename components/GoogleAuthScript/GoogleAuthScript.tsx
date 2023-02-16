@@ -10,7 +10,7 @@ import { IGoogleSignInRes } from './GoogleAuthScript.types';
 export const GoogleAuthScript: FC = () => {
   const [continueWithGoogle] = useContinueWithGoogleMutation();
   const dispatch = useDispatch();
-  const { authenticate } = useAuth();
+  const { authenticate, isAuthenticated } = useAuth();
 
   const callback = async (googleResponse: IGoogleSignInRes): Promise<void> => {
     const res = await continueWithGoogle(googleResponse.credential).unwrap();
@@ -28,5 +28,9 @@ export const GoogleAuthScript: FC = () => {
     dispatch(setIsGoogleScriptLoaded(true));
   };
 
-  return <Script src='https://accounts.google.com/gsi/client' async onLoad={onLoadHandler} defer />;
+  return isAuthenticated === false ? (
+    <Script src='https://accounts.google.com/gsi/client' async onLoad={onLoadHandler} defer />
+  ) : (
+    <></>
+  );
 };
