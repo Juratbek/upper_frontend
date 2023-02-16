@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Error,
+  GoogleSignIn,
   Input,
   Modal,
   PasswordValidityLevel,
@@ -14,6 +15,7 @@ import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useRegisterMutation } from 'store/apis';
+import { getIsGoogleScriptLoaded } from 'store/states';
 import { closeRegisterModal, getIsRegisterModalOpen } from 'store/states/registerModal';
 import { IResponseError, TSubmitFormEvent } from 'types';
 
@@ -39,6 +41,7 @@ export const RegisterModal: FC = () => {
   } = useForm();
   const [createBlog, createBlogResponse] = useRegisterMutation();
   const recaptchaRef = useRef<{ reset: () => void }>(null);
+  const isGoogleScriptLoaded = useAppSelector(getIsGoogleScriptLoaded);
 
   const closeModal = (): void => {
     dispatch(closeRegisterModal());
@@ -114,6 +117,14 @@ export const RegisterModal: FC = () => {
       </Alert>
     );
   }, [alert]);
+
+  useEffect(() => {
+    isGoogleScriptLoaded &&
+      google.accounts.id.renderButton(document.querySelector(`#google-sign-up-btn`), {
+        shape: 'pill',
+        width: 332,
+      });
+  }, [isGoogleScriptLoaded]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
@@ -208,6 +219,7 @@ export const RegisterModal: FC = () => {
         botName={process.env.NEXT_PUBLIC_REGISTER_BOT_USERNAME || 'upper_test_bot'}
         onAuth={closeModal}
       />
+      <GoogleSignIn id='google-sign-up' />
     </Modal>
   );
 };
