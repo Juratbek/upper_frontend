@@ -9,6 +9,7 @@ import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
 import { wrapper } from 'store';
 import { appDynamic } from 'utils';
+import { PRODUCTION_HOST } from 'variables';
 
 const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
 
@@ -37,7 +38,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>
       </Head>
-      {process.env.NODE_ENV === 'production' && (
+      {typeof window === 'object' && window.location.host === PRODUCTION_HOST && (
         <>
           <Script
             strategy='afterInteractive'
