@@ -7,4 +7,3 @@ export * from './readArticle';
 export * from './sidebar';
 export * from './logoutModal';
 export * from './tutorialsSidebar';
-export * from './theme';
