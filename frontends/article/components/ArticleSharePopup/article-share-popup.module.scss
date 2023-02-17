@@ -2,10 +2,12 @@
 
 .popupContainer {
   width: toRem(420px);
-  background-color: #fff;
   box-shadow: 0 0 toRem(10px) rgba(#000000, 0.4);
   border-radius: 6px;
   padding: toRem(10px) toRem(18px);
+  margin-left: 15rem;
+  border: 1px solid;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,6 +68,8 @@
     padding: toRem(10px) calc(#{toRem(70px)} + 2 * #{toRem(15px)}) toRem(10px) toRem(5px);
     overflow: auto;
     outline: none;
+    background-color: transparent;
+    color: inherit;
   }
 
   .copyButton {

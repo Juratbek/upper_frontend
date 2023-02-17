@@ -1,5 +1,5 @@
 import { Spinner } from 'components';
-import { useDebounce } from 'hooks';
+import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
@@ -24,6 +24,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const debouncedValue = useDebounce(inputValue);
+  const { themeColors } = useTheme();
 
   const closePopover = (): unknown => setIsOptionsContainerOpen(false);
 
@@ -140,7 +141,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
 
   return (
     <div className={classes.container} ref={ref}>
-      <div className={selectClassName}>
+      <div className={selectClassName} style={{ borderColor: themeColors.input.border }}>
         {selectedOptionsContent}
         {!disabled && (
           <input
@@ -158,6 +159,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
         className={`${classes['option-container']} ${
           isOptionsContainerOpen && !disabled ? 'd-block' : 'd-none'
         }`}
+        style={{ backgroundColor: themeColors.popover.bg, borderColor: themeColors.popover.border }}
       >
         {optionsContent}
       </div>

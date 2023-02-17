@@ -1,5 +1,5 @@
 import { Avatar } from 'components';
-import { useModal } from 'hooks';
+import { useModal, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
@@ -48,11 +48,12 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
 
 function HoverableIcon(link: ILink): JSX.Element {
   const [isHovered, toggleIsHovered] = useModal(false);
+  const { themeColors } = useTheme();
   const Icon = ICONS[link.type];
 
   return (
     <span className={classes.icon} onMouseEnter={toggleIsHovered} onMouseLeave={toggleIsHovered}>
-      <Icon color={isHovered ? 'black' : 'gray'} />
+      <Icon color={isHovered ? themeColors.icon : 'gray'} />
     </span>
   );
 }

@@ -34,6 +34,6 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     href: '/write-article',
     isPrivateRoute: true,
     tooltip: 'Maqola yozish',
-    loginModalTitle: <h2 className='mb-1 mt-0'>Maqola yozish uchun ro&apos;yxatdan o&apos;ting</h2>,
+    loginModalTitle: "Maqola yozish uchun profilingizga kiring yoki ro'yxatdan o'ting",
   },
 ];

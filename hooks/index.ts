@@ -11,3 +11,4 @@ export * from './useDevice/useDevice';
 export * from './useInfiniteScroll/useInfiniteScroll';
 export * from './useInfiniteScrollV2';
 export * from './useScrollToggler';
+export * from './useTheme/useTheme';

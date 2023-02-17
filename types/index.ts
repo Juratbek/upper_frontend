@@ -12,3 +12,4 @@ export * from './request';
 export * from './tutorial';
 export * from './section';
 export * from './images';
+export * from './theme';

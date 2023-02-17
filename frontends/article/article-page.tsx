@@ -1,12 +1,13 @@
 import EditorJS from '@editorjs/editorjs';
 import { Divider, Editor } from 'components';
-import { useAuth } from 'hooks';
+import { useAuth, useTheme } from 'hooks';
 import Image from 'next/image';
 import { FC, FormEvent, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal, toggleCommentsSidebar } from 'store/states';
 import { addUriToImageBlocks, toDateString } from 'utils';
+import { UPPER_BLUE_COLOR } from 'variables';
 import { ICONS } from 'variables/icons';
 
 import styles from './article.module.scss';
@@ -26,6 +27,7 @@ export const Article: FC<IArticleProps> = (props) => {
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
+  const { themeColors } = useTheme();
   const dispatch = useAppDispatch();
   const [likeDislikeArticle, likeDislikeRes] = useLikeDislikeMutation();
   const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
@@ -95,8 +97,8 @@ export const Article: FC<IArticleProps> = (props) => {
         </div>
       );
     }
-    return <LikeIcon color={isLikedOrDisliked === 1 ? '#54A9EB' : 'black'} />;
-  }, [isLikedOrDisliked]);
+    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : themeColors.icon} />;
+  }, [isLikedOrDisliked, themeColors]);
 
   return (
     <div className={`${styles.articleContainer} editor-container`}>
@@ -119,7 +121,7 @@ export const Article: FC<IArticleProps> = (props) => {
               className='pointer me-2'
               onClick={commentIconClickHandler}
             >
-              <CommentIcon />
+              <CommentIcon color={themeColors.icon} />
             </span>
             <span
               className={`pointer icon me-2 ${isLikedOrDisliked === 1 && 'icon--active'}`}
@@ -132,7 +134,7 @@ export const Article: FC<IArticleProps> = (props) => {
               className={`pointer icon  me-2 ${isLikedOrDisliked === -1 && 'icon--active'}`}
               onClick={(): void => likeDislike(-1)}
             >
-              <DislikeIcon color={isLikedOrDisliked === -1 ? '#54A9EB' : 'black'} />
+              <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
             </span>
             <span className='pointer' onClick={shareIconClickHandler}>
               <ShareIcon />
