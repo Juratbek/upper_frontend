@@ -1,13 +1,16 @@
 import 'styles/index.scss';
 
 import { Footer, Navigation, Sidebar } from 'components';
+import { ThemeProvider } from 'context';
+import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
-import type { AppProps } from 'next/app';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
 import { wrapper } from 'store';
+import { IServerSideContext, TTheme } from 'types';
 import { appDynamic } from 'utils';
 import { PRODUCTION_HOST } from 'variables';
 
@@ -74,4 +77,27 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   );
 }
 
-export default wrapper.withRedux(MyApp);
+interface IAppWithProviderProps extends AppProps {
+  theme: TTheme;
+}
+
+const AppWithProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Element => {
+  return (
+    <ThemeProvider defaultTheme={theme}>
+      <MyApp {...props} />
+    </ThemeProvider>
+  );
+};
+
+const WrappedApp = wrapper.withRedux(AppWithProvider);
+
+WrappedApp.getInitialProps = async (context: {
+  ctx: IServerSideContext;
+}): Promise<{ theme: TTheme }> => {
+  const { req, res } = context.ctx;
+  const theme = (getCookie('theme', { req, res }) || 'light') as TTheme;
+
+  return { theme };
+};
+
+export default WrappedApp;

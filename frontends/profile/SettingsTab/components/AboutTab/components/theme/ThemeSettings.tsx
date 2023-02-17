@@ -2,22 +2,15 @@ import { ISelectOption, Select } from 'components';
 import { useTheme } from 'hooks';
 import { FC } from 'react';
 import { TSelectedThemeOption } from 'types';
-import { getDeviceTheme } from 'utils';
 import { THEME_OPTIONS } from 'variables';
 
 export const ThemeSettings: FC = () => {
-  const { setTheme, setSelectedThemeOption, selectedThemeOption } = useTheme();
+  const { changeTheme, selectedThemeOption } = useTheme();
   const defaultTheme = THEME_OPTIONS.find((t) => t.value === selectedThemeOption);
 
   const themeChangeHandler = (option: ISelectOption): void => {
     const value = option.value as TSelectedThemeOption;
-    setSelectedThemeOption(value);
-    if (value === 'device-theme') {
-      const deviceTheme = getDeviceTheme();
-      setTheme(deviceTheme);
-      return;
-    }
-    setTheme(value);
+    changeTheme(value);
   };
 
   return (
