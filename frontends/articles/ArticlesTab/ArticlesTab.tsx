@@ -45,8 +45,8 @@ export const ArticlesTab: FC = () => {
         {getBlogArticlesRes.data?.list.length === 0 && (
           <div className='text-center'>
             <StorysetImage
-              width={400}
-              height={400}
+              width={350}
+              height={350}
               src='/storyset/write_article.svg'
               storysetUri='creativity'
             />

@@ -1,30 +1,23 @@
-import Script from 'next/script';
-import { FC } from 'react';
+import { Button } from 'components/lib';
+import { useTheme } from 'hooks';
+import { FC, useEffect } from 'react';
+import { useAppSelector } from 'store';
+import { getIsGoogleScriptLoaded } from 'store/states';
 
-export const GoogleSignIn: FC = () => {
-  const onLoadHandler = (): void => {
-    gapi.signin2.render('my-signin2', {
-      scope: 'profile email',
-      width: 240,
-      height: 50,
-      longtitle: true,
-      theme: 'dark',
-      onsuccess: console.log,
-      onfailure: (err: Record<string, string>) => {
-        console.log('🚀 ~ file: LoginModal.tsx ~ line 85 ~ onLoadHandler ~ err', err);
-      },
-    });
-  };
+import { IGoogleSignInProps } from './GoogleSignIn.types';
 
-  return (
-    <>
-      <div id='my-signin2'>sign in</div>
-      <Script
-        src='https://apis.google.com/js/platform.js'
-        async
-        onLoad={onLoadHandler}
-        defer
-      ></Script>
-    </>
-  );
+export const GoogleSignIn: FC<IGoogleSignInProps> = (props) => {
+  const { theme } = useTheme();
+  const isGoogleScriptLoaded = useAppSelector(getIsGoogleScriptLoaded);
+
+  useEffect(() => {
+    isGoogleScriptLoaded &&
+      google.accounts.id.renderButton(document.querySelector(`#${props.id}`), {
+        theme: theme === 'dark' ? 'filled_black' : 'outline',
+        shape: 'pill',
+        width: props.width || 332,
+      });
+  }, [isGoogleScriptLoaded]);
+
+  return <Button id={props.id} type='button' style={{ padding: 0 }} />;
 };

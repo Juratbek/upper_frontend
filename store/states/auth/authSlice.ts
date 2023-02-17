@@ -6,11 +6,13 @@ import { REFRESH_TOKEN, TOKEN } from 'variables';
 interface IAuthState {
   status: TAuthStatus;
   isAuthenticated: boolean | null;
+  isGoogleScriptLoaded: boolean;
 }
 
 const initialState: IAuthState = {
   status: 'loading',
   isAuthenticated: null,
+  isGoogleScriptLoaded: false,
 };
 
 const authSlice = createSlice({
@@ -37,8 +39,11 @@ const authSlice = createSlice({
         console.error(e);
       }
     },
+    setIsGoogleScriptLoaded(state, { payload }: PayloadAction<boolean>) {
+      state.isGoogleScriptLoaded = payload;
+    },
   },
 });
 
-export const { authenticate, unauthenticate } = authSlice.actions;
+export const { authenticate, unauthenticate, setIsGoogleScriptLoaded } = authSlice.actions;
 export default authSlice.reducer;

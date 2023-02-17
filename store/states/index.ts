@@ -8,4 +8,3 @@ export * from './sidebar';
 export * from './logoutModal';
 export * from './tutorialsSidebar';
 export * from './publishedTutorialSidebar';
-export * from './theme';
