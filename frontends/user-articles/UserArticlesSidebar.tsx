@@ -81,7 +81,7 @@ export const UserArticlesSidebar: FC = () => {
     let res;
     try {
       await saveChanges();
-      res = await publishArticle(article.id).unwrap();
+      res = await publishArticle({ id: article.id, notificationsOn: true }).unwrap();
     } catch (e) {
       const error = e as IResponseError;
       return setAlert(error.data.message);
