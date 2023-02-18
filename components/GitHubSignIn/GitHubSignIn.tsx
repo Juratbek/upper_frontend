@@ -29,7 +29,7 @@ export const GitHubSignIn: FC<IGitHubSignInProps> = ({
 
   return (
     <a
-      href='https://github.com/login/oauth/authorize?scope=user:email&client_id=aee8949321e01c883496'
+      href={`https://github.com/login/oauth/authorize?scope=user:email&client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}`}
       target='_blank'
       rel='noreferrer'
     >
