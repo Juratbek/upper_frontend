@@ -35,3 +35,4 @@ export * from './totorials';
 export * from './lib';
 export * from './GoogleAuthScript';
 export * from './GoogleSignIn';
+export * from './GitHubSignIn';
