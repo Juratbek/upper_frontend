@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Error,
+  GitHubSignIn,
   GoogleAuthScript,
   Input,
   Modal,
@@ -149,6 +150,7 @@ export const LoginModal: FC = () => {
       />
       <GoogleAuthScript />
       <GoogleSignIn id='google-sign-in' />
+      <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
     </Modal>
   );
 };
