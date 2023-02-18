@@ -6,6 +6,7 @@ const nextConfig = {
       'images.unsplash.com',
       'lh3.googleusercontent.com',
       't.me',
+      'avatars.githubusercontent.com',
       'upper-dev-article-img-bucket.s3.ap-south-1.amazonaws.com',
       'upper-dev-blog-img-bucket.s3.ap-south-1.amazonaws.com',
       'upper-prod-article-img-bucket.s3.ap-south-1.amazonaws.com',
