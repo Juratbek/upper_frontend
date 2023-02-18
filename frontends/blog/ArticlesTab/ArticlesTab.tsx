@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, Article, StorysetImage } from 'components';
+import { ApiErrorBoundary, Article, Button, StorysetImage } from 'components';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
@@ -19,15 +20,22 @@ export const ArticlesTab: FC = () => {
 
   const articles = useMemo(() => {
     const { data: articles } = fetchBlogArticlesRes;
-    if (!articles || articles.length === 2)
+    if (!articles || articles.length === 0)
       return (
         <div style={{ textAlign: 'center' }}>
           <StorysetImage
             width={350}
             height={350}
-            src='/storyset/search_data.svg'
+            src='/storyset/write_article.svg'
             storysetUri='creativity'
           />
+          <p>Maqolalar hozircha yo&apos;q</p>
+          <p className='text-gray'>O&apos;z maqolangizni yozing va bilimlaringizni ulashing</p>
+          <Link href='/write-article'>
+            <a>
+              <Button color='outline-dark'>Maqola yozish</Button>
+            </a>
+          </Link>
         </div>
       );
     return addUriToArticleImages(articles).map((article) => (
