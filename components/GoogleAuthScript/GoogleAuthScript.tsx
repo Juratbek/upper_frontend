@@ -1,4 +1,5 @@
 import { useAuth } from 'hooks';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
@@ -11,6 +12,9 @@ export const GoogleAuthScript: FC = () => {
   const [continueWithGoogle] = useContinueWithGoogleMutation();
   const dispatch = useDispatch();
   const { authenticate, isAuthenticated } = useAuth();
+  const {
+    query: { code },
+  } = useRouter();
 
   const callback = async (googleResponse: IGoogleSignInRes): Promise<void> => {
     const res = await continueWithGoogle(googleResponse.credential).unwrap();
@@ -20,6 +24,7 @@ export const GoogleAuthScript: FC = () => {
   };
 
   const onLoadHandler = (): void => {
+    if (code) return;
     google.accounts.id.initialize({
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       callback,
