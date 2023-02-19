@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import {
   IArticle,
   IArticleResult,
@@ -50,8 +50,11 @@ export const publishedArticleApi = createApi({
     checkIfLikedDisliked: build.query<number, number>({
       query: (id) => `check-like-dislike/${id}`,
     }),
-    getById: build.query<IArticle, number>({
-      query: (id: number) => `open/${id}`,
+    getById: build.query<IArticle, { id: number; withAuthor?: boolean }>({
+      query: ({ id, ...params }) => ({
+        url: `open/${id}`,
+        params,
+      }),
       keepUnusedDataFor: 15,
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({
@@ -67,6 +70,18 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
+    searchCurrentBlogArticles: build.query<
+      IArticleResult[],
+      TOptionalPagingRequest<{ search: string; statuses: string }>
+    >({
+      query: (params) => ({
+        url: 'search-current-blog-articles',
+        params,
+      }),
+    }),
+    getMediumArticleById: build.query<IArticleResult, number>({
+      query: (id) => `medium/${id}`,
+    }),
   }),
 });
 
@@ -79,4 +94,6 @@ export const {
   useIncrementViewCountMutation,
   useLazySearchQuery: useLazySearchPublishedArticleQuery,
   useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
+  useLazySearchCurrentBlogArticlesQuery: useLazySearchCurrentBlogPublishedArticlesQuery,
+  useLazyGetMediumArticleByIdQuery: useLazyGetMediumPublishedArticleByIdQuery,
 } = publishedArticleApi;

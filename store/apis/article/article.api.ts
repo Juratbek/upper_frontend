@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { IArticle, IArticleResult, IPagingResponse, TOptionalPagingRequest } from 'types';
 import { PAGINATION_SIZE } from 'variables';
 
@@ -36,9 +36,6 @@ export const articleApi = createApi({
         params,
       }),
     }),
-    getMediumArticleById: build.query<IArticleResult, number>({
-      query: (id) => `medium/${id}`,
-    }),
   }),
 });
 
@@ -50,5 +47,4 @@ export const {
   usePublishMutation,
   useLazyGetBlogArticlesQuery,
   useLazyGetBlogArticleByIdQuery,
-  useLazyGetMediumArticleByIdQuery,
 } = articleApi;

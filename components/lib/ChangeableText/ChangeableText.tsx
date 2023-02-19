@@ -1,4 +1,3 @@
-import { Spinner } from 'components';
 import { FC, FocusEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 
 import classes from './ChangeableText.module.scss';
@@ -7,9 +6,27 @@ import { IChangeableTextProps } from './ChangeableText.types';
 export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) => {
   const [isBeingChanged, setIsBeingChanged] = useState(props.defaultFocused);
   const inputRef = useRef<HTMLInputElement>(null);
+  const clickFnRef = useRef<boolean>(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const doubleClickhandler = (): void => {
+    if (props.loading) return;
     setIsBeingChanged(true);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  const clickHandler = (): void => {
+    if (!props.onClick) return;
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      props.onClick?.();
+    }, 400);
   };
 
   useEffect(() => {
@@ -24,7 +41,9 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
     setIsBeingChanged(false);
     props.onSubmit?.(value);
   };
+
   const blurChangeHandler = (event: FocusEvent<HTMLInputElement>): void => {
+    clickFnRef.current = false;
     const value = event.target.value.trim();
     if (value.length < 1) {
       setIsBeingChanged(false);
@@ -56,18 +75,18 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
           className={classes.input}
         />
       </div>
-      {props.loading && (
-        <span className={classes.spinner}>
-          <Spinner color='light' />
-        </span>
+
+      {props.loading ? (
+        <p className={`${classes['text-skeleton']}  w-100 skeleton`} />
+      ) : (
+        <p
+          className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
+          onDoubleClick={doubleClickhandler}
+          onClick={clickHandler}
+        >
+          {value}
+        </p>
       )}
-      <p
-        className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
-        onDoubleClick={doubleClickhandler}
-        onClick={props.onClick}
-      >
-        {value}
-      </p>
     </div>
   );
 };

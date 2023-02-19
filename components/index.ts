@@ -33,6 +33,7 @@ export * from './WithPopover';
 export * from './MessageNotification';
 export * from './totorials';
 export * from './lib';
+export * from './SidebarTutorial';
 export * from './GoogleAuthScript';
 export * from './GoogleSignIn';
 export * from './GitHubSignIn';

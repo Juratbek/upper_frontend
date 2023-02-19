@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITutorial, ITutorialSection } from 'types';
+import { ILabel, ITutorial, ITutorialSection } from 'types';
 import { ITutorialArticle } from 'types/section';
+import { removeArticle, removeSection } from 'utils';
 
 import {
   IAddSectionByTargetPayloadAction,
@@ -8,20 +9,26 @@ import {
   IAddTutorialArticlePayloadAction,
 } from './tutorialsSidebarSlice.types';
 
-interface ICommentSidebarState {
+interface ITutorialSidebarState {
   isRemoveArticleModalOpen: boolean;
+  isPublishTutorialModalOpen: boolean;
   selectedArticle?: ITutorialArticle;
   isRemoveSectionModalOpen: boolean;
   selectedSection?: ITutorialSection;
   name: string;
   sections: ITutorialSection[];
+  labels: ILabel[];
+  imgUrl: string;
 }
 
-const initialState: ICommentSidebarState = {
+const initialState: ITutorialSidebarState = {
   isRemoveArticleModalOpen: false,
   isRemoveSectionModalOpen: false,
+  isPublishTutorialModalOpen: false,
   name: '',
   sections: [],
+  labels: [],
+  imgUrl: '',
 };
 
 const tutorialsSidebarSlice = createSlice({
@@ -33,6 +40,10 @@ const tutorialsSidebarSlice = createSlice({
     },
     addSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = [...state.sections, payload];
+    },
+    removeSection(state, { payload }: PayloadAction<string>) {
+      const sectionId = payload;
+      state.sections = removeSection(state.sections, sectionId);
     },
     addSectionByTarget(state, { payload }: PayloadAction<IAddSectionByTargetPayloadAction>) {
       const { newSection, targetSection } = payload;
@@ -57,6 +68,9 @@ const tutorialsSidebarSlice = createSlice({
 
         return { ...section, articles: [...section.articles, article] };
       });
+    },
+    removeArticle(state, { payload }: PayloadAction<string>) {
+      state.sections = removeArticle(state.sections, payload);
     },
     addArticleByTarget(
       state,
@@ -98,12 +112,6 @@ const tutorialsSidebarSlice = createSlice({
     setSelectedArticle(state, { payload }: PayloadAction<ITutorialArticle | undefined>) {
       state.selectedArticle = payload;
     },
-    toggleRemoveArticleModal(state) {
-      state.isRemoveArticleModalOpen = !state.isRemoveArticleModalOpen;
-    },
-    closeRemoveArticleModal(state) {
-      state.isRemoveArticleModalOpen = false;
-    },
     setSelectedSection(state, { payload }: PayloadAction<ITutorialSection | undefined>) {
       state.selectedSection = payload;
     },
@@ -113,14 +121,22 @@ const tutorialsSidebarSlice = createSlice({
     closeRemoveSectionModal(state) {
       state.isRemoveSectionModalOpen = false;
     },
+    publishTutorialModalHandler(state, action: PayloadAction<{ isOpen: boolean }>) {
+      state.isPublishTutorialModalOpen = action.payload.isOpen;
+    },
     setTutorial(state, { payload }: PayloadAction<ITutorial>) {
-      const { name, sections } = payload;
+      const { name, sections, labels, imgUrl } = payload;
       state.sections = sections || [];
       state.name = name;
+      state.labels = labels;
+      state.imgUrl = imgUrl;
     },
     clearTutorial(state) {
       state.name = '';
       state.sections = [];
+    },
+    removeArticleModalHandler(state, { payload }: PayloadAction<boolean>) {
+      state.isRemoveArticleModalOpen = payload;
     },
   },
 });
@@ -133,13 +149,15 @@ export const {
   addArticleByTarget: addTutorialArticleByTarget,
   changeArticle: changeTutorialArticle,
   addSectionByTarget: addTutorialSectionByTarget,
+  removeSection: removeTutorialSection,
+  removeArticle: removeTutorialArticle,
   setTutorial,
   clearTutorial,
-  toggleRemoveArticleModal,
-  closeRemoveArticleModal,
   toggleRemoveSectionModal,
   closeRemoveSectionModal,
   setSelectedArticle,
   setSelectedSection,
+  publishTutorialModalHandler,
+  removeArticleModalHandler,
 } = tutorialsSidebarSlice.actions;
 export default tutorialsSidebarSlice.reducer;

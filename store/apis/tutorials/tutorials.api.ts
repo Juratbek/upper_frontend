@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import {
   IPagingResponse,
   ITutorial,
@@ -12,6 +12,8 @@ import {
   IAddSectionDto,
   IChangeTutorialSelectedArticleDto,
   IEditSectionDto,
+  IRemoveArticleDto,
+  IRemoveSectionDto,
 } from './tutorials.types';
 
 export const tutorialApi = createApi({
@@ -58,6 +60,27 @@ export const tutorialApi = createApi({
         body,
       }),
     }),
+    publish: build.mutation<void, FormData>({
+      query: (body) => ({
+        url: 'publish',
+        method: 'PUT',
+        body,
+      }),
+    }),
+    removeSection: build.mutation<void, IRemoveSectionDto>({
+      query: (body) => ({
+        url: 'remove-section',
+        method: 'PUT',
+        body,
+      }),
+    }),
+    removeArticle: build.mutation<void, IRemoveArticleDto>({
+      query: (body) => ({
+        url: 'remove-article',
+        method: 'PUT',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -69,4 +92,7 @@ export const {
   useAddSectionMutation: useAddTutorialSectionMutation,
   useEditSectionMutation: useEditTutorialSectionMutation,
   useChangeArticleMutation: useChangeTutorialSelectedArticleMutation,
+  usePublishMutation: usePublishTutorialMutation,
+  useRemoveArticleMutation: useRemoveTutorialArticleMutation,
+  useRemoveSectionMutation,
 } = tutorialApi;

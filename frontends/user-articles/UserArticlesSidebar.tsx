@@ -12,7 +12,7 @@ import {
 import { useModal, useShortCut } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
@@ -33,6 +33,7 @@ import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
+  const [isNotificationOn, setIsNotificationOn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const { push } = useRouter();
   const {
@@ -81,13 +82,19 @@ export const UserArticlesSidebar: FC = () => {
     let res;
     try {
       await saveChanges();
-      res = await publishArticle({ id: article.id, notificationsOn: true }).unwrap();
+      res = await publishArticle({ id: article.id, notificationsOn: isNotificationOn }).unwrap();
     } catch (e) {
       const error = e as IResponseError;
       return setAlert(error.data.message);
     }
     dispatch(setArticle({ ...article, ...res }));
     togglePublishModal();
+  };
+
+  const notificationRadioInputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.target?.value;
+    if (value === 'false') setIsNotificationOn(false);
+    if (value === 'true') setIsNotificationOn(true);
   };
 
   const deleteArticle = async (event: Record<string, string>): Promise<void> => {
@@ -136,10 +143,33 @@ export const UserArticlesSidebar: FC = () => {
         bodyClassName='text-center'
       >
         {alertComponent}
+        <h3 className='my-1'>Maqolani nashr qilmoqchimisiz?</h3>
         {status === ARTICLE_STATUSES.SAVED && (
-          <Alert color='yellow'>Obunalar maqola nashr qilingani haqida habar olishadi</Alert>
+          <div className='form-element'>
+            <p>Obunachilar maqola nashr qilingani haqida habar olishlarini hohlaysizmi?</p>
+            <div className='d-flex justify-content-center'>
+              <div className='d-flex me-2'>
+                <Input
+                  type='radio'
+                  name='notificationOn'
+                  value='true'
+                  defaultChecked
+                  onChange={notificationRadioInputChangeHandler}
+                />
+                <label className='ms-1'>Ha, albatta</label>
+              </div>
+              <div className='d-flex'>
+                <Input
+                  type='radio'
+                  name='notificationOn'
+                  value='false'
+                  onChange={notificationRadioInputChangeHandler}
+                />
+                <label className='ms-1'>Yo&apos;q</label>
+              </div>
+            </div>
+          </div>
         )}
-        <h3 className='mt-1'>Maqolani nashr qilmoqchimisiz?</h3>
         <div className='d-flex'>
           <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
             Modalni yopish
