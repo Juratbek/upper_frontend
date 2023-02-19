@@ -16,6 +16,7 @@ export const GoogleSignIn: FC<IGoogleSignInProps> = (props) => {
         theme: theme === 'dark' ? 'filled_black' : 'outline',
         shape: 'pill',
         width: props.width || 332,
+        locale: 'uz',
       });
   }, [isGoogleScriptLoaded]);
 

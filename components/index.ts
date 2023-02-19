@@ -36,3 +36,4 @@ export * from './lib';
 export * from './SidebarTutorial';
 export * from './GoogleAuthScript';
 export * from './GoogleSignIn';
+export * from './GitHubSignIn';
