@@ -1,10 +1,15 @@
 import { Avatar } from 'components';
+import { useTheme } from 'hooks';
 import Link from 'next/link';
 
 import { team } from './TeamPage.constants';
 import classes from './TeamPage.module.scss';
 
 export const TeamPage = (): JSX.Element => {
+  const {
+    themeColors: { icon: iconColor },
+  } = useTheme();
+
   return (
     <div className='container pt-3'>
       <h1 className='text-center'>Bizning Jamoa</h1>
@@ -21,7 +26,7 @@ export const TeamPage = (): JSX.Element => {
               {member.links.map((link) => (
                 <Link href={link.url} key={link.url} target={link.target || '_blank'}>
                   <a className={classes.icon}>
-                    <link.icon />
+                    <link.icon color={iconColor} />
                   </a>
                 </Link>
               ))}
