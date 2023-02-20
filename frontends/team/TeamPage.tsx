@@ -7,7 +7,7 @@ import classes from './TeamPage.module.scss';
 
 export const TeamPage = (): JSX.Element => {
   const {
-    themeColors: { icon: iconTheme },
+    themeColors: { icon: iconColor },
   } = useTheme();
 
   return (
@@ -26,7 +26,7 @@ export const TeamPage = (): JSX.Element => {
               {member.links.map((link) => (
                 <Link href={link.url} key={link.url} target={link.target || '_blank'}>
                   <a className={classes.icon}>
-                    <link.icon color={iconTheme} />
+                    <link.icon color={iconColor} />
                   </a>
                 </Link>
               ))}
