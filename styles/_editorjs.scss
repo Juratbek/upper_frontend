@@ -12,7 +12,7 @@
   & .ce-block__content {
     max-width: unset;
 
-    .ce-paragraph * {
+    .ce-paragraph *:not(code) {
       background-color: transparent!important;
     }
   }
