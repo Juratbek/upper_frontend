@@ -1,12 +1,13 @@
 import EditorJS from '@editorjs/editorjs';
 import { Editor } from 'components/Editor';
-import { useBeforeUnload } from 'hooks';
+import { useBeforeUnload, useTheme } from 'hooks';
 import { FC } from 'react';
 import { useAppDispatch } from 'store';
 import { setEditor } from 'store/states';
 
 export const WriteArticlePage: FC = () => {
   const dispatch = useAppDispatch();
+  const { theme } = useTheme();
 
   useBeforeUnload();
 
@@ -19,7 +20,7 @@ export const WriteArticlePage: FC = () => {
   };
 
   return (
-    <div className='editor-container container pb-4'>
+    <div className={`editor-container${theme === 'dark' && '__selected'} container pb-4`}>
       <Editor autoFocus content={{ blocks: [] }} handleInstance={getInstance} />
     </div>
   );

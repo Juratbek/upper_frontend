@@ -56,6 +56,18 @@
   .ce-inline-toolbar {
     z-index: 4;
   }
+  &__selected {
+    ::-moz-selection {
+      /* Code for Firefox */
+      color: rgb(250, 248, 248);
+      background: rgb(138, 138, 137);
+    }
+
+    ::selection {
+      color: rgb(250, 248, 248);
+      background: rgb(138, 138, 137);
+    }
+  }
 }
 
 .codex-editor__loader {
