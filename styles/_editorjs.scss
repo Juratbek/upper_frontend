@@ -11,6 +11,10 @@
 
   & .ce-block__content {
     max-width: unset;
+
+    .ce-paragraph * {
+      background-color: transparent!important;
+    }
   }
 
   .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
