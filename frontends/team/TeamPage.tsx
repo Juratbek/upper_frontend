@@ -6,7 +6,10 @@ import { team } from './TeamPage.constants';
 import classes from './TeamPage.module.scss';
 
 export const TeamPage = (): JSX.Element => {
-  const { theme } = useTheme();
+  const {
+    themeColors: { icon: iconTheme },
+  } = useTheme();
+
   return (
     <div className='container pt-3'>
       <h1 className='text-center'>Bizning Jamoa</h1>
@@ -23,7 +26,7 @@ export const TeamPage = (): JSX.Element => {
               {member.links.map((link) => (
                 <Link href={link.url} key={link.url} target={link.target || '_blank'}>
                   <a className={classes.icon}>
-                    <link.icon color={theme === 'dark' ? 'white' : 'black'} />
+                    <link.icon color={iconTheme === 'dark' ? 'white' : 'black'} />
                   </a>
                 </Link>
               ))}
