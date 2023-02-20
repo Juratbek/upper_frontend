@@ -28,6 +28,7 @@ import {
   convertLabelsToOptions,
   convertOptionsToLabels,
   removeAmazonUriFromImgBlocks,
+  validateArticle,
 } from 'utils';
 import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS } from 'variables';
 
@@ -79,6 +80,12 @@ export const UserArticlesSidebar: FC = () => {
 
   const publish = async (): Promise<void> => {
     if (!article) return;
+    // validating article for publishing
+    const validationResult = validateArticle(article);
+    if (!validationResult.isValid) {
+      return setAlert(validationResult.message);
+    }
+
     let res;
     try {
       await saveChanges();
@@ -126,7 +133,7 @@ export const UserArticlesSidebar: FC = () => {
       <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
         <div>{alert}</div>
         <Link href='/docs/write-article_publish_requirements'>
-          <a target='_blank' className='link'>
+          <a target='_blank' className='link text-underline'>
             Yo&apos;riqnomani o&apos;qish
           </a>
         </Link>
