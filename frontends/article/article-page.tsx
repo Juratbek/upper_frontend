@@ -1,5 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { Divider, Editor } from 'components';
+import { Author, Divider, Editor } from 'components';
 import { ApiError, Blog, Button, Head, StorysetImage } from 'components';
 import { useAuth, useTheme } from 'hooks';
 import Image from 'next/image';
@@ -19,6 +19,7 @@ import {
   addAmazonUri,
   addUriToImageBlocks,
   convertToHeadProp,
+  formatToKMB,
   get,
   toDateString,
 } from 'utils';
@@ -32,6 +33,8 @@ const LikeIcon = ICONS.like;
 const DislikeIcon = ICONS.dislike;
 const CommentIcon = ICONS.comment;
 const HeartIcon = ICONS.heart;
+const CalendarIcon = ICONS.calendar;
+const EyeIcon = ICONS.eye;
 
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
@@ -50,6 +53,7 @@ export const Article: FC<IArticleProps> = ({
     id,
     likeCount = 0,
     dislikeCount = 0,
+    author,
   } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
@@ -151,6 +155,12 @@ export const Article: FC<IArticleProps> = ({
     return <h2>{get(error, 'data.message')}</h2>;
   }
 
+  const renderDate = (): JSX.Element | string => {
+    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
+    if (publishedDate) return toDateString(publishedDate);
+    return <></>;
+  };
+
   return (
     <div className={`container ${props.className}`}>
       <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
@@ -179,14 +189,26 @@ export const Article: FC<IArticleProps> = ({
         <article>{articleComponent}</article>
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
-          <div className='d-flex'>
+          <div className={styles.stats}>
+            <time style={{ flex: 1, display: 'flex' }}>
+              <span className={styles.icon}>
+                <CalendarIcon color='gray' />
+              </span>
+              {renderDate()}
+            </time>
             {viewCount > 0 && (
               <>
-                <span>{viewCount} marta ko&apos;rilgan</span>
                 <Divider type='vertical' className='mx-1' />
+                <div className='d-flex align-items-center'>
+                  <span className={`${styles.icon} ${styles.eye}`}>
+                    <EyeIcon color='gray' />
+                  </span>
+                  <span className='d-flex align-items-center'>
+                    {formatToKMB(viewCount)} marta o&apos;qilgan
+                  </span>
+                </div>
               </>
             )}
-            {dateContent}
           </div>
           <div className={styles.reactions}>
             <div className={styles.reactionButtons}>
@@ -215,6 +237,11 @@ export const Article: FC<IArticleProps> = ({
             </div>
           </div>
         </div>
+        {author && (
+          <div className={styles.footer} style={{ marginTop: '.2rem', paddingLeft: '0.5rem' }}>
+            <Author {...addAmazonUri(author)} />
+          </div>
+        )}
         <ArticleActions
           editor={editorInstance}
           likeDislike={likeDislike}
