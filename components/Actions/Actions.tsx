@@ -1,5 +1,5 @@
 import { Divider, Spinner } from 'components';
-import { useClickOutside } from 'hooks';
+import { useClickOutside, useTheme } from 'hooks';
 import { FC, Fragment, useMemo, useState } from 'react';
 
 import classes from './Actions.module.scss';
@@ -12,7 +12,7 @@ export const Actions: FC<IActinosProps> = ({
   loading,
 }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
+  const { themeColors } = useTheme();
   const openPopup = (): void => setIsPopupOpen(true);
   const closePopup = (): void => setIsPopupOpen(false);
 
@@ -48,7 +48,14 @@ export const Actions: FC<IActinosProps> = ({
             <span key={index} className={classes['dots__item']} />
           ))}
       </div>
-      <div className={`${classes.popup} ${!isPopupOpen && 'd-none'} card`} style={popupStyle}>
+      <div
+        className={`${classes.popup} ${!isPopupOpen && 'd-none'} card`}
+        style={{
+          backgroundColor: themeColors.popover.bg,
+          borderColor: themeColors.popover.border,
+          ...popupStyle,
+        }}
+      >
         {actionsContent}
       </div>
     </div>
