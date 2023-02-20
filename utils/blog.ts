@@ -16,8 +16,11 @@ const LINK_DOMAINS: Partial<{ [name in TIcon]: string }> = {
 
 export const addLinkPrefix = (linkObject: ILink): string => {
   const { link, type } = linkObject;
+  if (link.startsWith('t.me')) return `https://${link}`;
+
   if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
   const domain = LINK_DOMAINS[type];
+
   if (domain)
     return link.startsWith('/') ? `https://${domain}${link}` : `https://${domain}/${link}`;
 
