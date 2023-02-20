@@ -15,6 +15,9 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  * {
+    background-color: transparent!important;
+  }
   @include screenMax576 {
     font-size: 1rem;
   }
