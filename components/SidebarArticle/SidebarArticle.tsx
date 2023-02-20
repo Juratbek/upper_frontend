@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { addAmazonUri } from 'utils';
 import { getClassName } from 'utils/common';
 
-import classes from './SidebarArticle.module.css';
+import classes from './SidebarArticle.module.scss';
 import { ISidebarArticleProps } from './SidebarArticle.types';
 
 export const SidebarArticle: FC<ISidebarArticleProps> = ({
@@ -18,10 +18,10 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
 
   return (
     <div className={rootClassName}>
-      <div className={classes.title}>
+      <div className={classes.body}>
         <Link href={`/articles/${id}`}>
-          <a>
-            <h4 className='m-0 mb-1 pointer' dangerouslySetInnerHTML={{ __html: title }} />
+          <a className={classes.title + ' link'}>
+            <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />
           </a>
         </Link>
         {author && <Author {...addAmazonUri(author)} />}
