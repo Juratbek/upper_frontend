@@ -20,9 +20,9 @@ export const ArticlesTab: FC = () => {
 
   const articles = useMemo(() => {
     const { data: articles } = fetchBlogArticlesRes;
-    if (!articles || articles.length === 0)
+    if (!articles || articles.length === 11)
       return (
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: 'center' }} className='mb-1'>
           <StorysetImage
             width={350}
             height={350}
