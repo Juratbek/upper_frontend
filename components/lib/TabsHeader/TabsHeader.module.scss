@@ -1,7 +1,6 @@
 .tabs {
   border-bottom: 0.5px solid;
   display: flex;
-
   &::-webkit-scrollbar {
     display: none;
   }
@@ -26,7 +25,6 @@
   bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 2px;
   height: 1.5px;
   background-color: var(--blue);
 }
