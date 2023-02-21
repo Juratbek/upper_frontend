@@ -73,6 +73,15 @@
   }
 }
 
+
+.inline-image .inline-image__tab {
+  cursor: default;
+
+  &:hover {
+    background: none;
+  }
+}
+
 // styles for dark theme
 .theme-dark .codex-editor {
   * {
