@@ -219,4 +219,18 @@
       background-color: transparent;
     }
   }
+  .codex-editor__redactor{
+    .cdx-block.inline-image{
+      & > .inline-image__control-panel{
+        box-shadow:none;
+      }
+      .inline-image__control-panel{
+       
+        border:1px solid lightgrey;
+        .inline-image__image-gallery{
+          background-color:transparent;
+        }
+      }
+    }
+  }
 }
