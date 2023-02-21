@@ -1,0 +1,14 @@
+.labels-container {
+  display: flex;
+  margin-top: 0.5rem;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    height: 0.3rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgb(204, 204, 204);
+    border-radius: 1rem;
+  }
+
+}

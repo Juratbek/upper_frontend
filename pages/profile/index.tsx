@@ -1,4 +1,4 @@
-import { Blog, TabBody, TabsHeader } from 'components';
+import { Blog, Head, TabBody, TabsHeader } from 'components';
 import { useMemo } from 'react';
 import { useGetCurrentBlogQuery } from 'store/apis';
 import { addAmazonUri, checkAuthInServer } from 'utils';
@@ -14,7 +14,7 @@ export default function ProfilePage(): JSX.Element {
       currentBlog && (
         <Blog
           {...addAmazonUri(currentBlog)}
-          avaratSize='extra-large'
+          avatarSize='extra-large'
           className='p-2 align-items-center'
         />
       )
@@ -22,11 +22,12 @@ export default function ProfilePage(): JSX.Element {
   }, [fetchCurrentBlogRes]);
 
   return (
-    <main className='container'>
+    <div className='container'>
+      <Head title='Profil' url='/profile' />
       {currentBlog}
       <TabsHeader tabs={PROFILE_TAB_MENUS} />
       <TabBody tabs={PROFILE_TABS} />
-    </main>
+    </div>
   );
 }
 

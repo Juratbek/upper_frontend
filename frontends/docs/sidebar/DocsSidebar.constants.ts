@@ -18,9 +18,17 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
           { name: 'Matn', url: 'text' },
           { name: 'Rasm', url: 'image' },
           { name: 'Kod', url: 'code' },
-          { name: 'Ro`yxat', url: 'list' },
+          { name: "Ro'yxat", url: 'list' },
           { name: 'Ajratuvchi', url: 'delimeter' },
           { name: 'Ogohlantiruvchi', url: 'alert' },
+        ],
+      },
+      {
+        name: 'Nashr qilish',
+        url: 'publish',
+        children: [
+          { name: 'Tezkor nashr qilish', url: 'quick-publish' },
+          { name: 'Maqola uchun talablar', url: 'requirements' },
         ],
       },
       {
@@ -32,7 +40,7 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
           { name: 'Saqlash', url: 'save' },
           { name: 'Chop etish', url: 'publish' },
           { name: 'Bekor qilish', url: 'unpublish' },
-          { name: 'O`chirish', url: 'delete' },
+          { name: "O'chirish", url: 'delete' },
         ],
       },
     ],

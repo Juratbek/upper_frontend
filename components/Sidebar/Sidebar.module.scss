@@ -36,15 +36,20 @@
   width: $width;
   min-width: $width;
   position: relative;
+
+  // DO NOT FORGET to change margin styling for other sidebars if you change this line
   padding: 1rem 1.8rem;
   max-height: 100vh;
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   @include screenMax576 {
     $width: 23rem;
-    background-color: white;
     width: $width;
     max-width: $width;
     min-width: $width;

@@ -10,4 +10,10 @@ export const PAGINATION_SIZE = 10;
 
 export const MAX_LABELS = 5;
 
+export const TUTORIAL_MAX_LABELS = 3;
+
 export const COMING_SOON_TEXT = 'Tez orada...';
+
+export const PRODUCTION_HOST = 'upper.uz';
+
+export const USER_THEME = 'user_theme';

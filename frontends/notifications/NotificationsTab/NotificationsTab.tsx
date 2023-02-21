@@ -1,4 +1,10 @@
-import { ApiErrorBoundary, Divider, Pagination } from 'components';
+import {
+  ApiErrorBoundary,
+  Divider,
+  NotificationSkeleton,
+  Pagination,
+  StorysetImage,
+} from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {
@@ -41,10 +47,23 @@ export const NotificationsTab: FC = () => {
     const { data } = fetchNotificationsRes;
     const notifications = data?.list || [];
     if (!notifications || notifications.length === 0)
-      return <p className='text-center'>Habarlar mavjud emas</p>;
+      return (
+        <div className='text-center'>
+          <StorysetImage
+            src='/storyset/notifications.svg'
+            width={350}
+            height={350}
+            storysetUri='internet'
+          />
+          <p>Bloglarga obuna bo&apos;ling va maqolalar haqida habarlar oling</p>
+          <p className='fs-1'>Hozirda habarlar mavjud emas</p>
+        </div>
+      );
 
     return notifications.map((notification, index) => {
       const Notification = NOTIFICATIONS[notification.type];
+
+      if (!Notification) return <></>;
       return (
         <div key={notification.id}>
           <Notification
@@ -70,7 +89,12 @@ export const NotificationsTab: FC = () => {
 
   return (
     <div>
-      <ApiErrorBoundary res={fetchNotificationsRes} className='tab'>
+      <ApiErrorBoundary
+        res={fetchNotificationsRes}
+        fallback={<NotificationSkeleton className='px-3 py-2' />}
+        fallbackItemCount={3}
+        className='tab'
+      >
         {notifications}
       </ApiErrorBoundary>
       {fetchNotificationsRes.data && (

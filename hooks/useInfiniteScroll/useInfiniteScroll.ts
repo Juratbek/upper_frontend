@@ -2,7 +2,14 @@
 import { useState } from 'react';
 import { TOptionalPagingRequest } from 'types';
 
-import { IConfig, IInfiniteScroll, TFetch, TFetchNextPage, THook } from './useInfiniteScroll.types';
+import {
+  IConfig,
+  IFnConfig,
+  IInfiniteScroll,
+  TFetch,
+  TFetchNextPage,
+  THook,
+} from './useInfiniteScroll.types';
 
 export const useInfiniteScroll = <T>(
   hook: THook<T>,
@@ -21,41 +28,51 @@ export const useInfiniteScroll = <T>(
   const setListWithoutDiblicates = (
     newItemsFromApi: T[],
     params: TOptionalPagingRequest | undefined,
+    fnConfig?: IFnConfig,
   ): void => {
     const { itemUniqueKey } = config;
+
+    // filtering new items for dublicacy by unique key
     if (itemUniqueKey) {
       // @ts-ignore
       const set = new Set(list.map((item) => item[itemUniqueKey]));
+
       const newItemsWithoutDublicates = newItemsFromApi.filter((item) => {
         // @ts-ignore
         const hasInCurrentList = set.has(item[itemUniqueKey]);
-        if (!hasInCurrentList) list.push(item);
         return !hasInCurrentList;
       });
 
-      if (newItemsFromApi.length !== 0 && newItemsWithoutDublicates.length === 0)
+      if (newItemsFromApi.length !== 0 && newItemsWithoutDublicates.length === 0) {
         setTimeout(() => {
-          fetchList({ page: (params?.page || page) + 1 });
+          fetchList({ ...params, page: (params?.page || page) + 1 }, fnConfig);
         }, 0);
-    } else {
-      const set = new Set(list);
-      newItems.forEach((item) => {
-        if (!set.has(item)) list.push(item);
-      });
+      } else {
+        setList([...list, ...newItemsWithoutDublicates]);
+      }
+      return;
     }
 
-    setList(list);
+    const set = new Set(list);
+
+    const newItemsWithoutDublicates = newItemsFromApi.filter((item) => !set.has(item));
+    setList([...list, ...newItemsWithoutDublicates]);
   };
 
-  const fetchList: TFetch = async (params) => {
+  const fetchList: TFetch = async (params, fnConfig) => {
     list.length === 0 ? setIsLoading(true) : setIsFetching(true);
     setIsSuccess(false);
     setIsError(false);
     try {
-      const res = await fetchItems({ page: params?.page || page }).unwrap();
-      const newItemsFromApi = res.list;
-      if (config.removeDublicates) {
-        setListWithoutDiblicates(newItemsFromApi, params);
+      const res = await fetchItems({ ...params, page: params?.page ?? page });
+      const data = res.data || { list: [] };
+      const newItemsFromApi = data.list;
+      if (fnConfig?.reset) {
+        setPage(0);
+        setHasMore(true);
+        setList(newItemsFromApi);
+      } else if (config.removeDublicates) {
+        setListWithoutDiblicates(newItemsFromApi, params, fnConfig);
       } else {
         setList((prev) => [...prev, ...newItemsFromApi]);
       }
@@ -74,8 +91,8 @@ export const useInfiniteScroll = <T>(
     }
   };
 
-  const fetchNextPage: TFetchNextPage = async () => {
-    fetchList({ page: page + 1 }).then(() => {
+  const fetchNextPage: TFetchNextPage = async (params) => {
+    fetchList({ ...params, page: page + 1 }).then(() => {
       setPage((prev) => prev + 1);
     });
   };

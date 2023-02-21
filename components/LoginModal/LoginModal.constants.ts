@@ -9,11 +9,11 @@ export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
       required: true,
       minLength: {
         value: 8,
-        message: 'Login 8 harfdan kam bo`lmasligi kerak',
+        message: "Login 8 harfdan kam bo'lmasligi kerak",
       },
       maxLength: {
         value: 60,
-        message: 'Login o`ta uzun',
+        message: "Login o'ta uzun",
       },
     },
   },
@@ -23,11 +23,11 @@ export const LOGIN_FORM_FIELDS: TFormFields<TField> = {
       required: true,
       minLength: {
         value: 8,
-        message: 'Parol 8 harfdan kam bo`lmasligi kerak',
+        message: "Parol 8 harfdan kam bo'lmasligi kerak",
       },
       maxLength: {
         value: 60,
-        message: 'Parol o`ta uzun',
+        message: "Parol o'ta uzun",
       },
     },
   },

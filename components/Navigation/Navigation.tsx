@@ -1,5 +1,5 @@
 import { Button, LogoutModal, Tooltip } from 'components';
-import { useAuth, useDevice } from 'hooks';
+import { useAuth, useDevice, useTheme } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
@@ -19,6 +19,7 @@ const Burger = ICONS.burger;
 
 export const Navigation = (): JSX.Element => {
   const { isAuthenticated } = useAuth();
+  const { themeColors } = useTheme();
   const [fetchBlogNotificationsCount, fetchBlogNotificationsCountRes] =
     useLazyGetBlogNotificationsCountQuery();
   const dispatch = useAppDispatch();
@@ -59,7 +60,7 @@ export const Navigation = (): JSX.Element => {
     () => (
       <div className={isMobile && !isAuthenticated ? 'd-flex align-items-center' : 'd-none'}>
         <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
-          Ro`yxatdan o`tish
+          Ro&apos;yxatdan o&apos;tish
         </Button>
         <Button onClick={loginClickHandler}>Kirish</Button>
       </div>
@@ -70,13 +71,16 @@ export const Navigation = (): JSX.Element => {
   return (
     <div className={classes.navigation}>
       <LogoutModal />
-      <div className={`${classes.navigation} ${classes.positioned}`}>
-        <Link href='/about-us'>
+      <div
+        className={`${classes.navigation} ${classes.positioned}`}
+        style={{ backgroundColor: themeColors.bg }}
+      >
+        <Link href='/'>
           <a className={classes.logo}>
-            <Logo />
+            <Logo color={themeColors.icon} />
           </a>
         </Link>
-        <div className={classes.icons}>
+        <div className={classes.icons} style={{ backgroundColor: themeColors.bg }}>
           {icons.map((navigationIcon) => {
             const { icon, tooltip, href } = navigationIcon;
             const Icon = ICONS[icon];
@@ -97,13 +101,13 @@ export const Navigation = (): JSX.Element => {
           <div className={`${classes.logOut} ${classes.icon} pointer`} onClick={logOut}>
             {isAuthenticated && (
               <Tooltip tooltip='Profildan chiqish' invisible={isMobile}>
-                <LogOutIcon />
+                <LogOutIcon color={themeColors.icon} />
               </Tooltip>
             )}
           </div>
           {buttons}
           <div className={`${classes.burger} ${classes.icon}`} onClick={openSidebarHandler}>
-            <Burger />
+            <Burger color={themeColors.icon} />
           </div>
         </div>
       </div>

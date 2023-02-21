@@ -1,0 +1,21 @@
+.divider {
+  &--horisontal {
+    height: 1px;
+  }
+  &--vertical {
+    width: 1px;
+    display: inline-block;
+  }
+
+  &--transparent {
+    background-color: transparent;
+  }
+
+  &--medium-gray {
+    background-color: var(--mediumGray);
+  }
+
+  &--light-gray {
+    background-color: rgb(199 199 199 / 33%);
+  }
+}

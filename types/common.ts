@@ -1,3 +1,4 @@
+import { IncomingMessage, ServerResponse } from 'http';
 import { FC } from 'react';
 import { ICON_TYPES } from 'variables';
 
@@ -36,4 +37,15 @@ export interface ILink {
 export interface ITag {
   id: number;
   name: string;
+}
+
+export type TFn = (...args: unknown[]) => unknown;
+
+export interface IServerSideContext {
+  req: IncomingMessage & {
+    cookies: Partial<{
+      [key: string]: string;
+    }>;
+  };
+  res: ServerResponse;
 }

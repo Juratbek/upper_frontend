@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, BlogSkeleton, Follower } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, Button, Follower, StorysetImage } from 'components';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, Fragment, useEffect } from 'react';
 import { useLazyGetCurrentBlogFollowersQuery } from 'store/apis';
@@ -24,7 +25,23 @@ export const FollowersTab: FC = () => {
       fallbackItemCount={3}
       res={fetchFollowersRes}
     >
-      {followers?.length === 0 && <p className='text-center'>Kuzatuvchilar yo`q</p>}
+      {followers?.length === 0 && (
+        <div className='text-center'>
+          <StorysetImage
+            width={300}
+            height={300}
+            src='/storyset/write_article.svg'
+            storysetUri='creativity'
+          />
+          <p>Kuzatuvchilar hozircha yo&apos;q</p>
+          <p>Kuzatuvchilar yig&apos;ish uchun maqola yozing va bilimlaringizni ulashing</p>
+          <Link href='/write-article'>
+            <a>
+              <Button color='outline-dark'>Maqola yozish</Button>
+            </a>
+          </Link>
+        </div>
+      )}
       {followers?.map((follower) => (
         <Fragment key={follower.id}>
           <Follower {...addAmazonUri(follower)} className='px-3 py-2' />

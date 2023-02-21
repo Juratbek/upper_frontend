@@ -23,19 +23,40 @@ export const Recaptcha = forwardRef<{ reset: () => void }, IRecaptchaProps>(
     const id = useId();
     const { isAuthenticated } = useAuth();
 
+    const renderRecaptcha = (): void => {
+      // @ts-ignore
+      const widgetId = grecaptcha.enterprise.render(id, {
+        sitekey: siteKey,
+        callback: onSuccess,
+        'expired-callback': onExpired,
+      });
+      setWidgetId(widgetId);
+      setIsLoading(false);
+    };
+
+    const renderTimeoutedRecaptcha = (tryingTimes: number): (() => void) => {
+      let failureCount = 0;
+      return function inner() {
+        setTimeout(() => {
+          try {
+            renderRecaptcha();
+          } catch (e) {
+            failureCount++;
+
+            if (failureCount < tryingTimes) {
+              inner();
+            } else {
+              console.error(e);
+            }
+          }
+        }, 1000);
+      };
+    };
+
     useEffect(() => {
       if (!isScriptLoaded) return;
 
-      setTimeout(() => {
-        // @ts-ignore
-        const widgetId = grecaptcha.enterprise.render(id, {
-          sitekey: siteKey,
-          callback: onSuccess,
-          'expired-callback': onExpired,
-        });
-        setWidgetId(widgetId);
-        setIsLoading(false);
-      }, 3000);
+      renderTimeoutedRecaptcha(10)();
     }, [isScriptLoaded]);
 
     useImperativeHandle(

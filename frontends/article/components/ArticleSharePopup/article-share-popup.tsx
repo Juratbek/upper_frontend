@@ -6,7 +6,7 @@ const FacebookIcon = ICONS.facebook;
 const LinkedInIcon = ICONS.linkedIn;
 
 import { Button } from 'components';
-import { useClickOutside, useClipboard } from 'hooks';
+import { useClickOutside, useClipboard, useTheme } from 'hooks';
 
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
@@ -16,6 +16,7 @@ const url = window.location.href;
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVisible }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { writeText, isLoading, isCopied, isError } = useClipboard();
+  const { themeColors } = useTheme();
 
   const onCopyLink = (): void => {
     const inputEl = inputRef.current as HTMLInputElement;
@@ -48,16 +49,17 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
   return (
     <div
       className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''}`}
+      style={{ backgroundColor: themeColors.bg, borderColor: themeColors.popover.border }}
       ref={sharePopupRef}
     >
       <div className={styles.iconsContainer}>
         <a
           className={styles.socialIcon}
           target='_blank'
-          href={`https://t.me/share/url?url=${url}&text=Test`}
+          href={`https://t.me/share/url?url=${url}`}
           rel='noreferrer'
         >
-          <TelegramIcon />
+          <TelegramIcon color={themeColors.icon} />
           <div className={styles.iconText}>Telegram</div>
         </a>
         <a
@@ -66,7 +68,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
           className={styles.socialIcon}
           rel='noreferrer'
         >
-          <FacebookIcon />
+          <FacebookIcon color={themeColors.icon} />
           <div className={styles.iconText}>Facebook</div>
         </a>
         <a
@@ -75,7 +77,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
           className={styles.socialIcon}
           rel='noreferrer'
         >
-          <LinkedInIcon />
+          <LinkedInIcon color={themeColors.icon} />
           <div className={styles.iconText}>LinkedIn</div>
         </a>
       </div>
@@ -86,6 +88,7 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({ visible, setVis
           readOnly={true}
           value={url}
           ref={inputRef}
+          style={{ borderColor: themeColors.input.border }}
         />
         <Button
           loading={isLoading}

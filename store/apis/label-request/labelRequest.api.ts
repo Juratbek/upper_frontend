@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQuery } from '../config';
 import { ICreateLabelRequestDto } from './labelRequest.types';

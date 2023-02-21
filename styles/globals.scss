@@ -3,6 +3,7 @@
   --darkGray: rgb(77, 77, 77, 0.9);
   --mediumGray: rgba(196, 196, 196, 0.8);
   --lightGray: rgb(199 199 199 / 20%);
+  --brightGray: rgb(199 199 199 / 10%);
   --gray: gray;
   --red: hsl(0, 76%, 47%);
   --lightRed: hsl(0, 28%, 67%);
@@ -12,6 +13,15 @@
   --blue: #54a9eb;
   --green: #0a950ad6;
   --scrollbar-thumb-color: #d3d3d3;
+
+  // status component colors
+  --color-status-saved-font: #0fb972;
+  --color-status-saved-border: #0fb972;
+  --color-status-published-font: #517dff;
+  --color-status-published-border: #7899ff;
+
+  // modal colors
+  --color-modal-border-red: red;
 }
 
 * {
@@ -43,20 +53,28 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   &::-webkit-scrollbar {
-    width: 0.7rem;
+    width: 0.4rem;
   }
   &::-webkit-scrollbar-thumb {
-    background: var(--scrollbar-thumb-color);
+    background-color: transparent;
     border-radius: 10rem;
-    border: 2px solid white;
+    border: 2px solid transparent;
+  }
+
+  &.on-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
   }
 
   @include screenMax576 {
-    padding: 0 0.5rem;
-    padding-top: 91px;
+    margin-top: 91px;
+
     &::-webkit-scrollbar {
-      width: 0.5rem;
+      width: 0.3rem;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--scrollbar-thumb-color);
     }
   }
 }
@@ -97,6 +115,15 @@
 .form-element {
   margin-bottom: 0.8em;
 }
+.form-label {
+  margin-bottom: $size1;
+  display: block;
+}
+
+.form-label {
+  margin-bottom: 0.5em;
+  display: block;
+}
 
 .pointer {
   cursor: pointer;
@@ -105,6 +132,11 @@
 .link:hover {
   text-decoration: underline;
   color: inherit;
+  cursor: pointer;
+}
+
+.text-underline {
+  text-decoration: underline;
 }
 
 .overflow-wrap {
@@ -120,6 +152,7 @@
   }
 }
 .sponsor-icon {
+  display: flex;
   margin-right: 0.3rem;
   & svg {
     width: 1rem;
@@ -135,20 +168,40 @@
     background-color: var(--lightGray);
   }
 }
+// light theme
+.theme-light {
+  .skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.5) 60%,
+        rgba(255, 255, 255, 0) 70%
+      )
+      #ededed;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 800ms loading ease-in-out infinite;
+  }
+}
 
-.skeleton {
-  height: 100px;
-  width: 100px;
-  background: linear-gradient(
-      100deg,
-      rgba(255, 255, 255, 0) 50%,
-      rgba(255, 255, 255, 0.5) 60%,
-      rgba(255, 255, 255, 0) 70%
-    )
-    #ededed;
-  background-size: 200% 100%;
-  background-position-x: 180%;
-  animation: 800ms loading ease-in-out infinite;
+// dark theme
+.theme-dark {
+  --popover-bg: #343a42;
+  --scrollbar-thumb-color: #3b4048;
+  --gray: #c2c2c2;
+
+  .skeleton {
+    background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0) 50%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(255, 255, 255, 0) 70%
+      )
+      #3b4048;
+    background-size: 200% 100%;
+    background-position-x: 180%;
+    animation: 800ms loading ease-in-out infinite;
+  }
 }
 
 @keyframes loading {
@@ -158,6 +211,42 @@
 }
 
 /* margins */
+
+.my-1 {
+  margin-top: $size1;
+  margin-bottom: $size1;
+}
+
+.my-2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-3 {
+  margin-top: 1.7rem;
+  margin-bottom: 1.7rem;
+}
+
+.mx-1 {
+  margin-right: $size1;
+  margin-left: $size1;
+}
+
+.mx-2 {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.mx-3 {
+  margin-right: 1.7rem;
+  margin-left: 1.7rem;
+}
+
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .m-0 {
   margin: 0;
 }
@@ -246,41 +335,6 @@
   margin-bottom: $size4;
 }
 
-.my-1 {
-  margin-top: $size1;
-  margin-bottom: $size1;
-}
-
-.my-2 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-.my-3 {
-  margin-top: 1.7rem;
-  margin-bottom: 1.7rem;
-}
-
-.mx-1 {
-  margin-right: $size1;
-  margin-left: $size1;
-}
-
-.mx-2 {
-  margin-right: 1rem;
-  margin-left: 1rem;
-}
-
-.mx-3 {
-  margin-right: 1.7rem;
-  margin-left: 1.7rem;
-}
-
-.mx-auto {
-  margin-right: auto;
-  margin-left: auto;
-}
-
 // margins for screens smaller than 576px
 @include screenMax576 {
   .mt-xs-2 {
@@ -298,6 +352,9 @@
 }
 
 // paddings
+.p-0 {
+  padding: 0;
+}
 .p-1 {
   padding: $size1;
 }
@@ -323,6 +380,13 @@
 .px-3 {
   padding-right: $size3;
   padding-left: $size3;
+}
+.px-4 {
+  padding-right: $size4;
+  padding-left: $size4;
+}
+.pt-2 {
+  padding-top: $size2;
 }
 .pt-3 {
   padding-top: $size3;
@@ -366,11 +430,12 @@
 .justify-content-between {
   justify-content: space-between;
 }
-
+.justify-content-center {
+  justify-content: center;
+}
 .justify-content-around {
   justify-content: space-around;
 }
-
 .justify-content-end {
   justify-content: flex-end;
 }
@@ -391,6 +456,9 @@
 }
 
 /* widths */
+.w-0 {
+  width: 0;
+}
 .w-30 {
   width: 30%;
 }

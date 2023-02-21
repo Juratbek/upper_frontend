@@ -1,26 +1,28 @@
 .search {
-    display: flex;
-    align-items: center;
-    border-radius: 100rem;
-    border: 1px solid black;
-    padding: .2rem .5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 100rem;
+  border: 1px solid;
+  padding: 0.1rem 0.5rem;
 
-    & input {
-        flex: 1 1 auto;
-        border: none;
-        font-size: 1.1rem;
-    
-        &:focus {
-            outline: none;
-        }
+  & input {
+    flex: 1 1 auto;
+    border: none;
+    font-size: 0.9rem;
+    background-color: transparent;
+    color: inherit;
+
+    &:focus {
+      outline: none;
     }
+  }
 }
 
 .icon {
-    margin-right: .2rem;
-    & svg{
-        height: 1.2rem;
-        position: relative;
-        bottom: -.2rem;
-    }
+  margin-right: 0.2rem;
+  & svg {
+    height: 1.2rem;
+    position: relative;
+    bottom: -0.2rem;
+  }
 }

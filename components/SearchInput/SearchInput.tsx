@@ -1,11 +1,11 @@
-import { useDebounce } from 'hooks';
+import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { ICONS } from 'variables';
 
 import classes from './SearchInput.module.scss';
 import { ISearchInputProps } from './SearchInput.types';
 
-const Icon = ICONS.search;
+const SearchIcon = ICONS.search;
 
 export const SearchInput: FC<ISearchInputProps> = ({
   className,
@@ -13,8 +13,9 @@ export const SearchInput: FC<ISearchInputProps> = ({
   onDebounce,
   ...props
 }) => {
-  const [value, setValue] = useState<string>('');
+  const [value, setValue] = useState<string>(props.defaultValue as string);
   const debauncedValue = useDebounce(value);
+  const { themeColors } = useTheme();
 
   useEffect(() => {
     onDebounce?.(debauncedValue);
@@ -29,7 +30,7 @@ export const SearchInput: FC<ISearchInputProps> = ({
   return (
     <div className={`${classes.search} ${className}`}>
       <span className={classes.icon}>
-        <Icon />
+        <SearchIcon color={themeColors.icon} />
       </span>
       <input type='text' {...props} value={value} onChange={changeHandler} />
     </div>

@@ -2,6 +2,8 @@ import {
   Alert,
   Button,
   Error,
+  GitHubSignIn,
+  GoogleSignIn,
   Input,
   Modal,
   PasswordValidityLevel,
@@ -102,6 +104,10 @@ export const RegisterModal: FC = () => {
     }
   }, [activeStep]);
 
+  useEffect(() => {
+    isOpen && setFocus(name.name);
+  }, [isOpen]);
+
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
     return (
@@ -125,7 +131,7 @@ export const RegisterModal: FC = () => {
           </div>
           <div className='form-element'>
             <label htmlFor='bio' className='d-block mb-1'>
-              Bio (ihtiyoriy)
+              Bio (ixtiyoriy)
             </label>
             <Textarea id='bio' {...register(bio.name, bio.options)} />
             <Error error={errors[bio.name]} />
@@ -141,7 +147,7 @@ export const RegisterModal: FC = () => {
           </div>
           <div className='form-element'>
             <label htmlFor='email' className='d-block mb-1'>
-              Elektron pochta (ihtiyoriy)
+              Elektron pochta (ixtiyoriy)
             </label>
             <Input
               id='email'
@@ -191,7 +197,7 @@ export const RegisterModal: FC = () => {
           </div>
         </div>
         <Button className='d-block w-100 mb-1' loading={createBlogResponse.isLoading}>
-          {activeStep === 2 ? 'Ro`yxatdan o`tish' : 'Davom etish'}
+          {activeStep === 2 ? "Ro'yxatdan o'tish" : 'Davom etish'}
         </Button>
         {activeStep !== 1 && (
           <Button color='outline-dark' className='w-100' onClick={decrementStep}>
@@ -204,6 +210,8 @@ export const RegisterModal: FC = () => {
         botName={process.env.NEXT_PUBLIC_REGISTER_BOT_USERNAME || 'upper_test_bot'}
         onAuth={closeModal}
       />
+      <GoogleSignIn id='google-sign-up' />
+      <GitHubSignIn />
     </Modal>
   );
 };

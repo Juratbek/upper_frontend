@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import {
   IArticle,
   IArticleResult,
@@ -23,7 +23,16 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
-    getTop: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+    getByLabel: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
+      query: (params) => ({
+        url: 'open/get-by-label',
+        params,
+      }),
+    }),
+    getTop: build.query<
+      IPagingResponse<IArticleResult>,
+      TOptionalPagingRequest<{ labelId?: number }>
+    >({
       query: (params) => ({
         url: 'open/top-articles',
         params,
@@ -41,8 +50,11 @@ export const publishedArticleApi = createApi({
     checkIfLikedDisliked: build.query<number, number>({
       query: (id) => `check-like-dislike/${id}`,
     }),
-    getById: build.query<IArticle, number>({
-      query: (id: number) => `open/${id}`,
+    getById: build.query<IArticle, { id: number; withAuthor?: boolean }>({
+      query: ({ id, ...params }) => ({
+        url: `open/${id}`,
+        params,
+      }),
       keepUnusedDataFor: 15,
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({
@@ -52,8 +64,23 @@ export const publishedArticleApi = createApi({
         body: token,
       }),
     }),
-    search: build.query<IArticleResult[], string>({
-      query: (search) => `open/search?search=${search}`,
+    search: build.query<IArticleResult[], TOptionalPagingRequest<{ search: string }>>({
+      query: (params) => ({
+        url: 'open/search',
+        params,
+      }),
+    }),
+    searchCurrentBlogArticles: build.query<
+      IArticleResult[],
+      TOptionalPagingRequest<{ search: string; statuses: string }>
+    >({
+      query: (params) => ({
+        url: 'search-current-blog-articles',
+        params,
+      }),
+    }),
+    getMediumArticleById: build.query<IArticleResult, number>({
+      query: (id) => `medium/${id}`,
     }),
   }),
 });
@@ -65,5 +92,8 @@ export const {
   useLazyCheckIfLikedDislikedQuery,
   useLikeDislikeMutation,
   useIncrementViewCountMutation,
-  useLazySearchQuery: useLazySearchArticleQuery,
+  useLazySearchQuery: useLazySearchPublishedArticleQuery,
+  useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
+  useLazySearchCurrentBlogArticlesQuery: useLazySearchCurrentBlogPublishedArticlesQuery,
+  useLazyGetMediumArticleByIdQuery: useLazyGetMediumPublishedArticleByIdQuery,
 } = publishedArticleApi;

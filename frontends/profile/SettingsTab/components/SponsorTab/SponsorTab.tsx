@@ -9,7 +9,8 @@ import { convertToCardNumbers } from 'utils';
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 
 export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
-  const [isConfirmationModalOpen, toggleConfirmationModal] = useModal();
+  const [isConfirmationModalOpen, toggleConfirmationModal, { close: closeConfirmationModal }] =
+    useModal();
   const [isTurnOffModalOpen, toggleTurnOffModal] = useModal();
   const [changeDonatCredentials, changeDonatCredentialsRes] = useChangeDonatCredentialsMutation();
   const [cardNumber, setCardNumber] = useState(currentBlog?.cardNumber);
@@ -45,7 +46,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
       <Modal
         isOpen={isConfirmationModalOpen}
         bodyClassName='text-center'
-        close={toggleConfirmationModal}
+        close={closeConfirmationModal}
       >
         <h4>
           {cardNumber
@@ -104,7 +105,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
       <form onSubmit={handleSubmit(submitHandler)}>
         <div className='form-element'>
           <label htmlFor='donat-text' className='d-block mb-1'>
-            Hissa qo&apos;shish matni (ihtiyoriy)
+            Hissa qo&apos;shish matni (ixtiyoriy)
           </label>
           <Textarea
             defaultValue={currentBlog?.donatText}
@@ -115,7 +116,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
         <div className='form-element'>
           <div className='mb-1 d-flex justify-content-between'>
             <label htmlFor='credit-card'>Plastik karta raqami</label>
-            <Link href='/docs/blogging/blogging_settings_sponsor'>
+            <Link href='/docs/blogging_settings_sponsor'>
               <a target='_blank' className='link'>
                 Karta raqam nega kerak?
               </a>

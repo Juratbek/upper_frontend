@@ -4,10 +4,12 @@ import {
   Avatar,
   Button,
   Divider,
+  Error,
   FileInput,
   Input,
   Textarea,
 } from 'components';
+import { useTheme } from 'hooks';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUpdateBlogMutation } from 'store/apis';
@@ -17,12 +19,19 @@ import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 import classes from './AboutTab.module.scss';
+import { ThemeSettings } from './components';
 
 export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   const [alert, setAlert] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
-  const { register, handleSubmit, watch } = useForm();
+  const { themeColors } = useTheme();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     if (currentBlog) {
@@ -54,15 +63,18 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
     const avatar = event.avatar[0] as unknown as File;
 
     const formData = new FormData();
-    if (avatar) {
+    const isAvatarChanged = !imgUrl?.includes(currentBlog?.imgUrl as string);
+    if (avatar && isAvatarChanged) {
       const compressedAvatarImage = await compressImage(avatar);
+      const mediumCompressedImage = await compressImage(avatar, { medium: true });
       formData.set('avatar', compressedAvatarImage);
+      formData.set('avatarWithMediumQuality', mediumCompressedImage);
     }
     formData.set('name', name);
     formData.set('bio', bio);
     formData.set('links', JSON.stringify(socialMediaLinks));
 
-    await updateBlog(formData).unwrap();
+    updateBlog(formData);
   };
 
   const renderOpenSettings = (): JSX.Element => {
@@ -76,7 +88,17 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
           <div className='w-50 w-mobile-100 p-1'>
             <div>
               <Avatar imgUrl={imgUrl || ''} className='my-2' size='extra-large' />
-              <FileInput {...register('avatar')} accept='image/jpeg, image/png' />
+              <FileInput
+                {...register('avatar', {
+                  validate: {
+                    lessThan5MB: (files) => {
+                      if (files[0]?.size / 2 ** 20 >= 5) return 'Rasm hajmi 5 MB dan katta';
+                    },
+                  },
+                })}
+                accept='image/jpeg, image/png'
+              />
+              <Error error={errors['avatar']} />
             </div>
             <div>
               <h4 className='mb-1'>Nomi</h4>
@@ -89,7 +111,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
                 {...register('bio', {
                   maxLength: {
                     value: 80,
-                    message: 'Bio o`ta uzun',
+                    message: "Bio o'ta uzun",
                   },
                 })}
               />
@@ -105,7 +127,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
                 return (
                   <div key={index} className='d-flex my-2 w-100 align-items-center'>
                     <span className={classes['media-icon']}>
-                      <Icon />
+                      <Icon color={themeColors.icon} />
                     </span>
                     <span className='flex-auto'>
                       <Input defaultValue={link} {...register(icon, { minLength: 5 })} />
@@ -131,6 +153,8 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
         </Alert>
       )}
       {renderOpenSettings()}
+      <Divider className='my-1' />
+      <ThemeSettings />
     </>
   );
 };

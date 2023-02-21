@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { useTheme } from 'hooks';
+import Image from 'next/image';
+import { FC, useMemo } from 'react';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { toggleCommentsSidebar } from 'store/states';
 import { appDynamic } from 'utils';
+import { UPPER_BLUE_COLOR } from 'variables';
 import { ICONS } from 'variables/icons';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
@@ -29,6 +32,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const { themeColors } = useTheme();
 
   const detectScrollDirection = (e: Event): void => {
     const target = e.target as HTMLElement;
@@ -46,6 +50,17 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
   const commentIconClickHandler = (): void => {
     dispatch(toggleCommentsSidebar());
   };
+
+  const likeIcon = useMemo((): JSX.Element => {
+    if (isLikedOrDisliked === 0) {
+      return (
+        <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
+          <Image width={40} height={40} src='/icons/dislike.webp' />
+        </div>
+      );
+    }
+    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : themeColors.icon} />;
+  }, [isLikedOrDisliked, themeColors]);
 
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
@@ -65,25 +80,24 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
       <div
         className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}
         id={'articleActions'}
+        style={{ backgroundColor: themeColors.bg, border: `1px solid ${themeColors.border}` }}
       >
         <div className={styles.iconsContainer}>
-          <div className={styles.icon} onClick={commentIconClickHandler} id='comment-icon'>
-            <CommentIcon />
-          </div>
           <div
-            className={`${styles.icon} icon ${isLikedOrDisliked === 1 && 'icon--active'}`}
-            onClick={(): void => likeDislike(1)}
+            className={styles.icon}
+            onClick={commentIconClickHandler}
+            data-action='open-comments'
           >
-            <LikeIcon />
+            <CommentIcon color={themeColors.icon} />
+          </div>
+          <div className={styles.icon} onClick={(): void => likeDislike(1)}>
+            {likeIcon}
           </div>
           {Boolean(likeDislikeCount) && (
             <span className={styles.reactionsText}>{likeDislikeCount}</span>
           )}
-          <div
-            className={`${styles.icon} icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
-            onClick={(): void => likeDislike(-1)}
-          >
-            <DislikeIcon />
+          <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
+            <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
           </div>
           <div
             className={styles.icon}
@@ -92,7 +106,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
               setIsSharePopupOpen((prev) => !prev);
             }}
           >
-            <ShareIcon />
+            <ShareIcon color={themeColors.icon} />
           </div>
         </div>
       </div>

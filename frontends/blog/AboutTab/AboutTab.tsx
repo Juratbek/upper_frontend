@@ -1,4 +1,5 @@
 import { ApiErrorBoundary, Divider } from 'components';
+import { useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogByIdQuery } from 'store/apis';
@@ -13,6 +14,7 @@ export const AboutTab: FC = () => {
     query: { id, tab },
   } = useRouter();
   const [fetchBlogById, fetchBlogByIdRes] = useLazyGetBlogByIdQuery();
+  const { themeColors } = useTheme();
 
   useEffect(() => {
     if (id && tab === BLOG_TAB_IDS.about) {
@@ -40,7 +42,7 @@ export const AboutTab: FC = () => {
               return (
                 <div className={classes['social-media-link']} key={link.type}>
                   <a href={link.link} target='_blank' rel='noreferrer'>
-                    <Icon />
+                    <Icon color={themeColors.icon} />
                   </a>
                 </div>
               );

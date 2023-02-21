@@ -14,7 +14,7 @@ export const team: ITeamMember[] = [
       },
       {
         url: '/blogs/1',
-        icon: ICONS.blackLogo,
+        icon: ICONS.logoIcon,
         target: '_self',
       },
     ],
@@ -30,7 +30,7 @@ export const team: ITeamMember[] = [
       },
       {
         url: '/blogs/5',
-        icon: ICONS.blackLogo,
+        icon: ICONS.logoIcon,
         target: '_self',
       },
     ],

@@ -1,10 +1,10 @@
 import { FC } from 'react';
+import { INotificationComponentProp } from 'types';
 import { getClassName } from 'utils';
 
 import classes from './LikeNotification.module.css';
-import { ILikeNotificationProps } from './LikeNotification.types';
 
-export const LikeNotification: FC<ILikeNotificationProps> = (props) => {
+export const LikeNotification: FC<INotificationComponentProp> = (props) => {
   const { className, author, article } = props;
   const rootClassName = getClassName(className, classes['like-notification']);
 

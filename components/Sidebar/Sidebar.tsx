@@ -8,7 +8,7 @@ import {
   SidebarSearch,
 } from 'components';
 import { BlogSkeleton } from 'components/skeletons';
-import { useAuth, useDevice } from 'hooks';
+import { useAuth, useDevice, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -22,7 +22,6 @@ import {
   getIsCommentsSidebarOpen,
   getIsSidebarOpen,
   openLoginModal,
-  openRegisterModal,
 } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
@@ -40,6 +39,7 @@ export const Sidebar = (): JSX.Element => {
     useLazyGetSidebarArticleSuggestionsQuery();
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
+  const { themeColors } = useTheme();
   const isCommentsSidebarOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
     classes.container,
@@ -50,10 +50,9 @@ export const Sidebar = (): JSX.Element => {
     dispatch(openLoginModal());
   };
 
-  const registerHandler = (): void => {
-    dispatch(openRegisterModal());
+  const writeArticleHandler = (): void => {
+    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
   };
-
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());
   };
@@ -124,15 +123,15 @@ export const Sidebar = (): JSX.Element => {
       <>
         {!isAuthenticated && (
           <>
-            <div className='d-flex justify-content-around'>
+            <div className='d-flex justify-content-between f-gap-1'>
               <Button color='outline-dark' onClick={loginHandler}>
-                Kirish
+                Profilga kirish
               </Button>
-              <Button className='float-right' onClick={registerHandler}>
-                Ro`yxatdan o`tish
+              <Button className='flex-1' onClick={writeArticleHandler}>
+                Maqola yozish
               </Button>
             </div>
-            <Divider className='my-2' />
+            <Divider className='my-2' color='medium-gray' />
           </>
         )}
         {AdditionalComponent && <AdditionalComponent />}
@@ -141,7 +140,7 @@ export const Sidebar = (): JSX.Element => {
           <>
             <h3>Siz uchun maqolalar</h3>
             {suggestedArticles}
-            <Divider className='my-2' />
+            <Divider className='my-2' color='medium-gray' />
             <h3>Kuzatib boring</h3>
             {suggestedBlogs}
           </>
@@ -155,7 +154,15 @@ export const Sidebar = (): JSX.Element => {
       <div className={classes.outside} onClick={closeSidebarHandler}>
         <div className={classes.closeIcon}>&#10005;</div>
       </div>
-      <div className={classes.sidebar}>{content}</div>
+      <div
+        className={classes.sidebar}
+        style={{
+          overflowY: isCommentsSidebarOpen ? 'hidden' : 'auto',
+          backgroundColor: themeColors.bg,
+        }}
+      >
+        {content}
+      </div>
     </div>
   );
 };

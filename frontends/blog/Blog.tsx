@@ -2,7 +2,7 @@ import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
 import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
@@ -38,15 +38,25 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
     setIsUnfollowModalOpen((prev) => !prev);
   };
 
+  const closeModal = (): void => {
+    setIsUnfollowModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (blog?.isFollowed !== undefined) {
+      setIsFollowed(blog.isFollowed);
+    }
+  }, [id]);
+
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
   return (
     <div className='container'>
-      <Head {...convertBlogToHeadProp(blog)} url={fullUrl} />
+      <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
         size='small'
         isOpen={isUnfollowModalOpen}
-        close={toggleUnfollowModal}
+        close={closeModal}
         bodyClassName='text-center'
       >
         <strong>{blog.name}</strong> obunasini bekor qilmoqchimisiz
@@ -65,21 +75,21 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
       >
         {blog && (
           <>
-            <Blog {...addAmazonUri(blog)} avaratSize='extra-large' className='mb-2 flex-1' />
+            <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
             {!blog.isCurrentBlog && (
               <>
                 {isFollowed ? (
                   <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                    Obuna bo`lingan
+                    Obuna bo&apos;lingan
                   </Button>
                 ) : (
                   <Button onClick={follow} loading={followBlogRes.isLoading}>
-                    Obuna bo`lish
+                    Obuna bo&apos;lish
                   </Button>
                 )}
                 {Boolean(blog.cardNumber) && (
                   <Link href={`/blogs/${id}/support`}>
-                    <a className='link d-flex mt-xs-2'>
+                    <a className='link d-flex mt-xs-2 w-100'>
                       {isMobile ? (
                         <Button className='w-100' color='outline-dark'>
                           <span className='sponsor-icon'>

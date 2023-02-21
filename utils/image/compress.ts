@@ -2,11 +2,17 @@ import { OutputBlockData } from '@editorjs/editorjs';
 
 import { UNSPLASH_URL } from '../../store/apis';
 
-const resizeImageElement = (img: HTMLImageElement): string => {
-  const canvas = document.createElement('canvas');
+type TCompressImageOptions = {
+  medium: true;
+};
 
-  const max_width = 1000;
-  const max_height = 1000;
+const resizeImageElement = (img: HTMLImageElement, options?: TCompressImageOptions): string => {
+  const isMedium = !!options?.medium;
+  const canvas = document.createElement('canvas');
+  const length = isMedium ? 2500 : 1000;
+
+  const max_width = length;
+  const max_height = length;
   let width = img.width;
   let height = img.height;
 
@@ -26,10 +32,11 @@ const resizeImageElement = (img: HTMLImageElement): string => {
   const ctx = canvas.getContext('2d');
   ctx && ctx.drawImage(img, 0, 0, width, height);
 
-  return canvas.toDataURL('image/jpeg', 0.9);
+  const quality = isMedium ? 0.96 : 0.9;
+  return canvas.toDataURL('image/jpeg', quality);
 };
 
-export const compressImage = (img: File): Promise<File> => {
+export const compressImage = (img: File, options?: TCompressImageOptions): Promise<File> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(img);
@@ -41,7 +48,7 @@ export const compressImage = (img: File): Promise<File> => {
       newImg.src = event.target.result as string;
 
       newImg.onload = async (): Promise<void> => {
-        const compressed = resizeImageElement(newImg);
+        const compressed = resizeImageElement(newImg, options);
         const res = await fetch(compressed);
         const blob = await res.blob();
         resolve(new File([blob], img.name, { type: img.type }));

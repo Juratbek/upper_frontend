@@ -1,5 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IArticleResult, IBlog, IBlogMedium, ITelegramUser } from 'types';
+import {
+  IArticleResult,
+  IBlog,
+  IBlogMedium,
+  ILabel,
+  ITelegramUser,
+  TOptionalPagingRequest,
+} from 'types';
 import { Authorization } from 'variables';
 
 import { baseQuery } from '../config';
@@ -16,7 +23,7 @@ import {
 export const blogApi = createApi({
   reducerPath: 'blog',
   baseQuery: baseQuery('blog'),
-  tagTypes: ['current-blog'],
+  tagTypes: ['current-blog', 'folowers'],
   endpoints: (build) => ({
     login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
@@ -25,11 +32,18 @@ export const blogApi = createApi({
         body,
       }),
     }),
-    googleOneTapRegister: build.mutation<IBlogRegisterResponse, string>({
+    continueWithGoogle: build.mutation<IBlogRegisterResponse, string>({
       query: (token) => ({
-        url: 'open/google-one-tap-register',
+        url: 'open/continue-with-google',
         method: 'POST',
         body: token,
+      }),
+    }),
+    continueWithGitHub: build.mutation<IBlogRegisterResponse, string>({
+      query: (code) => ({
+        url: 'open/continue-with-github',
+        method: 'POST',
+        body: code,
       }),
     }),
     loginWithTelegram: build.mutation<IBlogRegisterResponse, ITelegramUser>({
@@ -49,8 +63,11 @@ export const blogApi = createApi({
     getSidebarSuggestions: build.query<IBlogMedium[], void>({
       query: () => 'open/sidebar-suggestions',
     }),
-    search: build.query<IBlogMedium[], string>({
-      query: (search) => `open/search?search=${search}`,
+    search: build.query<IBlogMedium[], TOptionalPagingRequest<{ search: string }>>({
+      query: (params) => ({
+        url: `open/search`,
+        params,
+      }),
     }),
     getCurrentBlog: build.query<IBlog, void>({
       query: () => 'get-current',
@@ -82,6 +99,7 @@ export const blogApi = createApi({
         url: `follow/${id}`,
         method: 'POST',
       }),
+      invalidatesTags: ['folowers'],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
@@ -97,6 +115,7 @@ export const blogApi = createApi({
         url: `unfollow/${id}`,
         method: 'POST',
       }),
+      invalidatesTags: ['folowers'],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
@@ -112,6 +131,7 @@ export const blogApi = createApi({
     }),
     getFollowers: build.query<IBlogMedium[], number>({
       query: (id) => `open/followers/${id}`,
+      providesTags: ['folowers'],
     }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({
@@ -161,6 +181,9 @@ export const blogApi = createApi({
     getDonatCredentials: build.query<IBlogDonatCredentialsDto, number>({
       query: (id) => `donat-credentials/${id}`,
     }),
+    getCurrentBlogLabels: build.query<ILabel[], void>({
+      query: () => 'current-blog-labels',
+    }),
   }),
 });
 
@@ -169,6 +192,7 @@ export const {
   useRegisterMutation,
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
+  useLazyGetCurrentBlogLabelsQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
@@ -179,11 +203,12 @@ export const {
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
-  useGoogleOneTapRegisterMutation,
+  useContinueWithGoogleMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,
   useChangeLoginMutation,
   useSendEmailConfirmationForPasswordMutation,
   useChangeCredentialsMutation,
   useChangeDonatCredentialsMutation,
+  useContinueWithGitHubMutation,
 } = blogApi;

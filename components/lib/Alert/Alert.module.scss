@@ -1,0 +1,47 @@
+.alert {
+    padding: .8rem;
+    position: relative;
+    border-radius: var(--smallBorderRadius);
+    border: .5px solid black;
+    
+    &--yellow {
+        background-color: var(--yellow);
+    }
+    &--red {
+        background-color: var(--red);
+        border-color: transparent;
+        color: white;
+    }
+    &--outline-red {
+        border-color: var(--red);
+    }
+    &--green {
+        background-color: var(--green);
+        border-color: transparent;
+        color: white;
+    }
+    & .close-icon {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        right: 0.3rem;
+    }
+}
+
+.theme-dark.alert {
+    &--yellow {
+        background-color: transparent;
+        border-color: var(--yellow);
+        color: var(--yellow);
+    }
+    &--red {
+        background-color: var(--red);
+        border-color: transparent;
+        color: white;
+    }
+    &--green {
+        background-color: var(--green);
+        border-color: transparent;
+        color: white;
+    }
+}

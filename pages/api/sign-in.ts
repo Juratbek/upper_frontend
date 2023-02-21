@@ -7,7 +7,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<void>)
     setCookie('token', token, {
       req,
       res,
-      maxAge: 60 * 60 * 24, // 1 day
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     });
     return res.status(200).json();
   }

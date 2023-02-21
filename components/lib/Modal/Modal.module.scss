@@ -1,0 +1,47 @@
+@import 'styles/_mixins';
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 100;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 3rem;
+
+  @include screenMax576 {
+    padding: 3rem 1rem;
+  }
+}
+
+.modal-bg {
+  position: absolute;
+  inset: 0;
+}
+
+.modal--open {
+  display: flex;
+}
+
+.modal-dialog {
+  z-index: 1000;
+  border-radius: var(--mediumBorderRadius);
+
+  &--small {
+    width: 400px;
+  }
+  &--medium {
+    width: 600px;
+  }
+  &--large {
+    width: 800px;
+  }
+
+  &--outline-red {
+    border: 1px solid var(--color-modal-border-red);
+  }
+}
+
+.modal-body {
+  padding: 2rem;
+}

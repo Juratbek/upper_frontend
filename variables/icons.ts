@@ -1,6 +1,7 @@
 import {
-  BlackLogo,
+  AddFolderIcon,
   BurgerIcon,
+  CalendarIcon,
   CommentIcon,
   DeleteIcon,
   DislikeIcon,
@@ -15,11 +16,13 @@ import {
   LikeIcon,
   LinkedInIcon,
   Logo,
+  LogoIcon,
   LogOutIcon,
   MenuListIcon,
   NextIcon,
   NotificationIcon,
   PenIcon,
+  PlusIcon,
   PrevIcon,
   SaveIcon,
   SearchIcon,
@@ -59,8 +62,11 @@ export const ICON_TYPES = {
   logo: 'logo',
   eyeSlash: 'eyeSlash',
   burger: 'burger',
-  blackLogo: 'blackLogo',
+  logoIcon: 'logoIcon',
   heart: 'heart',
+  addFolder: 'addFolder',
+  plus: 'plus',
+  calendar: 'calendar',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -100,6 +106,9 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   logo: Logo,
   eyeSlash: EyeSlashIcon,
   burger: BurgerIcon,
-  blackLogo: BlackLogo,
+  logoIcon: LogoIcon,
   heart: HeartIcon,
+  addFolder: AddFolderIcon,
+  plus: PlusIcon,
+  calendar: CalendarIcon,
 };

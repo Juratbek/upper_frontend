@@ -43,7 +43,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
         const page = index + 1;
         return (
           <div
-            key={index}
+            key={page}
             onClick={(): void => clickHandler(page)}
             className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
           >

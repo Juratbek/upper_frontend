@@ -83,7 +83,7 @@ export const SecurityTab: FC = () => {
         <Error error={errors['confirm-password']} message='Parollar mos kelmadi' />
       </div>
       <Button color='outline-dark' loading={changePasswordRes.isLoading}>
-        O`zgartirish
+        O&apos;zgartirish
       </Button>
     </form>
   );
@@ -92,7 +92,7 @@ export const SecurityTab: FC = () => {
     <div>
       <LoginForm />
       <div>
-        <h3>Parolni o`zgartirish</h3>
+        <h3>Parolni o&apos;zgartirish</h3>
         <div>{passwordForm}</div>
       </div>
     </div>

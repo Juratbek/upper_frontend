@@ -7,10 +7,11 @@ import {
   SearchInput,
   SidebarSearchArticleSkeleton,
 } from 'components';
-import { useClickOutside } from 'hooks';
+import { SEARCH_RESULTS_SIZE } from 'components/Sidebar/Sidebar.constants';
+import { useClickOutside, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
-import { useLazySearchArticleQuery, useLazySearchBlogQuery } from 'store/apis';
+import { useLazySearchBlogQuery, useLazySearchPublishedArticleQuery } from 'store/apis';
 import { addAmazonUri, addUriToArticleImages } from 'utils';
 
 import classes from './SidebarSearch.module.scss';
@@ -18,8 +19,9 @@ import classes from './SidebarSearch.module.scss';
 export const SidebarSearch: FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [isResultsContainerOpen, setIsResultsContainerOpen] = useState<boolean>(false);
-  const [searchArticle, searchArticleRes] = useLazySearchArticleQuery();
+  const [searchArticle, searchArticleRes] = useLazySearchPublishedArticleQuery();
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
+  const { themeColors } = useTheme();
 
   const openResultsContainer = (): void => setIsResultsContainerOpen(true);
 
@@ -29,8 +31,8 @@ export const SidebarSearch: FC = () => {
 
   const search = (value: string): void => {
     if (!value || value.length <= 1) return;
-    searchArticle(value);
-    searchBlog(value);
+    searchArticle({ search: value, size: SEARCH_RESULTS_SIZE });
+    searchBlog({ search: value, size: SEARCH_RESULTS_SIZE });
     setInputValue(value);
   };
 
@@ -42,7 +44,7 @@ export const SidebarSearch: FC = () => {
         res={searchBlogRes}
       >
         {!blogs || blogs.length === 0 ? (
-          <p className='my-1'>Bloglar yo`q</p>
+          <p className='my-1'>Bloglar yo&apos;q</p>
         ) : (
           blogs.map((blog) => (
             <Link href={`/blogs/${blog.id}`} key={blog.id}>
@@ -117,7 +119,10 @@ export const SidebarSearch: FC = () => {
   return (
     <div className={classes.container} ref={ref}>
       <SearchInput onFocus={openResultsContainer} onDebounce={search} />
-      <div className={`${classes['results-container']} ${!isResultsContainerOpen && 'd-none'}`}>
+      <div
+        className={`${classes['results-container']} ${!isResultsContainerOpen && 'd-none'}`}
+        style={{ backgroundColor: themeColors.popover.bg, borderColor: themeColors.popover.border }}
+      >
         {content}
       </div>
     </div>

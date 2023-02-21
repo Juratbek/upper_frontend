@@ -6,10 +6,11 @@ export interface IEditorProps {
   content?: OutputData;
   placeholder?: string;
   handleInstance?: (editor: EditorJS) => void;
+  autoFocus?: boolean;
 }
 
 export const EDITOR_HOLDER = 'editorjs';
-export const EDITOR_PLACEHOLDER = 'Hikoyangizni yozing...';
+export const EDITOR_PLACEHOLDER = 'Maqolangizni bu yerga yozing...';
 
 export const CAPTION_CLASSES = {
   imageToolCaption: 'image-tool__caption',

@@ -1,9 +1,0 @@
-@import './mixins';
-
-.search-input {
-  width: 25rem;
-
-  @include screenMax576 {
-    width: 100%;
-  }
-}
