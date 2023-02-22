@@ -190,7 +190,7 @@ export const Article: FC<IArticleProps> = ({
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
           <div className={styles.stats}>
-            <time style={{ flex: 1, display: 'flex' }}>
+            <time style={{ flex: 1 }} className='d-flex align-items-center'>
               <span className={styles.icon}>
                 <CalendarIcon color='gray' />
               </span>
@@ -237,11 +237,6 @@ export const Article: FC<IArticleProps> = ({
             </div>
           </div>
         </div>
-        {author && (
-          <div className={styles.footer} style={{ marginTop: '.2rem', paddingLeft: '0.5rem' }}>
-            <Author {...addAmazonUri(author)} />
-          </div>
-        )}
         <ArticleActions
           editor={editorInstance}
           likeDislike={likeDislike}
