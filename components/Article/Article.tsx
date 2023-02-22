@@ -1,7 +1,7 @@
 import { ArticleImg, Author, Label, Status } from 'components';
 import { Divider } from 'components/lib';
 import Link from 'next/link';
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useMemo, useRef } from 'react';
 import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
 import { ICONS } from 'variables';
 
@@ -39,11 +39,11 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
     }
   }, [content]);
 
-  const renderDate = (): JSX.Element | string => {
+  const date: JSX.Element | string = useMemo(() => {
     if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
     if (publishedDate) return toDateString(publishedDate);
-    return <></>;
-  };
+    return '';
+  }, [updatedDate, publishedDate]);
 
   return (
     <div className={rootClassName}>
@@ -58,12 +58,15 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
           </div>
           <div className={classes.footer} style={{ marginTop: props.showStatus ? '0.5rem' : 0 }}>
             <div className={classes.stats}>
-              <time style={{ flex: 1 }}>
-                <span className={classes.icon}>
-                  <CalendarIcon color='gray' />
-                </span>
-                {renderDate()}
-              </time>
+              {Boolean(date) && (
+                <time style={{ flex: 1 }}>
+                  <span className={classes.icon}>
+                    <CalendarIcon color='gray' />
+                  </span>
+                  {date}
+                </time>
+              )}
+
               {viewCount > 0 && (
                 <>
                   <Divider type='vertical' className='mx-1' />
