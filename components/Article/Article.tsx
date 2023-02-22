@@ -10,6 +10,7 @@ import { IArticleProps } from './Article.types';
 
 const CalendarIcon = ICONS.calendar;
 const EyeIcon = ICONS.eye;
+const LikeIcon = ICONS.like;
 
 export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...props }) => {
   const {
@@ -78,10 +79,16 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
               )}
               {props.showLikeCount && likeCount > 0 && (
                 <>
-                  &nbsp; &nbsp;
-                  <span>
-                    <strong>{formatToKMB(likeCount)}</strong> marta layk bosilgan
-                  </span>
+                  <Divider type='vertical' className='mx-1' />
+                  <div className='d-flex align-items-center'>
+                    <span className={`${classes.icon} ${classes.eye}`}>
+                      <LikeIcon color='gray' />
+                    </span>
+                    <span className='d-flex align-items-center'>
+                      <strong>{formatToKMB(likeCount)}</strong>&nbsp;layk
+                      {Boolean(likeCount > 1) && 'lar'}
+                    </span>
+                  </div>
                 </>
               )}
             </div>
