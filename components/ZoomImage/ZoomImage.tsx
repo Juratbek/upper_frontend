@@ -4,37 +4,35 @@ import { FC, useEffect, useState } from 'react';
 import imageModalStyles from '../ImageModal/ImageModal.module.scss';
 
 export const ZoomImage: FC<ImageProps> = (props) => {
-  const [mediumImgUrl, setMediumImgUrl] = useState<string>(props.src as string);
+  const [mainImgURL, setMainImgURL] = useState<string>(props.src as string);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = (): void => setIsModalOpen((prevState) => !prevState);
 
-  const errorHandler = (): void => setMediumImgUrl(props.src.toString());
+  const errorHandler = (): void => setMainImgURL(props.src.toString());
 
   useEffect(() => {
-    setMediumImgUrl(props.src as string);
+    setMainImgURL(props.src as string);
   }, [props.src]);
 
   return (
     <>
-      {isModalOpen ? (
+      {isModalOpen && (
         <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>
           <div className={imageModalStyles['modal__overlay']}></div>
           <div className={imageModalStyles['modal__content']}>
-            <Image {...props} src={mediumImgUrl} onError={errorHandler} />
+            <Image {...props} src={mainImgURL} />
           </div>
           <div style={{ visibility: 'hidden' }}>
             <Image
               {...props}
-              src={`${props.src}_MEDIUM`}
-              onLoadingComplete={(): void => {
-                setMediumImgUrl(`${props.src}_MEDIUM`);
-              }}
+              src={`${props.src}_MAIN`}
+              onLoadingComplete={(): void => setMainImgURL(`${props.src}_MAIN`)}
+              onError={errorHandler}
             />
           </div>
         </div>
-      ) : (
-        <Image {...props} onClick={toggleModal} />
       )}
+      <Image {...props} onClick={toggleModal} />
     </>
   );
 };
