@@ -88,6 +88,9 @@
     &:host {
       background-color: var(--popover-bg);
     }
+    &::selection, &::-moz-selection {
+      background-color: var(--selected-text-bg);
+    }
   }
 
   .ce-inline-toolbar {
