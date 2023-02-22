@@ -1,6 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { Author, Divider, Editor } from 'components';
-import { ApiError, Blog, Button, Head, StorysetImage } from 'components';
+import { ApiError, Blog, Button, Divider, Editor, Head, StorysetImage } from 'components';
 import { useAuth, useTheme } from 'hooks';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -36,8 +35,6 @@ const HeartIcon = ICONS.heart;
 const CalendarIcon = ICONS.calendar;
 const EyeIcon = ICONS.eye;
 
-const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
-
 export const Article: FC<IArticleProps> = ({
   article,
   error,
@@ -53,7 +50,6 @@ export const Article: FC<IArticleProps> = ({
     id,
     likeCount = 0,
     dislikeCount = 0,
-    author,
   } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
@@ -123,8 +119,8 @@ export const Article: FC<IArticleProps> = ({
   );
 
   const dateContent = useMemo(() => {
-    if (updatedDate) return <span>{toUzbDateString(updatedDate)} da yangilangan</span>;
-    if (publishedDate) return <span>{toUzbDateString(publishedDate)}</span>;
+    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
+    if (publishedDate) return toDateString(publishedDate);
     return <></>;
   }, [publishedDate, updatedDate]);
 
@@ -154,12 +150,6 @@ export const Article: FC<IArticleProps> = ({
       );
     return <h2>{get(error, 'data.message')}</h2>;
   }
-
-  const renderDate = (): JSX.Element | string => {
-    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
-    if (publishedDate) return toDateString(publishedDate);
-    return <></>;
-  };
 
   return (
     <div className={`container ${props.className}`}>
@@ -194,7 +184,7 @@ export const Article: FC<IArticleProps> = ({
               <span className={styles.icon}>
                 <CalendarIcon color='gray' />
               </span>
-              {renderDate()}
+              {dateContent}
             </time>
             {viewCount > 0 && (
               <>
