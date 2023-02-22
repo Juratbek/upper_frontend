@@ -13,10 +13,10 @@ export const LINKS: IFooterLink[] = [
     text: "Qo'llanma",
     url: '/docs/write-article_introduction_quick-start',
   },
-  {
-    text: 'Biz haqimizda',
-    url: '/about-us',
-  },
+  // {
+  //   text: 'Biz haqimizda',
+  //   url: '/about-us',
+  // },
   {
     text: 'Jamoa',
     url: '/team',
