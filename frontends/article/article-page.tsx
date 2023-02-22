@@ -10,9 +10,17 @@ import { ArticleActionIcons, ArticleActions } from './components';
 const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
 
 export const Article: FC<IArticleProps> = (article) => {
-  const { viewCount = 0, publishedDate, updatedDate, blocks = [] } = article || {};
+  const {
+    viewCount = 0,
+    publishedDate,
+    updatedDate,
+    blocks = [],
+    likeCount = 0,
+    dislikeCount = 0,
+  } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
+  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
 
   useEffect(() => {
     if (editorInstance?.isReady) {
@@ -64,10 +72,17 @@ export const Article: FC<IArticleProps> = (article) => {
             isSharePopupOpen={isSharePopupOpen}
             setIsSharePopupOpen={setIsSharePopupOpen}
             article={article}
+            setLikeDislikeCount={setLikeDislikeCount}
+            likeDislikeCount={likeDislikeCount}
           />
         </div>
       </div>
-      <ArticleActions editor={editorInstance} article={article} />
+      <ArticleActions
+        editor={editorInstance}
+        article={article}
+        setLikeDislikeCount={setLikeDislikeCount}
+        likeDislikeCount={likeDislikeCount}
+      />
     </div>
   );
 };

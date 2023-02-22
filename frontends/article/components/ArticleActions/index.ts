@@ -1,2 +1,2 @@
 export * from './article-actions';
-export * from './article-actions-icons';
+export * from './article-action-icons';

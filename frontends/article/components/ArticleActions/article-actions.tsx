@@ -1,13 +1,18 @@
 import { useTheme } from 'hooks';
 import { FC, useEffect, useState } from 'react';
 
+import { ArticleActionIcons } from './article-action-icons';
 import styles from './article-actions.module.scss';
 import { IArticleActionsProps } from './article-actions.types';
-import { ArticleActionIcons } from './article-actions-icons';
 
 let lastScrollTop = Number.MAX_VALUE;
 
-export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article }) => {
+export const ArticleActions: FC<IArticleActionsProps> = ({
+  editor,
+  article,
+  setLikeDislikeCount,
+  likeDislikeCount,
+}) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const { themeColors } = useTheme();
@@ -44,6 +49,8 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article }) =>
         style={{ backgroundColor: themeColors.bg, border: `1px solid ${themeColors.border}` }}
       >
         <ArticleActionIcons
+          setLikeDislikeCount={setLikeDislikeCount}
+          likeDislikeCount={likeDislikeCount}
           popupId='articleActions'
           isSharePopupOpen={isSharePopupOpen}
           setIsSharePopupOpen={setIsSharePopupOpen}

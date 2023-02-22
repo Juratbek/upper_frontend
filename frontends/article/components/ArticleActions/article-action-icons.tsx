@@ -25,9 +25,10 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
   article,
   isSharePopupOpen,
   setIsSharePopupOpen,
+  likeDislikeCount,
+  setLikeDislikeCount,
 }) => {
   const { id, likeCount = 0, dislikeCount = 0 } = article || {};
-  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const { isAuthenticated } = useAuth();
   const { themeColors } = useTheme();
   const dispatch = useAppDispatch();
