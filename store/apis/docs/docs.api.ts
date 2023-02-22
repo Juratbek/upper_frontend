@@ -1,5 +1,5 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 import { baseQuery } from '../config';
 

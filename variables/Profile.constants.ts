@@ -8,10 +8,10 @@ export const PROFILE_TAB_IDS = {
 };
 
 export const PROFILE_TAB_MENUS: ITabHeader[] = [
-  {
-    name: 'Statistikalar',
-    id: PROFILE_TAB_IDS.statistics,
-  },
+  // {
+  //   name: 'Statistikalar',
+  //   id: PROFILE_TAB_IDS.statistics,
+  // },
   {
     name: 'Kuzatuvchilar',
     id: PROFILE_TAB_IDS.followers,

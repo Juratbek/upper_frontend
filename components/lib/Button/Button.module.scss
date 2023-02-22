@@ -1,97 +1,143 @@
 .button {
-    border-radius: 100em;
-    border: 1px solid transparent;
-    cursor: pointer;
-    height: fit-content;
+  background-color: transparent;
+  border-radius: 100em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  height: fit-content;
 }
 
-// colors
+// colors #141920
 .dark {
-    background-color: black;
-    color: white;
+  background-color: black;
+  color: white;
 }
-
 .dark-disabled {
-    background-color: var(--mediumGray);
-    color: white;
+  background-color: var(--mediumGray);
+  color: white;
 }
 
 .outline-dark {
-    background-color: transparent;
-    border: 1px solid black;
-    color: black;
+  border: 1px solid black;
+  color: black;
+}
+.outline-dark-disabled {
+  border: 1px solid var(--gray);
+  color: var(--gray);
+  cursor: unset;
+}
+.outline-dark:hover {
+  background-color: black;
+  color: white;
+
+  .spinner {
+    border-color: white;
+  }
 }
 
 .white {
-    background-color: white;
+  background-color: white;
 }
 
 .outline-white {
-    background-color: transparent;
-    border: 1px solid white;
-    color: white;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
 }
 
 .blue {
-    background-color: var(--blue);
-    color: white;
+  background-color: var(--blue);
+  color: white;
 }
 
 .outline-blue {
-    background-color: white;
-    border: 1px solid var(--blue);
-    color: var(--blue);
-}
-
-.outline-dark-disabled {
-    border: 1px solid var(--gray);
-    color: var(--gray);
-    cursor: unset;
-}
-
-.outline-dark:hover {
-    background-color: black;
-    color: white;
-
-    & .spinner {
-        border-color: white;
-    }
+  border: 1px solid var(--blue);
+  color: var(--blue);
 }
 
 .light {
-    background-color: transparent;
-    border: transparent;
-    color: black;
+  background-color: transparent;
+  border: transparent;
+  color: black;
 }
 
 .outline-red {
-    background-color: white;
+  border: 1px solid var(--red);
+  color: var(--red);
+}
+.outline-red-disabled {
+  border: 1px solid var(--lightRed);
+  color: var(--lightRed);
+}
+.outline-red:hover {
+  background-color: var(--red);
+  color: white;
+
+  & .spinner {
+    border-color: white;
+  }
+}
+
+.theme-dark {
+  --dark: #404851;
+  --dark-border: #747b82;
+  --dark--hovered: #464e57;
+  --dark-border--hovered: #cacaca;
+
+  --red: #dc0000;
+  --red-bg: rgb(170, 32, 32);
+
+  &.dark {
+    background-color: var(--dark);
+    color: inherit;
+    border: 1px solid;
+    border-color: var(--dark-border);
+    &:hover {
+      background-color: var(--dark--hovered);
+      border: 1px solid;
+      border-color: var(--dark-border--hovered);
+    }
+  }
+  &.dark-disabled {
+    background-color: var(--mediumGray);
+  }
+
+  &.outline-dark {
+    border: 1px solid;
+    border-color: var(--dark-border--hovered);
+    color: inherit;
+    &:hover {
+      background-color: var(--dark);
+    }
+    & .spinner {
+      border-color: inherit;
+    }
+  }
+  &.outline-dark-disabled {
+    border: 1px solid var(--gray);
+    color: var(--gray);
+    cursor: unset;
+  }
+  &.outline-red {
     border: 1px solid var(--red);
     color: var(--red);
-}
+    &:hover {
+      background-color: var(--red-bg);
+      color: inherit;
 
-.outline-red-disabled {
-    background-color: white;
-    border: 1px solid var(--lightRed);
-    color: var(--lightRed);
-}
-
-.outline-red:hover {
-    background-color: var(--red);
-    color: white;
-
-    & .spinner {
+      & .spinner {
         border-color: white;
+      }
     }
+  }
 }
 
 // sizes
 .small {
-    padding: 0.3em 0.8em;
-    font-size: 0.8rem;
+  padding: 0.3em 0.8em;
+  font-size: 0.8rem;
 }
 
 .medium {
-    padding: 0.4em 1em;
-    font-size: 1rem;
+  padding: 0.4em 1em;
+  font-size: 1rem;
 }

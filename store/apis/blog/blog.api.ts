@@ -32,11 +32,18 @@ export const blogApi = createApi({
         body,
       }),
     }),
-    googleOneTapRegister: build.mutation<IBlogRegisterResponse, string>({
+    continueWithGoogle: build.mutation<IBlogRegisterResponse, string>({
       query: (token) => ({
-        url: 'open/google-one-tap-register',
+        url: 'open/continue-with-google',
         method: 'POST',
         body: token,
+      }),
+    }),
+    continueWithGitHub: build.mutation<IBlogRegisterResponse, string>({
+      query: (code) => ({
+        url: 'open/continue-with-github',
+        method: 'POST',
+        body: code,
       }),
     }),
     loginWithTelegram: build.mutation<IBlogRegisterResponse, ITelegramUser>({
@@ -196,11 +203,12 @@ export const {
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
-  useGoogleOneTapRegisterMutation,
+  useContinueWithGoogleMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,
   useChangeLoginMutation,
   useSendEmailConfirmationForPasswordMutation,
   useChangeCredentialsMutation,
   useChangeDonatCredentialsMutation,
+  useContinueWithGitHubMutation,
 } = blogApi;

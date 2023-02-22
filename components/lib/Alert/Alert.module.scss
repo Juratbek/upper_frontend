@@ -12,6 +12,9 @@
         border-color: transparent;
         color: white;
     }
+    &--outline-red {
+        border-color: var(--red);
+    }
     &--green {
         background-color: var(--green);
         border-color: transparent;
@@ -22,5 +25,23 @@
         cursor: pointer;
         top: 0;
         right: 0.3rem;
+    }
+}
+
+.theme-dark.alert {
+    &--yellow {
+        background-color: transparent;
+        border-color: var(--yellow);
+        color: var(--yellow);
+    }
+    &--red {
+        background-color: var(--red);
+        border-color: transparent;
+        color: white;
+    }
+    &--green {
+        background-color: var(--green);
+        border-color: transparent;
+        color: white;
     }
 }

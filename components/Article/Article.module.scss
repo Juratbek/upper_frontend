@@ -15,6 +15,9 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  *:not(code) {
+    background-color: transparent!important;
+  }
   @include screenMax576 {
     font-size: 1rem;
   }
@@ -42,7 +45,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   & .stats {
     font-size: 0.65rem;
     color: var(--gray);

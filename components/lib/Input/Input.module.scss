@@ -1,5 +1,7 @@
 .input {
   border-radius: var(--smallBorderRadius);
+  background-color: transparent;
+  color: inherit;
   border: 1px solid var(--lightBlack);
   outline: transparent solid 1px;
   padding: 0.4em;

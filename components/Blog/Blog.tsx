@@ -1,5 +1,5 @@
 import { Avatar } from 'components';
-import { useModal } from 'hooks';
+import { useModal, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
@@ -16,7 +16,12 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
   const getBlog = useCallback(
     (className?: string) => (
       <div className={`d-flex align-items-center mb-1 ${className}`}>
-        <Avatar imgUrl={imgUrl} size={avatarSize} className={classes.avatar} zoomable />
+        <Avatar
+          imgUrl={imgUrl}
+          size={avatarSize}
+          className={classes.avatar}
+          zoomable={!isLink ?? true}
+        />
         <div className='position-relative flex-1'>
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
@@ -48,11 +53,12 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
 
 function HoverableIcon(link: ILink): JSX.Element {
   const [isHovered, toggleIsHovered] = useModal(false);
+  const { themeColors } = useTheme();
   const Icon = ICONS[link.type];
 
   return (
     <span className={classes.icon} onMouseEnter={toggleIsHovered} onMouseLeave={toggleIsHovered}>
-      <Icon color={isHovered ? 'black' : 'gray'} />
+      <Icon color={isHovered ? themeColors.icon : 'gray'} />
     </span>
   );
 }

@@ -17,7 +17,6 @@
 .modal-bg {
   position: absolute;
   inset: 0;
-  background-color: var(--lightBlack);
 }
 
 .modal--open {
@@ -26,7 +25,6 @@
 
 .modal-dialog {
   z-index: 1000;
-  background-color: white;
   border-radius: var(--mediumBorderRadius);
 
   &--small {
@@ -37,6 +35,10 @@
   }
   &--large {
     width: 800px;
+  }
+
+  &--outline-red {
+    border: 1px solid var(--color-modal-border-red);
   }
 }
 

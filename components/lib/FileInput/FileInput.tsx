@@ -1,4 +1,5 @@
 import { Button } from 'components';
+import { useTheme } from 'hooks';
 import { ChangeEvent, forwardRef, useState } from 'react';
 
 import classes from './FileInput.module.scss';
@@ -11,6 +12,7 @@ export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function 
   ref,
 ) {
   const [file, setFile] = useState<File>();
+  const { themeColors } = useTheme();
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     const files = event.target?.files;
@@ -26,7 +28,7 @@ export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function 
   };
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container} style={{ borderColor: themeColors.input.border }}>
       <input
         {...props}
         id={`${id}-${props.name}`}
@@ -38,7 +40,7 @@ export const FileInput = forwardRef<HTMLInputElement, IFileInputProps>(function 
       <input
         value={file?.name}
         disabled
-        placeholder="O'zgartirish uchun faylni yuklang"
+        placeholder='Yuklash uchun bosing'
         className={classes.input}
       />
       <Button type='button' onClick={clickHandler} color='outline-dark'>

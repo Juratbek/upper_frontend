@@ -1,3 +1,4 @@
+import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
@@ -13,6 +14,7 @@ export const Avatar: FC<IAvatarProps> = ({
   ...props
 }) => {
   const [error, setError] = useState<string>();
+  const { themeColors } = useTheme();
   const className = getClassName(classes.avatar, classes[`avatar--${size}`], props.className);
 
   const image = useMemo(() => {
@@ -42,7 +44,9 @@ export const Avatar: FC<IAvatarProps> = ({
 
   return (
     <>
-      <div className={className}>{image}</div>
+      <div className={className} style={{ borderColor: themeColors.avatar.border }}>
+        {image}
+      </div>
     </>
   );
 };

@@ -9,9 +9,11 @@ export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
   fallbackItemCount = 1,
   onError,
   defaultComponent,
+  memoizationDependencies = [],
   ...props
 }) => {
   const Fallback = useMemo(() => {
+    if (!fallback) return 'Yuklanmoqda...';
     return Array(fallbackItemCount)
       .fill('')
       .map((_, index) => <Fragment key={index}>{fallback}</Fragment>);
@@ -20,14 +22,14 @@ export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
   const content = useMemo(() => {
     const { isLoading, isError, isFetching, error, isSuccess, isUninitialized } = res;
     if (isUninitialized) return defaultComponent;
-    if (isLoading) return Fallback || 'Yuklanmoqda...';
+    if (isLoading) return Fallback;
     if (isError) {
       const ErrorComponent = onError?.(error);
       return ErrorComponent || <pre>{JSON.stringify(error, null, 2)}</pre>;
     }
     if (isSuccess || isFetching) return <>{children}</>;
     return <></>;
-  }, [res, props.memoizationDependencies, defaultComponent]);
+  }, [res, ...memoizationDependencies, defaultComponent]);
 
   return <div {...props}>{content}</div>;
 };

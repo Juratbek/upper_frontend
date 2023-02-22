@@ -1,36 +1,43 @@
 import NextHead from 'next/head';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 
 import { IHeadProps } from './Head.types';
 
 export const Head: FC<IHeadProps> = (props) => {
-  const { title, imgUrl, type, url, author, publishedDate } = props;
-
-  const description = useMemo(() => {
-    const { description } = props;
-    if (!description) return '';
-    try {
-      const div = document.createElement('div');
-      div.innerHTML = description;
-      return div.textContent;
-    } catch (e) {
-      return '';
-    }
-  }, [props.description]);
+  const {
+    title,
+    imgUrl = '/social_medi_logo.png',
+    url,
+    author,
+    publishedDate,
+    description = '',
+  } = props;
 
   return (
     <NextHead>
-      <meta property='og:site_name' content='UPPER' />
-      <meta property='og:title' content={title} key='og-title' />
-      <meta property='og:image' content={imgUrl || '/social_medi_logo.png'} />
-      <meta property='og:description' content={description || ''} />
-      <meta property='og:type' content={type || ''} />
-      <meta property='og:locale' content='uz' />
-      <meta property='og:url' content={url} />
+      {/* Primary Meta Tags */}
+      <title>{title}</title>
+      <meta name='title' content={title} />
+      <meta name='description' content={description} />
       <meta name='author' content={author || ''} />
       <meta name='published_date' content={publishedDate || ''} />
-      <meta name='description' content={description || ''} key='description' />
-      <title key='title'>{title}</title>
+
+      {/* Open Graph / Facebook */}
+      <meta property='og:type' content='website' />
+      <meta property='og:url' content={url} />
+      <meta property='og:title' content={title} />
+      <meta property='og:description' content={description} />
+      <meta property='og:image' content={imgUrl} />
+      <meta property='og:locale' content='uz' />
+      <meta property='og:site_name' content='upper.uz' />
+
+      {/* Twitter */}
+      <meta name='twitter:card' property='twitter:card' content='summary_large_image' />
+      <meta property='twitter:url' content={url} />
+      <meta property='twitter:title' content={title} />
+      <meta property='twitter:description' content={description} />
+      <meta property='twitter:image' content={imgUrl} />
+
       {props.children}
     </NextHead>
   );

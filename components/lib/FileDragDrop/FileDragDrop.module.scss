@@ -1,0 +1,9 @@
+.drag-drop-container {
+    width: 100%;
+    min-height: 12rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--lightBlack);
+    border-radius: var(--mediumBorderRadius);
+}

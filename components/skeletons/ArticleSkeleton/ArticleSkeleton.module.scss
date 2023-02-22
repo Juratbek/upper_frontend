@@ -6,9 +6,9 @@
         border-radius: 0.5rem;
     }
     & .img {
-        aspect-ratio: 1 / 1;
-        width: 8rem;
-        border-radius: 1rem;
+        min-width: 11rem;
+        max-width: 30%;
+        border-radius: 0.5rem;
     }
 
     & .avatar {

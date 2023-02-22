@@ -1,4 +1,10 @@
-import { ApiErrorBoundary, Divider, Pagination, StorysetImage } from 'components';
+import {
+  ApiErrorBoundary,
+  Divider,
+  NotificationSkeleton,
+  Pagination,
+  StorysetImage,
+} from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {
@@ -45,8 +51,8 @@ export const NotificationsTab: FC = () => {
         <div className='text-center'>
           <StorysetImage
             src='/storyset/notifications.svg'
-            width={400}
-            height={400}
+            width={350}
+            height={350}
             storysetUri='internet'
           />
           <p>Bloglarga obuna bo&apos;ling va maqolalar haqida habarlar oling</p>
@@ -83,7 +89,12 @@ export const NotificationsTab: FC = () => {
 
   return (
     <div>
-      <ApiErrorBoundary res={fetchNotificationsRes} className='tab'>
+      <ApiErrorBoundary
+        res={fetchNotificationsRes}
+        fallback={<NotificationSkeleton className='px-3 py-2' />}
+        fallbackItemCount={3}
+        className='tab'
+      >
         {notifications}
       </ApiErrorBoundary>
       {fetchNotificationsRes.data && (

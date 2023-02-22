@@ -49,7 +49,7 @@ export const Recaptcha = forwardRef<{ reset: () => void }, IRecaptchaProps>(
               console.error(e);
             }
           }
-        }, 3000);
+        }, 1000);
       };
     };
 

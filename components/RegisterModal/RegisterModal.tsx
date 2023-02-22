@@ -2,6 +2,8 @@ import {
   Alert,
   Button,
   Error,
+  GitHubSignIn,
+  GoogleSignIn,
   Input,
   Modal,
   PasswordValidityLevel,
@@ -208,6 +210,8 @@ export const RegisterModal: FC = () => {
         botName={process.env.NEXT_PUBLIC_REGISTER_BOT_USERNAME || 'upper_test_bot'}
         onAuth={closeModal}
       />
+      <GoogleSignIn id='google-sign-up' />
+      <GitHubSignIn />
     </Modal>
   );
 };
