@@ -11,6 +11,10 @@
 
   & .ce-block__content {
     max-width: unset;
+
+    .ce-paragraph *:not(code) {
+      background-color: transparent !important;
+    }
   }
 
   .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
@@ -81,6 +85,14 @@
   }
 }
 
+.inline-image .inline-image__tab {
+  cursor: default;
+
+  &:hover {
+    background: none;
+  }
+}
+
 // styles for dark theme
 .theme-dark .codex-editor {
   * {
@@ -142,13 +154,36 @@
       border-top: 0.5px solid;
       border-left: 0.5px solid;
     }
-    .codeflask.codeflask--has-line-numbers {
-      border-bottom: 2px solid transparent;
+    .codeflask {
+      &.codeflask--has-line-numbers {
+        border-bottom: 2px solid transparent;
 
-      &:before {
-        background-color: var(--popover-bg);
-        border-right: 0.5px solid;
-        border-bottom: 0.5px solid;
+        &:before {
+          background-color: var(--popover-bg);
+          border-right: 0.5px solid;
+          border-bottom: 0.5px solid;
+        }
+      }
+      .token {
+        &.function, &.keyword {
+          color: #6cb6ff;
+        }
+      }
+    }
+    .codeflask__textarea {
+      caret-color: inherit;
+      overflow-y: hidden;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        height: 0.4rem;
+      }
+      &::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        background: rgb(162, 162, 162);
+        border-radius: 1rem;
       }
     }
   }
