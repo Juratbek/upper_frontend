@@ -60,6 +60,18 @@
   .ce-inline-toolbar {
     z-index: 4;
   }
+  &__selected {
+    ::-moz-selection {
+      /* Code for Firefox */
+      color: rgb(250, 250, 250);
+      background: rgb(139, 139, 139);
+    }
+
+    ::selection {
+      color: rgb(250, 250, 250);
+      background: rgb(139, 139, 139);
+    }
+  }
 }
 
 .codex-editor__loader {
@@ -153,7 +165,8 @@
         }
       }
       .token {
-        &.function, &.keyword {
+        &.function,
+        &.keyword {
           color: #6cb6ff;
         }
       }
