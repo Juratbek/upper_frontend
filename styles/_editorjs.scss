@@ -88,7 +88,10 @@
     &:host {
       background-color: var(--popover-bg);
     }
-    &::selection, &::-moz-selection {
+    &::selection {
+      background-color: var(--selected-text-bg);
+    }
+    &::-moz-selection {
       background-color: var(--selected-text-bg);
     }
   }
