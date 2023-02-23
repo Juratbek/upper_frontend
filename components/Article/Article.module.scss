@@ -14,13 +14,22 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+
+  
   *:not(code) {
     background-color: transparent!important;
   }
   @include screenMax576 {
     font-size: 1rem;
   }
+  code{
+    border-radius: 5px  ;
+    font-family: inherit ;
+    font-size: 0.86em ;
+    font-weight: 500  ;
+    letter-spacing: 0.3px ;
+  }
+ 
 }
 
 .body {
