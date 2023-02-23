@@ -1,4 +1,5 @@
 import { useNextAuth } from 'hooks/useNextAuth/useNextAuth';
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
@@ -18,10 +19,15 @@ export const useAuth = (): IUseAuth => {
   const status = useAppSelector(getAuthStatus);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
   const isLoading = useMemo(() => status === 'loading', [status]);
+  const {
+    push,
+    query: { redirect },
+  } = useRouter();
 
   const authenticate = (user: IBlogRegisterResponse): void => {
     dispatch(storeAuthenticate(user));
     signIn(user.token);
+    if (typeof redirect === 'string') push(redirect);
   };
 
   const unauthenticate = (): void => {
