@@ -1,4 +1,4 @@
-import { useUrlParams } from 'hooks';
+import { useTheme, useUrlParams } from 'hooks';
 import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
 
@@ -10,11 +10,16 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   const totalPages = useMemo(() => Math.ceil(count), [count]);
   const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
   const { setParam } = useUrlParams();
-
-  const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
+  const { theme } = useTheme();
+  const prevClassName = getClassName(
+    classes.page,
+    acitvePage === 1 && classes['page--disabled'],
+    theme === 'dark' && classes['page--dark'],
+  );
   const nextClassName = getClassName(
     classes.page,
     acitvePage === totalPages && classes['page--disabled'],
+    theme === 'dark' && classes['page--dark'],
   );
 
   const clickHandler = (page: number): void => {
@@ -45,7 +50,9 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
           <div
             key={page}
             onClick={(): void => clickHandler(page)}
-            className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
+            className={`${classes.page} ${page === acitvePage && classes['page--active']} ${
+              theme === 'dark' ? classes['page--dark'] : ''
+            }`}
           >
             {page}
           </div>
