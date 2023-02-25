@@ -7,6 +7,7 @@ import { ZoomImage } from '../../ZoomImage';
 import classes from './Avatar.module.scss';
 import { IAvatarProps } from './Avatar.types';
 
+const GOOGLE_IMG_API = 'googleusercontent.com';
 export const Avatar: FC<IAvatarProps> = ({
   size = 'medium',
   imgUrl,
@@ -18,6 +19,8 @@ export const Avatar: FC<IAvatarProps> = ({
   const className = getClassName(classes.avatar, classes[`avatar--${size}`], props.className);
 
   const image = useMemo(() => {
+    const isGoogleAvatar = imgUrl?.includes(GOOGLE_IMG_API);
+
     if (!imgUrl || error) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
 
     if (!zoomable)
@@ -37,7 +40,8 @@ export const Avatar: FC<IAvatarProps> = ({
         alt='UPPER'
         layout='fill'
         objectFit='cover'
-        className={classes.zoomable}
+        className={!isGoogleAvatar ? classes.zoomable : ''}
+        isGoogleAvatar={isGoogleAvatar}
       />
     );
   }, [imgUrl, zoomable, error]);
