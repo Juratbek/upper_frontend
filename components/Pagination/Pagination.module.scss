@@ -14,20 +14,16 @@
     cursor: pointer;
     user-select: none;
 
-    &--dark{
-        border-color:white; 
-        color: white;
-    }
-
+    
     &--active {
         background-color: var(--blue);
         color: white;
-        border-color: var(--blue);
+        border-color: var(--blue) !important ;
     }
 
     &--disabled {
-        border-color: var(--mediumGray);
-        color: var(--mediumGray);
+        border-color: var(--mediumGray) !important;
+        color: var(--mediumGray) ;
     }
     
 }

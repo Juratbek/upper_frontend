@@ -10,16 +10,11 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   const totalPages = useMemo(() => Math.ceil(count), [count]);
   const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
   const { setParam } = useUrlParams();
-  const { theme } = useTheme();
-  const prevClassName = getClassName(
-    classes.page,
-    acitvePage === 1 && classes['page--disabled'],
-    theme === 'dark' && classes['page--dark'],
-  );
+  const { theme, themeColors } = useTheme();
+  const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
   const nextClassName = getClassName(
     classes.page,
     acitvePage === totalPages && classes['page--disabled'],
-    theme === 'dark' && classes['page--dark'],
   );
 
   const clickHandler = (page: number): void => {
@@ -41,7 +36,11 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
 
   return (
     <div className={`${classes.container} ${props.className}`}>
-      <div className={prevClassName} onClick={(): void => addPage(-1)}>
+      <div
+        style={{ borderColor: themeColors.pagination.border }}
+        className={prevClassName}
+        onClick={(): void => addPage(-1)}
+      >
         &#8249;
       </div>
       {arr.map((_, index) => {
@@ -50,15 +49,18 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
           <div
             key={page}
             onClick={(): void => clickHandler(page)}
-            className={`${classes.page} ${page === acitvePage && classes['page--active']} ${
-              theme === 'dark' ? classes['page--dark'] : ''
-            }`}
+            className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
+            style={{ borderColor: themeColors.pagination.border }}
           >
             {page}
           </div>
         );
       })}
-      <div className={nextClassName} onClick={(): void => addPage(1)}>
+      <div
+        style={{ borderColor: themeColors.pagination.border }}
+        className={nextClassName}
+        onClick={(): void => addPage(1)}
+      >
         &#8250;
       </div>
     </div>

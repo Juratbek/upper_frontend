@@ -26,6 +26,9 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     label: {
       color: 'rgb(117 117 117)',
     },
+    pagination: {
+      border: 'black',
+    },
     progressbar: UPPER_BLUE_COLOR,
   },
   dark: {
@@ -50,6 +53,9 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     },
     label: {
       color: '#c2c2c2',
+    },
+    pagination: {
+      border: 'white',
     },
     progressbar: UPPER_BLUE_COLOR,
   },
