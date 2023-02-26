@@ -1,6 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { Divider, Editor } from 'components';
-import { ApiError, Blog, Button, Head, StorysetImage } from 'components';
+import { ApiError, Blog, Button, Divider, Editor, Head, StorysetImage } from 'components';
 import { useAuth, useTheme } from 'hooks';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,6 +18,7 @@ import {
   addAmazonUri,
   addUriToImageBlocks,
   convertToHeadProp,
+  formatToKMB,
   get,
   toDateString,
 } from 'utils';
@@ -32,8 +32,8 @@ const LikeIcon = ICONS.like;
 const DislikeIcon = ICONS.dislike;
 const CommentIcon = ICONS.comment;
 const HeartIcon = ICONS.heart;
-
-const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
+const CalendarIcon = ICONS.calendar;
+const EyeIcon = ICONS.eye;
 
 export const Article: FC<IArticleProps> = ({
   article,
@@ -119,8 +119,8 @@ export const Article: FC<IArticleProps> = ({
   );
 
   const dateContent = useMemo(() => {
-    if (updatedDate) return <span>{toUzbDateString(updatedDate)} da yangilangan</span>;
-    if (publishedDate) return <span>{toUzbDateString(publishedDate)}</span>;
+    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
+    if (publishedDate) return toDateString(publishedDate);
     return <></>;
   }, [publishedDate, updatedDate]);
 
@@ -179,14 +179,26 @@ export const Article: FC<IArticleProps> = ({
         <article>{articleComponent}</article>
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
-          <div className='d-flex'>
+          <div className={styles.stats}>
+            <time style={{ flex: 1 }} className='d-flex align-items-center'>
+              <span className={styles.icon}>
+                <CalendarIcon color='gray' />
+              </span>
+              {dateContent}
+            </time>
             {viewCount > 0 && (
               <>
-                <span>{viewCount} marta ko&apos;rilgan</span>
                 <Divider type='vertical' className='mx-1' />
+                <div className='d-flex align-items-center'>
+                  <span className={`${styles.icon} ${styles.eye}`}>
+                    <EyeIcon color='gray' />
+                  </span>
+                  <span className='d-flex align-items-center'>
+                    {formatToKMB(viewCount)} marta o&apos;qilgan
+                  </span>
+                </div>
               </>
             )}
-            {dateContent}
           </div>
           <div className={styles.reactions}>
             <div className={styles.reactionButtons}>

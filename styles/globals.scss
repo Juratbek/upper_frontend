@@ -135,6 +135,10 @@
   cursor: pointer;
 }
 
+.text-underline {
+  text-decoration: underline;
+}
+
 .overflow-wrap {
   overflow-wrap: anywhere;
 }
@@ -185,6 +189,7 @@
   --popover-bg: #343a42;
   --scrollbar-thumb-color: #3b4048;
   --gray: #c2c2c2;
+  --selected-text-bg: #454954;
 
   .skeleton {
     background: linear-gradient(

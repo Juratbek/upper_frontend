@@ -4,9 +4,29 @@
   .articleDetail {
     display: flex;
     justify-content: space-between;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     font-size: 0.9rem;
     align-items: center;
+
+    & .stats {
+      font-size: 0.65rem;
+      color: var(--gray);
+      display: flex;
+
+      & .icon > svg {
+        $size: 0.7rem;
+        width: $size;
+        height: $size;
+        margin-right: 0.3rem;
+      }
+      & .eye > svg {
+        $size: 1rem;
+        width: $size;
+        height: $size;
+        display: flex;
+        margin-right: 0.2rem;
+      }
+    }
 
     .reactions {
       display: flex;
