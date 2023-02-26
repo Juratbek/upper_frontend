@@ -11,12 +11,14 @@ export const Modal: FC<IModalProps> = ({
   children,
   size = 'medium',
   bodyClassName,
+  color,
 }) => {
   const rootClassName = getClassName(classes.modal, isOpen && classes['modal--open']);
   const { themeColors } = useTheme();
   const dialogClassName = getClassName(
     classes['modal-dialog'],
     classes[`modal-dialog--${size}`],
+    classes[`modal-dialog--${color}`],
     bodyClassName,
   );
 

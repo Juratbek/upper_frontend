@@ -2,6 +2,7 @@ import {
   Alert,
   Button,
   Error,
+  GitHubSignIn,
   GoogleSignIn,
   Input,
   Modal,
@@ -210,6 +211,7 @@ export const RegisterModal: FC = () => {
         onAuth={closeModal}
       />
       <GoogleSignIn id='google-sign-up' />
+      <GitHubSignIn />
     </Modal>
   );
 };

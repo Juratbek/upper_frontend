@@ -18,7 +18,7 @@ export const ArticleImg: FC<IArticleImgProps> = ({
 
   return (
     <div className={rootClassName}>
-      {imgUrl && <Image src={imgUrl} alt='Vercel Logo' layout='fill' objectFit='cover' />}
+      {imgUrl && <Image src={imgUrl} alt='UPPER' layout='fill' objectFit='cover' />}
     </div>
   );
 };

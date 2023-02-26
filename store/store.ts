@@ -10,6 +10,7 @@ import {
   labelRequestApi,
   notificationApi,
   publishedArticleApi,
+  publishedTutorialApi,
   tutorialApi,
 } from './apis';
 import { apiErrorMiddleware } from './middlewares';
@@ -17,10 +18,10 @@ import authReducer from './states/auth';
 import commentsSidebarReducer from './states/commentsSidebar';
 import loginModalReducer from './states/loginModal';
 import logoutModalReducer from './states/logoutModal';
+import publishedTutorialSidebarReducer from './states/publishedTutorialSidebar';
 import readArticleReducer from './states/readArticle';
 import registerModalReducer from './states/registerModal';
 import sidebarReducer from './states/sidebar';
-import themeReducer from './states/theme';
 import tutorialsSidebarReducer from './states/tutorialsSidebar';
 import writeArticleReducer from './states/writeArticle';
 
@@ -35,7 +36,7 @@ export const store = configureStore({
     sidebar: sidebarReducer,
     logoutModal: logoutModalReducer,
     tutorialsSidebar: tutorialsSidebarReducer,
-    theme: themeReducer,
+    publishedTutorialSidebar: publishedTutorialSidebarReducer,
     [blogApi.reducerPath]: blogApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [labelApi.reducerPath]: labelApi.reducer,
@@ -44,6 +45,7 @@ export const store = configureStore({
     [notificationApi.reducerPath]: notificationApi.reducer,
     [docsApi.reducerPath]: docsApi.reducer,
     [labelRequestApi.reducerPath]: labelRequestApi.reducer,
+    [publishedTutorialApi.reducerPath]: publishedTutorialApi.reducer,
     [tutorialApi.reducerPath]: tutorialApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -56,6 +58,7 @@ export const store = configureStore({
       notificationApi.middleware,
       docsApi.middleware,
       labelRequestApi.middleware,
+      publishedArticleApi.middleware,
       tutorialApi.middleware,
       apiErrorMiddleware,
     ),

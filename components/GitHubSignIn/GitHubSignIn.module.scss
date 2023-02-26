@@ -1,0 +1,15 @@
+.btn {
+  height: 40px;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+.icon {
+  $size: 34.5px;
+  width: $size;
+  height: $size;
+  position: absolute;
+  left: 1.5px;
+  top: 1.5px;
+  bottom: 1.5px;
+}

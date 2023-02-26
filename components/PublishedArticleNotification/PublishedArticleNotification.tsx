@@ -1,4 +1,5 @@
 import { Actions, Avatar, IAction } from 'components';
+import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
 import { INotificationComponentProp } from 'types';
 import { addAmazonUri, getClassName, toDateString } from 'utils';
@@ -13,6 +14,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
     className,
     status == 'UNREAD' && 'notification--unread',
   );
+  const { push } = useRouter();
 
   const markAsRead = (): void => props.markAsRead?.(props);
 
@@ -28,6 +30,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
   }, []);
 
   const clickHandler = (): void => {
+    push(`/articles/${article.id}`);
     props.onClick?.(props);
   };
 

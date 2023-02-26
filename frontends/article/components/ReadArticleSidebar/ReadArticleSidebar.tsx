@@ -1,8 +1,12 @@
-import { Divider } from 'components';
+import { ApiErrorBoundary, Divider, SidebarTutorial } from 'components';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useAppSelector } from 'store';
-import { getArticleAuthor } from 'store/states/readArticle';
+import { useLazyGetPublishedTutorialsByArticleIdQuery } from 'store/apis';
+import { getArticleAuthor } from 'store/states';
 import { addAmazonUri, appDynamic } from 'utils';
+import { addTutorialAmazonUri } from 'utils';
 import { ICONS } from 'variables';
 
 import { Author } from '../Author';
@@ -12,6 +16,16 @@ const HeartIcon = ICONS.heart;
 
 export const ReadArticleSidebar = (): JSX.Element => {
   const articleAuthor = useAppSelector(getArticleAuthor);
+  const {
+    query: { id },
+  } = useRouter();
+  const [fetchPublishedTutorials, fetchPublishedTutorialsRes] =
+    useLazyGetPublishedTutorialsByArticleIdQuery();
+  const { data: tutorials = [] } = fetchPublishedTutorialsRes;
+
+  // useEffect(() => {
+  //   id && fetchPublishedTutorials(+id);
+  // }, [id]);
 
   if (!articleAuthor) return <></>;
 
@@ -30,6 +44,15 @@ export const ReadArticleSidebar = (): JSX.Element => {
         </Link>
       )}
       <Divider className='my-2' />
+      <ApiErrorBoundary res={fetchPublishedTutorialsRes} className='mb-2'>
+        {tutorials?.length > 0 && <h3 className='mb-1'>To&apos;plamlar</h3>}
+        {tutorials?.map((tutorial, index) => (
+          <div key={tutorial.id}>
+            <SidebarTutorial {...addTutorialAmazonUri(tutorial)} />
+            {index + 1 !== tutorials.length && <Divider className='my-1' />}
+          </div>
+        ))}
+      </ApiErrorBoundary>
     </>
   );
 };

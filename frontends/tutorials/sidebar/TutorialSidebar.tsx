@@ -1,87 +1,66 @@
-import { ChangeableText } from 'components';
+import { ApiErrorBoundary, TutorialSidebarSkeleton } from 'components';
+import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, Fragment, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from 'store';
-import { useChangeTutorialNameMutation, useLazyGetTutorialByIdQuery } from 'store/apis';
-import {
-  addTutorialSection,
-  changeTutorialName,
-  clearTutorial,
-  getTutorialName,
-  getTutorialSections,
-  setTutorial,
-} from 'store/states';
-import { ITutorialSection } from 'types';
-import { uuid } from 'utils';
-import { ICONS } from 'variables';
+import { FC, useEffect } from 'react';
+import { useAppDispatch } from 'store';
+import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis';
+import { setPublishedTutorialAuthor } from 'store/states';
+import { ITutorialArticle } from 'types';
+import { appDynamic } from 'utils';
 
-import { RemoveArticleModal, RemoveSectionModal, Section } from './components';
-import { UUID_SIZE } from './TutorialSidebar.constants';
 import classes from './TutorialSidebar.module.scss';
 
-const AddFolderIcon = ICONS.addFolder;
+const DynamicComments = appDynamic(() => import('components/Comments'));
 
 export const TutorialSidebar: FC = () => {
-  const [changeName, changeNameRes] = useChangeTutorialNameMutation();
-  const [getById] = useLazyGetTutorialByIdQuery();
   const {
     query: { id },
   } = useRouter();
-  const tutorialName = useAppSelector(getTutorialName);
-  const sections = useAppSelector(getTutorialSections);
   const dispatch = useAppDispatch();
+  const { setParam } = useUrlParams();
+  const [fetchPublishedTutorial, fetchPublishedTutorialRes] =
+    useLazyGetPublishedTutorialByIdQuery();
+  const { data: tutorial } = fetchPublishedTutorialRes;
+  const { sections, name } = tutorial || { sections: [], name: '' };
 
-  const addSectionHandler = (): void => {
-    const newSection: ITutorialSection = {
-      id: uuid(UUID_SIZE),
-      name: "Bo'lim nomi",
-      articles: [],
-      defaultFocused: true,
-      new: true,
-    };
-    dispatch(addTutorialSection(newSection));
+  const getPublishedTutorial = async (): Promise<void> => {
+    if (!id) return;
+    const tutorial = await fetchPublishedTutorial(+id).unwrap();
+    const firstArticle = tutorial.sections[0].articles[0];
+    setParam('articleId', firstArticle.articleId);
+    dispatch(setPublishedTutorialAuthor(tutorial.author));
   };
 
-  const tutorialNameChangeHandler = (name: string): void => {
-    if (!id) return;
-    changeName({ id: +id, name }).then(() => {
-      dispatch(changeTutorialName(name));
-    });
+  const selectArticle = (article: ITutorialArticle): void => {
+    setParam('articleId', article.articleId);
   };
 
   useEffect(() => {
-    if (!tutorialName && id) {
-      getById(+id).then((res) => {
-        res.data && dispatch(setTutorial(res.data));
-      });
-    }
-
-    return () => {
-      dispatch(clearTutorial());
-    };
+    getPublishedTutorial();
   }, [id]);
 
   return (
     <div className={classes.root}>
-      <RemoveArticleModal />
-      <RemoveSectionModal />
-      <div className={classes.header}>
-        <ChangeableText
-          value={tutorialName}
-          onSubmit={tutorialNameChangeHandler}
-          loading={changeNameRes.isLoading}
-        />
-        <span className={classes.icon} onClick={addSectionHandler}>
-          <AddFolderIcon />
-        </span>
-      </div>
-      <div className={classes.body}>
-        {sections?.map((section) => (
-          <Fragment key={section.id}>
-            <Section section={section} />
-          </Fragment>
+      <DynamicComments />
+      <ApiErrorBoundary fallback={<TutorialSidebarSkeleton />} res={fetchPublishedTutorialRes}>
+        <h2 className={classes.header}>{name}</h2>
+        {sections.map((section) => (
+          <div key={section.id} className={classes['section-container']}>
+            <h3 className={classes.section}>{section.name}</h3>
+            <div>
+              {section.articles.map((article) => (
+                <p
+                  className={classes.article}
+                  key={article.id}
+                  onClick={(): void => selectArticle(article)}
+                >
+                  {article.name}
+                </p>
+              ))}
+            </div>
+          </div>
         ))}
-      </div>
+      </ApiErrorBoundary>
     </div>
   );
 };

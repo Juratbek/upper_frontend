@@ -8,3 +8,4 @@ export * from './docs';
 export * from './config/api.constants';
 export * from './label-request';
 export * from './tutorials';
+export * from './published-tutorials';

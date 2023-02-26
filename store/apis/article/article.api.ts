@@ -1,4 +1,4 @@
-import { createApi } from '@reduxjs/toolkit/dist/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 import { IArticle, IArticleResult, IPagingResponse, TOptionalPagingRequest } from 'types';
 import { PAGINATION_SIZE } from 'variables';
 
@@ -17,10 +17,11 @@ export const articleApi = createApi({
     getBlogArticles: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
       query: ({ page = 0 }) => `need-auth/list?page=${page}&size=${PAGINATION_SIZE}`,
     }),
-    publish: build.mutation<IArticle, number>({
-      query: (id) => ({
+    publish: build.mutation<IArticle, { id: number; notificationsOn: boolean }>({
+      query: ({ id, ...body }) => ({
         url: `publish/${id}`,
         method: 'POST',
+        body,
       }),
     }),
     delete: build.mutation<void, number>({
@@ -35,9 +36,6 @@ export const articleApi = createApi({
         params,
       }),
     }),
-    getMediumArticleById: build.query<IArticleResult, number>({
-      query: (id) => `medium/${id}`,
-    }),
   }),
 });
 
@@ -49,5 +47,4 @@ export const {
   usePublishMutation,
   useLazyGetBlogArticlesQuery,
   useLazyGetBlogArticleByIdQuery,
-  useLazyGetMediumArticleByIdQuery,
 } = articleApi;

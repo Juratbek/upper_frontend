@@ -15,7 +15,7 @@ export const Tutorial: FC<ITutorialProps> = ({
   publishedDate,
 }) => {
   return (
-    <Link href={`/tutorials/${id}`}>
+    <Link href={`user/tutorials/${id}`}>
       <a className={`${classes.container} ${className}`}>
         <div className={classes.body}>
           <h2 className='my-1'>{name}</h2>

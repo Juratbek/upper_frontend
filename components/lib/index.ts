@@ -21,4 +21,6 @@ export * from './Input';
 export * from './Head';
 export * from './Badge';
 export * from './Avatar';
+export * from './FileDragDrop';
 export * from './StorysetImage';
+export * from './Lordicon';

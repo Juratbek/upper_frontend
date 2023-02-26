@@ -6,18 +6,36 @@ import { BLOCK_TYPES } from 'variables';
 
 import { compressDataImage, compressUnsplashImage } from './image';
 
-export const validateArticle = (article: IArticle, blocks: OutputBlockData[]): string => {
+export const validateArticle = ({
+  labels,
+  blocks,
+}: IArticle): { message: string; reason?: 'image' | 'title' | 'labels'; isValid: boolean } => {
+  // check if article has a title
   const title = blocks.find((block) => block.type === BLOCK_TYPES.header)?.data.text;
+  if (!title)
+    return {
+      message: "Maqolada kamida bitta sarlavha bo'lishi zarur",
+      reason: 'title',
+      isValid: false,
+    };
+  // check if article has an image
   const mainImg = blocks.find(
     (block) => block.type === BLOCK_TYPES.unsplash || block.type === BLOCK_TYPES.image,
   );
-  if (!mainImg) return "Kamida bitta rasm bo'lishi kerak";
-  if (!title) return 'Maqola sarlavhasini kiriting';
-  if (article.labels.length === 0) return 'Iltimos teglarni tanlang';
-  return '';
+  if (!mainImg)
+    return {
+      message: "Maqolada kamida bitta rasm bo'lishi zarur",
+      reason: 'image',
+      isValid: false,
+    };
+  // check if article has selected labels
+  if (labels.length === 0)
+    return { message: 'Iltimos teglarni tanlang', reason: 'labels', isValid: false };
+  // return valid
+  return { message: '', isValid: true };
 };
 
-export const addAmazonBucketUriToArticle = <T extends ISidebarArticle>(article: T): T => {
+export const addAmazonBucketUriToArticle = <T extends { imgUrl: string }>(article: T): T => {
   const imgUrl = article.imgUrl;
   if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;
   return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
@@ -106,7 +124,7 @@ export const convertToHeadProp = (article: IArticle): IHeadProps => {
     imgUrl,
     url: '',
     description: content,
-    author: author.name,
+    author: author?.name,
     publishedDate,
   };
 };

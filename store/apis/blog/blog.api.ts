@@ -39,6 +39,13 @@ export const blogApi = createApi({
         body: token,
       }),
     }),
+    continueWithGitHub: build.mutation<IBlogRegisterResponse, string>({
+      query: (code) => ({
+        url: 'open/continue-with-github',
+        method: 'POST',
+        body: code,
+      }),
+    }),
     loginWithTelegram: build.mutation<IBlogRegisterResponse, ITelegramUser>({
       query: (user) => ({
         url: 'open/login-with-telegram',
@@ -203,4 +210,5 @@ export const {
   useSendEmailConfirmationForPasswordMutation,
   useChangeCredentialsMutation,
   useChangeDonatCredentialsMutation,
+  useContinueWithGitHubMutation,
 } = blogApi;

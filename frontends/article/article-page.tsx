@@ -1,15 +1,34 @@
 import EditorJS from '@editorjs/editorjs';
-import { Divider, Editor } from 'components';
+import { ApiError, Blog, Button, Divider, Editor, Head, StorysetImage } from 'components';
+import Link from 'next/link';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { addUriToImageBlocks, toDateString } from 'utils';
+import { useAppDispatch } from 'store';
+import { useIncrementViewCountMutation } from 'store/apis';
+import { setArticleAuthor } from 'store/states/readArticle';
+import { IArticle } from 'types';
+import {
+  addAmazonBucketUriToArticle,
+  addAmazonUri,
+  addUriToImageBlocks,
+  convertToHeadProp,
+  get,
+  toDateString,
+} from 'utils';
+import { ICONS } from 'variables';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
 import { ArticleActionIcons, ArticleActions } from './components';
 
-const toUzbDateString = (date: Date | string): string => toDateString(date, { month: 'short' });
+const HeartIcon = ICONS.heart;
 
-export const Article: FC<IArticleProps> = (article) => {
+export const Article: FC<IArticleProps> = ({
+  article,
+  error,
+  fullUrl,
+  showAuthor = false,
+  ...props
+}) => {
   const {
     viewCount = 0,
     publishedDate,
@@ -21,6 +40,8 @@ export const Article: FC<IArticleProps> = (article) => {
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
+  const dispatch = useAppDispatch();
+  const [incrementViewCountRequest] = useIncrementViewCountMutation();
 
   useEffect(() => {
     if (editorInstance?.isReady) {
@@ -34,6 +55,18 @@ export const Article: FC<IArticleProps> = (article) => {
     editorInstance?.render?.({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
 
+  useEffect(() => {
+    if (!article) return;
+    article.author && dispatch(setArticleAuthor(article.author));
+    const timeout = setTimeout(() => {
+      if (article.token) {
+        const { id, token } = article;
+        incrementViewCountRequest({ id, token });
+      }
+    }, 15 * 1000);
+    return () => clearTimeout(timeout);
+  }, [article?.id]);
+
   const articleComponent = useMemo(
     () => (
       <Editor
@@ -46,17 +79,55 @@ export const Article: FC<IArticleProps> = (article) => {
   );
 
   const dateContent = useMemo(() => {
-    if (updatedDate) return <span>{toUzbDateString(updatedDate)} da yangilangan</span>;
-    if (publishedDate) return <span>{toUzbDateString(publishedDate)}</span>;
+    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
+    if (publishedDate) return toDateString(publishedDate);
     return <></>;
   }, [publishedDate, updatedDate]);
 
+  if (!article) {
+    if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
+    if (error?.status === 404)
+      return (
+        <div className='text-center mt-3'>
+          <StorysetImage width={400} height={400} src='/storyset/hidden.svg' storysetUri='data' />
+          <h3>Maqola topilmadi</h3>
+          <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
+          <Link href='/'>
+            <Button>Bosh sahifaga qaytish</Button>
+          </Link>
+        </div>
+      );
+    return <h2>{get(error, 'data.message')}</h2>;
+  }
+
   return (
-    <div className={`${styles.articleContainer} editor-container`}>
-      <article>{articleComponent}</article>
-      <Divider className='my-2' />
-      <div className={styles.articleDetail}>
-        <div className='d-flex'>
+    <div className={`container ${props.className}`}>
+      <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
+      {showAuthor && article.author && (
+        <>
+          <Blog {...addAmazonUri(article.author)} isLink />
+          {Boolean(article.author.cardNumber) && (
+            <>
+              <div style={{ height: '1rem' }} />
+              <Link href={`/blogs/${article.author.id}/support`}>
+                <a className='link'>
+                  <Button className='w-100'>
+                    <span className='sponsor-icon'>
+                      <HeartIcon />
+                    </span>
+                    Blog faoliyatiga hissa qo&apos;shing
+                  </Button>
+                </a>
+              </Link>
+            </>
+          )}
+          <Divider className='mt-1' />
+        </>
+      )}
+      <div className={`${styles.articleContainer} editor-container`}>
+        <article>{articleComponent}</article>
+        <Divider className='my-2' />
+        <div className={styles.articleDetail}>
           {viewCount > 0 && (
             <>
               <span>{viewCount} marta ko&apos;rilgan</span>
@@ -64,25 +135,25 @@ export const Article: FC<IArticleProps> = (article) => {
             </>
           )}
           {dateContent}
+          <div className={styles.reactions}>
+            <ArticleActionIcons
+              right={0}
+              popupId='articleDetail'
+              isSharePopupOpen={isSharePopupOpen}
+              setIsSharePopupOpen={setIsSharePopupOpen}
+              article={article}
+              setLikeDislikeCount={setLikeDislikeCount}
+              likeDislikeCount={likeDislikeCount}
+            />
+          </div>
         </div>
-        <div className={styles.reactions}>
-          <ArticleActionIcons
-            right={0}
-            popupId='articleDetail'
-            isSharePopupOpen={isSharePopupOpen}
-            setIsSharePopupOpen={setIsSharePopupOpen}
-            article={article}
-            setLikeDislikeCount={setLikeDislikeCount}
-            likeDislikeCount={likeDislikeCount}
-          />
-        </div>
+        <ArticleActions
+          editor={editorInstance}
+          article={article}
+          setLikeDislikeCount={setLikeDislikeCount}
+          likeDislikeCount={likeDislikeCount}
+        />
       </div>
-      <ArticleActions
-        editor={editorInstance}
-        article={article}
-        setLikeDislikeCount={setLikeDislikeCount}
-        likeDislikeCount={likeDislikeCount}
-      />
     </div>
   );
 };

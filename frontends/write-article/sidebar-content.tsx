@@ -39,11 +39,7 @@ export const SidebarContent: FC = () => {
   const createTutorialHandler = async (): Promise<void> => {
     const res = await createTutorial().unwrap();
     dispatch(setTutorial(res));
-    router.push(`/tutorials/${res.id}`);
-  };
-
-  const labelsChangeHandler = (options: IOption[]): void => {
-    setSelectedLabels(options);
+    router.push(`/user/tutorials/${res.id}`);
   };
 
   const SearchLabels = (value: string): void => {
@@ -107,7 +103,7 @@ export const SidebarContent: FC = () => {
         </div>
         <MultiSelect
           max={MAX_LABELS}
-          onChange={labelsChangeHandler}
+          onChange={setSelectedLabels}
           onInputDebounce={SearchLabels}
           renderItem={(item): JSX.Element => {
             return (

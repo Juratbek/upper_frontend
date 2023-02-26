@@ -41,3 +41,15 @@ export const convertOptionsToTags = <T extends ITag>(options: IOption[]): T[] =>
 
 export const validatePassword = (value: string): boolean =>
   /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value);
+
+export const addAmazonBucketUri = <T extends { imgUrl: string }>(
+  entity: T,
+  bucketUrl: string,
+): T => {
+  const imgUrl = entity.imgUrl;
+  if (!imgUrl || imgUrl.startsWith('http')) return entity;
+  return {
+    ...entity,
+    imgUrl: `${bucketUrl}${imgUrl}`,
+  };
+};
