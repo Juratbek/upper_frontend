@@ -3,12 +3,7 @@ import { FC, useEffect, useState } from 'react';
 
 import imageModalStyles from '../ImageModal/ImageModal.module.scss';
 
-interface IZoomImageProps extends ImageProps {
-  isGoogleAvatar: boolean;
-}
-
-export const ZoomImage: FC<IZoomImageProps> = (props) => {
-  const { isGoogleAvatar } = props;
+export const ZoomImage: FC<ImageProps> = (props) => {
   const [mediumImgUrl, setMediumImgUrl] = useState<string>(props.src as string);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = (): void => setIsModalOpen((prevState) => !prevState);
@@ -21,7 +16,7 @@ export const ZoomImage: FC<IZoomImageProps> = (props) => {
 
   return (
     <>
-      {isModalOpen && !isGoogleAvatar && (
+      {isModalOpen && (
         <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>
           <div className={imageModalStyles['modal__overlay']}></div>
           <div className={imageModalStyles['modal__content']}>

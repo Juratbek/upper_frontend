@@ -3,11 +3,11 @@ import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
 
+import { getImageType } from '../../../utils/image/imageZoom';
 import { ZoomImage } from '../../ZoomImage';
 import classes from './Avatar.module.scss';
 import { IAvatarProps } from './Avatar.types';
 
-const GOOGLE_IMG_API = 'googleusercontent.com';
 export const Avatar: FC<IAvatarProps> = ({
   size = 'medium',
   imgUrl,
@@ -19,11 +19,10 @@ export const Avatar: FC<IAvatarProps> = ({
   const className = getClassName(classes.avatar, classes[`avatar--${size}`], props.className);
 
   const image = useMemo(() => {
-    const isGoogleAvatar = imgUrl?.includes(GOOGLE_IMG_API);
-
     if (!imgUrl || error) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
+    const imageType = getImageType(imgUrl);
 
-    if (!zoomable)
+    if (!zoomable || !imageType.zoomable)
       return (
         <Image
           src={imgUrl}
@@ -40,8 +39,7 @@ export const Avatar: FC<IAvatarProps> = ({
         alt='UPPER'
         layout='fill'
         objectFit='cover'
-        className={!isGoogleAvatar ? classes.zoomable : ''}
-        isGoogleAvatar={isGoogleAvatar}
+        className={classes.zoomable}
       />
     );
   }, [imgUrl, zoomable, error]);
