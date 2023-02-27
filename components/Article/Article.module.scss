@@ -14,6 +14,8 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
 
   *:not(code) {
     background-color: transparent !important;
@@ -26,7 +28,7 @@
   code {
     border-radius: 5px;
     font-family: inherit;
-    font-size: 0.86em;
+    font-size: 0.85em;
     font-weight: 500;
     letter-spacing: 0.3px;
   }
