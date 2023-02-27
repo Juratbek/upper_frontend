@@ -1,4 +1,4 @@
-import { useUrlParams } from 'hooks';
+import { useTheme, useUrlParams } from 'hooks';
 import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
 
@@ -10,7 +10,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   const totalPages = useMemo(() => Math.ceil(count), [count]);
   const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
   const { setParam } = useUrlParams();
-
+  const { themeColors } = useTheme();
   const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
   const nextClassName = getClassName(
     classes.page,
@@ -36,7 +36,11 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
 
   return (
     <div className={`${classes.container} ${props.className}`}>
-      <div className={prevClassName} onClick={(): void => addPage(-1)}>
+      <div
+        style={acitvePage === 1 ? {} : { borderColor: themeColors.pagination.border }}
+        className={prevClassName}
+        onClick={(): void => addPage(-1)}
+      >
         &#8249;
       </div>
       {arr.map((_, index) => {
@@ -46,12 +50,17 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
             key={page}
             onClick={(): void => clickHandler(page)}
             className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
+            style={page === acitvePage ? {} : { borderColor: themeColors.pagination.border }}
           >
             {page}
           </div>
         );
       })}
-      <div className={nextClassName} onClick={(): void => addPage(1)}>
+      <div
+        style={acitvePage === totalPages ? {} : { borderColor: themeColors.pagination.border }}
+        className={nextClassName}
+        onClick={(): void => addPage(1)}
+      >
         &#8250;
       </div>
     </div>
