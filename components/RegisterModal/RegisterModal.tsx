@@ -211,7 +211,7 @@ export const RegisterModal: FC = () => {
         onAuth={closeModal}
       />
       <GoogleSignIn id='google-sign-up' />
-      <GitHubSignIn />
+      <GitHubSignIn className='w-100 mt-1' />
     </Modal>
   );
 };
