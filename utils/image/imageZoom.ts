@@ -1,10 +1,9 @@
-import { BLOG_BUCKET_URL } from '../../store/apis';
+import { BLOG_BUCKET_URL } from 'store/apis';
 
 const GOOGLE_IMG_API = 'googleusercontent.com';
 const GITHUB_IMG_API = 'avatars.githubusercontent.com';
-const TELEGRAM_IMG_API = 't.me';
 
-export type TImageSources = 'google' | 'github' | 'upper' | 'telegram' | 'undefined';
+export type TImageSources = 'google' | 'github' | 'upper' | 'telegram';
 
 type TGetImageType = (imgUrl: string) => {
   type: TImageSources;
@@ -12,7 +11,6 @@ type TGetImageType = (imgUrl: string) => {
 };
 
 export const getImageType: TGetImageType = (imgUrl) => {
-  console.log(imgUrl);
   if (imgUrl.includes(GOOGLE_IMG_API))
     return {
       type: 'google',
@@ -32,15 +30,8 @@ export const getImageType: TGetImageType = (imgUrl) => {
     };
   }
 
-  if (imgUrl.includes(TELEGRAM_IMG_API)) {
-    return {
-      type: 'telegram',
-      zoomable: true,
-    };
-  }
-
   return {
-    type: 'undefined',
-    zoomable: false,
+    type: 'telegram',
+    zoomable: true,
   };
 };

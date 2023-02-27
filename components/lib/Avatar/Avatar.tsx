@@ -1,10 +1,10 @@
+import { ZoomImage } from 'components/ZoomImage';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
 import { getClassName } from 'utils';
+import { getImageType } from 'utils/image/imageZoom';
 
-import { getImageType } from '../../../utils/image/imageZoom';
-import { ZoomImage } from '../../ZoomImage';
 import classes from './Avatar.module.scss';
 import { IAvatarProps } from './Avatar.types';
 

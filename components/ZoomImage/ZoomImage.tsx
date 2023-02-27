@@ -8,8 +8,6 @@ export const ZoomImage: FC<ImageProps> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = (): void => setIsModalOpen((prevState) => !prevState);
 
-  const errorHandler = (): void => setMediumImgUrl(props.src.toString());
-
   useEffect(() => {
     setMediumImgUrl(props.src as string);
   }, [props.src]);
@@ -27,7 +25,6 @@ export const ZoomImage: FC<ImageProps> = (props) => {
               {...props}
               src={`${props.src}_MEDIUM`}
               onLoadingComplete={(): void => setMediumImgUrl(`${props.src}_MEDIUM`)}
-              onError={errorHandler}
             />
           </div>
         </div>
