@@ -1,30 +1,28 @@
 .container {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .page {
-    width: 2rem;
-    height: 2rem;
-    border: 0.5px solid black;
-    border-radius: 100rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
+  width: 2rem;
+  height: 2rem;
+  border: 0.5px solid black;
+  border-radius: 100rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
 
-    
-    &--active {
-        background-color: var(--blue);
-        color: white;
-        border-color: var(--blue) !important ;
-    }
+  &--active {
+    background-color: var(--blue);
+    color: white;
+    border-color: var(--blue);
+  }
 
-    &--disabled {
-        border-color: var(--mediumGray) !important;
-        color: var(--mediumGray) ;
-    }
-    
+  &--disabled {
+    border-color: var(--mediumGray);
+    color: var(--mediumGray);
+    cursor: unset;
+  }
 }
-

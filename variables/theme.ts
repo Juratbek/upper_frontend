@@ -55,7 +55,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
       color: '#c2c2c2',
     },
     pagination: {
-      border: 'white',
+      border: '#ffffffd9',
     },
     progressbar: UPPER_BLUE_COLOR,
   },
