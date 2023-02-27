@@ -1,12 +1,20 @@
 import { Dropdown } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
+import { useAppDispatch } from 'store';
+import { closeSidebar } from 'store/states';
 
 import { DOCS_SIDEBAR_LINKS } from './DocsSidebar.constants';
 import classes from './DocsSidebar.module.scss';
 import { IDocsSidebarLink, TGetLinksProps } from './DocsSidebar.types';
 
 export const DocsSidebar: FC = () => {
+  const dispatch = useAppDispatch();
+
+  const closeSidebarHandler = (): void => {
+    dispatch(closeSidebar());
+  };
+
   const getLinks: TGetLinksProps = (links, padding) => {
     const generateLink = (
       links: IDocsSidebarLink[],
@@ -31,7 +39,11 @@ export const DocsSidebar: FC = () => {
         }
         return (
           <Link href={`/docs/${url + link.url}`} key={index}>
-            <a className={classes.link} style={{ paddingLeft: pdLeftInRem }}>
+            <a
+              className={classes.link}
+              style={{ paddingLeft: pdLeftInRem }}
+              onClick={closeSidebarHandler}
+            >
               {link.name}
             </a>
           </Link>
