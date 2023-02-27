@@ -205,13 +205,13 @@ export const RegisterModal: FC = () => {
           </Button>
         )}
       </form>
+      <GoogleSignIn id='google-sign-up' className='mt-1' />
+      <GitHubSignIn className='w-100 mt-1' />
       <TelegramLoginButton
-        className='mt-2 text-center'
+        className='mt-1 text-center'
         botName={process.env.NEXT_PUBLIC_REGISTER_BOT_USERNAME || 'upper_test_bot'}
         onAuth={closeModal}
       />
-      <GoogleSignIn id='google-sign-up' />
-      <GitHubSignIn />
     </Modal>
   );
 };

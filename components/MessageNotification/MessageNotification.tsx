@@ -8,8 +8,12 @@ export const MessageNotification: FC<INotificationComponentProp> = (props) => {
   const { className, message = '', status, createdDate } = props;
   const rootClassName = getClassName(className, status === 'UNREAD' && 'notification--unread');
 
+  const clickHandler = (): void => {
+    props.onClick?.(props);
+  };
+
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} onClick={clickHandler}>
       <div dangerouslySetInnerHTML={{ __html: message }} />
       <span className={classes.date}>{toDateString(createdDate)}</span>
     </div>

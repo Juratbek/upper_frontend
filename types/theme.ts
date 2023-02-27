@@ -25,5 +25,8 @@ export interface ITheme {
   label: {
     color: string;
   };
+  pagination: {
+    border: string;
+  };
   progressbar: string;
 }

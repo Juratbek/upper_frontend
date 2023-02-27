@@ -21,7 +21,6 @@ export const NotificationsTab: FC = () => {
   const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
   const {
     query: { tab, page },
-    push,
   } = useRouter();
 
   useEffect(() => {
@@ -30,9 +29,7 @@ export const NotificationsTab: FC = () => {
   }, [tab, page]);
 
   const readNotification = (notification: INotification): void => {
-    const { article } = notification;
     markAsRead(notification);
-    push(`/articles/${article.id}`);
   };
 
   const markAsRead = (notification: INotification): void => {
@@ -69,7 +66,7 @@ export const NotificationsTab: FC = () => {
           <Notification
             onClick={readNotification}
             {...notification}
-            className='p-2'
+            className='p-2 pointer'
             markAsRead={markAsRead}
             deleteNotification={deleteNotification}
             loading={sendReadNotificationRes.isLoading || deleteNotificationRes.isLoading}
