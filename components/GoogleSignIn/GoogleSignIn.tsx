@@ -20,5 +20,5 @@ export const GoogleSignIn: FC<IGoogleSignInProps> = (props) => {
       });
   }, [isGoogleScriptLoaded]);
 
-  return <Button id={props.id} type='button' style={{ padding: 0 }} />;
+  return <Button id={props.id} type='button' style={{ padding: 0 }} className={props.className} />;
 };
