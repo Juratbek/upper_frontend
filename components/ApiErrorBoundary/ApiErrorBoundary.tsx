@@ -25,7 +25,13 @@ export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
     if (isLoading) return Fallback;
     if (isError) {
       const ErrorComponent = onError?.(error);
-      return ErrorComponent || <pre>{JSON.stringify(error, null, 2)}</pre>;
+      if (ErrorComponent) return ErrorComponent;
+
+      const nodeEnv = process.env.NODE_ENV;
+      if (nodeEnv === 'development') {
+        return <pre>{JSON.stringify(error, null, 2)}</pre>;
+      }
+      return <></>;
     }
     if (isSuccess || isFetching) return <>{children}</>;
     return <></>;
