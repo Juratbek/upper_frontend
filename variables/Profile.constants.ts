@@ -13,12 +13,12 @@ export const PROFILE_TAB_MENUS: ITabHeader[] = [
   //   id: PROFILE_TAB_IDS.statistics,
   // },
   {
-    name: 'Kuzatuvchilar',
-    id: PROFILE_TAB_IDS.followers,
-  },
-  {
     name: 'Sozlamalar',
     id: PROFILE_TAB_IDS.settings,
+  },
+  {
+    name: 'Kuzatuvchilar',
+    id: PROFILE_TAB_IDS.followers,
   },
 ];
 
