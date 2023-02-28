@@ -8,33 +8,28 @@ export const ZoomImage: FC<ImageProps> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const toggleModal = (): void => setIsModalOpen((prevState) => !prevState);
 
-  const errorHandler = (): void => setMediumImgUrl(props.src.toString());
-
   useEffect(() => {
     setMediumImgUrl(props.src as string);
   }, [props.src]);
 
   return (
     <>
-      {isModalOpen ? (
+      {isModalOpen && (
         <div className={imageModalStyles.modal} style={{ display: 'block' }} onClick={toggleModal}>
           <div className={imageModalStyles['modal__overlay']}></div>
           <div className={imageModalStyles['modal__content']}>
-            <Image {...props} src={mediumImgUrl} onError={errorHandler} />
+            <Image {...props} src={mediumImgUrl} />
           </div>
           <div style={{ visibility: 'hidden' }}>
             <Image
               {...props}
               src={`${props.src}_MEDIUM`}
-              onLoadingComplete={(): void => {
-                setMediumImgUrl(`${props.src}_MEDIUM`);
-              }}
+              onLoadingComplete={(): void => setMediumImgUrl(`${props.src}_MEDIUM`)}
             />
           </div>
         </div>
-      ) : (
-        <Image {...props} onClick={toggleModal} />
       )}
+      <Image {...props} onClick={toggleModal} />
     </>
   );
 };
