@@ -71,7 +71,7 @@ export const ChangeCredentialsForm: FC = () => {
         </div>
         <div className='mb-2'>
           <label htmlFor='cofirm password' className='mb-1 d-block'>
-            Parolni qaytaring
+            Parolni qayta kiriting
           </label>
           <Input
             type='password'
