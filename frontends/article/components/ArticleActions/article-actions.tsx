@@ -74,8 +74,6 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     editor?.isReady.then(() => setIsScrollingUp(true));
   }, [editor]);
 
-  console.log(likeDislikeCount);
-
   return (
     <div className={styles.articleActionsContainer}>
       <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
