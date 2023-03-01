@@ -29,14 +29,11 @@
     }
 
     .reactions {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .reactionButtons {
-        display: flex;
-        align-items: center;
-      }
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      z-index: 1;
+      position: relative;
     }
 
     .navigation {
