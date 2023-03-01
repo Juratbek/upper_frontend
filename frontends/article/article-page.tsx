@@ -12,6 +12,7 @@ import {
   addUriToImageBlocks,
   convertToHeadProp,
   dateInterval,
+  formatToKMB,
   get,
 } from 'utils';
 import { ICONS } from 'variables';
@@ -21,6 +22,8 @@ import { IArticleProps } from './article.types';
 import { ArticleActionIcons, ArticleActions } from './components';
 
 const HeartIcon = ICONS.heart;
+const CalendarIcon = ICONS.calendar;
+const EyeIcon = ICONS.eye;
 
 export const Article: FC<IArticleProps> = ({
   article,
@@ -128,13 +131,27 @@ export const Article: FC<IArticleProps> = ({
         <article>{articleComponent}</article>
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
-          {viewCount > 0 && (
-            <>
-              <span>{viewCount} marta ko&apos;rilgan</span>
-              <Divider type='vertical' className='mx-1' />
-            </>
-          )}
-          {dateContent}
+          <div className={styles.stats}>
+            <time style={{ flex: 1 }} className='d-flex align-items-center'>
+              <span className={styles.icon}>
+                <CalendarIcon color='gray' />
+              </span>
+              {dateContent}
+            </time>
+            {viewCount > 0 && (
+              <>
+                <Divider type='vertical' className='mx-1' />
+                <div className='d-flex align-items-center'>
+                  <span className={`${styles.icon} ${styles.eye}`}>
+                    <EyeIcon color='gray' />
+                  </span>
+                  <span className='d-flex align-items-center'>
+                    {formatToKMB(viewCount)} marta o&apos;qilgan
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
           <div className={styles.reactions}>
             <ArticleActionIcons
               right={0}
