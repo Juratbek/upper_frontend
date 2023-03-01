@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
-import { getClassName, toDateString } from 'utils';
+import { dateInterval, getClassName } from 'utils';
 
 import classes from './MessageNotification.module.scss';
 
@@ -15,7 +15,7 @@ export const MessageNotification: FC<INotificationComponentProp> = (props) => {
   return (
     <div className={rootClassName} onClick={clickHandler}>
       <div dangerouslySetInnerHTML={{ __html: message }} />
-      <span className={classes.date}>{toDateString(createdDate)}</span>
+      <span className={classes.date}>{dateInterval(createdDate)}</span>
     </div>
   );
 };
