@@ -19,3 +19,38 @@ export const toDateString = (date: Date | string | undefined, config?: IDateUtil
   }
   return localeDate;
 };
+
+export const dateInterval = (date: Date | string | undefined): string => {
+  if (!date) {
+    return '';
+  }
+  const currentDate: Date = new Date();
+
+  const diffInSec: number = Math.floor((currentDate.getTime() - new Date(date).getTime()) / 1000);
+  if (diffInSec < 60) {
+    return 'Hozirgina';
+  }
+
+  const diffInMin: number = Math.floor(diffInSec / 60);
+  if (diffInMin < 60) {
+    return `${diffInMin} minut avval`;
+  }
+
+  const diffInHour: number = Math.floor(diffInMin / 60);
+  if (diffInHour < 24) {
+    return `${diffInHour} soat avval`;
+  }
+
+  const diffInDay: number = Math.floor(diffInHour / 24);
+  if (diffInDay < 30) {
+    return `${diffInDay} kun avval`;
+  }
+
+  const diffInMon: number = Math.floor(diffInDay / 30);
+  if (diffInMon < 12) {
+    return `${diffInMon} oy oldin`;
+  }
+
+  const diffInYear: number = Math.floor(diffInDay / 365);
+  return `${diffInYear} yil oldin`;
+};
