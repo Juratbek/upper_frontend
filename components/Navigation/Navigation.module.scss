@@ -89,7 +89,7 @@ $mobile-screen-padding: 0.8rem;
     height: $size;
   }
 }
-.logOut {
+.help {
   @include screenMax576 {
     padding-right: 0.3rem;
   }

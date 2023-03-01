@@ -17,7 +17,6 @@ import { apiErrorMiddleware } from './middlewares';
 import authReducer from './states/auth';
 import commentsSidebarReducer from './states/commentsSidebar';
 import loginModalReducer from './states/loginModal';
-import logoutModalReducer from './states/logoutModal';
 import publishedTutorialSidebarReducer from './states/publishedTutorialSidebar';
 import readArticleReducer from './states/readArticle';
 import registerModalReducer from './states/registerModal';
@@ -34,7 +33,6 @@ export const store = configureStore({
     auth: authReducer,
     comments: commentsSidebarReducer,
     sidebar: sidebarReducer,
-    logoutModal: logoutModalReducer,
     tutorialsSidebar: tutorialsSidebarReducer,
     publishedTutorialSidebar: publishedTutorialSidebarReducer,
     [blogApi.reducerPath]: blogApi.reducer,

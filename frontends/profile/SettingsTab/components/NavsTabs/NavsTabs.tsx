@@ -4,6 +4,7 @@ import { useLazyGetCurrentBlogQuery } from 'store/apis';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
 
 import { AboutTab } from '../AboutTab/AboutTab';
+import { LogOutTab } from '../LogOutTab/LogOutTab';
 import { SecurityTab } from '../SecurityTab/SecurityTab';
 import { SponsorTab } from '../SponsorTab/SponsorTab';
 import classes from './NavsTabs.module.scss';
@@ -22,12 +23,17 @@ const tabs = [
     name: 'Havfsizlik',
     value: 'security',
   },
+  {
+    name: 'Profildan chiqish',
+    value: 'logOut',
+  },
 ];
 
 const contents: Record<string, FC<INavTab>> = {
   about: AboutTab,
   security: SecurityTab,
   support: SponsorTab,
+  logOut: LogOutTab,
 };
 
 export const NavsTabs: FC = () => {

@@ -1,11 +1,11 @@
-import { Button, LogoutModal, Tooltip } from 'components';
+import { Button, Tooltip } from 'components';
 import { useAuth, useDevice, useTheme } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openLogoutModal, openRegisterModal, openSidebar } from 'store/states';
+import { openLoginModal, openRegisterModal, openSidebar } from 'store/states';
 import { ICONS, NOTIFICATION_STATUSES } from 'variables';
 
 import { NavItem } from './components';
@@ -13,7 +13,7 @@ import { NAVIGATION_ICONS } from './Navigation.constants';
 import classes from './Navigation.module.scss';
 import { INavigationIcon } from './Navigation.types';
 
-const LogOutIcon = ICONS.logOut;
+const HelpIcon = ICONS.help;
 const Logo = ICONS.logo;
 const Burger = ICONS.burger;
 
@@ -30,8 +30,9 @@ export const Navigation = (): JSX.Element => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [isAuthenticated]);
 
-  const logOut = (): void => {
-    dispatch(openLogoutModal());
+  const helpClickHandler = (): void => {
+    const helpHref = '/docs/write-article_introduction_quick-start';
+    router.asPath !== helpHref && router.push(helpHref);
   };
 
   const clickHandler = (navigationIcon: INavigationIcon): void => {
@@ -70,7 +71,6 @@ export const Navigation = (): JSX.Element => {
 
   return (
     <div className={classes.navigation}>
-      <LogoutModal />
       <div
         className={`${classes.navigation} ${classes.positioned}`}
         style={{ backgroundColor: themeColors.bg }}
@@ -98,12 +98,8 @@ export const Navigation = (): JSX.Element => {
           })}
         </div>
         <div className={classes['third-block']}>
-          <div className={`${classes.logOut} ${classes.icon} pointer`} onClick={logOut}>
-            {isAuthenticated && (
-              <Tooltip tooltip='Profildan chiqish' invisible={isMobile}>
-                <LogOutIcon color={themeColors.icon} />
-              </Tooltip>
-            )}
+          <div className={`${classes.help} ${classes.icon} pointer`} onClick={helpClickHandler}>
+            <HelpIcon color={themeColors.icon} />
           </div>
           {buttons}
           <div className={`${classes.burger} ${classes.icon}`} onClick={openSidebarHandler}>

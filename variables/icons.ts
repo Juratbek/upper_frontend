@@ -11,6 +11,7 @@ import {
   GitHubIcon,
   GoogleIcon,
   HeartIcon,
+  HelpIcon,
   HomeIcon,
   InstagramIcon,
   LikeIcon,
@@ -67,6 +68,7 @@ export const ICON_TYPES = {
   addFolder: 'addFolder',
   plus: 'plus',
   calendar: 'calendar',
+  help: 'help',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -111,4 +113,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   addFolder: AddFolderIcon,
   plus: PlusIcon,
   calendar: CalendarIcon,
+  help: HelpIcon,
 };
