@@ -74,6 +74,8 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     editor?.isReady.then(() => setIsScrollingUp(true));
   }, [editor]);
 
+  console.log(likeDislikeCount);
+
   return (
     <div className={styles.articleActionsContainer}>
       <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
@@ -93,9 +95,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
           <div className={styles.icon} onClick={(): void => likeDislike(1)}>
             {likeIcon}
           </div>
-          {Boolean(likeDislikeCount) && (
-            <span className={styles.reactionsText}>{likeDislikeCount}</span>
-          )}
+          {likeDislikeCount > 0 && <span className={styles.reactionsText}>{likeDislikeCount}</span>}
           <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
             <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
           </div>

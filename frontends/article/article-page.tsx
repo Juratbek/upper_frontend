@@ -215,7 +215,7 @@ export const Article: FC<IArticleProps> = ({
               >
                 {likeIcon}
               </span>
-              {Boolean(likeDislikeCount) && <span className='me-2'>{likeDislikeCount}</span>}
+              {likeDislikeCount > 0 && <span className='me-2'>{likeDislikeCount}</span>}
               <span
                 className={`pointer icon ${isLikedOrDisliked === -1 && 'icon--active'}`}
                 onClick={(): void => likeDislike(-1)}
