@@ -24,26 +24,33 @@ export const dateInterval = (date: Date | string | undefined): string => {
   if (!date) {
     return '';
   }
-  let rangeTime = '';
   const currentDate: Date = new Date();
+
   const diffInSec: number = Math.floor((currentDate.getTime() - new Date(date).getTime()) / 1000);
-  const diffInMin: number = Math.floor(diffInSec / 60);
-  const diffInHour: number = Math.floor(diffInMin / 60);
-  const diffInDay: number = Math.floor(diffInHour / 24);
-  const diffInMon: number = Math.floor(diffInDay / 30);
-  const diffInYear: number = Math.floor(diffInMon / 365);
-  if (diffInYear >= 1) {
-    rangeTime = `${diffInYear} yil oldin`;
-  } else if (diffInMon >= 1) {
-    rangeTime = `${diffInMon} oy oldin`;
-  } else if (diffInDay >= 1) {
-    rangeTime = `${diffInDay} kun avval`;
-  } else if (diffInHour >= 1) {
-    rangeTime = `${diffInHour} soat avval`;
-  } else if (diffInMin >= 1) {
-    rangeTime = `${diffInMin} minut avval`;
-  } else {
-    rangeTime = 'Hozirgina';
+  if (diffInSec < 60) {
+    return 'Hozirgina';
   }
-  return rangeTime;
+
+  const diffInMin: number = Math.floor(diffInSec / 60);
+  if (diffInMin < 60) {
+    return `${diffInMin} minut avval`;
+  }
+
+  const diffInHour: number = Math.floor(diffInMin / 60);
+  if (diffInHour < 24) {
+    return `${diffInHour} soat avval`;
+  }
+
+  const diffInDay: number = Math.floor(diffInHour / 24);
+  if (diffInDay < 30) {
+    return `${diffInDay} kun avval`;
+  }
+
+  const diffInMon: number = Math.floor(diffInDay / 30);
+  if (diffInMon < 12) {
+    return `${diffInMon} oy oldin`;
+  }
+
+  const diffInYear: number = Math.floor(diffInDay / 365);
+  return `${diffInYear} yil oldin`;
 };
