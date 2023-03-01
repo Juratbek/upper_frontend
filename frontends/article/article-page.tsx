@@ -18,9 +18,9 @@ import {
   addAmazonUri,
   addUriToImageBlocks,
   convertToHeadProp,
+  dateInterval,
   formatToKMB,
   get,
-  toDateString,
 } from 'utils';
 import { ICONS, UPPER_BLUE_COLOR } from 'variables';
 
@@ -119,8 +119,8 @@ export const Article: FC<IArticleProps> = ({
   );
 
   const dateContent = useMemo(() => {
-    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
-    if (publishedDate) return toDateString(publishedDate);
+    if (updatedDate) return <>{dateInterval(updatedDate)} yangilangan</>;
+    if (publishedDate) return dateInterval(publishedDate);
     return <></>;
   }, [publishedDate, updatedDate]);
 
