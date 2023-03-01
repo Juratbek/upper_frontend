@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { useAppDispatch } from 'store';
 import { closeCommentsSidebar } from 'store/states';
-import { addAmazonUri, toDateString } from 'utils';
+import { addAmazonUri, dateInterval } from 'utils';
 
 import classes from './Comment.module.scss';
 import { TCommentProps } from './Comment.types';
@@ -24,7 +24,7 @@ export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
                 <h5 className='m-0 link pointer'>{author.name}</h5>
               </a>
             </Link>
-            <p className={`m-0 ${classes.date}`}>{toDateString(date)}</p>
+            <p className={`m-0 ${classes.date}`}>{dateInterval(date)}</p>
           </div>
         </div>
         <div className={classes.message}>{text}</div>
