@@ -137,6 +137,8 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
             embedUrl:
               'data:text/html;charset=utf-8,<head><base target="_blank" /></head><body><script src="https://gist.github.com/<%= remote_id %>" ></script></body>',
             html: '<iframe width="100%" frameborder="no" height="550" src=""></iframe>',
+            height: 500,
+            width: 600,
             id: (groups: any) => `${groups.join('/')}.js`,
           },
         },
