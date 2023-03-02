@@ -3,7 +3,7 @@ import { Button, Lordicon, Spinner, Textarea } from 'components/lib';
 import { useModal } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useCreateFeedbackMutation } from 'store/apis';
+import { ICreateFeedbackDto, useCreateFeedbackMutation } from 'store/apis';
 
 import { StarMarker } from './components';
 import classes from './FeedbackModal.module.scss';
@@ -14,7 +14,7 @@ export const FeedbackModal: FC = () => {
   const [mark, setMark] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [isOpen, , { close, open }] = useModal();
-  const { register, setFocus, handleSubmit } = useForm();
+  const { register, setFocus, handleSubmit, watch } = useForm();
   const [createFeedback, createFeedbackRes] = useCreateFeedbackMutation();
 
   const markChangeHandler = (mark: number): void => {
@@ -39,7 +39,12 @@ export const FeedbackModal: FC = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const submitHandler = async (event: Record<string, string>): Promise<void> => {
+  const closeHandler = (): void => {
+    close();
+    submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
+  };
+
+  const submitHandler = async (event: Partial<ICreateFeedbackDto>): Promise<void> => {
     const { text, suggestion } = event;
     const feedback = { mark, text, suggestion };
     await createFeedback(feedback).unwrap();
@@ -101,7 +106,7 @@ export const FeedbackModal: FC = () => {
   }, []);
 
   return (
-    <Modal size='small' isOpen={isOpen} close={close}>
+    <Modal size='small' isOpen={isOpen} close={closeHandler}>
       {createFeedbackRes.isSuccess && (
         <div className='text-center'>
           <Lordicon

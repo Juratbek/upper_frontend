@@ -1,5 +1,5 @@
 export interface ICreateFeedbackDto {
   mark: number;
-  text: string;
-  suggestion: string;
+  text?: string;
+  suggestion?: string;
 }
