@@ -87,9 +87,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
       <div className={styles.icon} onClick={(): void => likeDislike(1)}>
         {likeIcon}
       </div>
-      {Boolean(likeDislikeCount) && (
-        <span className={styles.reactionsText}>{likeDislikeCount}</span>
-      )}
+      {likeDislikeCount > 0 ? <span className={styles.reactionsText}>{likeDislikeCount}</span> : ''}
       <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
         <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
       </div>
