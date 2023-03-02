@@ -62,7 +62,7 @@ export const FeedbackModal: FC = () => {
 
   const markComponent = useMemo(() => {
     return (
-      <div className='text-center'>
+      <div className='text-center pt-4'>
         <h2>Saytimizni baholang</h2>
         <StarMarker onChange={markChangeHandler} className='justify-content-center' />
       </div>
@@ -106,7 +106,7 @@ export const FeedbackModal: FC = () => {
   }, []);
 
   return (
-    <Modal size='small' isOpen={isOpen} close={closeHandler}>
+    <Modal size='small' isOpen={isOpen || true} close={closeHandler}>
       {createFeedbackRes.isSuccess && (
         <div className='text-center'>
           <Lordicon
