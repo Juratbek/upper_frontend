@@ -1,17 +1,19 @@
 import { Modal } from 'components';
 import { Button, Lordicon, Spinner, Textarea } from 'components/lib';
 import { useModal } from 'hooks';
-import { FC, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateFeedbackMutation } from 'store/apis';
 
 import { StarMarker } from './components';
 import classes from './FeedbackModal.module.scss';
 
+const FEEDBACK = 'FEEDBACK';
+
 export const FeedbackModal: FC = () => {
   const [mark, setMark] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
-  const [isOpen, , { close }] = useModal();
+  const [isOpen, , { close, open }] = useModal();
   const { register, setFocus, handleSubmit } = useForm();
   const [createFeedback, createFeedbackRes] = useCreateFeedbackMutation();
 
@@ -37,10 +39,21 @@ export const FeedbackModal: FC = () => {
     setCurrentStep((prev) => prev - 1);
   };
 
-  const submitHandler = (event: Record<string, string>): void => {
+  const submitHandler = async (event: Record<string, string>): Promise<void> => {
     const { text, suggestion } = event;
-    createFeedback({ mark, text, suggestion });
+    const feedback = { mark, text, suggestion };
+    await createFeedback(feedback).unwrap();
+    localStorage.setItem(FEEDBACK, JSON.stringify({ ...feedback, createdDate: new Date() }));
   };
+
+  useEffect(() => {
+    const feedback = localStorage.getItem(FEEDBACK);
+    if (feedback) return;
+
+    setTimeout(() => {
+      open();
+    }, 1000 * 60 * 2); // 2 minutes
+  }, []);
 
   const markComponent = useMemo(() => {
     return (
@@ -88,7 +101,7 @@ export const FeedbackModal: FC = () => {
   }, []);
 
   return (
-    <Modal size='small' isOpen={true} close={close}>
+    <Modal size='small' isOpen={isOpen} close={close}>
       {createFeedbackRes.isSuccess && (
         <div className='text-center'>
           <Lordicon
