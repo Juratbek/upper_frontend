@@ -41,7 +41,7 @@ export const FeedbackModal: FC = () => {
 
   const closeHandler = (): void => {
     close();
-    submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
+    // submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
   };
 
   const submitHandler = async (event: Partial<ICreateFeedbackDto>): Promise<void> => {
