@@ -41,7 +41,7 @@ export const FeedbackModal: FC = () => {
 
   const closeHandler = (): void => {
     close();
-    // submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
+    mark && submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
   };
 
   const submitHandler = async (event: Partial<ICreateFeedbackDto>): Promise<void> => {
@@ -106,7 +106,7 @@ export const FeedbackModal: FC = () => {
   }, []);
 
   return (
-    <Modal size='small' isOpen={isOpen || true} close={closeHandler}>
+    <Modal size='small' isOpen={isOpen} close={closeHandler}>
       {createFeedbackRes.isSuccess && (
         <div className='text-center'>
           <Lordicon
