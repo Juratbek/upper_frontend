@@ -139,7 +139,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
             html: '<iframe width="100%" frameborder="no" height="550" src=""></iframe>',
             height: 500,
             width: 600,
-            id: (groups: any) => `${groups.join('/')}.js`,
+            id: (groups: string[]) => `${groups.join('/')}.js`,
           },
         },
       },
