@@ -42,6 +42,7 @@ export interface IArticle extends IArticleSmall {
   hasNotpublishedChanges?: boolean;
   token?: string;
   content?: string;
+  textContent?: string;
 }
 
 export type TArticleStatus = 'PUBLISHED' | 'SAVED';
