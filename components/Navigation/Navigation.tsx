@@ -30,11 +30,6 @@ export const Navigation = (): JSX.Element => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [isAuthenticated]);
 
-  const helpClickHandler = (): void => {
-    const helpHref = '/docs/write-article_introduction_quick-start';
-    router.asPath !== helpHref && router.push(helpHref);
-  };
-
   const clickHandler = (navigationIcon: INavigationIcon): void => {
     const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
     if (!isAuthenticated && isPrivateRoute) dispatch(openLoginModal(loginModalTitle));
@@ -98,9 +93,11 @@ export const Navigation = (): JSX.Element => {
           })}
         </div>
         <div className={classes['third-block']}>
-          <div className={`${classes.help} ${classes.icon} pointer`} onClick={helpClickHandler}>
-            <HelpIcon color={themeColors.icon} />
-          </div>
+          <Link href='/docs/write-article_introduction_quick-start'>
+            <a className={`${classes.help} ${classes.icon} pointer`}>
+              <HelpIcon color={themeColors.icon} />
+            </a>
+          </Link>
           {buttons}
           <div className={`${classes.burger} ${classes.icon}`} onClick={openSidebarHandler}>
             <Burger color={themeColors.icon} />
