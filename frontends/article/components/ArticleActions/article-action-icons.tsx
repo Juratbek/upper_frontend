@@ -25,10 +25,9 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
   article,
   isSharePopupOpen,
   setIsSharePopupOpen,
-  likeDislikeCount,
-  setLikeDislikeCount,
+  ...props
 }) => {
-  const { id, likeCount = 0, dislikeCount = 0 } = article || {};
+  const { id, likeCount = 0 } = article || {};
   const { isAuthenticated } = useAuth();
   const { themeColors } = useTheme();
   const dispatch = useAppDispatch();
@@ -43,7 +42,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
     }
     if (likeDislikeRes.isLoading || value === isLikedOrDisliked || !id) return;
     likeDislikeArticle({ id, value }).then(() => {
-      setLikeDislikeCount((prev) => prev + value - (isLikedOrDisliked || 0));
+      value === 1 && props.onLike?.();
     });
   };
 
@@ -69,7 +68,6 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
   useEffect(() => {
     if (isAuthenticated && id) {
       checkIfLikedDislikedQuery(id);
-      setLikeDislikeCount(likeCount);
     }
   }, [isAuthenticated, id]);
 
@@ -87,7 +85,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
       <div className={styles.icon} onClick={(): void => likeDislike(1)}>
         {likeIcon}
       </div>
-      {likeDislikeCount > 0 ? <span className={styles.reactionsText}>{likeDislikeCount}</span> : ''}
+      {likeCount > 0 ? <span className={styles.reactionsText}>{likeCount}</span> : ''}
       <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
         <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
       </div>
