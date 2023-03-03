@@ -42,7 +42,7 @@ export const Article: FC<IArticleProps> = ({
   } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
-  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
+  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount);
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
 

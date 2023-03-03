@@ -1,6 +1,6 @@
 import { useAuth, useTheme } from 'hooks';
 import Image from 'next/image';
-import { FC, FormEvent, useEffect, useMemo, useState } from 'react';
+import { FC, FormEvent, useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
 import { openLoginModal, toggleCommentsSidebar } from 'store/states';
@@ -69,7 +69,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
   useEffect(() => {
     if (isAuthenticated && id) {
       checkIfLikedDislikedQuery(id);
-      setLikeDislikeCount(likeCount - dislikeCount);
+      setLikeDislikeCount(likeCount);
     }
   }, [isAuthenticated, id]);
 
