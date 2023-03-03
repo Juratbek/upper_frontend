@@ -6,6 +6,7 @@ import {
   blogApi,
   commentApi,
   docsApi,
+  feedbackApi,
   labelApi,
   labelRequestApi,
   notificationApi,
@@ -47,6 +48,7 @@ export const store = configureStore({
     [labelRequestApi.reducerPath]: labelRequestApi.reducer,
     [publishedTutorialApi.reducerPath]: publishedTutorialApi.reducer,
     [tutorialApi.reducerPath]: tutorialApi.reducer,
+    [feedbackApi.reducerPath]: feedbackApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -60,6 +62,7 @@ export const store = configureStore({
       labelRequestApi.middleware,
       publishedArticleApi.middleware,
       tutorialApi.middleware,
+      feedbackApi.middleware,
       apiErrorMiddleware,
     ),
 });

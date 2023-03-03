@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer, Navigation, Sidebar } from 'components';
+import { FeedbackModal, Footer, Navigation, Sidebar } from 'components';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -66,6 +66,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         <Navigation />
         <DynamicLoginModal />
         <DynamicRegisterModal />
+        <FeedbackModal />
         <main className='main' id='main'>
           <Component {...pageProps} />
           <Footer />

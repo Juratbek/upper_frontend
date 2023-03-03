@@ -18,7 +18,16 @@ export const ArticleImg: FC<IArticleImgProps> = ({
 
   return (
     <div className={rootClassName}>
-      {imgUrl && <Image src={imgUrl} alt='UPPER' layout='fill' objectFit='cover' />}
+      {imgUrl && (
+        <Image
+          blurDataURL={`data:${imgUrl}`}
+          placeholder='blur'
+          src={imgUrl}
+          alt='UPPER'
+          layout='fill'
+          objectFit='cover'
+        />
+      )}
     </div>
   );
 };

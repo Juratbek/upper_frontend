@@ -118,12 +118,12 @@ export const removeAmazonUriFromImgBlocks = async (
 };
 
 export const convertToHeadProp = (article: IArticle): IHeadProps => {
-  const { title, imgUrl = '', content, author, publishedDate } = article;
+  const { title, imgUrl = '', textContent, author, publishedDate } = article;
   return {
     title,
     imgUrl,
     url: '',
-    description: content,
+    description: textContent,
     author: author?.name,
     publishedDate,
   };
