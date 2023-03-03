@@ -54,16 +54,18 @@ export const Form: FC<IFormProps> = (props) => {
         { key: 'Enter', metaKey: true },
       ],
       () => {
-        const text = (watch('text') as string)?.trim();
-        if (text) {
-          submitHandler({ text });
-        } else {
-          setError('text', { message: "Izoh bo'sh bo'lishi mumkin emas" }, { shouldFocus: true });
+        if (props.isOpen) {
+          const text = (watch('text') as string)?.trim();
+          if (text) {
+            submitHandler({ text });
+          } else {
+            setError('text', { message: "Izoh bo'sh bo'lishi mumkin emas" }, { shouldFocus: true });
+          }
         }
       },
     );
     return listener.clear;
-  }, []);
+  }, [props.isOpen]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
