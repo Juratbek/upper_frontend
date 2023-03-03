@@ -1,0 +1,16 @@
+.slider {
+  margin: 0 -2rem;
+}
+
+.steps {
+  display: flex;
+  transition: all 500ms;
+}
+
+.step {
+  position: relative;
+  inset: 0;
+  padding: 0 2rem;
+  min-width: 400px;
+  flex: 1 1 auto;
+}

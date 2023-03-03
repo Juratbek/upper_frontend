@@ -27,6 +27,7 @@ export * from './RegisterModal';
 export * from './Pagination/Pagination';
 export * from './Footer';
 export * from './EditorSpinner/EditorSpinner';
+export * from './FeedbackModal/FeedbackModal';
 export * from './Recaptcha/Recaptcha';
 export * from './WithPopover';
 export * from './MessageNotification';
