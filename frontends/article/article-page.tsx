@@ -32,19 +32,16 @@ export const Article: FC<IArticleProps> = ({
   showAuthor = false,
   ...props
 }) => {
-  const {
-    viewCount = 0,
-    publishedDate,
-    updatedDate,
-    blocks = [],
-    likeCount = 0,
-    dislikeCount = 0,
-  } = article || {};
+  const { viewCount = 0, publishedDate, updatedDate, blocks = [] } = article || {};
+  const [likeCount, setLikeCount] = useState(article?.likeCount || 0);
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
-  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
+
+  const likeHandler = (): void => {
+    setLikeCount((prev) => prev + 1);
+  };
 
   useEffect(() => {
     if (editorInstance?.isReady) {
@@ -60,6 +57,7 @@ export const Article: FC<IArticleProps> = ({
 
   useEffect(() => {
     if (!article) return;
+    setLikeCount(article.likeCount || 0);
     article.author && dispatch(setArticleAuthor(article.author));
     const timeout = setTimeout(() => {
       if (article.token) {
@@ -154,21 +152,19 @@ export const Article: FC<IArticleProps> = ({
           </div>
           <div className={styles.reactions}>
             <ArticleActionIcons
+              onLike={likeHandler}
               right={0}
               popupId='articleDetail'
               isSharePopupOpen={isSharePopupOpen}
               setIsSharePopupOpen={setIsSharePopupOpen}
-              article={article}
-              setLikeDislikeCount={setLikeDislikeCount}
-              likeDislikeCount={likeDislikeCount}
+              article={{ ...article, likeCount }}
             />
           </div>
         </div>
         <ArticleActions
+          onLike={likeHandler}
           editor={editorInstance}
-          article={article}
-          setLikeDislikeCount={setLikeDislikeCount}
-          likeDislikeCount={likeDislikeCount}
+          article={{ ...article, likeCount }}
         />
       </div>
     </div>
