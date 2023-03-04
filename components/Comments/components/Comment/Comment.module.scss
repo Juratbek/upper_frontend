@@ -1,16 +1,23 @@
 .comment {
-    padding: 0.5rem;
+  padding: 0.5rem;
+  position: relative;
 
-    & .author {
-        display: flex;
-    }
-    & .date {
-        font-size: 0.7rem;
-    }
+  & .author {
+    display: flex;
+  }
+  & .date {
+    font-size: 0.7rem;
+  }
 
-    & .message {
-        font-size: 0.8rem;
-        margin-top: 0.3rem;
-        overflow-wrap: break-word;
-    }
+  & .message {
+    font-size: 0.8rem;
+    margin-top: 0.3rem;
+    overflow-wrap: break-word;
+  }
+}
+
+.edit-button {
+  position: absolute;
+  top: 5px;
+  right: 0;
 }
