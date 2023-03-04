@@ -24,9 +24,14 @@ export const dateInterval = (date: Date | string | undefined): string => {
   if (!date) {
     return '';
   }
+  const serverDate = typeof date === 'string' ? new Date(date) : date;
+  const dateWithTimezoneMilliseconds =
+    serverDate.getTime() - serverDate.getTimezoneOffset() * 60000;
   const currentDate: Date = new Date();
 
-  const diffInSec: number = Math.floor((currentDate.getTime() - new Date(date).getTime()) / 1000);
+  const diffInSec: number = Math.floor(
+    (currentDate.getTime() - dateWithTimezoneMilliseconds) / 1000,
+  );
   if (diffInSec < 60) {
     return 'Hozirgina';
   }
