@@ -163,7 +163,7 @@
         }
       }
       .token {
-        &.function, &.keyword {
+        &.function, &.keyword, &.selector, &.property, &.tag, &.attr-value, &.number {
           color: #6cb6ff;
         }
       }
