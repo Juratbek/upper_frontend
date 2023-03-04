@@ -1,4 +1,5 @@
-import { Avatar, Divider } from 'components';
+import { Avatar, Button, Divider } from 'components';
+import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { FC } from 'react';
 import { useAppDispatch } from 'store';
@@ -10,6 +11,7 @@ import { TCommentProps } from './Comment.types';
 
 export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
   const dispatch = useAppDispatch();
+  const { currentBlog } = useAuth();
 
   const closeComments = (): unknown => dispatch(closeCommentsSidebar());
 
@@ -27,6 +29,11 @@ export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
             <p className={`m-0 ${classes.date}`}>{dateInterval(date)}</p>
           </div>
         </div>
+        {/* {currentBlog?.id === 1 && (
+          <Button className={classes['edit-button']} size='small' color='light'>
+            O&apos;zgartirish
+          </Button>
+        )} */}
         <div className={classes.message}>{text}</div>
       </div>
       <Divider className='w-90 mx-auto' />

@@ -6,6 +6,7 @@ import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
+  getCurrentBlog,
   getIsAuthenticated,
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
@@ -17,6 +18,7 @@ export const useAuth = (): IUseAuth => {
   const dispatch = useAppDispatch();
   const { signIn, signOut } = useNextAuth();
   const status = useAppSelector(getAuthStatus);
+  const currentBlog = useAppSelector(getCurrentBlog);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
   const isLoading = useMemo(() => status === 'loading', [status]);
   const {
@@ -57,6 +59,7 @@ export const useAuth = (): IUseAuth => {
     status,
     isAuthenticated,
     isLoading,
+    currentBlog,
     authenticate,
     unauthenticate,
     getToken,

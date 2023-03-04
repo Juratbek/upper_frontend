@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
-import { TAuthStatus } from 'types';
 import { REFRESH_TOKEN, TOKEN } from 'variables';
 
-interface IAuthState {
-  status: TAuthStatus;
-  isAuthenticated: boolean | null;
-  isGoogleScriptLoaded: boolean;
-}
+import { IAuthState } from './authSlice.types';
 
 const initialState: IAuthState = {
   status: 'loading',

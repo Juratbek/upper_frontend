@@ -6,7 +6,7 @@
   height: fit-content;
 }
 
-// colors #141920
+// colors
 .dark {
   background-color: black;
   color: white;
@@ -57,7 +57,10 @@
 .light {
   background-color: transparent;
   border: transparent;
-  color: black;
+  color: inherit;
+  &:hover {
+    background-color: #dfdfdf;
+  }
 }
 
 .outline-red {
@@ -82,6 +85,7 @@
   --dark-border: #747b82;
   --dark--hovered: #464e57;
   --dark-border--hovered: #cacaca;
+  --light--hovered: #404851;
 
   --red: #dc0000;
   --red-bg: rgb(170, 32, 32);
@@ -129,6 +133,9 @@
       }
     }
   }
+  &.light:hover {
+    background-color: var(--light--hovered);
+  }
 }
 
 // sizes
@@ -136,7 +143,6 @@
   padding: 0.3em 0.8em;
   font-size: 0.8rem;
 }
-
 .medium {
   padding: 0.4em 1em;
   font-size: 1rem;
