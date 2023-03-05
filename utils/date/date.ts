@@ -30,10 +30,7 @@ export const dateInterval = (date: Date | string | undefined): string => {
   //   serverDate.getTime() - serverDate.getTimezoneOffset() * 60000;
   const currentDate: Date = new Date();
 
-  const diffInSec: number = Math.floor(
-    (currentDate.getTime() - currentDate.getTimezoneOffset() * 60000 - dateWithTimezone.getTime()) /
-      1000,
-  );
+  const diffInSec: number = Math.floor((currentDate.getTime() - dateWithTimezone.getTime()) / 1000);
   if (diffInSec < 60) {
     return 'Hozirgina';
   }
