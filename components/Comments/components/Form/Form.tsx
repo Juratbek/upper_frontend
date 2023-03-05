@@ -1,9 +1,9 @@
 import { Button, Error, Textarea } from 'components';
 import { useRouter } from 'next/router';
-import { ChangeEvent, FC, useEffect } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from 'store';
-import { useCreateCommentMutation } from 'store/apis';
+import { useCreateCommentMutation, useEditCommentMutation } from 'store/apis';
 import { closeCommentsSidebar } from 'store/states';
 import { TSubmitFormEvent } from 'types';
 import { addKeyboardListeners } from 'utils';
@@ -23,17 +23,30 @@ export const Form: FC<IFormProps> = (props) => {
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
-  const [createComment, { isLoading }] = useCreateCommentMutation();
+  const [createComment, createCommentRes] = useCreateCommentMutation();
+  const [editComment, editCommentRes] = useEditCommentMutation();
+  const isLoading = createCommentRes.isLoading || editCommentRes.isLoading;
   const {
     query: { id },
   } = useRouter();
 
-  const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    if (!id) return Promise.reject();
-    await createComment({ text: event.text.trim(), articleId: +id }).unwrap();
-    reset();
-    props.onSubmit?.();
-  };
+  const submitHandler = useCallback(
+    async (event: TSubmitFormEvent): Promise<void> => {
+      if (!id) return Promise.reject();
+      const text = event.text.trim();
+
+      if (props.isBeingEdited && props.selectedComment) {
+        const comment = await editComment({ ...props.selectedComment, text }).unwrap();
+        props.api.updateItem(comment);
+      } else {
+        await createComment({ text, articleId: +id }).unwrap();
+      }
+
+      reset();
+      props.onSubmit?.(event);
+    },
+    [props.isBeingEdited, props.selectedComment, props.api],
+  );
 
   const closeComments = (): void => {
     dispatch(closeCommentsSidebar());
@@ -63,7 +76,7 @@ export const Form: FC<IFormProps> = (props) => {
       },
     );
     return listener.clear;
-  }, []);
+  }, [submitHandler]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>

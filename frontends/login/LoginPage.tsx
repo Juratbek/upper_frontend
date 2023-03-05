@@ -11,14 +11,14 @@ export const LoginPage: FC = () => {
     query: { redirect, message },
     push,
   } = useRouter();
-  const { authenticate, getToken, getRefreshToken, unauthenticate } = useAuth();
+  const { authenticateTokens, getToken, getRefreshToken, unauthenticate } = useAuth();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const token = getToken();
     const refreshToken = getRefreshToken() || '';
     if (token) {
-      authenticate({ token, refreshToken });
+      authenticateTokens({ token, refreshToken });
       typeof redirect === 'string' ? push(redirect) : push('/');
     } else {
       unauthenticate();

@@ -7,6 +7,7 @@ import {
   TFetchFirstPage,
   TFetchNextPage,
   THook,
+  TUpdateItem,
 } from './useInfiniteScrollV2.types';
 
 export const useInfiniteScrollV2 = <T>(
@@ -35,6 +36,20 @@ export const useInfiniteScrollV2 = <T>(
     }
   };
 
+  const updateItem: TUpdateItem<T> = (item, identificator) => {
+    let updatedList: T[] = [];
+    if (identificator) {
+      updatedList = list.map((l) => (l[identificator] === item[identificator] ? item : l));
+    } else if ('id' in item) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      updatedList = list.map((l) => (l.id === item.id ? item : l));
+    } else {
+      throw new Error('Please specify the identificator for updateItem method');
+    }
+    setList(updatedList);
+  };
+
   const fetchNextPage: TFetchNextPage = (params) => {
     return fetch({ page, size, ...params }).then((res) => {
       const newItems = res.data?.list || [];
@@ -50,5 +65,7 @@ export const useInfiniteScrollV2 = <T>(
     hasMore,
     fetchFirstPage,
     fetchNextPage,
+    setList,
+    updateItem,
   };
 };

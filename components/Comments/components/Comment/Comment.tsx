@@ -7,13 +7,16 @@ import { closeCommentsSidebar } from 'store/states';
 import { addAmazonUri, dateInterval } from 'utils';
 
 import classes from './Comment.module.scss';
-import { TCommentProps } from './Comment.types';
+import { ICommentProps } from './Comment.types';
 
-export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
+export const Comment: FC<ICommentProps> = (props) => {
+  const { author, text, date, updatedText } = props;
   const dispatch = useAppDispatch();
   const { currentBlog } = useAuth();
 
   const closeComments = (): unknown => dispatch(closeCommentsSidebar());
+
+  const onEditClick = (): void => props.onEditClick(props);
 
   return (
     <>
@@ -26,15 +29,22 @@ export const Comment: FC<TCommentProps> = ({ author, date, text }) => {
                 <h5 className='m-0 link pointer'>{author.name}</h5>
               </a>
             </Link>
-            <p className={`m-0 ${classes.date}`}>{dateInterval(date)}</p>
+            <p className={`m-0 ${classes.date}`}>
+              {dateInterval(date)} {Boolean(updatedText) && "(o'zgartirilgan)"}{' '}
+            </p>
           </div>
         </div>
-        {/* {currentBlog?.id === 1 && (
-          <Button className={classes['edit-button']} size='small' color='light'>
+        {currentBlog?.id === author.id && (
+          <Button
+            className={classes['edit-button']}
+            size='small'
+            color='light'
+            onClick={onEditClick}
+          >
             O&apos;zgartirish
           </Button>
-        )} */}
-        <div className={classes.message}>{text}</div>
+        )}
+        <div className={classes.message}>{updatedText || text}</div>
       </div>
       <Divider className='w-90 mx-auto' />
     </>
