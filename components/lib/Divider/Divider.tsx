@@ -8,6 +8,7 @@ export const Divider: FC<IDividerProps> = ({
   className = '',
   type = 'horisontal',
   color = 'light-gray',
+  ...props
 }): JSX.Element => {
   const rootClassName = useMemo(
     () =>
@@ -20,5 +21,5 @@ export const Divider: FC<IDividerProps> = ({
     [className, type, color],
   );
 
-  return <div className={rootClassName} />;
+  return <div className={rootClassName} {...props} />;
 };

@@ -73,10 +73,11 @@ export const NotificationsTab: FC = () => {
           />
           {index !== notifications.length - 1 && (
             <Divider
-              className='w-75 mx-auto'
+              className='w-90 mx-auto'
               color={
                 notification.status === NOTIFICATION_STATUSES.UNREAD ? 'transparent' : undefined
               }
+              style={{ marginTop: 2, marginBottom: 2 }}
             />
           )}
         </div>
@@ -90,7 +91,7 @@ export const NotificationsTab: FC = () => {
         res={fetchNotificationsRes}
         fallback={<NotificationSkeleton className='px-3 py-2' />}
         fallbackItemCount={3}
-        className='tab'
+        className='tab pt-1'
       >
         {notifications}
       </ApiErrorBoundary>

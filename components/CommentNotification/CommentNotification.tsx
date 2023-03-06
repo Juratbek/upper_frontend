@@ -1,24 +1,26 @@
-import { Actions, Label } from 'components';
+import { Link } from 'components';
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
-import { getClassName } from 'utils';
-
-import classes from './CommentNotification.module.css';
+import { dateInterval, getClassName } from 'utils';
 
 export const CommentNotification: FC<INotificationComponentProp> = (props) => {
-  const { className, article, author } = props;
-  const rootClassName = getClassName(className, classes['comment-notification']);
+  const { className, article, author, status, createdDate } = props;
+  const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
+
+  const clickHandler = (): void => props.onClick?.(props);
 
   return (
-    <div className={rootClassName}>
-      <div>
-        <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangizga{' '}
-        <strong className='pointer'>{author?.name}</strong> izoh qoldirdi
+    <Link href={`/articles/${article.id}`}>
+      <div className={rootClassName} onClick={clickHandler}>
+        <div>
+          <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangizga{' '}
+          <Link href={`/blogs/${author.id}`} className='link'>
+            <strong className='pointer'>{author.name}</strong>
+          </Link>{' '}
+          izoh qoldirdi
+        </div>
+        <time className='date'>{dateInterval(createdDate)}</time>
       </div>
-      <div className='d-flex align-items-center'>
-        <Label className='me-1'>Izoh</Label>
-        <Actions actions={[]} />
-      </div>
-    </div>
+    </Link>
   );
 };
