@@ -24,3 +24,4 @@ export * from './Avatar';
 export * from './FileDragDrop';
 export * from './StorysetImage';
 export * from './Lordicon';
+export * from './Link';

@@ -1,9 +1,0 @@
-.comment-notification {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.comment-notification--unread {
-    background-color: var(--lightGray);
-}
