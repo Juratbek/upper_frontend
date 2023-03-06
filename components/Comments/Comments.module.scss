@@ -36,6 +36,7 @@
   & .comments-list {
     padding: 1rem;
     overflow-y: scroll;
+    flex: 1;
 
     @include screenMax576 {
       margin-top: 1rem;
@@ -57,5 +58,26 @@
   & .form {
     border-top: 0.5px solid black;
     padding: 1rem;
+  }
+}
+
+.selected-comment {
+  padding: 1rem;
+  border-top: 0.5px solid black;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+
+  .text {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+    word-break: break-all;
+  }
+
+  .icon {
+    cursor: pointer;
   }
 }

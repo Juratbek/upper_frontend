@@ -1,3 +1,5 @@
 import { IComment } from 'types';
 
-export type TCommentProps = IComment;
+export interface ICommentProps extends IComment {
+  onEditClick: (comment: IComment) => void;
+}
