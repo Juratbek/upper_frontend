@@ -7,6 +7,7 @@ const LinkedInIcon = ICONS.linkedIn;
 
 import { Button } from 'components';
 import { useClickOutside, useClipboard, useTheme } from 'hooks';
+import { addKeyboardListener } from 'utils';
 
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
@@ -48,6 +49,11 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
       const popoverHeight = popover.getBoundingClientRect().height;
       popover.style.top = targetOffSetTop - popoverHeight - 24 + 'px';
     }
+  }, []);
+
+  useEffect(() => {
+    const listener = addKeyboardListener({ key: 'Escape' }, () => setVisible(false));
+    return listener.clear;
   }, []);
 
   return (
