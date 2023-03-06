@@ -16,7 +16,7 @@ const url = window.location.href;
 
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
   id,
-  right,
+  className,
   visible,
   setVisible,
 }) => {
@@ -58,11 +58,10 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
 
   return (
     <div
-      className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''}`}
+      className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''} ${className}`}
       style={{
         backgroundColor: themeColors.bg,
         borderColor: themeColors.popover.border,
-        right: right,
       }}
       ref={sharePopupRef}
     >

@@ -137,7 +137,7 @@ export const Article: FC<IArticleProps> = ({
           {dateContent}
           <div className={styles.reactions}>
             <ArticleActionIcons
-              right={0}
+              className={styles.sharePopup}
               popupId='articleDetail'
               isSharePopupOpen={isSharePopupOpen}
               setIsSharePopupOpen={setIsSharePopupOpen}

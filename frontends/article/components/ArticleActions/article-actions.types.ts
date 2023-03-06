@@ -15,6 +15,6 @@ export interface IArticleActionsIconsProps {
   setIsSharePopupOpen: Dispatch<SetStateAction<boolean>>;
   setLikeDislikeCount: Dispatch<SetStateAction<number>>;
   popupId: string;
-  right?: number;
+  className?: string;
   likeDislikeCount: number;
 }
