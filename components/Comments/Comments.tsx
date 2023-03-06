@@ -111,7 +111,7 @@ export const Comments = (): JSX.Element => {
       </div>
       <div className={classes.form}>
         {isAuthenticated ? (
-          <Form isOpen={isOpen} onSubmit={submitHandler} />
+          isOpen && <Form onSubmit={submitHandler} />
         ) : (
           <div>
             <p className='mt-0'>Izoh qoldirish uchun ro&apos;yxatdan o&apos;ting</p>
