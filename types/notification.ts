@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { IArticleSmall } from './article';
 import { IBlogSmall } from './blog';
 
-export type TNotification = 'ARTICLE_PUBLISHED' | 'COMMENT' | 'LIKE' | 'MESSAGE';
+export type TNotification = 'ARTICLE_PUBLISHED' | 'COMMENT' | 'LIKED' | 'MESSAGE';
 export type TNotificationStatus = 'UNREAD' | 'READ';
 
 export interface INotification {
