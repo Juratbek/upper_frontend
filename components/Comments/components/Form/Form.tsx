@@ -19,6 +19,7 @@ export const Form: FC<IFormProps> = (props) => {
     setError,
     watch,
     setValue,
+    setFocus,
     clearErrors,
     formState: { errors },
   } = useForm();
@@ -77,6 +78,15 @@ export const Form: FC<IFormProps> = (props) => {
     );
     return listener.clear;
   }, [submitHandler]);
+
+  useEffect(() => {
+    const { selectedComment } = props;
+    if (selectedComment) {
+      const text = selectedComment.updatedText || selectedComment.text;
+      setValue('text', text);
+      setFocus('text');
+    }
+  }, [props.selectedComment]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
