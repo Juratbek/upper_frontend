@@ -79,9 +79,10 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const publish = async (): Promise<void> => {
-    if (!article) return;
+    if (!article || !editor) return;
     // validating article for publishing
-    const validationResult = validateArticle(article);
+    const editorData = await editor.save();
+    const validationResult = validateArticle({ ...article, blocks: editorData.blocks });
     if (!validationResult.isValid) {
       return setAlert(validationResult.message);
     }
@@ -141,12 +142,17 @@ export const UserArticlesSidebar: FC = () => {
     );
   }, [alert]);
 
+  const closePublishModalHandler = (): void => {
+    closePublishModal();
+    setAlert('');
+  };
+
   return (
     <>
       <Modal
         size='small'
         isOpen={isPublishModalOpen}
-        close={closePublishModal}
+        close={closePublishModalHandler}
         bodyClassName='text-center'
       >
         {alertComponent}
@@ -178,7 +184,7 @@ export const UserArticlesSidebar: FC = () => {
           </div>
         )}
         <div className='d-flex'>
-          <Button color='outline-dark' onClick={togglePublishModal} className='me-1'>
+          <Button color='outline-dark' onClick={closePublishModalHandler} className='me-1'>
             Modalni yopish
           </Button>
           <Button

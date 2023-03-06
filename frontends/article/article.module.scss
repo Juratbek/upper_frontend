@@ -1,12 +1,20 @@
+@import 'styles/_mixins';
+
 .articleContainer {
   margin: 0 auto;
   padding-bottom: 2rem;
+
   .articleDetail {
     display: flex;
     justify-content: space-between;
     padding: 0 0.5rem;
     font-size: 0.9rem;
     align-items: center;
+
+    @include screenMax576 {
+      flex-direction: column;
+      align-items: stretch;
+    }
 
     & .stats {
       font-size: 0.65rem;
@@ -39,6 +47,9 @@
         @media only screen and (max-width: 600px) {
           width: 90vw;
         }
+      }
+      @include screenMax576 {
+        margin-top: 1rem;
       }
     }
 

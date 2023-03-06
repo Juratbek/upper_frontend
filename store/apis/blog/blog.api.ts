@@ -3,6 +3,7 @@ import {
   IArticleResult,
   IBlog,
   IBlogMedium,
+  IBlogSmall,
   ILabel,
   ITelegramUser,
   TOptionalPagingRequest,
@@ -157,9 +158,12 @@ export const blogApi = createApi({
         body,
       }),
     }),
-    sendEmailConfirmationForPassword: build.mutation<void, string>({
-      query: (email) => ({
-        url: 'open/forgot-credentials',
+    getByEmail: build.query<IBlogSmall[], string>({
+      query: (email) => `open/by-email?email=${email}`,
+    }),
+    sendEmailConfirmationForPassword: build.mutation<void, { email: string; id: number }>({
+      query: ({ id, email }) => ({
+        url: `open/forgot-credentials/${id}?email=${email}`,
         body: email,
         method: 'POST',
       }),
@@ -203,6 +207,7 @@ export const {
   useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
+  useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
   useContinueWithGoogleMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,

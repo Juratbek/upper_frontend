@@ -8,6 +8,7 @@ export interface IBlogRegisterDto {
 }
 
 export interface IBlogRegisterResponse {
+  // id: number;
   token: string;
   refreshToken: string;
   name?: string;

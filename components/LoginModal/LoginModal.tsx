@@ -143,14 +143,14 @@ export const LoginModal: FC = () => {
           </Link>
         </p>
       </form>
+      <GoogleAuthScript />
+      <GoogleSignIn id='google-sign-in' className='mt-2' />
+      <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
       <TelegramLoginButton
-        className='mt-2 text-center'
+        className='mt-1 text-center'
         botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}
         onAuth={closeModal}
       />
-      <GoogleAuthScript />
-      <GoogleSignIn id='google-sign-in' />
-      <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
     </Modal>
   );
 };

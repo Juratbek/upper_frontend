@@ -26,6 +26,7 @@
 .modal-dialog {
   z-index: 1000;
   border-radius: var(--mediumBorderRadius);
+  overflow: hidden;
 
   &--small {
     width: 400px;

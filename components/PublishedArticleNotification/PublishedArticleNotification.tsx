@@ -2,7 +2,7 @@ import { Actions, Avatar, IAction } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
 import { INotificationComponentProp } from 'types';
-import { addAmazonUri, getClassName, toDateString } from 'utils';
+import { addAmazonUri, dateInterval, getClassName } from 'utils';
 import { NOTIFICATION_STATUSES } from 'variables';
 
 import classes from './PublishedArticleNotification.module.scss';
@@ -46,7 +46,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
               maqola nashr qildi
             </span>
           </div>
-          <span className={classes.date}>{toDateString(createdDate)}</span>
+          <span className={classes.date}>{dateInterval(createdDate)}</span>
         </div>
       </div>
       <div className={classes.actions}>

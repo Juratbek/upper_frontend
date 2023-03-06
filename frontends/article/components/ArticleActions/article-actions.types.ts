@@ -2,19 +2,18 @@ import EditorJS from '@editorjs/editorjs';
 import { Dispatch, SetStateAction } from 'react';
 import { IArticle } from 'types';
 
+type TLikeDislikeFn = () => void;
 export interface IArticleActionsProps {
   editor: EditorJS | null;
   article: IArticle | null;
-  likeDislikeCount: number;
-  setLikeDislikeCount: Dispatch<SetStateAction<number>>;
+  onLike: TLikeDislikeFn;
 }
 
 export interface IArticleActionsIconsProps {
   article: IArticle | null;
+  onLike: TLikeDislikeFn;
   isSharePopupOpen: boolean;
   setIsSharePopupOpen: Dispatch<SetStateAction<boolean>>;
-  setLikeDislikeCount: Dispatch<SetStateAction<number>>;
   popupId: string;
   className?: string;
-  likeDislikeCount: number;
 }

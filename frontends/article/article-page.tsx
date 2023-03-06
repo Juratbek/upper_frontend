@@ -11,8 +11,9 @@ import {
   addAmazonUri,
   addUriToImageBlocks,
   convertToHeadProp,
+  dateInterval,
+  formatToKMB,
   get,
-  toDateString,
 } from 'utils';
 import { ICONS } from 'variables';
 
@@ -21,6 +22,8 @@ import { IArticleProps } from './article.types';
 import { ArticleActionIcons, ArticleActions } from './components';
 
 const HeartIcon = ICONS.heart;
+const CalendarIcon = ICONS.calendar;
+const EyeIcon = ICONS.eye;
 
 export const Article: FC<IArticleProps> = ({
   article,
@@ -29,19 +32,16 @@ export const Article: FC<IArticleProps> = ({
   showAuthor = false,
   ...props
 }) => {
-  const {
-    viewCount = 0,
-    publishedDate,
-    updatedDate,
-    blocks = [],
-    likeCount = 0,
-    dislikeCount = 0,
-  } = article || {};
+  const { viewCount = 0, publishedDate, updatedDate, blocks = [] } = article || {};
+  const [likeCount, setLikeCount] = useState(article?.likeCount || 0);
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
-  const [likeDislikeCount, setLikeDislikeCount] = useState<number>(likeCount - dislikeCount);
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
+
+  const likeHandler = (): void => {
+    setLikeCount((prev) => prev + 1);
+  };
 
   useEffect(() => {
     if (editorInstance?.isReady) {
@@ -57,6 +57,7 @@ export const Article: FC<IArticleProps> = ({
 
   useEffect(() => {
     if (!article) return;
+    setLikeCount(article.likeCount || 0);
     article.author && dispatch(setArticleAuthor(article.author));
     const timeout = setTimeout(() => {
       if (article.token) {
@@ -79,8 +80,8 @@ export const Article: FC<IArticleProps> = ({
   );
 
   const dateContent = useMemo(() => {
-    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
-    if (publishedDate) return toDateString(publishedDate);
+    if (updatedDate) return <>{dateInterval(updatedDate)} yangilangan</>;
+    if (publishedDate) return dateInterval(publishedDate);
     return <></>;
   }, [publishedDate, updatedDate]);
 
@@ -128,30 +129,42 @@ export const Article: FC<IArticleProps> = ({
         <article>{articleComponent}</article>
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
-          {viewCount > 0 && (
-            <>
-              <span>{viewCount} marta ko&apos;rilgan</span>
-              <Divider type='vertical' className='mx-1' />
-            </>
-          )}
-          {dateContent}
+          <div className={styles.stats}>
+            <time style={{ flex: 1 }} className='d-flex align-items-center'>
+              <span className={styles.icon}>
+                <CalendarIcon color='gray' />
+              </span>
+              {dateContent}
+            </time>
+            {viewCount > 0 && (
+              <>
+                <Divider type='vertical' className='mx-1' />
+                <div className='d-flex align-items-center'>
+                  <span className={`${styles.icon} ${styles.eye}`}>
+                    <EyeIcon color='gray' />
+                  </span>
+                  <span className='d-flex align-items-center'>
+                    {formatToKMB(viewCount)} marta o&apos;qilgan
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
           <div className={styles.reactions}>
             <ArticleActionIcons
               className={styles.sharePopup}
+              onLike={likeHandler}
               popupId='articleDetail'
               isSharePopupOpen={isSharePopupOpen}
               setIsSharePopupOpen={setIsSharePopupOpen}
-              article={article}
-              setLikeDislikeCount={setLikeDislikeCount}
-              likeDislikeCount={likeDislikeCount}
+              article={{ ...article, likeCount }}
             />
           </div>
         </div>
         <ArticleActions
+          onLike={likeHandler}
           editor={editorInstance}
-          article={article}
-          setLikeDislikeCount={setLikeDislikeCount}
-          likeDislikeCount={likeDislikeCount}
+          article={{ ...article, likeCount }}
         />
       </div>
     </div>
