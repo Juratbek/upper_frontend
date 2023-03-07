@@ -15,7 +15,7 @@ export const BlogsTab: FC = () => {
     if (search && tab === SEARCH_PAGE_TAB_IDS.blogs && search.length > 1) {
       searchBlog({ search: search.toString() });
     }
-  }, [search]);
+  }, [search, tab]);
 
   return (
     <ApiErrorBoundary

@@ -32,7 +32,7 @@ export const SearchPage: FC = () => {
           placeholder='Qidirish uchun yozing'
           onDebounce={search}
         />
-        <div style={{ height: '5rem' }} />
+        <div style={{ height: '10rem' }} />
       </div>
     );
   }

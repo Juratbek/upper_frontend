@@ -13,10 +13,10 @@ export const SEARCH_TAB_MENUS: ITabHeader[] = [
     name: 'Maqolalar',
     id: SEARCH_PAGE_TAB_IDS.articles,
   },
-  {
-    name: "To'plamlar",
-    id: SEARCH_PAGE_TAB_IDS.tutorials,
-  },
+  // {
+  //   name: "To'plamlar",
+  //   id: SEARCH_PAGE_TAB_IDS.tutorials,
+  // },
   {
     name: 'Bloglar',
     id: SEARCH_PAGE_TAB_IDS.blogs,
