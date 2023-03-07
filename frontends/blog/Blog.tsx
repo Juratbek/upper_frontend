@@ -92,7 +92,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
                     <a className='link d-flex mt-xs-2 w-100'>
                       {isMobile ? (
                         <Button className='w-100' color='outline-dark'>
-                          <span className='sponsor-icon'>
+                          <span className='sponsor-icon mb-17'>
                             <HeartIcon />
                           </span>
                           Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
