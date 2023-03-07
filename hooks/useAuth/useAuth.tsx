@@ -10,7 +10,7 @@ import {
   setCurrentBlog as setStoreCurrentBlog,
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
-import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils/auth/auth';
+import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
 import { REFRESH_TOKEN, TOKEN } from 'variables';
 
 import {
