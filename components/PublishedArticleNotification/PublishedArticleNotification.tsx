@@ -23,11 +23,11 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
   const actions = useMemo(() => {
     const actions: IAction[] = [{ label: "O'chirish", color: 'red', onClick: deleteNotification }];
     if (status === NOTIFICATION_STATUSES.UNREAD) {
-      actions.push({ label: "O'qilgan sifatida belgilash", onClick: markAsRead });
+      actions.unshift({ label: "O'qilgan sifatida belgilash", onClick: markAsRead });
     }
 
     return actions;
-  }, []);
+  }, [status]);
 
   const clickHandler = (): void => {
     push(`/articles/${article.id}`);
