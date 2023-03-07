@@ -14,7 +14,11 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
       const { dispatch } = api;
       dispatch(unauthenticate());
       removeLocalStorageTokens();
-      window.location.replace('/');
+      window.location.replace(
+        `/login?redirect=${
+          window.location.pathname
+        }&message=${'Token muddadi yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
+      );
     }
 
     if (status === 401) {
