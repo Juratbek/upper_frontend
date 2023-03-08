@@ -44,7 +44,7 @@
       position: relative;
       .sharePopup {
         right: 0;
-        @media only screen and (max-width: 600px) {
+        @include screenMax576 {
           width: 90vw;
         }
       }
