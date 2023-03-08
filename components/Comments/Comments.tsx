@@ -110,8 +110,8 @@ export const Comments = (): JSX.Element => {
         </InfiniteScroll>
       </div>
       <div className={classes.form}>
-        {isAuthenticated ? (
-          isOpen && <Form onSubmit={submitHandler} />
+        {isAuthenticated && isOpen ? (
+          <Form onSubmit={submitHandler} />
         ) : (
           <div>
             <p className='mt-0'>Izoh qoldirish uchun ro&apos;yxatdan o&apos;ting</p>

@@ -66,6 +66,12 @@ export const Form: FC<IFormProps> = (props) => {
     return listener.clear;
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setFocus('text');
+    }, 100);
+  }, []);
+
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
       <Textarea
