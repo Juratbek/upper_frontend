@@ -21,10 +21,18 @@ export const commentApi = createApi({
         body: comment,
       }),
     }),
+    edit: build.mutation<IComment, { id: number; text: string }>({
+      query: (comment) => ({
+        method: 'PUT',
+        url: 'update',
+        body: comment,
+      }),
+    }),
   }),
 });
 
 export const {
   useLazyGetByArticleIdQuery: useLazyGetCommentsByArticleIdQuery,
   useCreateMutation: useCreateCommentMutation,
+  useEditMutation: useEditCommentMutation,
 } = commentApi;

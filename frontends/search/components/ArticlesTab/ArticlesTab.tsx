@@ -15,7 +15,7 @@ export const ArticlesTab: FC = () => {
     if (search && search.length > 1 && tab === SEARCH_PAGE_TAB_IDS.articles) {
       searchArticle({ search: search.toString() });
     }
-  }, [search]);
+  }, [search, tab]);
 
   return (
     <ApiErrorBoundary

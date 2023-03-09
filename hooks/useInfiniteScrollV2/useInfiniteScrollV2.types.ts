@@ -1,6 +1,7 @@
 import { QueryDefinition } from '@reduxjs/toolkit/dist/query';
 import { UseLazyQuery } from '@reduxjs/toolkit/dist/query/react/buildHooks';
 import { IRes } from 'components/ApiErrorBoundary';
+import { Dispatch, SetStateAction } from 'react';
 import { TBaseQuery } from 'store/apis/config';
 import { IPagingResponse, TOptionalPagingRequest } from 'types';
 
@@ -13,6 +14,8 @@ export type THook<T> = UseLazyQuery<
   >
 >;
 
+export type TUpdateItem<T> = (item: T, identificator?: keyof T) => void;
+
 export interface IInfiniteScrollV2<T> extends IRes {
   list: T[];
   //   newItems: T[];
@@ -20,6 +23,8 @@ export interface IInfiniteScrollV2<T> extends IRes {
   hasMore: boolean;
   fetchFirstPage: TFetchFirstPage;
   fetchNextPage: TFetchNextPage;
+  setList: Dispatch<SetStateAction<T[]>>;
+  updateItem: TUpdateItem<T>;
 }
 
 export interface IConfig {

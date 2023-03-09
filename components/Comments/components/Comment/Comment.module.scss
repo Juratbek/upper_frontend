@@ -14,10 +14,15 @@
     margin-top: 0.3rem;
     overflow-wrap: break-word;
   }
+
+  &:hover .edit-button {
+    display: block;
+  }
 }
 
 .edit-button {
   position: absolute;
+  display: none;
   top: 5px;
   right: 0;
 }
