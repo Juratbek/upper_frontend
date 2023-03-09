@@ -42,7 +42,12 @@
       visibility: visible;
       z-index: 1;
       position: relative;
-
+      .sharePopup {
+        right: 0;
+        @include screenMax576 {
+          width: 90vw;
+        }
+      }
       @include screenMax576 {
         margin-top: 1rem;
       }

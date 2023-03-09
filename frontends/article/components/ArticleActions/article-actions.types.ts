@@ -15,5 +15,5 @@ export interface IArticleActionsIconsProps {
   isSharePopupOpen: boolean;
   setIsSharePopupOpen: Dispatch<SetStateAction<boolean>>;
   popupId: string;
-  right?: number;
+  className?: string;
 }

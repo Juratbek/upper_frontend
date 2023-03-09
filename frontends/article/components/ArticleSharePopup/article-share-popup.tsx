@@ -7,6 +7,7 @@ const LinkedInIcon = ICONS.linkedIn;
 
 import { Button } from 'components';
 import { useClickOutside, useClipboard, useTheme } from 'hooks';
+import { addKeyboardListener } from 'utils';
 
 import styles from './article-share-popup.module.scss';
 import { IArticleSharePopupProps } from './article-share-popup.types';
@@ -15,7 +16,7 @@ const url = window.location.href;
 
 export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
   id,
-  right,
+  className,
   visible,
   setVisible,
 }) => {
@@ -50,13 +51,17 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
     }
   }, []);
 
+  useEffect(() => {
+    const listener = addKeyboardListener({ key: 'Escape' }, () => setVisible(false));
+    return listener.clear;
+  }, []);
+
   return (
     <div
-      className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''}`}
+      className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''} ${className}`}
       style={{
         backgroundColor: themeColors.bg,
         borderColor: themeColors.popover.border,
-        right: right,
       }}
       ref={sharePopupRef}
     >
