@@ -42,7 +42,8 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
     }
     if (likeDislikeRes.isLoading || value === isLikedOrDisliked || !id) return;
     likeDislikeArticle({ id, value }).then(() => {
-      value === 1 && props.onLike?.();
+      value === 1 && props.onLike();
+      value === -1 && props.onDislike(isLikedOrDisliked === 1);
     });
   };
 

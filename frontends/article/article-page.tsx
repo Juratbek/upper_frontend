@@ -43,6 +43,10 @@ export const Article: FC<IArticleProps> = ({
     setLikeCount((prev) => prev + 1);
   };
 
+  const dislikeHandler = (wasLikedBefore: boolean): void => {
+    wasLikedBefore && setLikeCount((prev) => prev - 1);
+  };
+
   useEffect(() => {
     if (editorInstance?.isReady) {
       const main = document.querySelector('#main');
@@ -154,6 +158,7 @@ export const Article: FC<IArticleProps> = ({
             <ArticleActionIcons
               className={styles.sharePopup}
               onLike={likeHandler}
+              onDislike={dislikeHandler}
               popupId='articleDetail'
               isSharePopupOpen={isSharePopupOpen}
               setIsSharePopupOpen={setIsSharePopupOpen}
@@ -163,6 +168,7 @@ export const Article: FC<IArticleProps> = ({
         </div>
         <ArticleActions
           onLike={likeHandler}
+          onDislike={dislikeHandler}
           editor={editorInstance}
           article={{ ...article, likeCount }}
         />
