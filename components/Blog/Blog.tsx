@@ -26,7 +26,12 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
           <h2 className='m-0'>{name}</h2>
           <div className={classes['social-media-links']}>
             {links.map((link) => (
-              <a key={link.link} href={addLinkPrefix(link)} target='_blank' rel='noreferrer'>
+              <a
+                key={link.link.replace('/@', '/')}
+                href={addLinkPrefix(link)}
+                target='_blank'
+                rel='noreferrer'
+              >
                 <HoverableIcon {...link} />
               </a>
             ))}
