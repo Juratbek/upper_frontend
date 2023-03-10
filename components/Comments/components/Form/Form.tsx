@@ -67,9 +67,10 @@ export const Form: FC<IFormProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       setFocus('text');
     }, 100);
+    return () => clearTimeout(timeout);
   }, []);
 
   return (
