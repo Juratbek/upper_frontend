@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazyGetBlogArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
-import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
+import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();
@@ -51,7 +51,7 @@ export const ArticlesTab: FC = () => {
               storysetUri='creativity'
             />
             <p>Maqola yozing va bilimlaringizni ulashing</p>
-            <Link href='/write-article'>
+            <Link href={`${WEB_APP_ROOT_DIR}/write-article`}>
               <a>
                 <Button color='outline-dark'>Maqola yozish</Button>
               </a>

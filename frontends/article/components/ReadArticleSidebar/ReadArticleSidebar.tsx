@@ -7,7 +7,7 @@ import { useLazyGetPublishedTutorialsByArticleIdQuery } from 'store/apis';
 import { getArticleAuthor } from 'store/states';
 import { addAmazonUri, appDynamic } from 'utils';
 import { addTutorialAmazonUri } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { Author } from '../Author';
 
@@ -34,7 +34,7 @@ export const ReadArticleSidebar = (): JSX.Element => {
       <DynamicComments />
       <Author {...addAmazonUri(articleAuthor)} className='mt-2' />
       {Boolean(articleAuthor.cardNumber) && (
-        <Link href={`/blogs/${articleAuthor.id}/support`}>
+        <Link href={`${WEB_APP_ROOT_DIR}/blogs/${articleAuthor.id}/support`}>
           <a className='link d-flex mt-2'>
             <span className='sponsor-icon'>
               <HeartIcon />

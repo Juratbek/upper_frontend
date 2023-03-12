@@ -2,7 +2,7 @@ import { Head } from 'components';
 import { FC } from 'react';
 import { checkAuthInServer } from 'utils';
 
-import { WriteArticlePage } from '../../frontends/write-article';
+import { WriteArticlePage } from '../../../frontends/write-article';
 
 const WriteArticleNextPage: FC = () => {
   return (

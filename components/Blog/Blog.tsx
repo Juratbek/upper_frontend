@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
 import { addLinkPrefix, getClassName } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
@@ -40,7 +40,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
   return (
     <div className={rootClassName}>
       {isLink ? (
-        <Link href={`/blogs/${id}`}>
+        <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>
           <a>{getBlog('pointer')}</a>
         </Link>
       ) : (

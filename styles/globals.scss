@@ -68,7 +68,9 @@
   }
 
   @include screenMax576 {
-    margin-top: 91px;
+    &.web-app {
+      margin-top: 91px;
+    }
 
     &::-webkit-scrollbar {
       width: 0.3rem;

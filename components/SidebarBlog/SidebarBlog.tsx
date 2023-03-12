@@ -2,6 +2,7 @@ import { Avatar } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { getClassName } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarBlog.module.css';
 import { ISidebarBlogProps } from './SidebarBlog.types';
@@ -12,7 +13,7 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
 
   return (
     <div className={rootClassName}>
-      <Link href={`/blogs/${id}`}>
+      <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>
         <a>
           <div className='d-flex pointer'>
             <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />

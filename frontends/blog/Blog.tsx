@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
+import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
@@ -88,7 +88,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
                   </Button>
                 )}
                 {Boolean(blog.cardNumber) && (
-                  <Link href={`/blogs/${id}/support`}>
+                  <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}/support`}>
                     <a className='link d-flex mt-xs-2 w-100'>
                       {isMobile ? (
                         <Button className='w-100' color='outline-dark'>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { useAppDispatch } from 'store';
 import { closeSidebar } from 'store/states';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { DOCS_SIDEBAR_LINKS } from './DocsSidebar.constants';
 import classes from './DocsSidebar.module.scss';
@@ -38,7 +39,7 @@ export const DocsSidebar: FC = () => {
           );
         }
         return (
-          <Link href={`/docs/${url + link.url}`} key={index}>
+          <Link href={`${WEB_APP_ROOT_DIR}/docs/${url + link.url}`} key={index}>
             <a
               className={classes.link}
               style={{ paddingLeft: pdLeftInRem }}

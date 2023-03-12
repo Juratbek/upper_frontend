@@ -1,13 +1,14 @@
 import { Avatar } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Author.module.css';
 import { IAuthorProps } from './Author.types';
 
 export const Author: FC<IAuthorProps> = ({ name, imgUrl, id }) => {
   return (
-    <Link href={`/blogs/${id}`}>
+    <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>
       <a className='link'>
         <div className={classes.blog}>
           <Avatar imgUrl={imgUrl} size='small' className={classes.avatar} />

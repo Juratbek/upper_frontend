@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
-import { SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import { SEARCH_PAGE_ARTICLE_ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const {
@@ -31,7 +31,7 @@ export const ArticlesTab: FC = () => {
           />
           <p>Maqolalar hozircha yo&apos;q</p>
           <p className='text-gray'>O&apos;z maqolangizni yozing va bilimlaringizni ulashing</p>
-          <Link href='/write-article'>
+          <Link href={`${WEB_APP_ROOT_DIR}/write-article`}>
             <a>
               <Button color='outline-dark'>Maqola yozish</Button>
             </a>

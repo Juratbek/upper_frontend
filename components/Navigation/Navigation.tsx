@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal, openSidebar } from 'store/states';
-import { ICONS, NOTIFICATION_STATUSES } from 'variables';
+import { ICONS, NOTIFICATION_STATUSES, WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
@@ -70,7 +70,7 @@ export const Navigation = (): JSX.Element => {
         className={`${classes.navigation} ${classes.positioned}`}
         style={{ backgroundColor: themeColors.bg }}
       >
-        <Link href='/'>
+        <Link href={WEB_APP_ROOT_DIR}>
           <a className={classes.logo}>
             <Logo color={themeColors.icon} />
           </a>
@@ -93,7 +93,7 @@ export const Navigation = (): JSX.Element => {
           })}
         </div>
         <div className={classes['third-block']}>
-          <Link href='/docs/write-article_introduction_quick-start'>
+          <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
             <a className={`${classes.help} ${classes.icon} pointer`}>
               <HelpIcon color={themeColors.icon} />
             </a>

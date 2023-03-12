@@ -17,3 +17,5 @@ export const COMING_SOON_TEXT = 'Tez orada...';
 export const PRODUCTION_HOST = 'upper.uz';
 
 export const USER_THEME = 'user_theme';
+
+export const WEB_APP_ROOT_DIR = '/web';

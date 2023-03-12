@@ -5,6 +5,7 @@ import { FC, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useChangeDonatCredentialsMutation } from 'store/apis';
 import { convertToCardNumbers } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 
@@ -116,7 +117,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
         <div className='form-element'>
           <div className='mb-1 d-flex justify-content-between'>
             <label htmlFor='credit-card'>Plastik karta raqami</label>
-            <Link href='/docs/blogging_settings_sponsor'>
+            <Link href={`${WEB_APP_ROOT_DIR}/docs/blogging_settings_sponsor`}>
               <a target='_blank' className='link'>
                 Karta raqam nega kerak?
               </a>
