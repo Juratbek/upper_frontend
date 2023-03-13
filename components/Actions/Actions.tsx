@@ -37,7 +37,7 @@ export const Actions: FC<IActinosProps> = ({
         </Fragment>
       );
     });
-  }, [loading]);
+  }, [loading, actions]);
 
   return (
     <div ref={ref} className={classes['actions-container']}>
