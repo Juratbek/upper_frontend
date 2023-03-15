@@ -147,7 +147,14 @@ export const Sidebar = (): JSX.Element => {
         )}
       </>
     );
-  }, [pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
+  }, [
+    pathname,
+    isAuthenticated,
+    articleAuthor,
+    suggestedArticles,
+    suggestedBlogs,
+    isCommentsSidebarOpen,
+  ]);
 
   return (
     <div className={rootClassName}>

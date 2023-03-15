@@ -21,7 +21,6 @@ export const useClickOutside = (
         if (isExceptElement) return;
       }
     }
-
     // @ts-ignore
     const doesElementContain = currentTarget?.contains?.(clickedTarget);
     setIsClickedOutside(!doesElementContain);

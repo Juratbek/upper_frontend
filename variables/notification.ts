@@ -53,7 +53,7 @@ export const NOTIFICATION_TYPES = {
 export const NOTIFICATIONS: Record<TNotification, TNotificationComponent> = {
   ARTICLE_PUBLISHED: PublishedArticleNotification,
   COMMENT: CommentNotification,
-  LIKE: LikeNotification,
+  LIKED: LikeNotification,
   MESSAGE: MessageNotification,
 };
 

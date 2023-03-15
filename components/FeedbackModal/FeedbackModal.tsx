@@ -41,7 +41,11 @@ export const FeedbackModal: FC = () => {
 
   const closeHandler = (): void => {
     close();
-    mark && submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
+    if (mark && createFeedbackRes.isUninitialized) {
+      submitHandler({ text: watch('text'), suggestion: watch('suggestion') });
+    } else {
+      localStorage.setItem(FEEDBACK, JSON.stringify({ isIgnored: true }));
+    }
   };
 
   const submitHandler = async (event: Partial<ICreateFeedbackDto>): Promise<void> => {
