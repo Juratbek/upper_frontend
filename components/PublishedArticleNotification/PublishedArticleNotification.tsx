@@ -9,6 +9,8 @@ import classes from './PublishedArticleNotification.module.scss';
 
 export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate } = props;
+
+  console.log(status);
   const rootClassName = getClassName(
     classes.container,
     className,
@@ -21,13 +23,13 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
   const deleteNotification = (): void => props.deleteNotification?.(props);
 
   const actions = useMemo(() => {
-    const actions: IAction[] = [{ label: "O'chirish", color: 'red', onClick: deleteNotification }];
+    let actions: IAction[] = [{ label: "O'chirish", color: 'red', onClick: deleteNotification }];
     if (status === NOTIFICATION_STATUSES.UNREAD) {
-      actions.push({ label: "O'qilgan sifatida belgilash", onClick: markAsRead });
+      actions = [{ label: "O'qilgan sifatida belgilash", onClick: markAsRead }, ...actions];
     }
 
     return actions;
-  }, []);
+  }, [status]);
 
   const clickHandler = (): void => {
     push(`/articles/${article.id}`);
