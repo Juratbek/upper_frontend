@@ -2,7 +2,7 @@ import { AnyAction, isRejectedWithValue, Middleware, MiddlewareAPI } from '@redu
 import { blogApi } from 'store/apis';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import { authenticate, setCurrentBlog, unauthenticate } from 'store/states';
-import { setLocalStorateTokens } from 'utils/auth/auth';
+import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
 import { REFRESH_TOKEN } from 'variables';
 
 export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => async (action) => {
@@ -13,7 +13,12 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
     if (isGetNewTokenApi && [401, 400, 500, 403, 404].includes(status)) {
       const { dispatch } = api;
       dispatch(unauthenticate());
-      window.location.replace('/');
+      removeLocalStorageTokens();
+      window.location.replace(
+        `/login?redirect=${
+          window.location.pathname
+        }&message=${'Token muddadi yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
+      );
     }
 
     if (status === 401) {

@@ -31,6 +31,7 @@ import {
   TelegramIcon,
   TringleIcon,
   UserIcon,
+  WebsiteIcon,
   YouTubeIcon,
 } from 'assets';
 import { TIcon, TIconComponent } from 'types';
@@ -69,6 +70,7 @@ export const ICON_TYPES = {
   plus: 'plus',
   calendar: 'calendar',
   help: 'help',
+  website: 'website',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -78,6 +80,7 @@ export const SOCIAL_MEDIA_ICONS = [
   ICON_TYPES.linkedIn,
   ICON_TYPES.youtube,
   ICON_TYPES.instagram,
+  ICON_TYPES.website,
 ];
 
 export const ICONS: Record<TIcon, TIconComponent> = {
@@ -114,4 +117,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   plus: PlusIcon,
   calendar: CalendarIcon,
   help: HelpIcon,
+  website: WebsiteIcon,
 };

@@ -20,7 +20,7 @@ const ArticleSharePopup = appDynamic<IArticleSharePopupProps>(() =>
 );
 
 export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
-  right,
+  className,
   popupId,
   article,
   isSharePopupOpen,
@@ -42,7 +42,8 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
     }
     if (likeDislikeRes.isLoading || value === isLikedOrDisliked || !id) return;
     likeDislikeArticle({ id, value }).then(() => {
-      value === 1 && props.onLike?.();
+      value === 1 && props.onLike();
+      value === -1 && props.onDislike(isLikedOrDisliked === 1);
     });
   };
 
@@ -74,7 +75,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
   return (
     <div id={popupId} className={styles.iconsContainer}>
       <ArticleSharePopup
-        right={right}
+        className={className}
         id={popupId}
         visible={isSharePopupOpen}
         setVisible={setIsSharePopupOpen}

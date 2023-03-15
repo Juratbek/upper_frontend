@@ -7,7 +7,7 @@ import { IArticleActionsProps } from './article-actions.types';
 
 let lastScrollTop = Number.MAX_VALUE;
 
-export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, onLike }) => {
+export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, ...props }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const { themeColors } = useTheme();
@@ -44,11 +44,11 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, onLi
         style={{ backgroundColor: themeColors.bg, border: `1px solid ${themeColors.border}` }}
       >
         <ArticleActionIcons
+          {...props}
           popupId='articleActions'
           isSharePopupOpen={isSharePopupOpen}
           setIsSharePopupOpen={setIsSharePopupOpen}
           article={article}
-          onLike={onLike}
         />
       </div>
     </div>
