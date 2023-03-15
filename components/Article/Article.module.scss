@@ -19,6 +19,7 @@
 
   *:not(code) {
     background-color: transparent !important;
+    color: inherit !important;
   }
 
   @include screenMax576 {
