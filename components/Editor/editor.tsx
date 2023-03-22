@@ -2,6 +2,7 @@ import EditorJs from '@editorjs/editorjs';
 import { EditorSpinner } from 'components';
 import { FC, useEffect, useRef, useState } from 'react';
 
+import { useEmoji } from '../../hooks';
 import { ImageModal } from '../ImageModal';
 import {
   CAPTION_CLASSES,
@@ -20,6 +21,7 @@ export const Editor: FC<IEditorProps> = (props) => {
 
   const { handleInstance, isEditable = true } = props;
 
+  useEmoji(editor);
   useEffect(() => {
     createEditor({
       ...props,
