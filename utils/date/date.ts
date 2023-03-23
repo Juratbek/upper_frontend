@@ -26,8 +26,6 @@ export const dateInterval = (date: Date | string | undefined): string => {
   }
   const serverDate = typeof date === 'string' ? new Date(date) : date;
   const dateWithTimezone = new Date(serverDate.getTime() - serverDate.getTimezoneOffset() * 60000);
-  // const dateWithTimezoneMilliseconds =
-  //   serverDate.getTime() - serverDate.getTimezoneOffset() * 60000;
   const currentDate: Date = new Date();
 
   const diffInSec: number = Math.floor((currentDate.getTime() - dateWithTimezone.getTime()) / 1000);

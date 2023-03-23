@@ -40,7 +40,7 @@
   // DO NOT FORGET to change margin styling for other sidebars if you change this line
   padding: 1rem 1.8rem;
   max-height: 100vh;
-  height: calc(100vh - 40px);
+  height: calc(100vh - var(--noticeboard-height));
   overflow-y: auto;
   overflow-x: hidden;
 

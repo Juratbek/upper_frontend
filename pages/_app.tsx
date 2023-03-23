@@ -66,9 +66,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className='noticeboard'>
-        <NoticeBoard />
-      </div>
+      <NoticeBoard />
       <div className={`app theme-${theme}`}>
         <Navigation />
         <DynamicLoginModal />

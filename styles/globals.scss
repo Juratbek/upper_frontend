@@ -22,18 +22,13 @@
 
   // modal colors
   --color-modal-border-red: red;
+
+  // sizes
+  --noticeboard-height: 30px;
 }
 
 * {
   box-sizing: border-box;
-}
-
-.noticeboard {
-  background-color: var(--blue);
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .app {
@@ -41,7 +36,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  min-height: calc(100vh - 40px);
+  min-height: calc(100vh - var(--noticeboard-height));
   overflow-x: hidden;
 
   @include screenMax576 {
@@ -55,7 +50,7 @@
 
 .app > .main {
   flex: 1 1 auto;
-  height: calc(100vh - 40px);
+  height: calc(100vh - var(--noticeboard-height));
   overflow-y: auto;
 
   display: flex;
@@ -552,4 +547,9 @@
 // font sizes
 .fs-1 {
   font-size: 0.8rem;
+}
+
+// font weight
+.fw-6 {
+  font-weight: 600;
 }

@@ -61,7 +61,7 @@ $mobile-screen-padding: 0.8rem;
 
 .positioned {
   position: fixed;
-  top: 40px;
+  top: var(--noticeboard-height);
   bottom: 0;
   z-index: 10;
 
