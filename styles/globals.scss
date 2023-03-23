@@ -28,12 +28,20 @@
   box-sizing: border-box;
 }
 
+.noticeboard {
+  background-color: var(--blue);
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .app {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 40px);
   overflow-x: hidden;
 
   @include screenMax576 {
@@ -47,7 +55,7 @@
 
 .app > .main {
   flex: 1 1 auto;
-  height: 100vh;
+  height: calc(100vh - 40px);
   overflow-y: auto;
 
   display: flex;
@@ -125,7 +133,6 @@
   display: block;
 }
 // form end
-
 
 .date {
   font-size: 0.8rem;
