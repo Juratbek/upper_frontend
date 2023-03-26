@@ -139,7 +139,6 @@ export const Comments = (): JSX.Element => {
             isBeingEdited={isBeingEdited}
             onSubmit={submitHandler}
             api={infiniteScrollApi}
-            isCommentForm={true}
           />
         ) : (
           <div>

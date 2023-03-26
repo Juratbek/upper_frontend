@@ -85,7 +85,7 @@ export const LoginModal: FC = () => {
 
   useEffect(() => {
     isOpen && !isMobile && setFocus(login.name);
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;

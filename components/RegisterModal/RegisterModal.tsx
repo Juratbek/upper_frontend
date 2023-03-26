@@ -107,7 +107,7 @@ export const RegisterModal: FC = () => {
 
   useEffect(() => {
     isOpen && !isMobile && setFocus(name.name);
-  }, [isOpen]);
+  }, [isOpen, isMobile]);
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;

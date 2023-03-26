@@ -88,14 +88,15 @@ export const Form: FC<IFormProps> = (props) => {
       setValue('text', text);
       if (!isMobile) setFocus('text');
     }
-  }, [props.selectedComment]);
+  }, [props.selectedComment, isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
     const timeout = setTimeout(() => {
-      if (!isMobile) setFocus('text');
+      setFocus('text');
     }, 100);
     return () => clearTimeout(timeout);
-  }, []);
+  }, [isMobile]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
