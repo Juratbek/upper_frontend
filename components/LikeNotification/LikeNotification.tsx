@@ -1,12 +1,12 @@
 import { Link } from 'components';
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
-import { getClassName } from 'utils';
+import { dateInterval, getClassName } from 'utils';
 
 import classes from './LikeNotification.module.css';
 
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
-  const { className, author, article, status } = props;
+  const { className, author, article, status, createdDate } = props;
   const rootClassName = getClassName(
     className,
     classes['like-notification'],
@@ -25,6 +25,7 @@ export const LikeNotification: FC<INotificationComponentProp> = (props) => {
           </Link>{' '}
           yoqdi
         </div>
+        <div className={`${classes.date} pt-1`}>{dateInterval(createdDate)}</div>
       </div>
     </Link>
   );

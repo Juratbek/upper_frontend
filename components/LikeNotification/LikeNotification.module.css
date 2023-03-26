@@ -1,9 +1,11 @@
 .like-notification {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .like-notification--unread {
-    background-color: var(--lightGray);
+  background-color: var(--lightGray);
+}
+
+.date {
+  font-size: 0.8rem;
+  color: var(--gray);
 }
