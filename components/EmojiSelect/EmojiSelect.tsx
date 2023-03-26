@@ -1,5 +1,8 @@
 import EditorJs from '@editorjs/editorjs';
-import { useCallback, useEffect, useRef } from 'react';
+import { string } from 'prop-types';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
+
+import { EmojiPopover } from '../EmojiPopover';
 
 function getCaretCoordinates(element: HTMLElement, position: number): DOMRect {
   const range = document.createRange();
@@ -57,14 +60,14 @@ function replaceRange(start: number, end: number, el: HTMLElement): void {
 
   const findTextNodes = function (node: Node): void {
     if (node.nodeType === Node.TEXT_NODE) {
-      const len = (node.textContent as string).length;
-      if (totalOffset <= start && totalOffset + len >= start) {
+      const textContentLength = (node.textContent as string).length;
+      if (totalOffset <= start && totalOffset + textContentLength >= start) {
         startTextNode = node;
       }
-      if (totalOffset <= end && totalOffset + len >= end) {
+      if (totalOffset <= end && totalOffset + textContentLength >= end) {
         endTextNode = node;
       }
-      totalOffset += len;
+      totalOffset += textContentLength;
     } else {
       for (let i = 0, len = node.childNodes.length; i < len; ++i) {
         findTextNodes(node.childNodes[i]);
@@ -93,9 +96,14 @@ function replaceRange(start: number, end: number, el: HTMLElement): void {
   sel.removeAllRanges();
   sel.addRange(range);
 }
-export const useEmoji = (editor: null | EditorJs): void => {
+
+interface IEmojiSelectProps {
+  editor: null | EditorJs;
+}
+export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
   const positionsList = useRef<number[]>([]);
   const caretCoords = useRef<DOMRect | null>(null);
+  const [emojiQuery, setEmojiQuery] = useState('');
 
   const handleKeyPress = useCallback(
     (e: InputEvent): void => {
@@ -125,6 +133,12 @@ export const useEmoji = (editor: null | EditorJs): void => {
         // @ts-ignore
         target.removeEventListener('input', queryListener);
       }
+      setEmojiQuery(
+        (target.textContent as string).slice(
+          positionsList.current[0],
+          getCaretCharacterOffsetWithin(target),
+        ),
+      );
     } else {
       // @ts-ignore
       target.removeEventListener('input', queryListener);
@@ -142,4 +156,10 @@ export const useEmoji = (editor: null | EditorJs): void => {
       editorContainer.addEventListener('input', handleKeyPress);
     }
   }, [editor]);
+
+  return (
+    <>
+      <EmojiPopover />
+    </>
+  );
 };
