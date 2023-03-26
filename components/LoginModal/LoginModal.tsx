@@ -11,6 +11,7 @@ import {
 } from 'components';
 import { GoogleSignIn } from 'components/GoogleSignIn';
 import { useAuth } from 'hooks';
+import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -36,6 +37,7 @@ export const LoginModal: FC = () => {
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
   const { authenticate } = useAuth();
+  const { isMobile } = useDevice();
   const {
     register,
     setFocus,
@@ -82,7 +84,7 @@ export const LoginModal: FC = () => {
   const closeAlert = (): void => setAlert('');
 
   useEffect(() => {
-    isOpen && setFocus(login.name);
+    isOpen && !isMobile && setFocus(login.name);
   }, [isOpen]);
 
   const alertComponent = useMemo(() => {
