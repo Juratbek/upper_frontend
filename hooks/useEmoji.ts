@@ -81,7 +81,9 @@ function replaceRange(start: number, end: number, el: HTMLElement): void {
   range.setEnd(endTextNode, end - totalOffset + endTextNode.textContent.length);
 
   // Create and insert the new element
-  const newElement = document.createTextNode('😀');
+  const newElement = document.createElement('span');
+  newElement.setAttribute('contenteditable', 'false');
+  newElement.textContent = '😀';
   range.deleteContents();
   range.insertNode(newElement);
   range.setStartAfter(newElement);
