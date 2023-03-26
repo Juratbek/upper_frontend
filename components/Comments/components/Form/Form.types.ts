@@ -7,4 +7,5 @@ export interface IFormProps {
   selectedComment?: IComment;
   isBeingEdited?: boolean;
   api: IInfiniteScrollV2<IComment>;
+  isCommentForm?: boolean;
 }

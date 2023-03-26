@@ -1,4 +1,5 @@
 import { Button, Error, Textarea } from 'components';
+import { useDevice } from 'hooks';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FC, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -27,6 +28,7 @@ export const Form: FC<IFormProps> = (props) => {
   const [createComment, createCommentRes] = useCreateCommentMutation();
   const [editComment, editCommentRes] = useEditCommentMutation();
   const isLoading = createCommentRes.isLoading || editCommentRes.isLoading;
+  const { isMobile } = useDevice();
   const {
     query: { id },
   } = useRouter();
@@ -84,13 +86,13 @@ export const Form: FC<IFormProps> = (props) => {
     if (selectedComment) {
       const text = selectedComment.updatedText || selectedComment.text;
       setValue('text', text);
-      setFocus('text');
+      if (!isMobile) setFocus('text');
     }
   }, [props.selectedComment]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setFocus('text');
+      if (!isMobile) setFocus('text');
     }, 100);
     return () => clearTimeout(timeout);
   }, []);
