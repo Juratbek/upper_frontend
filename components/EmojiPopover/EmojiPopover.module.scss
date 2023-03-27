@@ -1,0 +1,26 @@
+.emojiContainer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  position: absolute;
+  z-index: 1;
+
+  background-color: darken(#fff, 3%);
+  padding: 1rem;
+  max-width: 20rem;
+  max-height: 10rem;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.emojiItem {
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 2px 2px 2px 4px;
+
+  &:hover {
+    background-color: lightgrey;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+  }
+}

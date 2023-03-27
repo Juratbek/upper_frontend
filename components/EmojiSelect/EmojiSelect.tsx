@@ -1,5 +1,4 @@
 import EditorJs from '@editorjs/editorjs';
-import { string } from 'prop-types';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
 import { EmojiPopover } from '../EmojiPopover';
@@ -50,7 +49,7 @@ function getCaretCharacterOffsetWithin(element: HTMLElement): number {
   return caretOffset;
 }
 
-function replaceRange(start: number, end: number, el: HTMLElement): void {
+function replaceRange(start: number, end: number, el: HTMLElement, newText: string): void {
   const range = document.createRange();
   const sel = window.getSelection() as Selection;
 
@@ -86,7 +85,7 @@ function replaceRange(start: number, end: number, el: HTMLElement): void {
   // Create and insert the new element
   const newElement = document.createElement('span');
   newElement.setAttribute('contenteditable', 'false');
-  newElement.textContent = '😀';
+  newElement.textContent = newText;
   range.deleteContents();
   range.insertNode(newElement);
   range.setStartAfter(newElement);
@@ -103,7 +102,8 @@ interface IEmojiSelectProps {
 export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
   const positionsList = useRef<number[]>([]);
   const caretCoords = useRef<DOMRect | null>(null);
-  const [emojiQuery, setEmojiQuery] = useState('');
+  const textTarget = useRef<HTMLElement>();
+  const [emojiQuery, setEmojiQuery] = useState<string | null>(null);
 
   const handleKeyPress = useCallback(
     (e: InputEvent): void => {
@@ -112,6 +112,7 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
         const caretPosition = getCaretCharacterOffsetWithin(target);
         positionsList.current = [caretPosition];
         caretCoords.current = getCaretCoordinates(target, caretPosition);
+        textTarget.current = target;
         // @ts-ignore
         target.addEventListener('input', queryListener);
       }
@@ -128,25 +129,27 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
       positionsList.current[0] - 1 !== currentCaretPosition
     ) {
       positionsList.current.push(currentCaretPosition);
-      if (e.data === 'z') {
-        replaceRange(positionsList.current[0] - 1, getCaretCharacterOffsetWithin(target), target);
-        // @ts-ignore
-        target.removeEventListener('input', queryListener);
-      }
       setEmojiQuery(
         (target.textContent as string).slice(
           positionsList.current[0],
           getCaretCharacterOffsetWithin(target),
         ),
       );
-    } else {
-      // @ts-ignore
-      target.removeEventListener('input', queryListener);
-    }
+    } else cleanUp();
+
     console.log(positionsList.current);
     console.log(currentCaretPosition);
     console.log(caretCoords.current);
   }, []);
+
+  const cleanUp = (): void => {
+    // @ts-ignore
+    textTarget.current?.removeEventListener('input', queryListener);
+    positionsList.current = [];
+    caretCoords.current = null;
+    textTarget.current = undefined;
+    setEmojiQuery(null);
+  };
 
   useEffect(() => {
     if (editor) {
@@ -157,9 +160,28 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
     }
   }, [editor]);
 
+  const onEmojiClick = (emoji: string): void => {
+    if (textTarget.current) {
+      replaceRange(
+        positionsList.current[0] - 1,
+        positionsList.current[positionsList.current.length - 1],
+        textTarget.current,
+        emoji,
+      );
+    }
+    cleanUp();
+  };
+
   return (
     <>
-      <EmojiPopover />
+      {textTarget.current && caretCoords.current && typeof emojiQuery === 'string' && (
+        <EmojiPopover
+          emojiQuery={emojiQuery}
+          onEmojiClick={onEmojiClick}
+          targetTextCoords={caretCoords.current}
+          targetTextContainer={textTarget.current}
+        />
+      )}
     </>
   );
 };
