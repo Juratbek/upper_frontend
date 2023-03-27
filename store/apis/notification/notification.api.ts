@@ -22,8 +22,8 @@ export const notificationApi = createApi({
       }),
       invalidatesTags: ['count', 'list'],
     }),
-    getBlogNotificationsCount: build.query<number, string>({
-      query: (status) => `blog-notifications-count?status=${status}`,
+    getBlogNotificationsCount: build.query<number, void>({
+      query: () => `blog-notifications-count`,
       providesTags: ['count', 'list'],
     }),
     delete: build.mutation<void, number>({
@@ -33,6 +33,15 @@ export const notificationApi = createApi({
       }),
       invalidatesTags: ['count', 'list'],
     }),
+    resetNotificationsCount: build.query<void, void>({
+      query: () => 'reset-notifications-count',
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(
+          notificationApi.util.updateQueryData('getBlogNotificationsCount', undefined, () => 0),
+        );
+      },
+    }),
   }),
 });
 
@@ -40,5 +49,6 @@ export const {
   useLazyGetByTypeQuery: useLazyGetNotificationsByTypeQuery,
   useReadMutation: useReadNotificationMutation,
   useLazyGetBlogNotificationsCountQuery,
+  useResetNotificationsCountQuery,
   useDeleteMutation: useDeleteNotificationMutation,
 } = notificationApi;

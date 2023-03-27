@@ -19,8 +19,8 @@ export const Form: FC<IFormProps> = (props) => {
     setError,
     watch,
     setValue,
-    setFocus,
     clearErrors,
+    setFocus,
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
@@ -87,6 +87,13 @@ export const Form: FC<IFormProps> = (props) => {
       setFocus('text');
     }
   }, [props.selectedComment]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFocus('text');
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>

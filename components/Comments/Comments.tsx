@@ -133,7 +133,7 @@ export const Comments = (): JSX.Element => {
         </span>
       </div>
       <div className={classes.form}>
-        {isAuthenticated ? (
+        {isAuthenticated && isOpen ? (
           <Form
             selectedComment={selectedComment}
             isBeingEdited={isBeingEdited}

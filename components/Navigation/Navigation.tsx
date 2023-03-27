@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal, openSidebar } from 'store/states';
-import { ICONS, NOTIFICATION_STATUSES, WEB_APP_ROOT_DIR } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
@@ -49,7 +49,7 @@ export const Navigation = (): JSX.Element => {
   };
 
   useEffect(() => {
-    isAuthenticated && fetchBlogNotificationsCount(NOTIFICATION_STATUSES.UNREAD);
+    isAuthenticated && fetchBlogNotificationsCount();
   }, [isAuthenticated]);
 
   const buttons = useMemo(
