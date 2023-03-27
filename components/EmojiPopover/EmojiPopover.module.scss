@@ -1,16 +1,10 @@
-.emojiContainer {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  position: absolute;
-  z-index: 1;
-
+.gridContainer {
   background-color: darken(#fff, 3%);
-  padding: 1rem;
-  max-width: 20rem;
-  max-height: 10rem;
   border-radius: 5px;
-  overflow-x: auto;
+}
+
+.popoverContainer {
+  position: absolute;
 }
 
 .emojiItem {
