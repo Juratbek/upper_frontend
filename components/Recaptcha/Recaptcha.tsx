@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Spinner } from 'components';
-import { useAuth } from 'hooks';
+import { useAuth, useTheme } from 'hooks';
 import { forwardRef, useEffect, useId, useImperativeHandle, useState } from 'react';
 
 import { IRecaptchaProps } from './Recaptcha.types';
@@ -19,6 +19,7 @@ export const Recaptcha = forwardRef<{ reset: () => void }, IRecaptchaProps>(
     const [isScriptLoaded, setIsScriptLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [widgetId, setWidgetId] = useState<null | number>(null);
+    const { theme } = useTheme();
 
     const id = useId();
     const { isAuthenticated } = useAuth();
@@ -95,7 +96,7 @@ export const Recaptcha = forwardRef<{ reset: () => void }, IRecaptchaProps>(
 
     return (
       <div {...props}>
-        {isLoading && <Spinner color='light' />}
+        {isLoading && <Spinner color={theme} />}
         <div id={id} />
       </div>
     );
