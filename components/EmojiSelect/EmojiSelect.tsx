@@ -1,3 +1,7 @@
+// Todo 1: Render popover in portal
+// Todo 2: Align popover dynamically(above or below)
+// Todo 3: Exclude codeflask, unsplash search from emoji cover
+
 import EditorJs from '@editorjs/editorjs';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
