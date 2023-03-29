@@ -24,14 +24,14 @@ import {
   openLoginModal,
 } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
-import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
+import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.scss';
 
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { pathname } = useRouter();
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
   const isSidebarOpen = useAppSelector(getIsSidebarOpen);
@@ -103,6 +103,7 @@ export const Sidebar = (): JSX.Element => {
   }, [blogSuggestionsRes]);
 
   const content: JSX.Element = useMemo(() => {
+    const pathname = router.pathname.replace(WEB_APP_ROOT_DIR, '');
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
     if (ContentComponent) return <ContentComponent />;
 
@@ -148,7 +149,7 @@ export const Sidebar = (): JSX.Element => {
       </>
     );
   }, [
-    pathname,
+    router.pathname,
     isAuthenticated,
     articleAuthor,
     suggestedArticles,
