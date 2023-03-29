@@ -7,13 +7,13 @@ function getCaretCoordinates(element: HTMLElement, position: number): DOMRect {
   const range = document.createRange();
 
   let totalOffset = 0;
-  let textNode = null;
+  let textNode: Node | null = null;
 
   // Find the text node that contains the position
   const findTextNode = function (node: Node): void {
     if (node.nodeType === Node.TEXT_NODE) {
       const len = (node.textContent as string).length;
-      if (totalOffset <= position && totalOffset + len >= position) {
+      if (totalOffset <= position && totalOffset + len >= position && !textNode) {
         textNode = node;
       }
       totalOffset += len;
@@ -75,7 +75,6 @@ function replaceRange(start: number, end: number, el: HTMLElement, newText: stri
   };
 
   findTextNodes(el);
-
   // Extract the range from the text nodes
   // @ts-ignore
   range.setStart(startTextNode, start - (totalOffset - startTextNode.textContent.length));
@@ -83,9 +82,23 @@ function replaceRange(start: number, end: number, el: HTMLElement, newText: stri
   range.setEnd(endTextNode, end - totalOffset + endTextNode.textContent.length);
 
   // Create and insert the new element
-  const newElement = document.createElement('span');
-  newElement.setAttribute('contenteditable', 'false');
-  newElement.textContent = newText;
+
+  // Workaround for length error in editorjs
+  let newElement: Node = document.createTextNode(newText);
+
+  const parentElement = (
+    range.commonAncestorContainer.nodeType === Node.TEXT_NODE
+      ? range.commonAncestorContainer.parentElement
+      : range.commonAncestorContainer
+  ) as HTMLElement;
+  if (parentElement.getAttribute('contenteditable') === 'true') {
+    newElement = document.createElement('span');
+    if (newElement instanceof HTMLElement) {
+      newElement.setAttribute('contenteditable', 'false');
+    }
+    newElement.textContent = newText;
+  }
+
   range.deleteContents();
   range.insertNode(newElement);
   range.setStartAfter(newElement);
