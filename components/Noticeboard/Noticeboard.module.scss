@@ -1,11 +1,11 @@
+@import 'styles/_mixins';
+
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   color: white;
-  // background: rgb(182, 33, 254);
-  // background: linear-gradient(163deg, rgba(182, 33, 254, 1) 0%, var(--blue) 53%);
   background: linear-gradient(
     96.2deg,
     rgb(255, 230, 112) 10.4%,
@@ -13,6 +13,11 @@
     rgb(0, 93, 219) 105.8%
   );
   height: var(--noticeboard-height);
+
+  @include screenMax576 {
+    position: fixed;
+    width: 100%;
+  }
 }
 
 .text {
