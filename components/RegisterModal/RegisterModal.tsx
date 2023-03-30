@@ -11,7 +11,7 @@ import {
   TelegramLoginButton,
   Textarea,
 } from 'components';
-import { useAuth } from 'hooks';
+import { useAuth, useDevice } from 'hooks';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -29,6 +29,7 @@ export const RegisterModal: FC = () => {
   const isOpen = useAppSelector(getIsRegisterModalOpen);
   const dispatch = useAppDispatch();
   const { authenticate } = useAuth();
+  const { isMobile } = useDevice();
   const {
     register,
     handleSubmit,
@@ -105,8 +106,8 @@ export const RegisterModal: FC = () => {
   }, [activeStep]);
 
   useEffect(() => {
-    isOpen && setFocus(name.name);
-  }, [isOpen]);
+    isOpen && !isMobile && setFocus(name.name);
+  }, [isOpen, isMobile]);
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
