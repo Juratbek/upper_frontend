@@ -28,7 +28,7 @@ export const SearchPage: FC = () => {
           src='/storyset/search_data.svg'
         />
         <SearchInput
-          className={classes['search-input']}
+          className={classes['initial-search-input']}
           placeholder='Qidirish uchun yozing'
           onDebounce={search}
         />
