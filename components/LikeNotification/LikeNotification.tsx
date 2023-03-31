@@ -25,7 +25,7 @@ export const LikeNotification: FC<INotificationComponentProp> = (props) => {
           </Link>{' '}
           yoqdi
         </div>
-        <div className={`${classes.date} pt-1`}>{dateInterval(createdDate)}</div>
+        <time className='date'>{dateInterval(createdDate)}</time>
       </div>
     </Link>
   );
