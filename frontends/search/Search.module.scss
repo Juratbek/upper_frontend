@@ -1,9 +1,17 @@
 @import 'styles/mixins';
 
-.search-input {
+.initial-search-input {
   width: 25rem;
 
   @include screenMax576 {
     width: 300px;
+  }
+}
+.search-input {
+  width: 25rem;
+
+  @include screenMax576 {
+    width: 100%;
+    margin-top: 30px;
   }
 }
