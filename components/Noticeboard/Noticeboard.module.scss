@@ -1,0 +1,26 @@
+@import 'styles/_mixins';
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: white;
+  background: linear-gradient(
+    96.2deg,
+    rgb(255, 230, 112) 10.4%,
+    rgb(255, 100, 100) 43.8%,
+    rgb(0, 93, 219) 105.8%
+  );
+  height: var(--noticeboard-height);
+
+  @include screenMax576 {
+    position: fixed;
+    width: 100%;
+  }
+}
+
+.text {
+  margin: 0;
+  margin-left: 10px;
+}

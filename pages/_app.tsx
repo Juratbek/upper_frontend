@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { FeedbackModal, Footer, Navigation, Sidebar } from 'components';
+import { FeedbackModal, Footer, Navigation, NoticeBoard, Sidebar } from 'components';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -66,6 +66,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </>
       )}
+      <NoticeBoard />
       <div className={`app theme-${theme}`}>
         <Navigation />
         <DynamicLoginModal />

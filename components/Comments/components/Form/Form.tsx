@@ -1,4 +1,5 @@
 import { Button, Error, Textarea } from 'components';
+import { useDevice } from 'hooks';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FC, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -19,14 +20,15 @@ export const Form: FC<IFormProps> = (props) => {
     setError,
     watch,
     setValue,
-    setFocus,
     clearErrors,
+    setFocus,
     formState: { errors },
   } = useForm();
   const dispatch = useAppDispatch();
   const [createComment, createCommentRes] = useCreateCommentMutation();
   const [editComment, editCommentRes] = useEditCommentMutation();
   const isLoading = createCommentRes.isLoading || editCommentRes.isLoading;
+  const { isMobile } = useDevice();
   const {
     query: { id },
   } = useRouter();
@@ -84,9 +86,17 @@ export const Form: FC<IFormProps> = (props) => {
     if (selectedComment) {
       const text = selectedComment.updatedText || selectedComment.text;
       setValue('text', text);
-      setFocus('text');
+      if (!isMobile) setFocus('text');
     }
-  }, [props.selectedComment]);
+  }, [props.selectedComment, isMobile]);
+
+  useEffect(() => {
+    if (isMobile) return;
+    const timeout = setTimeout(() => {
+      setFocus('text');
+    }, 100);
+    return () => clearTimeout(timeout);
+  }, [isMobile]);
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
