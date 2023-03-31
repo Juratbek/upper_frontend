@@ -16,15 +16,18 @@ const LINK_DOMAINS: Partial<{ [name in TIcon]: string }> = {
 
 export const addLinkPrefix = (linkObject: ILink): string => {
   const { link, type } = linkObject;
-  if (link.startsWith('t.me')) return `https://${link}`;
+  if (link.startsWith('t.me')) return `https://${link.replace('@', '')}`;
 
-  if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
+  if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//'))
+    return link.replace('@', '');
   const domain = LINK_DOMAINS[type];
 
   if (domain)
-    return link.startsWith('/') ? `https://${domain}${link}` : `https://${domain}/${link}`;
+    return link.startsWith('/')
+      ? `https://${domain}${link.replace('@', '')}`
+      : `https://${domain}/${link.replace('@', '')}`;
 
-  return `//${link}`;
+  return `//${link.replace('@', '')}`;
 };
 
 export const convertBlogToHeadProp = (blog: IBlog): IHeadProps => {
