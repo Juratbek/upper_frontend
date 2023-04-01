@@ -39,4 +39,5 @@ export * from './GoogleSignIn';
 export * from './GitHubSignIn';
 export * from './EmojiPopover';
 export * from './EmojiSelect';
+export * from './ClientOnlyPortal';
 export * from './Noticeboard/Noticeboard';

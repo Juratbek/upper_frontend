@@ -11,3 +11,4 @@ export * from './editor';
 export * from './published-article';
 export * from './colors';
 export * from './theme';
+export * from './emoji-select';

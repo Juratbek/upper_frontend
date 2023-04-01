@@ -1,10 +1,8 @@
-// Todo 1: Render popover in portal
-// Todo 2: Align popover dynamically(above or below)
-// Todo 3: Exclude codeflask, unsplash search from emoji cover
-
 import EditorJs from '@editorjs/editorjs';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { EXCLUDED_PLUGINS_FROM_EMOJI } from 'variables';
 
+import { EDITOR_HOLDER } from '../Editor';
 import { EmojiPopover } from '../EmojiPopover';
 
 function getCaretCoordinates(element: HTMLElement, position: number): DOMRect {
@@ -122,9 +120,21 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
   const textTarget = useRef<HTMLElement>();
   const [emojiQuery, setEmojiQuery] = useState<string | null>(null);
 
+  const checkIfPluginExcluded = (el: HTMLElement): boolean => {
+    let isElementBlackListed = false;
+    EXCLUDED_PLUGINS_FROM_EMOJI.forEach((pluginSelector) => {
+      if (el.classList.contains(pluginSelector)) {
+        isElementBlackListed = true;
+      }
+    });
+    return isElementBlackListed;
+  };
+
   const handleKeyPress = useCallback(
     (e: InputEvent): void => {
       const target = e.target as HTMLDivElement;
+
+      if (checkIfPluginExcluded(target)) return;
       if (e.data === ':') {
         const caretPosition = getCaretCharacterOffsetWithin(target);
         positionsList.current = [caretPosition];
@@ -153,10 +163,6 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
         ),
       );
     } else cleanUp();
-
-    console.log(positionsList.current);
-    console.log(currentCaretPosition);
-    console.log(caretCoords.current);
   }, []);
 
   const cleanUp = (): void => {
@@ -170,7 +176,7 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
 
   useEffect(() => {
     if (editor) {
-      const editorContainer = document.querySelector('#editorjs');
+      const editorContainer = document.querySelector('#' + EDITOR_HOLDER);
       if (!editorContainer) return;
       // @ts-ignore
       editorContainer.addEventListener('input', handleKeyPress);
@@ -196,7 +202,6 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
           emojiQuery={emojiQuery}
           onEmojiClick={onEmojiClick}
           targetTextCoords={caretCoords.current}
-          targetTextContainer={textTarget.current}
         />
       )}
     </>
