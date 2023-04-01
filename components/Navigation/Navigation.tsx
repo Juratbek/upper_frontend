@@ -6,7 +6,7 @@ import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openRegisterModal, openSidebar } from 'store/states';
-import { ICONS, NOTIFICATION_STATUSES } from 'variables';
+import { ICONS } from 'variables';
 
 import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
@@ -36,10 +36,6 @@ export const Navigation = (): JSX.Element => {
     else router.route !== href && router.push(href);
   };
 
-  const registerClickHandler = (): void => {
-    dispatch(openRegisterModal());
-  };
-
   const loginClickHandler = (): void => {
     dispatch(openLoginModal());
   };
@@ -48,15 +44,18 @@ export const Navigation = (): JSX.Element => {
     dispatch(openSidebar());
   };
 
+  const writeArticleHandler = (): void => {
+    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
+  };
   useEffect(() => {
-    isAuthenticated && fetchBlogNotificationsCount(NOTIFICATION_STATUSES.UNREAD);
+    isAuthenticated && fetchBlogNotificationsCount();
   }, [isAuthenticated]);
 
   const buttons = useMemo(
     () => (
       <div className={isMobile && !isAuthenticated ? 'd-flex align-items-center' : 'd-none'}>
-        <Button color='outline-dark' className='me-xs-1' onClick={registerClickHandler}>
-          Ro&apos;yxatdan o&apos;tish
+        <Button color='outline-dark' className='me-xs-1' onClick={writeArticleHandler}>
+          Maqola yozish
         </Button>
         <Button onClick={loginClickHandler}>Kirish</Button>
       </div>
