@@ -3,15 +3,9 @@ import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
 import { dateInterval, getClassName } from 'utils';
 
-import classes from './LikeNotification.module.css';
-
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
   const { className, author, article, status, createdDate } = props;
-  const rootClassName = getClassName(
-    className,
-    classes['like-notification'],
-    status == 'UNREAD' && 'notification--unread',
-  );
+  const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
 
   const clickHandler = (): void => props.onClick?.(props);
 
