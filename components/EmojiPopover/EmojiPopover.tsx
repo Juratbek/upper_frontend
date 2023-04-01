@@ -1,5 +1,7 @@
-import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo, useRef } from 'react';
+import { ClientOnlyPortal } from 'components';
+import { CSSProperties, FC, forwardRef, useMemo } from 'react';
 import { FixedSizeGrid } from 'react-window';
+import { PORTAL_SELECTOR } from 'variables';
 
 import { emojis } from './emoji';
 import styles from './EmojiPopover.module.scss';
@@ -8,7 +10,6 @@ interface IEmojiPopoverProps {
   emojiQuery: string;
   onEmojiClick: (emoji: string) => void;
   targetTextCoords: DOMRect;
-  targetTextContainer: HTMLElement;
 }
 
 const COLUMN_COUNT = 8;
@@ -19,26 +20,28 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   emojiQuery,
   onEmojiClick,
   targetTextCoords,
-  targetTextContainer,
 }) => {
-  const popoverEl = useRef<HTMLDivElement>(null);
   const emojiListKeys = useMemo<string[]>(() => {
     return Object.keys(emojis);
   }, []);
 
-  useLayoutEffect(() => {
-    if (popoverEl.current) {
-      const editorContainer = document.querySelector('.editor-container') as HTMLElement;
-      const editorContainerRect = editorContainer.getBoundingClientRect();
-      const top =
-        targetTextCoords.top - editorContainerRect.top + targetTextContainer.offsetHeight / 2 + 10;
-      const left = targetTextCoords.left - editorContainerRect.left;
-      // set the popover modal position
-      popoverEl.current.style.top = top + 'px';
-      popoverEl.current.style.left = left + 'px';
-    }
-  }, []);
+  const positionModal = (popoverEl: HTMLDivElement): void => {
+    if (!popoverEl) return;
+    const buffer = 8;
+    const spaceAbove = targetTextCoords.top;
+    const spaceBelow = window.innerHeight - targetTextCoords.bottom;
 
+    if (spaceBelow > popoverEl.offsetHeight + buffer) {
+      // position below the target
+      popoverEl.style.top = targetTextCoords.bottom + buffer + 'px';
+    } else if (spaceAbove > popoverEl.offsetHeight + buffer) {
+      // position above the target
+      popoverEl.style.top = targetTextCoords.top - popoverEl.offsetHeight - buffer + 'px';
+    } else {
+      popoverEl.style.top = targetTextCoords.bottom - buffer + 'px';
+    }
+    popoverEl.style.left = targetTextCoords.left + 'px';
+  };
   const matchedEmojis = useMemo(() => {
     const queryKey = emojiQuery.split(/\s+/).join('_');
 
@@ -60,7 +63,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     style: CSSProperties;
     isScrolling?: boolean | undefined;
   }): JSX.Element | null => {
-    const emojiIndex = COLUMN_COUNT * rowIndex + columnIndex + 1;
+    const emojiIndex = COLUMN_COUNT * rowIndex + columnIndex;
     if (!matchedEmojis[emojiIndex]) return null;
     return (
       <span
@@ -96,19 +99,21 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   innerElementType.displayName = 'innerElementType';
 
   return (
-    <div ref={popoverEl} className={styles.popoverContainer}>
-      <FixedSizeGrid
-        columnWidth={CELL_SIZE}
-        rowHeight={CELL_SIZE}
-        columnCount={COLUMN_COUNT}
-        rowCount={rowCount}
-        height={165}
-        width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
-        className={styles.gridContainer}
-        innerElementType={innerElementType}
-      >
-        {Cell}
-      </FixedSizeGrid>
-    </div>
+    <ClientOnlyPortal selector={PORTAL_SELECTOR}>
+      <div ref={positionModal} className={styles.popoverContainer}>
+        <FixedSizeGrid
+          columnWidth={CELL_SIZE}
+          rowHeight={CELL_SIZE}
+          columnCount={COLUMN_COUNT}
+          rowCount={rowCount}
+          height={165}
+          width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
+          className={styles.gridContainer}
+          innerElementType={innerElementType}
+        >
+          {Cell}
+        </FixedSizeGrid>
+      </div>
+    </ClientOnlyPortal>
   );
 };
