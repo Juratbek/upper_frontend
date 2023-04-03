@@ -16,18 +16,21 @@ const LINK_DOMAINS: Partial<{ [name in TIcon]: string }> = {
 
 export const addLinkPrefix = (linkObject: ILink): string => {
   const { link, type } = linkObject;
-  if (link.startsWith('t.me')) return `https://${link.replace('@', '')}`;
+  let checkedLink = '';
+  if (type === 'telegram') checkedLink = link.replace('@', '');
+  else checkedLink = link;
+  if (checkedLink.startsWith('t.me')) return `https://${checkedLink}`;
 
-  if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//'))
-    return link.replace('@', '');
+  if (checkedLink.startsWith(https) || checkedLink.startsWith(http) || checkedLink.startsWith('//'))
+    return checkedLink;
   const domain = LINK_DOMAINS[type];
 
   if (domain)
-    return link.startsWith('/')
-      ? `https://${domain}${link.replace('@', '')}`
-      : `https://${domain}/${link.replace('@', '')}`;
+    return checkedLink.startsWith('/')
+      ? `https://${domain}${checkedLink}`
+      : `https://${domain}/${checkedLink}`;
 
-  return `//${link.replace('@', '')}`;
+  return `//${checkedLink}`;
 };
 
 export const convertBlogToHeadProp = (blog: IBlog): IHeadProps => {
