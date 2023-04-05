@@ -1,25 +1,13 @@
 .badge {
-    $size: 1.3rem;
-    width: $size;
-    height: $size;
-    font-size: 0.7rem;
-    border-radius: 100rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-
-    &--blue {
-        background-color: var(--blue);
-        color: white;
-    }
-    &--outline-blue {
-        background-color: white;
-        color: var(--blue);
-    }
-    &--white {
-        background-color: white;
-    }
+  $size: 1.3rem;
+  width: $size;
+  height: $size;
+  font-size: 0.7rem;
+  border-radius: 100rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 2px;
+  right: 2px;
 }
