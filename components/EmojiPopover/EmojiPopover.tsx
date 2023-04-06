@@ -1,5 +1,5 @@
 import { ClientOnlyPortal } from 'components';
-import { CSSProperties, FC, forwardRef, useMemo } from 'react';
+import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { PORTAL_SELECTOR } from 'variables';
 
@@ -23,6 +23,17 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
 }) => {
   const emojiListKeys = useMemo<string[]>(() => {
     return Object.keys(emojis);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (document.querySelector(PORTAL_SELECTOR)) return;
+
+    const body = document.querySelector('body');
+    if (body) {
+      const modalDiv = document.createElement('div');
+      modalDiv.setAttribute('id', PORTAL_SELECTOR.slice(1));
+      body.appendChild(modalDiv);
+    }
   }, []);
 
   const positionModal = (popoverEl: HTMLDivElement): void => {
