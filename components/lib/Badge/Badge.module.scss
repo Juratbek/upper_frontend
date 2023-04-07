@@ -10,4 +10,16 @@
   position: absolute;
   top: 2px;
   right: 2px;
+
+  &--blue {
+    background-color: var(--blue);
+    color: white;
+  }
+  &--outline-blue {
+    background-color: white;
+    color: var(--blue);
+  }
+  &--white {
+    background-color: white;
+  }
 }
