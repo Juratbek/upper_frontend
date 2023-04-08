@@ -86,20 +86,13 @@ function replaceRange(start: number, end: number, el: HTMLElement, newText: stri
   // Create and insert the new element
 
   // Workaround for length error in editorjs
-  let newElement: Node = document.createTextNode(newText);
+  const newElement: Node = document.createTextNode(newText);
 
   const parentElement = (
     range.commonAncestorContainer.nodeType === Node.TEXT_NODE
       ? range.commonAncestorContainer.parentElement
       : range.commonAncestorContainer
   ) as HTMLElement;
-  if (parentElement.getAttribute('contenteditable') === 'true') {
-    newElement = document.createElement('span');
-    if (newElement instanceof HTMLElement) {
-      newElement.setAttribute('contenteditable', 'false');
-    }
-    newElement.textContent = newText;
-  }
 
   range.deleteContents();
   range.insertNode(newElement);
@@ -109,6 +102,8 @@ function replaceRange(start: number, end: number, el: HTMLElement, newText: stri
   // range.selectNodeContents(newElement);
   sel.removeAllRanges();
   sel.addRange(range);
+
+  parentElement.normalize();
 }
 
 interface IEmojiSelectProps {
