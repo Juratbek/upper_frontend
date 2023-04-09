@@ -1,0 +1,21 @@
+.gridContainer {
+  background-color: darken(#fff, 3%);
+  border-radius: 5px;
+}
+
+.popoverContainer {
+  position: absolute;
+  z-index: 10;
+}
+
+.emojiItem {
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 2px 2px 2px 4px;
+
+  &:hover {
+    background-color: lightgrey;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+  }
+}
