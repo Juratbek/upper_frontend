@@ -75,7 +75,7 @@ export const HomePage: FC = () => {
             onClick={(): void => labelSelectHandler(label.id)}
             size='small'
             color={query.label === label.id.toString() ? 'dark' : 'outline-dark'}
-            className='me-1'
+            className={classes['label-buttons']}
             key={label.id}
           >
             {label.name}
