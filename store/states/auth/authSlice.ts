@@ -1,13 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
-import { TAuthStatus } from 'types';
-import { REFRESH_TOKEN, TOKEN } from 'variables';
 
-interface IAuthState {
-  status: TAuthStatus;
-  isAuthenticated: boolean | null;
-  isGoogleScriptLoaded: boolean;
-}
+import { IAuthState, ICurrentBlog } from './authSlice.types';
 
 const initialState: IAuthState = {
   status: 'loading',
@@ -19,31 +12,23 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authenticate(state, { payload }: PayloadAction<IBlogRegisterResponse>) {
-      try {
-        localStorage.setItem(TOKEN, payload.token);
-        localStorage.setItem(REFRESH_TOKEN, payload.refreshToken);
-        state.status = 'authenticated';
-        state.isAuthenticated = true;
-      } catch (e) {
-        console.error(e);
-      }
+    authenticate(state) {
+      state.status = 'authenticated';
+      state.isAuthenticated = true;
     },
     unauthenticate(state) {
-      try {
-        localStorage.removeItem(TOKEN);
-        localStorage.removeItem(REFRESH_TOKEN);
-        state.status = 'unauthenticated';
-        state.isAuthenticated = false;
-      } catch (e) {
-        console.error(e);
-      }
+      state.status = 'unauthenticated';
+      state.isAuthenticated = false;
     },
     setIsGoogleScriptLoaded(state, { payload }: PayloadAction<boolean>) {
       state.isGoogleScriptLoaded = payload;
     },
+    setCurrentBlog(state, { payload }: PayloadAction<ICurrentBlog>) {
+      state.currentBlog = payload;
+    },
   },
 });
 
-export const { authenticate, unauthenticate, setIsGoogleScriptLoaded } = authSlice.actions;
+export const { authenticate, unauthenticate, setIsGoogleScriptLoaded, setCurrentBlog } =
+  authSlice.actions;
 export default authSlice.reducer;

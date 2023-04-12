@@ -2,6 +2,7 @@ import { Badge } from 'components';
 import { useTheme } from 'hooks';
 import { FC, useState } from 'react';
 import { getClassName } from 'utils';
+import { UPPER_BLUE_COLOR } from 'variables';
 
 import classes from './NavItem.module.scss';
 import { INavItemProps } from './NavItem.types';
@@ -23,9 +24,9 @@ export const NavItem: FC<INavItemProps> = ({ active, icon, badge, ...props }) =>
 
   return (
     <div {...props} className={rootClassName} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
-      {badge ? <Badge color={active || isHovered ? 'outline-blue' : 'blue'}>{badge}</Badge> : null}
+      {badge ? <Badge color='blue'>{badge}</Badge> : null}
       <a className={iconClassName}>
-        <Icon color={themeColors.icon} {...((active || isHovered) && { color: 'white' })} />
+        <Icon color={active || isHovered ? UPPER_BLUE_COLOR : themeColors.icon} />
       </a>
     </div>
   );

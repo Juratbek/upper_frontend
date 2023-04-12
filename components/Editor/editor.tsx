@@ -1,5 +1,5 @@
 import EditorJs from '@editorjs/editorjs';
-import { EditorSpinner } from 'components';
+import { EditorSpinner, EmojiSelect } from 'components';
 import { FC, useEffect, useRef, useState } from 'react';
 
 import { ImageModal } from '../ImageModal';
@@ -85,6 +85,7 @@ export const Editor: FC<IEditorProps> = (props) => {
       {isEditorLoading && <EditorSpinner />}
       <div id={EDITOR_HOLDER} ref={containerRef} className={!isEditable ? 'readMode' : ''}></div>
       <ImageModal images={images} />
+      <EmojiSelect editor={editor} />
     </>
   );
 };

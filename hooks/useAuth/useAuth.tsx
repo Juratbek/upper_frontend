@@ -2,21 +2,29 @@ import { useNextAuth } from 'hooks/useNextAuth/useNextAuth';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
+  getCurrentBlog,
   getIsAuthenticated,
+  setCurrentBlog as setStoreCurrentBlog,
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
+import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
 import { REFRESH_TOKEN, TOKEN } from 'variables';
 
-import { IUseAuth } from './useAuth.types';
+import {
+  IUseAuth,
+  TAuthenticateFn,
+  TAuthenticateTokensFn,
+  TSetCurrentBlogFn,
+} from './useAuth.types';
 
 export const useAuth = (): IUseAuth => {
   const dispatch = useAppDispatch();
   const { signIn, signOut } = useNextAuth();
   const status = useAppSelector(getAuthStatus);
+  const currentBlog = useAppSelector(getCurrentBlog);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
   const isLoading = useMemo(() => status === 'loading', [status]);
   const {
@@ -24,13 +32,27 @@ export const useAuth = (): IUseAuth => {
     query: { redirect },
   } = useRouter();
 
-  const authenticate = (user: IBlogRegisterResponse): void => {
-    dispatch(storeAuthenticate(user));
-    signIn(user.token);
+  const authenticate: TAuthenticateFn = (data) => {
+    setCurrentBlog(data);
+    setLocalStorateTokens(data);
+    dispatch(storeAuthenticate());
+    signIn(data.token);
     if (typeof redirect === 'string') push(redirect);
   };
 
+  const authenticateTokens: TAuthenticateTokensFn = (tokens) => {
+    setLocalStorateTokens(tokens);
+    dispatch(storeAuthenticate());
+    signIn(tokens.token);
+    if (typeof redirect === 'string') push(redirect);
+  };
+
+  const setCurrentBlog: TSetCurrentBlogFn = (blog) => {
+    dispatch(setStoreCurrentBlog(blog));
+  };
+
   const unauthenticate = (): void => {
+    removeLocalStorageTokens();
     dispatch(storeUnauthenticate());
     signOut();
   };
@@ -57,9 +79,12 @@ export const useAuth = (): IUseAuth => {
     status,
     isAuthenticated,
     isLoading,
+    currentBlog,
     authenticate,
     unauthenticate,
+    authenticateTokens,
     getToken,
     getRefreshToken,
+    setCurrentBlog,
   };
 };

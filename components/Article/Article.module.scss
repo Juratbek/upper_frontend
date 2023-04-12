@@ -15,11 +15,23 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.3;
+
   *:not(code) {
-    background-color: transparent!important;
+    background-color: transparent !important;
+    color: inherit !important;
   }
+
   @include screenMax576 {
     font-size: 1rem;
+  }
+
+  code {
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.85em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
   }
 }
 

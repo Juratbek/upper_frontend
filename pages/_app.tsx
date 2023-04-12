@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer, Navigation, Sidebar } from 'components';
+import { FeedbackModal, Footer, Navigation, NoticeBoard, Sidebar } from 'components';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -10,6 +10,7 @@ import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
 import { wrapper } from 'store';
+import { useLazyGetCurrentBlogQuery } from 'store/apis';
 import { IServerSideContext, TTheme } from 'types';
 import { appDynamic } from 'utils';
 import { PRODUCTION_HOST } from 'variables';
@@ -19,7 +20,9 @@ const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
 const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal'));
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const { getToken, getRefreshToken, authenticate, unauthenticate } = useAuth();
+  const { getToken, getRefreshToken, authenticateTokens, unauthenticate, setCurrentBlog } =
+    useAuth();
+  const [fetchCurrentBlog] = useLazyGetCurrentBlogQuery();
   const { themeColors, theme } = useTheme();
   const { isMobile } = useDevice();
 
@@ -29,7 +32,8 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     const token = getToken();
     const refreshToken = getRefreshToken() || '';
     if (token) {
-      authenticate({ token, refreshToken });
+      authenticateTokens({ token, refreshToken });
+      fetchCurrentBlog().unwrap().then(setCurrentBlog);
     } else {
       unauthenticate();
     }
@@ -62,10 +66,12 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           />
         </>
       )}
+      <NoticeBoard />
       <div className={`app theme-${theme}`}>
         <Navigation />
         <DynamicLoginModal />
         <DynamicRegisterModal />
+        <FeedbackModal />
         <main className='main' id='main'>
           <Component {...pageProps} />
           <Footer />

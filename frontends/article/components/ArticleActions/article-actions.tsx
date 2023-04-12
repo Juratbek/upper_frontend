@@ -1,37 +1,15 @@
 import { useTheme } from 'hooks';
-import Image from 'next/image';
-import { FC, useMemo } from 'react';
-import { useEffect, useState } from 'react';
-import { useAppDispatch } from 'store';
-import { toggleCommentsSidebar } from 'store/states';
-import { appDynamic } from 'utils';
-import { UPPER_BLUE_COLOR } from 'variables';
-import { ICONS } from 'variables/icons';
+import { FC, useEffect, useState } from 'react';
 
-import { IArticleSharePopupProps } from '../ArticleSharePopup';
+import { ArticleActionIcons } from './article-action-icons';
 import styles from './article-actions.module.scss';
 import { IArticleActionsProps } from './article-actions.types';
 
-const CommentIcon = ICONS.comment;
-const LikeIcon = ICONS.like;
-const DislikeIcon = ICONS.dislike;
-const ShareIcon = ICONS.share;
-
-const ArticleSharePopup = appDynamic<IArticleSharePopupProps>(() =>
-  import('../ArticleSharePopup').then((mod) => mod.ArticleSharePopup),
-);
-
 let lastScrollTop = Number.MAX_VALUE;
 
-export const ArticleActions: FC<IArticleActionsProps> = ({
-  editor,
-  isLikedOrDisliked,
-  likeDislikeCount,
-  likeDislike,
-}) => {
+export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, ...props }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
-  const [isSharePopupOpen, setIsSharePopupOpen] = useState(false);
-  const dispatch = useAppDispatch();
+  const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const { themeColors } = useTheme();
 
   const detectScrollDirection = (e: Event): void => {
@@ -47,21 +25,6 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
     lastScrollTop = st <= 0 ? 0 : st;
   };
 
-  const commentIconClickHandler = (): void => {
-    dispatch(toggleCommentsSidebar());
-  };
-
-  const likeIcon = useMemo((): JSX.Element => {
-    if (isLikedOrDisliked === 0) {
-      return (
-        <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
-          <Image width={40} height={40} src='/icons/dislike.webp' />
-        </div>
-      );
-    }
-    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : themeColors.icon} />;
-  }, [isLikedOrDisliked, themeColors]);
-
   useEffect(() => {
     document.querySelector('.main')?.addEventListener('scroll', detectScrollDirection);
 
@@ -76,39 +39,17 @@ export const ArticleActions: FC<IArticleActionsProps> = ({
 
   return (
     <div className={styles.articleActionsContainer}>
-      <ArticleSharePopup visible={isSharePopupOpen} setVisible={setIsSharePopupOpen} />
       <div
         className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}
-        id={'articleActions'}
         style={{ backgroundColor: themeColors.bg, border: `1px solid ${themeColors.border}` }}
       >
-        <div className={styles.iconsContainer}>
-          <div
-            className={styles.icon}
-            onClick={commentIconClickHandler}
-            data-action='open-comments'
-          >
-            <CommentIcon color={themeColors.icon} />
-          </div>
-          <div className={styles.icon} onClick={(): void => likeDislike(1)}>
-            {likeIcon}
-          </div>
-          {Boolean(likeDislikeCount) && (
-            <span className={styles.reactionsText}>{likeDislikeCount}</span>
-          )}
-          <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
-            <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
-          </div>
-          <div
-            className={styles.icon}
-            onClick={(e): void => {
-              e.stopPropagation();
-              setIsSharePopupOpen((prev) => !prev);
-            }}
-          >
-            <ShareIcon color={themeColors.icon} />
-          </div>
-        </div>
+        <ArticleActionIcons
+          {...props}
+          popupId='articleActions'
+          isSharePopupOpen={isSharePopupOpen}
+          setIsSharePopupOpen={setIsSharePopupOpen}
+          article={article}
+        />
       </div>
     </div>
   );

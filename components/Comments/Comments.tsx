@@ -2,7 +2,7 @@ import { Button, CommentSkeleton, Divider } from 'components';
 import { StorysetImage } from 'components/lib';
 import { useAuth, useClickOutside, useInfiniteScrollV2, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
@@ -21,6 +21,8 @@ import { Comment, Form } from './components';
 
 export const Comments = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const [selectedComment, setSelectedComment] = useState<IComment>();
+  const [isBeingEdited, setIsBeingEdited] = useState<boolean>(false);
   const { isAuthenticated } = useAuth();
   const {
     query: { id },
@@ -28,13 +30,8 @@ export const Comments = (): JSX.Element => {
   const { themeColors } = useTheme();
   const isOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
-  const {
-    hasMore,
-    fetchFirstPage,
-    fetchNextPage,
-    list: comments,
-    isLoading,
-  } = useInfiniteScrollV2<IComment>(useLazyGetCommentsByArticleIdQuery);
+  const infiniteScrollApi = useInfiniteScrollV2<IComment>(useLazyGetCommentsByArticleIdQuery);
+  const { hasMore, fetchFirstPage, fetchNextPage, list: comments, isLoading } = infiniteScrollApi;
 
   const [rootRef] = useClickOutside(() => {
     dispatch(closeCommentsSidebar());
@@ -61,11 +58,26 @@ export const Comments = (): JSX.Element => {
   };
 
   const submitHandler = (): void => {
+    if (isBeingEdited) {
+      clearSelectedComment();
+      return;
+    }
+
     const commentsElement = document.getElementById('comments');
     if (commentsElement) {
       commentsElement.scrollTop = 0;
     }
     fetchFirstPageHandler(id);
+  };
+
+  const editClickHandler = (comment: IComment): void => {
+    setSelectedComment(comment);
+    setIsBeingEdited(true);
+  };
+
+  const clearSelectedComment = (): void => {
+    setSelectedComment(undefined);
+    setIsBeingEdited(false);
   };
 
   const commentsRender = useMemo(() => {
@@ -87,7 +99,9 @@ export const Comments = (): JSX.Element => {
         </div>
       );
 
-    return comments.map((comment) => <Comment {...comment} key={comment.id} />);
+    return comments.map((comment) => (
+      <Comment {...comment} key={comment.id} onEditClick={editClickHandler} />
+    ));
   }, [comments, isLoading]);
 
   return (
@@ -109,9 +123,23 @@ export const Comments = (): JSX.Element => {
           {commentsRender}
         </InfiniteScroll>
       </div>
+      <div
+        className={classes['selected-comment']}
+        style={{ display: Boolean(selectedComment) ? 'flex' : 'none' }}
+      >
+        <p className={classes.text}>{selectedComment?.text}</p>
+        <span className={classes.icon} onClick={clearSelectedComment}>
+          &#10005;
+        </span>
+      </div>
       <div className={classes.form}>
-        {isAuthenticated ? (
-          <Form onSubmit={submitHandler} />
+        {isAuthenticated && isOpen ? (
+          <Form
+            selectedComment={selectedComment}
+            isBeingEdited={isBeingEdited}
+            onSubmit={submitHandler}
+            api={infiniteScrollApi}
+          />
         ) : (
           <div>
             <p className='mt-0'>Izoh qoldirish uchun ro&apos;yxatdan o&apos;ting</p>

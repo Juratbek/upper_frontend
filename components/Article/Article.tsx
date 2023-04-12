@@ -2,7 +2,7 @@ import { ArticleImg, Author, Label, Status } from 'components';
 import { Divider } from 'components/lib';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef } from 'react';
-import { addAmazonUri, formatToKMB, getClassName, toDateString } from 'utils';
+import { addAmazonUri, dateInterval, formatToKMB, getClassName } from 'utils';
 import { ICONS } from 'variables';
 
 import classes from './Article.module.scss';
@@ -40,8 +40,8 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
   }, [content]);
 
   const date: JSX.Element | string = useMemo(() => {
-    if (updatedDate) return <>{toDateString(updatedDate)} yangilangan</>;
-    if (publishedDate) return toDateString(publishedDate);
+    if (updatedDate) return <>{dateInterval(updatedDate)} yangilangan</>;
+    if (publishedDate) return dateInterval(publishedDate);
     return '';
   }, [updatedDate, publishedDate]);
 

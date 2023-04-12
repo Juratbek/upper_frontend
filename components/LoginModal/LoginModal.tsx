@@ -11,6 +11,7 @@ import {
 } from 'components';
 import { GoogleSignIn } from 'components/GoogleSignIn';
 import { useAuth } from 'hooks';
+import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -36,6 +37,7 @@ export const LoginModal: FC = () => {
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
   const { authenticate } = useAuth();
+  const { isMobile } = useDevice();
   const {
     register,
     setFocus,
@@ -82,8 +84,8 @@ export const LoginModal: FC = () => {
   const closeAlert = (): void => setAlert('');
 
   useEffect(() => {
-    isOpen && setFocus(login.name);
-  }, [isOpen]);
+    isOpen && !isMobile && setFocus(login.name);
+  }, [isOpen, isMobile]);
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
@@ -143,14 +145,14 @@ export const LoginModal: FC = () => {
           </Link>
         </p>
       </form>
+      <GoogleAuthScript />
+      <GoogleSignIn id='google-sign-in' className='mt-2' />
+      <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
       <TelegramLoginButton
-        className='mt-2 text-center'
+        className='mt-1 text-center'
         botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}
         onAuth={closeModal}
       />
-      <GoogleAuthScript />
-      <GoogleSignIn id='google-sign-in' />
-      <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
     </Modal>
   );
 };

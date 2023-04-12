@@ -22,6 +22,9 @@
 
   // modal colors
   --color-modal-border-red: red;
+
+  // sizes
+  --noticeboard-height: 30px;
 }
 
 * {
@@ -33,7 +36,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - var(--noticeboard-height));
   overflow-x: hidden;
 
   @include screenMax576 {
@@ -47,7 +50,7 @@
 
 .app > .main {
   flex: 1 1 auto;
-  height: 100vh;
+  height: calc(100vh - var(--noticeboard-height));
   overflow-y: auto;
 
   display: flex;
@@ -123,6 +126,12 @@
 .form-label {
   margin-bottom: 0.5em;
   display: block;
+}
+// form end
+
+.date {
+  font-size: 0.8rem;
+  color: var(--gray);
 }
 
 .pointer {
@@ -386,6 +395,9 @@
   padding-right: $size4;
   padding-left: $size4;
 }
+.pt-1 {
+  padding-top: $size1;
+}
 .pt-2 {
   padding-top: $size2;
 }
@@ -535,4 +547,9 @@
 // font sizes
 .fs-1 {
   font-size: 0.8rem;
+}
+
+// font weight
+.fw-6 {
+  font-weight: 600;
 }

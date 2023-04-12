@@ -11,6 +11,7 @@ import {
   useDeleteNotificationMutation,
   useLazyGetNotificationsByTypeQuery,
   useReadNotificationMutation,
+  useResetNotificationsCountQuery,
 } from 'store/apis';
 import { INotification } from 'types';
 import { NOTIFICATION_STATUSES, NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
@@ -19,6 +20,7 @@ export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
   const [sendReadNotificationReq, sendReadNotificationRes] = useReadNotificationMutation();
   const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
+  useResetNotificationsCountQuery();
   const {
     query: { tab, page },
   } = useRouter();
@@ -73,10 +75,11 @@ export const NotificationsTab: FC = () => {
           />
           {index !== notifications.length - 1 && (
             <Divider
-              className='w-75 mx-auto'
+              className='w-90 mx-auto'
               color={
                 notification.status === NOTIFICATION_STATUSES.UNREAD ? 'transparent' : undefined
               }
+              style={{ marginTop: 2, marginBottom: 2 }}
             />
           )}
         </div>
@@ -90,13 +93,15 @@ export const NotificationsTab: FC = () => {
         res={fetchNotificationsRes}
         fallback={<NotificationSkeleton className='px-3 py-2' />}
         fallbackItemCount={3}
-        className='tab'
+        className='tab pt-1'
       >
         {notifications}
       </ApiErrorBoundary>
-      {fetchNotificationsRes.data && (
-        <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
-      )}
+      <div className='my-2'>
+        {fetchNotificationsRes.data && (
+          <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
+        )}
+      </div>
     </div>
   );
 };

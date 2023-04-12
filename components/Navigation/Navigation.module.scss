@@ -51,7 +51,7 @@ $mobile-screen-padding: 0.8rem;
     flex: 1 1 auto;
     order: 3;
     border-top: 0.5px solid var(--lightBlack);
-    padding: calc($mobile-screen-padding / 2) $mobile-screen-padding ;
+    padding: calc($mobile-screen-padding / 2) $mobile-screen-padding;
   }
 }
 
@@ -61,7 +61,7 @@ $mobile-screen-padding: 0.8rem;
 
 .positioned {
   position: fixed;
-  top: 0;
+  top: var(--noticeboard-height);
   bottom: 0;
   z-index: 10;
 
@@ -89,7 +89,7 @@ $mobile-screen-padding: 0.8rem;
     height: $size;
   }
 }
-.logOut {
+.help {
   @include screenMax576 {
     padding-right: 0.3rem;
   }

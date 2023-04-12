@@ -1,7 +1,8 @@
 import { AnyAction, isRejectedWithValue, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
 import { blogApi } from 'store/apis';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
-import { authenticate, unauthenticate } from 'store/states';
+import { authenticate, setCurrentBlog, unauthenticate } from 'store/states';
+import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
 import { REFRESH_TOKEN } from 'variables';
 
 export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => async (action) => {
@@ -12,7 +13,12 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
     if (isGetNewTokenApi && [401, 400, 500, 403, 404].includes(status)) {
       const { dispatch } = api;
       dispatch(unauthenticate());
-      window.location.replace('/');
+      removeLocalStorageTokens();
+      window.location.replace(
+        `/login?redirect=${
+          window.location.pathname
+        }&message=${'Token muddadi yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
+      );
     }
 
     if (status === 401) {
@@ -24,7 +30,10 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
         const res = (await dispatch(
           blogApi.endpoints.getNewToken.initiate(refreshToken) as unknown as AnyAction,
         )) as unknown as { data: IBlogRegisterResponse };
-        await dispatch(authenticate(res.data));
+        const { data } = res;
+        await dispatch(authenticate());
+        setLocalStorateTokens({ token: data.token, refreshToken: data.refreshToken });
+        await dispatch(setCurrentBlog(res.data));
         window.location.reload();
       }
     }

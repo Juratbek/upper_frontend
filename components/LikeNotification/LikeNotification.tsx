@@ -1,19 +1,26 @@
+import { Link } from 'components';
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
-import { getClassName } from 'utils';
-
-import classes from './LikeNotification.module.css';
+import { dateInterval, getClassName } from 'utils';
 
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
-  const { className, author, article } = props;
-  const rootClassName = getClassName(className, classes['like-notification']);
+  const { className, author, article, status, createdDate } = props;
+  const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
+
+  const clickHandler = (): void => props.onClick?.(props);
 
   return (
-    <div className={rootClassName}>
-      <div>
-        <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangiz{' '}
-        <strong className='pointer'>{author?.name}ga</strong> yoqdi
+    <Link href={`/articles/${article.id}`}>
+      <div className={rootClassName} onClick={clickHandler}>
+        <div>
+          <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangiz{' '}
+          <Link href={`/blogs/${author.id}`} className='link'>
+            <strong className='pointer'>{author.name}ga</strong>
+          </Link>{' '}
+          yoqdi
+        </div>
+        <time className='date'>{dateInterval(createdDate)}</time>
       </div>
-    </div>
+    </Link>
   );
 };

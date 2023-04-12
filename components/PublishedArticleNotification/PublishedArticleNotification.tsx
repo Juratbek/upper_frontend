@@ -2,13 +2,15 @@ import { Actions, Avatar, IAction } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
 import { INotificationComponentProp } from 'types';
-import { addAmazonUri, getClassName, toDateString } from 'utils';
+import { addAmazonUri, dateInterval, getClassName } from 'utils';
 import { NOTIFICATION_STATUSES } from 'variables';
 
 import classes from './PublishedArticleNotification.module.scss';
 
 export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate } = props;
+
+  console.log(status);
   const rootClassName = getClassName(
     classes.container,
     className,
@@ -21,13 +23,13 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
   const deleteNotification = (): void => props.deleteNotification?.(props);
 
   const actions = useMemo(() => {
-    const actions: IAction[] = [{ label: "O'chirish", color: 'red', onClick: deleteNotification }];
+    let actions: IAction[] = [{ label: "O'chirish", color: 'red', onClick: deleteNotification }];
     if (status === NOTIFICATION_STATUSES.UNREAD) {
-      actions.push({ label: "O'qilgan sifatida belgilash", onClick: markAsRead });
+      actions = [{ label: "O'qilgan sifatida belgilash", onClick: markAsRead }, ...actions];
     }
 
     return actions;
-  }, []);
+  }, [status]);
 
   const clickHandler = (): void => {
     push(`/articles/${article.id}`);
@@ -46,7 +48,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
               maqola nashr qildi
             </span>
           </div>
-          <span className={classes.date}>{toDateString(createdDate)}</span>
+          <span className={classes.date}>{dateInterval(createdDate)}</span>
         </div>
       </div>
       <div className={classes.actions}>
