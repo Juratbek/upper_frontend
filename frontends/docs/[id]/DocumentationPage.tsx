@@ -62,9 +62,7 @@ export const DocumentationPage: FC = () => {
           <Link href={getDocUrl('/docs/', urlsWithoutCurrentDocId, nextDoc.url)}>
             <a>
               <Button color='outline-dark'>
-                <span className='px-4' style={{ marginRight: '-15px' }}>
-                  {nextDoc.name}&nbsp;&raquo;
-                </span>
+                <span className='px-4'>{nextDoc.name}&nbsp;&raquo;</span>
               </Button>
             </a>
           </Link>
