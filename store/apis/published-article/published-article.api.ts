@@ -59,7 +59,7 @@ export const publishedArticleApi = createApi({
     }),
     incrementViewCount: build.mutation<void, { id: number; token: string }>({
       query: ({ id, token }) => ({
-        url: `open/has-updates/${id}`,
+        url: `v2/open/has-updates/${id}`,
         method: 'POST',
         body: token,
       }),
