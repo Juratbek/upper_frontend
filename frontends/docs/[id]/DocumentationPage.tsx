@@ -86,7 +86,7 @@ export const DocumentationPage: FC = () => {
       <ApiErrorBoundary
         onError={(): ReactNode => (
           <div className='text-center'>
-            <h2>Qo&apos;llanma topilamdi</h2>
+            <h2>Qo&apos;llanma topilmadi</h2>
             <p>Tez orada qo&apos;llanma joylanadi. Iltimos kuting...</p>
           </div>
         )}
