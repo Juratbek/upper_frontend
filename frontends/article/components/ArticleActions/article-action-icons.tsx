@@ -2,7 +2,7 @@ import { useAuth, useTheme } from 'hooks';
 import Image from 'next/image';
 import { FC, FormEvent, useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
-import { useLazyCheckIfLikedDislikedQuery, useLikeDislikeMutation } from 'store/apis';
+import { useDislikeMutation, useLazyCheckIfLikedDislikedQuery, useLikeMutation } from 'store/apis';
 import { openLoginModal, toggleCommentsSidebar } from 'store/states';
 import { appDynamic } from 'utils';
 import { ICONS, UPPER_BLUE_COLOR } from 'variables';
@@ -31,20 +31,27 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
   const { isAuthenticated } = useAuth();
   const { themeColors } = useTheme();
   const dispatch = useAppDispatch();
-  const [likeDislikeArticle, likeDislikeRes] = useLikeDislikeMutation();
+  const [likeArticle, likeRes] = useLikeMutation();
+  const [dislikeArticle, dislikeRes] = useDislikeMutation();
   const [checkIfLikedDislikedQuery, { data: isLikedOrDisliked }] =
     useLazyCheckIfLikedDislikedQuery();
 
-  const likeDislike = (value: -1 | 1): void => {
+  const like = (): void => {
     if (!isAuthenticated) {
       dispatch(openLoginModal());
       return;
     }
-    if (likeDislikeRes.isLoading || value === isLikedOrDisliked || !id) return;
-    likeDislikeArticle({ id, value }).then(() => {
-      value === 1 && props.onLike();
-      value === -1 && props.onDislike(isLikedOrDisliked === 1);
-    });
+    if (likeRes.isLoading || isLikedOrDisliked || !id) return;
+    likeArticle({ id }).then(() => props.onLike());
+  };
+
+  const dislike = (): void => {
+    if (!isAuthenticated) {
+      dispatch(openLoginModal());
+      return;
+    }
+    if (dislikeRes.isLoading || isLikedOrDisliked === false || !id) return;
+    dislikeArticle({ id }).then(() => props.onDislike(isLikedOrDisliked === true));
   };
 
   const shareIconClickHandler = (event: FormEvent<Element>): void => {
@@ -56,14 +63,14 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
     dispatch(toggleCommentsSidebar());
   };
   const likeIcon = useMemo((): JSX.Element => {
-    if (isLikedOrDisliked === 0) {
+    if (isLikedOrDisliked === false) {
       return (
         <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
           <Image width={40} height={40} src='/icons/dislike.webp' />
         </div>
       );
     }
-    return <LikeIcon color={isLikedOrDisliked === 1 ? UPPER_BLUE_COLOR : themeColors.icon} />;
+    return <LikeIcon color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />;
   }, [isLikedOrDisliked, themeColors]);
 
   useEffect(() => {
@@ -83,12 +90,12 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
       <div className={styles.icon} onClick={commentIconClickHandler} data-action='open-comments'>
         <CommentIcon color={themeColors.icon} />
       </div>
-      <div className={styles.icon} onClick={(): void => likeDislike(1)}>
+      <div className={styles.icon} onClick={like}>
         {likeIcon}
       </div>
       {likeCount > 0 ? <span className={styles.reactionsText}>{likeCount}</span> : ''}
-      <div className={styles.icon} onClick={(): void => likeDislike(-1)}>
-        <DislikeIcon color={isLikedOrDisliked === -1 ? UPPER_BLUE_COLOR : themeColors.icon} />
+      <div className={styles.icon} onClick={dislike}>
+        <DislikeIcon color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
       </div>
       <div className={styles.icon} onClick={shareIconClickHandler}>
         <ShareIcon color={themeColors.icon} />
