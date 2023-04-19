@@ -19,13 +19,15 @@ export const TeamPage = (): JSX.Element => {
             key={index}
             className={`card mb-4 mt-5 mb-3 w-mobile-100 text-center position-relative ${classes.member}`}
           >
-            <Avatar size='xxl' className={classes.avatar} imgUrl={member.imgUrl} />
+            <div className={classes['avatar-container']}>
+              <Avatar size='xxl' className={classes.avatar} imgUrl={member.imgUrl} zoomable />
+            </div>
             <h2>{member.name}</h2>
             <p>{member.position}</p>
             <div>
               {member.links.map((link) => (
                 <Link href={link.url} key={link.url}>
-                  <a className={classes.icon} key={link.url} target={link.target || '_blank'}>
+                  <a className={classes.icon} target={link.target || '_blank'}>
                     <link.icon color={iconColor} />
                   </a>
                 </Link>
