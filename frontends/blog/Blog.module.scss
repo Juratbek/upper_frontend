@@ -2,6 +2,7 @@
 
 .social-media {
   display: flex;
+  flex-wrap: wrap;
 
   &-link {
     margin: 1rem;
