@@ -7,6 +7,7 @@ import { useLazyGetDocByIdQuery } from 'store/apis';
 import { addUriToImageBlocks } from 'utils';
 
 import { DOCS_SIDEBAR_LINKS } from '../sidebar';
+import styles from './documentation.module.scss';
 
 const getDocUrl = (parent: string, urls: string[], link: string): string => {
   return parent + [...urls, link].join('_');
@@ -62,9 +63,7 @@ export const DocumentationPage: FC = () => {
           <Link href={getDocUrl('/docs/', urlsWithoutCurrentDocId, nextDoc.url)}>
             <a>
               <Button color='outline-dark'>
-                <span className='px-4' style={{ marginRight: '-15px' }}>
-                  {nextDoc.name}&nbsp;&raquo;
-                </span>
+                <span className={styles['documentation-button']}>{nextDoc.name}&nbsp;&raquo;</span>
               </Button>
             </a>
           </Link>
