@@ -16,6 +16,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(function Componen
   const rootClassName = getClassName(className, classes.input);
   const [type, setType] = useState(props.type);
   const { themeColors } = useTheme();
+  const { icon: iconColor } = themeColors;
 
   const toggleType = (): void => {
     setType((prev) => (prev === 'password' ? 'text' : 'password'));
@@ -32,7 +33,7 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(function Componen
       />
       {props.type === 'password' && (
         <span className={classes.eye} onClick={toggleType}>
-          {type === 'password' ? <EyeIcon /> : <EyeSlashIcon />}
+          {type === 'password' ? <EyeIcon color={iconColor} /> : <EyeSlashIcon color={iconColor} />}
         </span>
       )}
     </div>
