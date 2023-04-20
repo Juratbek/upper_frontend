@@ -7,7 +7,7 @@ import { baseQuery } from '../config';
 export const subscriptionApi = createApi({
   reducerPath: 'change-subscription',
   baseQuery: baseQuery('subscription'),
-  tagTypes: ['current-blog', 'folowers'],
+  tagTypes: ['folowers'],
   endpoints: (build) => ({
     subscribe: build.mutation<void, number>({
       query: (id) => ({
@@ -25,7 +25,7 @@ export const subscriptionApi = createApi({
         );
       },
     }),
-    unfollow: build.mutation<void, number>({
+    unSubscribe: build.mutation<void, number>({
       query: (id) => ({
         url: `unfollow/${id}`,
         method: 'POST',
@@ -53,3 +53,5 @@ export const subscriptionApi = createApi({
     }),
   }),
 });
+export const { useGetIsSubscribedQuery, useSubscribeMutation, useUnSubscribeMutation } =
+  subscriptionApi;

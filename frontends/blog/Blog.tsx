@@ -3,7 +3,12 @@ import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
-import { useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
+import {
+  useFollowBlogMutation,
+  useSubscribeMutation,
+  useUnfollowBlogMutation,
+  useUnSubscribeMutation,
+} from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
 
@@ -16,19 +21,21 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
   const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
   const [isFollowed, setIsFollowed] = useState<boolean>(blog?.isFollowed || false);
   const { isMobile } = useDevice();
+  const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [followBlog, followBlogRes] = useFollowBlogMutation();
+  const [unSubscribeBlog, unSubscribeBlogRes] = useUnSubscribeMutation();
   const [unfollowBlog, unfollowBlogRes] = useUnfollowBlogMutation();
   const {
     query: { id },
   } = useRouter();
 
   const follow = (): void => {
-    id && followBlog(+id).then(() => setIsFollowed(true));
+    id && subscribeBlog(+id).then(() => setIsFollowed(true));
   };
 
   const unfollow = (): void => {
     id &&
-      unfollowBlog(+id).then(() => {
+      unSubscribeBlog(+id).then(() => {
         setIsFollowed(false);
         setIsUnfollowModalOpen(false);
       });
@@ -64,7 +71,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
           <Button onClick={toggleUnfollowModal} color='outline-dark' className='me-2'>
             Yopish
           </Button>
-          <Button onClick={unfollow} loading={unfollowBlogRes.isLoading} color='outline-dark'>
+          <Button onClick={unfollow} loading={unSubscribeBlogRes.isLoading} color='outline-dark'>
             Obunani bekor qilish
           </Button>
         </div>
@@ -83,7 +90,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
                     Obuna bo&apos;lingan
                   </Button>
                 ) : (
-                  <Button onClick={follow} loading={followBlogRes.isLoading}>
+                  <Button onClick={follow} loading={subscribeBlogRes.isLoading}>
                     Obuna bo&apos;lish
                   </Button>
                 )}
