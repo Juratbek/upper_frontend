@@ -8,7 +8,6 @@ import {
 } from 'types';
 
 import { baseQuery } from '../config';
-import { TCheckIfLikedDisliked } from './published-article.api.types';
 
 export const publishedArticleApi = createApi({
   reducerPath: 'published-article',
@@ -38,17 +37,26 @@ export const publishedArticleApi = createApi({
         params,
       }),
     }),
-    likeDislike: build.mutation<void, { id: number; value: TCheckIfLikedDisliked }>({
-      query: ({ id, value }) => ({
-        url: `like-dislike/${id}?value=${value}`,
+    like: build.mutation<void, { id: number }>({
+      query: ({ id }) => ({
+        url: `v2/like/${id}`,
         method: 'POST',
       }),
-      async onQueryStarted({ value, id }, { dispatch }) {
-        dispatch(publishedArticleApi.util.updateQueryData('checkIfLikedDisliked', id, () => value));
+      async onQueryStarted({ id }, { dispatch }) {
+        dispatch(publishedArticleApi.util.updateQueryData('checkIfLikedDisliked', id, () => true));
       },
     }),
-    checkIfLikedDisliked: build.query<number, number>({
-      query: (id) => `check-like-dislike/${id}`,
+    dislike: build.mutation<void, { id: number }>({
+      query: ({ id }) => ({
+        url: `v2/dislike/${id}`,
+        method: 'POST',
+      }),
+      async onQueryStarted({ id }, { dispatch }) {
+        dispatch(publishedArticleApi.util.updateQueryData('checkIfLikedDisliked', id, () => false));
+      },
+    }),
+    checkIfLikedDisliked: build.query<boolean | null, number>({
+      query: (id) => `v2/check-like-dislike/${id}`,
     }),
     getById: build.query<IArticle, { id: number; withAuthor?: boolean }>({
       query: ({ id, ...params }) => ({
@@ -90,7 +98,8 @@ export const {
   useLazyGetSuggestionsQuery: useLazyGetArticleSuggestionsQuery,
   useLazyGetTopQuery: useLazyGetTopArticlesQuery,
   useLazyCheckIfLikedDislikedQuery,
-  useLikeDislikeMutation,
+  useLikeMutation,
+  useDislikeMutation,
   useIncrementViewCountMutation,
   useLazySearchQuery: useLazySearchPublishedArticleQuery,
   useLazyGetByLabelQuery: useLazyGetPublishedArticlesByLabelQuery,
