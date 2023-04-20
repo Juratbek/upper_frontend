@@ -2,7 +2,7 @@ import { getCookie } from 'cookies-next';
 import { BlogPage, IBlogPageProps } from 'frontends/blog';
 import { GetServerSideProps, NextPage } from 'next';
 import { wrapper } from 'store';
-import { subscriptionApi } from 'store/apis';
+import { blogApi } from 'store/apis';
 import { IResponseError } from 'types';
 import { get } from 'utils';
 
@@ -19,10 +19,7 @@ export const getServerSideProps: GetServerSideProps<IBlogPageProps> = wrapper.ge
 
       const blogId = get<number>(query, 'id');
       const { data: blog = null, error = {} } = await store.dispatch(
-        subscriptionApi.endpoints.getIsSubscribed.initiate(
-          { id: blogId, token },
-          { forceRefetch: true },
-        ),
+        blogApi.endpoints.getById.initiate({ id: blogId, token }, { forceRefetch: true }),
       );
       return {
         props: {

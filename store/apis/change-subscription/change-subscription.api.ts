@@ -18,7 +18,7 @@ export const subscriptionApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
-          subscriptionApi.util.updateQueryData('getIsSubscribed', { id }, (blog) => ({
+          subscriptionApi.util.updateQueryData('checkSubscription', { id }, (blog) => ({
             ...blog,
             isFollowed: true,
           })),
@@ -34,24 +34,20 @@ export const subscriptionApi = createApi({
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await queryFulfilled;
         dispatch(
-          subscriptionApi.util.updateQueryData('getIsSubscribed', { id }, (blog) => ({
+          subscriptionApi.util.updateQueryData('checkSubscription', { id }, (blog) => ({
             ...blog,
             isFollowed: false,
           })),
         );
       },
     }),
-    getIsSubscribed: build.query<IBlog, { id: number; token?: string | null }>({
-      query: ({ id, token }) => ({
+    checkSubscription: build.query({
+      query: (id) => ({
         url: `check-subscription/${id}`,
-        headers: token
-          ? {
-              [Authorization]: `Bearer ${token}`,
-            }
-          : {},
+        invalidatesTags: ['folowers'],
       }),
     }),
   }),
 });
-export const { useGetIsSubscribedQuery, useSubscribeMutation, useUnSubscribeMutation } =
+export const { useCheckSubscriptionQuery, useSubscribeMutation, useUnSubscribeMutation } =
   subscriptionApi;

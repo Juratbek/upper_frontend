@@ -2,11 +2,10 @@ import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
 import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import {
-  useFollowBlogMutation,
+  useCheckSubscriptionQuery,
   useSubscribeMutation,
-  useUnfollowBlogMutation,
   useUnSubscribeMutation,
 } from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
@@ -17,17 +16,17 @@ import { IBlogPageProps } from './Blog.types';
 
 const HeartIcon = ICONS.heart;
 
-export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageProps) => {
+export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
-  const [isFollowed, setIsFollowed] = useState<boolean>(blog?.isFollowed || false);
   const { isMobile } = useDevice();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
-  const [followBlog, followBlogRes] = useFollowBlogMutation();
   const [unSubscribeBlog, unSubscribeBlogRes] = useUnSubscribeMutation();
-  const [unfollowBlog, unfollowBlogRes] = useUnfollowBlogMutation();
+
   const {
     query: { id },
   } = useRouter();
+  const { data: isSubscribed } = useCheckSubscriptionQuery(id);
+  const [isFollowed, setIsFollowed] = useState<boolean>(isSubscribed || false);
 
   const follow = (): void => {
     id && subscribeBlog(+id).then(() => setIsFollowed(true));
@@ -49,11 +48,11 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
     setIsUnfollowModalOpen(false);
   };
 
+  console.log(isSubscribed, 'isSubscribed');
+
   useEffect(() => {
-    if (blog?.isFollowed !== undefined) {
-      setIsFollowed(blog.isFollowed);
-    }
-  }, [id]);
+    setIsFollowed(isSubscribed);
+  }, [isSubscribed]);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
