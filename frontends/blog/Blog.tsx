@@ -26,7 +26,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
     query: { id },
   } = useRouter();
   const { data: isSubscribed } = useCheckSubscriptionQuery(id);
-  const [isFollowed, setIsFollowed] = useState<boolean>(isSubscribed || false);
+  const [isFollowed, setIsFollowed] = useState<boolean>(isSubscribed);
 
   const follow = (): void => {
     id && subscribeBlog(+id).then(() => setIsFollowed(true));
@@ -48,11 +48,9 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
     setIsUnfollowModalOpen(false);
   };
 
-  console.log(isSubscribed, 'isSubscribed');
-
   useEffect(() => {
     setIsFollowed(isSubscribed);
-  }, [isSubscribed]);
+  }, [isSubscribed, blog]);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
