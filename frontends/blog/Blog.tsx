@@ -75,14 +75,14 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
     setIsFollowed(isSubscribed);
   }, [isSubscribed, blog]);
 
-  const alertOnCloseModal = () => setAlert({ ...alert, show: false });
+  const handleCloseAlert = () => setAlert({ ...alert, show: false });
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
   return (
     <div className='container'>
       {alert.show && (
-        <Alert onClose={alertOnCloseModal} color='red'>
+        <Alert onClose={handleCloseAlert} color='red'>
           <p className='mb-1'>
             {`${
               checkIsSubscriptionErr
