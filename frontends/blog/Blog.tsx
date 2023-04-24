@@ -1,15 +1,15 @@
-import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
+import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
 import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   useCheckSubscriptionQuery,
   useSubscribeMutation,
   useUnSubscribeMutation,
 } from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
+import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
@@ -17,27 +17,50 @@ import { IBlogPageProps } from './Blog.types';
 const HeartIcon = ICONS.heart;
 
 export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
+  const {
+    query: { id },
+  } = useRouter();
   const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
   const { isMobile } = useDevice();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unSubscribeBlog, unSubscribeBlogRes] = useUnSubscribeMutation();
-
-  const {
-    query: { id },
-  } = useRouter();
-  const { data: isSubscribed } = useCheckSubscriptionQuery(id);
+  const { data: isSubscribed, isError: checkIsSubscriptionErr } = useCheckSubscriptionQuery(id);
   const [isFollowed, setIsFollowed] = useState<boolean>(isSubscribed);
+  const [alert, setAlert] = useState({
+    show: subscribeBlogRes.isError || unSubscribeBlogRes.isError,
+    message: '',
+  });
+
+  useEffect(() => {
+    if (subscribeBlogRes.isError || unSubscribeBlogRes.isError) {
+      setAlert({ ...alert, show: true });
+    }
+    if (checkIsSubscriptionErr) {
+      setAlert({ ...alert, show: true });
+      setIsFollowed(false);
+    }
+  }, [subscribeBlogRes.isError, unSubscribeBlogRes.isError, checkIsSubscriptionErr]);
 
   const follow = (): void => {
-    id && subscribeBlog(+id).then(() => setIsFollowed(true));
+    id &&
+      subscribeBlog(+id)
+        .unwrap()
+        .then(() => {
+          setIsFollowed(true);
+        });
   };
 
   const unfollow = (): void => {
     id &&
-      unSubscribeBlog(+id).then(() => {
-        setIsFollowed(false);
-        setIsUnfollowModalOpen(false);
-      });
+      unSubscribeBlog(+id)
+        .unwrap()
+        .then(() => {
+          setIsFollowed(false);
+          setIsUnfollowModalOpen(false);
+        })
+        .catch(() => {
+          setIsUnfollowModalOpen(false);
+        });
   };
 
   const toggleUnfollowModal = (): void => {
@@ -56,6 +79,26 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
 
   return (
     <div className='container'>
+      {alert.show && (
+        <Alert
+          onClose={() => {
+            setAlert({ ...alert, show: false });
+          }}
+          color='red'
+        >
+          <p className='mb-1'>
+            {`${
+              checkIsSubscriptionErr
+                ? `Obunani tekshirishda`
+                : subscribeBlogRes.isError
+                ? `Obuna bo'lishda`
+                : `Obunani bekor qilishda`
+            }`}{' '}
+            xatolik yuz berdi.{' '}
+            <a href={TELEGRAM_BOT.link}>{TELEGRAM_BOT.link} botiga habar bering.</a>
+          </p>
+        </Alert>
+      )}
       <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
         size='small'

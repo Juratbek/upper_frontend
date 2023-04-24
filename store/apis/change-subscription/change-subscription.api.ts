@@ -39,7 +39,6 @@ export const subscriptionApi = createApi({
     checkSubscription: build.query({
       query: (id) => ({
         url: `check-subscription/${id}`,
-        invalidatesTags: ['folowers'],
       }),
     }),
   }),
