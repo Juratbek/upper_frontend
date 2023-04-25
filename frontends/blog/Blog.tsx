@@ -2,7 +2,7 @@ import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'component
 import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import {
   useCheckSubscriptionQuery,
   useSubscribeMutation,
@@ -24,7 +24,11 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const { isMobile } = useDevice();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unSubscribeBlog, unSubscribeBlogRes] = useUnSubscribeMutation();
-  const { data: isSubscribedData, isError: checkIsSubscriptionErr } = useCheckSubscriptionQuery(id);
+  const {
+    data: isSubscribedData,
+    isError: checkIsSubscriptionErr,
+    isSuccess: onCheckSubscriptionEnded,
+  } = useCheckSubscriptionQuery(id);
   const [isSubscribed, setIsSubscribed] = useState<boolean>(isSubscribedData);
   const [alert, setAlert] = useState({
     show: subscribeBlogRes.isError || unSubscribeBlogRes.isError,
@@ -122,15 +126,17 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
             <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
             {!blog.isCurrentBlog && (
               <>
-                {isSubscribed ? (
-                  <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                    Obuna bo&apos;lingan
-                  </Button>
-                ) : (
-                  <Button onClick={follow} loading={subscribeBlogRes.isLoading}>
-                    Obuna bo&apos;lish
-                  </Button>
-                )}
+                {onCheckSubscriptionEnded ? (
+                  isSubscribed ? (
+                    <Button color='outline-dark' onClick={toggleUnfollowModal}>
+                      Obuna bo&apos;lingan
+                    </Button>
+                  ) : (
+                    <Button onClick={follow} loading={subscribeBlogRes.isLoading}>
+                      Obuna bo&apos;lish
+                    </Button>
+                  )
+                ) : null}
                 {Boolean(blog.cardNumber) && (
                   <Link href={`/blogs/${id}/support`}>
                     <a className='link d-flex mt-xs-2 w-100'>
