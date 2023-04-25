@@ -10,4 +10,4 @@ export * from './label-request';
 export * from './tutorials';
 export * from './published-tutorials';
 export * from './feedback';
-export * from './change-subscription';
+export * from './subscription';

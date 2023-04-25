@@ -24,8 +24,8 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const { isMobile } = useDevice();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unSubscribeBlog, unSubscribeBlogRes] = useUnSubscribeMutation();
-  const { data: isSubscribed, isError: checkIsSubscriptionErr } = useCheckSubscriptionQuery(id);
-  const [isFollowed, setIsFollowed] = useState<boolean>(isSubscribed);
+  const { data: isSubscribedData, isError: checkIsSubscriptionErr } = useCheckSubscriptionQuery(id);
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(isSubscribedData);
   const [alert, setAlert] = useState({
     show: subscribeBlogRes.isError || unSubscribeBlogRes.isError,
     message: '',
@@ -37,7 +37,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
     }
     if (checkIsSubscriptionErr) {
       setAlert({ ...alert, show: true });
-      setIsFollowed(false);
+      setIsSubscribed(false);
     }
   }, [subscribeBlogRes.isError, unSubscribeBlogRes.isError, checkIsSubscriptionErr]);
 
@@ -46,7 +46,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
       subscribeBlog(+id)
         .unwrap()
         .then(() => {
-          setIsFollowed(true);
+          setIsSubscribed(true);
         });
   };
 
@@ -55,7 +55,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
       unSubscribeBlog(+id)
         .unwrap()
         .then(() => {
-          setIsFollowed(false);
+          setIsSubscribed(false);
           setIsUnfollowModalOpen(false);
         })
         .catch(() => {
@@ -72,8 +72,8 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   };
 
   useEffect(() => {
-    setIsFollowed(isSubscribed);
-  }, [isSubscribed, blog]);
+    setIsSubscribed(isSubscribedData);
+  }, [isSubscribedData, blog]);
 
   const handleCloseAlert = () => setAlert({ ...alert, show: false });
 
@@ -122,7 +122,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
             <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
             {!blog.isCurrentBlog && (
               <>
-                {isFollowed ? (
+                {isSubscribed ? (
                   <Button color='outline-dark' onClick={toggleUnfollowModal}>
                     Obuna bo&apos;lingan
                   </Button>
