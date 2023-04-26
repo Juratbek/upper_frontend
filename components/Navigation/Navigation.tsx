@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openRegisterModal, openSidebar } from 'store/states';
+import { openLoginModal, openSidebar } from 'store/states';
 import { ICONS } from 'variables';
 
 import { NavItem } from './components';
