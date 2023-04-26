@@ -2,7 +2,7 @@ import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'component
 import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import {
   useCheckSubscriptionQuery,
   useSubscribeMutation,
@@ -23,23 +23,13 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
   const { isMobile } = useDevice();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
-  const [unSubscribeBlog, unSubscribeBlogRes] = useUnSubscribeMutation();
-  const { data: isSubscribed, isError: checkIsSubscriptionErr } = useCheckSubscriptionQuery(id);
+  const [unsubscribeBlog, unsubscribeRes] = useUnSubscribeMutation();
+  const checkSubscriptionRes = useCheckSubscriptionQuery(id);
+  const { data: isSubscribed } = checkSubscriptionRes;
   const [isFollowed, setIsFollowed] = useState<boolean>(isSubscribed);
-  const [alert, setAlert] = useState({
-    show: subscribeBlogRes.isError || unSubscribeBlogRes.isError,
-    message: '',
-  });
-
-  useEffect(() => {
-    if (subscribeBlogRes.isError || unSubscribeBlogRes.isError) {
-      setAlert({ ...alert, show: true });
-    }
-    if (checkIsSubscriptionErr) {
-      setAlert({ ...alert, show: true });
-      setIsFollowed(false);
-    }
-  }, [subscribeBlogRes.isError, unSubscribeBlogRes.isError, checkIsSubscriptionErr]);
+  const alert = useMemo(() => {
+    if (checkSubscriptionRes.error) return `Obunani tekshirishda xatolik yuz berdi ${error}`;
+  }, [checkSubscriptionRes.error, unsubscribeRes]);
 
   const follow = (): void => {
     id &&
@@ -51,16 +41,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   };
 
   const unfollow = (): void => {
-    id &&
-      unSubscribeBlog(+id)
-        .unwrap()
-        .then(() => {
-          setIsFollowed(false);
-          setIsUnfollowModalOpen(false);
-        })
-        .catch(() => {
-          setIsUnfollowModalOpen(false);
-        });
+    id && unsubscribeBlog(+id);
   };
 
   const toggleUnfollowModal = (): void => {
@@ -75,27 +56,20 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
     setIsFollowed(isSubscribed);
   }, [isSubscribed, blog]);
 
-  const handleCloseAlert = () => setAlert({ ...alert, show: false });
+  // const handleCloseAlert = (): void => setAlert(undefined);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
   return (
     <div className='container'>
-      {alert.show && (
-        <Alert onClose={handleCloseAlert} color='red'>
-          <p className='mb-1'>
-            {`${
-              checkIsSubscriptionErr
-                ? `Obunani tekshirishda`
-                : subscribeBlogRes.isError
-                ? `Obuna bo'lishda`
-                : `Obunani bekor qilishda`
-            }`}{' '}
-            xatolik yuz berdi.{' '}
-            <a href={TELEGRAM_BOT.link}>{TELEGRAM_BOT.link} botiga habar bering.</a>
-          </p>
-        </Alert>
-      )}
+      <Alert color='red' show={Boolean(alert)}>
+        <p className='mb-1'>
+          {alert}
+          <a href={TELEGRAM_BOT.link}>
+            Iltimos bu haqda {TELEGRAM_BOT.link} telegram botiga habar bering.
+          </a>
+        </p>
+      </Alert>
       <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
         size='small'
@@ -108,7 +82,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
           <Button onClick={toggleUnfollowModal} color='outline-dark' className='me-2'>
             Yopish
           </Button>
-          <Button onClick={unfollow} loading={unSubscribeBlogRes.isLoading} color='outline-dark'>
+          <Button onClick={unfollow} loading={unsubscribeRes.isLoading} color='outline-dark'>
             Obunani bekor qilish
           </Button>
         </div>
