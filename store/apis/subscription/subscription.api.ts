@@ -3,7 +3,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from '../config';
 
 export const subscriptionApi = createApi({
-  reducerPath: 'change-subscription',
+  reducerPath: 'subscription',
   baseQuery: baseQuery('subscription'),
   endpoints: (build) => ({
     subscribe: build.mutation<void, number>({
