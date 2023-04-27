@@ -8,7 +8,7 @@ import {
   useSubscribeMutation,
   useUnSubscribeMutation,
 } from 'store/apis';
-import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
+import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT } from 'variables';
 
 import styles from './Blog.module.scss';
@@ -34,12 +34,16 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
 
   const unsubscribe = (): void => {
     id && unsubscribeBlog(+id);
+    closeUnsubscribeModal();
   };
 
   const alert = useMemo(() => {
     if (checkSubscriptionRes.error)
-      return `Obunani tekshirishda xatolik yuz berdi ${error?.data.message}`;
-    if (subscribeBlogRes.error) return `Obuna bo'lishda xatolik yuzberdi ${error?.data.message}`;
+      return `Obunani tekshirishda xatolik yuz berdi ${log(checkSubscriptionRes.error)}`;
+    if (subscribeBlogRes.error)
+      return `Obuna bo'lishda xatolik yuzberdi ${log(subscribeBlogRes.error)}`;
+    if (unsubscribeRes.error)
+      return `Obunani bekor qilishda xatolik yuzberdi ${log(unsubscribeRes.error)}`;
   }, [checkSubscriptionRes.error, unsubscribeRes.error, subscribeBlogRes.error]);
 
   const subscriptionButton = useMemo(() => {
@@ -57,10 +61,11 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
 
   return (
     <div className='container'>
-      <Alert color='red' show={Boolean(alert)}>
+      <Alert color='red' show={Boolean(alert)} className='mt-2'>
         <p className='mb-1'>
           {alert}
-          <a href={TELEGRAM_BOT.link}>
+          <br />
+          <a href={TELEGRAM_BOT.link} className='link'>
             Iltimos bu haqda {TELEGRAM_BOT.link} telegram botiga habar bering.
           </a>
         </p>

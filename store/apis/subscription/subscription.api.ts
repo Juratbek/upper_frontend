@@ -5,41 +5,27 @@ import { baseQuery } from '../config';
 export const subscriptionApi = createApi({
   reducerPath: 'subscription',
   baseQuery: baseQuery('subscription'),
+  tagTypes: ['checkSubscription'],
   endpoints: (build) => ({
     subscribe: build.mutation<void, number>({
       query: (id) => ({
         url: `subscribe/${id}`,
         method: 'POST',
       }),
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(
-          subscriptionApi.util.updateQueryData('checkSubscription', id, (blog) => ({
-            ...blog,
-            isSubscribed: true,
-          })),
-        );
-      },
+      invalidatesTags: ['checkSubscription'],
     }),
     unSubscribe: build.mutation<void, number>({
       query: (id) => ({
         url: `unsubscribe/${id}`,
         method: 'POST',
       }),
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(
-          subscriptionApi.util.updateQueryData('checkSubscription', id, (blog) => ({
-            ...blog,
-            isSubscribed: false,
-          })),
-        );
-      },
+      invalidatesTags: ['checkSubscription'],
     }),
     checkSubscription: build.query({
       query: (id) => ({
-        url: `check-subscription11/${id}`,
+        url: `check-subscription/${id}`,
       }),
+      providesTags: ['checkSubscription'],
     }),
   }),
 });
