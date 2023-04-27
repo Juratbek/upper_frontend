@@ -110,7 +110,6 @@
   .ce-inline-tool-input {
     background-color: var(--lightBlack);
     color: var(--mediumGray);
-    // border: 000.1px solid #fff;
     &::selection {
       background-color: white !important;
       color: var(--lightBlack);
@@ -119,7 +118,7 @@
 
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
-    border-width: 0.5px;
+    border-width: 2px;
 
     .ce-inline-toolbar__dropdown {
       border-top-left-radius: 6px;
