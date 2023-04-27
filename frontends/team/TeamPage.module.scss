@@ -2,6 +2,8 @@
 
 .member {
   padding-top: 4rem;
+  flex-basis: 45%;
+
   @include screenMax576 {
     padding-top: 5.5rem;
   }
@@ -9,16 +11,20 @@
 
 .icon {
   margin-right: 1rem;
-  &> svg {
+  & > svg {
     $size: 2rem;
     aspect-ratio: 1 / 1;
     width: $size;
   }
 }
 
-.avatar {
+.avatar-container {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -40%);
+  top: -20%;
+  right: 0;
+  left: 0;
+}
+
+.avatar {
+  margin: 0 auto;
 }
