@@ -23,9 +23,9 @@ export const ReadArticleSidebar = (): JSX.Element => {
     useLazyGetPublishedTutorialsByArticleIdQuery();
   const { data: tutorials = [] } = fetchPublishedTutorialsRes;
 
-  // useEffect(() => {
-  //   id && fetchPublishedTutorials(+id);
-  // }, [id]);
+  useEffect(() => {
+    id && fetchPublishedTutorials(+id);
+  }, [id]);
 
   if (!articleAuthor) return <></>;
 
