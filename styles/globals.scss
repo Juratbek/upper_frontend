@@ -24,7 +24,7 @@
   --color-modal-border-red: red;
 
   // sizes
-  --noticeboard-height: 30px;
+  --noticeboard-height: 0px;
 }
 
 * {
@@ -37,6 +37,7 @@
   justify-content: space-between;
   width: 100%;
   min-height: calc(100vh - var(--noticeboard-height));
+  // min-height: 100vh;
   overflow-x: hidden;
 
   @include screenMax576 {
