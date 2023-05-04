@@ -18,6 +18,7 @@ export const ChangeCredentialsForm: FC = () => {
   const [isTokenAbsent, setIsTokenAbsent] = useState(false);
   const [alert, setAlert] = useState('');
   const [changeCredentials] = useChangeCredentialsMutation();
+  const [errorStatusCode, setErrorStatusCode] = useState<null | number>(null);
   const {
     register,
     handleSubmit,
@@ -33,12 +34,14 @@ export const ChangeCredentialsForm: FC = () => {
   const submitHandler = async (event: Record<string, string>): Promise<void> => {
     try {
       if (typeof token !== 'string') return Promise.reject();
+      setErrorStatusCode(null);
       const { login, password } = event;
       const res = await changeCredentials({ username: login, password, token }).unwrap();
       authenticate(res);
       push('/');
     } catch (e) {
       const exception = e as IResponseError;
+      setErrorStatusCode(exception.status);
       setAlert(exception.data.message);
     }
   };
@@ -90,7 +93,7 @@ export const ChangeCredentialsForm: FC = () => {
 
   return (
     <form className='form' onSubmit={handleSubmit(submitHandler)}>
-      {alert && (
+      {alert && (errorStatusCode === 401 || errorStatusCode === 403) && (
         <Alert color='red' className='mb-1 text-center' onClose={closeAlert}>
           {alert}
           <Link href='/forgot-credentials'>
