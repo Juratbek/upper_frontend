@@ -61,7 +61,7 @@ export const ArticlesTab: FC = () => {
         {addUriToArticleImages(data?.list || []).map((article) => {
           return (
             <Article
-              redirectUrl='/user/articles'
+              redirectUrl={`${WEB_APP_ROOT_DIR}/user/articles`}
               className='p-2 px-xs-1 my-2'
               key={article.id}
               article={article}

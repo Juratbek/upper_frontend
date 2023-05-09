@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
 import { INotificationComponentProp } from 'types';
 import { addAmazonUri, dateInterval, getClassName } from 'utils';
-import { NOTIFICATION_STATUSES } from 'variables';
+import { NOTIFICATION_STATUSES, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './PublishedArticleNotification.module.scss';
 
@@ -32,7 +32,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
   }, [status]);
 
   const clickHandler = (): void => {
-    push(`/articles/${article.id}`);
+    push(`${WEB_APP_ROOT_DIR}/articles/${article.id}`);
     props.onClick?.(props);
   };
 

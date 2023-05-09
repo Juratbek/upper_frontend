@@ -66,7 +66,7 @@ export const SidebarContent: FC = () => {
         blocks: addUriToImageBlocks(newArticle.blocks),
       };
       dispatch(setArticle(aritcleWithAmazonUri));
-      router.push(`/user/articles/${newArticle.id}`);
+      router.push(`${WEB_APP_ROOT_DIR}/user/articles/${newArticle.id}`);
     }
   }, [createArticleRes.status]);
 

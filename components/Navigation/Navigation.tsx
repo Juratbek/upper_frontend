@@ -33,7 +33,8 @@ export const Navigation = (): JSX.Element => {
   const clickHandler = (navigationIcon: INavigationIcon): void => {
     const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
     if (!isAuthenticated && isPrivateRoute) dispatch(openLoginModal(loginModalTitle));
-    else router.route !== href && router.push(href);
+    else
+      router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
   };
 
   const loginClickHandler = (): void => {
