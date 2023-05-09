@@ -1,70 +1,88 @@
-import { Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
-import { useDevice } from 'hooks';
+import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
+import { useDevice, useModal } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { useFollowBlogMutation, useUnfollowBlogMutation } from 'store/apis';
-import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, ICONS } from 'variables';
+import { FC, useMemo } from 'react';
+import {
+  useCheckSubscriptionQuery,
+  useSubscribeMutation,
+  useUnSubscribeMutation,
+} from 'store/apis';
+import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
+import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
 
 const HeartIcon = ICONS.heart;
 
-export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPageProps) => {
-  const [isUnfollowModalOpen, setIsUnfollowModalOpen] = useState<boolean>(false);
-  const [isFollowed, setIsFollowed] = useState<boolean>(blog?.isFollowed || false);
-  const { isMobile } = useDevice();
-  const [followBlog, followBlogRes] = useFollowBlogMutation();
-  const [unfollowBlog, unfollowBlogRes] = useUnfollowBlogMutation();
+export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const {
     query: { id },
   } = useRouter();
+  const [isUnsubscribeModalOpen, , { open: openUnsubscribeModal, close: closeUnsubscribeModal }] =
+    useModal();
+  const { isMobile } = useDevice();
+  const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
+  const [unsubscribeBlog, unsubscribeRes] = useUnSubscribeMutation();
+  const checkSubscriptionRes = useCheckSubscriptionQuery(id);
+  const { data: isSubscribed } = checkSubscriptionRes;
 
-  const follow = (): void => {
-    id && followBlog(+id).then(() => setIsFollowed(true));
+  const subscribe = (): void => {
+    id && subscribeBlog(+id);
   };
 
-  const unfollow = (): void => {
-    id &&
-      unfollowBlog(+id).then(() => {
-        setIsFollowed(false);
-        setIsUnfollowModalOpen(false);
-      });
+  const unsubscribe = (): void => {
+    id && unsubscribeBlog(+id);
+    closeUnsubscribeModal();
   };
 
-  const toggleUnfollowModal = (): void => {
-    setIsUnfollowModalOpen((prev) => !prev);
-  };
+  const alert = useMemo(() => {
+    if (checkSubscriptionRes.error)
+      return `Obunani tekshirishda xatolik yuz berdi ${log(checkSubscriptionRes.error)}`;
+    if (subscribeBlogRes.error)
+      return `Obuna bo'lishda xatolik yuzberdi ${log(subscribeBlogRes.error)}`;
+    if (unsubscribeRes.error)
+      return `Obunani bekor qilishda xatolik yuzberdi ${log(unsubscribeRes.error)}`;
+  }, [checkSubscriptionRes.error, unsubscribeRes.error, subscribeBlogRes.error]);
 
-  const closeModal = (): void => {
-    setIsUnfollowModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (blog?.isFollowed !== undefined) {
-      setIsFollowed(blog.isFollowed);
-    }
-  }, [id]);
+  const subscriptionButton = useMemo(() => {
+    if (checkSubscriptionRes.isLoading) return null;
+    if (isSubscribed)
+      return (
+        <Button color='outline-dark' onClick={openUnsubscribeModal}>
+          Obuna bo&apos;lingan
+        </Button>
+      );
+    return <Button onClick={subscribe}>Obuna bo&apos;lish</Button>;
+  }, [checkSubscriptionRes.isLoading, isSubscribed, openUnsubscribeModal, subscribe]);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
   return (
     <div className='container'>
+      <Alert color='red' show={Boolean(alert)} className='mt-2'>
+        <p className='mb-1'>
+          {alert}
+          <br />
+          <a href={TELEGRAM_BOT.link} className='link'>
+            Iltimos bu haqda {TELEGRAM_BOT.link} telegram botiga habar bering.
+          </a>
+        </p>
+      </Alert>
       <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
         size='small'
-        isOpen={isUnfollowModalOpen}
-        close={closeModal}
+        isOpen={isUnsubscribeModalOpen}
+        close={closeUnsubscribeModal}
         bodyClassName='text-center'
       >
         <strong>{blog.name}</strong> obunasini bekor qilmoqchimisiz
         <div className={['mt-2', styles.buttonsContainer].join(' ')}>
-          <Button onClick={toggleUnfollowModal} color='outline-dark' className='me-2'>
+          <Button onClick={closeUnsubscribeModal} color='outline-dark' className='me-2'>
             Yopish
           </Button>
-          <Button onClick={unfollow} loading={unfollowBlogRes.isLoading} color='outline-dark'>
+          <Button onClick={unsubscribe} loading={unsubscribeRes.isLoading} color='outline-dark'>
             Obunani bekor qilish
           </Button>
         </div>
@@ -78,15 +96,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }: IBlogPage
             <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
             {!blog.isCurrentBlog && (
               <>
-                {isFollowed ? (
-                  <Button color='outline-dark' onClick={toggleUnfollowModal}>
-                    Obuna bo&apos;lingan
-                  </Button>
-                ) : (
-                  <Button onClick={follow} loading={followBlogRes.isLoading}>
-                    Obuna bo&apos;lish
-                  </Button>
-                )}
+                {subscriptionButton}
                 {Boolean(blog.cardNumber) && (
                   <Link href={`/blogs/${id}/support`}>
                     <a className='link d-flex mt-xs-2 w-100'>
