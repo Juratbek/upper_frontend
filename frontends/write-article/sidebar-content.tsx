@@ -12,7 +12,7 @@ import {
 import { getEditor, setArticle, setTutorial } from 'store/states';
 import { IArticle, ILabel, IResponseError } from 'types';
 import { addUriToImageBlocks, compressUnsplashImage, convertLabelsToOptions } from 'utils';
-import { MAX_LABELS } from 'variables';
+import { MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
 export const SidebarContent: FC = () => {
   const [selectedLabels, setSelectedLabels] = useState<IOption[]>([]);
@@ -95,7 +95,7 @@ export const SidebarContent: FC = () => {
           <label htmlFor='labels' className='mb-1 d-block'>
             Teglar
           </label>
-          <Link href='/create-label'>
+          <Link href={`${WEB_APP_ROOT_DIR}/create-label`}>
             <a target='_blank' className='text-gray link'>
               Teg yaratish
             </a>
@@ -120,7 +120,7 @@ export const SidebarContent: FC = () => {
       </div>
       <div>
         <h3 className='mb-0'>Saytimizda yangimisiz?</h3>
-        <Link href='/docs/write-article_introduction_quick-start'>
+        <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
           <a>
             <p className='mt-1 link'>Maqola yozish haqida qo&apos;llanma</p>
           </a>

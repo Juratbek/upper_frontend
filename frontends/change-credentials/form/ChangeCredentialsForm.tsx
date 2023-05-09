@@ -13,6 +13,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useChangeCredentialsMutation } from 'store/apis';
 import { IResponseError } from 'types';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const ChangeCredentialsForm: FC = () => {
   const [isTokenAbsent, setIsTokenAbsent] = useState(false);
@@ -93,7 +94,7 @@ export const ChangeCredentialsForm: FC = () => {
       {alert && (
         <Alert color='red' className='mb-1 text-center' onClose={closeAlert}>
           {alert}
-          <Link href='/forgot-credentials'>
+          <Link href={`${WEB_APP_ROOT_DIR}/forgot-credentials`}>
             <a>
               <Button type='button' className='mt-1' color='outline-white'>
                 Yangi token olish

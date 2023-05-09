@@ -15,7 +15,7 @@ import {
   formatToKMB,
   get,
 } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
@@ -97,7 +97,7 @@ export const Article: FC<IArticleProps> = ({
           <StorysetImage width={400} height={400} src='/storyset/hidden.svg' storysetUri='data' />
           <h3>Maqola topilmadi</h3>
           <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
-          <Link href='/'>
+          <Link href={WEB_APP_ROOT_DIR}>
             <Button>Bosh sahifaga qaytish</Button>
           </Link>
         </div>
@@ -114,7 +114,7 @@ export const Article: FC<IArticleProps> = ({
           {Boolean(article.author.cardNumber) && (
             <>
               <div style={{ height: '1rem' }} />
-              <Link href={`/blogs/${article.author.id}/support`}>
+              <Link href={`${WEB_APP_ROOT_DIR}/blogs/${article.author.id}/support`}>
                 <a className='link'>
                   <Button className='w-100'>
                     <span className='sponsor-icon'>

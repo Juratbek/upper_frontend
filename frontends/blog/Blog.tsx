@@ -9,7 +9,7 @@ import {
   useUnSubscribeMutation,
 } from 'store/apis';
 import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT } from 'variables';
+import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT, WEB_APP_ROOT_DIR } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
@@ -98,7 +98,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
               <>
                 {subscriptionButton}
                 {Boolean(blog.cardNumber) && (
-                  <Link href={`/blogs/${id}/support`}>
+                  <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}/support`}>
                     <a className='link d-flex mt-xs-2 w-100'>
                       {isMobile ? (
                         <Button className='w-100' color='outline-dark'>

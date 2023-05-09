@@ -30,7 +30,7 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS } from 'variables';
+import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
@@ -133,7 +133,7 @@ export const UserArticlesSidebar: FC = () => {
     return (
       <Alert color='red' onClose={(): void => setAlert('')} className='mb-1'>
         <div>{alert}</div>
-        <Link href='/docs/write-article_publish_requirements'>
+        <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_publish_requirements`}>
           <a target='_blank' className='link text-underline'>
             Yo&apos;riqnomani o&apos;qish
           </a>
@@ -238,7 +238,7 @@ export const UserArticlesSidebar: FC = () => {
         <>
           <ArticleStatus className='mb-1' status={status}>
             {article.publishedArticleId && (
-              <Link href={`/articles/${article.publishedArticleId}`}>
+              <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
                 <a target={'_blank'}>Nashr varyantini ko&apos;rish</a>
               </Link>
             )}
@@ -293,7 +293,7 @@ export const UserArticlesSidebar: FC = () => {
             <label htmlFor='labels' className='mb-1 d-block'>
               Teglar
             </label>
-            <Link href='/create-label'>
+            <Link href={`${WEB_APP_ROOT_DIR}/create-label`}>
               <a target='_blank' className='text-gray link'>
                 Teg yaratish
               </a>

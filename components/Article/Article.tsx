@@ -3,7 +3,7 @@ import { Divider } from 'components/lib';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef } from 'react';
 import { addAmazonUri, dateInterval, formatToKMB, getClassName } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
@@ -47,7 +47,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
 
   return (
     <div className={rootClassName}>
-      <Link href={`${redirectUrl || '/articles'}/${id}`}>
+      <Link href={`${redirectUrl || `${WEB_APP_ROOT_DIR}/articles`}/${id}`}>
         <a>
           <div className={classes.body}>
             <div className={classes['text-content']}>

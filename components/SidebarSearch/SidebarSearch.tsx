@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
 import { useLazySearchBlogQuery, useLazySearchPublishedArticleQuery } from 'store/apis';
 import { addAmazonUri, addUriToArticleImages } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarSearch.module.scss';
 
@@ -47,7 +48,7 @@ export const SidebarSearch: FC = () => {
           <p className='my-1'>Bloglar yo&apos;q</p>
         ) : (
           blogs.map((blog) => (
-            <Link href={`/blogs/${blog.id}`} key={blog.id}>
+            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${blog.id}`} key={blog.id}>
               <a onClick={closeResultsContainer}>
                 <div className={classes.blog}>
                   <Author {...addAmazonUri(blog)} />
@@ -67,7 +68,7 @@ export const SidebarSearch: FC = () => {
         res={searchArticleRes}
       >
         {addUriToArticleImages(searchArticleRes.data).map((article) => (
-          <Link href={`/articles/${article.id}`} key={article.id}>
+          <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`} key={article.id}>
             <a onClick={closeResultsContainer}>
               <div className={classes.article}>
                 <h4 className='m-0'>{article.title}</h4>
