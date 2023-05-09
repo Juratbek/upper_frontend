@@ -107,6 +107,10 @@
     }
   }
 
+  .ce-inline-tool-input {
+    background-color: var(--popover-bg);
+    border-radius: 0 0 6px 6px;
+  }
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
     border-width: 0.5px;
@@ -270,30 +274,30 @@
         box-shadow:none;
       }
       .inline-image__control-panel{
-       
+
         border:1px solid lightgrey ;
         .panel-scroll{
           &::-webkit-scrollbar {
             width: 0.5rem;
           }
-          
+
           &::-webkit-scrollbar-track {
-            background: transparent; 
+            background: transparent;
           }
-           
+
           &::-webkit-scrollbar-thumb {
             border-radius: 1rem;
-            background: var(--scrollbar-thumb-color); 
+            background: var(--scrollbar-thumb-color);
           }
-          
-         
-          
+
+
+
         }
-        
+
         .inline-image__image-gallery{
           background-color:transparent;
         }
-       
+
       }
     }
   }
