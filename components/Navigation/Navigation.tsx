@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
-import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
+import { useCreateArticleMutation, useLazyGetBlogNotificationsCountQuery } from 'store/apis';
 import { openLoginModal, openSidebar } from 'store/states';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
@@ -25,16 +25,22 @@ export const Navigation = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { isMobile } = useDevice();
+  const [createArticle, createArticleRes] = useCreateArticleMutation();
 
   const icons = useMemo(() => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [isAuthenticated]);
 
-  const clickHandler = (navigationIcon: INavigationIcon): void => {
+  const clickHandler = async (navigationIcon: INavigationIcon): Promise<void> => {
     const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
-    if (!isAuthenticated && isPrivateRoute) dispatch(openLoginModal(loginModalTitle));
-    else
+    if (!isAuthenticated && isPrivateRoute) {
+      dispatch(openLoginModal(loginModalTitle));
+    } else if (href.startsWith('/user/articles')) {
+      const { id } = await createArticle({ title: 'test', blocks: [], labels: [] }).unwrap();
+      router.push(`${WEB_APP_ROOT_DIR}/${href}/${id}`);
+    } else {
       router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
+    }
   };
 
   const loginClickHandler = (): void => {
@@ -82,7 +88,7 @@ export const Navigation = (): JSX.Element => {
             return (
               <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
                 <NavItem
-                  onClick={(): void => clickHandler(navigationIcon)}
+                  onClick={(): Promise<void> => clickHandler(navigationIcon)}
                   icon={Icon}
                   className='pointer'
                   active={href === router.pathname}

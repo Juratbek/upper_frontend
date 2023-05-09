@@ -31,7 +31,7 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   },
   {
     icon: 'pen',
-    href: '/write-article',
+    href: '/user/articles',
     isPrivateRoute: true,
     tooltip: 'Maqola yozish',
     loginModalTitle: "Maqola yozish uchun profilingizga kiring yoki ro'yxatdan o'ting",

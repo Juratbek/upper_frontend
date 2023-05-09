@@ -19,7 +19,7 @@ import {
   useDeleteArticleMutation,
   useLazySearchLabelsQuery,
   usePublishMutation,
-  useUpdateArticleMutaion,
+  useUpdateArticleMutation,
 } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
 import { IResponseError } from 'types';
@@ -48,7 +48,7 @@ export const UserArticlesSidebar: FC = () => {
   const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
   const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
 
-  const [updateArticle, updateArticleRes] = useUpdateArticleMutaion();
+  const [updateArticle, updateArticleRes] = useUpdateArticleMutation();
   const [publishArticle, publishArticleRes] = usePublishMutation();
   const [deleteArticleReq, deleteArticleRes] = useDeleteArticleMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
