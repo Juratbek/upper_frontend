@@ -246,15 +246,6 @@ export const UserArticlesSidebar: FC = () => {
           <div className='d-flex flex-wrap m--1'>
             <Button
               className='flex-auto m-1 mb-0'
-              color='outline-red'
-              type='button'
-              onClick={toggleDeleteModal}
-              disabled={isDisabled}
-            >
-              O&apos;chirish
-            </Button>
-            <Button
-              className='flex-auto m-1 mb-0'
               color='outline-dark'
               type='button'
               onClick={saveChanges}

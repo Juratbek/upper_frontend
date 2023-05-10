@@ -13,7 +13,7 @@ export default function UserArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { query } = useRouter();
   const article = useAppSelector(getArticle);
-  const [blocks, setBlocks] = useState<OutputBlockData[]>(article?.blocks || []);
+  const [blocks, setBlocks] = useState<OutputBlockData[] | null>(article?.blocks || null);
   const [hasAlert, setHasAlert] = useState<boolean>();
   const [fetchArticle, { isError, error }] = useLazyGetBlogArticleByIdQuery();
   const id = query?.id;
@@ -29,7 +29,7 @@ export default function UserArticlePage(): JSX.Element {
   };
 
   useEffect(() => {
-    if (blocks.length === 0 && typeof id === 'string') {
+    if (!blocks && typeof id === 'string') {
       fetchArticle(+id).then(({ data }) => {
         if (data) {
           const generatedBlocks = addUriToImageBlocks(data.blocks);
@@ -55,7 +55,7 @@ export default function UserArticlePage(): JSX.Element {
   if (isError) return <h1>{JSON.stringify(get(error, 'data.message'))}</h1>;
 
   const renderEditor = (): JSX.Element => {
-    if (!id || !article || blocks.length === 0) return <EditorSpinner />;
+    if (!id || !article || !blocks) return <EditorSpinner />;
 
     return (
       <Editor

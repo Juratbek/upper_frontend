@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useCreateArticleMutation, useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openSidebar } from 'store/states';
+import { openLoginModal, openSidebar, setArticle } from 'store/states';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components';
@@ -33,13 +33,18 @@ export const Navigation = (): JSX.Element => {
 
   const clickHandler = async (navigationIcon: INavigationIcon): Promise<void> => {
     const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
-    if (!isAuthenticated && isPrivateRoute) {
-      dispatch(openLoginModal(loginModalTitle));
-    } else if (href.startsWith('/user/articles')) {
-      const { id } = await createArticle({ title: 'test', blocks: [], labels: [] }).unwrap();
-      router.push(`${WEB_APP_ROOT_DIR}/${href}/${id}`);
-    } else {
-      router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
+    try {
+      if (!isAuthenticated && isPrivateRoute) {
+        dispatch(openLoginModal(loginModalTitle));
+      } else if (href.startsWith('/user/articles')) {
+        const newArticle = await createArticle({ title: '', blocks: [], labels: [] }).unwrap();
+        dispatch(setArticle(newArticle));
+        router.push(`${WEB_APP_ROOT_DIR}/${href}/${newArticle.id}`);
+      } else {
+        router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
