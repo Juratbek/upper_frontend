@@ -2,11 +2,8 @@
 
 .title {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  @include screenMax576 {
-    font-size: 1.3rem;
-  }
 }
 
 .content {
@@ -23,7 +20,7 @@
   }
 
   @include screenMax576 {
-    font-size: 1rem;
+    display: none;
   }
 
   code {
