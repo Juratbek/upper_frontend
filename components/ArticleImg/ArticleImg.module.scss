@@ -1,3 +1,5 @@
+@import 'styles/_mixins';
+
 .article-img {
   position: relative;
   & > span {
@@ -21,4 +23,9 @@
   min-width: 11rem;
   max-width: 30%;
   height: 7rem;
+
+  @include screenMax576 {
+    min-width: 7rem;
+    height: 5rem;
+  }
 }

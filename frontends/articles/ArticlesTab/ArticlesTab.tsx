@@ -62,7 +62,7 @@ export const ArticlesTab: FC = () => {
           return (
             <Article
               redirectUrl={`${WEB_APP_ROOT_DIR}/user/articles`}
-              className='p-2 px-xs-1 my-2'
+              className='p-1 my-2'
               key={article.id}
               article={article}
               showStatus
