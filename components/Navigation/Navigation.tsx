@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
-import { useCreateArticleMutation, useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openSidebar, setArticle } from 'store/states';
+import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
+import { openLoginModal, openSidebar } from 'store/states';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components';
@@ -25,26 +25,17 @@ export const Navigation = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { isMobile } = useDevice();
-  const [createArticle, createArticleRes] = useCreateArticleMutation();
 
   const icons = useMemo(() => {
     return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
   }, [isAuthenticated]);
 
-  const clickHandler = async (navigationIcon: INavigationIcon): Promise<void> => {
+  const clickHandler = (navigationIcon: INavigationIcon): void => {
     const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
-    try {
-      if (!isAuthenticated && isPrivateRoute) {
-        dispatch(openLoginModal(loginModalTitle));
-      } else if (href.startsWith('/user/articles')) {
-        const newArticle = await createArticle({ title: '', blocks: [], labels: [] }).unwrap();
-        dispatch(setArticle(newArticle));
-        router.push(`${WEB_APP_ROOT_DIR}/${href}/${newArticle.id}`);
-      } else {
-        router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
-      }
-    } catch (err) {
-      console.log(err);
+    if (!isAuthenticated && isPrivateRoute) {
+      dispatch(openLoginModal(loginModalTitle));
+    } else {
+      router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
     }
   };
 
@@ -93,7 +84,7 @@ export const Navigation = (): JSX.Element => {
             return (
               <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
                 <NavItem
-                  onClick={(): Promise<void> => clickHandler(navigationIcon)}
+                  onClick={(): void => clickHandler(navigationIcon)}
                   icon={Icon}
                   className='pointer'
                   active={href === router.pathname}

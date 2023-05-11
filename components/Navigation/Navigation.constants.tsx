@@ -29,11 +29,4 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     private: true,
     tooltip: 'Maqolalaringiz',
   },
-  {
-    icon: 'pen',
-    href: '/user/articles',
-    isPrivateRoute: true,
-    tooltip: 'Maqola yozish',
-    loginModalTitle: "Maqola yozish uchun profilingizga kiring yoki ro'yxatdan o'ting",
-  },
 ];
