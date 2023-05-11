@@ -71,7 +71,7 @@ export const HomePage: FC = () => {
       <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
       <Divider />
       <div className={`${classes['labels-container']} ${classes[theme]}`}>
-        {[...labels, ...labels].map((label) => (
+        {labels.map((label) => (
           <Button
             onClick={(): void => labelSelectHandler(label.id)}
             size='small'
@@ -99,7 +99,6 @@ export const HomePage: FC = () => {
           {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
           {addUriToArticleImages(articles).map((article) => (
             <Article
-              className='p-1 my-2'
               key={article.id}
               article={article}
               author={article.author}
