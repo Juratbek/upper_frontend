@@ -1,5 +1,6 @@
 import { ArticleImg, Author, Label, Status } from 'components';
 import { Divider } from 'components/lib';
+import { useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef } from 'react';
 import { addAmazonUri, dateInterval, formatToKMB, getClassName } from 'utils';
@@ -25,7 +26,8 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
     imgUrl,
     status,
   } = article;
-  const rootClassName = getClassName(classes.article, props.className);
+  const { theme } = useTheme();
+  const rootClassName = getClassName(classes.article, classes[theme], props.className);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
