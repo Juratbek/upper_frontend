@@ -9,7 +9,6 @@ import {
   PasswordValidityLevel,
   Recaptcha,
   TelegramLoginButton,
-  Textarea,
 } from 'components';
 import { useAuth, useDevice } from 'hooks';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
@@ -134,7 +133,7 @@ export const RegisterModal: FC = () => {
             <label htmlFor='bio' className='d-block mb-1'>
               Bio (ixtiyoriy)
             </label>
-            <Textarea id='bio' {...register(bio.name, bio.options)} />
+            <Input id='bio' {...register(bio.name, bio.options)} />
             <Error error={errors[bio.name]} />
           </div>
         </div>
