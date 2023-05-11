@@ -32,9 +32,11 @@ export const Navigation = (): JSX.Element => {
 
   const clickHandler = (navigationIcon: INavigationIcon): void => {
     const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
-    if (!isAuthenticated && isPrivateRoute) dispatch(openLoginModal(loginModalTitle));
-    else
+    if (!isAuthenticated && isPrivateRoute) {
+      dispatch(openLoginModal(loginModalTitle));
+    } else {
       router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
+    }
   };
 
   const loginClickHandler = (): void => {
@@ -61,7 +63,7 @@ export const Navigation = (): JSX.Element => {
         <Button onClick={loginClickHandler}>Kirish</Button>
       </div>
     ),
-    [isMobile, isAuthenticated],
+    [isMobile, isAuthenticated, writeArticleHandler],
   );
 
   return (
