@@ -1,9 +1,8 @@
 import { Button, Head, TabBody, TabsHeader } from 'components';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useAppDispatch } from 'store';
-import { useCreateTutorialMutation } from 'store/apis';
+import { useCreateArticleMutation, useCreateTutorialMutation } from 'store/apis';
 import { setTutorial } from 'store/states';
 import { checkAuthInServer } from 'utils';
 import { ARTICLES_TAB_MENUS, ARTICLES_TABS, TAB_IDS, WEB_APP_ROOT_DIR } from 'variables';
@@ -13,6 +12,7 @@ export default function ArticlesPage(): JSX.Element {
   const [createTutorial] = useCreateTutorialMutation();
   const router = useRouter();
   const { query } = router;
+  const [createArticle, createArticleRes] = useCreateArticleMutation();
 
   const createTutorialHandler = async (): Promise<void> => {
     const res = await createTutorial().unwrap();
@@ -20,13 +20,26 @@ export default function ArticlesPage(): JSX.Element {
     router.push(`/user/tutorials/${res.id}`);
   };
 
+  const writeArticleHandler = useCallback(async () => {
+    try {
+      const res = await createArticle({ title: '', blocks: [], labels: [] }).unwrap();
+      router.push(`${WEB_APP_ROOT_DIR}/user/articles/${res.id}`);
+    } catch (err) {
+      alert('Maqola yaratishda xatolik yuz berdi');
+    }
+  }, []);
+
   const button = useMemo(() => {
     const currentTab = query.tab as string;
     if (currentTab === TAB_IDS.articles) {
       return (
-        <Link href={`${WEB_APP_ROOT_DIR}/write-article`}>
-          <Button color='outline-dark'>Maqola yozish</Button>
-        </Link>
+        <Button
+          onClick={writeArticleHandler}
+          loading={createArticleRes.isLoading}
+          color='outline-dark'
+        >
+          Maqola yozish
+        </Button>
       );
     }
     if (currentTab === TAB_IDS.tutorials) {
@@ -36,7 +49,7 @@ export default function ArticlesPage(): JSX.Element {
         </Button>
       );
     }
-  }, [query.tab]);
+  }, [query.tab, createArticleRes.isLoading]);
 
   return (
     <div className='container'>

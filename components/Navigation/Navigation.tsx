@@ -63,7 +63,7 @@ export const Navigation = (): JSX.Element => {
         <Button onClick={loginClickHandler}>Kirish</Button>
       </div>
     ),
-    [isMobile, isAuthenticated],
+    [isMobile, isAuthenticated, writeArticleHandler],
   );
 
   return (
