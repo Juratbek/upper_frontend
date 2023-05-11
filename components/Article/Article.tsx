@@ -25,7 +25,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
     imgUrl,
     status,
   } = article;
-  const rootClassName = getClassName(classes.article, props.className, 'card');
+  const rootClassName = getClassName(classes.article, props.className);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

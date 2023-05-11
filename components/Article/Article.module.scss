@@ -1,5 +1,12 @@
 @import 'styles/_mixins';
 
+.article {
+  border: 0.5px solid hsl(0deg 0% 78.51% / 60%);
+  border-right: unset;
+  border-left: unset;
+  padding: 0.8rem 0.5rem;
+}
+
 .title {
   margin: 0;
   font-size: 1.2rem;
