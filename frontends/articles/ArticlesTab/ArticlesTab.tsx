@@ -7,15 +7,16 @@ import {
   StorysetImage,
 } from 'components';
 import { useUrlParams } from 'hooks';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
-import { useLazyGetBlogArticlesQuery } from 'store/apis';
+import { FC, useCallback, useEffect } from 'react';
+import { useCreateArticleMutation, useLazyGetBlogArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();
+  const [createArticle, createArticleRes] = useCreateArticleMutation();
+  const { push } = useRouter();
   const {
     query: { tab, page },
   } = useRouter();
@@ -31,6 +32,15 @@ export const ArticlesTab: FC = () => {
   const changePage = (page: number): void => {
     setParam('page', page);
   };
+
+  const writeArticleHandler = useCallback(async () => {
+    try {
+      const res = await createArticle({ title: '', blocks: [], labels: [] }).unwrap();
+      push(`${WEB_APP_ROOT_DIR}/user/articles/${res.id}`);
+    } catch (err) {
+      alert('Maqola yaratishda xatolik yuz berdi');
+    }
+  }, []);
 
   const { data } = getBlogArticlesRes;
 
@@ -51,11 +61,13 @@ export const ArticlesTab: FC = () => {
               storysetUri='creativity'
             />
             <p>Maqola yozing va bilimlaringizni ulashing</p>
-            <Link href={`${WEB_APP_ROOT_DIR}/write-article`}>
-              <a>
-                <Button color='outline-dark'>Maqola yozish</Button>
-              </a>
-            </Link>
+            <Button
+              onClick={writeArticleHandler}
+              loading={createArticleRes.isLoading}
+              color='outline-dark'
+            >
+              Maqola yozish
+            </Button>
           </div>
         )}
         {addUriToArticleImages(data?.list || []).map((article) => {

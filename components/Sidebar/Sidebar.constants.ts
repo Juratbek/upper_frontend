@@ -5,7 +5,6 @@ import { UserArticlesSidebar } from 'frontends/user-articles/UserArticlesSidebar
 import { TutorialSidebar } from 'frontends/user-tutorials';
 
 const CONTENT_URLS = {
-  writeArticle: '/write-article',
   userArticles: '/user/articles/[id]',
   docs: '/docs*',
   createTutorial: '/user/tutorials*',
