@@ -31,6 +31,9 @@
     @include screenMax576 {
       bottom: 0;
     }
+    @include screenMin1600 {
+      right: calc((100vw - 1600px) / 2);
+    }
   }
 
   & .comments-list {
