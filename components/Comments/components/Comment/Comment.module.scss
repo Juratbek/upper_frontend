@@ -1,3 +1,5 @@
+@import 'styles/_mixins';
+
 .comment {
   padding: 0.5rem;
   position: relative;
@@ -25,4 +27,9 @@
   display: none;
   top: 5px;
   right: 0;
+
+  @include screenMax576 {
+    display: block;
+    color: gray;
+  }
 }
