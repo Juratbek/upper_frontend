@@ -95,34 +95,38 @@ export const Form: FC<IFormProps> = (props) => {
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
       {isMobile ? (
-        <div className='d-flex align-items-center'>
-          <div className='flex-1'>
-            <Textarea
-              rows={2}
-              placeholder='Izohingizni bu yerga yozing'
-              color={isMobile ? 'dark' : 'transparent'}
-              {...register('text', {
-                required: {
-                  value: true,
-                  message: "Izoh bo'sh bo'lishi mumkin emas",
-                },
-                maxLength: {
-                  value: 200,
-                  message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
-                },
-                validate: (value) => !!value.trim() || "Izoh bo'sh bo'lishi mumkin emas",
-              })}
-              onChange={onChangeComment}
-            />
-            <Error error={errors.text} />
+        <div>
+          <div className='d-flex align-items-center'>
+            <div className='flex-1'>
+              <Textarea
+                disabled={isLoading}
+                rows={2}
+                placeholder='Izohingizni bu yerga yozing'
+                color={isMobile ? 'dark' : 'transparent'}
+                {...register('text', {
+                  required: {
+                    value: true,
+                    message: "Izoh bo'sh bo'lishi mumkin emas",
+                  },
+                  maxLength: {
+                    value: 200,
+                    message: "Izoh uzunligi 200 belgidan ko'p bo'lmasigi kerak.",
+                  },
+                  validate: (value) => !!value.trim() || "Izoh bo'sh bo'lishi mumkin emas",
+                })}
+                onChange={onChangeComment}
+              />
+            </div>
+            <Button loading={isLoading} color='light' className={`${classes['send-icon']} p-1`}>
+              <ICONS.send />
+            </Button>
           </div>
-          <span className='p-1'>
-            <ICONS.send />
-          </span>
+          <Error error={errors.text} />
         </div>
       ) : (
         <>
           <Textarea
+            disabled={isLoading}
             placeholder='Izohingizni bu yerga yozing'
             color={isMobile ? 'dark' : 'transparent'}
             {...register('text', {

@@ -1,14 +1,6 @@
 import { HTMLAttributes } from 'react';
 
-export type TSpinnerColor =
-  | 'dark'
-  | 'outline-dark'
-  | 'light'
-  | 'outline-red'
-  | 'outline-blue'
-  | 'blue'
-  | 'white'
-  | 'outline-white';
+export type TSpinnerColor = 'dark' | 'light' | 'red';
 
 export interface ISpinnerProps extends HTMLAttributes<HTMLDivElement> {
   color?: TSpinnerColor;

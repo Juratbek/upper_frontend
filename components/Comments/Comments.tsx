@@ -134,7 +134,7 @@ export const Comments = (): JSX.Element => {
         className={classes['selected-comment']}
         style={{ display: Boolean(selectedComment) ? 'flex' : 'none' }}
       >
-        <p className={classes.text}>{selectedComment?.text}</p>
+        <p className={classes.text}>{selectedComment?.updatedText || selectedComment?.text}</p>
         <span className={classes.icon} onClick={clearSelectedComment}>
           &#10005;
         </span>
