@@ -18,7 +18,7 @@ export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }
         props.disabled ? classes[`${color}-disabled`] : classes[color],
         classes[size],
         props.className,
-        loading && 'px-3',
+        loading && classes.loading,
       ),
     [props.className, color, props.disabled, size, theme, loading],
   );

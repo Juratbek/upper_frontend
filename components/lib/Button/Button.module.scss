@@ -4,6 +4,11 @@
   border: 1px solid transparent;
   cursor: pointer;
   height: fit-content;
+
+  &.loading {
+    padding-right: 2.7rem;
+    padding-left: 2.7rem;
+  }
 }
 
 // colors
