@@ -16,13 +16,7 @@ import {
   useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import {
-  closeSidebar,
-  getArticleAuthor,
-  getIsCommentsSidebarOpen,
-  getIsSidebarOpen,
-  openLoginModal,
-} from 'store/states';
+import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openLoginModal } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
@@ -40,7 +34,6 @@ export const Sidebar = (): JSX.Element => {
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
   const { themeColors } = useTheme();
-  const isCommentsSidebarOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
     classes.container,
     isSidebarOpen && classes['container--open'],
@@ -137,25 +130,14 @@ export const Sidebar = (): JSX.Element => {
         )}
         {AdditionalComponent && <AdditionalComponent />}
         <SidebarSearch />
-        {!isCommentsSidebarOpen && (
-          <>
-            <h3>Siz uchun maqolalar</h3>
-            {suggestedArticles}
-            <Divider className='my-2' color='medium-gray' />
-            <h3>Kuzatib boring</h3>
-            {suggestedBlogs}
-          </>
-        )}
+        <h3>Siz uchun maqolalar</h3>
+        {suggestedArticles}
+        <Divider className='my-2' color='medium-gray' />
+        <h3>Kuzatib boring</h3>
+        {suggestedBlogs}
       </>
     );
-  }, [
-    router.pathname,
-    isAuthenticated,
-    articleAuthor,
-    suggestedArticles,
-    suggestedBlogs,
-    isCommentsSidebarOpen,
-  ]);
+  }, [router.pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
 
   return (
     <div className={rootClassName}>
@@ -165,7 +147,7 @@ export const Sidebar = (): JSX.Element => {
       <div
         className={classes.sidebar}
         style={{
-          overflowY: isCommentsSidebarOpen ? 'hidden' : 'auto',
+          overflowY: 'auto',
           backgroundColor: themeColors.bg,
         }}
       >
