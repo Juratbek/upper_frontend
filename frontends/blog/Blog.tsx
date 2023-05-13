@@ -29,11 +29,12 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const { isAuthenticated } = useAuth();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unsubscribeBlog, unsubscribeRes] = useUnSubscribeMutation();
-  const checkSubscriptionRes = useCheckSubscriptionQuery(id);
+  const checkSubscriptionRes = useCheckSubscriptionQuery(id, { skip: !isAuthenticated });
   const { data: isSubscribed } = checkSubscriptionRes;
 
   const subscribe = (): void => {
-    if (isAuthenticated) id && subscribeBlog(+id);
+    if (!id) return;
+    if (isAuthenticated) subscribeBlog(+id);
     else dispatch(openLoginModal("Obuna bo'lish uchun shaxsiy profilingizga kiring"));
   };
 
