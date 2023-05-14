@@ -47,6 +47,7 @@ export const Article: FC<IArticleProps> = ({
     wasLikedBefore && setLikeCount((prev) => prev - 1);
   };
 
+  // when selecting articles from sidebar, scroll position is reset
   useEffect(() => {
     const main = document.querySelector('#main');
     main?.scrollTo(0, 0);
