@@ -14,7 +14,11 @@ export const CommentNotification: FC<INotificationComponentProp> = (props) => {
     <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`}>
       <div className={rootClassName} onClick={clickHandler}>
         <div>
-          <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangizga{' '}
+          <strong
+            className='pointer'
+            dangerouslySetInnerHTML={{ __html: `&quot;${article.title}&quot;` }}
+          />{' '}
+          maqolangizga{' '}
           <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} className='link'>
             <strong className='pointer'>{author.name}</strong>
           </Link>{' '}
