@@ -14,7 +14,11 @@ export const LikeNotification: FC<INotificationComponentProp> = (props) => {
     <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`}>
       <div className={rootClassName} onClick={clickHandler}>
         <div>
-          <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangiz{' '}
+          <strong
+            className='pointer'
+            dangerouslySetInnerHTML={{ __html: `&quot;${article.title}&quot;` }}
+          />{' '}
+          maqolangiz{' '}
           <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} className='link'>
             <strong className='pointer'>{author.name}ga</strong>
           </Link>{' '}

@@ -34,8 +34,8 @@ export const ArticlesTab: FC = () => {
       return (
         <div style={{ textAlign: 'center' }} className='mb-1'>
           <StorysetImage
-            width={350}
-            height={350}
+            width={250}
+            height={250}
             src='/storyset/write_article.svg'
             storysetUri='creativity'
           />
