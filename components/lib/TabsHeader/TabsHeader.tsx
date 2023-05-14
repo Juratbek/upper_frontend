@@ -11,8 +11,9 @@ export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
   const { getParam, setParam, isReady } = useUrlParams();
   const activeTabId = getParam(param);
 
-  const changeActiveTab = (id: string): void => {
-    setParam(param, id);
+  const changeActiveTab = (tab: ITabHeader): void => {
+    setParam(param, tab.id);
+    props.onChange?.(tab);
   };
 
   const getTabs = (): ITabHeader[] => {
@@ -21,16 +22,17 @@ export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
   };
 
   useEffect(() => {
-    if (Boolean(activeTabId) || !isReady) return;
+    if (Boolean(activeTabId) || !isReady || tabs.length === 0) return;
     const defaultAvticeTab = tabs.find((tab) => tab.defaultSelected) || tabs[0];
-    defaultAvticeTab && changeActiveTab(defaultAvticeTab.id);
+    console.log('🚀 ~ file: TabsHeader.tsx:27 ~ useEffect ~ defaultAvticeTab', defaultAvticeTab);
+    defaultAvticeTab && setParam(param, defaultAvticeTab.id);
   }, [tabs]);
 
   return (
     <div className={classes.tabs}>
       {getTabs().map((tab) => (
         <span
-          onClick={(): void => changeActiveTab(tab.id)}
+          onClick={(): void => changeActiveTab(tab)}
           className={`${classes.tab} ${tab.active && classes.active}`}
           key={tab.id}
         >

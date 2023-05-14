@@ -13,7 +13,7 @@ import { useCreateArticleMutation, useLazyGetBlogArticlesQuery } from 'store/api
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
 
-export const ArticlesTab: FC = () => {
+export const SavedArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();
   const [createArticle, createArticleRes] = useCreateArticleMutation();
   const { push } = useRouter();
@@ -25,7 +25,7 @@ export const ArticlesTab: FC = () => {
   useEffect(() => {
     if (tab) {
       const p = (page as unknown as number) || 1;
-      getBlogArticles({ page: p - 1 });
+      getBlogArticles({ page: p - 1, status: 'SAVED' });
     }
   }, [tab, page]);
 
