@@ -22,8 +22,8 @@ export const SearchPage: FC = () => {
       <div className='d-flex flex-1 align-items-center justify-content-center flex-col'>
         <StorysetImage
           storysetUri='data'
-          width={300}
-          height={300}
+          width={250}
+          height={250}
           className='mb-2'
           src='/storyset/search_data.svg'
         />

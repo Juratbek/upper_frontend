@@ -40,8 +40,8 @@ export const FollowersTab: FC = () => {
       {followers?.length === 0 && (
         <div className='text-center'>
           <StorysetImage
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             src='/storyset/write_article.svg'
             storysetUri='creativity'
           />

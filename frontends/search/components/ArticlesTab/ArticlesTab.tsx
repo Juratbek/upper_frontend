@@ -24,8 +24,8 @@ export const ArticlesTab: FC = () => {
         <div className='text-center mt-5'>
           <StorysetImage
             storysetUri='data'
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             src='/storyset/search_data.svg'
           />
         </div>
@@ -36,7 +36,7 @@ export const ArticlesTab: FC = () => {
     >
       {searchArticleRes.data?.length === 0 && (
         <div className='text-center mt-5'>
-          <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
+          <StorysetImage storysetUri='data' width={250} height={250} src='/storyset/no_data.svg' />
           <h3>Maqola topilmadi</h3>
         </div>
       )}
