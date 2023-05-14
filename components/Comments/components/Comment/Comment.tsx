@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { useAppDispatch } from 'store';
 import { closeCommentsSidebar } from 'store/states';
 import { addAmazonUri, dateInterval } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Comment.module.scss';
 import { ICommentProps } from './Comment.types';
@@ -24,7 +25,7 @@ export const Comment: FC<ICommentProps> = (props) => {
         <div className={classes.author}>
           <Avatar imgUrl={addAmazonUri(author).imgUrl} size='small' />
           <div className='ms-1'>
-            <Link href={`/blogs/${author.id}`}>
+            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`}>
               <a onClick={closeComments}>
                 <h5 className='m-0 link pointer'>{author.name}</h5>
               </a>

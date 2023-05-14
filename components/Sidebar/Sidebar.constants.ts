@@ -3,10 +3,8 @@ import { DocsSidebar } from 'frontends/docs';
 import { TutorialSidebar as ReadTutorialSidebar } from 'frontends/tutorials';
 import { UserArticlesSidebar } from 'frontends/user-articles/UserArticlesSidebar';
 import { TutorialSidebar } from 'frontends/user-tutorials';
-import { SidebarContent } from 'frontends/write-article';
 
 const CONTENT_URLS = {
-  writeArticle: '/write-article',
   userArticles: '/user/articles/[id]',
   docs: '/docs*',
   createTutorial: '/user/tutorials*',
@@ -18,7 +16,6 @@ export const ADDITIONAL_CONTENT_URLS = {
 };
 
 export const SIDEBAR_CONTENTS = {
-  [CONTENT_URLS.writeArticle]: SidebarContent,
   [CONTENT_URLS.userArticles]: UserArticlesSidebar,
   [CONTENT_URLS.docs]: DocsSidebar,
   [CONTENT_URLS.createTutorial]: TutorialSidebar,

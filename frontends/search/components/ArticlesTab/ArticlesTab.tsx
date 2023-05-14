@@ -42,7 +42,6 @@ export const ArticlesTab: FC = () => {
       )}
       {addUriToArticleImages(searchArticleRes.data).map((article) => (
         <Article
-          className='p-2 px-xs-1 my-2'
           key={article.id}
           article={article}
           author={article.author}

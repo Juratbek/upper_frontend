@@ -4,7 +4,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { wrapper } from 'store';
 import { publishedArticleApi } from 'store/apis';
 import { IArticle, IResponseError } from 'types';
-import { get } from 'utils';
+import { appDynamic, get } from 'utils';
 
 export interface IArticlePageProps {
   article: IArticle | null;
@@ -12,10 +12,17 @@ export interface IArticlePageProps {
   fullUrl: string;
 }
 
+const DynamicComments = appDynamic(() => import('components/Comments'));
+
 const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   const { isMobile } = useDevice();
 
-  return <Article {...props} showAuthor={isMobile} />;
+  return (
+    <div>
+      <Article {...props} showAuthor={isMobile} />
+      <DynamicComments />
+    </div>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(

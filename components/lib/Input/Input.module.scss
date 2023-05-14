@@ -1,3 +1,5 @@
+@import 'styles/_mixins';
+
 .input {
   border-radius: var(--smallBorderRadius);
   background-color: transparent;
@@ -6,6 +8,10 @@
   outline: transparent solid 1px;
   padding: 0.4em;
   width: 100%;
+
+  @include screenMax576 {
+    padding: 0.6rem 0.5em;
+  }
 }
 
 .input:focus {

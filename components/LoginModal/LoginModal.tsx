@@ -11,6 +11,7 @@ import {
 } from 'components';
 import { GoogleSignIn } from 'components/GoogleSignIn';
 import { useAuth } from 'hooks';
+import { useDevice } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -23,6 +24,7 @@ import {
   openRegisterModal,
 } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 
@@ -36,6 +38,7 @@ export const LoginModal: FC = () => {
   const dispatch = useAppDispatch();
   const [loginBlog, loginBlogResponse] = useLoginMutation();
   const { authenticate } = useAuth();
+  const { isMobile } = useDevice();
   const {
     register,
     setFocus,
@@ -82,8 +85,8 @@ export const LoginModal: FC = () => {
   const closeAlert = (): void => setAlert('');
 
   useEffect(() => {
-    isOpen && setFocus(login.name);
-  }, [isOpen]);
+    isOpen && !isMobile && setFocus(login.name);
+  }, [isOpen, isMobile]);
 
   const alertComponent = useMemo(() => {
     if (!alert) return <></>;
@@ -138,7 +141,7 @@ export const LoginModal: FC = () => {
           Ro&apos;yxatdan o&apos;tish
         </Button>
         <p className='text-gray text-center' onClick={closeModal}>
-          <Link href='/forgot-credentials'>
+          <Link href={`${WEB_APP_ROOT_DIR}/forgot-credentials`}>
             <a className='link'>Login yoki parolni unutdingizmi?</a>
           </Link>
         </p>

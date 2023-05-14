@@ -1,8 +1,14 @@
-import { HomePage } from 'frontends/home';
-import type { NextPage } from 'next';
+import { GetServerSideProps } from 'next';
 
-const Home: NextPage = () => {
-  return <HomePage />;
+export default function Index(): JSX.Element {
+  return <></>;
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/web/',
+      permanent: false,
+    },
+  };
 };
-
-export default Home;

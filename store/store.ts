@@ -12,6 +12,7 @@ import {
   notificationApi,
   publishedArticleApi,
   publishedTutorialApi,
+  subscriptionApi,
   tutorialApi,
 } from './apis';
 import { apiErrorMiddleware } from './middlewares';
@@ -47,6 +48,7 @@ export const store = configureStore({
     [publishedTutorialApi.reducerPath]: publishedTutorialApi.reducer,
     [tutorialApi.reducerPath]: tutorialApi.reducer,
     [feedbackApi.reducerPath]: feedbackApi.reducer,
+    [subscriptionApi.reducerPath]: subscriptionApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -61,6 +63,7 @@ export const store = configureStore({
       publishedArticleApi.middleware,
       tutorialApi.middleware,
       feedbackApi.middleware,
+      subscriptionApi.middleware,
       apiErrorMiddleware,
     ),
 });

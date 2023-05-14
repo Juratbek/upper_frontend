@@ -1,5 +1,5 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton, Button, Divider } from 'components';
-import { useAuth, useInfiniteScroll, useUrlParams } from 'hooks';
+import { useAuth, useInfiniteScroll, useTheme, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -16,6 +16,7 @@ import classes from './Home.module.scss';
 
 export const HomePage: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
+  const { theme } = useTheme();
   const { query, isReady } = useRouter();
   const { label } = query;
   const { setParam } = useUrlParams();
@@ -69,13 +70,13 @@ export const HomePage: FC = () => {
     <div className='container'>
       <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
       <Divider />
-      <div className={classes['labels-container']}>
+      <div className={`${classes['labels-container']} ${classes[theme]}`}>
         {labels.map((label) => (
           <Button
             onClick={(): void => labelSelectHandler(label.id)}
             size='small'
             color={query.label === label.id.toString() ? 'dark' : 'outline-dark'}
-            className='me-1'
+            className={classes['label-buttons']}
             key={label.id}
           >
             {label.name}
@@ -98,7 +99,6 @@ export const HomePage: FC = () => {
           {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
           {addUriToArticleImages(articles).map((article) => (
             <Article
-              className='p-2 px-xs-1 my-2'
               key={article.id}
               article={article}
               author={article.author}

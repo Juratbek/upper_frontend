@@ -2,7 +2,7 @@ import { Button, CommentSkeleton, Divider } from 'components';
 import { StorysetImage } from 'components/lib';
 import { useAuth, useClickOutside, useInfiniteScrollV2, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
@@ -33,9 +33,11 @@ export const Comments = (): JSX.Element => {
   const infiniteScrollApi = useInfiniteScrollV2<IComment>(useLazyGetCommentsByArticleIdQuery);
   const { hasMore, fetchFirstPage, fetchNextPage, list: comments, isLoading } = infiniteScrollApi;
 
-  const [rootRef] = useClickOutside(() => {
+  const closeComments = useCallback(() => {
     dispatch(closeCommentsSidebar());
-  }, '[data-action="open-comments"]');
+  }, []);
+
+  const [rootRef] = useClickOutside(closeComments, '[data-action="open-comments"]');
 
   const fetchFirstPageHandler = (articleId: string | string[] | undefined): void => {
     articleId && fetchFirstPage<TGetByArticleIdDto>({ articleId: +articleId });
@@ -118,7 +120,12 @@ export const Comments = (): JSX.Element => {
           next={fetchNextPageHandler}
           scrollableTarget='comments'
         >
-          <h3 className='m-1'>Izohlar</h3>
+          <div className='d-flex align-items-center justify-content-between'>
+            <h3 className='m-1'>Izohlar</h3>
+            <span className={classes['close-icon']} onClick={closeComments}>
+              &#10005;
+            </span>
+          </div>
           <Divider />
           {commentsRender}
         </InfiniteScroll>
@@ -127,13 +134,13 @@ export const Comments = (): JSX.Element => {
         className={classes['selected-comment']}
         style={{ display: Boolean(selectedComment) ? 'flex' : 'none' }}
       >
-        <p className={classes.text}>{selectedComment?.text}</p>
+        <p className={classes.text}>{selectedComment?.updatedText || selectedComment?.text}</p>
         <span className={classes.icon} onClick={clearSelectedComment}>
           &#10005;
         </span>
       </div>
       <div className={classes.form}>
-        {isAuthenticated ? (
+        {isAuthenticated && isOpen ? (
           <Form
             selectedComment={selectedComment}
             isBeingEdited={isBeingEdited}

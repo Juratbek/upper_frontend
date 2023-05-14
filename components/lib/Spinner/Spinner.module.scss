@@ -7,19 +7,13 @@
   border: 2px solid transparent;
 
   &--dark {
-    border-color: white;
-  }
-  &--outline-dark {
     border-color: black;
   }
   &--light {
-    border-color: black;
-  }
-  &--outline-red {
-    border-color: var(--red);
-  }
-  &--blue {
     border-color: white;
+  }
+  &--red {
+    border-color: var(--red);
   }
 
   border-top-color: transparent !important;

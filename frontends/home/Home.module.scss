@@ -2,13 +2,31 @@
   display: flex;
   margin-top: 0.5rem;
   overflow-x: scroll;
+  padding-bottom: 0.3rem;
+
+  &.light {
+    &::-webkit-scrollbar-thumb {
+      background: rgb(204, 204, 204);
+    }
+  }
+  &.dark {
+    &::-webkit-scrollbar-thumb {
+      background: rgb(109, 109, 109);
+    }
+  }
 
   &::-webkit-scrollbar {
-    height: 0.3rem;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: rgb(204, 204, 204);
-    border-radius: 1rem;
+    height: 0.1rem;
   }
 
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+  }
+}
+
+.label-buttons {
+  margin-right: 0.5rem;
+  width: fit-content;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

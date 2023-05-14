@@ -41,7 +41,7 @@ export const articleApi = createApi({
 
 export const {
   useCreateMutation: useCreateArticleMutation,
-  useUpdateMutation: useUpdateArticleMutaion,
+  useUpdateMutation: useUpdateArticleMutation,
   useDeleteMutation: useDeleteArticleMutation,
   useLazySearchQuery: useLazySearchArticleQuery,
   usePublishMutation,

@@ -11,6 +11,7 @@ import {
   useDeleteNotificationMutation,
   useLazyGetNotificationsByTypeQuery,
   useReadNotificationMutation,
+  useResetNotificationsCountQuery,
 } from 'store/apis';
 import { INotification } from 'types';
 import { NOTIFICATION_STATUSES, NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
@@ -19,6 +20,7 @@ export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
   const [sendReadNotificationReq, sendReadNotificationRes] = useReadNotificationMutation();
   const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
+  useResetNotificationsCountQuery();
   const {
     query: { tab, page },
   } = useRouter();
@@ -95,9 +97,11 @@ export const NotificationsTab: FC = () => {
       >
         {notifications}
       </ApiErrorBoundary>
-      {fetchNotificationsRes.data && (
-        <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
-      )}
+      <div className='my-2'>
+        {fetchNotificationsRes.data && (
+          <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
+        )}
+      </div>
     </div>
   );
 };

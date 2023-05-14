@@ -1,6 +1,6 @@
 import { Button } from 'components';
 import Link from 'next/link';
-import { IMAGES } from 'variables';
+import { IMAGES, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './NotFound.module.scss';
 
@@ -15,7 +15,7 @@ export const NotFound = (): JSX.Element => {
         </div>
         <div className='text-center'>
           <h1>Sahifa topilmadi</h1>
-          <Link href='/'>
+          <Link href={WEB_APP_ROOT_DIR}>
             <a>
               <Button>Bosh sahifaga qaytish</Button>
             </a>

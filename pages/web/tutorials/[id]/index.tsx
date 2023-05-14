@@ -1,6 +1,6 @@
 import { Article } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
-import { IArticlePageProps } from 'pages/articles/[id]';
+import { IArticlePageProps } from 'pages/web/articles/[id]';
 import { useAppSelector, wrapper } from 'store';
 import { publishedArticleApi } from 'store/apis';
 import { getTutorialAuthor } from 'store/states';

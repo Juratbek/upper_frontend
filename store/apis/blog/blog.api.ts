@@ -95,38 +95,6 @@ export const blogApi = createApi({
           : {},
       }),
     }),
-    follow: build.mutation<void, number>({
-      query: (id) => ({
-        url: `follow/${id}`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['folowers'],
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(
-          blogApi.util.updateQueryData('getById', { id }, (blog) => ({
-            ...blog,
-            isFollowed: true,
-          })),
-        );
-      },
-    }),
-    unfollow: build.mutation<void, number>({
-      query: (id) => ({
-        url: `unfollow/${id}`,
-        method: 'POST',
-      }),
-      invalidatesTags: ['folowers'],
-      async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(
-          blogApi.util.updateQueryData('getById', { id }, (blog) => ({
-            ...blog,
-            isFollowed: false,
-          })),
-        );
-      },
-    }),
     getPublishedArticles: build.query<IArticleResult[], number>({
       query: (id) => `open/published-articles/${id}`,
     }),
@@ -203,8 +171,6 @@ export const {
   useLazySearchQuery: useLazySearchBlogQuery,
   useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
-  useFollowMutation: useFollowBlogMutation,
-  useUnfollowMutation: useUnfollowBlogMutation,
   useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
