@@ -1,17 +1,15 @@
 import { ApiErrorBoundary, Divider, SidebarTutorial } from 'components';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { useAppSelector } from 'store';
 import { useLazyGetPublishedTutorialsByArticleIdQuery } from 'store/apis';
 import { getArticleAuthor } from 'store/states';
-import { addAmazonUri, appDynamic } from 'utils';
+import { addAmazonUri } from 'utils';
 import { addTutorialAmazonUri } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { Author } from '../Author';
 
-const DynamicComments = appDynamic(() => import('components/Comments'));
 const HeartIcon = ICONS.heart;
 
 export const ReadArticleSidebar = (): JSX.Element => {
@@ -31,10 +29,9 @@ export const ReadArticleSidebar = (): JSX.Element => {
 
   return (
     <>
-      <DynamicComments />
       <Author {...addAmazonUri(articleAuthor)} className='mt-2' />
       {Boolean(articleAuthor.cardNumber) && (
-        <Link href={`/blogs/${articleAuthor.id}/support`}>
+        <Link href={`${WEB_APP_ROOT_DIR}/blogs/${articleAuthor.id}/support`}>
           <a className='link d-flex mt-2'>
             <span className='sponsor-icon'>
               <HeartIcon />

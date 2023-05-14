@@ -27,6 +27,7 @@ import {
   PrevIcon,
   SaveIcon,
   SearchIcon,
+  SendIcon,
   ShareIcon,
   TelegramIcon,
   TringleIcon,
@@ -71,6 +72,7 @@ export const ICON_TYPES = {
   calendar: 'calendar',
   help: 'help',
   website: 'website',
+  send: 'send',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -118,4 +120,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   calendar: CalendarIcon,
   help: HelpIcon,
   website: WebsiteIcon,
+  send: SendIcon,
 };

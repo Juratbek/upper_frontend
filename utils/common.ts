@@ -53,3 +53,5 @@ export const addAmazonBucketUri = <T extends { imgUrl: string }>(
     imgUrl: `${bucketUrl}${imgUrl}`,
   };
 };
+
+export const log = (value: unknown): string => JSON.stringify(value, null, 2);

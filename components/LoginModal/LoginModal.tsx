@@ -24,6 +24,7 @@ import {
   openRegisterModal,
 } from 'store/states';
 import { IResponseError, TSubmitFormEvent } from 'types';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { LOGIN_FORM_FIELDS } from './LoginModal.constants';
 
@@ -140,7 +141,7 @@ export const LoginModal: FC = () => {
           Ro&apos;yxatdan o&apos;tish
         </Button>
         <p className='text-gray text-center' onClick={closeModal}>
-          <Link href='/forgot-credentials'>
+          <Link href={`${WEB_APP_ROOT_DIR}/forgot-credentials`}>
             <a className='link'>Login yoki parolni unutdingizmi?</a>
           </Link>
         </p>
