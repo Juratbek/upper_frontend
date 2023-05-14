@@ -2,6 +2,7 @@ import { ArticleImg } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { getClassName } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarTutorial.module.scss';
 import { ISidebarTutorialProps } from './SidebarTutorial.types';
@@ -16,7 +17,7 @@ export const SidebarTutorial: FC<ISidebarTutorialProps> = ({
   const rootClassName = getClassName(classes.root, className);
 
   return (
-    <Link href={`/tutorials/${id}`}>
+    <Link href={`${WEB_APP_ROOT_DIR}/tutorials/${id}`}>
       <div className={rootClassName}>
         <div className='d-flex justify-content-between'>
           <div>
