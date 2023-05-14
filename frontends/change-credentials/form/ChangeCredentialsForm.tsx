@@ -96,7 +96,7 @@ export const ChangeCredentialsForm: FC = () => {
           {alert}
           <Link href={`${WEB_APP_ROOT_DIR}/forgot-credentials`}>
             <a>
-              <Button type='button' className='mt-1' color='outline-white'>
+              <Button type='button' className='mt-1' color='outline-dark'>
                 Yangi token olish
               </Button>
             </a>

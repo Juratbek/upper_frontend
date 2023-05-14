@@ -4,6 +4,11 @@
   border: 1px solid transparent;
   cursor: pointer;
   height: fit-content;
+
+  &.loading {
+    padding-right: 2.7rem;
+    padding-left: 2.7rem;
+  }
 }
 
 // colors
@@ -34,11 +39,11 @@
   }
 }
 
-.white {
+.light {
   background-color: white;
 }
 
-.outline-white {
+.outline-light {
   background-color: transparent;
   border: 1px solid white;
   color: white;
@@ -54,7 +59,7 @@
   color: var(--blue);
 }
 
-.light {
+.tansparent {
   background-color: transparent;
   border: transparent;
   color: inherit;
@@ -133,7 +138,7 @@
       }
     }
   }
-  &.light:hover {
+  &.tansparent:hover {
     background-color: var(--light--hovered);
   }
 }
