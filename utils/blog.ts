@@ -16,11 +16,16 @@ const LINK_DOMAINS: Partial<{ [name in TIcon]: string }> = {
 
 export const addLinkPrefix = (linkObject: ILink): string => {
   const { link, type } = linkObject;
-  if (link.startsWith('t.me')) return `https://${link}`;
-
+  // if link starts with http, https or // it should already be valid
   if (link.startsWith(https) || link.startsWith(http) || link.startsWith('//')) return link;
-  const domain = LINK_DOMAINS[type];
 
+  // if link is telegram username check its validity
+  if (type === 'telegram') {
+    if (link.startsWith('@')) return `https://${LINK_DOMAINS[type]}/${link.replace('@', '')}`;
+    if (link.startsWith('t.me')) return `https://${link}`;
+  }
+
+  const domain = LINK_DOMAINS[type];
   if (domain)
     return link.startsWith('/') ? `https://${domain}${link}` : `https://${domain}/${link}`;
 
