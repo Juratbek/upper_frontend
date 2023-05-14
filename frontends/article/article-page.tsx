@@ -48,12 +48,9 @@ export const Article: FC<IArticleProps> = ({
   };
 
   useEffect(() => {
-    if (editorInstance?.isReady) {
-      const main = document.querySelector('#main');
-      main?.scrollIntoView({ block: 'start' });
-      main?.scrollTo(0, 0);
-    }
-  }, [editorInstance?.isReady]);
+    const main = document.querySelector('#main');
+    main?.scrollTo(0, 0);
+  }, [article]);
 
   useEffect(() => {
     editorInstance?.render?.({ blocks: addUriToImageBlocks(blocks) });
