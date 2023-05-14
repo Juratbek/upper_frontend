@@ -1,13 +1,15 @@
 import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
-import { useDevice, useModal } from 'hooks';
+import { useAuth, useDevice, useModal } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   useCheckSubscriptionQuery,
   useSubscribeMutation,
   useUnSubscribeMutation,
 } from 'store/apis';
+import { openLoginModal } from 'store/states';
 import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT, WEB_APP_ROOT_DIR } from 'variables';
 
@@ -22,14 +24,18 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   } = useRouter();
   const [isUnsubscribeModalOpen, , { open: openUnsubscribeModal, close: closeUnsubscribeModal }] =
     useModal();
+  const dispatch = useDispatch();
   const { isMobile } = useDevice();
+  const { isAuthenticated } = useAuth();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unsubscribeBlog, unsubscribeRes] = useUnSubscribeMutation();
-  const checkSubscriptionRes = useCheckSubscriptionQuery(id);
+  const checkSubscriptionRes = useCheckSubscriptionQuery(id, { skip: !isAuthenticated });
   const { data: isSubscribed } = checkSubscriptionRes;
 
   const subscribe = (): void => {
-    id && subscribeBlog(+id);
+    if (!id) return;
+    if (isAuthenticated) subscribeBlog(+id);
+    else dispatch(openLoginModal("Obuna bo'lish uchun shaxsiy profilingizga kiring"));
   };
 
   const unsubscribe = (): void => {
