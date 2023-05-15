@@ -44,6 +44,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   };
 
   const alert = useMemo(() => {
+    if (checkSubscriptionRes.error?.status === 'FETCH_ERROR') return;
     if (checkSubscriptionRes.error)
       return `Obunani tekshirishda xatolik yuz berdi ${log(checkSubscriptionRes.error)}`;
     if (subscribeBlogRes.error)
