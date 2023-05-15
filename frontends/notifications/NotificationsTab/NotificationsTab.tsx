@@ -28,6 +28,11 @@ export const NotificationsTab: FC = () => {
   useEffect(() => {
     const p = (page as unknown as number) || 1;
     tab && fetchNotifications({ type: tab as string, page: p - 1 });
+    document.getElementById('notification-title')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
   }, [tab, page]);
 
   const readNotification = (notification: INotification): void => {

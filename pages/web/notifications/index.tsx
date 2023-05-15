@@ -6,7 +6,9 @@ export default function NotificationsPage(): JSX.Element {
   return (
     <div className='container'>
       <Head title='Habarlar' url='/notifications' />
-      <h1 className='mb-1'>Habarlar</h1>
+      <h1 className='mb-1' id='notification-title'>
+        Habarlar
+      </h1>
       <TabsHeader tabs={NOTIFICATIONS_TAB_MENUS} />
       <TabBody tabs={NOTIFICATIONS_TABS} />
     </div>
