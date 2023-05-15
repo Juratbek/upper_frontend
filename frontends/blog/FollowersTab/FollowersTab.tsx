@@ -20,7 +20,11 @@ export const FollowersTab: FC = () => {
   const followers = useMemo(() => {
     const { data: followers } = fetchFollowerRes;
     if (!followers || followers.length === 0)
-      return <p className='text-center'>Kuzatuvchilar yo&apos;q</p>;
+      return (
+        <p className='text-center'>
+          Bloglarga obuna bo&apos;ling va yangi maqolalar haqida habarlar oling
+        </p>
+      );
     return followers.map((blog) => (
       <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
         <Follower {...addAmazonUri(blog)} />
