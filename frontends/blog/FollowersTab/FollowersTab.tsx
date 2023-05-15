@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, BlogSkeleton, Follower } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, Follower, StorysetImage } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogFollowersQuery } from 'store/apis';
@@ -35,6 +35,16 @@ export const FollowersTab: FC = () => {
       fallbackItemCount={3}
       className='tab'
     >
+      {fetchFollowerRes?.data?.length === 0 && (
+        <div className='text-center'>
+          <StorysetImage
+            width={250}
+            height={250}
+            src='/storyset/subscriber.svg'
+            storysetUri='creativity'
+          />
+        </div>
+      )}
       {followers}
     </ApiErrorBoundary>
   );
