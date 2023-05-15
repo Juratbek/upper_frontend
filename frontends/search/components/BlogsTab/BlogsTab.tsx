@@ -1,9 +1,10 @@
 import { ApiErrorBoundary, Blog, BlogSkeleton, Button, StorysetImage } from 'components';
+import { SEARCH_PAGE_TAB_IDS } from 'frontends/search/Search.constants';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchBlogQuery } from 'store/apis';
 import { addAmazonUri } from 'utils';
-import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
+import { SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 export const BlogsTab: FC = () => {
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();

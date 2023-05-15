@@ -22,9 +22,8 @@ export const TabsHeader: FC<ITabsHeaderProps> = (props) => {
   };
 
   useEffect(() => {
-    if (Boolean(activeTabId) || !isReady || tabs.length === 0) return;
+    if (Boolean(activeTabId) || !isReady) return;
     const defaultAvticeTab = tabs.find((tab) => tab.defaultSelected) || tabs[0];
-    console.log('🚀 ~ file: TabsHeader.tsx:27 ~ useEffect ~ defaultAvticeTab', defaultAvticeTab);
     defaultAvticeTab && setParam(param, defaultAvticeTab.id);
   }, [tabs]);
 

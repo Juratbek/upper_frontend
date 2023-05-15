@@ -16,9 +16,9 @@ import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'vari
 export const PublishedArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();
   const [createArticle, createArticleRes] = useCreateArticleMutation();
-  const { push } = useRouter();
   const {
     query: { tab, page },
+    push,
   } = useRouter();
   const { setParam } = useUrlParams();
 

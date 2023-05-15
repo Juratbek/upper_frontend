@@ -4,12 +4,13 @@ import {
   StorysetImage,
   TutorialCardSkeleton,
 } from 'components';
+import { SEARCH_PAGE_TAB_IDS } from 'frontends/search/Search.constants';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
 import { IPublishedTutorialMedim } from 'types';
 import { addTutorialAmazonUri, getClassName } from 'utils';
-import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
+import { SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 import classes from './TutorialsTab.module.scss';
 
