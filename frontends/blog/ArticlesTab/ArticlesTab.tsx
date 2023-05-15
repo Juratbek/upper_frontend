@@ -1,9 +1,10 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton, Button, StorysetImage } from 'components';
+import { SEARCH_PAGE_ARTICLE_ICONS } from 'frontends/search';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useCreateArticleMutation, useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
-import { ARTICLES_SKELETON_COUNT, SEARCH_PAGE_ARTICLE_ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 export const ArticlesTab: FC = () => {
   const {

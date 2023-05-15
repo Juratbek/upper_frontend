@@ -9,6 +9,7 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
+import { DELETE_CONFIRMATION } from 'frontends/articles';
 import { useModal, useShortCut } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -30,7 +31,7 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLE_STATUSES, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();

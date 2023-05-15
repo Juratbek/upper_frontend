@@ -56,8 +56,8 @@ export const TutorialsTab: FC = () => {
         {fetchTutorialsRes.data?.list.length === 0 && (
           <div className='text-center'>
             <StorysetImage
-              width={350}
-              height={350}
+              width={250}
+              height={250}
               src='/storyset/write_article.svg'
               storysetUri='creativity'
             />
