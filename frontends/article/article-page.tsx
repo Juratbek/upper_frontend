@@ -47,13 +47,11 @@ export const Article: FC<IArticleProps> = ({
     wasLikedBefore && setLikeCount((prev) => prev - 1);
   };
 
+  // when selecting articles from sidebar, scroll position is reset
   useEffect(() => {
-    if (editorInstance?.isReady) {
-      const main = document.querySelector('#main');
-      main?.scrollIntoView({ block: 'start' });
-      main?.scrollTo(0, 0);
-    }
-  }, [editorInstance?.isReady]);
+    const main = document.querySelector('#main');
+    main?.scrollTo(0, 0);
+  }, [article]);
 
   useEffect(() => {
     editorInstance?.render?.({ blocks: addUriToImageBlocks(blocks) });
