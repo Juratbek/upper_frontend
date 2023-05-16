@@ -3,9 +3,10 @@
   align-items: center;
   border-radius: 100rem;
   border: 1px solid;
-  padding: 0.3rem 0.6rem;
+  padding: 0 0.8rem;
 
   & input {
+    padding: 0.5rem 0.3rem;
     flex: 1 1 auto;
     border: none;
     font-size: 0.9rem;
