@@ -1,5 +1,5 @@
 import { useDebounce, useTheme } from 'hooks';
-import { ChangeEvent, forwardRef, useEffect, useState } from 'react';
+import { ChangeEvent, FocusEvent, forwardRef, useEffect, useState } from 'react';
 import { getClassName } from 'utils';
 import { ICONS } from 'variables';
 
@@ -28,6 +28,16 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
     setValue(value);
   };
 
+  const focusHandler = (event: FocusEvent<HTMLInputElement>): void => {
+    setIsFocused(true);
+    props.onFocus?.(event);
+  };
+
+  const blueHandler = (event: FocusEvent<HTMLInputElement>): void => {
+    setIsFocused(false);
+    props.onBlur?.(event);
+  };
+
   return (
     <div className={rootClassName}>
       <span className={classes.icon}>
@@ -39,8 +49,8 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
         value={value}
         ref={ref}
         onChange={changeHandler}
-        onFocus={(): void => setIsFocused(true)}
-        onBlur={(): void => setIsFocused(false)}
+        onFocus={focusHandler}
+        onBlur={blueHandler}
       />
     </div>
   );
