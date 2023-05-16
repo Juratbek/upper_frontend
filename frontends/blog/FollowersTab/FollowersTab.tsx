@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, BlogSkeleton, Follower } from 'components';
+import { ApiErrorBoundary, BlogSkeleton, Follower, StorysetImage } from 'components';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import { useLazyGetBlogFollowersQuery } from 'store/apis';
@@ -20,7 +20,11 @@ export const FollowersTab: FC = () => {
   const followers = useMemo(() => {
     const { data: followers } = fetchFollowerRes;
     if (!followers || followers.length === 0)
-      return <p className='text-center'>Kuzatuvchilar yo&apos;q</p>;
+      return (
+        <p className='text-center'>
+          Bloglarga obuna bo&apos;ling va yangi maqolalar haqida habarlar oling
+        </p>
+      );
     return followers.map((blog) => (
       <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
         <Follower {...addAmazonUri(blog)} />
@@ -35,6 +39,16 @@ export const FollowersTab: FC = () => {
       fallbackItemCount={3}
       className='tab'
     >
+      {fetchFollowerRes?.data?.length === 0 && (
+        <div className='text-center'>
+          <StorysetImage
+            width={250}
+            height={250}
+            src='/storyset/subscriber.svg'
+            storysetUri='creativity'
+          />
+        </div>
+      )}
       {followers}
     </ApiErrorBoundary>
   );

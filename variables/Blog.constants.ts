@@ -13,7 +13,7 @@ export const BLOG_TAB_MENUS: ITabHeader[] = [
     id: BLOG_TAB_IDS.articles,
   },
   {
-    name: 'Kuzatuvchilar',
+    name: 'Obunachilar',
     id: BLOG_TAB_IDS.followers,
   },
   {
