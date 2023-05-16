@@ -1,6 +1,6 @@
 import { Head, SearchInput, StorysetImage, TabBody, TabsHeader } from 'components';
 import { useUrlParams } from 'hooks';
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 
 import { SEARCH_TAB_MENUS, SEARCH_TABS } from './Search.constants';
 import classes from './Search.module.scss';
@@ -10,10 +10,15 @@ const searchParamKey = 'search';
 export const SearchPage: FC = () => {
   const { setParam, getParam, isReady } = useUrlParams();
   const searchValue = getParam(searchParamKey);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const search = (value: string): void => {
     value && setParam(searchParamKey, value);
   };
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   if (!isReady) return <></>;
 
@@ -29,6 +34,7 @@ export const SearchPage: FC = () => {
         />
         <SearchInput
           className={classes['initial-search-input']}
+          ref={inputRef}
           placeholder='Qidirish uchun yozing'
           onDebounce={search}
         />
