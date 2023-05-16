@@ -5,6 +5,11 @@
   border: 1px solid;
   padding: 0 0.8rem;
 
+  &.focused {
+    border-color: var(--blue);
+    outline: 1px solid var(--light-blue);
+  }
+
   & input {
     padding: 0.5rem 0.3rem;
     flex: 1 1 auto;
