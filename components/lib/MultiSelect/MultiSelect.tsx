@@ -105,8 +105,11 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
         </div>
       );
     }
+    if (inputValue.length === 0) {
+      return <div className={classes['option__item']}>Qidirish uchun yozing</div>;
+    }
     if (availableOptions.length === 0) {
-      return <div className={classes['option__item']}>Varintlar yo&apos;q</div>;
+      return <div className={classes['option__item']}>Teglar topilmadi</div>;
     }
     return (
       <>
