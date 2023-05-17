@@ -28,6 +28,7 @@ export const NotificationsTab: FC = () => {
   useEffect(() => {
     const p = (page as unknown as number) || 1;
     tab && fetchNotifications({ type: tab as string, page: p - 1 });
+    document.querySelector('#main')?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [tab, page]);
 
   const readNotification = (notification: INotification): void => {
