@@ -22,6 +22,7 @@ import {
   MenuListIcon,
   NextIcon,
   NotificationIcon,
+  OpenExternal,
   PenIcon,
   PlusIcon,
   PrevIcon,
@@ -73,6 +74,7 @@ export const ICON_TYPES = {
   help: 'help',
   website: 'website',
   send: 'send',
+  openExternal: 'openExternal',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -121,4 +123,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   help: HelpIcon,
   website: WebsiteIcon,
   send: SendIcon,
+  openExternal: OpenExternal,
 };
