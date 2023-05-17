@@ -7,6 +7,5 @@ export interface INavigationIcon {
   tooltip: string;
   color?: string;
   private?: boolean;
-  isPrivateRoute?: boolean;
-  loginModalTitle?: ReactNode;
+  message?: ReactNode;
 }
