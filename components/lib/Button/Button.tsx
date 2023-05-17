@@ -23,13 +23,20 @@ export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }
     [props.className, color, props.disabled, size, theme, loading],
   );
 
+  const loader = useMemo(() => {
+    if (typeof props.loader === 'function') return props.loader();
+    if (props.loader) return props.loader;
+    return <Spinner className={classes.spinner} color={BUTTON_SPINNER_COLORS[color]} />;
+  }, [props.loader, color]);
+
+  const content = useMemo(() => {
+    if (loading) return loader;
+    return children;
+  }, [loading, children]);
+
   return (
     <button {...props} className={className} disabled={props.disabled || loading}>
-      {loading ? (
-        <Spinner className={classes.spinner} color={BUTTON_SPINNER_COLORS[color]} />
-      ) : (
-        children
-      )}
+      {content}
     </button>
   );
 };
