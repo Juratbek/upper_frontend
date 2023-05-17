@@ -5,6 +5,7 @@ import {
   IBlogMedium,
   IBlogSmall,
   ILabel,
+  IPagingResponse,
   ITelegramUser,
   TOptionalPagingRequest,
 } from 'types';
@@ -24,7 +25,7 @@ import {
 export const blogApi = createApi({
   reducerPath: 'blog',
   baseQuery: baseQuery('blog'),
-  tagTypes: ['current-blog', 'folowers'],
+  tagTypes: ['current-blog'],
   endpoints: (build) => ({
     login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
@@ -98,10 +99,6 @@ export const blogApi = createApi({
     getPublishedArticles: build.query<IArticleResult[], number>({
       query: (id) => `open/published-articles/${id}`,
     }),
-    getFollowers: build.query<IBlogMedium[], number>({
-      query: (id) => `open/followers/${id}`,
-      providesTags: ['folowers'],
-    }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({
         url: 'open/get-token',
@@ -171,7 +168,6 @@ export const {
   useLazySearchQuery: useLazySearchBlogQuery,
   useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
-  useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
   useContinueWithGoogleMutation,

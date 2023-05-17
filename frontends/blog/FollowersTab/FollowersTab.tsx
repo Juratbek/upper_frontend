@@ -1,7 +1,10 @@
-import { ApiErrorBoundary, BlogSkeleton, Follower } from 'components';
+import { BlogSkeleton, Follower } from 'components';
+import { useInfiniteScrollV2 } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
-import { useLazyGetBlogFollowersQuery } from 'store/apis';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useLazyGetBlogSubscribersQuery } from 'store/apis';
+import { IBlogMedium } from 'types';
 import { addAmazonUri } from 'utils';
 import { BLOG_TAB_IDS } from 'variables';
 
@@ -9,33 +12,50 @@ export const FollowersTab: FC = () => {
   const {
     query: { id, tab },
   } = useRouter();
-  const [fetchFollowers, fetchFollowerRes] = useLazyGetBlogFollowersQuery();
+  const infiniteScrollApi = useInfiniteScrollV2<IBlogMedium>(useLazyGetBlogSubscribersQuery);
+
+  const {
+    list: subscribersList,
+    hasMore,
+    fetchFirstPage,
+    fetchNextPage,
+    isSuccess,
+  } = infiniteScrollApi;
+
+  const fetchNextPageHandler = (): void => {
+    debugger;
+    id && fetchNextPage({ articleId: +id });
+  };
 
   useEffect(() => {
     if (id && tab === BLOG_TAB_IDS.followers) {
-      fetchFollowers(+id);
+      fetchFirstPage({ id: +id });
     }
   }, [id]);
 
-  const followers = useMemo(() => {
-    const { data: followers } = fetchFollowerRes;
-    if (!followers || followers.length === 0)
+  const subscribers = useMemo(() => {
+    if (isSuccess && subscribersList?.length === 0)
       return <p className='text-center'>Kuzatuvchilar yo&apos;q</p>;
-    return followers.map((blog) => (
+    return subscribersList?.map((blog) => (
       <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
         <Follower {...addAmazonUri(blog)} />
       </div>
     ));
-  }, [fetchFollowerRes.data]);
+  }, [subscribersList]);
 
   return (
-    <ApiErrorBoundary
-      res={fetchFollowerRes}
-      fallback={<BlogSkeleton className='px-3 py-2 w-50 w-mobile-100' />}
-      fallbackItemCount={3}
-      className='tab'
+    <InfiniteScroll
+      hasMore={hasMore}
+      loader={Array(3)
+        .fill('')
+        .map((_, index) => (
+          <BlogSkeleton key={index} className='px-3 py-2' />
+        ))}
+      dataLength={subscribersList.length}
+      next={fetchNextPageHandler}
+      scrollableTarget='main'
     >
-      {followers}
-    </ApiErrorBoundary>
+      {subscribers}
+    </InfiniteScroll>
   );
 };
