@@ -22,13 +22,14 @@ export const NotificationsTab: FC = () => {
   const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
   useResetNotificationsCountQuery();
   const {
-    query: { tab, page },
+    query: { page },
   } = useRouter();
 
   useEffect(() => {
     const p = (page as unknown as number) || 1;
-    tab && fetchNotifications({ type: tab as string, page: p - 1 });
-  }, [tab, page]);
+    fetchNotifications({ type: 'all', page: p - 1 });
+    document.querySelector('#main')?.scrollTo({ top: 0 });
+  }, [page]);
 
   const readNotification = (notification: INotification): void => {
     markAsRead(notification);
@@ -50,8 +51,8 @@ export const NotificationsTab: FC = () => {
         <div className='text-center'>
           <StorysetImage
             src='/storyset/notifications.svg'
-            width={350}
-            height={350}
+            width={250}
+            height={250}
             storysetUri='internet'
           />
           <p>Bloglarga obuna bo&apos;ling va maqolalar haqida habarlar oling</p>

@@ -1,37 +1,39 @@
-$margin: .8rem;
+$padding: 0.6rem;
 
 .container {
-    position: relative;
+  position: relative;
 }
 
 .results-container {
-    z-index: 1;
-    position: absolute;
-    bottom: -.2rem;
-    left: 0;
-    right: 0;
-    transform: translateY(100%);
-    border: 0.5px solid;
-    border-radius: var(--mediumBorderRadius);
-    border: 1px solid var(--lightBlack);
-    overflow: hidden;
-    padding: .7rem;
+  z-index: 1;
+  position: absolute;
+  bottom: -0.2rem;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+  border: 0.5px solid;
+  border-radius: var(--mediumBorderRadius);
+  border: 1px solid var(--lightBlack);
+  overflow: hidden;
 }
 
 .blog {
-    margin-top: $margin;
-    margin-bottom: $margin;
+  padding: $padding;
+  display: block;
+
+  &:hover {
+    background-color: var(--lightGray);
+  }
 }
 
 .article {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: $margin;
-    margin-bottom: $margin;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $padding;
+  cursor: pointer;
 
-    & .img {
-        margin-right: .5rem;
-    }
+  &:hover {
+    background-color: var(--lightGray);
+  }
 }

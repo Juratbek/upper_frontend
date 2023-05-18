@@ -49,10 +49,8 @@ export const SidebarSearch: FC = () => {
         ) : (
           blogs.map((blog) => (
             <Link href={`${WEB_APP_ROOT_DIR}/blogs/${blog.id}`} key={blog.id}>
-              <a onClick={closeResultsContainer}>
-                <div className={classes.blog}>
-                  <Author {...addAmazonUri(blog)} />
-                </div>
+              <a onClick={closeResultsContainer} className={classes.blog}>
+                <Author {...addAmazonUri(blog)} />
               </a>
             </Link>
           ))
@@ -101,15 +99,14 @@ export const SidebarSearch: FC = () => {
       <>
         {hasBlogsContent && (
           <>
-            <h4 className='m-0 mb-1'>Bloglar</h4>
-            <Divider />
+            <h4 className='m-1'>Bloglar</h4>
             {blogs}
+            <Divider />
           </>
         )}
         {hasArticlesContent && (
           <>
-            <h4 className='m-0 mb-1'>Maqolalar</h4>
-            <Divider />
+            <h4 className='m-1'>Maqolalar</h4>
             {articles}
           </>
         )}

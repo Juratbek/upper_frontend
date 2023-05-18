@@ -9,7 +9,8 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
-import { useModal, useShortCut } from 'hooks';
+import { DELETE_CONFIRMATION } from 'frontends/articles';
+import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
@@ -30,13 +31,14 @@ import {
   removeAmazonUriFromImgBlocks,
   validateArticle,
 } from 'utils';
-import { ARTICLE_STATUSES, DELETE_CONFIRMATION, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLE_STATUSES, ICONS, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
 export const UserArticlesSidebar: FC = () => {
   const [alert, setAlert] = useState<string>();
   const [isNotificationOn, setIsNotificationOn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const { push } = useRouter();
+  const { themeColors } = useTheme();
   const {
     register,
     handleSubmit,
@@ -236,13 +238,6 @@ export const UserArticlesSidebar: FC = () => {
       </Modal>
       {status && (
         <>
-          <ArticleStatus className='mb-1' status={status}>
-            {article.publishedArticleId && (
-              <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
-                <a target={'_blank'}>Nashr varyantini ko&apos;rish</a>
-              </Link>
-            )}
-          </ArticleStatus>
           <div className='d-flex flex-wrap m--1'>
             <Button
               className='flex-auto m-1 mb-0'
@@ -270,7 +265,7 @@ export const UserArticlesSidebar: FC = () => {
                 onClick={togglePublishModal}
                 disabled={isDisabled}
               >
-                Nashr qilish
+                Qayta nashr qilish
               </Button>
             )}
           </div>
@@ -308,6 +303,18 @@ export const UserArticlesSidebar: FC = () => {
             inputPlacegolder='Qidirish uchun yozing'
           />
         </div>
+      )}
+      {status && (
+        <ArticleStatus className='mb-1' status={status}>
+          {article.publishedArticleId && (
+            <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
+              <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
+                Nashr varyantini ko&apos;rish
+                <ICONS.openExternal color={themeColors.icon} />
+              </a>
+            </Link>
+          )}
+        </ArticleStatus>
       )}
     </>
   );

@@ -17,7 +17,7 @@ export const PROFILE_TAB_MENUS: ITabHeader[] = [
     id: PROFILE_TAB_IDS.settings,
   },
   {
-    name: 'Kuzatuvchilar',
+    name: 'Obunachilar',
     id: PROFILE_TAB_IDS.followers,
   },
 ];

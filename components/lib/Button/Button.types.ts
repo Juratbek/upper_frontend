@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 export type TButtonSize = 'small' | 'medium';
 
@@ -14,5 +14,6 @@ export type TButtonColor =
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: TButtonColor;
   loading?: boolean;
+  loader?: (() => ReactNode) | ReactNode;
   size?: TButtonSize;
 }

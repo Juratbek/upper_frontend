@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, Article, ArticleSkeleton, Button, Divider } from 'components';
+import { ApiErrorBoundary, Article, ArticleSkeleton, Button } from 'components';
+import { SEARCH_PAGE_ARTICLE_ICONS } from 'frontends/search';
 import { useAuth, useInfiniteScroll, useTheme, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
@@ -9,7 +10,7 @@ import {
 } from 'store/apis';
 import { IArticleResult } from 'types';
 import { addUriToArticleImages } from 'utils';
-import { ARTICLES_SKELETON_COUNT, SEARCH_PAGE_ARTICLE_ICONS } from 'variables';
+import { ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './Home.constants';
 import classes from './Home.module.scss';
@@ -69,7 +70,7 @@ export const HomePage: FC = () => {
   return (
     <div className='container'>
       <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
-      <Divider />
+      <div className='my-2' />
       <div className={`${classes['labels-container']} ${classes[theme]}`}>
         {labels.map((label) => (
           <Button

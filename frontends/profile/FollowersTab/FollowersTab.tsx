@@ -40,13 +40,13 @@ export const FollowersTab: FC = () => {
       {followers?.length === 0 && (
         <div className='text-center'>
           <StorysetImage
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             src='/storyset/write_article.svg'
             storysetUri='creativity'
           />
-          <p>Kuzatuvchilar hozircha yo&apos;q</p>
-          <p>Kuzatuvchilar yig&apos;ish uchun maqola yozing va bilimlaringizni ulashing</p>
+          <p>Obunachilar hozircha yo&apos;q</p>
+          <p>Obunachilar yig&apos;ish uchun maqola yozing va bilimlaringizni ulashing</p>
           <Button
             onClick={writeArticleHandler}
             loading={createArticleRes.isLoading}

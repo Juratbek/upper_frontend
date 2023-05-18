@@ -1,4 +1,4 @@
-import { BlogSkeleton, Follower } from 'components';
+import { BlogSkeleton, Follower, StorysetImage } from 'components';
 import { useInfiniteScrollV2 } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
@@ -33,10 +33,24 @@ export const FollowersTab: FC = () => {
     }
   }, [id]);
 
+  // const subscribers = useMemo(() => {
+  //   if (isSuccess && subscribersList?.length === 0)
+  //     return <p className='text-center'>Kuzatuvchilar yo&apos;q</p>;
+  //   return subscribersList?.map((blog) => (
   const subscribers = useMemo(() => {
-    if (isSuccess && subscribersList?.length === 0)
-      return <p className='text-center'>Kuzatuvchilar yo&apos;q</p>;
-    return subscribersList?.map((blog) => (
+    if (!isSuccess || subscribersList.length === 0)
+      return (
+        <div className='text-center'>
+          <StorysetImage
+            width={250}
+            height={250}
+            src='/storyset/subscriber.svg'
+            storysetUri='creativity'
+          />
+          <p>Bloglarga obuna bo&apos;ling va yangi maqolalar haqida habarlar oling</p>
+        </div>
+      );
+    return subscribersList.map((blog) => (
       <div className='d-flex align-items-center justify-content-between px-3 py-2' key={blog.id}>
         <Follower {...addAmazonUri(blog)} />
       </div>

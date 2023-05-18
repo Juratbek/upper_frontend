@@ -1,4 +1,4 @@
-import { ArticleImg, Author, Label, Status } from 'components';
+import { ArticleImg, Author, Label } from 'components';
 import { Divider } from 'components/lib';
 import { useTheme } from 'hooks';
 import Link from 'next/link';
@@ -24,7 +24,6 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
     labels = [],
     id,
     imgUrl,
-    status,
   } = article;
   const { theme } = useTheme();
   const rootClassName = getClassName(classes.article, classes[theme], props.className);
@@ -53,12 +52,15 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
         <a>
           <div className={classes.body}>
             <div className={classes['text-content']}>
-              <h2 className={classes.title} dangerouslySetInnerHTML={{ __html: title }} />
+              <h2
+                className={classes.title}
+                dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
+              />
               <p className={classes.content} ref={contentRef} />
             </div>
             {imgUrl && <ArticleImg imgUrl={imgUrl} />}
           </div>
-          <div className={classes.footer} style={{ marginTop: props.showStatus ? '0.5rem' : 0 }}>
+          <div className={classes.footer}>
             <div className={classes.stats}>
               {Boolean(date) && (
                 <time style={{ flex: 1 }}>
@@ -106,7 +108,6 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
                   <Label>{label.name}</Label>
                 </span>
               ))}
-              {props.showStatus && status && <Status className='ms-1' status={status} />}
             </div>
           </div>
           {author && (
