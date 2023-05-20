@@ -30,5 +30,6 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     href: '/articles',
     isPrivateRoute: true,
     tooltip: 'Maqolalaringiz',
+    message: 'Maqola yozish uchun shaxsiy profilingizga kiring',
   },
 ];
