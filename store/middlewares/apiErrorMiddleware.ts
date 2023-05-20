@@ -3,7 +3,7 @@ import { blogApi } from 'store/apis';
 import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
 import { authenticate, setCurrentBlog, unauthenticate } from 'store/states';
 import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
-import { REFRESH_TOKEN } from 'variables';
+import { REFRESH_TOKEN, WEB_APP_ROOT_DIR } from 'variables';
 
 export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => async (action) => {
   if (isRejectedWithValue(action)) {
@@ -15,7 +15,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
       dispatch(unauthenticate());
       removeLocalStorageTokens();
       window.location.replace(
-        `/login?redirect=${
+        `${WEB_APP_ROOT_DIR}/login?redirect=${
           window.location.pathname
         }&message=${'Token muddadi yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
       );

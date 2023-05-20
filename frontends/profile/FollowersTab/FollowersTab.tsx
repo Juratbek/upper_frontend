@@ -1,7 +1,10 @@
 import { ApiErrorBoundary, BlogSkeleton, Button, Follower, StorysetImage } from 'components';
+import { useInfiniteScrollV2 } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, Fragment, useCallback, useEffect } from 'react';
-import { useCreateArticleMutation, useLazyGetCurrentBlogFollowersQuery } from 'store/apis';
+import { FC, Fragment, useCallback, useEffect, useMemo } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useCreateArticleMutation, useLazyGetCurrentBlogSubscribersQuery } from 'store/apis';
+import { IBlogMedium } from 'types';
 import { addAmazonUri } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
 import { PROFILE_TAB_IDS } from 'variables/Profile.constants';
@@ -11,13 +14,13 @@ export const FollowersTab: FC = () => {
     query: { tab },
     push,
   } = useRouter();
-  const [fetchFollowers, fetchFollowersRes] = useLazyGetCurrentBlogFollowersQuery();
-  const { data: followers } = fetchFollowersRes;
   const [createArticle, createArticleRes] = useCreateArticleMutation();
+  const subscribersRes = useInfiniteScrollV2<IBlogMedium>(useLazyGetCurrentBlogSubscribersQuery);
+  const { fetchFirstPage, hasMore, fetchNextPage, list: subscribers } = subscribersRes;
 
   useEffect(() => {
     if (tab && tab === PROFILE_TAB_IDS.followers) {
-      fetchFollowers();
+      fetchFirstPage();
     }
   }, [tab]);
 
@@ -30,14 +33,9 @@ export const FollowersTab: FC = () => {
     }
   }, []);
 
-  return (
-    <ApiErrorBoundary
-      fallback={<BlogSkeleton className='px-3 py-2 w-50 w-mobile-100' />}
-      fallbackItemCount={3}
-      res={fetchFollowersRes}
-      memoizationDependencies={[createArticleRes.isLoading, createArticleRes.isSuccess]}
-    >
-      {followers?.length === 0 && (
+  const subscribersRender = useMemo(() => {
+    if (subscribers.length === 0) {
+      return (
         <div className='text-center'>
           <StorysetImage
             width={250}
@@ -56,12 +54,35 @@ export const FollowersTab: FC = () => {
             Maqola yozish
           </Button>
         </div>
-      )}
-      {followers?.map((follower) => (
-        <Fragment key={follower.id}>
-          <Follower {...addAmazonUri(follower)} className='px-3 py-2' />
-        </Fragment>
-      ))}
+      );
+    }
+    return subscribers.map((subscriber) => (
+      <Fragment key={subscriber.id}>
+        <Follower {...addAmazonUri(subscriber)} className='px-3 py-2' />
+      </Fragment>
+    ));
+  }, [subscribers]);
+
+  return (
+    <ApiErrorBoundary
+      fallback={<BlogSkeleton className='px-3 py-2 w-50 w-mobile-100' />}
+      fallbackItemCount={3}
+      res={subscribersRes}
+      memoizationDependencies={[createArticleRes.isLoading, createArticleRes.isSuccess]}
+    >
+      <InfiniteScroll
+        hasMore={hasMore}
+        loader={Array(3)
+          .fill('')
+          .map((_, index) => (
+            <BlogSkeleton key={index} className='px-3 py-2' />
+          ))}
+        dataLength={subscribers.length}
+        next={fetchNextPage}
+        scrollableTarget='main'
+      >
+        {subscribersRender}
+      </InfiniteScroll>
     </ApiErrorBoundary>
   );
 };
