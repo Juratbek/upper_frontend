@@ -63,14 +63,11 @@ export const useInfiniteScrollV2 = <T>(
   };
 
   useEffect(() => {
-    if (
-      requestIdRef.current &&
-      fetchRes.requestId &&
-      fetchRes.requestId !== requestIdRef.current &&
-      fetchRes.status === 'fulfilled' &&
-      fetchRes.data?.list &&
-      fetchRes.originalArgs?.page === 0
-    ) {
+    const hasIds = requestIdRef.current && fetchRes.requestId;
+    const isIdChanged = fetchRes.requestId !== requestIdRef.current;
+    const isRequestFulfilled = fetchRes.status === 'fulfilled';
+    const isFirstPage = fetchRes.originalArgs?.page === 0;
+    if (hasIds && isIdChanged && isRequestFulfilled && fetchRes.data?.list && isFirstPage) {
       setList(fetchRes.data.list);
       setPage(1);
     }
