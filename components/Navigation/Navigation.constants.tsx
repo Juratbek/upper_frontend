@@ -16,15 +16,17 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     href: '/profile',
     isPrivateRoute: true,
     tooltip: 'Profilingiz',
+    isShownAfterAuthentication: true,
   },
   {
     icon: 'notification',
     href: '/notifications',
     isPrivateRoute: true,
     tooltip: 'Habarlar',
+    isShownAfterAuthentication: true,
   },
   {
-    icon: 'menuList',
+    icon: 'pen',
     href: '/articles',
     isPrivateRoute: true,
     tooltip: 'Maqolalaringiz',
