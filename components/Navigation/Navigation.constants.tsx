@@ -14,19 +14,19 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
     icon: 'user',
     href: '/profile',
-    private: true,
+    isPrivateRoute: true,
     tooltip: 'Profilingiz',
   },
   {
     icon: 'notification',
     href: '/notifications',
-    private: true,
+    isPrivateRoute: true,
     tooltip: 'Habarlar',
   },
   {
     icon: 'menuList',
     href: '/articles',
-    private: true,
+    isPrivateRoute: true,
     tooltip: 'Maqolalaringiz',
   },
 ];
