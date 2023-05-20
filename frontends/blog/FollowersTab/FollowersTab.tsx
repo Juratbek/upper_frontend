@@ -23,7 +23,6 @@ export const FollowersTab: FC = () => {
   } = infiniteScrollApi;
 
   const fetchNextPageHandler = (): void => {
-    debugger;
     id && fetchNextPage({ articleId: +id });
   };
 
@@ -33,12 +32,8 @@ export const FollowersTab: FC = () => {
     }
   }, [id]);
 
-  // const subscribers = useMemo(() => {
-  //   if (isSuccess && subscribersList?.length === 0)
-  //     return <p className='text-center'>Kuzatuvchilar yo&apos;q</p>;
-  //   return subscribersList?.map((blog) => (
   const subscribers = useMemo(() => {
-    if (!isSuccess || subscribersList.length === 0)
+    if (isSuccess && subscribersList?.length === 0)
       return (
         <div className='text-center'>
           <StorysetImage

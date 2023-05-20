@@ -5,7 +5,6 @@ import {
   IBlogMedium,
   IBlogSmall,
   ILabel,
-  IPagingResponse,
   ITelegramUser,
   TOptionalPagingRequest,
 } from 'types';
@@ -82,9 +81,6 @@ export const blogApi = createApi({
         body,
       }),
       invalidatesTags: ['current-blog'],
-    }),
-    getCurrentBlogFollowers: build.query<IBlogMedium[], void>({
-      query: () => 'current-blog-followers',
     }),
     getById: build.query<IBlog, { id: number; token?: string | null }>({
       query: ({ id, token }) => ({
@@ -166,7 +162,6 @@ export const {
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
-  useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,

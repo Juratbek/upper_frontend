@@ -35,6 +35,12 @@ export const subscriptionApi = createApi({
       query: ({ id, ...params }) => ({ url: `open/subscribers/${id}`, params }),
       providesTags: ['subscribers'],
     }),
+    getCurrentBlogSubscribers: build.query<
+      IPagingResponse<IBlogMedium>,
+      { page: number; size: number }
+    >({
+      query: (params) => ({ url: 'current-blog-subscribers', params }),
+    }),
   }),
 });
 export const {
@@ -42,4 +48,5 @@ export const {
   useSubscribeMutation,
   useUnSubscribeMutation,
   useLazyGetSubscribersQuery: useLazyGetBlogSubscribersQuery,
+  useLazyGetCurrentBlogSubscribersQuery,
 } = subscriptionApi;

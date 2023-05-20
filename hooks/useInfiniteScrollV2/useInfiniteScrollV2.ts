@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { DEFAULT_CONFIG, DEFAULT_PAGE_SIZE } from './useInfiniteScrollV2.constants';
 import {
@@ -19,6 +19,7 @@ export const useInfiniteScrollV2 = <T>(
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const { size = DEFAULT_PAGE_SIZE } = config;
+  const requestIdRef = useRef<string | null | undefined>(null);
 
   const incrementPage = (): void => setPage((prev) => 1 + prev);
 
@@ -26,8 +27,10 @@ export const useInfiniteScrollV2 = <T>(
 
   const fetchFirstPage: TFetchFirstPage = async (params) => {
     try {
-      const res = await fetch({ page: 0, size, ...params }).unwrap();
-      const newItems = res.list || [];
+      const res = fetch({ page: 0, size, ...params });
+      requestIdRef.current = (await res).requestId;
+      const data = await res.unwrap();
+      const newItems = data.list || [];
       setList(newItems);
       setPage(1);
       if (newItems.length < size) setHasMore(false);
@@ -58,6 +61,20 @@ export const useInfiniteScrollV2 = <T>(
       if (newItems.length < size) setHasMore(false);
     });
   };
+
+  useEffect(() => {
+    if (
+      requestIdRef.current &&
+      fetchRes.requestId &&
+      fetchRes.requestId !== requestIdRef.current &&
+      fetchRes.status === 'fulfilled' &&
+      fetchRes.data?.list &&
+      fetchRes.originalArgs?.page === 0
+    ) {
+      setList(fetchRes.data.list);
+      setPage(1);
+    }
+  }, [fetchRes.requestId, fetchRes.status]);
 
   return {
     ...fetchRes,
