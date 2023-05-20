@@ -27,12 +27,14 @@ export const Navigation = (): JSX.Element => {
   const { isMobile } = useDevice();
 
   const icons = useMemo(() => {
-    return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
+    return isAuthenticated
+      ? NAVIGATION_ICONS
+      : NAVIGATION_ICONS.filter((icon) => !icon.isPrivateRoute);
   }, [isAuthenticated]);
 
   const clickHandler = (navigationIcon: INavigationIcon): void => {
-    const { href, message } = navigationIcon;
-    if (!isAuthenticated) {
+    const { href, message, isPrivateRoute } = navigationIcon;
+    if (!isAuthenticated && isPrivateRoute) {
       dispatch(openLoginModal(message));
     } else {
       router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);

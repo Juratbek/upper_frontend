@@ -6,6 +6,6 @@ export interface INavigationIcon {
   href: string;
   tooltip: string;
   color?: string;
-  private?: boolean;
+  isPrivateRoute?: boolean;
   message?: ReactNode;
 }
