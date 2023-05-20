@@ -8,4 +8,5 @@ export interface INavigationIcon {
   color?: string;
   isPrivateRoute?: boolean;
   message?: ReactNode;
+  isShownAfterAuthentication?: boolean;
 }

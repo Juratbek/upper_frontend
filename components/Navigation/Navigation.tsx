@@ -29,7 +29,7 @@ export const Navigation = (): JSX.Element => {
   const icons = useMemo(() => {
     return isAuthenticated
       ? NAVIGATION_ICONS
-      : NAVIGATION_ICONS.filter((icon) => !icon.isPrivateRoute);
+      : NAVIGATION_ICONS.filter((icon) => !icon.isShownAfterAuthentication);
   }, [isAuthenticated]);
 
   const clickHandler = (navigationIcon: INavigationIcon): void => {
