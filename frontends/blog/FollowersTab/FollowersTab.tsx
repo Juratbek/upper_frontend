@@ -12,7 +12,9 @@ export const FollowersTab: FC = () => {
   const {
     query: { id, tab },
   } = useRouter();
-  const infiniteScrollApi = useInfiniteScrollV2<IBlogMedium>(useLazyGetBlogSubscribersQuery);
+  const infiniteScrollApi = useInfiniteScrollV2<IBlogMedium>(useLazyGetBlogSubscribersQuery, {
+    shouldBeInvalidated: true,
+  });
 
   const {
     list: subscribersList,
