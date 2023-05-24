@@ -73,40 +73,27 @@ export const UserArticlesSidebar: FC = () => {
           status={article.status}
         />
       )}
-      {article.status && (
-        <>
-          <div className='d-flex flex-wrap m--1'>
-            <Button
-              className='flex-auto m-1 mb-0'
-              color='outline-dark'
-              type='button'
-              onClick={saveChanges}
-              loading={updateArticleRes.isLoading}
-            >
-              Saqlash
-            </Button>
-            {status === ARTICLE_STATUSES.SAVED && (
-              <Button
-                className='flex-auto m-1 mb-0'
-                type='button'
-                onClick={togglePublishModal}
-                disabled={updateArticleRes.isLoading}
-              >
-                Nashr qilish
-              </Button>
-            )}
-            {article.hasNotpublishedChanges && (
-              <Button
-                className='flex-auto m-1 mb-0'
-                onClick={togglePublishModal}
-                disabled={updateArticleRes.isLoading}
-              >
-                Qayta nashr qilish
-              </Button>
-            )}
-          </div>
-        </>
-      )}
+      <>
+        <div className='d-flex flex-wrap m--1'>
+          <Button
+            className='flex-auto m-1 mb-0'
+            color='outline-dark'
+            type='button'
+            onClick={saveChanges}
+            loading={updateArticleRes.isLoading}
+          >
+            Saqlash
+          </Button>
+          <Button
+            className='flex-auto m-1 mb-0'
+            type='button'
+            onClick={togglePublishModal}
+            disabled={updateArticleRes.isLoading}
+          >
+            {article.status === ARTICLE_STATUSES.SAVED ? 'Nashr qilish' : 'Qayta nashr qilish'}
+          </Button>
+        </div>
+      </>
       <Divider className='my-2' />
       <h2>Sozlamalar</h2>
       <div className='mb-1'>
@@ -138,18 +125,16 @@ export const UserArticlesSidebar: FC = () => {
           inputPlacegolder='Qidirish uchun yozing'
         />
       </div>
-      {article.status && (
-        <ArticleStatus className='mb-1' status={article.status}>
-          {article.publishedArticleId && (
-            <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
-              <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
-                Nashr varyantini ko&apos;rish
-                <ICONS.openExternal color={themeColors.icon} />
-              </a>
-            </Link>
-          )}
-        </ArticleStatus>
-      )}
+      <ArticleStatus className='mb-1' status={article.status}>
+        {article.publishedArticleId && (
+          <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
+            <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
+              Nashr varyantini ko&apos;rish
+              <ICONS.openExternal color={themeColors.icon} />
+            </a>
+          </Link>
+        )}
+      </ArticleStatus>
     </>
   );
 };
