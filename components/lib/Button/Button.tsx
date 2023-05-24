@@ -1,13 +1,16 @@
 import { Spinner } from 'components';
 import { useTheme } from 'hooks';
-import { FC, useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { getClassName } from 'utils';
 
 import { BUTTON_SPINNER_COLORS } from './Button.constants';
 import classes from './Button.module.scss';
 import { IButtonProps } from './Button.types';
 
-export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }) => {
+export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Component(
+  { children, loading = false, ...props },
+  ref,
+) {
   const { color = 'dark', size = 'medium' } = props;
   const { theme } = useTheme();
   const className = useMemo(
@@ -35,8 +38,8 @@ export const Button: FC<IButtonProps> = ({ children, loading = false, ...props }
   }, [loading, children]);
 
   return (
-    <button {...props} className={className} disabled={props.disabled || loading}>
+    <button ref={ref} {...props} className={className} disabled={props.disabled || loading}>
       {content}
     </button>
   );
-};
+});

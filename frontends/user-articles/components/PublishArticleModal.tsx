@@ -2,7 +2,7 @@ import EditorJS from '@editorjs/editorjs';
 import { Alert, Button, Input, Lordicon, Modal } from 'components';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ChangeEvent, FC, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { usePublishMutation } from 'store/apis';
 import { setArticle } from 'store/states';
@@ -23,6 +23,7 @@ export const PublishArticleModal: FC<{
   const [isNotificationOn, setIsNotificationOn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
+  const publishBtnRef = useRef<HTMLButtonElement>(null);
 
   const alertComponent = useMemo(
     () => (
@@ -68,6 +69,10 @@ export const PublishArticleModal: FC<{
     if (value === 'false') setIsNotificationOn(false);
     if (value === 'true') setIsNotificationOn(true);
   };
+
+  useEffect(() => {
+    if (props.open) publishBtnRef.current?.focus();
+  }, [props.open]);
 
   const renderContent = (): JSX.Element => {
     if (publishArticleRes.isSuccess) {
@@ -120,6 +125,7 @@ export const PublishArticleModal: FC<{
             Modalni yopish
           </Button>
           <Button
+            ref={publishBtnRef}
             onClick={publish}
             className='flex-1'
             loading={publishArticleRes.isLoading || props.saving}

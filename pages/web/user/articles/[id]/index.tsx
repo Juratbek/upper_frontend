@@ -63,6 +63,7 @@ export default function UserArticlePage(): JSX.Element {
           blocks: blocks,
         }}
         handleInstance={getInstance}
+        autoFocus
       />
     );
   };

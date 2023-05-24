@@ -1,3 +1,5 @@
+@import 'styles/_mixins';
+
 .button {
   background-color: transparent;
   border-radius: 100em;
@@ -147,8 +149,16 @@
 .small {
   padding: 0.3em 0.8em;
   font-size: 0.8rem;
+
+  @include screenMax576 {
+    padding: 0.5em 1em;
+  }
 }
 .medium {
   padding: 0.4em 1em;
   font-size: 1rem;
+
+  @include screenMax576 {
+    padding: 0.6em 1.2em;
+  }
 }
