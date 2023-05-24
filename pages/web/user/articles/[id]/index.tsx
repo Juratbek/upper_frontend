@@ -59,6 +59,7 @@ export default function UserArticlePage(): JSX.Element {
 
     return (
       <Editor
+        autoFocus={!blocks.length}
         content={{
           blocks: blocks,
         }}
