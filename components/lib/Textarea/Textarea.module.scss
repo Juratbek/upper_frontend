@@ -9,6 +9,9 @@
   background-color: transparent;
   color: inherit;
   outline: transparent solid 1px;
+  max-height: 120px;
+  min-height: 45px;
+  height: 45px;
 
   &--transparent {
     border: none;

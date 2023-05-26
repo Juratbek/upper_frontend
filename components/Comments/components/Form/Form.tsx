@@ -1,7 +1,7 @@
 import { Button, Error, Textarea } from 'components';
 import { useDevice } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, FormEvent, useCallback, useEffect, useRef } from 'react';
+import React, { FC, FormEvent, useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateCommentMutation, useEditCommentMutation } from 'store/apis';
 import { TSubmitFormEvent } from 'types';
@@ -50,11 +50,13 @@ export const Form: FC<IFormProps> = (props) => {
   );
 
   const onChangeComment = (event: FormEvent<HTMLTextAreaElement>): void => {
-    const value = event.currentTarget.value;
-    setValue('text', value);
-    if (errors.text && value.trim()) {
+    const target = event.currentTarget as HTMLTextAreaElement;
+    setValue('text', target.value);
+    if (errors.text && target.value.trim()) {
       clearErrors('text');
     }
+    target.style.height = '0';
+    target.style.height = target.scrollHeight + 5 + 'px';
   };
 
   useEffect(() => {
