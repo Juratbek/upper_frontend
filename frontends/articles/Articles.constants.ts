@@ -1,6 +1,8 @@
 import { ITabBody, ITabHeader } from 'types';
 
-import { PublishedArticlesTab, SavedArticlesTab, TutorialsTab } from '../articles';
+import PublishedArticlesTab from './PublishedArticlesTab/PublishedArticlesTab';
+import SavedArticlesTab from './SavedArticlesTab/SavedArticlesTab';
+import TutorialsTab from './TutorialsTab/TutorialsTab';
 
 export const TAB_IDS = {
   publishedArticles: 'publishedArticles',

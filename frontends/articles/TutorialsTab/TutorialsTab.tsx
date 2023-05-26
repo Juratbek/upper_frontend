@@ -16,7 +16,7 @@ import { setTutorial } from 'store/states';
 import { TArticleStatus } from 'types';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
 
-export const TutorialsTab: FC = () => {
+const TutorialsTab: FC = () => {
   const dispatch = useDispatch();
   const [createTutorial] = useCreateTutorialMutation();
   const [fetchTutorials, fetchTutorialsRes] = useLazyGetAllTutorialsQuery();
@@ -88,3 +88,5 @@ export const TutorialsTab: FC = () => {
     </div>
   );
 };
+
+export default TutorialsTab;
