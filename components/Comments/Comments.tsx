@@ -1,8 +1,8 @@
 import { Button, CommentSkeleton, Divider } from 'components';
 import { StorysetImage } from 'components/lib';
-import { useAuth, useClickOutside, useInfiniteScrollV2, useTheme } from 'hooks';
+import { useAuth, useClickOutside, useDevice, useInfiniteScrollV2, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
@@ -28,13 +28,24 @@ export const Comments = (): JSX.Element => {
     query: { id },
   } = useRouter();
   const { themeColors } = useTheme();
+  const { isMobile } = useDevice();
   const isOpen = useAppSelector(getIsCommentsSidebarOpen);
-  const rootClassName = getClassName(classes['comments'], isOpen && classes['comments--open']);
+  const [isCommentFocused, setIsCommentFocused] = useState<boolean>(false);
+  const rootClassName = getClassName(
+    classes['comments'],
+    isOpen && classes['comments--open'],
+    isCommentFocused && isMobile && classes['commentsInputFocused'],
+  );
   const infiniteScrollApi = useInfiniteScrollV2<IComment>(useLazyGetCommentsByArticleIdQuery);
   const { hasMore, fetchFirstPage, fetchNextPage, list: comments, isLoading } = infiniteScrollApi;
 
+  const commentInputFocusHandle: React.FocusEventHandler<HTMLTextAreaElement> = (e): void => {
+    setIsCommentFocused(e.type === 'focus');
+  };
+
   const closeComments = useCallback(() => {
     dispatch(closeCommentsSidebar());
+    setIsCommentFocused(false);
   }, []);
 
   const [rootRef] = useClickOutside(closeComments, '[data-action="open-comments"]');
@@ -146,6 +157,7 @@ export const Comments = (): JSX.Element => {
             isBeingEdited={isBeingEdited}
             onSubmit={submitHandler}
             api={infiniteScrollApi}
+            focusHandler={commentInputFocusHandle}
           />
         ) : (
           <div>

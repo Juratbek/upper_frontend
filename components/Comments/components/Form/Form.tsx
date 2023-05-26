@@ -1,7 +1,7 @@
 import { Button, Error, Textarea } from 'components';
 import { useDevice } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, FormEvent, useCallback, useEffect } from 'react';
+import { FC, FormEvent, useCallback, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateCommentMutation, useEditCommentMutation } from 'store/apis';
 import { TSubmitFormEvent } from 'types';
@@ -103,6 +103,7 @@ export const Form: FC<IFormProps> = (props) => {
                 rows={2}
                 placeholder='Izohingizni bu yerga yozing'
                 color={isMobile ? 'dark' : 'transparent'}
+                onFocus={props.focusHandler}
                 {...register('text', {
                   required: {
                     value: true,

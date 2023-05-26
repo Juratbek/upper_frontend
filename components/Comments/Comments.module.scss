@@ -89,3 +89,23 @@
   font-size: 18px;
   padding: 10px;
 }
+
+.commentsInputFocused {
+  padding-top: 1rem;
+
+  & .form {
+    order: 1;
+    border-bottom: 0.5px solid black;
+    border-top: none;
+  }
+
+  & .comments-list {
+    order: 2;
+    margin-top: 0;
+  }
+
+  & .selected-comment {
+    border-bottom: 0.5px solid black;
+    border-top: none;
+  }
+}
