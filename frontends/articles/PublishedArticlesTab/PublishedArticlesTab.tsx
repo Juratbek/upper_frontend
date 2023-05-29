@@ -13,7 +13,7 @@ import { useCreateArticleMutation, useLazyGetBlogArticlesQuery } from 'store/api
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
 
-export const PublishedArticlesTab: FC = () => {
+const PublishedArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();
   const [createArticle, createArticleRes] = useCreateArticleMutation();
   const {
@@ -94,3 +94,5 @@ export const PublishedArticlesTab: FC = () => {
     </div>
   );
 };
+
+export default PublishedArticlesTab;
