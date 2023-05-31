@@ -61,13 +61,17 @@ export const Article: FC<IArticleProps> = ({
     if (!article) return;
     setLikeCount(article.likeCount || 0);
     article.author && dispatch(setArticleAuthor(article.author));
-    const timeout = setTimeout(() => {
-      if (article.token) {
-        const { id, token } = article;
-        incrementViewCountRequest({ id, token });
-      }
-    }, 15 * 1000);
-    return () => clearTimeout(timeout);
+    // const timeout = setTimeout(() => {
+    //   if (article.token) {
+    //     const { id, token } = article;
+    //     incrementViewCountRequest({ id, token });
+    //   }
+    // }, 15 * 1000);
+    // return () => clearTimeout(timeout);
+    if (article.token) {
+      const { id, token } = article;
+      incrementViewCountRequest({ id, token });
+    }
   }, [article?.id]);
 
   const articleComponent = useMemo(
