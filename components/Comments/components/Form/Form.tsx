@@ -1,7 +1,7 @@
 import { Button, Error, Textarea } from 'components';
 import { useDevice } from 'hooks';
 import { useRouter } from 'next/router';
-import React, { FC, FormEvent, useCallback, useEffect, useRef } from 'react';
+import { FC, FormEvent, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateCommentMutation, useEditCommentMutation } from 'store/apis';
 import { TSubmitFormEvent } from 'types';
@@ -96,6 +96,7 @@ export const Form: FC<IFormProps> = (props) => {
 
   return (
     <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
+      <input style={{ display: 'none' }} autoFocus={true} />
       {isMobile ? (
         <div>
           <div className='d-flex align-items-center'>
