@@ -142,14 +142,18 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
     [editor],
   );
 
+  const checkCaretPosition = (currentCaretPosition: number, lastPosition: number): boolean => {
+    return (
+      (currentCaretPosition >= lastPosition || lastPosition - 1 === currentCaretPosition) &&
+      positionsList.current[0] - 1 !== currentCaretPosition
+    );
+  };
+
   const queryListener = useCallback((e: InputEvent): void => {
     const target = e.target as HTMLDivElement;
     const currentCaretPosition = getCaretCharacterOffsetWithin(target);
     const lastPosition = positionsList.current[positionsList.current.length - 1];
-    if (
-      (currentCaretPosition >= lastPosition || lastPosition - 1 === currentCaretPosition) &&
-      positionsList.current[0] - 1 !== currentCaretPosition
-    ) {
+    if (checkCaretPosition(currentCaretPosition, lastPosition) && e.data !== ' ') {
       positionsList.current.push(currentCaretPosition);
       setEmojiQuery(
         (target.textContent as string).slice(
