@@ -22,7 +22,11 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   targetTextCoords,
 }) => {
   const emojiListKeys = useMemo<string[]>(() => {
-    return Object.keys(emojis);
+    // to prevent number emojis appearing as first
+    const lastItems = ['100', '1234'];
+    const keys = Object.keys(emojis).filter((key) => !lastItems.includes(key));
+    keys.push(...lastItems);
+    return keys;
   }, []);
 
   useLayoutEffect(() => {
