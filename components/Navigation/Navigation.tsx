@@ -89,7 +89,7 @@ export const Navigation = (): JSX.Element => {
                   onClick={(): void => clickHandler(navigationIcon)}
                   icon={Icon}
                   className='pointer'
-                  active={href === router.pathname}
+                  active={WEB_APP_ROOT_DIR + href === router.pathname}
                   badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
                 />
               </Tooltip>

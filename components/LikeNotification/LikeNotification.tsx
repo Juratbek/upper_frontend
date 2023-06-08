@@ -20,7 +20,7 @@ export const LikeNotification: FC<INotificationComponentProp> = (props) => {
           />{' '}
           maqolangiz{' '}
           <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} className='link'>
-            <strong className='pointer'>{author.name}ga</strong>
+            <strong className='pointer'>{author.name}</strong>ga
           </Link>{' '}
           yoqdi
         </div>

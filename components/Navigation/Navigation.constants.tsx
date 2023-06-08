@@ -3,7 +3,7 @@ import { INavigationIcon } from './Navigation.types';
 export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
     icon: 'home',
-    href: '/',
+    href: '',
     tooltip: 'Asosiy sahifa',
   },
   {
