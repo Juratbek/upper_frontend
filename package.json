@@ -11,7 +11,8 @@
     "prettier": "prettier --write \"**/*.{ts,tsx}\"",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "test-coverage": "jest --coverage"
   },
   "lint-staged": {
     "**/*.{ts,tsx}": [
