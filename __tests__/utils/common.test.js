@@ -1,4 +1,4 @@
-import { getClassName, isClientSide, get } from '../../utils/common';
+import { getClassName, isClientSide, get, validatePassword } from '../../utils/common';
 
 describe('getClassName', () => {
   it('combines classnames', () => {
@@ -28,5 +28,24 @@ describe('get', () => {
   it('returns undefined if field does not exist', () => {
     const city = get(mock, 'blog.name');
     expect(city).toEqual(undefined);
+  });
+});
+
+describe('validatePassword', () => {
+  it('checks for valid password', () => {
+    const invalid = validatePassword('passwordA1');
+    expect(invalid).toEqual(true);
+  });
+  it('checks password containing uppercase letters', () => {
+    expect(validatePassword('password1')).toEqual(false);
+    expect(validatePassword('passworD1')).toEqual(true);
+  });
+  it('checks password containing lowercase letters', () => {
+    expect(validatePassword('PASSWORD1')).toEqual(false);
+    expect(validatePassword('PASSWORd1')).toEqual(true);
+  });
+  it('checks password containing numbers', () => {
+    expect(validatePassword('passworD')).toEqual(false);
+    expect(validatePassword('passworD1')).toEqual(true);
   });
 });
