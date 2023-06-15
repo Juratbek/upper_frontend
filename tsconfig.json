@@ -19,6 +19,6 @@
       "./node_modules/@editorjs/editorjs/types",
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__tests__/**.ts"],
   "exclude": ["node_modules"]
 }
