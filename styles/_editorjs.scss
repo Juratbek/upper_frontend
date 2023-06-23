@@ -131,6 +131,19 @@
       }
     }
 
+    // styles for text color inline plugin
+    .ce-inline-tool.colorPlugin {
+      #color-left-btn {
+        width: 20px;
+      }
+      #color-btn-text {
+        height: unset;
+        svg {
+          height: 20px;
+        }
+      }
+    }
+
     // styles for gyperlink tool input
     .ce-inline-toolbar__actions input {
       background-color: transparent;
