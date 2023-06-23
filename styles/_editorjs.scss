@@ -60,6 +60,18 @@
   position: relative;
   .ce-inline-toolbar {
     z-index: 4;
+    .ce-inline-toolbar__buttons{
+      button{
+        position: relative;
+        xy-color-picker{
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          padding: 0;
+        }
+      }
+    }
   }
 }
 
@@ -115,7 +127,11 @@
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
     border-width: 0.5px;
-
+    .ce-inline-toolbar__buttons{
+      xy-color-picker{
+        background-color: var(--popover-bg);
+      }
+    }
     .ce-inline-toolbar__dropdown {
       border-top-left-radius: 6px;
       border-bottom-left-radius: 6px;
