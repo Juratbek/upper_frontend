@@ -108,34 +108,37 @@
     }
   }
 
-  .ce-inline-tool-input {
-    background-color: var(--popover-bg);
-    border-radius: 0 0 6px 6px;
-  }
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
-    border-width: 0.5px;
 
+    // inline toolbar tool buttons styles
+    .ce-inline-tool,
     .ce-inline-toolbar__dropdown {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
       &:hover {
         background-color: var(--lightBlack);
       }
     }
 
-    .ce-inline-tool {
-      &:hover {
-        background-color: var(--lightBlack);
+    // styles for text color inline plugin
+    .ce-inline-tool.colorPlugin {
+      #color-left-btn {
+        width: 20px;
+      }
+      #color-btn-text {
+        height: unset;
+        svg {
+          height: 20px;
+        }
       }
     }
 
-    .ce-inline-toolbar__actions {
-      input {
-        color: black;
-      }
+    // styles for gyperlink tool input
+    .ce-inline-toolbar__actions input {
+      background-color: transparent;
+      border-radius: 0 0 10px 10px;
     }
 
+    // inline toolbar 'CONVERT TO' popover styles
     .ce-conversion-toolbar {
       background-color: var(--popover-bg);
 
@@ -275,6 +278,7 @@
       background-color: transparent;
     }
   }
+
   .codex-editor__redactor {
     .cdx-block.inline-image {
       & > .inline-image__control-panel {
