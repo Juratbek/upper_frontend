@@ -34,7 +34,7 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   },
   {
     icon: 'steps',
-    href: '/tutorials',
+    href: '/user/tutorials',
     tooltip: "To'plamlar",
   },
 ];
