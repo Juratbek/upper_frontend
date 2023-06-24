@@ -32,4 +32,9 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     tooltip: 'Maqolalaringiz',
     message: 'Maqola yozish uchun shaxsiy profilingizga kiring',
   },
+  {
+    icon: 'steps',
+    href: '/tutorials',
+    tooltip: "To'plamlar",
+  },
 ];

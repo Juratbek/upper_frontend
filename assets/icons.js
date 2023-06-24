@@ -589,3 +589,21 @@ export const OpenExternal = ({ color = 'black', width = 20, height = 20 }) => (
     />
   </svg>
 );
+
+export const Steps = ({ color = 'black', width = 20, height = 20 }) => (
+  <svg width={width} height={height} viewBox='0 0 25 25' fill='none'>
+    <g clip-path='url(#clip0_1413_579)'>
+      <path
+        d='M23.4375 23.4375H17.1875V3.125H23.4375V23.4375ZM18.75 21.875H21.875V4.6875H18.75V21.875Z'
+        fill={color}
+      />
+      <path d='M15.625 23.4375H9.375V9.375H15.625V23.4375Z' fill={color} />
+      <path d='M7.8125 23.4375H1.5625V14.0625H7.8125V23.4375Z' fill={color} />
+    </g>
+    <defs>
+      <clipPath id='clip0_1413_579'>
+        <rect width='25' height='25' fill='white' />
+      </clipPath>
+    </defs>
+  </svg>
+);
