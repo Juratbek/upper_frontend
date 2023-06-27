@@ -9,9 +9,10 @@ export const createEditor = async ({
   content = { blocks: [] },
   placeholder = EDITOR_PLACEHOLDER,
   autoFocus = false,
+  onQuizSubmit,
 }: IEditorProps = {}): Promise<EditorJs> => {
   const editorJS = (await import('@editorjs/editorjs')).default;
-  const tools = await getTools();
+  const tools = await getTools({ onQuizSubmit });
 
   return new editorJS({
     holder: EDITOR_HOLDER,

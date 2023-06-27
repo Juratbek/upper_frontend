@@ -23,7 +23,7 @@ export default function TutorialsPage(): JSX.Element {
     <div className='container'>
       <Head title='Arxiv' url='/articles' />
       <div className='d-flex justify-content-between align-items-center'>
-        <h1>Maqolalaringiz</h1>
+        <h1>To&apos;plamlaringiz</h1>
         <Button
           onClick={writeArticleHandler}
           loading={createTutorialRes.isLoading}

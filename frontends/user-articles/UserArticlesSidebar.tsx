@@ -33,15 +33,19 @@ export const UserArticlesSidebar: FC = () => {
     if (!editor || !article) return Promise.reject();
 
     const editorData = await editor?.save();
+    console.log(
+      '🚀 ~ file: UserArticlesSidebar.tsx:36 ~ saveChanges ~ editorData',
+      editorData.blocks,
+    );
 
     // Don't save image urls in database. Only image IDs
-    const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-    const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
+    // const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
+    // const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
 
-    const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
-    dispatch(setArticle({ ...article, ...updatedArticle }));
+    // const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
+    // dispatch(setArticle({ ...article, ...updatedArticle }));
 
-    if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
+    // if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {

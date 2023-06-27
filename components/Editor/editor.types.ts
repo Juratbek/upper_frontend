@@ -7,6 +7,7 @@ export interface IEditorProps {
   placeholder?: string;
   handleInstance?: (editor: EditorJS) => void;
   autoFocus?: boolean;
+  onQuizSubmit?: (data: unknown) => void;
 }
 
 export const EDITOR_HOLDER = 'editorjs';

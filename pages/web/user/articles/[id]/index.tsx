@@ -64,6 +64,7 @@ export default function UserArticlePage(): JSX.Element {
         }}
         handleInstance={getInstance}
         autoFocus
+        onQuizSubmit={console.log}
       />
     );
   };

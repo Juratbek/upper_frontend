@@ -2,6 +2,7 @@ import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
 import { IUploadedImage } from '../editor.types';
+import Exam from '../plugins/exam/exam';
 import { unsplashToolHtml } from './unsplashTool';
 
 type TTool =
@@ -32,7 +33,11 @@ const TOOLS: Record<TTool, any> = {
   CodeFlask: undefined,
 };
 
-export const getTools = async (): Promise<EditorConfig['tools']> => {
+export const getTools = async ({
+  onQuizSubmit,
+}: {
+  onQuizSubmit?: (data: unknown) => void;
+}): Promise<EditorConfig['tools']> => {
   const tools = await Promise.all([
     import('@editorjs/embed'),
     import('@editorjs/header'),
@@ -142,6 +147,12 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     inlineCode: {
       class: TOOLS.InclineCode,
       inlineToolbar: true,
+    },
+    exam: {
+      class: Exam,
+      config: {
+        onSubmit: onQuizSubmit,
+      },
     },
   };
 };
