@@ -148,7 +148,7 @@ export const getTools = async ({
       class: TOOLS.InclineCode,
       inlineToolbar: true,
     },
-    exam: {
+    quiz: {
       class: Exam,
       config: {
         onSubmit: onQuizSubmit,

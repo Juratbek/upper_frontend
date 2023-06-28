@@ -1,27 +1,27 @@
-import { DeleteIcon } from './icons';
 import classes from './Exam.module.scss';
+import { settings, Toolbox, TYPES } from './constants';
 
 export default class Exam {
-  #variantIndex = 0;
-  #selectedVariantIndex = null;
-  #variants = {};
+  #answers = new Set();
+  #variants = [''];
+  #type = 'singleSelect';
 
   constructor(args) {
-    const { data, block, readOnly, config } = args;
+    const { data, block, readOnly, config, api } = args;
     this.data = data;
     this.readOnly = readOnly;
     this.config = config;
+    this.block = block;
+    this.api = api;
+    this.settings = settings;
+    // creating container and body
     this.container = document.createElement('div');
     this.body = document.createElement('form');
     this.container.appendChild(this.body);
-    this.block = block;
   }
 
   static get toolbox() {
-    return {
-      title: 'Exam',
-      icon: '<svg width="17" height="15" viewBox="0 0 336 276" xmlns="http://www.w3.org/2000/svg"><path d="M291 150V79c0-19-15-34-34-34H79c-19 0-34 15-34 34v42l67-44 81 72 56-29 42 30zm0 52l-43-30-56 30-81-67-66 39v23c0 19 15 34 34 34h178c17 0 31-13 34-29zM79 0h178c44 0 79 35 79 79v118c0 44-35 79-79 79H79c-44 0-79-35-79-79V79C0 35 35 0 79 0z"/></svg>',
-    };
+    return Toolbox;
   }
 
   render() {
@@ -31,24 +31,43 @@ export default class Exam {
     return this.container;
   }
 
-  _addVariant(config) {
+  renderSettings = () => {
+    return renderSettings(this.settings, this._changeType, this);
+  };
+
+  _changeType = (setting) => {
+    console.log(setting);
+    this.#type = setting.type;
+    this._renderVariants();
+    this.#answers = new Set();
+  };
+
+  _addVariant() {
+    this.#variants.push('');
+    this._renderVariants({ autoFocus: true });
+  }
+
+  _deleteVariant = (index) => {
+    this.#variants[index] = null;
+    this.#variants = this.#variants.filter(Boolean);
+    this._renderVariants();
+  };
+
+  _renderVariants(config) {
     const { autoFocus = false } = config || {};
-    const item = createVariant(
-      this.#variantIndex,
-      this.block.id,
-      (event) => (this.#selectedVariantIndex = event.target.value),
-      (event, index) => (this.#variants[index] = event.target.textContent),
-    );
-    this.body.appendChild(item);
-    this.#variantIndex++;
+    const variantsContainer = renderVariants(this.#variants, this.#type, this);
+    this.body.innerHTML = '';
+    this.body.appendChild(variantsContainer);
+
     if (autoFocus) {
-      const paragraph = item.querySelector('p');
-      paragraph.focus();
+      const lastItem = variantsContainer.lastElementChild;
+      const lastItemParagraph = lastItem.querySelector('p');
+      lastItemParagraph.focus();
     }
   }
 
   _renderBody() {
-    this._addVariant();
+    this._renderVariants();
   }
 
   _renderFooter() {
@@ -57,7 +76,6 @@ export default class Exam {
     footer.className = classes.footer;
 
     const buttons = document.createElement('div');
-
     if (this.readOnly) {
       const submitBtn = createButton();
       submitBtn.innerText = 'Submit';
@@ -66,21 +84,34 @@ export default class Exam {
       };
       buttons.appendChild(submitBtn);
     } else {
-      const addVariantBtn = createButton();
+      const addVariantBtn = createIconButton({ size: 'medium' });
       addVariantBtn.innerText = '+';
       addVariantBtn.onclick = () => this._addVariant({ autoFocus: true });
       buttons.appendChild(addVariantBtn);
     }
 
     footer.appendChild(buttons);
-
     this.container.appendChild(footer);
   }
 
-  save(blockContent) {
+  _variantInputChangeHandler = (event) => {
+    const value = event.target.value;
+    if (this.#type === TYPES.singleSelect) {
+      this.#answers = [value];
+    } else {
+      this.#answers.add(value);
+    }
+  };
+
+  _variantTextChangeHandler = (event, index) => {
+    this.#variants[index] = event.target.textContent;
+  };
+
+  save() {
     return {
-      answerIndex: this.#selectedVariantIndex,
-      variants: this.#variants,
+      items: Array.from(this.#variants),
+      answers: this.#answers,
+      type: this.#type,
     };
   }
 }
@@ -92,23 +123,25 @@ function createButton() {
   return button;
 }
 
-function createIconButton() {
+function createIconButton(config) {
+  const { size = 'small' } = config || {};
   const btn = document.createElement('button');
   btn.className = classes['icon-button'];
+  btn.classList.add(classes[`icon-button__${size}`]);
   btn.type = 'button';
   return btn;
 }
 
-function createVariant(index, name, onInputChange, onTextChange) {
+function createVariant({ text, index }, name, config) {
+  const { onInputChange, onTextChange, onEnter, inputType, onDelete } = config;
   // creating an item
   const item = document.createElement('div');
-  item.id = `${name}_${index}`;
   item.className = classes['quiz-item'];
   item.tabIndex = '0';
 
-  // creating a radio
+  // creating a radio/checkbox
   const input = document.createElement('input');
-  input.type = 'radio';
+  input.type = inputType;
   input.name = name;
   input.value = index;
   input.onchange = onInputChange;
@@ -116,9 +149,13 @@ function createVariant(index, name, onInputChange, onTextChange) {
 
   // creating editable paragraph
   const paragraph = document.createElement('p');
+  paragraph.innerText = text;
   paragraph.contentEditable = true;
   paragraph.className = classes['quiz-item__text'];
   paragraph.onblur = (event) => onTextChange(event, index);
+  paragraph.onkeydown = (event) => {
+    if (event.key === 'Enter' && event.code === 'Enter') onEnter(event);
+  };
   item.appendChild(paragraph);
 
   // creating a delete icon
@@ -126,8 +163,41 @@ function createVariant(index, name, onInputChange, onTextChange) {
   const deleteIcon = document.createElement('span');
   deleteIcon.innerHTML = '&#8722;';
   deleteBtn.appendChild(deleteIcon);
-  deleteBtn.onclick = () => (item.style.display = 'none');
+  deleteBtn.onclick = () => onDelete(index);
   item.appendChild(deleteBtn);
 
   return item;
+}
+
+function renderSettings(settings, onClick, context) {
+  const wrapper = document.createElement('div');
+
+  settings.forEach((tune) => {
+    const button = document.createElement('div');
+
+    button.classList.add(context.api.styles.settingsButton);
+    button.onclick = () => {
+      onClick(tune);
+      button.classList.add(context.api.styles.settingsButtonActive);
+    };
+    button.innerHTML = tune.icon;
+    wrapper.appendChild(button);
+  });
+
+  return wrapper;
+}
+
+function renderVariants(variants, type, context) {
+  const variantsContainer = document.createElement('div');
+  variants.forEach((variant, index) => {
+    const item = createVariant({ text: variant, index }, context.block.id, {
+      inputType: type === TYPES.multiSelect ? 'checkbox' : 'radio',
+      onInputChange: context._variantInputChangeHandler,
+      onTextChange: context._variantTextChangeHandler,
+      onDelete: context._deleteVariant,
+      onEnter: console.log,
+    });
+    variantsContainer.appendChild(item);
+  });
+  return variantsContainer;
 }

@@ -25,9 +25,6 @@
 .icon-button {
   all: unset;
   aspect-ratio: 1 / 1;
-  $size: 1.6rem;
-  width: $size;
-  height: $size;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,6 +33,19 @@
 
   &:hover {
     background-color: rgb(236, 236, 236);
+  }
+
+  &__small {
+    $size: 1.6rem;
+    width: $size;
+    height: $size;
+  }
+
+  &__medium {
+    $size: 2rem;
+    width: $size;
+    height: $size;
+    font-size: 1.4rem;
   }
 }
 
