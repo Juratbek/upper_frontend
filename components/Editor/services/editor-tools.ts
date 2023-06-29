@@ -15,7 +15,8 @@ type TTool =
   | 'Alert'
   | 'Unsplash'
   | 'InclineCode'
-  | 'CodeFlask';
+  | 'CodeFlask'
+  | 'Table';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TOOLS: Record<TTool, any> = {
@@ -30,6 +31,7 @@ const TOOLS: Record<TTool, any> = {
   Unsplash: undefined,
   InclineCode: undefined,
   CodeFlask: undefined,
+  Table: undefined,
 };
 
 export const getTools = async (): Promise<EditorConfig['tools']> => {
@@ -45,6 +47,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     import('@samandar.boymurodov/editorjs-inline-image'),
     import('@editorjs/inline-code'),
     import('@samandar.boymurodov/editorjs-codeflask'),
+    import('@editorjs/table'),
   ]);
 
   Object.keys(TOOLS).forEach((key, index) => {
@@ -141,6 +144,10 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     },
     inlineCode: {
       class: TOOLS.InclineCode,
+      inlineToolbar: true,
+    },
+    table: {
+      class: TOOLS.Table,
       inlineToolbar: true,
     },
   };
