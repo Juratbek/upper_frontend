@@ -164,9 +164,16 @@
       border-top: 0.5px solid;
       border-left: 0.5px solid;
     }
-    .editorjs-codeFlask_CopyButton{
+    .editorjs-codeFlask_CopyButton {
       background-color:  var(--popover-bg);
       border: 0.5px solid;
+    }
+    .editorjs-codeFlask_CopyButton svg {
+      fill: none;
+
+      & path {
+        stroke: #ffffff;
+      }
     }
     .codeflask {
       &.codeflask--has-line-numbers {
