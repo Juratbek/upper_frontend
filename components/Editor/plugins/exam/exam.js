@@ -36,16 +36,22 @@ export default class Exam {
   };
 
   _changeType = (setting) => {
-    console.log(setting);
     this.#type = setting.type;
     this._renderVariants();
     this.#answers = new Set();
   };
 
-  _addVariant() {
-    this.#variants.push('');
-    this._renderVariants({ autoFocus: true });
-  }
+  _addVariant = (index) => {
+    if (index) {
+      this.#variants = this.#variants
+        .slice(0, index)
+        .concat([''])
+        .concat(this.#variants.slice(index));
+    } else {
+      this.#variants.push('');
+    }
+    this._renderVariants({ autoFocus: true, focusIndex: index });
+  };
 
   _deleteVariant = (index) => {
     this.#variants[index] = null;
@@ -54,15 +60,21 @@ export default class Exam {
   };
 
   _renderVariants(config) {
-    const { autoFocus = false } = config || {};
+    const { autoFocus = false, focusIndex } = config || {};
     const variantsContainer = renderVariants(this.#variants, this.#type, this);
     this.body.innerHTML = '';
     this.body.appendChild(variantsContainer);
 
     if (autoFocus) {
-      const lastItem = variantsContainer.lastElementChild;
-      const lastItemParagraph = lastItem.querySelector('p');
-      lastItemParagraph.focus();
+      let focusingItem = null;
+      if (focusIndex) {
+        const variants = variantsContainer.children;
+        focusingItem = variants[focusIndex];
+      } else {
+        focusingItem = variantsContainer.lastElementChild;
+      }
+      const focusingItemParagraph = focusingItem.querySelector('p');
+      focusingItemParagraph.focus();
     }
   }
 
@@ -86,7 +98,7 @@ export default class Exam {
     } else {
       const addVariantBtn = createIconButton({ size: 'medium' });
       addVariantBtn.innerText = '+';
-      addVariantBtn.onclick = () => this._addVariant({ autoFocus: true });
+      addVariantBtn.onclick = () => this._addVariant();
       buttons.appendChild(addVariantBtn);
     }
 
@@ -133,7 +145,7 @@ function createIconButton(config) {
 }
 
 function createVariant({ text, index }, name, config) {
-  const { onInputChange, onTextChange, onEnter, inputType, onDelete } = config;
+  const { onInputChange, onTextChange, inputType, onDelete } = config;
   // creating an item
   const item = document.createElement('div');
   item.className = classes['quiz-item'];
@@ -152,10 +164,8 @@ function createVariant({ text, index }, name, config) {
   paragraph.innerText = text;
   paragraph.contentEditable = true;
   paragraph.className = classes['quiz-item__text'];
+  paragraph.setAttribute('data-index', index);
   paragraph.onblur = (event) => onTextChange(event, index);
-  paragraph.onkeydown = (event) => {
-    if (event.key === 'Enter' && event.code === 'Enter') onEnter(event);
-  };
   item.appendChild(paragraph);
 
   // creating a delete icon
@@ -195,9 +205,33 @@ function renderVariants(variants, type, context) {
       onInputChange: context._variantInputChangeHandler,
       onTextChange: context._variantTextChangeHandler,
       onDelete: context._deleteVariant,
-      onEnter: console.log,
     });
     variantsContainer.appendChild(item);
   });
+
+  variantsContainer.onkeydown = (event) => {
+    const { target } = event;
+    const isItemTextElement = target.classList.contains(classes['quiz-item__text']);
+
+    // add a new variant if user hits the enter
+    if (event.key === 'Enter' && event.code === 'Enter' && isItemTextElement) {
+      prevent(event);
+      const index = event.target.dataset.index;
+      context._variantTextChangeHandler(event, index);
+      return context._addVariant(Number(index) + 1);
+    }
+
+    // remove the item if value is empty when user click backspace
+    const isBackspaceClicked = event.key === 'Backspace' && event.code === 'Backspace';
+    const isEmpty = target.innerText === '';
+    if (isBackspaceClicked && isItemTextElement && isEmpty) {
+      prevent(event);
+    }
+  };
   return variantsContainer;
+}
+
+function prevent(event) {
+  event.stopPropagation();
+  event.preventDefault();
 }
