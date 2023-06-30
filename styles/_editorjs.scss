@@ -168,6 +168,14 @@
     .editorjs-codeFlask_CopyButton {
       background-color: var(--popover-bg);
       border: 0.5px solid;
+
+      svg {
+        fill: none;
+
+        & path {
+          stroke: #ffffff;
+        }
+      }
     }
     .codeflask {
       &.codeflask--has-line-numbers {
