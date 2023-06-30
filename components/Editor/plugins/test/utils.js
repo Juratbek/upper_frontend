@@ -85,13 +85,13 @@ export function renderVariants(variants, type, context) {
   variantsContainer.onkeydown = (event) => {
     const { target, metaKey, ctrlKey } = event;
     const isItemTextElement = target.classList.contains(classes['quiz-item__text']);
+    const index = event.target.dataset.index;
 
     // add a new variant if user hits the enter
     const isEnterClicked = event.key === 'Enter' && event.code === 'Enter';
     const isCommandAndEnter = (metaKey || ctrlKey) && isEnterClicked;
     if (isCommandAndEnter && isItemTextElement) {
       prevent(event);
-      const index = event.target.dataset.index;
       context._variantTextChangeHandler(event, index);
       return context._addVariant(Number(index) + 1);
     }
@@ -101,6 +101,7 @@ export function renderVariants(variants, type, context) {
     const isEmpty = target.innerText === '';
     if (isBackspaceClicked && isItemTextElement && isEmpty) {
       prevent(event);
+      context._deleteVariant(index);
     }
   };
   return variantsContainer;
