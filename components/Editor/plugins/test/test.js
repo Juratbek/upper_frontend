@@ -15,6 +15,7 @@ export default class Test {
     this.block = block;
     this.api = api;
     this.settings = settings;
+    if (Array.isArray(data?.items)) this.#variants = Array.from(data.items);
     // creating container and body
     this.container = document.createElement('div');
     this.body = document.createElement('form');

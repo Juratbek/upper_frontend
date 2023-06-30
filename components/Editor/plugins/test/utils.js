@@ -104,6 +104,7 @@ export function renderVariants(variants, type, context) {
       context._deleteVariant(index);
     }
   };
+
   return variantsContainer;
 }
 
