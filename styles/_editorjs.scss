@@ -18,8 +18,19 @@
     }
   }
 
-  .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
-    height: unset;
+  .editorjs-codeFlask_Wrapper {
+    .editorjs-codeFlask_LangDisplay {
+      height: unset;
+    }
+    .editorjs-codeFlask_CopyButton {
+      svg {
+        fill: none;
+
+        & path {
+          stroke: black;
+        }
+      }
+    }
   }
 
   .codeflask--has-line-numbers pre.codeflask__flatten {
@@ -169,12 +180,8 @@
       background-color: var(--popover-bg);
       border: 0.5px solid;
 
-      svg {
-        fill: none;
-
-        & path {
-          stroke: #ffffff;
-        }
+      svg path {
+        stroke: #ffffff;
       }
     }
     .codeflask {
