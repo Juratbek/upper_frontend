@@ -34,7 +34,7 @@ export function createVariant({ text, index }, name, config) {
 
   // creating editable paragraph
   const paragraph = document.createElement('p');
-  paragraph.innerText = text;
+  paragraph.innerHTML = text;
   paragraph.contentEditable = true;
   paragraph.className = classes['quiz-item__text'];
   paragraph.setAttribute('data-index', index);
@@ -83,11 +83,13 @@ export function renderVariants(variants, type, context) {
   });
 
   variantsContainer.onkeydown = (event) => {
-    const { target } = event;
+    const { target, metaKey, ctrlKey } = event;
     const isItemTextElement = target.classList.contains(classes['quiz-item__text']);
 
     // add a new variant if user hits the enter
-    if (event.key === 'Enter' && event.code === 'Enter' && isItemTextElement) {
+    const isEnterClicked = event.key === 'Enter' && event.code === 'Enter';
+    const isCommandAndEnter = (metaKey || ctrlKey) && isEnterClicked;
+    if (isCommandAndEnter && isItemTextElement) {
       prevent(event);
       const index = event.target.dataset.index;
       context._variantTextChangeHandler(event, index);

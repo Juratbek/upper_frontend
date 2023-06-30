@@ -21,6 +21,14 @@ export default class Test {
     this.container.appendChild(this.body);
   }
 
+  static get isReadOnlySupported() {
+    return true;
+  }
+
+  static get enableLineBreaks() {
+    return true;
+  }
+
   static get toolbox() {
     return Toolbox;
   }
@@ -117,13 +125,13 @@ export default class Test {
   };
 
   _variantTextChangeHandler = (event, index) => {
-    this.#variants[index] = event.target.textContent;
+    this.#variants[index] = event.target.innerHTML;
   };
 
   save() {
     return {
-      items: Array.from(this.#variants),
-      answers: this.#answers,
+      items: this.#variants,
+      answers: Array.from(this.#answers),
       type: this.#type,
     };
   }
