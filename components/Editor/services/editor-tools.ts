@@ -2,7 +2,7 @@ import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
 import { IUploadedImage } from '../editor.types';
-import Exam from '../plugins/exam/exam';
+import Test from '../plugins/test/test';
 import { unsplashToolHtml } from './unsplashTool';
 
 type TTool =
@@ -148,8 +148,8 @@ export const getTools = async ({
       class: TOOLS.InclineCode,
       inlineToolbar: true,
     },
-    quiz: {
-      class: Exam,
+    test: {
+      class: Test,
       config: {
         onSubmit: onQuizSubmit,
       },
