@@ -135,6 +135,9 @@ export const UserArticlesSidebar: FC = () => {
           </Link>
         )}
       </ArticleStatus>
+      <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
+        <a className='link'>Qo&apos;llanma</a>
+      </Link>
     </>
   );
 };
