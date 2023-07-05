@@ -1,7 +1,7 @@
 import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
-import { IUploadedImage } from '../editor.types';
+import { IQuizData, IUploadedImage } from '../editor.types';
 import { unsplashToolHtml } from './unsplashTool';
 
 type TTool =
@@ -37,7 +37,7 @@ const TOOLS: Record<TTool, any> = {
 export const getTools = async ({
   onQuizSubmit,
 }: {
-  onQuizSubmit?: (data: unknown) => void;
+  onQuizSubmit?: (data: IQuizData) => Promise<void>;
 }): Promise<EditorConfig['tools']> => {
   const tools = await Promise.all([
     import('@editorjs/embed'),
