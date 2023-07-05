@@ -30,6 +30,7 @@
     "@editorjs/header": "^2.6.2",
     "@editorjs/image": "^2.6.2",
     "@editorjs/list": "^1.7.0",
+    "@juratbek/editorjs-quiz": "^1.0.6",
     "@reduxjs/toolkit": "^1.8.3",
     "@samandar.boymurodov/editorjs-inline-image": "1.2.42",
     "@types/events": "^3.0.0",

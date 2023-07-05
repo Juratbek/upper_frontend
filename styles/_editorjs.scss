@@ -7,6 +7,11 @@
 
   & .ce-toolbar {
     z-index: 10;
+
+    .ce-popover .ce-popover__item[data-item-name='quiz'] .ce-popover__item-icon svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   & .ce-block__content {
@@ -99,14 +104,14 @@
 
 // styles for light theme
 .theme-light .codex-editor {
-  *:not(font):not(.token):not(code) {
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
   }
 }
 
 // styles for dark theme
 .theme-dark .codex-editor {
-  *:not(font):not(.token):not(code) {
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
     &:host {
       background-color: var(--popover-bg);
@@ -262,8 +267,13 @@
         &:hover {
           background-color: var(--lightBlack);
         }
+
         .ce-popover__item-icon {
           background-color: transparent;
+
+          path {
+            fill: white;
+          }
         }
       }
     }
@@ -324,6 +334,15 @@
         .inline-image__image-gallery {
           background-color: transparent;
         }
+      }
+    }
+  }
+
+  .quiz-tool-container {
+    .quiz-item,
+    .quiz-footer {
+      .icon-button:hover {
+        background-color: var(--popover-bg);
       }
     }
   }
