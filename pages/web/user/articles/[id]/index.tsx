@@ -18,7 +18,7 @@ export default function UserArticlePage(): JSX.Element {
   const [fetchArticle, { isError, error }] = useLazyGetBlogArticleByIdQuery();
   const id = query?.id;
 
-  // useBeforeUnload();
+  useBeforeUnload();
 
   const getInstance = (editor: EditorJS): void => {
     editor.isReady
@@ -64,7 +64,6 @@ export default function UserArticlePage(): JSX.Element {
         }}
         handleInstance={getInstance}
         autoFocus
-        onQuizSubmit={console.log}
       />
     );
   };
