@@ -99,14 +99,14 @@
 
 // styles for light theme
 .theme-light .codex-editor {
-  *:not(font):not(.token):not(code) {
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
   }
 }
 
 // styles for dark theme
 .theme-dark .codex-editor {
-  *:not(font):not(.token):not(code) {
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
     &:host {
       background-color: var(--popover-bg);

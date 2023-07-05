@@ -19,6 +19,6 @@ export const settings = [
 ];
 
 export const Toolbox = {
-  title: 'Test',
+  title: 'Quiz',
   icon: QuizIcon,
 };

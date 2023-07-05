@@ -1,10 +1,10 @@
-import classes from './Test.module.scss';
+import classes from './Quiz.module.scss';
 import { settings, Toolbox, TYPES } from './constants';
 import { createButton, createIconButton, renderSettings, renderVariants } from './utils';
 
-export default class Test {
+export default class Quiz {
   #answers = new Set();
-  #variants = [''];
+  #variants = [{ value: 0, text: '' }];
   #type = 'singleSelect';
 
   constructor(args) {
@@ -15,7 +15,9 @@ export default class Test {
     this.block = block;
     this.api = api;
     this.settings = settings;
-    if (Array.isArray(data?.items)) this.#variants = Array.from(data.items);
+    if (Array.isArray(data?.variants)) this.#variants = Array.from(data.variants);
+    if (Array.isArray(data?.answers)) this.#answers = new Set(data.answers);
+    if (typeof data?.type === 'string') this.#type = data.type;
     // creating container and body
     this.container = document.createElement('div');
     this.body = document.createElement('form');
@@ -47,18 +49,19 @@ export default class Test {
 
   _changeType = (setting) => {
     this.#type = setting.type;
-    this._renderVariants();
     this.#answers = new Set();
+    this._renderVariants();
   };
 
   _addVariant = (index) => {
+    const newVariant = { value: this.#variants.length, text: '' };
     if (index) {
       this.#variants = this.#variants
         .slice(0, index)
-        .concat([''])
+        .concat([newVariant])
         .concat(this.#variants.slice(index));
     } else {
-      this.#variants.push('');
+      this.#variants.push({ value: this.#variants.length, text: '' });
     }
     this._renderVariants({ autoFocus: true, focusIndex: index });
   };
@@ -117,7 +120,16 @@ export default class Test {
   }
 
   _variantInputChangeHandler = (event) => {
-    const value = event.target.value;
+    const value = Number(event.target.value);
+    const checked = event.target.checked;
+
+    // if input is unchecked remove the value from the answers
+    if (!checked) {
+      this.#answers.delete(value);
+      return;
+    }
+
+    // add the value to the answers
     if (this.#type === TYPES.singleSelect) {
       this.#answers = [value];
     } else {
@@ -126,14 +138,18 @@ export default class Test {
   };
 
   _variantTextChangeHandler = (event, index) => {
-    this.#variants[index] = event.target.innerHTML;
+    this.#variants[index] = { ...this.#variants[index], text: event.target.innerHTML };
   };
 
   save() {
     return {
-      items: this.#variants,
+      variants: this.#variants,
       answers: Array.from(this.#answers),
       type: this.#type,
     };
   }
+
+  getAnswers = () => {
+    return this.#answers;
+  };
 }

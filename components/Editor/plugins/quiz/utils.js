@@ -1,5 +1,5 @@
 import { TYPES } from './constants';
-import classes from './Test.module.scss';
+import classes from './Quiz.module.scss';
 
 export function createButton() {
   const button = document.createElement('button');
@@ -17,8 +17,9 @@ export function createIconButton(config) {
   return btn;
 }
 
-export function createVariant({ text, index }, name, config) {
-  const { onInputChange, onTextChange, inputType, onDelete } = config;
+export function createVariant({ text, value, index }, name, config) {
+  const { onInputChange, onTextChange, inputType, onDelete, cheched } = config;
+
   // creating an item
   const item = document.createElement('div');
   item.className = classes['quiz-item'];
@@ -28,7 +29,8 @@ export function createVariant({ text, index }, name, config) {
   const input = document.createElement('input');
   input.type = inputType;
   input.name = name;
-  input.value = index;
+  input.value = value;
+  input.checked = cheched;
   input.onchange = onInputChange;
   item.appendChild(input);
 
@@ -72,9 +74,11 @@ export function renderSettings(settings, onClick, context) {
 
 export function renderVariants(variants, type, context) {
   const variantsContainer = document.createElement('div');
+
   variants.forEach((variant, index) => {
-    const item = createVariant({ text: variant, index }, context.block.id, {
+    const item = createVariant({ ...variant, index }, context.block.id, {
       inputType: type === TYPES.multiSelect ? 'checkbox' : 'radio',
+      cheched: context.getAnswers().has(variant.value),
       onInputChange: context._variantInputChangeHandler,
       onTextChange: context._variantTextChangeHandler,
       onDelete: context._deleteVariant,

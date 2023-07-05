@@ -1,11 +1,12 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 
-export interface IResponseError {
+export interface IResponseError<T = unknown> {
   status: number;
   data: {
     code: number;
     message: string;
+    data: T;
     httpStatus: string;
   };
 }
