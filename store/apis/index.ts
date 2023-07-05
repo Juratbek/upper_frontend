@@ -11,3 +11,4 @@ export * from './tutorials';
 export * from './published-tutorials';
 export * from './feedback';
 export * from './subscription';
+export * from './quiz';
