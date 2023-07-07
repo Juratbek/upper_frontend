@@ -347,5 +347,9 @@
     .quiz-footer .qt-add-btn:hover {
       background-color: var(--popover-bg);
     }
+
+    .quiz-item__hoverable:hover {
+      background-color: var(--popover-bg);
+    }
   }
 }
