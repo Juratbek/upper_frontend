@@ -34,6 +34,20 @@ export const QuizResultModal: FC<{
         </p>
       ))}
       {isError && (
+        <div className='d-flex mt-2'>
+          <div className='d-flex align-items-center me-3'>
+            <span className={`${classes.success} ${classes.label}`} />- to&apos;g&apos;ri tanlangan
+          </div>
+          <div className='d-flex align-items-center me-3'>
+            <span className={`${classes.error} ${classes.label}`} />- xato
+          </div>
+          <div className='d-flex align-items-center me-3'>
+            <span className={`${classes['right_answer']} ${classes.label}`} />- to&apos;g&apos;ri
+            javob
+          </div>
+        </div>
+      )}
+      {isError && !doesShowAnswers && (
         <div className='mt-2 d-flex f-gap-1'>
           <Button
             className='flex-1'

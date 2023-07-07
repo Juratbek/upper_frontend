@@ -9,10 +9,17 @@
 }
 
 .right_answer {
-  border: 1px solid blue;
-  color: blue;
+  border: 1px solid #00c0fb;
+  color: #00c0fb;
 }
 
 .normal {
   border: 0.5px solid rgba(128, 128, 128, 0.547);
+}
+
+.label {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  margin-right: 0.4rem;
 }
