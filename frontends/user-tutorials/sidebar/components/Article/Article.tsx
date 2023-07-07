@@ -1,6 +1,6 @@
-import { ChangeableText } from 'components';
+import { ChangeableText, IconButton } from 'components';
 import { useRouter } from 'next/router';
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useEditTutorialSectionMutation } from 'store/apis';
 import {
@@ -21,6 +21,7 @@ const PlusIcon = ICONS.plus;
 
 export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
   const dispatch = useAppDispatch();
+  const [isFocused, setIsFocused] = useState(false);
   const [edsitSection, edsitSectionRes] = useEditTutorialSectionMutation();
   const isLoading = edsitSectionRes.isLoading;
   const {
@@ -54,6 +55,8 @@ export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
     dispatch(addTutorialArticleByTarget(payload));
   };
 
+  const isFocusedHandler = (value: boolean) => () => setIsFocused(value);
+
   return (
     <div className={classes.header}>
       <ChangeableText
@@ -62,19 +65,21 @@ export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
         onSubmit={changeArticleNameNandler}
         loading={isLoading}
         onClick={onClick}
+        onBlur={isFocusedHandler(false)}
+        onFocus={isFocusedHandler(true)}
       />
-      {!isLoading && (
+      {!isFocused && (
         <div className={classes.actions}>
-          <span
+          <IconButton
             className={classes.icon}
             style={{ transform: 'rotate(45deg)' }}
             onClick={openRemoveArticleModal}
           >
             <PlusIcon />
-          </span>
-          <span className={classes.icon} onClick={addArticleHandler}>
+          </IconButton>
+          <IconButton className={classes.icon} onClick={addArticleHandler}>
             <PlusIcon />
-          </span>
+          </IconButton>
         </div>
       )}
     </div>

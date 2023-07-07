@@ -10,6 +10,7 @@ export interface ITutorialSection {
   id: string;
   name: string;
   articles: ITutorialArticle[];
-  defaultFocused?: boolean;
+  // defaultFocused?: boolean;
   new?: boolean;
+  target?: ITutorialSection;
 }

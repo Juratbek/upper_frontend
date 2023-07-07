@@ -1,9 +1,8 @@
-$icon-container: 25px;
 $icon-size: 16px;
 
 .header {
-  padding: 0.7rem;
   position: relative;
+  padding: 0.5rem;
   font-weight: 600;
   font-size: 1.15rem;
 
@@ -25,23 +24,9 @@ $icon-size: 16px;
   }
 }
 
-.icon {
-  width: $icon-container;
-  height: $icon-container;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100rem;
-  position: relative;
-
-  & svg {
-    width: $icon-size;
-    height: $icon-size;
-  }
-  &:hover {
-    background-color: var(--mediumGray);
-    cursor: pointer;
-  }
+.icon svg {
+  width: $icon-size;
+  height: $icon-size;
 }
 
 .add-popover {
@@ -62,7 +47,7 @@ $icon-size: 16px;
     width: max-content;
 
     & li {
-      padding: 0.2rem 0.5rem;
+      padding: 0.4rem 0.8rem;
       font-weight: 400;
 
       &:hover {

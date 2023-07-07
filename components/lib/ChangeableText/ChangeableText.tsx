@@ -1,23 +1,32 @@
-import { FC, FocusEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import {
+  FC,
+  FocusEvent,
+  KeyboardEvent,
+  MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import { selectAll } from 'utils';
 
 import classes from './ChangeableText.module.scss';
-import { IChangeableTextProps } from './ChangeableText.types';
+import { TChangeableTextProps } from './ChangeableText.types';
 
-export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) => {
-  const [isBeingChanged, setIsBeingChanged] = useState(props.defaultFocused);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const clickFnRef = useRef<boolean>(false);
+export const ChangeableText: FC<TChangeableTextProps> = ({ value, onSubmit, ...props }) => {
+  const [isContentEditable, setIsContentEditable] = useState(props.defaultFocused || false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
   const doubleClickhandler = (): void => {
-    if (props.loading) return;
-    setIsBeingChanged(true);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
   };
 
-  const clickHandler = (): void => {
+  const clickHandler = (event: MouseEvent<HTMLParagraphElement>): void => {
+    setIsContentEditable(true);
+
     if (!props.onClick) return;
 
     if (timeoutRef.current) {
@@ -25,68 +34,46 @@ export const ChangeableText: FC<IChangeableTextProps> = ({ value, ...props }) =>
     }
 
     timeoutRef.current = setTimeout(() => {
-      props.onClick?.();
+      setIsContentEditable(false);
+      props.onClick?.(event);
     }, 400);
   };
 
   useEffect(() => {
-    if (isBeingChanged) {
-      const input = inputRef.current;
-      input?.focus();
-      input?.select();
+    if (props.defaultFocused) {
+      const paragraph = textRef.current;
+      if (!paragraph) return;
+      paragraph.focus();
+      selectAll(paragraph);
     }
-  }, [isBeingChanged]);
+  }, []);
 
-  const submitHandler = (value: string): void => {
-    setIsBeingChanged(false);
-    props.onSubmit?.(value);
-  };
-
-  const blurChangeHandler = (event: FocusEvent<HTMLInputElement>): void => {
-    clickFnRef.current = false;
-    const value = event.target.value.trim();
-    if (value.length < 1) {
-      setIsBeingChanged(false);
-      return;
-    }
-    submitHandler(value);
-  };
-
-  const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>): void => {
+  const keyDownHandler = (event: KeyboardEvent<HTMLParagraphElement>): void => {
     if (event.key === 'Enter') {
-      const target = event.target as HTMLInputElement;
-      const value = target.value.trim();
-      if (value.length < 1) return;
-      submitHandler(value);
+      (event.target as HTMLParagraphElement).blur();
+      event.preventDefault();
     }
   };
+
+  const blurHandler = useCallback((event: FocusEvent<HTMLParagraphElement>) => {
+    props.onBlur?.(event);
+    setIsContentEditable(false);
+    const newValue = event.target.textContent?.trim();
+    if (!newValue) return;
+    onSubmit?.(newValue);
+  }, []);
 
   return (
-    <div className={classes.root}>
-      <div className={isBeingChanged ? props.className : ''}>
-        <input
-          ref={inputRef}
-          onBlur={blurChangeHandler}
-          defaultValue={value}
-          hidden={!isBeingChanged}
-          onKeyDown={keyDownHandler}
-          required
-          disabled={props.loading}
-          className={classes.input}
-        />
-      </div>
-
-      {props.loading ? (
-        <p className={`${classes['text-skeleton']}  w-100 skeleton`} />
-      ) : (
-        <p
-          className={`m-0 ${isBeingChanged && classes.hide} ${props.className}`}
-          onDoubleClick={doubleClickhandler}
-          onClick={clickHandler}
-        >
-          {value}
-        </p>
-      )}
-    </div>
+    <p
+      ref={textRef}
+      {...props}
+      contentEditable={isContentEditable}
+      onClick={clickHandler}
+      onDoubleClick={doubleClickhandler}
+      dangerouslySetInnerHTML={{ __html: value }}
+      className={`m-0 w-100 ${classes.text}`}
+      onBlur={blurHandler}
+      onKeyDown={keyDownHandler}
+    />
   );
 };

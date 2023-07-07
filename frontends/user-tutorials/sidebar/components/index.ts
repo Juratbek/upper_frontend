@@ -3,3 +3,4 @@ export * from './Article/Article';
 export * from './RemoveArticleModal/RemoveArticleModal';
 export * from './RemoveSectionModal/RemoveSectionModal';
 export * from './PublishTutorialModal/PublishTutorialModal';
+export * from './Name/Name';

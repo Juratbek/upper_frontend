@@ -1,11 +1,14 @@
-export interface IChangeableTextProps {
-  value: string;
-  onChange?: (value: string) => void;
-  onDebaunce?: (value: string) => void;
-  onSubmit?: (value: string) => void;
-  onClick?: () => void;
-  defaultFocused?: boolean;
-  className?: string;
-  loading?: boolean;
-  placeholder?: string;
-}
+import { HTMLAttributes } from 'react';
+import { Override } from 'utils';
+
+export type TChangeableTextProps = Override<
+  HTMLAttributes<HTMLParagraphElement>,
+  {
+    value: string;
+    onSubmit?: (value: string) => void;
+    defaultFocused?: boolean;
+    className?: string;
+    loading?: boolean;
+    placeholder?: string;
+  }
+>;

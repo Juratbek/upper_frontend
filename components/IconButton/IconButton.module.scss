@@ -1,0 +1,18 @@
+.button {
+  all: unset;
+  border: 1px solid #e2e2e2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100rem;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.dark {
+  background-color: gray;
+}
+
+.light {
+  background-color: white;
+}
