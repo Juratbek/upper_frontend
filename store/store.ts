@@ -12,6 +12,7 @@ import {
   notificationApi,
   publishedArticleApi,
   publishedTutorialApi,
+  quizApi,
   subscriptionApi,
   tutorialApi,
 } from './apis';
@@ -49,6 +50,7 @@ export const store = configureStore({
     [tutorialApi.reducerPath]: tutorialApi.reducer,
     [feedbackApi.reducerPath]: feedbackApi.reducer,
     [subscriptionApi.reducerPath]: subscriptionApi.reducer,
+    [quizApi.reducerPath]: quizApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -64,6 +66,7 @@ export const store = configureStore({
       tutorialApi.middleware,
       feedbackApi.middleware,
       subscriptionApi.middleware,
+      quizApi.middleware,
       apiErrorMiddleware,
     ),
 });

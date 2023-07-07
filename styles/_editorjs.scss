@@ -7,6 +7,11 @@
 
   & .ce-toolbar {
     z-index: 10;
+
+    .ce-popover .ce-popover__item[data-item-name='quiz'] .ce-popover__item-icon svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   & .ce-block__content {
@@ -18,8 +23,19 @@
     }
   }
 
-  .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
-    height: unset;
+  .editorjs-codeFlask_Wrapper {
+    .editorjs-codeFlask_LangDisplay {
+      height: unset;
+    }
+    .editorjs-codeFlask_CopyButton {
+      svg {
+        fill: none;
+
+        & path {
+          stroke: black;
+        }
+      }
+    }
   }
 
   .codeflask--has-line-numbers pre.codeflask__flatten {
@@ -88,14 +104,14 @@
 
 // styles for light theme
 .theme-light .codex-editor {
-  *:not(font):not(.token):not(code) {
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
   }
 }
 
 // styles for dark theme
 .theme-dark .codex-editor {
-  *:not(font):not(.token):not(code) {
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
     &:host {
       background-color: var(--popover-bg);
@@ -205,6 +221,10 @@
     .editorjs-codeFlask_CopyButton {
       background-color: var(--popover-bg);
       border: 0.5px solid;
+
+      svg path {
+        stroke: #ffffff;
+      }
     }
     .codeflask {
       &.codeflask--has-line-numbers {
@@ -271,6 +291,10 @@
       .ce-settings__button:hover {
         background-color: var(--lightBlack);
       }
+
+      .qt-settings-icon__single svg path {
+        fill: white;
+      }
     }
 
     .ce-popover {
@@ -281,8 +305,13 @@
         &:hover {
           background-color: var(--lightBlack);
         }
+
         .ce-popover__item-icon {
           background-color: transparent;
+
+          path {
+            fill: white;
+          }
         }
       }
     }
@@ -344,6 +373,17 @@
           background-color: transparent;
         }
       }
+    }
+  }
+
+  .quiz-tool-container {
+    .quiz-item .icon-button:hover,
+    .quiz-footer .qt-add-btn:hover {
+      background-color: var(--popover-bg);
+    }
+
+    .quiz-item__hoverable:hover {
+      background-color: var(--popover-bg);
     }
   }
 }

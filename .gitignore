@@ -41,3 +41,5 @@ jspm_packages
 .next
 .env.local
 .env
+
+.DS_Store

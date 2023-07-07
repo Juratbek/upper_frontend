@@ -12,3 +12,4 @@ declare module 'editorjs-text-color-plugin';
 declare module 'editorjs-alert';
 declare module '@samandar.boymurodov/editorjs-codeflask';
 declare module '@editorjs/table';
+declare module '@juratbek/editorjs-quiz';

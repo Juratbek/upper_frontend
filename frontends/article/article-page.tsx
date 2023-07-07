@@ -1,11 +1,13 @@
 import EditorJS from '@editorjs/editorjs';
 import { ApiError, Blog, Button, Divider, Editor, Head, StorysetImage } from 'components';
+import { IQuizData } from 'components/Editor';
+import { useModal } from 'hooks';
 import Link from 'next/link';
-import { FC, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { useIncrementViewCountMutation } from 'store/apis';
+import { IQuizSubmission, useIncrementViewCountMutation, useSubmitQuizMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
-import { IArticle } from 'types';
+import { IArticle, IResponseError } from 'types';
 import {
   addAmazonBucketUriToArticle,
   addAmazonUri,
@@ -19,7 +21,7 @@ import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
-import { ArticleActionIcons, ArticleActions } from './components';
+import { ArticleActionIcons, ArticleActions, QuizResultModal } from './components';
 
 const HeartIcon = ICONS.heart;
 const CalendarIcon = ICONS.calendar;
@@ -36,8 +38,11 @@ export const Article: FC<IArticleProps> = ({
   const [likeCount, setLikeCount] = useState(article?.likeCount || 0);
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
+  const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
+    useModal();
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
+  const [submitQuiz, submitQuizRes] = useSubmitQuizMutation();
 
   const likeHandler = (): void => {
     setLikeCount((prev) => prev + 1);
@@ -46,6 +51,19 @@ export const Article: FC<IArticleProps> = ({
   const dislikeHandler = (wasLikedBefore: boolean): void => {
     wasLikedBefore && setLikeCount((prev) => prev - 1);
   };
+
+  const quizSubmitHandler = useCallback(
+    async (data: IQuizData) => {
+      if (!article) return;
+      try {
+        await submitQuiz({ ...data, articleId: article?.id });
+      } catch (e) {
+      } finally {
+        openQuizResultsModal();
+      }
+    },
+    [article?.id],
+  );
 
   // when selecting articles from sidebar, scroll position is reset
   useEffect(() => {
@@ -80,9 +98,10 @@ export const Article: FC<IArticleProps> = ({
         content={{ blocks: addUriToImageBlocks(blocks) }}
         isEditable={false}
         handleInstance={setEditorInstance}
+        onQuizSubmit={quizSubmitHandler}
       />
     ),
-    [blocks],
+    [blocks, quizSubmitHandler],
   );
 
   const dateContent = useMemo(() => {
@@ -90,6 +109,11 @@ export const Article: FC<IArticleProps> = ({
     if (publishedDate) return dateInterval(publishedDate);
     return <></>;
   }, [publishedDate, updatedDate]);
+
+  const quizData =
+    submitQuizRes.data ||
+    (submitQuizRes.error as IResponseError<IQuizSubmission[]>)?.data.data ||
+    [];
 
   if (!article) {
     if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
@@ -110,6 +134,12 @@ export const Article: FC<IArticleProps> = ({
   return (
     <div className={`container ${props.className}`}>
       <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
+      <QuizResultModal
+        isError={Boolean(submitQuizRes.error)}
+        quizData={quizData}
+        isOpen={isQuizResultsModalOpen}
+        close={closeQuizResultsModal}
+      />
       {showAuthor && article.author && (
         <>
           <Blog {...addAmazonUri(article.author)} isLink />
