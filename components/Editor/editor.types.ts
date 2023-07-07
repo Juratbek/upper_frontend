@@ -7,6 +7,12 @@ export interface IEditorProps {
   placeholder?: string;
   handleInstance?: (editor: EditorJS) => void;
   autoFocus?: boolean;
+  onQuizSubmit?: (data: IQuizData) => Promise<void>;
+}
+
+export interface IQuizData {
+  id: string;
+  selectedVariants: number[];
 }
 
 export const EDITOR_HOLDER = 'editorjs';

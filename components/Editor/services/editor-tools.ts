@@ -1,7 +1,7 @@
 import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
-import { IUploadedImage } from '../editor.types';
+import { IQuizData, IUploadedImage } from '../editor.types';
 import { unsplashToolHtml } from './unsplashTool';
 
 type TTool =
@@ -15,7 +15,8 @@ type TTool =
   | 'Alert'
   | 'Unsplash'
   | 'InclineCode'
-  | 'CodeFlask';
+  | 'CodeFlask'
+  | 'Quiz';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TOOLS: Record<TTool, any> = {
@@ -30,9 +31,14 @@ const TOOLS: Record<TTool, any> = {
   Unsplash: undefined,
   InclineCode: undefined,
   CodeFlask: undefined,
+  Quiz: undefined,
 };
 
-export const getTools = async (): Promise<EditorConfig['tools']> => {
+export const getTools = async ({
+  onQuizSubmit,
+}: {
+  onQuizSubmit?: (data: IQuizData) => Promise<void>;
+}): Promise<EditorConfig['tools']> => {
   const tools = await Promise.all([
     import('@editorjs/embed'),
     import('@editorjs/header'),
@@ -45,6 +51,7 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     import('@samandar.boymurodov/editorjs-inline-image'),
     import('@editorjs/inline-code'),
     import('@samandar.boymurodov/editorjs-codeflask'),
+    import('@juratbek/editorjs-quiz'),
   ]);
 
   Object.keys(TOOLS).forEach((key, index) => {
@@ -142,6 +149,12 @@ export const getTools = async (): Promise<EditorConfig['tools']> => {
     inlineCode: {
       class: TOOLS.InclineCode,
       inlineToolbar: true,
+    },
+    quiz: {
+      class: TOOLS.Quiz,
+      config: {
+        onSubmit: onQuizSubmit,
+      },
     },
   };
 };
