@@ -135,6 +135,13 @@ export const UserArticlesSidebar: FC = () => {
           </Link>
         )}
       </ArticleStatus>
+      <Divider className='mb-1' />
+      <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
+        <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
+          Foydalanish uchun qo&apos;llanma
+          <ICONS.openExternal color={themeColors.icon} />
+        </a>
+      </Link>
     </>
   );
 };

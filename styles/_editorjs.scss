@@ -257,6 +257,10 @@
       .ce-settings__button:hover {
         background-color: var(--lightBlack);
       }
+
+      .qt-settings-icon__single svg path {
+        fill: white;
+      }
     }
 
     .ce-popover {
@@ -339,11 +343,13 @@
   }
 
   .quiz-tool-container {
-    .quiz-item,
-    .quiz-footer {
-      .icon-button:hover {
-        background-color: var(--popover-bg);
-      }
+    .quiz-item .icon-button:hover,
+    .quiz-footer .qt-add-btn:hover {
+      background-color: var(--popover-bg);
+    }
+
+    .quiz-item__hoverable:hover {
+      background-color: var(--popover-bg);
     }
   }
 }

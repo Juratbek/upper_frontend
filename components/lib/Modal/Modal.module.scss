@@ -53,4 +53,13 @@
 
 .modal-body {
   padding: 2rem;
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  cursor: pointer;
+  padding: 0.3rem;
 }

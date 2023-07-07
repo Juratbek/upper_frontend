@@ -41,7 +41,12 @@ export const Modal: FC<IModalProps> = ({
           border: themeColors.modal.dialogBorder,
         }}
       >
-        <div className={classes['modal-body']}>{children}</div>
+        <div className={classes['modal-body']}>
+          <span onClick={close} className={classes['close-icon']}>
+            &#x2715;
+          </span>
+          {children}
+        </div>
       </div>
     </div>
   );
