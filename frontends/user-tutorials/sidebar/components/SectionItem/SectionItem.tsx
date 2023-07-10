@@ -29,15 +29,13 @@ export const SectionItem: FC<ISectionItemProps> = ({ item, section, onClick }) =
   const articleNameSubmitHandler = async (name: string): Promise<void> => {
     if (!id) return Promise.reject();
 
-    const body = {
+    const res = await saveSectionItem({
       sectionId: section.id,
       tutorialId: +id,
       item: { ...item, name },
       targetItem: item.target,
-    };
-    console.log('🚀 ~ file: SectionItem.tsx:38 ~ articleNameSubmitHandler ~ body', body);
-    const res = await saveSectionItem(body).unwrap();
-    dispatch(editTutorialSectionItem({ section, item: res }));
+    }).unwrap();
+    dispatch(editTutorialSectionItem({ section, item: res, isNew: !Boolean(item.id) }));
   };
 
   const openRemoveArticleModal = (event: MouseEvent<HTMLSpanElement>): void => {

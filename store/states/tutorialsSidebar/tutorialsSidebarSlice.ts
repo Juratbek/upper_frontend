@@ -93,16 +93,29 @@ const tutorialsSidebarSlice = createSlice({
     },
     editSectionItem(
       state,
-      { payload }: PayloadAction<{ section: ITutorialSection; item: ITutorialSectionItem }>,
+      {
+        payload,
+      }: PayloadAction<{ section: ITutorialSection; item: ITutorialSectionItem; isNew: boolean }>,
     ) {
-      state.sections = state.sections.map((section) => {
-        if (section.id === payload.section.id) {
-          section.items = section.items.map((item) =>
-            item.id === payload.item.id ? payload.item : item,
-          );
-        }
-        return section;
+      const { sections } = state;
+      const { isNew, section, item } = payload;
+
+      // editing section item
+      const editedSectoins = sections.map((sec) => {
+        if (sec.id !== section.id) return sec;
+        const { items } = sec;
+
+        sec.items = items.map((el) => {
+          // if it is a new item, replace it with an item which has empty id
+          if (isNew && !el.id) return item;
+          if (el.id === item.id) return item;
+          return el;
+        });
+
+        return sec;
       });
+
+      state.sections = editedSectoins;
     },
     changeArticle(
       state,
@@ -164,13 +177,13 @@ export const {
   // section methods
   addSection: addTutorialSection,
   editSection: editTutorialSection,
+  addSectionByTarget: addTutorialSectionByTarget,
+  removeSection: removeTutorialSection,
   // section item methods
   editSectionItem: editTutorialSectionItem,
   addSectionItem: addTutorialSectionItem,
   addSectionItemByTarget: addTutorialSectionItemByTarget,
   changeArticle: changeTutorialArticle,
-  addSectionByTarget: addTutorialSectionByTarget,
-  removeSection: removeTutorialSection,
   removeArticle: removeTutorialArticle,
   setTutorial,
   clearTutorial,

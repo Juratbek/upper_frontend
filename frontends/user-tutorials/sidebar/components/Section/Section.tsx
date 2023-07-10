@@ -10,8 +10,8 @@ import { SectionHeader } from './SectionHeader';
 export const Section: FC<ISectionProps> = ({ section }) => {
   const { setParams } = useUrlParams();
 
-  const selectArticle = (article: ITutorialSectionItem): void => {
-    setParams({ sectionId: section.id, articleId: article.id, alert: '' });
+  const selectItem = (item: ITutorialSectionItem): void => {
+    setParams({ itemId: item.id });
   };
 
   return (
@@ -20,7 +20,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
       <ul className={classes.articles}>
         {section.items.map((item) => (
           <li key={item.id}>
-            <SectionItem item={item} section={section} onClick={(): void => selectArticle(item)} />
+            <SectionItem item={item} section={section} onClick={(): void => selectItem(item)} />
           </li>
         ))}
       </ul>

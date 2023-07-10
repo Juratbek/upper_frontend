@@ -10,7 +10,6 @@ import classes from './PublishedArticleNotification.module.scss';
 export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate } = props;
 
-  console.log(status);
   const rootClassName = getClassName(
     classes.container,
     className,

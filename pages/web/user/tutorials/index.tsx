@@ -10,10 +10,10 @@ export default function TutorialsPage(): JSX.Element {
   const router = useRouter();
   const [createTutorial, createTutorialRes] = useCreateTutorialMutation();
 
-  const writeArticleHandler = useCallback(async () => {
+  const createTutorialHandler = useCallback(async () => {
     try {
       const res = await createTutorial().unwrap();
-      router.push(`${WEB_APP_ROOT_DIR}/user/articles/${res.id}`);
+      router.push(`${WEB_APP_ROOT_DIR}/user/tutorials/${res.id}`);
     } catch (err) {
       alert('Maqola yaratishda xatolik yuz berdi');
     }
@@ -25,7 +25,7 @@ export default function TutorialsPage(): JSX.Element {
       <div className='d-flex justify-content-between align-items-center'>
         <h1>To&apos;plamlaringiz</h1>
         <Button
-          onClick={writeArticleHandler}
+          onClick={createTutorialHandler}
           loading={createTutorialRes.isLoading}
           color='outline-dark'
           loader='Maqola yaratilmoqda...'
