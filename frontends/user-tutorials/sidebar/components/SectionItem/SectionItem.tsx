@@ -2,57 +2,57 @@ import { ChangeableText, IconButton } from 'components';
 import { useRouter } from 'next/router';
 import { FC, MouseEvent, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { useEditTutorialSectionMutation } from 'store/apis';
+import { useSaveTutorialSectionItemMutation } from 'store/apis';
 import {
-  addTutorialArticleByTarget,
-  editTutorialSection,
+  addTutorialSectionItemByTarget,
+  editTutorialSectionItem,
   IAddTutorialArticleBytargetPayloadAction,
   removeArticleModalHandler,
   setSelectedArticle,
 } from 'store/states';
-import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
-import { UUID_SIZE } from '../../TutorialSidebar.constants';
-import classes from './Article.module.scss';
-import { IArticleProps } from './Article.types';
+import classes from './SectionItem.module.scss';
+import { ISectionItemProps } from './SectionItem.types';
 
 const PlusIcon = ICONS.plus;
 
-export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
+export const SectionItem: FC<ISectionItemProps> = ({ item, section, onClick }) => {
   const dispatch = useAppDispatch();
   const [isFocused, setIsFocused] = useState(false);
-  const [edsitSection, edsitSectionRes] = useEditTutorialSectionMutation();
-  const isLoading = edsitSectionRes.isLoading;
+  const [saveSectionItem, saveSectionItemRes] = useSaveTutorialSectionItemMutation();
+  const isLoading = saveSectionItemRes.isLoading;
   const {
     query: { id },
   } = useRouter();
 
-  const changeArticleNameNandler = async (name: string): Promise<void> => {
+  const articleNameSubmitHandler = async (name: string): Promise<void> => {
     if (!id) return Promise.reject();
 
-    const editedArticles = section.articles.map((a) => (a.id === article.id ? { ...a, name } : a));
-    const res = await edsitSection({
-      section: { ...section, articles: editedArticles },
+    const body = {
+      sectionId: section.id,
       tutorialId: +id,
-    }).unwrap();
-    dispatch(editTutorialSection(res));
+      item: { ...item, name },
+      targetItem: item.target,
+    };
+    console.log('🚀 ~ file: SectionItem.tsx:38 ~ articleNameSubmitHandler ~ body', body);
+    const res = await saveSectionItem(body).unwrap();
+    dispatch(editTutorialSectionItem({ section, item: res }));
   };
 
   const openRemoveArticleModal = (event: MouseEvent<HTMLSpanElement>): void => {
     event.stopPropagation();
     dispatch(removeArticleModalHandler(true));
-    dispatch(setSelectedArticle(article));
+    dispatch(setSelectedArticle(item));
   };
 
-  const addArticleHandler = (event: MouseEvent<HTMLSpanElement>): void => {
+  const addSectionItem = (event: MouseEvent<HTMLSpanElement>): void => {
     event.stopPropagation();
     const payload: IAddTutorialArticleBytargetPayloadAction = {
       section,
-      article: { id: uuid(UUID_SIZE), name: 'Maqola nomi', defaultFocused: true, new: true },
-      target: article,
+      target: item,
     };
-    dispatch(addTutorialArticleByTarget(payload));
+    dispatch(addTutorialSectionItemByTarget(payload));
   };
 
   const isFocusedHandler = (value: boolean) => () => setIsFocused(value);
@@ -60,9 +60,9 @@ export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
   return (
     <div className={classes.header}>
       <ChangeableText
-        value={article.name}
-        defaultFocused={article.defaultFocused}
-        onSubmit={changeArticleNameNandler}
+        value={item.name}
+        defaultFocused={item.defaultFocused}
+        onSubmit={articleNameSubmitHandler}
         loading={isLoading}
         onClick={onClick}
         onBlur={isFocusedHandler(false)}
@@ -77,7 +77,7 @@ export const Article: FC<IArticleProps> = ({ article, section, onClick }) => {
           >
             <PlusIcon />
           </IconButton>
-          <IconButton className={classes.icon} onClick={addArticleHandler}>
+          <IconButton className={classes.icon} onClick={addSectionItem}>
             <PlusIcon />
           </IconButton>
         </div>

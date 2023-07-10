@@ -1,4 +1,4 @@
-import { ITutorialArticle, ITutorialSection } from 'types';
+import { ITutorialSection, ITutorialSectionItem } from 'types';
 
 export interface IAddSectionByTargetPayloadAction {
   targetSection: ITutorialSection;
@@ -7,11 +7,10 @@ export interface IAddSectionByTargetPayloadAction {
 
 export interface IAddTutorialArticlePayloadAction {
   section: ITutorialSection;
-  article: ITutorialArticle;
+  article: ITutorialSectionItem;
 }
 
 export interface IAddTutorialArticleBytargetPayloadAction {
   section: ITutorialSection;
-  target: ITutorialArticle;
-  article: ITutorialArticle;
+  target: ITutorialSectionItem;
 }

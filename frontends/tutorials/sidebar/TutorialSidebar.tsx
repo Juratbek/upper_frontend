@@ -5,7 +5,7 @@ import { FC, useEffect } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis';
 import { setPublishedTutorialAuthor } from 'store/states';
-import { ITutorialArticle } from 'types';
+import { ITutorialSectionItem } from 'types';
 import { appDynamic } from 'utils';
 
 import classes from './TutorialSidebar.module.scss';
@@ -26,12 +26,12 @@ export const TutorialSidebar: FC = () => {
   const getPublishedTutorial = async (): Promise<void> => {
     if (!id) return;
     const tutorial = await fetchPublishedTutorial(+id).unwrap();
-    const firstArticle = tutorial.sections[0].articles[0];
+    const firstArticle = tutorial.sections[0].items[0];
     setParam('articleId', firstArticle.articleId);
     dispatch(setPublishedTutorialAuthor(tutorial.author));
   };
 
-  const selectArticle = (article: ITutorialArticle): void => {
+  const selectArticle = (article: ITutorialSectionItem): void => {
     setParam('articleId', article.articleId);
   };
 
@@ -48,13 +48,13 @@ export const TutorialSidebar: FC = () => {
           <div key={section.id} className={classes['section-container']}>
             <h3 className={classes.section}>{section.name}</h3>
             <div>
-              {section.articles.map((article) => (
+              {section.items.map((item) => (
                 <p
                   className={classes.article}
-                  key={article.id}
-                  onClick={(): void => selectArticle(article)}
+                  key={item.id}
+                  onClick={(): void => selectArticle(item)}
                 >
-                  {article.name}
+                  {item.name}
                 </p>
               ))}
             </div>

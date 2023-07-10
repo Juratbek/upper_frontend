@@ -1,5 +1,5 @@
 import { TRootState } from 'store/store';
-import { ILabel, ITutorialArticle, ITutorialSection } from 'types';
+import { ILabel, ITutorialSection, ITutorialSectionItem } from 'types';
 
 export const getTutorialName = (store: TRootState): string => store.tutorialsSidebar.name;
 
@@ -22,5 +22,5 @@ export const getIsRemoveSectionModalOpen = (store: TRootState): boolean =>
 export const getTutorialSelectedSection = (store: TRootState): ITutorialSection | undefined =>
   store.tutorialsSidebar.selectedSection;
 
-export const getTutorialSelectedArticle = (store: TRootState): ITutorialArticle | undefined =>
+export const getTutorialSelectedArticle = (store: TRootState): ITutorialSectionItem | undefined =>
   store.tutorialsSidebar.selectedArticle;

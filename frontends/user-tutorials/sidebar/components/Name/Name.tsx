@@ -5,10 +5,8 @@ import { useAppDispatch, useAppSelector } from 'store';
 import { useChangeTutorialNameMutation } from 'store/apis';
 import { addTutorialSection, changeTutorialName, getTutorialName } from 'store/states';
 import { ITutorialSection } from 'types';
-import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
-import { UUID_SIZE } from '../../TutorialSidebar.constants';
 import classes from './Name.module.scss';
 
 const AddFolderIcon = ICONS.addFolder;
@@ -24,10 +22,10 @@ export const Name: FC = () => {
 
   const addSectionHandler = (): void => {
     const newSection: ITutorialSection = {
-      id: uuid(UUID_SIZE),
+      id: '',
       name: "Bo'lim nomi",
-      articles: [],
-      new: true,
+      items: [],
+      defaultFocused: true,
     };
     dispatch(addTutorialSection(newSection));
   };

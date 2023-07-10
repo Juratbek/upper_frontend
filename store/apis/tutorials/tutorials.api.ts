@@ -4,16 +4,17 @@ import {
   ITutorial,
   ITutorialMedium,
   ITutorialSection,
+  ITutorialSectionItem,
   TOptionalPagingRequest,
 } from 'types';
 
 import { baseQuery } from '../config';
 import {
-  IAddSectionDto,
   IChangeTutorialSelectedArticleDto,
-  IEditSectionDto,
   IRemoveArticleDto,
   IRemoveSectionDto,
+  ISaveSectionDto,
+  ISaveSectionItemDto,
 } from './tutorials.types';
 
 export const tutorialApi = createApi({
@@ -33,16 +34,16 @@ export const tutorialApi = createApi({
         body,
       }),
     }),
-    addSection: build.mutation<ITutorialSection, IAddSectionDto>({
-      query: (section) => ({
-        url: 'add-section',
+    saveSection: build.mutation<ITutorialSection, ISaveSectionDto>({
+      query: (body) => ({
+        url: 'save-section',
         method: 'PUT',
-        body: section,
+        body,
       }),
     }),
-    editSection: build.mutation<ITutorialSection, IEditSectionDto>({
+    saveSectionItem: build.mutation<ITutorialSectionItem, ISaveSectionItemDto>({
       query: (body) => ({
-        url: 'edit-section',
+        url: 'save-section-item',
         method: 'PUT',
         body,
       }),
@@ -89,8 +90,8 @@ export const {
   useCreateMutation: useCreateTutorialMutation,
   useChangeNameMutation: useChangeTutorialNameMutation,
   useLazyGetByIdQuery: useLazyGetTutorialByIdQuery,
-  useAddSectionMutation: useAddTutorialSectionMutation,
-  useEditSectionMutation: useEditTutorialSectionMutation,
+  useSaveSectionMutation: useSaveTutorialSectionMutation,
+  useSaveSectionItemMutation: useSaveTutorialSectionItemMutation,
   useChangeArticleMutation: useChangeTutorialSelectedArticleMutation,
   usePublishMutation: usePublishTutorialMutation,
   useRemoveArticleMutation: useRemoveTutorialArticleMutation,

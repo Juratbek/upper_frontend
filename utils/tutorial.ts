@@ -16,8 +16,8 @@ export const removeArticle = (
   articleId: string,
 ): ITutorialSection[] =>
   sections.map((section) => {
-    const articles = section.articles;
-    section.articles = articles.filter((article) => article.id !== articleId);
+    const articles = section.items;
+    section.items = articles.filter((item) => item.id !== articleId);
     return section;
   });
 
@@ -36,7 +36,7 @@ export const validateTutorial = (
     return { isValid: false, message: "Bo'limlar qo'shilmagan", cause: 'empty-tuturial' };
   }
   for (const section of sections) {
-    const articles = section.articles;
+    const articles = section.items;
     // checking if all sections have at least one article
     if (articles.length === 0) {
       return {

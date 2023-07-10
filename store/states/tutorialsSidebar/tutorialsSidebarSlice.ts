@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILabel, ITutorial, ITutorialSection } from 'types';
-import { ITutorialArticle } from 'types/section';
+import { ITutorialSectionItem } from 'types/section';
 import { removeArticle, removeSection } from 'utils';
 
 import {
   IAddSectionByTargetPayloadAction,
   IAddTutorialArticleBytargetPayloadAction,
-  IAddTutorialArticlePayloadAction,
 } from './tutorialsSidebarSlice.types';
 
 interface ITutorialSidebarState {
   isRemoveArticleModalOpen: boolean;
   isPublishTutorialModalOpen: boolean;
-  selectedArticle?: ITutorialArticle;
+  selectedArticle?: ITutorialSectionItem;
   isRemoveSectionModalOpen: boolean;
   selectedSection?: ITutorialSection;
   name: string;
@@ -61,37 +60,53 @@ const tutorialsSidebarSlice = createSlice({
         section.id === payload.id ? payload : section,
       );
     },
-    addArticle(state, { payload }: PayloadAction<IAddTutorialArticlePayloadAction>) {
-      const { section, article } = payload;
-      state.sections = state.sections.map((s) => {
+    addSectionItem(state, { payload: section }: PayloadAction<ITutorialSection>) {
+      const newItem: ITutorialSectionItem = { id: '', name: 'Maqola nomi', defaultFocused: true };
+
+      state.sections = state.sections.map((s): ITutorialSection => {
         if (s.id !== section.id) return s;
 
-        return { ...section, articles: [...section.articles, article] };
+        return { ...section, items: [...section.items, newItem] };
       });
     },
-    removeArticle(state, { payload }: PayloadAction<string>) {
-      state.sections = removeArticle(state.sections, payload);
-    },
-    addArticleByTarget(
+    addSectionItemByTarget(
       state,
       { payload }: PayloadAction<IAddTutorialArticleBytargetPayloadAction>,
     ) {
-      const { section, article, target } = payload;
-      const articles: ITutorialArticle[] = [];
-      section.articles.forEach((a) => {
-        articles.push(a);
-        if (a.id === target.id) {
-          articles.push(article);
+      const { section, target } = payload;
+      const newItem: ITutorialSectionItem = {
+        id: '',
+        name: 'Maqola nomi',
+        defaultFocused: true,
+        target,
+      };
+
+      const items: ITutorialSectionItem[] = [];
+      section.items.forEach((item) => {
+        items.push(item);
+        if (item.id === target.id) {
+          items.push(newItem);
         }
       });
 
-      state.sections = state.sections.map((s) =>
-        s.id !== section.id ? s : { ...section, articles },
-      );
+      state.sections = state.sections.map((s) => (s.id !== section.id ? s : { ...section, items }));
+    },
+    editSectionItem(
+      state,
+      { payload }: PayloadAction<{ section: ITutorialSection; item: ITutorialSectionItem }>,
+    ) {
+      state.sections = state.sections.map((section) => {
+        if (section.id === payload.section.id) {
+          section.items = section.items.map((item) =>
+            item.id === payload.item.id ? payload.item : item,
+          );
+        }
+        return section;
+      });
     },
     changeArticle(
       state,
-      { payload }: PayloadAction<{ section: ITutorialSection; article: ITutorialArticle }>,
+      { payload }: PayloadAction<{ section: ITutorialSection; article: ITutorialSectionItem }>,
     ) {
       const { section, article } = payload;
       state.sections = state.sections.map((s) => {
@@ -99,7 +114,7 @@ const tutorialsSidebarSlice = createSlice({
           return s;
         }
 
-        const editedArticles = section.articles.map((a) => {
+        const editedArticles = section.items.map((a) => {
           if (a.id !== article.id) {
             return a;
           }
@@ -109,7 +124,10 @@ const tutorialsSidebarSlice = createSlice({
         return { ...section, articles: editedArticles };
       });
     },
-    setSelectedArticle(state, { payload }: PayloadAction<ITutorialArticle | undefined>) {
+    removeArticle(state, { payload }: PayloadAction<string>) {
+      state.sections = removeArticle(state.sections, payload);
+    },
+    setSelectedArticle(state, { payload }: PayloadAction<ITutorialSectionItem | undefined>) {
       state.selectedArticle = payload;
     },
     setSelectedSection(state, { payload }: PayloadAction<ITutorialSection | undefined>) {
@@ -143,10 +161,13 @@ const tutorialsSidebarSlice = createSlice({
 
 export const {
   changeName: changeTutorialName,
+  // section methods
   addSection: addTutorialSection,
   editSection: editTutorialSection,
-  addArticle: addTutorialArticle,
-  addArticleByTarget: addTutorialArticleByTarget,
+  // section item methods
+  editSectionItem: editTutorialSectionItem,
+  addSectionItem: addTutorialSectionItem,
+  addSectionItemByTarget: addTutorialSectionItemByTarget,
   changeArticle: changeTutorialArticle,
   addSectionByTarget: addTutorialSectionByTarget,
   removeSection: removeTutorialSection,

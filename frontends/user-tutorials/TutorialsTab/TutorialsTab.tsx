@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { useCreateTutorialMutation, useLazyGetAllTutorialsQuery } from 'store/apis';
 import { setTutorial } from 'store/states';
 import { TArticleStatus } from 'types';
-import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
+import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
 
 const TutorialsTab: FC = () => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const TutorialsTab: FC = () => {
   const createTutorialHandler = async (): Promise<void> => {
     const res = await createTutorial().unwrap();
     dispatch(setTutorial(res));
-    push(`/user/tutorials/${res.id}`);
+    push(`${WEB_APP_ROOT_DIR}/user/tutorials/${res.id}`);
   };
 
   const { data } = fetchTutorialsRes;

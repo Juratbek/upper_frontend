@@ -28,7 +28,7 @@ export const TutorialPage: FC = () => {
   const { currentTutorialArticle, currentSection } = useMemo(() => {
     if (sectionId && articleId) {
       const section = sections.find((section) => section.id === sectionId);
-      const article = section?.articles.find((article) => article.id === articleId);
+      const article = section?.items.find((article) => article.id === articleId);
       return {
         currentSection: section,
         currentTutorialArticle: article,
@@ -38,7 +38,7 @@ export const TutorialPage: FC = () => {
   }, [articleId, sectionId, sections]);
 
   const hasArticle = useMemo(() => {
-    return sections.some((section) => section.articles.length > 0);
+    return sections.some((section) => section.items.length > 0);
   }, [sections]);
 
   useEffect(() => {

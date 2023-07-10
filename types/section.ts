@@ -1,16 +1,15 @@
-export interface ITutorialArticle {
+export interface ITutorialSectionItem {
   id: string;
   name: string;
   defaultFocused?: boolean;
-  new?: boolean;
+  target?: ITutorialSectionItem;
   articleId?: number;
 }
 
 export interface ITutorialSection {
   id: string;
   name: string;
-  articles: ITutorialArticle[];
-  // defaultFocused?: boolean;
-  new?: boolean;
+  items: ITutorialSectionItem[];
+  defaultFocused?: boolean;
   target?: ITutorialSection;
 }

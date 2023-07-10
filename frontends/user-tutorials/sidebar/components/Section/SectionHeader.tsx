@@ -1,54 +1,45 @@
 import { ChangeableText, IconButton } from 'components';
-import { useClickOutside, useModal } from 'hooks';
+import { useClickOutside, useModal, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'store';
-import { useAddTutorialSectionMutation, useEditTutorialSectionMutation } from 'store/apis';
+import { useAppDispatch } from 'store';
+import { useSaveTutorialSectionMutation } from 'store/apis';
 import {
-  addTutorialArticle,
   addTutorialSectionByTarget,
+  addTutorialSectionItem,
   editTutorialSection,
-  getTutorialSections,
-  IAddTutorialArticlePayloadAction,
   setSelectedSection,
   toggleRemoveSectionModal,
 } from 'store/states';
 import { ITutorialSection } from 'types';
-import { uuid } from 'utils';
 import { ICONS } from 'variables';
 
-import { UUID_SIZE } from '../../TutorialSidebar.constants';
 import classes from './Section.module.scss';
 
 const PlusIcon = ICONS.plus;
 
 export const SectionHeader: FC<{ section: ITutorialSection }> = ({ section }) => {
-  const sections = useAppSelector(getTutorialSections);
   const [isAddPopoverOpen, , { close: closeAddPopover, open: openAddPopover }] = useModal(false);
+  const { themeColors } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
   const {
     query: { id },
   } = useRouter();
   const [popoverRef] = useClickOutside(closeAddPopover, '[data-action="open-add-popover"]');
   const dispatch = useAppDispatch();
-  const [addSection] = useAddTutorialSectionMutation();
-  const [editSection] = useEditTutorialSectionMutation();
+  const [saveSection] = useSaveTutorialSectionMutation();
 
-  const addArticleHandler = (): void => {
-    const payload: IAddTutorialArticlePayloadAction = {
-      section,
-      article: { id: uuid(UUID_SIZE), name: 'Maqola nomi', defaultFocused: true, new: true },
-    };
-    dispatch(addTutorialArticle(payload));
+  const addSectionItem = (): void => {
+    dispatch(addTutorialSectionItem(section));
     closeAddPopover();
   };
 
   const addSectionHandler = (): void => {
     const newSection: ITutorialSection = {
-      id: uuid(UUID_SIZE),
+      id: '',
       name: "Bo'lim nomi",
-      articles: [],
-      new: true,
+      items: [],
+      defaultFocused: true,
       target: section,
     };
     dispatch(addTutorialSectionByTarget({ newSection, targetSection: section }));
@@ -63,19 +54,10 @@ export const SectionHeader: FC<{ section: ITutorialSection }> = ({ section }) =>
   const submitHandler = async (name: string): Promise<void> => {
     if (!id) return Promise.reject();
 
-    if (section.new) {
-      const res = await addSection({
-        tutorialId: +id,
-        newSection: { ...section, name },
-        targetSection: section.target,
-      }).unwrap();
-      dispatch(editTutorialSection(res));
-      return Promise.resolve();
-    }
-
-    const res = await editSection({
+    const res = await saveSection({
       tutorialId: +id,
       section: { ...section, name },
+      targetSection: section.target,
     }).unwrap();
     dispatch(editTutorialSection(res));
   };
@@ -86,10 +68,11 @@ export const SectionHeader: FC<{ section: ITutorialSection }> = ({ section }) =>
     <div
       ref={popoverRef}
       className={`${classes['add-popover']} ${isAddPopoverOpen && classes.open}`}
+      style={{ backgroundColor: themeColors.popover.bg }}
     >
       <ul>
         <li onClick={addSectionHandler}>Bo&apos;lim qo&apos;shish</li>
-        <li onClick={addArticleHandler}>Maqola qo&apos;shish</li>
+        <li onClick={addSectionItem}>Maqola qo&apos;shish</li>
       </ul>
     </div>
   );
@@ -99,7 +82,7 @@ export const SectionHeader: FC<{ section: ITutorialSection }> = ({ section }) =>
       <ChangeableText
         value={section.name}
         onSubmit={submitHandler}
-        defaultFocused={section.new}
+        defaultFocused={section.defaultFocused}
         onFocus={isFocusedHandler(true)}
         onBlur={isFocusedHandler(false)}
       />

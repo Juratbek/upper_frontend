@@ -1,5 +1,5 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { ILabel, ITutorialArticle, ITutorialSection } from 'types';
+import { ILabel, ITutorialSection, ITutorialSectionItem } from 'types';
 
 export interface ICreateArticleDto {
   title: string;
@@ -13,20 +13,17 @@ export interface IUpdateArticleDto {
   labels: ILabel[];
 }
 
-export interface IAddSectionDto {
+export interface ISaveSectionDto {
   tutorialId: number;
-  newSection: ITutorialSection;
+  section: ITutorialSection;
   targetSection?: ITutorialSection;
 }
-export interface IEditSectionDto {
-  tutorialId: number;
-  section: ITutorialSection;
-}
 
-export interface IAddArticleDto {
+export interface ISaveSectionItemDto {
   tutorialId: number;
-  section: ITutorialSection;
-  article: ITutorialArticle;
+  sectionId: string;
+  item: ITutorialSectionItem;
+  targetItem?: ITutorialSectionItem;
 }
 
 export interface IChangeTutorialSelectedArticleDto {
