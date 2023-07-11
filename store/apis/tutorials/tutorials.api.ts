@@ -34,6 +34,7 @@ export const tutorialApi = createApi({
         body,
       }),
     }),
+    // section methods
     saveSection: build.mutation<ITutorialSection, ISaveSectionDto>({
       query: (body) => ({
         url: 'save-section',
@@ -41,11 +42,22 @@ export const tutorialApi = createApi({
         body,
       }),
     }),
+    // section item methods
     saveSectionItem: build.mutation<ITutorialSectionItem, ISaveSectionItemDto>({
       query: (body) => ({
         url: 'save-section-item',
         method: 'PUT',
         body,
+      }),
+    }),
+    assignArticleToSectionItem: build.mutation<
+      void,
+      { tutorialId: number; itemId: string; articleId: number }
+    >({
+      query: ({ tutorialId, ...params }) => ({
+        url: `${tutorialId}/assign-article`,
+        method: 'PUT',
+        params,
       }),
     }),
     getAll: build.query<IPagingResponse<ITutorialMedium>, TOptionalPagingRequest>({
@@ -96,4 +108,5 @@ export const {
   usePublishMutation: usePublishTutorialMutation,
   useRemoveArticleMutation: useRemoveTutorialArticleMutation,
   useRemoveSectionMutation,
+  useAssignArticleToSectionItemMutation,
 } = tutorialApi;

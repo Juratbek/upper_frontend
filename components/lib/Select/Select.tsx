@@ -5,7 +5,7 @@ import { debouncer, getClassName } from 'utils';
 import classes from './Select.module.scss';
 import { ISelectOption, ISelectProps } from './Select.types';
 
-const debounce = debouncer(500);
+const debounce = debouncer<string>(500);
 
 export const Select: FC<ISelectProps> = ({ options = [], searcheable = false, ...props }) => {
   const { onInputDebounce } = props;

@@ -11,7 +11,7 @@ export const Section: FC<ISectionProps> = ({ section }) => {
   const { setParams } = useUrlParams();
 
   const selectItem = (item: ITutorialSectionItem): void => {
-    setParams({ itemId: item.id });
+    setParams({ itemId: item.id, articleId: item.articleId?.toString() });
   };
 
   return (
