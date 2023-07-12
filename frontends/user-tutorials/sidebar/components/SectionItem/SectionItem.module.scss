@@ -30,3 +30,7 @@ $icon-size: 16px;
 .remove {
   transform: rotate(45deg);
 }
+
+.active {
+  background-color: var(--brightGray);
+}

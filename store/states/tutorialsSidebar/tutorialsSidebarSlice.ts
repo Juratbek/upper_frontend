@@ -37,6 +37,7 @@ const tutorialsSidebarSlice = createSlice({
     changeName(state, { payload }: PayloadAction<string>) {
       state.name = payload;
     },
+    // section methods
     addSection(state, { payload }: PayloadAction<ITutorialSection>) {
       state.sections = [...state.sections, payload];
     },
@@ -60,6 +61,7 @@ const tutorialsSidebarSlice = createSlice({
         section.id === payload.id ? payload : section,
       );
     },
+    // section item methods
     addSectionItem(state, { payload: section }: PayloadAction<ITutorialSection>) {
       const newItem: ITutorialSectionItem = { id: '', name: 'Maqola nomi', defaultFocused: true };
 
@@ -116,6 +118,18 @@ const tutorialsSidebarSlice = createSlice({
       });
 
       state.sections = editedSectoins;
+    },
+    assignArticleIdToSectionItem(
+      state,
+      { payload }: PayloadAction<{ itemId: string; articleId: number }>,
+    ) {
+      const { itemId, articleId } = payload;
+      const { sections } = state;
+      state.sections = sections.map((section) => {
+        const { items } = section;
+        section.items = items.map((item) => (item.id === itemId ? { ...item, articleId } : item));
+        return section;
+      });
     },
     changeArticle(
       state,
@@ -183,6 +197,7 @@ export const {
   editSectionItem: editTutorialSectionItem,
   addSectionItem: addTutorialSectionItem,
   addSectionItemByTarget: addTutorialSectionItemByTarget,
+  assignArticleIdToSectionItem,
   changeArticle: changeTutorialArticle,
   removeArticle: removeTutorialArticle,
   setTutorial,

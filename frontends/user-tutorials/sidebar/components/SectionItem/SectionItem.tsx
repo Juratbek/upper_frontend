@@ -10,6 +10,7 @@ import {
   removeArticleModalHandler,
   setSelectedArticle,
 } from 'store/states';
+import { getClassName } from 'utils';
 import { ICONS } from 'variables';
 
 import classes from './SectionItem.module.scss';
@@ -23,7 +24,7 @@ export const SectionItem: FC<ISectionItemProps> = ({ item, section, onClick }) =
   const [saveSectionItem, saveSectionItemRes] = useSaveTutorialSectionItemMutation();
   const isLoading = saveSectionItemRes.isLoading;
   const {
-    query: { id },
+    query: { id, itemId },
   } = useRouter();
 
   const articleNameSubmitHandler = async (name: string): Promise<void> => {
@@ -54,9 +55,10 @@ export const SectionItem: FC<ISectionItemProps> = ({ item, section, onClick }) =
   };
 
   const isFocusedHandler = (value: boolean) => () => setIsFocused(value);
+  const rootClassName = getClassName(classes.header, itemId === item.id && classes.active);
 
   return (
-    <div className={classes.header}>
+    <div className={rootClassName}>
       <ChangeableText
         value={item.name}
         defaultFocused={item.defaultFocused}
