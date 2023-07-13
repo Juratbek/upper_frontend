@@ -1,6 +1,6 @@
 import { ITabBody, ITabHeader } from 'types';
 
-import TutorialsTab from './TutorialsTab/TutorialsTab';
+import TutorialsTab from '../TutorialsTab/TutorialsTab';
 
 export const USER_TUTORIALS_TAB_IDS = {
   saved: 'saved',

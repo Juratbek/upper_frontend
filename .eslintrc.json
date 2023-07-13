@@ -4,7 +4,7 @@
     "project": ["./tsconfig.json"],
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin", "react", "simple-import-sort"],
+  "plugins": ["@typescript-eslint/eslint-plugin", "react", "react-hooks", "simple-import-sort"],
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -65,6 +65,7 @@
         "extensions": [".tsx"]
       }
     ],
+    "react-hooks/exhaustive-deps": "warn",
     "no-param-reassign": [
       "error",
       {

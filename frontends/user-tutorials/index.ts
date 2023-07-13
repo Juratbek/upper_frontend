@@ -1,3 +1,3 @@
-export * from './TutorialPage';
+export * from './[id]/TutorialPage';
 export * from './sidebar/TutorialSidebar';
-export * from './Tutorials.constants';
+export * from './[id]/Tutorials.constants';

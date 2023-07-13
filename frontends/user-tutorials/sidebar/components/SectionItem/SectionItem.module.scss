@@ -14,6 +14,7 @@ $icon-size: 16px;
 
   &:hover {
     background-color: var(--brightGray);
+    cursor: pointer;
 
     & .actions {
       display: flex;
