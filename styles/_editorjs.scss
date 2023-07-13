@@ -41,7 +41,20 @@
   .codeflask--has-line-numbers pre.codeflask__flatten {
     width: unset;
   }
-
+  .ce-inline-toolbar {
+    .ce-inline-tool.colorPlugin {
+      #color-left-btn {
+        width: 20px;
+      }
+      #color-btn-text {
+        height: unset;
+        svg {
+          height: 20px;
+        }
+      }
+    }
+  }
+    
   .codeflask {
     &.codeflask--has-line-numbers:before,
     & .codeflask__lines {
@@ -136,17 +149,6 @@
     }
 
     // styles for text color inline plugin
-    .ce-inline-tool.colorPlugin {
-      #color-left-btn {
-        width: 20px;
-      }
-      #color-btn-text {
-        height: unset;
-        svg {
-          height: 20px;
-        }
-      }
-    }
 
     // styles for gyperlink tool input
     .ce-inline-toolbar__actions input {
