@@ -33,6 +33,9 @@ import {
   Steps,
   TelegramIcon,
   TringleIcon,
+  UploadError,
+  Uploading,
+  UploadSuccess,
   UserIcon,
   WebsiteIcon,
   YouTubeIcon,
@@ -77,6 +80,9 @@ export const ICON_TYPES = {
   send: 'send',
   openExternal: 'openExternal',
   steps: 'steps',
+  uploading: 'uploading',
+  uploadError: 'uploadError',
+  uploadSuccess: 'uploadSuccess',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -127,4 +133,7 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   send: SendIcon,
   openExternal: OpenExternal,
   steps: Steps,
+  uploading: Uploading,
+  uploadError: UploadError,
+  uploadSuccess: UploadSuccess,
 };

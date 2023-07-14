@@ -5,10 +5,12 @@ import { useLazyGetBlogArticleByIdQuery, useUpdateArticleMutation } from 'store/
 import { TEditorApi } from 'types';
 import { addUriToImageBlocks, debouncer } from 'utils';
 
-const debounce = debouncer<TEditorApi>(4000);
+const debounce = debouncer<TEditorApi>(2500);
 
 export const Article: FC<{ articleId: number }> = ({ articleId }) => {
-  const [updateArticle] = useUpdateArticleMutation();
+  const [updateArticle] = useUpdateArticleMutation({
+    fixedCacheKey: 'update-article',
+  });
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [fetchArticleById, fetchArticleByIdRes] = useLazyGetBlogArticleByIdQuery();
 
