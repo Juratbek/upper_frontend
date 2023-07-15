@@ -25,7 +25,7 @@ export const CreateArticleButton: FC<{
       // set article id as a param, it will be used to refetch the article if user refreshes the page
       setParam('articleId', res.id);
     } catch (e) {
-      alert(`Xatolik yuz berdi ${e}`);
+      alert(`Xatolik yuz berdi ${JSON.stringify(e, null, 2)}`);
     }
   }, [tutorialId, itemId, createArticle, assignArticle, dispatch, setParam]);
 

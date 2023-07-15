@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, Article, ArticleSkeleton, Button } from 'components';
+import { ApiErrorBoundary, Article, ArticleSkeleton, Button, PublishedTutorial } from 'components';
 import { SEARCH_PAGE_ARTICLE_ICONS } from 'frontends/search';
 import { useAuth, useInfiniteScroll, useTheme, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
@@ -83,6 +83,29 @@ export const HomePage: FC = () => {
             {label.name}
           </Button>
         ))}
+      </div>
+      <div className='mb-2 d-flex f-gap-2 justify-content-between'>
+        <PublishedTutorial
+          author={{ id: 1, imgUrl: '', name: 'Juratbek' }}
+          id={2}
+          imgUrl='https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?crop=entropy&amp;cs=tinysrgb&amp;fm=jpg&amp;ixid=MnwzNTg2MDB8MHwxfHNlYXJjaHwxfHx3aW58ZW58MHx8fHwxNjc0ODgwOTI1&amp;ixlib=rb-4.0.3&q=10'
+          name='JavaScript'
+          publishedDate='12.10.2022'
+        />
+        <PublishedTutorial
+          author={{ id: 1, imgUrl: '', name: 'Juratbek' }}
+          id={2}
+          imgUrl='https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?crop=entropy&amp;cs=tinysrgb&amp;fm=jpg&amp;ixid=MnwzNTg2MDB8MHwxfHNlYXJjaHwxfHx3aW58ZW58MHx8fHwxNjc0ODgwOTI1&amp;ixlib=rb-4.0.3&q=10'
+          name='JavaScript'
+          publishedDate='12.10.2022'
+        />
+        <PublishedTutorial
+          author={{ id: 1, imgUrl: '', name: 'Juratbek' }}
+          id={2}
+          imgUrl='https://images.unsplash.com/photo-1569705460033-cfaa4bf9f822?crop=entropy&amp;cs=tinysrgb&amp;fm=jpg&amp;ixid=MnwzNTg2MDB8MHwxfHNlYXJjaHwxfHx3aW58ZW58MHx8fHwxNjc0ODgwOTI1&amp;ixlib=rb-4.0.3&q=10'
+          name='JavaScript'
+          publishedDate='12.10.2022'
+        />
       </div>
       <ApiErrorBoundary
         fallback={<ArticleSkeleton className='p-2' />}

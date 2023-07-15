@@ -40,17 +40,18 @@ export const TutorialSidebar: FC = () => {
   const { data: tutorial } = getByIdRes;
 
   const publishHandler = (): void => {
-    const { isValid, message, cause, sectionId, articleId } = validateTutorial(sections);
+    const { isValid, message, cause, itemId } = validateTutorial(sections);
+    // if tutorial is valid clear alert and open publish modal;
     if (isValid) {
+      setAlert('');
       dispatch(publishTutorialModalHandler({ isOpen: true }));
       return;
     }
+    // if there is an item with no assigned article select this item
     if (cause === 'article-not-assigned') {
-      setParams({ sectionId, articleId, alert: message });
+      setParams({ itemId, articleId: '' });
     }
-    if (cause === 'empty-section' || cause === 'empty-tuturial') {
-      setAlert(message);
-    }
+    setAlert(message);
   };
 
   useEffect(() => {
@@ -66,12 +67,16 @@ export const TutorialSidebar: FC = () => {
   }, [id]);
 
   const alertComponent = useMemo(
-    () =>
-      alert && (
-        <Alert className='mt-1 mx-1' onClose={(): void => setAlert('')} color='red'>
-          {alert}
-        </Alert>
-      ),
+    () => (
+      <Alert
+        show={Boolean(alert)}
+        className='mt-1 mx-1'
+        onClose={(): void => setAlert('')}
+        color='red'
+      >
+        {alert}
+      </Alert>
+    ),
     [alert],
   );
 
@@ -91,12 +96,12 @@ export const TutorialSidebar: FC = () => {
       <RemoveArticleModal />
       <RemoveSectionModal />
       <PublishTutorialModal />
+      {alertComponent}
       <ApiErrorBoundary
         res={getByIdRes}
         memoizationDependencies={[tutorialName, sections, StatusIcon]}
         fallback={<TutorialSidebarSkeleton withActionIcons />}
       >
-        {alertComponent}
         <div className='px-2 py-1 d-flex f-gap-2 align-items-center'>
           <Button className='w-100' onClick={publishHandler}>
             {tutorial?.status === 'PUBLISHED' ? 'Qayta nashr qilish' : 'Nashr qilish'}

@@ -28,17 +28,20 @@ export const validateTutorial = (
   message: string;
   cause?: 'empty-section' | 'article-not-assigned' | 'empty-tuturial';
   sectionId?: string;
-  articleId?: string;
+  itemId?: string;
 } => {
   const res = { isValid: true, message: '' };
   // checking if tutorial has sections
   if (sections.length < 1) {
     return { isValid: false, message: "Bo'limlar qo'shilmagan", cause: 'empty-tuturial' };
   }
+
+  // checking sections
   for (const section of sections) {
-    const articles = section.items;
-    // checking if all sections have at least one article
-    if (articles.length === 0) {
+    const { items } = section;
+
+    // checking if all sections have at least one item
+    if (items && items.length === 0) {
       return {
         isValid: false,
         message: `"${section.name}" bo'limiga maqolalar qo'shilmagan`,
@@ -46,14 +49,14 @@ export const validateTutorial = (
       };
     }
 
-    // checking if all articles has been assigned to a published article
-    for (const article of articles) {
-      if (!article.articleId) {
+    // checking if all section items have been assigned to articles
+    for (const item of items) {
+      if (!item.articleId) {
         return {
           isValid: false,
-          message: `"${section.name}" bo'limida "${article.name}" uchun maqola biriktirilmagan`,
+          message: `"${section.name}" bo'limida "${item.name}" uchun maqola biriktirilmagan`,
           sectionId: section.id,
-          articleId: article.id,
+          itemId: item.id,
           cause: 'article-not-assigned',
         };
       }

@@ -35,7 +35,7 @@ export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
     }
     if (isSuccess || isFetching) return <>{children}</>;
     return <></>;
-  }, [res, ...memoizationDependencies, defaultComponent]);
+  }, [res, ...memoizationDependencies, defaultComponent, children, onError, Fallback]);
 
   return <div {...props}>{content}</div>;
 };

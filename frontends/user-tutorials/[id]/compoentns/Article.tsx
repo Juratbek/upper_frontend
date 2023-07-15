@@ -51,6 +51,7 @@ export const Article: FC<{ articleId: number }> = ({ articleId }) => {
   return (
     <ApiErrorBoundary res={fetchArticleByIdRes} fallback='Loading...'>
       <Editor
+        autoFocus
         content={{ blocks: addUriToImageBlocks(article?.blocks || []) }}
         changeHandler={editorChangeHandler}
         handleInstance={setEditorInstance}

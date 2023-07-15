@@ -8,7 +8,7 @@ export interface IPublishedTutorialSmall {
   publishedDate: string;
   labels: string[];
 }
-export interface IPublishedTutorialMedim {
+export interface IPublishedTutorialMedium {
   id: number;
   name: string;
   imgUrl: string;
@@ -16,7 +16,7 @@ export interface IPublishedTutorialMedim {
   author: IBlogSmall;
 }
 
-export interface IPublishedTutorial extends IPublishedTutorialMedim {
+export interface IPublishedTutorial extends IPublishedTutorialMedium {
   id: number;
   name: string;
   author: IBlogSmall;
