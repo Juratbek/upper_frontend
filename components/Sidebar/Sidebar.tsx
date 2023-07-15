@@ -87,7 +87,7 @@ export const Sidebar = (): JSX.Element => {
         res={blogSuggestionsRes}
       >
         <Divider className='my-2' color='medium-gray' />
-        <h3>Kuzatib boring</h3>
+        <h3>Obuna bo&apos;ling</h3>
         {data?.map((blog, index) => (
           <div key={blog.id}>
             <SidebarBlog {...addAmazonUri(blog)} />
