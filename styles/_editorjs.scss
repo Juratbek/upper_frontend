@@ -42,6 +42,7 @@
     width: unset;
   }
 
+  // styles for text color inline plugin
   .ce-inline-toolbar {
     .ce-inline-tool.colorPlugin {
       #color-left-btn {
@@ -148,8 +149,6 @@
         background-color: var(--lightBlack);
       }
     }
-
-    // styles for text color inline plugin
 
     // styles for gyperlink tool input
     .ce-inline-toolbar__actions input {
