@@ -1,15 +1,15 @@
 import EditorJS from '@editorjs/editorjs';
 import { Alert, Button, Input, Lordicon, Modal } from 'components';
+import { useTheme } from 'hooks';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { usePublishMutation } from 'store/apis';
 import { setArticle } from 'store/states';
 import { IArticle, IResponseError, TArticleStatus } from 'types';
 import { validateArticle } from 'utils';
-import { ARTICLE_STATUSES, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLE_STATUSES, ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 export const PublishArticleModal: FC<{
   open: boolean;
@@ -21,7 +21,7 @@ export const PublishArticleModal: FC<{
   status: TArticleStatus;
 }> = ({ editor, article, ...props }) => {
   const [alert, setAlert] = useState<string>();
-  const { push } = useRouter();
+  const { themeColors } = useTheme();
   const [isNotificationOn, setIsNotificationOn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
@@ -66,10 +66,6 @@ export const PublishArticleModal: FC<{
     publishArticleRes.reset();
   };
 
-  const redirectToPublishedArticle = (): void => {
-    push(`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`);
-  };
-
   const notificationRadioInputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target?.value;
     if (value === 'false') setIsNotificationOn(false);
@@ -87,14 +83,17 @@ export const PublishArticleModal: FC<{
           <div className='text-center'>
             <Lordicon width={100} height={100} src='/icons/congrats.webp' />
             <h3>Maqolangiz nashr qilindi</h3>
-            <div className='d-flex justify-content-between'>
-              <Button style={{ padding: '0.4em 0.7em' }} onClick={closePublishModalHandler}>
-                Modalni yopish
-              </Button>
-              <Button style={{ padding: '0.4em 0.7em' }} onClick={redirectToPublishedArticle}>
-                Nashr varyantini ko&apos;rish
-              </Button>
-            </div>
+            <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
+              <a target={'_blank'}>
+                <Button className='d-flex align-items-center f-gap-1 w-100 justify-content-center'>
+                  Nashr varyantini ko&apos;rish
+                  <ICONS.openExternal color={themeColors.icon} />
+                </Button>
+              </a>
+            </Link>
+            <Button onClick={closePublishModalHandler} className='w-100 mt-1'>
+              Modalni yopish
+            </Button>
           </div>
         </>
       );
