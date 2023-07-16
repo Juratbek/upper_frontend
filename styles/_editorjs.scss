@@ -7,6 +7,11 @@
 
   & .ce-toolbar {
     z-index: 10;
+
+    .ce-popover .ce-popover__item[data-item-name='quiz'] .ce-popover__item-icon svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   & .ce-block__content {
@@ -35,6 +40,21 @@
 
   .codeflask--has-line-numbers pre.codeflask__flatten {
     width: unset;
+  }
+
+  // styles for text color inline plugin
+  .ce-inline-toolbar {
+    .ce-inline-tool.colorPlugin {
+      #color-left-btn {
+        width: 20px;
+      }
+      #color-btn-text {
+        height: unset;
+        svg {
+          height: 18px;
+        }
+      }
+    }
   }
 
   .codeflask {
@@ -127,19 +147,6 @@
     .ce-inline-toolbar__dropdown {
       &:hover {
         background-color: var(--lightBlack);
-      }
-    }
-
-    // styles for text color inline plugin
-    .ce-inline-tool.colorPlugin {
-      #color-left-btn {
-        width: 20px;
-      }
-      #color-btn-text {
-        height: unset;
-        svg {
-          height: 20px;
-        }
       }
     }
 
@@ -252,6 +259,10 @@
       .ce-settings__button:hover {
         background-color: var(--lightBlack);
       }
+
+      .qt-settings-icon__single svg path {
+        fill: white;
+      }
     }
 
     .ce-popover {
@@ -262,8 +273,13 @@
         &:hover {
           background-color: var(--lightBlack);
         }
+
         .ce-popover__item-icon {
           background-color: transparent;
+
+          path {
+            fill: white;
+          }
         }
       }
     }
@@ -325,6 +341,17 @@
           background-color: transparent;
         }
       }
+    }
+  }
+
+  .quiz-tool-container {
+    .quiz-item .icon-button:hover,
+    .quiz-footer .qt-add-btn:hover {
+      background-color: var(--popover-bg);
+    }
+
+    .quiz-item__hoverable:hover {
+      background-color: var(--popover-bg);
     }
   }
 }

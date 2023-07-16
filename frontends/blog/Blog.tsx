@@ -60,8 +60,18 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
           Obuna bo&apos;lingan
         </Button>
       );
-    return <Button onClick={subscribe}>Obuna bo&apos;lish</Button>;
-  }, [checkSubscriptionRes.isLoading, isSubscribed, openUnsubscribeModal, subscribe]);
+    return (
+      <Button onClick={subscribe} loading={subscribeBlogRes.isLoading}>
+        Obuna bo&apos;lish
+      </Button>
+    );
+  }, [
+    checkSubscriptionRes.isLoading,
+    isSubscribed,
+    openUnsubscribeModal,
+    subscribe,
+    subscribeBlogRes,
+  ]);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
