@@ -25,7 +25,7 @@
     "node": ">=16.17.0"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.25.0",
+    "@editorjs/editorjs": "^2.27.2",
     "@editorjs/embed": "^2.5.2",
     "@editorjs/header": "^2.6.2",
     "@editorjs/image": "^2.6.2",

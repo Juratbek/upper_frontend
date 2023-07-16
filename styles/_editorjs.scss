@@ -5,6 +5,13 @@
     padding-bottom: 0 !important;
   }
 
+  .ce-popover-item__icon {
+    svg {
+      width: unset;
+      height: unset;
+    }
+  }
+
   & .ce-toolbar {
     z-index: 10;
 
@@ -300,6 +307,22 @@
     .ce-popover {
       background-color: var(--popover-bg);
       border-width: 0.5px;
+
+      .ce-popover-item {
+        &:hover {
+          background-color: var(--lightBlack);
+        }
+
+        &__icon {
+          background-color: transparent;
+
+          path {
+            fill: white;
+          }
+        }
+      }
+
+
 
       .ce-popover__item {
         &:hover {
