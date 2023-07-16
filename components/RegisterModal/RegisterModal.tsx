@@ -108,14 +108,14 @@ export const RegisterModal: FC = () => {
     isOpen && !isMobile && setFocus(name.name);
   }, [isOpen, isMobile]);
 
-  const alertComponent = useMemo(() => {
-    if (!alert) return <></>;
-    return (
-      <Alert color='red' className='mb-1' onClose={closeAlert}>
+  const alertComponent = useMemo(
+    () => (
+      <Alert show={Boolean(alert)} color='red' className='mb-1' onClose={closeAlert}>
         {alert}
       </Alert>
-    );
-  }, [alert]);
+    ),
+    [alert],
+  );
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
