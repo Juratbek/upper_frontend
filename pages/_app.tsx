@@ -25,7 +25,7 @@ function WebApp({ Component, pageProps }: AppProps): JSX.Element {
       <Navigation />
       <DynamicLoginModal />
       <DynamicRegisterModal />
-      <FeedbackModal />
+      {/* <FeedbackModal /> */}
       <main className='main web-app' id='main'>
         <Component {...pageProps} />
         <Footer />
