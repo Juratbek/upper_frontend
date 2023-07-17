@@ -49,6 +49,21 @@
     width: unset;
   }
 
+  // styles for text color inline plugin
+  .ce-inline-toolbar {
+    .ce-inline-tool.colorPlugin {
+      #color-left-btn {
+        width: 20px;
+      }
+      #color-btn-text {
+        height: unset;
+        svg {
+          height: 18px;
+        }
+      }
+    }
+  }
+
   .codeflask {
     &.codeflask--has-line-numbers:before,
     & .codeflask__lines {
@@ -139,19 +154,6 @@
     .ce-inline-toolbar__dropdown {
       &:hover {
         background-color: var(--lightBlack);
-      }
-    }
-
-    // styles for text color inline plugin
-    .ce-inline-tool.colorPlugin {
-      #color-left-btn {
-        width: 20px;
-      }
-      #color-btn-text {
-        height: unset;
-        svg {
-          height: 20px;
-        }
       }
     }
 

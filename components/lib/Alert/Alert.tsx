@@ -8,7 +8,7 @@ import { IAlertProps } from './Alert.types';
 export const Alert: FC<IAlertProps> = ({ color = 'yellow', children, onClose, ...props }) => {
   const { theme } = useTheme();
 
-  if (!props.show) return null;
+  if (!(props.show ?? true)) return null;
 
   const className = getClassName(
     classes.alert,

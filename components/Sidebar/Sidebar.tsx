@@ -63,7 +63,6 @@ export const Sidebar = (): JSX.Element => {
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={articleSuggestionsRes}
       >
-        {data?.length === 0 && <h5>Maqolalar mavjud emas</h5>}
         {data &&
           addUriToArticleImages(data).map((article, index) => (
             <div key={article.id}>
@@ -76,21 +75,25 @@ export const Sidebar = (): JSX.Element => {
   }, [articleSuggestionsRes]);
 
   const suggestedBlogs = useMemo(() => {
-    const { data } = blogSuggestionsRes;
+    const { data, isSuccess } = blogSuggestionsRes;
+
+    // if there is no suggested blogs render nothing;
+    if (isSuccess && data.length === 0) return null;
+
     return (
       <ApiErrorBoundary
         fallback={<BlogSkeleton className='my-2' />}
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={blogSuggestionsRes}
       >
-        {data?.length === 0 && <h5>Bloglar mavjud emas</h5>}
-        {data &&
-          data.map((blog, index) => (
-            <div key={blog.id}>
-              <SidebarBlog {...addAmazonUri(blog)} />
-              {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-            </div>
-          ))}
+        <Divider className='my-2' color='medium-gray' />
+        <h3>Obuna bo&apos;ling</h3>
+        {data?.map((blog, index) => (
+          <div key={blog.id}>
+            <SidebarBlog {...addAmazonUri(blog)} />
+            {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+          </div>
+        ))}
       </ApiErrorBoundary>
     );
   }, [blogSuggestionsRes]);
@@ -132,8 +135,6 @@ export const Sidebar = (): JSX.Element => {
         <SidebarSearch />
         <h3>Siz uchun maqolalar</h3>
         {suggestedArticles}
-        <Divider className='my-2' color='medium-gray' />
-        <h3>Kuzatib boring</h3>
         {suggestedBlogs}
       </>
     );
