@@ -29,7 +29,7 @@
     "@editorjs/embed": "^2.5.2",
     "@editorjs/header": "^2.7.0",
     "@editorjs/image": "^2.8.1",
-    "@editorjs/list": "^1.7.0",
+    "@editorjs/list": "^1.8.0",
     "@editorjs/table": "^2.2.2",
     "@juratbek/editorjs-quiz": "^1.0.10",
     "@reduxjs/toolkit": "^1.8.3",
