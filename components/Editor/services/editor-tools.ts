@@ -16,6 +16,7 @@ type TTool =
   | 'Unsplash'
   | 'InclineCode'
   | 'CodeFlask'
+  | 'Table'
   | 'Quiz';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -31,6 +32,7 @@ const TOOLS: Record<TTool, any> = {
   Unsplash: undefined,
   InclineCode: undefined,
   CodeFlask: undefined,
+  Table: undefined,
   Quiz: undefined,
 };
 
@@ -51,6 +53,7 @@ export const getTools = async ({
     import('@samandar.boymurodov/editorjs-inline-image'),
     import('@editorjs/inline-code'),
     import('@samandar.boymurodov/editorjs-codeflask'),
+    import('@editorjs/table'),
     import('@juratbek/editorjs-quiz'),
   ]);
 
@@ -148,6 +151,10 @@ export const getTools = async ({
     },
     inlineCode: {
       class: TOOLS.InclineCode,
+      inlineToolbar: true,
+    },
+    table: {
+      class: TOOLS.Table,
       inlineToolbar: true,
     },
     quiz: {
