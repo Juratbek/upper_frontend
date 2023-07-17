@@ -184,6 +184,7 @@
     }
   }
 
+  // styling table plugin for dark mode
   .tc-wrap {
     .tc-popover {
       background-color: var(--popover-bg);
@@ -201,7 +202,6 @@
         background-color: var(--selected-text-bg);
       }
     }
-
 
     .tc-toolbox__toggler {
       rect {
@@ -316,22 +316,6 @@
         }
 
         &__icon {
-          background-color: transparent;
-
-          path {
-            fill: white;
-          }
-        }
-      }
-
-
-
-      .ce-popover__item {
-        &:hover {
-          background-color: var(--lightBlack);
-        }
-
-        .ce-popover__item-icon {
           background-color: transparent;
 
           path {
