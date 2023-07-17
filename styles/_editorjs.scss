@@ -157,6 +157,14 @@
       }
     }
 
+    .ce-inline-tool:not(.ce-inline-tool--active).colorPlugin {
+      #color-btn-text {
+        svg {
+          fill: white;
+        }
+      }
+    }
+
     // styles for gyperlink tool input
     .ce-inline-toolbar__actions input {
       background-color: transparent;
@@ -311,7 +319,7 @@
       border-width: 0.5px;
 
       .ce-popover-item {
-        &:hover {
+        &:not(.ce-popover-item--confirmation):hover {
           background-color: var(--lightBlack);
         }
 
