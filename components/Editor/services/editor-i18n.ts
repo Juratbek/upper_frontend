@@ -14,5 +14,17 @@ export const i18n: I18nConfig = {
       Table: 'Jadval',
       Quiz: 'Test',
     },
+    blockTunes: {
+      delete: {
+        Delete: "O'chirish",
+        'Click to delete': "O'chirishni tasdiqlang",
+      },
+      moveUp: {
+        'Move up': 'Yuqoriga surish',
+      },
+      moveDown: {
+        'Move down': 'Pastga surish',
+      },
+    },
   },
 };
