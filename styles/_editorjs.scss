@@ -5,6 +5,13 @@
     padding-bottom: 0 !important;
   }
 
+  .ce-popover-item__icon {
+    svg {
+      width: unset;
+      height: unset;
+    }
+  }
+
   & .ce-toolbar {
     z-index: 10;
 
@@ -177,6 +184,40 @@
     }
   }
 
+  // styling table plugin for dark mode
+  .tc-wrap {
+    .tc-popover {
+      background-color: var(--popover-bg);
+      z-index: 1;
+
+      &__item-icon {
+        background-color: var(--selected-text-bg);
+      }
+    }
+    .tc-row--selected,
+    .tc-cell--selected {
+      background-color: var(--selected-text-bg);
+
+      &::after {
+        background-color: var(--selected-text-bg);
+      }
+    }
+
+    .tc-toolbox__toggler {
+      rect {
+        fill: var(--popover-bg);
+      }
+    }
+    .tc-add-column:hover,
+    .tc-add-row:hover {
+      background-color: var(--selected-text-bg);
+
+      &::before {
+        background-color: var(--selected-text-bg);
+      }
+    }
+  }
+
   .editorjs-codeFlask_Wrapper {
     border: 0.5px solid;
     background-color: transparent;
@@ -269,12 +310,12 @@
       background-color: var(--popover-bg);
       border-width: 0.5px;
 
-      .ce-popover__item {
+      .ce-popover-item {
         &:hover {
           background-color: var(--lightBlack);
         }
 
-        .ce-popover__item-icon {
+        &__icon {
           background-color: transparent;
 
           path {
