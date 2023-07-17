@@ -106,6 +106,7 @@ export const getTools = async ({
             };
           },
         },
+        buttonContent: 'Rasmni tanlang',
       },
     },
     code: TOOLS.CodeFlask,
