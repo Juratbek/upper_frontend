@@ -331,6 +331,10 @@
           }
         }
       }
+
+      .nice-select .nice-select-search-box input {
+        background-color: var(--popover-bg);
+      }
     }
 
     .nice-select {
