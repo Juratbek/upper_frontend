@@ -15,7 +15,7 @@ import { IServerSideContext, TTheme } from 'types';
 import { appDynamic } from 'utils';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
-const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
+const DynamicLoginModal = appDynamic(() => import('components/shared/AuthModal'));
 
 const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal'));
 
