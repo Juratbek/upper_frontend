@@ -1,22 +1,32 @@
 import { GitHubSignIn, GoogleAuthScript, Modal, TelegramLoginButton } from 'components';
 import { GoogleSignIn } from 'components/GoogleSignIn';
-import { FC } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { closeLoginModal, getIsModalOpen } from 'store/states';
+import { closeAuthModal, getIsAuthModalOpen } from 'store/states';
 
-import { LoginForm } from './components';
+import { LoginForm, RegisterForm } from './components';
 
 export const LoginModal: FC = () => {
-  const isOpen = useAppSelector(getIsModalOpen);
+  const [currentFormType, setCurrentFormType] = useState<'login' | 'register'>('login');
+  const isOpen = useAppSelector(getIsAuthModalOpen);
   const dispatch = useAppDispatch();
 
-  const closeModal = (): void => {
-    dispatch(closeLoginModal());
-  };
+  const closeModal = useCallback(() => {
+    dispatch(closeAuthModal());
+  }, []);
+
+  const showRegisterForm = useCallback(() => setCurrentFormType('register'), []);
+
+  const form = useMemo(() => {
+    if (currentFormType === 'login')
+      return <LoginForm closeModal={closeModal} showRegisterForm={showRegisterForm} />;
+    if (currentFormType === 'register') return <RegisterForm />;
+    return null;
+  }, [closeModal, showRegisterForm, currentFormType]);
 
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
-      <LoginForm closeModal={closeModal} showRegisterForm={console.log} />
+      {form}
       <GoogleAuthScript />
       <GoogleSignIn id='google-sign-in' className='mt-2' />
       <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />

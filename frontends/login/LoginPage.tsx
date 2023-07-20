@@ -3,7 +3,7 @@ import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { openLoginModal } from 'store/states';
+import { openAuthModal } from 'store/states';
 
 export const LoginPage: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +23,7 @@ export const LoginPage: FC = () => {
     } else {
       unauthenticate();
       setIsLoading(false);
-      dispatch(openLoginModal(message as string));
+      dispatch(openAuthModal(message as string));
     }
   }, []);
 

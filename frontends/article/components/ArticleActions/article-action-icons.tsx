@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { FC, FormEvent, useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useDislikeMutation, useLazyCheckIfLikedDislikedQuery, useLikeMutation } from 'store/apis';
-import { openLoginModal, toggleCommentsSidebar } from 'store/states';
+import { openAuthModal, toggleCommentsSidebar } from 'store/states';
 import { appDynamic } from 'utils';
 import { ICONS, UPPER_BLUE_COLOR } from 'variables';
 
@@ -38,7 +38,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
 
   const like = (): void => {
     if (!isAuthenticated) {
-      dispatch(openLoginModal());
+      dispatch(openAuthModal());
       return;
     }
     if (likeRes.isLoading || isLikedOrDisliked || !id) return;
@@ -47,7 +47,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
 
   const dislike = (): void => {
     if (!isAuthenticated) {
-      dispatch(openLoginModal());
+      dispatch(openAuthModal());
       return;
     }
     if (dislikeRes.isLoading || isLikedOrDisliked === false || !id) return;

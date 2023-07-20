@@ -10,7 +10,7 @@ import { TGetByArticleIdDto } from 'store/apis/comment/comment.types';
 import {
   closeCommentsSidebar,
   getIsCommentsSidebarOpen,
-  openLoginModal,
+  openAuthModal,
   openRegisterModal,
 } from 'store/states';
 import { IComment } from 'types';
@@ -48,7 +48,7 @@ export const Comments = (): JSX.Element => {
   }, [id, isOpen]);
 
   const loginClickHandler = (): void => {
-    dispatch(openLoginModal());
+    dispatch(openAuthModal());
   };
 
   const registerClickHandler = (): void => {

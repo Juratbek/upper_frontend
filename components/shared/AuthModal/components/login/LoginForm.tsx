@@ -6,7 +6,7 @@ import { FC, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useAppSelector } from 'store';
 import { useLoginMutation } from 'store/apis';
-import { getLoginModalTitle } from 'store/states';
+import { getAuthModalTitle } from 'store/states';
 import { IResponseError, TNoop, TSubmitFormEvent } from 'types';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
@@ -27,7 +27,7 @@ export const LoginForm: FC<{ closeModal: TNoop; showRegisterForm: TNoop }> = ({
     control,
     reset,
   } = useForm();
-  const Title = useAppSelector(getLoginModalTitle);
+  const Title = useAppSelector(getAuthModalTitle);
   const recaptchaRef = useRef<{ reset: () => void }>(null);
   const { isMobile } = useDevice();
   const { authenticate } = useAuth();

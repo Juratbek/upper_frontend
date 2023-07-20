@@ -18,8 +18,8 @@ import {
 } from './apis';
 import { apiErrorMiddleware } from './middlewares';
 import authReducer from './states/auth';
+import authModalReducer from './states/authModal';
 import commentsSidebarReducer from './states/commentsSidebar';
-import loginModalReducer from './states/loginModal';
 import publishedTutorialSidebarReducer from './states/publishedTutorialSidebar';
 import readArticleReducer from './states/readArticle';
 import registerModalReducer from './states/registerModal';
@@ -29,7 +29,7 @@ import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
   reducer: {
-    loginModal: loginModalReducer,
+    authModal: authModalReducer,
     registerModal: registerModalReducer,
     writeArticle: writeArticleReducer,
     readArticle: readArticleReducer,
