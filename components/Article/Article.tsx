@@ -27,6 +27,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
   } = article;
   const { theme } = useTheme();
   const rootClassName = getClassName(classes.article, classes[theme], props.className);
+
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

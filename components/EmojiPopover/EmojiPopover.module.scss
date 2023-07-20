@@ -1,6 +1,13 @@
 .gridContainer {
-  background-color: darken(#fff, 3%);
+  --popover-bg-dark: #343a42;
+  --popover-bg-light: #f7f7f7;
   border-radius: 5px;
+  &.light {
+    background-color: var(--popover-bg-light);
+  }
+  &.dark {
+    background-color: var(--popover-bg-dark);
+  }
 }
 
 .popoverContainer {
