@@ -9,7 +9,7 @@ import {
   useSubscribeMutation,
   useUnSubscribeMutation,
 } from 'store/apis';
-import { openLoginModal } from 'store/states';
+import { openAuthModal } from 'store/states';
 import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
 import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT, WEB_APP_ROOT_DIR } from 'variables';
 
@@ -35,7 +35,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const subscribe = (): void => {
     if (!id) return;
     if (isAuthenticated) subscribeBlog(+id);
-    else dispatch(openLoginModal("Obuna bo'lish uchun shaxsiy profilingizga kiring"));
+    else dispatch(openAuthModal("Obuna bo'lish uchun shaxsiy profilingizga kiring"));
   };
 
   const unsubscribe = (): void => {

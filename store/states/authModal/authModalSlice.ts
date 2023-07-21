@@ -11,7 +11,7 @@ const initialState: ILoginModalState = {
   title: null,
 };
 
-const loginModalSlice = createSlice({
+const authModal = createSlice({
   name: 'loginModal',
   initialState,
   reducers: {
@@ -26,5 +26,5 @@ const loginModalSlice = createSlice({
   },
 });
 
-export const { open: openLoginModal, close: closeLoginModal } = loginModalSlice.actions;
-export default loginModalSlice.reducer;
+export const { open: openAuthModal, close: closeAuthModal } = authModal.actions;
+export default authModal.reducer;

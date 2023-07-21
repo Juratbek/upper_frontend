@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openSidebar } from 'store/states';
+import { openAuthModal, openSidebar } from 'store/states';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components';
@@ -35,14 +35,14 @@ export const Navigation = (): JSX.Element => {
   const clickHandler = (navigationIcon: INavigationIcon): void => {
     const { href, message, isPrivateRoute } = navigationIcon;
     if (!isAuthenticated && isPrivateRoute) {
-      dispatch(openLoginModal(message));
+      dispatch(openAuthModal(message));
     } else {
       router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
     }
   };
 
   const loginClickHandler = (): void => {
-    dispatch(openLoginModal());
+    dispatch(openAuthModal());
   };
 
   const openSidebarHandler = (): void => {
@@ -50,7 +50,7 @@ export const Navigation = (): JSX.Element => {
   };
 
   const writeArticleHandler = (): void => {
-    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
+    dispatch(openAuthModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
   };
   useEffect(() => {
     isAuthenticated && fetchBlogNotificationsCount();
