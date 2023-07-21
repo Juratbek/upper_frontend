@@ -41,6 +41,8 @@ export interface ITag {
 
 export type TFn = (...args: unknown[]) => unknown;
 
+export type TNoop = () => void;
+
 export interface IServerSideContext {
   req: IncomingMessage & {
     cookies: Partial<{
