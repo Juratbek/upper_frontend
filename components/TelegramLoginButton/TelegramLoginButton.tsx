@@ -35,7 +35,6 @@ export const TelegramLoginButton: FC<ITelegramLoginButtonProps> = (props) => {
     const { data, isSuccess } = loginWithTelegramRes;
     if (isSuccess) {
       authenticate(data);
-      console.log('🚀 ~ file: TelegramLoginButton.tsx:40 ~ useEffect ~ onAuth', onAuth);
       onAuth?.(data);
     }
   }, [loginWithTelegramRes.data]);
