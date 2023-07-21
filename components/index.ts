@@ -23,7 +23,6 @@ export * from './Follower/Follower';
 export * from './PublishedArticleNotification/PublishedArticleNotification';
 export * from './skeletons';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
-export * from './RegisterModal';
 export * from './Pagination/Pagination';
 export * from './Footer';
 export * from './EditorSpinner/EditorSpinner';

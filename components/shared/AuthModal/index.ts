@@ -1,2 +1,2 @@
-import { LoginModal } from './AuthModal';
-export default LoginModal;
+import { AuthModal } from './AuthModal';
+export default AuthModal;

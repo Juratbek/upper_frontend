@@ -22,7 +22,6 @@ import authModalReducer from './states/authModal';
 import commentsSidebarReducer from './states/commentsSidebar';
 import publishedTutorialSidebarReducer from './states/publishedTutorialSidebar';
 import readArticleReducer from './states/readArticle';
-import registerModalReducer from './states/registerModal';
 import sidebarReducer from './states/sidebar';
 import tutorialsSidebarReducer from './states/tutorialsSidebar';
 import writeArticleReducer from './states/writeArticle';
@@ -30,7 +29,6 @@ import writeArticleReducer from './states/writeArticle';
 export const store = configureStore({
   reducer: {
     authModal: authModalReducer,
-    registerModal: registerModalReducer,
     writeArticle: writeArticleReducer,
     readArticle: readArticleReducer,
     auth: authReducer,

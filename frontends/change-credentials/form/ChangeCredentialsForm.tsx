@@ -1,11 +1,5 @@
-import {
-  Alert,
-  Button,
-  Error,
-  Input,
-  PasswordValidityLevel,
-  REGISTER_FORM_FIELDS,
-} from 'components';
+import { Alert, Button, Error, Input, PasswordValidityLevel } from 'components';
+import { REGISTER_FORM_FIELDS } from 'components/shared/AuthModal/components';
 import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
