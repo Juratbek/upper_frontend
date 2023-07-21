@@ -1,11 +1,5 @@
-import {
-  Alert,
-  Button,
-  Error,
-  Input,
-  PasswordValidityLevel,
-  REGISTER_FORM_FIELDS,
-} from 'components';
+import { Alert, Button, Error, Input, PasswordValidityLevel } from 'components';
+import { REGISTER_FORM_FIELDS } from 'components/shared/AuthModal/components';
 import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -13,10 +7,11 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useChangeCredentialsMutation } from 'store/apis';
 import { IResponseError } from 'types';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const ChangeCredentialsForm: FC = () => {
   const [isTokenAbsent, setIsTokenAbsent] = useState(false);
-  const [alert, setAlert] = useState('');
+  const [alert, setAlert] = useState<{ message: string; code: number } | undefined>();
   const [changeCredentials] = useChangeCredentialsMutation();
   const {
     register,
@@ -33,13 +28,14 @@ export const ChangeCredentialsForm: FC = () => {
   const submitHandler = async (event: Record<string, string>): Promise<void> => {
     try {
       if (typeof token !== 'string') return Promise.reject();
+      setAlert(undefined);
       const { login, password } = event;
       const res = await changeCredentials({ username: login, password, token }).unwrap();
       authenticate(res);
       push('/');
     } catch (e) {
       const exception = e as IResponseError;
-      setAlert(exception.data.message);
+      setAlert({ message: exception.data.message, code: exception.status });
     }
   };
 
@@ -85,23 +81,23 @@ export const ChangeCredentialsForm: FC = () => {
   }, [token, isTokenAbsent, watch('password')]);
 
   const closeAlert = (): void => {
-    setAlert('');
+    setAlert(undefined);
   };
 
   return (
     <form className='form' onSubmit={handleSubmit(submitHandler)}>
-      {alert && (
-        <Alert color='red' className='mb-1 text-center' onClose={closeAlert}>
-          {alert}
-          <Link href='/forgot-credentials'>
+      <Alert color='red' show={Boolean(alert)} className='mb-1 text-center' onClose={closeAlert}>
+        {alert?.message}
+        {alert?.code && [401, 403].includes(alert.code) && (
+          <Link href={`${WEB_APP_ROOT_DIR}/forgot-credentials`}>
             <a>
-              <Button type='button' className='mt-1' color='outline-white'>
+              <Button type='button' className='mt-1' color='outline-dark'>
                 Yangi token olish
               </Button>
             </a>
           </Link>
-        </Alert>
-      )}
+        )}
+      </Alert>
       {form}
     </form>
   );

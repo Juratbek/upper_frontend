@@ -13,13 +13,35 @@ import { wrapper } from 'store';
 import { useLazyGetCurrentBlogQuery } from 'store/apis';
 import { IServerSideContext, TTheme } from 'types';
 import { appDynamic } from 'utils';
-import { PRODUCTION_HOST } from 'variables';
+import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
-const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
+const DynamicAuthModal = appDynamic(() => import('components/shared/AuthModal'));
 
-const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal'));
+function WebApp({ Component, pageProps }: AppProps): JSX.Element {
+  return (
+    <>
+      <Navigation />
+      <DynamicAuthModal />
+      {/* <FeedbackModal /> */}
+      <main className='main web-app' id='main'>
+        <Component {...pageProps} />
+        <Footer />
+      </main>
+      <Sidebar />
+    </>
+  );
+}
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
+  return (
+    <main className='main' id='main'>
+      <Component {...pageProps} />
+    </main>
+  );
+}
+
+function MyApp(props: AppProps): JSX.Element {
+  const { router } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate, setCurrentBlog } =
     useAuth();
   const [fetchCurrentBlog] = useLazyGetCurrentBlogQuery();
@@ -67,15 +89,11 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         </>
       )}
       <div className={`app theme-${theme}`}>
-        <Navigation />
-        <DynamicLoginModal />
-        <DynamicRegisterModal />
-        <FeedbackModal />
-        <main className='main' id='main'>
-          <Component {...pageProps} />
-          <Footer />
-        </main>
-        <Sidebar />
+        {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
+          <WebApp {...props} />
+        ) : (
+          <MobileApp {...props} />
+        )}
       </div>
       <NextNProgress color={themeColors.progressbar} height={3} showOnShallow={true} />
     </div>

@@ -4,12 +4,13 @@ import {
   StorysetImage,
   TutorialCardSkeleton,
 } from 'components';
+import { SEARCH_PAGE_TAB_IDS } from 'frontends/search/Search.constants';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedTutorialQuery } from 'store/apis';
 import { IPublishedTutorialMedim } from 'types';
 import { addTutorialAmazonUri, getClassName } from 'utils';
-import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
+import { SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 import classes from './TutorialsTab.module.scss';
 
@@ -38,8 +39,8 @@ export const TutorialsTab: FC = () => {
         <div className='text-center mt-5'>
           <StorysetImage
             storysetUri='data'
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             src='/storyset/search_data.svg'
           />
         </div>
@@ -49,7 +50,7 @@ export const TutorialsTab: FC = () => {
     >
       {searchTutorialRes.data?.length === 0 && (
         <div className='text-center mt-5'>
-          <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
+          <StorysetImage storysetUri='data' width={250} height={250} src='/storyset/no_data.svg' />
           <h3>To&apos;plamlar topilmadi</h3>
         </div>
       )}

@@ -16,22 +16,16 @@ import {
   useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import {
-  closeSidebar,
-  getArticleAuthor,
-  getIsCommentsSidebarOpen,
-  getIsSidebarOpen,
-  openLoginModal,
-} from 'store/states';
+import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openAuthModal } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
-import { SIDEBAR_ARTICLES_SKELETON_COUNT } from 'variables';
+import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.scss';
 
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const { pathname } = useRouter();
+  const router = useRouter();
   const { isAuthenticated } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
   const isSidebarOpen = useAppSelector(getIsSidebarOpen);
@@ -40,18 +34,17 @@ export const Sidebar = (): JSX.Element => {
   const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
   const { themeColors } = useTheme();
-  const isCommentsSidebarOpen = useAppSelector(getIsCommentsSidebarOpen);
   const rootClassName = getClassName(
     classes.container,
     isSidebarOpen && classes['container--open'],
   );
 
   const loginHandler = (): void => {
-    dispatch(openLoginModal());
+    dispatch(openAuthModal());
   };
 
   const writeArticleHandler = (): void => {
-    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
+    dispatch(openAuthModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
   };
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());
@@ -70,7 +63,6 @@ export const Sidebar = (): JSX.Element => {
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={articleSuggestionsRes}
       >
-        {data?.length === 0 && <h5>Maqolalar mavjud emas</h5>}
         {data &&
           addUriToArticleImages(data).map((article, index) => (
             <div key={article.id}>
@@ -83,26 +75,31 @@ export const Sidebar = (): JSX.Element => {
   }, [articleSuggestionsRes]);
 
   const suggestedBlogs = useMemo(() => {
-    const { data } = blogSuggestionsRes;
+    const { data, isSuccess } = blogSuggestionsRes;
+
+    // if there is no suggested blogs render nothing;
+    if (isSuccess && data.length === 0) return null;
+
     return (
       <ApiErrorBoundary
         fallback={<BlogSkeleton className='my-2' />}
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={blogSuggestionsRes}
       >
-        {data?.length === 0 && <h5>Bloglar mavjud emas</h5>}
-        {data &&
-          data.map((blog, index) => (
-            <div key={blog.id}>
-              <SidebarBlog {...addAmazonUri(blog)} />
-              {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-            </div>
-          ))}
+        <Divider className='my-2' color='medium-gray' />
+        <h3>Obuna bo&apos;ling</h3>
+        {data?.map((blog, index) => (
+          <div key={blog.id}>
+            <SidebarBlog {...addAmazonUri(blog)} />
+            {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
+          </div>
+        ))}
       </ApiErrorBoundary>
     );
   }, [blogSuggestionsRes]);
 
   const content: JSX.Element = useMemo(() => {
+    const pathname = router.pathname.replace(WEB_APP_ROOT_DIR, '');
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
     if (ContentComponent) return <ContentComponent />;
 
@@ -136,25 +133,12 @@ export const Sidebar = (): JSX.Element => {
         )}
         {AdditionalComponent && <AdditionalComponent />}
         <SidebarSearch />
-        {!isCommentsSidebarOpen && (
-          <>
-            <h3>Siz uchun maqolalar</h3>
-            {suggestedArticles}
-            <Divider className='my-2' color='medium-gray' />
-            <h3>Kuzatib boring</h3>
-            {suggestedBlogs}
-          </>
-        )}
+        <h3>Siz uchun maqolalar</h3>
+        {suggestedArticles}
+        {suggestedBlogs}
       </>
     );
-  }, [
-    pathname,
-    isAuthenticated,
-    articleAuthor,
-    suggestedArticles,
-    suggestedBlogs,
-    isCommentsSidebarOpen,
-  ]);
+  }, [router.pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
 
   return (
     <div className={rootClassName}>
@@ -164,7 +148,7 @@ export const Sidebar = (): JSX.Element => {
       <div
         className={classes.sidebar}
         style={{
-          overflowY: isCommentsSidebarOpen ? 'hidden' : 'auto',
+          overflowY: 'auto',
           backgroundColor: themeColors.bg,
         }}
       >

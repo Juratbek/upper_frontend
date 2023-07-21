@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { addAmazonUri } from 'utils';
 import { getClassName } from 'utils/common';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarArticle.module.scss';
 import { ISidebarArticleProps } from './SidebarArticle.types';
@@ -19,14 +20,14 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
   return (
     <div className={rootClassName}>
       <div className={classes.body}>
-        <Link href={`/articles/${id}`}>
+        <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`}>
           <a className={classes.title + ' link'}>
             <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />
           </a>
         </Link>
         {author && <Author {...addAmazonUri(author)} />}
       </div>
-      <Link href={`/articles/${id}`}>
+      <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`}>
         <a>
           <div>
             <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { DEFAULT_CONFIG, DEFAULT_PAGE_SIZE } from './useInfiniteScrollV2.constants';
 import {
@@ -18,7 +18,8 @@ export const useInfiniteScrollV2 = <T>(
   const [list, setList] = useState<T[]>([]);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const { size = DEFAULT_PAGE_SIZE } = config;
+  const { size = DEFAULT_PAGE_SIZE, shouldBeInvalidated } = config;
+  const requestIdRef = useRef<string | null | undefined>(null);
 
   const incrementPage = (): void => setPage((prev) => 1 + prev);
 
@@ -26,11 +27,13 @@ export const useInfiniteScrollV2 = <T>(
 
   const fetchFirstPage: TFetchFirstPage = async (params) => {
     try {
-      const res = await fetch({ page: 0, size, ...params }).unwrap();
-      const newItems = res.list || [];
+      const res = fetch({ page: 0, size, ...params });
+      requestIdRef.current = (await res).requestId;
+      const data = await res.unwrap();
+      const newItems = data.list || [];
       setList(newItems);
       setPage(1);
-      if (newItems.length < size) setHasMore(false);
+      setHasMore(newItems.length === size);
     } catch (e) {
       console.error(e);
     }
@@ -58,6 +61,21 @@ export const useInfiniteScrollV2 = <T>(
       if (newItems.length < size) setHasMore(false);
     });
   };
+
+  useEffect(() => {
+    if (!shouldBeInvalidated) return;
+    // invalidate query
+    const hasIds = requestIdRef.current && fetchRes.requestId;
+    const isIdChanged = fetchRes.requestId !== requestIdRef.current;
+    const isRequestFulfilled = fetchRes.status === 'fulfilled';
+    const isFirstPage = fetchRes.originalArgs?.page === 0;
+    if (hasIds && isIdChanged && isRequestFulfilled && fetchRes.data?.list && isFirstPage) {
+      const items = fetchRes.data.list;
+      setList(items);
+      setPage(1);
+      setHasMore(items.length === size);
+    }
+  }, [fetchRes.requestId, fetchRes.status, shouldBeInvalidated]);
 
   return {
     ...fetchRes,

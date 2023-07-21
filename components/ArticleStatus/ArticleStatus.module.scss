@@ -1,24 +1,21 @@
 .container {
-    padding: 0.4em 1em;
-    border: 2px solid transparent;
-    border-radius: .3em;
-    font-size: 1rem;
-    text-align: center;
+  padding: 0.4em 0;
+  font-size: 1rem;
 }
 
 .deleted {
-    $red: #FF0000;
-    border-color: $red;
-    color: $red;
+  $red: #ff0000;
+  border-color: $red;
+  color: $red;
 }
 
 .published {
-    border-color: var(--color-status-published-border);
-    color: var(--color-status-published-font);
+  border-color: var(--color-status-published-border);
+  color: var(--color-status-published-font);
 }
 
 .saved {
-    $green: #0FB972;
-    border-color: $green;
-    color: $green;
+  $green: #0fb972;
+  border-color: $green;
+  color: $green;
 }

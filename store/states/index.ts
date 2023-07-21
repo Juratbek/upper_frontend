@@ -1,5 +1,4 @@
-export * from './loginModal';
-export * from './registerModal';
+export * from './authModal';
 export * from './writeArticle';
 export * from './auth';
 export * from './commentsSidebar';

@@ -22,12 +22,15 @@ import {
   MenuListIcon,
   NextIcon,
   NotificationIcon,
+  OpenExternal,
   PenIcon,
   PlusIcon,
   PrevIcon,
   SaveIcon,
   SearchIcon,
+  SendIcon,
   ShareIcon,
+  Steps,
   TelegramIcon,
   TringleIcon,
   UserIcon,
@@ -71,6 +74,9 @@ export const ICON_TYPES = {
   calendar: 'calendar',
   help: 'help',
   website: 'website',
+  send: 'send',
+  openExternal: 'openExternal',
+  steps: 'steps',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -118,4 +124,7 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   calendar: CalendarIcon,
   help: HelpIcon,
   website: WebsiteIcon,
+  send: SendIcon,
+  openExternal: OpenExternal,
+  steps: Steps,
 };

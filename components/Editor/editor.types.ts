@@ -7,10 +7,16 @@ export interface IEditorProps {
   placeholder?: string;
   handleInstance?: (editor: EditorJS) => void;
   autoFocus?: boolean;
+  onQuizSubmit?: (data: IQuizData) => Promise<void>;
+}
+
+export interface IQuizData {
+  id: string;
+  selectedVariants: number[];
 }
 
 export const EDITOR_HOLDER = 'editorjs';
-export const EDITOR_PLACEHOLDER = 'Maqolangizni bu yerga yozing...';
+export const EDITOR_PLACEHOLDER = 'Keling bilim ulashamiz...';
 
 export const CAPTION_CLASSES = {
   imageToolCaption: 'image-tool__caption',

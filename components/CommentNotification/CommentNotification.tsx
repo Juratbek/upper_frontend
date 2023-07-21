@@ -2,6 +2,7 @@ import { Link } from 'components';
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
 import { dateInterval, getClassName } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const CommentNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate } = props;
@@ -10,11 +11,15 @@ export const CommentNotification: FC<INotificationComponentProp> = (props) => {
   const clickHandler = (): void => props.onClick?.(props);
 
   return (
-    <Link href={`/articles/${article.id}`}>
+    <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`}>
       <div className={rootClassName} onClick={clickHandler}>
         <div>
-          <strong className='pointer'>&quot;{article.title}&quot;</strong> maqolangizga{' '}
-          <Link href={`/blogs/${author.id}`} className='link'>
+          <strong
+            className='pointer'
+            dangerouslySetInnerHTML={{ __html: `&quot;${article.title}&quot;` }}
+          />{' '}
+          maqolangizga{' '}
+          <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} className='link'>
             <strong className='pointer'>{author.name}</strong>
           </Link>{' '}
           izoh qoldirdi

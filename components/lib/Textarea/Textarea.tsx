@@ -15,6 +15,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextareaProps>(function
   return (
     <textarea
       style={{ borderColor: themeColors.input.border }}
+      rows={3}
       {...props}
       className={rootClassName}
       ref={ref}

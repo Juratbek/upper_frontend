@@ -5,8 +5,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { useLazyGetBlogNotificationsCountQuery } from 'store/apis';
-import { openLoginModal, openSidebar } from 'store/states';
-import { ICONS } from 'variables';
+import { openAuthModal, openSidebar } from 'store/states';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components';
 import { NAVIGATION_ICONS } from './Navigation.constants';
@@ -27,17 +27,22 @@ export const Navigation = (): JSX.Element => {
   const { isMobile } = useDevice();
 
   const icons = useMemo(() => {
-    return isAuthenticated ? NAVIGATION_ICONS : NAVIGATION_ICONS.filter((icon) => !icon.private);
+    return isAuthenticated
+      ? NAVIGATION_ICONS
+      : NAVIGATION_ICONS.filter((icon) => !icon.isShownAfterAuthentication);
   }, [isAuthenticated]);
 
   const clickHandler = (navigationIcon: INavigationIcon): void => {
-    const { isPrivateRoute, href, loginModalTitle } = navigationIcon;
-    if (!isAuthenticated && isPrivateRoute) dispatch(openLoginModal(loginModalTitle));
-    else router.route !== href && router.push(href);
+    const { href, message, isPrivateRoute } = navigationIcon;
+    if (!isAuthenticated && isPrivateRoute) {
+      dispatch(openAuthModal(message));
+    } else {
+      router.route !== `${WEB_APP_ROOT_DIR}${href}` && router.push(`${WEB_APP_ROOT_DIR}/${href}`);
+    }
   };
 
   const loginClickHandler = (): void => {
-    dispatch(openLoginModal());
+    dispatch(openAuthModal());
   };
 
   const openSidebarHandler = (): void => {
@@ -45,7 +50,7 @@ export const Navigation = (): JSX.Element => {
   };
 
   const writeArticleHandler = (): void => {
-    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
+    dispatch(openAuthModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
   };
   useEffect(() => {
     isAuthenticated && fetchBlogNotificationsCount();
@@ -60,7 +65,7 @@ export const Navigation = (): JSX.Element => {
         <Button onClick={loginClickHandler}>Kirish</Button>
       </div>
     ),
-    [isMobile, isAuthenticated],
+    [isMobile, isAuthenticated, writeArticleHandler],
   );
 
   return (
@@ -69,7 +74,7 @@ export const Navigation = (): JSX.Element => {
         className={`${classes.navigation} ${classes.positioned}`}
         style={{ backgroundColor: themeColors.bg }}
       >
-        <Link href='/'>
+        <Link href={WEB_APP_ROOT_DIR}>
           <a className={classes.logo}>
             <Logo color={themeColors.icon} />
           </a>
@@ -84,7 +89,7 @@ export const Navigation = (): JSX.Element => {
                   onClick={(): void => clickHandler(navigationIcon)}
                   icon={Icon}
                   className='pointer'
-                  active={href === router.pathname}
+                  active={WEB_APP_ROOT_DIR + href === router.pathname}
                   badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
                 />
               </Tooltip>
@@ -92,7 +97,7 @@ export const Navigation = (): JSX.Element => {
           })}
         </div>
         <div className={classes['third-block']}>
-          <Link href='/docs/write-article_introduction_quick-start'>
+          <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
             <a className={`${classes.help} ${classes.icon} pointer`}>
               <HelpIcon color={themeColors.icon} />
             </a>

@@ -39,6 +39,7 @@ export const Avatar: FC<IAvatarProps> = ({
         alt='UPPER'
         layout='fill'
         objectFit='cover'
+        onError={(): unknown => setError('Image load error')}
         className={classes.zoomable}
       />
     );

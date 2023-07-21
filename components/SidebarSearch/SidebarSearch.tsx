@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
 import { useLazySearchBlogQuery, useLazySearchPublishedArticleQuery } from 'store/apis';
 import { addAmazonUri, addUriToArticleImages } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarSearch.module.scss';
 
@@ -47,11 +48,9 @@ export const SidebarSearch: FC = () => {
           <p className='my-1'>Bloglar yo&apos;q</p>
         ) : (
           blogs.map((blog) => (
-            <Link href={`/blogs/${blog.id}`} key={blog.id}>
-              <a onClick={closeResultsContainer}>
-                <div className={classes.blog}>
-                  <Author {...addAmazonUri(blog)} />
-                </div>
+            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${blog.id}`} key={blog.id}>
+              <a onClick={closeResultsContainer} className={classes.blog}>
+                <Author {...addAmazonUri(blog)} />
               </a>
             </Link>
           ))
@@ -67,7 +66,7 @@ export const SidebarSearch: FC = () => {
         res={searchArticleRes}
       >
         {addUriToArticleImages(searchArticleRes.data).map((article) => (
-          <Link href={`/articles/${article.id}`} key={article.id}>
+          <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`} key={article.id}>
             <a onClick={closeResultsContainer}>
               <div className={classes.article}>
                 <h4 className='m-0'>{article.title}</h4>
@@ -82,7 +81,7 @@ export const SidebarSearch: FC = () => {
   );
 
   const content = useMemo(() => {
-    if (!inputValue) return <p className='my-1'>Qidirish uchun yozing</p>;
+    if (!inputValue) return <p className='m-1'>Qidirish uchun yozing</p>;
 
     const hasBlogsContent = !(
       searchBlogRes.isSuccess &&
@@ -100,15 +99,14 @@ export const SidebarSearch: FC = () => {
       <>
         {hasBlogsContent && (
           <>
-            <h4 className='m-0 mb-1'>Bloglar</h4>
-            <Divider />
+            <h4 className='m-1'>Bloglar</h4>
             {blogs}
+            <Divider />
           </>
         )}
         {hasArticlesContent && (
           <>
-            <h4 className='m-0 mb-1'>Maqolalar</h4>
-            <Divider />
+            <h4 className='m-1'>Maqolalar</h4>
             {articles}
           </>
         )}

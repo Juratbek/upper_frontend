@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FC } from 'react';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { LINKS } from './Footer.constants';
 import styles from './Footer.module.scss';
@@ -10,7 +11,7 @@ export const Footer: FC = () => {
       <ul className={styles.footerNav}>
         {LINKS.map((link) => (
           <li key={link.text}>
-            <Link href={link.url}>
+            <Link href={WEB_APP_ROOT_DIR + link.url}>
               <a>{link.text}</a>
             </Link>
           </li>

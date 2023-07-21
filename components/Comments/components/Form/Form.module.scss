@@ -1,3 +1,10 @@
 .form {
-    text-align: center;
+  text-align: center;
+}
+
+.send-icon {
+  $size: 3rem;
+  width: $size;
+  height: $size;
+  padding: 0;
 }

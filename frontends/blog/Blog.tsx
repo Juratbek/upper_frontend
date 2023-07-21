@@ -1,15 +1,17 @@
 import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
-import { useDevice, useModal } from 'hooks';
+import { useAuth, useDevice, useModal } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   useCheckSubscriptionQuery,
   useSubscribeMutation,
   useUnSubscribeMutation,
 } from 'store/apis';
+import { openAuthModal } from 'store/states';
 import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT } from 'variables';
+import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT, WEB_APP_ROOT_DIR } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
@@ -22,14 +24,18 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   } = useRouter();
   const [isUnsubscribeModalOpen, , { open: openUnsubscribeModal, close: closeUnsubscribeModal }] =
     useModal();
+  const dispatch = useDispatch();
   const { isMobile } = useDevice();
+  const { isAuthenticated } = useAuth();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unsubscribeBlog, unsubscribeRes] = useUnSubscribeMutation();
-  const checkSubscriptionRes = useCheckSubscriptionQuery(id);
+  const checkSubscriptionRes = useCheckSubscriptionQuery(id, { skip: !isAuthenticated });
   const { data: isSubscribed } = checkSubscriptionRes;
 
   const subscribe = (): void => {
-    id && subscribeBlog(+id);
+    if (!id) return;
+    if (isAuthenticated) subscribeBlog(+id);
+    else dispatch(openAuthModal("Obuna bo'lish uchun shaxsiy profilingizga kiring"));
   };
 
   const unsubscribe = (): void => {
@@ -54,8 +60,18 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
           Obuna bo&apos;lingan
         </Button>
       );
-    return <Button onClick={subscribe}>Obuna bo&apos;lish</Button>;
-  }, [checkSubscriptionRes.isLoading, isSubscribed, openUnsubscribeModal, subscribe]);
+    return (
+      <Button onClick={subscribe} loading={subscribeBlogRes.isLoading}>
+        Obuna bo&apos;lish
+      </Button>
+    );
+  }, [
+    checkSubscriptionRes.isLoading,
+    isSubscribed,
+    openUnsubscribeModal,
+    subscribe,
+    subscribeBlogRes,
+  ]);
 
   if (!blog) return <h3>{get(error, 'data.message')}</h3>;
 
@@ -98,7 +114,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
               <>
                 {subscriptionButton}
                 {Boolean(blog.cardNumber) && (
-                  <Link href={`/blogs/${id}/support`}>
+                  <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}/support`}>
                     <a className='link d-flex mt-xs-2 w-100'>
                       {isMobile ? (
                         <Button className='w-100' color='outline-dark'>

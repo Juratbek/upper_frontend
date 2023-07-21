@@ -1,12 +1,26 @@
 @import 'styles/_mixins';
 
+.article {
+  border-top: 0.5px solid;
+  border-right: unset;
+  border-left: unset;
+  padding: 0.8rem 0.5rem;
+
+  &:last-child {
+    border-bottom: 0.5px solid;
+  }
+  &.dark {
+    border-color: hsl(0deg 0% 78.51% / 60%);
+  }
+  &.light {
+    border-color: rgba(166, 166, 166, 0.6);
+  }
+}
+
 .title {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  @include screenMax576 {
-    font-size: 1.3rem;
-  }
 }
 
 .content {
@@ -23,7 +37,7 @@
   }
 
   @include screenMax576 {
-    font-size: 1rem;
+    display: none;
   }
 
   code {

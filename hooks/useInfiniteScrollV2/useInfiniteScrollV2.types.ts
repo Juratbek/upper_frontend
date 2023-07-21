@@ -28,7 +28,8 @@ export interface IInfiniteScrollV2<T> extends IRes {
 }
 
 export interface IConfig {
-  size: number;
+  size?: number;
+  shouldBeInvalidated?: boolean;
 }
 
 export type TFetchFirstPage<T extends TOptionalPagingRequest<T> = Record<string, unknown>> = <T>(

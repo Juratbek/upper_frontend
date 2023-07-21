@@ -3,7 +3,7 @@ import { INavigationIcon } from './Navigation.types';
 export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
     icon: 'home',
-    href: '/',
+    href: '',
     tooltip: 'Asosiy sahifa',
   },
   {
@@ -14,26 +14,27 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
   {
     icon: 'user',
     href: '/profile',
-    private: true,
+    isPrivateRoute: true,
     tooltip: 'Profilingiz',
+    isShownAfterAuthentication: true,
   },
   {
     icon: 'notification',
     href: '/notifications',
-    private: true,
+    isPrivateRoute: true,
     tooltip: 'Habarlar',
-  },
-  {
-    icon: 'menuList',
-    href: '/articles',
-    private: true,
-    tooltip: 'Maqolalaringiz',
+    isShownAfterAuthentication: true,
   },
   {
     icon: 'pen',
-    href: '/write-article',
+    href: '/articles',
     isPrivateRoute: true,
-    tooltip: 'Maqola yozish',
-    loginModalTitle: "Maqola yozish uchun profilingizga kiring yoki ro'yxatdan o'ting",
+    tooltip: 'Maqolalaringiz',
+    message: 'Maqola yozish uchun shaxsiy profilingizga kiring',
   },
+  // {
+  //   icon: 'steps',
+  //   href: '/user/tutorials',
+  //   tooltip: "To'plamlar",
+  // },
 ];

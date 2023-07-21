@@ -1,9 +1,10 @@
 import { ApiErrorBoundary, Blog, BlogSkeleton, Button, StorysetImage } from 'components';
+import { SEARCH_PAGE_TAB_IDS } from 'frontends/search/Search.constants';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchBlogQuery } from 'store/apis';
 import { addAmazonUri } from 'utils';
-import { SEARCH_PAGE_TAB_IDS, SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
+import { SIDEBAR_BLOGS_SKELETON_COUNT } from 'variables';
 
 export const BlogsTab: FC = () => {
   const [searchBlog, searchBlogRes] = useLazySearchBlogQuery();
@@ -24,8 +25,8 @@ export const BlogsTab: FC = () => {
         <div className='text-center mt-5'>
           <StorysetImage
             storysetUri='data'
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             src='/storyset/search_data.svg'
           />
         </div>
@@ -36,7 +37,7 @@ export const BlogsTab: FC = () => {
     >
       {searchBlogRes.data?.length === 0 && (
         <div className='text-center mt-5'>
-          <StorysetImage storysetUri='data' width={300} height={300} src='/storyset/no_data.svg' />
+          <StorysetImage storysetUri='data' width={250} height={250} src='/storyset/no_data.svg' />
           <h3>Blog topilmadi</h3>
         </div>
       )}

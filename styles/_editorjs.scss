@@ -5,8 +5,20 @@
     padding-bottom: 0 !important;
   }
 
+  .ce-popover-item__icon {
+    svg {
+      width: unset;
+      height: unset;
+    }
+  }
+
   & .ce-toolbar {
     z-index: 10;
+
+    .ce-popover .ce-popover__item[data-item-name='quiz'] .ce-popover__item-icon svg {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   & .ce-block__content {
@@ -14,15 +26,42 @@
 
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
+      font-family: inherit !important;
     }
   }
 
-  .editorjs-codeFlask_Wrapper .editorjs-codeFlask_LangDisplay {
-    height: unset;
+  .editorjs-codeFlask_Wrapper {
+    .editorjs-codeFlask_LangDisplay {
+      height: unset;
+    }
+    .editorjs-codeFlask_CopyButton {
+      svg {
+        fill: none;
+
+        & path {
+          stroke: black;
+        }
+      }
+    }
   }
 
   .codeflask--has-line-numbers pre.codeflask__flatten {
     width: unset;
+  }
+
+  // styles for text color inline plugin
+  .ce-inline-toolbar {
+    .ce-inline-tool.colorPlugin {
+      #color-left-btn {
+        width: 20px;
+      }
+      #color-btn-text {
+        height: unset;
+        svg {
+          height: 18px;
+        }
+      }
+    }
   }
 
   .codeflask {
@@ -74,7 +113,7 @@
 }
 
 #inline-image__modal {
-  display: none!important;
+  display: none !important;
 }
 
 .inline-image .inline-image__tab {
@@ -87,15 +126,15 @@
 
 // styles for light theme
 .theme-light .codex-editor {
-  *:not(font):not(.token):not(code) {
-    color: inherit!important;
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
+    color: inherit !important;
   }
 }
 
 // styles for dark theme
 .theme-dark .codex-editor {
-  *:not(font):not(.token):not(code) {
-    color: inherit!important;
+  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
+    color: inherit !important;
     &:host {
       background-color: var(--popover-bg);
     }
@@ -107,34 +146,32 @@
     }
   }
 
-  .ce-inline-tool-input {
-    background-color: var(--popover-bg);
-    border-radius: 0 0 6px 6px;
-  }
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
-    border-width: 0.5px;
 
+    // inline toolbar tool buttons styles
+    .ce-inline-tool,
     .ce-inline-toolbar__dropdown {
-      border-top-left-radius: 6px;
-      border-bottom-left-radius: 6px;
       &:hover {
         background-color: var(--lightBlack);
       }
     }
 
-    .ce-inline-tool {
-      &:hover {
-        background-color: var(--lightBlack);
+    .ce-inline-tool:not(.ce-inline-tool--active).colorPlugin {
+      #color-btn-text {
+        svg {
+          fill: white;
+        }
       }
     }
 
-    .ce-inline-toolbar__actions {
-      input {
-        color: black;
-      }
+    // styles for gyperlink tool input
+    .ce-inline-toolbar__actions input {
+      background-color: transparent;
+      border-radius: 0 0 10px 10px;
     }
 
+    // inline toolbar 'CONVERT TO' popover styles
     .ce-conversion-toolbar {
       background-color: var(--popover-bg);
 
@@ -155,6 +192,40 @@
     }
   }
 
+  // styling table plugin for dark mode
+  .tc-wrap {
+    .tc-popover {
+      background-color: var(--popover-bg);
+      z-index: 1;
+
+      &__item-icon {
+        background-color: var(--selected-text-bg);
+      }
+    }
+    .tc-row--selected,
+    .tc-cell--selected {
+      background-color: var(--selected-text-bg);
+
+      &::after {
+        background-color: var(--selected-text-bg);
+      }
+    }
+
+    .tc-toolbox__toggler {
+      rect {
+        fill: var(--popover-bg);
+      }
+    }
+    .tc-add-column:hover,
+    .tc-add-row:hover {
+      background-color: var(--selected-text-bg);
+
+      &::before {
+        background-color: var(--selected-text-bg);
+      }
+    }
+  }
+
   .editorjs-codeFlask_Wrapper {
     border: 0.5px solid;
     background-color: transparent;
@@ -162,6 +233,15 @@
       background-color: transparent;
       border-top: 0.5px solid;
       border-left: 0.5px solid;
+      padding: 2px 10px;
+    }
+    .editorjs-codeFlask_CopyButton {
+      background-color: var(--popover-bg);
+      border: 0.5px solid;
+
+      svg path {
+        stroke: #ffffff;
+      }
     }
     .codeflask {
       &.codeflask--has-line-numbers {
@@ -174,7 +254,13 @@
         }
       }
       .token {
-        &.function, &.keyword, &.selector, &.property, &.tag, &.attr-value, &.number {
+        &.function,
+        &.keyword,
+        &.selector,
+        &.property,
+        &.tag,
+        &.attr-value,
+        &.number {
           color: #6cb6ff;
         }
       }
@@ -222,19 +308,32 @@
       .ce-settings__button:hover {
         background-color: var(--lightBlack);
       }
+
+      .qt-settings-icon__single svg path {
+        fill: white;
+      }
     }
 
     .ce-popover {
       background-color: var(--popover-bg);
       border-width: 0.5px;
 
-      .ce-popover__item {
-        &:hover {
+      .ce-popover-item {
+        &:not(.ce-popover-item--confirmation):hover {
           background-color: var(--lightBlack);
         }
-        .ce-popover__item-icon {
+
+        &__icon {
           background-color: transparent;
+
+          path {
+            fill: white;
+          }
         }
+      }
+
+      .nice-select .nice-select-search-box input {
+        background-color: var(--popover-bg);
       }
     }
 
@@ -268,15 +367,15 @@
       background-color: transparent;
     }
   }
-  .codex-editor__redactor{
-    .cdx-block.inline-image{
-      & > .inline-image__control-panel{
-        box-shadow:none;
-      }
-      .inline-image__control-panel{
 
-        border:1px solid lightgrey ;
-        .panel-scroll{
+  .codex-editor__redactor {
+    .cdx-block.inline-image {
+      & > .inline-image__control-panel {
+        box-shadow: none;
+      }
+      .inline-image__control-panel {
+        border: 1px solid lightgrey;
+        .panel-scroll {
           &::-webkit-scrollbar {
             width: 0.5rem;
           }
@@ -289,16 +388,23 @@
             border-radius: 1rem;
             background: var(--scrollbar-thumb-color);
           }
-
-
-
         }
 
-        .inline-image__image-gallery{
-          background-color:transparent;
+        .inline-image__image-gallery {
+          background-color: transparent;
         }
-
       }
+    }
+  }
+
+  .quiz-tool-container {
+    .quiz-item .icon-button:hover,
+    .quiz-footer .qt-add-btn:hover {
+      background-color: var(--popover-bg);
+    }
+
+    .quiz-item__hoverable:hover {
+      background-color: var(--popover-bg);
     }
   }
 }

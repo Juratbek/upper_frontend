@@ -2,6 +2,7 @@ import { Label, Status } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { toDateString } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Tutorial.module.scss';
 import { ITutorialProps } from './Tutorial.types';
@@ -15,7 +16,7 @@ export const Tutorial: FC<ITutorialProps> = ({
   publishedDate,
 }) => {
   return (
-    <Link href={`user/tutorials/${id}`}>
+    <Link href={`${WEB_APP_ROOT_DIR}/user/tutorials/${id}`}>
       <a className={`${classes.container} ${className}`}>
         <div className={classes.body}>
           <h2 className='my-1'>{name}</h2>

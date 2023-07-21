@@ -1,5 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { IArticle, IArticleResult, IPagingResponse, TOptionalPagingRequest } from 'types';
+import {
+  IArticle,
+  IArticleResult,
+  IPagingResponse,
+  TArticleStatus,
+  TOptionalPagingRequest,
+} from 'types';
 import { PAGINATION_SIZE } from 'variables';
 
 import { baseQuery } from '../config';
@@ -14,8 +20,17 @@ export const articleApi = createApi({
     getBlogArticleById: build.query<IArticle, number>({
       query: (id: number) => `need-auth/${id}`,
     }),
-    getBlogArticles: build.query<IPagingResponse<IArticleResult>, TOptionalPagingRequest>({
-      query: ({ page = 0 }) => `need-auth/list?page=${page}&size=${PAGINATION_SIZE}`,
+    getBlogArticles: build.query<
+      IPagingResponse<IArticleResult>,
+      TOptionalPagingRequest<{ status?: TArticleStatus }>
+    >({
+      query: (params) => ({
+        url: 'need-auth/list',
+        params: {
+          size: PAGINATION_SIZE,
+          ...params,
+        },
+      }),
     }),
     publish: build.mutation<IArticle, { id: number; notificationsOn: boolean }>({
       query: ({ id, ...body }) => ({
@@ -41,7 +56,7 @@ export const articleApi = createApi({
 
 export const {
   useCreateMutation: useCreateArticleMutation,
-  useUpdateMutation: useUpdateArticleMutaion,
+  useUpdateMutation: useUpdateArticleMutation,
   useDeleteMutation: useDeleteArticleMutation,
   useLazySearchQuery: useLazySearchArticleQuery,
   usePublishMutation,

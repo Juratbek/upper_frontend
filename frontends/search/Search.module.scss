@@ -1,7 +1,7 @@
 @import 'styles/mixins';
 
 .initial-search-input {
-  width: 25rem;
+  width: 20rem;
 
   @include screenMax576 {
     width: 300px;

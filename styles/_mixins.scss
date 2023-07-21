@@ -9,3 +9,9 @@
     @content;
   }
 }
+
+@mixin screenMin1600 {
+  @media (min-width: 1600px) {
+    @content;
+  }
+}

@@ -6,12 +6,15 @@ import classes from './ArticleStatus.module.scss';
 import { IArticleStatusProps } from './ArticleStatus.types';
 
 export const ArticleStatus: FC<IArticleStatusProps> = ({ status, className, children }) => {
-  const rootClassName = getClassName(className, classes.container, classes[status.toLowerCase()]);
+  const rootClassName = getClassName(className, classes.container);
   const label = STATUS_LABELS[status];
 
   return (
     <div className={rootClassName}>
-      <div>{label.toUpperCase()}</div>
+      <p className='m-0'>
+        <span>Maqola holati: </span>
+        <span className={classes[status.toLocaleLowerCase()]}>{label.toUpperCase()}</span>
+      </p>
       {children && <div>{children}</div>}
     </div>
   );

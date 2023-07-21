@@ -12,24 +12,23 @@ import {
   notificationApi,
   publishedArticleApi,
   publishedTutorialApi,
+  quizApi,
   subscriptionApi,
   tutorialApi,
 } from './apis';
 import { apiErrorMiddleware } from './middlewares';
 import authReducer from './states/auth';
+import authModalReducer from './states/authModal';
 import commentsSidebarReducer from './states/commentsSidebar';
-import loginModalReducer from './states/loginModal';
 import publishedTutorialSidebarReducer from './states/publishedTutorialSidebar';
 import readArticleReducer from './states/readArticle';
-import registerModalReducer from './states/registerModal';
 import sidebarReducer from './states/sidebar';
 import tutorialsSidebarReducer from './states/tutorialsSidebar';
 import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
   reducer: {
-    loginModal: loginModalReducer,
-    registerModal: registerModalReducer,
+    authModal: authModalReducer,
     writeArticle: writeArticleReducer,
     readArticle: readArticleReducer,
     auth: authReducer,
@@ -49,6 +48,7 @@ export const store = configureStore({
     [tutorialApi.reducerPath]: tutorialApi.reducer,
     [feedbackApi.reducerPath]: feedbackApi.reducer,
     [subscriptionApi.reducerPath]: subscriptionApi.reducer,
+    [quizApi.reducerPath]: quizApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
@@ -64,6 +64,7 @@ export const store = configureStore({
       tutorialApi.middleware,
       feedbackApi.middleware,
       subscriptionApi.middleware,
+      quizApi.middleware,
       apiErrorMiddleware,
     ),
 });

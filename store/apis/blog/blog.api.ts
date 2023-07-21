@@ -24,7 +24,7 @@ import {
 export const blogApi = createApi({
   reducerPath: 'blog',
   baseQuery: baseQuery('blog'),
-  tagTypes: ['current-blog', 'folowers'],
+  tagTypes: ['current-blog'],
   endpoints: (build) => ({
     login: build.mutation<IBlogRegisterResponse, IBlogLoginDto>({
       query: (body) => ({
@@ -82,9 +82,6 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['current-blog'],
     }),
-    getCurrentBlogFollowers: build.query<IBlogMedium[], void>({
-      query: () => 'current-blog-followers',
-    }),
     getById: build.query<IBlog, { id: number; token?: string | null }>({
       query: ({ id, token }) => ({
         url: `open/${id}`,
@@ -97,10 +94,6 @@ export const blogApi = createApi({
     }),
     getPublishedArticles: build.query<IArticleResult[], number>({
       query: (id) => `open/published-articles/${id}`,
-    }),
-    getFollowers: build.query<IBlogMedium[], number>({
-      query: (id) => `open/followers/${id}`,
-      providesTags: ['folowers'],
     }),
     getNewToken: build.mutation<IBlogRegisterResponse, string>({
       query: (refreshToken) => ({
@@ -169,9 +162,7 @@ export const {
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
   useLazySearchQuery: useLazySearchBlogQuery,
-  useLazyGetCurrentBlogFollowersQuery: useLazyGetCurrentBlogFollowersQuery,
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
-  useLazyGetFollowersQuery: useLazyGetBlogFollowersQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
   useContinueWithGoogleMutation,

@@ -11,6 +11,7 @@
   --mediumBorderRadius: 0.6rem;
   --yellow: rgba(255, 229, 60);
   --blue: #54a9eb;
+  --light-blue: #64afe97b;
   --green: #0a950ad6;
   --scrollbar-thumb-color: #d3d3d3;
 
@@ -25,6 +26,7 @@
 
   // sizes
   --noticeboard-height: 0px;
+  --sidebar-width: 25rem;
 }
 
 * {
@@ -72,7 +74,9 @@
   }
 
   @include screenMax576 {
-    margin-top: 91px;
+    &.web-app {
+      margin-top: 91px;
+    }
 
     &::-webkit-scrollbar {
       width: 0.3rem;
