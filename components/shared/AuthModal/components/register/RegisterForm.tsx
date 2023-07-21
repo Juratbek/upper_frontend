@@ -151,7 +151,7 @@ export const RegisterForm: FC<{ closeModal: TNoop }> = ({ closeModal }) => {
           <Error error={errors['check-password']} />
         </div>
         <div className='form-element'>
-          {/* <Controller
+          <Controller
             control={control}
             name={recaptcha.name}
             rules={recaptcha.options}
@@ -164,7 +164,7 @@ export const RegisterForm: FC<{ closeModal: TNoop }> = ({ closeModal }) => {
                 ref={recaptchaRef}
               />
             )}
-          /> */}
+          />
           <Error error={errors[recaptcha.name]} />
         </div>
       </div>
