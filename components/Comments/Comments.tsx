@@ -7,12 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetCommentsByArticleIdQuery } from 'store/apis';
 import { TGetByArticleIdDto } from 'store/apis/comment/comment.types';
-import {
-  closeCommentsSidebar,
-  getIsCommentsSidebarOpen,
-  openLoginModal,
-  openRegisterModal,
-} from 'store/states';
+import { closeCommentsSidebar, getIsCommentsSidebarOpen, openAuthModal } from 'store/states';
 import { IComment } from 'types';
 import { getClassName } from 'utils';
 
@@ -48,11 +43,7 @@ export const Comments = (): JSX.Element => {
   }, [id, isOpen]);
 
   const loginClickHandler = (): void => {
-    dispatch(openLoginModal());
-  };
-
-  const registerClickHandler = (): void => {
-    dispatch(openRegisterModal());
+    dispatch(openAuthModal());
   };
 
   const fetchNextPageHandler = (): void => {
@@ -149,13 +140,10 @@ export const Comments = (): JSX.Element => {
           />
         ) : (
           <div>
-            <p className='mt-0'>Izoh qoldirish uchun ro&apos;yxatdan o&apos;ting</p>
+            <p className='mt-0'>Izoh qoldirish uchun shaxsiy profilingizga kiring</p>
             <div className='d-flex f-gap-1'>
               <Button className='flex-auto' color='outline-dark' onClick={loginClickHandler}>
                 Profilga kirish
-              </Button>
-              <Button className='flex-auto' onClick={registerClickHandler}>
-                Ro&apos;yxatdan o&apos;tish
               </Button>
             </div>
           </div>

@@ -15,16 +15,13 @@ import { IServerSideContext, TTheme } from 'types';
 import { appDynamic } from 'utils';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
-const DynamicLoginModal = appDynamic(() => import('components/LoginModal'));
-
-const DynamicRegisterModal = appDynamic(() => import('components/RegisterModal'));
+const DynamicAuthModal = appDynamic(() => import('components/shared/AuthModal'));
 
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Navigation />
-      <DynamicLoginModal />
-      <DynamicRegisterModal />
+      <DynamicAuthModal />
       {/* <FeedbackModal /> */}
       <main className='main web-app' id='main'>
         <Component {...pageProps} />

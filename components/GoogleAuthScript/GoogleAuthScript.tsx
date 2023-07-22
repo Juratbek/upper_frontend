@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useContinueWithGoogleMutation } from 'store/apis';
-import { closeLoginModal, closeRegisterModal, setIsGoogleScriptLoaded } from 'store/states';
+import { closeAuthModal, setIsGoogleScriptLoaded } from 'store/states';
 
 import { IGoogleSignInRes } from './GoogleAuthScript.types';
 
@@ -19,8 +19,7 @@ export const GoogleAuthScript: FC = () => {
   const callback = async (googleResponse: IGoogleSignInRes): Promise<void> => {
     const res = await continueWithGoogle(googleResponse.credential).unwrap();
     authenticate(res);
-    dispatch(closeLoginModal());
-    dispatch(closeRegisterModal());
+    dispatch(closeAuthModal());
   };
 
   const onLoadHandler = (): void => {

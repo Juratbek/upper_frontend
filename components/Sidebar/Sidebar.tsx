@@ -16,7 +16,7 @@ import {
   useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openLoginModal } from 'store/states';
+import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openAuthModal } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
@@ -40,11 +40,11 @@ export const Sidebar = (): JSX.Element => {
   );
 
   const loginHandler = (): void => {
-    dispatch(openLoginModal());
+    dispatch(openAuthModal());
   };
 
   const writeArticleHandler = (): void => {
-    dispatch(openLoginModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
+    dispatch(openAuthModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
   };
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());

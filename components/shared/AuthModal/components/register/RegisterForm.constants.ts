@@ -1,7 +1,7 @@
 import { TFormFields } from 'types';
 import { validatePassword } from 'utils';
 
-import { TField } from './RegisterModal.types';
+import { TField } from './RegisterForm.types';
 
 const PROHIBITED_NAMES: Array<string> = ['upper', 'upper admin'];
 
