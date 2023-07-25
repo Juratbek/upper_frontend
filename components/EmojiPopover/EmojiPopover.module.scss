@@ -2,8 +2,10 @@
   border-radius: 5px;
   &.light {
     background-color: var(--brightGray);
+    border: 1px solid var(--lightGray);
   }
   &.dark {
+    border: 0.5px solid var(--gray);
     background-color: var(--lightGray);
   }
 }
@@ -11,6 +13,14 @@
 .popoverContainer {
   position: absolute;
   z-index: 10;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10rem;
+    height: 30px;
+  }
 }
 
 .emojiItem {
