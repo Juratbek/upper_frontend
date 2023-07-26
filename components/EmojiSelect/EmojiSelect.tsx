@@ -113,6 +113,10 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
   const positionsList = useRef<number[]>([]);
   const caretCoords = useRef<DOMRect | null>(null);
   const textTarget = useRef<HTMLElement>();
+  const documentRef = useRef<Document>(document);
+  const emojiPopoverRef = useRef<HTMLDivElement>(
+    document.getElementById('modal') as HTMLDivElement,
+  );
   const [emojiQuery, setEmojiQuery] = useState<string | null>(null);
 
   const checkIfPluginExcluded = (el: HTMLElement): boolean => {
@@ -181,6 +185,18 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
       editorContainer.addEventListener('input', handleKeyPress);
     }
   }, [editor]);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent): void => {
+      if (!emojiPopoverRef.current?.contains(e.target as Node)) {
+        cleanUp();
+      }
+    };
+    documentRef.current.addEventListener('click', handleOutsideClick);
+    return () => {
+      documentRef.current.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
 
   const onEmojiClick = (emoji: string): void => {
     if (textTarget.current) {

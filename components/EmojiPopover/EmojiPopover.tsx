@@ -50,6 +50,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
 
   const positionModal = (popoverEl: HTMLDivElement): void => {
     if (!popoverEl) return;
+
     const buffer = 8;
     const spaceAbove = targetTextCoords.top;
     const spaceBelow = window.innerHeight - targetTextCoords.bottom;
@@ -124,18 +125,24 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   return (
     <ClientOnlyPortal selector={PORTAL_SELECTOR}>
       <div ref={positionModal} className={styles.popoverContainer}>
-        <FixedSizeGrid
-          columnWidth={CELL_SIZE}
-          rowHeight={CELL_SIZE}
-          columnCount={COLUMN_COUNT}
-          rowCount={rowCount}
-          height={165}
-          width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
-          className={gridContainerClassName}
-          innerElementType={innerElementType}
-        >
-          {Cell}
-        </FixedSizeGrid>
+        {matchedEmojis.length > 0 ? (
+          <FixedSizeGrid
+            columnWidth={CELL_SIZE}
+            rowHeight={CELL_SIZE}
+            columnCount={COLUMN_COUNT}
+            rowCount={rowCount}
+            height={165}
+            width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
+            className={gridContainerClassName}
+            innerElementType={innerElementType}
+          >
+            {Cell}
+          </FixedSizeGrid>
+        ) : (
+          <div className={gridContainerClassName}>
+            <p>No results</p>
+          </div>
+        )}
       </div>
     </ClientOnlyPortal>
   );
