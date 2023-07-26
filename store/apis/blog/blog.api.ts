@@ -19,6 +19,7 @@ import {
   IChangeCredentiasDto,
   IChangeLoginDto,
   IChangePasswordDto,
+  ITelegramConnectionStatusResponseDto,
 } from './blog.types';
 
 export const blogApi = createApi({
@@ -149,6 +150,9 @@ export const blogApi = createApi({
     getCurrentBlogLabels: build.query<ILabel[], void>({
       query: () => 'current-blog-labels',
     }),
+    getTelegramConnectionStatus: build.query<ITelegramConnectionStatusResponseDto, void>({
+      query: () => 'telegram-connection-status',
+    }),
   }),
 });
 
@@ -158,6 +162,7 @@ export const {
   useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
   useLazyGetCurrentBlogLabelsQuery,
+  useLazyGetTelegramConnectionStatusQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
