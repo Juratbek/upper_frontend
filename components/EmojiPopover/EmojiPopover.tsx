@@ -1,9 +1,9 @@
 import { ClientOnlyPortal } from 'components';
 import { useTheme } from 'hooks';
-import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo } from 'react';
+import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo, useState } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { getClassName } from 'utils';
-import { PORTAL_SELECTOR } from 'variables';
+import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'variables';
 
 import { emojis } from './emoji';
 import styles from './EmojiPopover.module.scss';
@@ -23,15 +23,8 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   onEmojiClick,
   targetTextCoords,
 }) => {
-  const emojiListKeys = useMemo<string[]>(() => {
-    // to prevent number emojis appearing as first
-    const lastItems = ['100', '1234'];
-    const keys = Object.keys(emojis).filter((key) => !lastItems.includes(key));
-    keys.push(...lastItems);
-    return keys;
-  }, []);
-
   const { theme } = useTheme();
+  const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0]);
   const gridContainerClassName = useMemo(
     () => getClassName(styles.gridContainer, styles[theme]),
     [theme],
@@ -68,13 +61,19 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   const matchedEmojis = useMemo(() => {
     const queryKey = emojiQuery.split(/\s+/).join('_');
 
-    const matchedEmojiKeys = emojiListKeys.filter((emojiKey) => emojiKey.includes(queryKey));
+    const matchedEmojis = emojis
+      .filter(
+        (emoji) =>
+          emoji.aliases.some((al) => al.includes(queryKey)) ||
+          emoji.tags.some((tag) => tag.includes(queryKey)),
+      )
+      .filter((emoji) => (category === 'All' ? true : emoji.category === category));
 
-    return matchedEmojiKeys.map((emojiKey) => ({
-      key: emojiKey,
-      emoji: emojis[emojiKey],
+    return matchedEmojis.map((emoji) => ({
+      key: emoji.description,
+      emoji: emoji.emoji,
     }));
-  }, [emojiQuery]);
+  }, [emojiQuery, category]);
 
   const Cell = ({
     columnIndex,
@@ -121,6 +120,10 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   );
   innerElementType.displayName = 'innerElementType';
 
+  const onCategoryClick = (c: string): void => {
+    setCategory(c);
+  };
+
   return (
     <ClientOnlyPortal selector={PORTAL_SELECTOR}>
       <div ref={positionModal} className={styles.popoverContainer}>
@@ -136,6 +139,13 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
         >
           {Cell}
         </FixedSizeGrid>
+        <div style={{ width: '272px', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          {EMOJI_CATEGORIES.map((c) => (
+            <span key={c} onClick={(): void => onCategoryClick(c)}>
+              {c}
+            </span>
+          ))}
+        </div>
       </div>
     </ClientOnlyPortal>
   );
