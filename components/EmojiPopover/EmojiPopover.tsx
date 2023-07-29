@@ -144,7 +144,11 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
             {Cell}
           </FixedSizeGrid>
         ) : (
-           <div className={styles.groupsContainer + ' ' + gridContainerClassName}>
+          <div className={gridContainerClassName}>
+            <p>No results</p>
+          </div>
+        )}
+     <div className={styles.groupsContainer + ' ' + gridContainerClassName}>
           {EMOJI_CATEGORIES.map((c) => (
             <span
               key={c.name}
@@ -156,8 +160,6 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
             </span>
           ))}
         </div>
-        )}
-
       </div>
     </ClientOnlyPortal>
   );
