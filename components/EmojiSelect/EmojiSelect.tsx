@@ -113,7 +113,6 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
   const positionsList = useRef<number[]>([]);
   const caretCoords = useRef<DOMRect | null>(null);
   const textTarget = useRef<HTMLElement>();
-  const documentRef = useRef<Document>(document);
   const emojiPopoverRef = useRef<HTMLDivElement>(
     document.getElementById('modal') as HTMLDivElement,
   );
@@ -192,9 +191,9 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
         cleanUp();
       }
     };
-    documentRef.current.addEventListener('click', handleOutsideClick);
+    window.addEventListener('click', handleOutsideClick);
     return () => {
-      documentRef.current.removeEventListener('click', handleOutsideClick);
+      window.removeEventListener('click', handleOutsideClick);
     };
   }, []);
 
