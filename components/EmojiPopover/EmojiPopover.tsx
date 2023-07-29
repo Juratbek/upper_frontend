@@ -24,7 +24,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   targetTextCoords,
 }) => {
   const { theme } = useTheme();
-  const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0]);
+  const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0].name);
   const gridContainerClassName = useMemo(
     () => getClassName(styles.gridContainer, styles[theme]),
     [theme],
@@ -72,6 +72,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     return matchedEmojis.map((emoji) => ({
       key: emoji.description,
       emoji: emoji.emoji,
+      title: emoji.description,
     }));
   }, [emojiQuery, category]);
 
@@ -96,7 +97,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           left: `${parseFloat(style.left as string) + PADDING}px`,
           top: `${parseFloat(style.top as string) + PADDING}px`,
         }}
-        title={matchedEmojis[emojiIndex].key}
+        title={matchedEmojis[emojiIndex].title}
         onClick={(): void => onEmojiClick(matchedEmojis[emojiIndex].emoji)}
       >
         {matchedEmojis[emojiIndex].emoji}
@@ -139,10 +140,15 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
         >
           {Cell}
         </FixedSizeGrid>
-        <div style={{ width: '272px', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+        <div className={styles.groupsContainer + ' ' + gridContainerClassName}>
           {EMOJI_CATEGORIES.map((c) => (
-            <span key={c} onClick={(): void => onCategoryClick(c)}>
-              {c}
+            <span
+              key={c.name}
+              className={styles.emojiItem}
+              title={c.name}
+              onClick={(): void => onCategoryClick(c.name)}
+            >
+              {c.emoji}
             </span>
           ))}
         </div>

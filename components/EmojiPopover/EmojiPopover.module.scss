@@ -24,3 +24,12 @@
     transition: background-color 0.2s;
   }
 }
+
+.groupsContainer {
+  border: 3px solid var(--lightBlack);
+  margin-top: 2px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 272px;
+}
