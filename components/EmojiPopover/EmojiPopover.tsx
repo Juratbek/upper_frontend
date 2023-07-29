@@ -144,7 +144,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           {EMOJI_CATEGORIES.map((c) => (
             <span
               key={c.name}
-              className={styles.emojiItem}
+              className={getClassName(styles.emojiItem, c.name === category && styles.selected)}
               title={c.name}
               onClick={(): void => onCategoryClick(c.name)}
             >
