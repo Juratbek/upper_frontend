@@ -129,37 +129,38 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   return (
     <ClientOnlyPortal selector={PORTAL_SELECTOR}>
       <div ref={positionModal} className={styles.popoverContainer}>
-
         {matchedEmojis.length > 0 ? (
-          <FixedSizeGrid
-            columnWidth={CELL_SIZE}
-            rowHeight={CELL_SIZE}
-            columnCount={COLUMN_COUNT}
-            rowCount={rowCount}
-            height={165}
-            width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
-            className={gridContainerClassName}
-            innerElementType={innerElementType}
-          >
-            {Cell}
-          </FixedSizeGrid>
+          <>
+            <FixedSizeGrid
+              columnWidth={CELL_SIZE}
+              rowHeight={CELL_SIZE}
+              columnCount={COLUMN_COUNT}
+              rowCount={rowCount}
+              height={165}
+              width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
+              className={gridContainerClassName}
+              innerElementType={innerElementType}
+            >
+              {Cell}
+            </FixedSizeGrid>
+            <div className={styles.groupsContainer + ' ' + gridContainerClassName}>
+              {EMOJI_CATEGORIES.map((c) => (
+                <span
+                  key={c.name}
+                  className={getClassName(styles.emojiItem, c.name === category && styles.selected)}
+                  title={c.name}
+                  onClick={(): void => onCategoryClick(c.name)}
+                >
+                  {c.emoji}
+                </span>
+              ))}
+            </div>
+          </>
         ) : (
           <div className={gridContainerClassName}>
             <p>No results</p>
           </div>
         )}
-     <div className={styles.groupsContainer + ' ' + gridContainerClassName}>
-          {EMOJI_CATEGORIES.map((c) => (
-            <span
-              key={c.name}
-              className={getClassName(styles.emojiItem, c.name === category && styles.selected)}
-              title={c.name}
-              onClick={(): void => onCategoryClick(c.name)}
-            >
-              {c.emoji}
-            </span>
-          ))}
-        </div>
       </div>
     </ClientOnlyPortal>
   );
