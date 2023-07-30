@@ -15,6 +15,9 @@
   --green: #0a950ad6;
   --scrollbar-thumb-color: #d3d3d3;
 
+  // library colors
+  --light: rgb(199 199 199 / 20%);
+
   // status component colors
   --color-status-saved-font: #0fb972;
   --color-status-saved-border: #0fb972;
@@ -204,6 +207,9 @@
   --scrollbar-thumb-color: #3b4048;
   --gray: #c2c2c2;
   --selected-text-bg: #454954;
+
+  // library colors
+  --light: #343a42;
 
   .skeleton {
     background: linear-gradient(
@@ -557,4 +563,9 @@
 // font weight
 .fw-6 {
   font-weight: 600;
+}
+
+// hover classes
+.hoverable-light:hover {
+  background-color: var(--light);
 }

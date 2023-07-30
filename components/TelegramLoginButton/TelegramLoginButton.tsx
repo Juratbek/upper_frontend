@@ -1,7 +1,5 @@
 import { Button } from 'components';
-import { useAuth } from 'hooks';
 import { FC, useEffect, useRef } from 'react';
-import { useLoginWithTelegramMutation } from 'store/apis';
 import { ITelegramUser } from 'types';
 
 import { ITelegramLoginButtonProps } from './TelegramLoginButton.types';
@@ -17,8 +15,6 @@ declare global {
 
 export const TelegramLoginButton: FC<ITelegramLoginButtonProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [loginWithTelegram, loginWithTelegramRes] = useLoginWithTelegramMutation();
-  const { authenticate } = useAuth();
 
   const {
     shouldUsePic = true,
@@ -32,18 +28,10 @@ export const TelegramLoginButton: FC<ITelegramLoginButtonProps> = (props) => {
   } = props;
 
   useEffect(() => {
-    const { data, isSuccess } = loginWithTelegramRes;
-    if (isSuccess) {
-      authenticate(data);
-      onAuth?.(data);
-    }
-  }, [loginWithTelegramRes.data]);
-
-  useEffect(() => {
     if (ref.current === null) return;
 
     window.TelegramLoginWidget = {
-      onAuth: (user: ITelegramUser) => loginWithTelegram(user),
+      onAuth: (user: ITelegramUser) => onAuth?.(user),
     };
 
     const script = document.createElement('script');
@@ -66,7 +54,7 @@ export const TelegramLoginButton: FC<ITelegramLoginButtonProps> = (props) => {
     ref.current.appendChild(script);
   }, [botName, buttonSize, cornerRadius, onAuth, shouldRequestAccess, shouldUsePic, ref]);
 
-  return loginWithTelegramRes.isLoading || isLoading ? (
+  return isLoading ? (
     <Button loading={true} color='blue' className={`w-100 ${className}`} />
   ) : (
     <div ref={ref} id='test' className={className} />

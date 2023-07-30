@@ -1,10 +1,10 @@
-import { Divider, GitHubSignIn, GoogleAuthScript, Modal, TelegramLoginButton } from 'components';
+import { Divider, GitHubSignIn, GoogleAuthScript, Modal } from 'components';
 import { GoogleSignIn } from 'components/GoogleSignIn';
 import { FC, useCallback, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { closeAuthModal, getIsAuthModalOpen } from 'store/states';
 
-import { LoginForm, RegisterForm } from './components';
+import { LoginForm, RegisterForm, TelegramLogin } from './components';
 
 export const AuthModal: FC = () => {
   const [currentFormType, setCurrentFormType] = useState<'login' | 'register'>('login');
@@ -31,11 +31,7 @@ export const AuthModal: FC = () => {
       <GoogleAuthScript />
       <GoogleSignIn id='google-sign-in' className='mt-2' />
       <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
-      <TelegramLoginButton
-        className='mt-1 text-center'
-        botName={process.env.NEXT_PUBLIC_BOT_USERNAME || 'upperuz_bot'}
-        onAuth={closeModal}
-      />
+      <TelegramLogin onAuth={closeModal} />
     </Modal>
   );
 };

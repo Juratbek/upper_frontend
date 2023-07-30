@@ -4,7 +4,7 @@ import { FC, useEffect } from 'react';
 import { useLazyGetTelegramConnectionStatusQuery } from 'store/apis';
 import { ICONS } from 'variables';
 
-const TelegramIcon = ICONS.telegram;
+const TelegramIcon = ICONS.telegramColored;
 
 export const ConnectTelegram: FC = () => {
   const [fetchConnectionStatus, fetchConnectionStatusRes] =
@@ -18,7 +18,7 @@ export const ConnectTelegram: FC = () => {
     }
   }, [isAuthenticated]);
 
-  if (fetchConnectionStatusRes.isSuccess && !fetchConnectionStatusRes.data.isConnected) {
+  if (fetchConnectionStatusRes.isSuccess && fetchConnectionStatusRes?.data.isConnected !== true) {
     const { data } = fetchConnectionStatusRes;
 
     return (
@@ -27,9 +27,7 @@ export const ConnectTelegram: FC = () => {
         <TelegramIcon color={themeColors.icon} width={40} height={40} />
         <p>Telegram botimiz orqali yangi maqolalar haqida habarlar oling</p>
         <a
-          href={`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${
-            data.username || data.telegramUserId
-          }`}
+          href={`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${data.username}`}
           target='_blank'
           rel='noreferrer'
         >

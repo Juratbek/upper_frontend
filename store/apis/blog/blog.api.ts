@@ -48,11 +48,21 @@ export const blogApi = createApi({
         body: code,
       }),
     }),
-    loginWithTelegram: build.mutation<IBlogRegisterResponse, ITelegramUser>({
+    getTelegramAccountConnectedBlogs: build.mutation<IBlogSmall[], ITelegramUser>({
       query: (user) => ({
-        url: 'open/login-with-telegram',
+        url: 'open/telegram-connected-blogs',
         method: 'POST',
         body: user,
+      }),
+    }),
+    loginWithTelegram: build.mutation<
+      IBlogRegisterResponse,
+      { blogId: number; telegramUser: ITelegramUser }
+    >({
+      query: ({ blogId, telegramUser }) => ({
+        url: `open/login-with-telegram/${blogId}`,
+        method: 'POST',
+        body: telegramUser,
       }),
     }),
     register: build.mutation<IBlogRegisterResponse, IBlogRegisterDto>({
@@ -171,6 +181,7 @@ export const {
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
   useContinueWithGoogleMutation,
+  useGetTelegramAccountConnectedBlogsMutation,
   useLoginWithTelegramMutation,
   useChangePasswordMutation,
   useChangeLoginMutation,
