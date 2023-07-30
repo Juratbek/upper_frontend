@@ -12,6 +12,7 @@ interface IEmojiPopoverProps {
   emojiQuery: string;
   onEmojiClick: (emoji: string) => void;
   targetTextCoords: DOMRect;
+  onModalMount: (modal: HTMLElement) => void;
 }
 
 const COLUMN_COUNT = 8;
@@ -22,6 +23,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   emojiQuery,
   onEmojiClick,
   targetTextCoords,
+  onModalMount,
 }) => {
   const { theme } = useTheme();
   const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0].name);
@@ -128,7 +130,15 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
 
   return (
     <ClientOnlyPortal selector={PORTAL_SELECTOR}>
-      <div ref={positionModal} className={styles.popoverContainer}>
+      <div
+        ref={(e): void => {
+          if (e) {
+            positionModal(e);
+            onModalMount(e);
+          }
+        }}
+        className={styles.popoverContainer}
+      >
         {matchedEmojis.length > 0 ? (
           <>
             <FixedSizeGrid
