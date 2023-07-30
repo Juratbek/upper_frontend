@@ -184,7 +184,7 @@ export const SearchIcon = ({ color = 'black' }) => (
   </svg>
 );
 
-export const TelegramIcon = ({ color = 'black', width, height }) => (
+export const TelegramIcon = ({ color = 'black', width = 20, height = 20 }) => (
   <svg
     viewBox='0 0 26 25'
     fill='none'
@@ -199,7 +199,7 @@ export const TelegramIcon = ({ color = 'black', width, height }) => (
   </svg>
 );
 
-export const TelegramColoredIcon = ({ width, height }) => (
+export const TelegramColoredIcon = ({ width = 20, height = 20 }) => (
   <svg width={width} height={height} viewBox='0 0 27 27' fill='none'>
     <g clip-path='url(#clip0_1501_342)'>
       <path

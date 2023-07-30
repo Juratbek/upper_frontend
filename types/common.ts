@@ -18,8 +18,8 @@ export type TIcon = keyof typeof ICON_TYPES;
 
 export type TIconComponent = (params: {
   color?: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }) => JSX.Element;
 
 export type TClassName = string | undefined | Record<string, string> | boolean;
