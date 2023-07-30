@@ -1,6 +1,8 @@
 import { ClientOnlyPortal } from 'components';
+import { useTheme } from 'hooks';
 import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo } from 'react';
 import { FixedSizeGrid } from 'react-window';
+import { getClassName } from 'utils';
 import { PORTAL_SELECTOR } from 'variables';
 
 import { emojis } from './emoji';
@@ -28,6 +30,12 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     keys.push(...lastItems);
     return keys;
   }, []);
+
+  const { theme } = useTheme();
+  const gridContainerClassName = useMemo(
+    () => getClassName(styles.gridContainer, styles[theme]),
+    [theme],
+  );
 
   useLayoutEffect(() => {
     if (document.querySelector(PORTAL_SELECTOR)) return;
@@ -123,7 +131,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           rowCount={rowCount}
           height={165}
           width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
-          className={styles.gridContainer}
+          className={gridContainerClassName}
           innerElementType={innerElementType}
         >
           {Cell}
