@@ -2,15 +2,33 @@
   border-radius: 5px;
   &.light {
     background-color: var(--brightGray);
+    border: 1px solid var(--lightGray);
+    p {
+      color: black;
+      margin: 1rem;
+    }
   }
   &.dark {
+    border: 0.5px solid var(--gray);
     background-color: var(--lightGray);
+    p {
+      color: var(--no-emoji-color);
+      margin: 1rem;
+    }
   }
 }
 
 .popoverContainer {
   position: absolute;
   z-index: 10;
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-color);
+    border-radius: 10rem;
+    height: 30px;
+  }
 }
 
 .emojiItem {
@@ -31,10 +49,8 @@
 }
 
 .groupsContainer {
-  border: 3px solid var(--lightBlack);
   margin-top: 2px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 272px;
 }
