@@ -20,6 +20,7 @@ import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openAuthModal } from 
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
+import { ConnectTelegram } from './components';
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.scss';
 
@@ -135,6 +136,7 @@ export const Sidebar = (): JSX.Element => {
         <SidebarSearch />
         <h3>Siz uchun maqolalar</h3>
         {suggestedArticles}
+        <ConnectTelegram />
         {suggestedBlogs}
       </>
     );

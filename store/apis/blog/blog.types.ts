@@ -42,3 +42,8 @@ export interface IBlogDonatCredentialsDto {
   donatText?: string;
   cardNumber: string;
 }
+
+export interface ITelegramConnectionStatusResponseDto {
+  isConnected: boolean;
+  username?: string;
+}
