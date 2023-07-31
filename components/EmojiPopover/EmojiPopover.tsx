@@ -1,6 +1,14 @@
 import { ClientOnlyPortal } from 'components';
 import { useTheme } from 'hooks';
-import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo, useState } from 'react';
+import {
+  CSSProperties,
+  FC,
+  forwardRef,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { getClassName } from 'utils';
 import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'variables';
@@ -12,7 +20,7 @@ interface IEmojiPopoverProps {
   emojiQuery: string;
   onEmojiClick: (emoji: string) => void;
   targetTextCoords: DOMRect;
-  onModalMount: (modal: HTMLElement) => void;
+  cleanUp: () => void;
 }
 
 const COLUMN_COUNT = 8;
@@ -23,7 +31,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   emojiQuery,
   onEmojiClick,
   targetTextCoords,
-  onModalMount,
+  cleanUp,
 }) => {
   const { theme } = useTheme();
   const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0].name);
@@ -41,6 +49,18 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
       modalDiv.setAttribute('id', PORTAL_SELECTOR.slice(1));
       body.appendChild(modalDiv);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent): void => {
+      if (!document.querySelector(PORTAL_SELECTOR)?.contains(e.target as Node)) {
+        cleanUp();
+      }
+    };
+    window.addEventListener('click', handleOutsideClick);
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
   }, []);
 
   const positionModal = (popoverEl: HTMLDivElement): void => {
@@ -62,7 +82,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     popoverEl.style.left = targetTextCoords.left + 'px';
   };
   const matchedEmojis = useMemo(() => {
-    const queryKey = emojiQuery.split(/\s+/).join('_');
+    const queryKey = category === 'All' ? emojiQuery.split(/\s+/).join('_') : '';
 
     const matchedEmojis = emojis
       .filter(
@@ -70,7 +90,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           emoji.aliases.some((al) => al.includes(queryKey)) ||
           emoji.tags.some((tag) => tag.includes(queryKey)),
       )
-      .filter((emoji) => (category === 'All' ? true : emoji.category === category));
+      .filter((emoji) => category === 'All' || emoji.category === category);
 
     return matchedEmojis.map((emoji) => ({
       key: emoji.description,
@@ -130,15 +150,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
 
   return (
     <ClientOnlyPortal selector={PORTAL_SELECTOR}>
-      <div
-        ref={(e): void => {
-          if (e) {
-            positionModal(e);
-            onModalMount(e);
-          }
-        }}
-        className={styles.popoverContainer}
-      >
+      <div ref={positionModal} className={styles.popoverContainer}>
         {matchedEmojis.length > 0 ? (
           <>
             <FixedSizeGrid

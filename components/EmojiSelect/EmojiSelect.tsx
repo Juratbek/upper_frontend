@@ -87,19 +87,6 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
     }
   }, [editor]);
 
-  useEffect(() => {
-    if (!modal) return;
-    const handleOutsideClick = (e: MouseEvent): void => {
-      if (!modal.contains(e.target as Node)) {
-        cleanUp();
-      }
-    };
-    window.addEventListener('click', handleOutsideClick);
-    return () => {
-      window.removeEventListener('click', handleOutsideClick);
-    };
-  }, [modal]);
-
   const onEmojiClick = (emoji: string): void => {
     if (textTarget.current) {
       replaceRange(
@@ -119,7 +106,7 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
           emojiQuery={emojiQuery}
           onEmojiClick={onEmojiClick}
           targetTextCoords={caretCoords.current}
-          onModalMount={(e): void => setModal(e)}
+          cleanUp={cleanUp}
         />
       )}
     </>
