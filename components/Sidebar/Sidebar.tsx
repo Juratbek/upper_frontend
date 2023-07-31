@@ -136,7 +136,7 @@ export const Sidebar = (): JSX.Element => {
         <SidebarSearch />
         <h3>Siz uchun maqolalar</h3>
         {suggestedArticles}
-        <ConnectTelegram />
+        {/* <ConnectTelegram /> */}
         {suggestedBlogs}
       </>
     );
