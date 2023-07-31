@@ -26,6 +26,7 @@ interface IEmojiPopoverProps {
 const COLUMN_COUNT = 8;
 const PADDING = 16;
 const CELL_SIZE = 30;
+const GRID_CONTAINER_CLASS = 'gridContainer';
 
 export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   emojiQuery,
@@ -99,6 +100,10 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     }));
   }, [emojiQuery, category]);
 
+  useEffect(() => {
+    document.querySelector('.' + GRID_CONTAINER_CLASS)?.scrollTo(0, 0);
+  }, [category]);
+
   const Cell = ({
     columnIndex,
     rowIndex,
@@ -160,7 +165,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
               rowCount={rowCount}
               height={165}
               width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
-              className={gridContainerClassName}
+              className={gridContainerClassName + ' ' + GRID_CONTAINER_CLASS}
               innerElementType={innerElementType}
             >
               {Cell}
