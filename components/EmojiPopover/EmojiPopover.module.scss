@@ -3,18 +3,10 @@
   &.light {
     background-color: var(--brightGray);
     border: 1px solid var(--lightGray);
-    p {
-      color: black;
-      margin: 1rem;
-    }
   }
   &.dark {
     border: 0.5px solid var(--gray);
     background-color: var(--lightGray);
-    p {
-      color: var(--scrollbar-thumb-color);
-      margin: 1rem;
-    }
   }
 }
 
