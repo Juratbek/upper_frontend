@@ -1,9 +1,17 @@
 import { ClientOnlyPortal } from 'components';
 import { useTheme } from 'hooks';
-import { CSSProperties, FC, forwardRef, useLayoutEffect, useMemo } from 'react';
+import {
+  CSSProperties,
+  FC,
+  forwardRef,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { getClassName } from 'utils';
-import { PORTAL_SELECTOR } from 'variables';
+import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'variables';
 
 import { emojis } from './emoji';
 import styles from './EmojiPopover.module.scss';
@@ -12,26 +20,22 @@ interface IEmojiPopoverProps {
   emojiQuery: string;
   onEmojiClick: (emoji: string) => void;
   targetTextCoords: DOMRect;
+  cleanUp: () => void;
 }
 
 const COLUMN_COUNT = 8;
 const PADDING = 16;
 const CELL_SIZE = 30;
+const GRID_CONTAINER_CLASS = 'gridContainer';
 
 export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   emojiQuery,
   onEmojiClick,
   targetTextCoords,
+  cleanUp,
 }) => {
-  const emojiListKeys = useMemo<string[]>(() => {
-    // to prevent number emojis appearing as first
-    const lastItems = ['100', '1234'];
-    const keys = Object.keys(emojis).filter((key) => !lastItems.includes(key));
-    keys.push(...lastItems);
-    return keys;
-  }, []);
-
-  const { theme } = useTheme();
+  const { theme, themeColors } = useTheme();
+  const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0].name);
   const gridContainerClassName = useMemo(
     () => getClassName(styles.gridContainer, styles[theme]),
     [theme],
@@ -48,8 +52,21 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     }
   }, []);
 
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent): void => {
+      if (!document.querySelector(PORTAL_SELECTOR)?.contains(e.target as Node)) {
+        cleanUp();
+      }
+    };
+    window.addEventListener('click', handleOutsideClick);
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
   const positionModal = (popoverEl: HTMLDivElement): void => {
     if (!popoverEl) return;
+
     const buffer = 8;
     const spaceAbove = targetTextCoords.top;
     const spaceBelow = window.innerHeight - targetTextCoords.bottom;
@@ -66,15 +83,26 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
     popoverEl.style.left = targetTextCoords.left + 'px';
   };
   const matchedEmojis = useMemo(() => {
-    const queryKey = emojiQuery.split(/\s+/).join('_');
+    const queryKey = category === 'All' ? emojiQuery.split(/\s+/).join('_') : '';
 
-    const matchedEmojiKeys = emojiListKeys.filter((emojiKey) => emojiKey.includes(queryKey));
+    const matchedEmojis = emojis
+      .filter(
+        (emoji) =>
+          emoji.aliases.some((al) => al.includes(queryKey)) ||
+          emoji.tags.some((tag) => tag.includes(queryKey)),
+      )
+      .filter((emoji) => category === 'All' || emoji.category === category);
 
-    return matchedEmojiKeys.map((emojiKey) => ({
-      key: emojiKey,
-      emoji: emojis[emojiKey],
+    return matchedEmojis.map((emoji) => ({
+      key: emoji.description,
+      emoji: emoji.emoji,
+      title: emoji.description,
     }));
-  }, [emojiQuery]);
+  }, [emojiQuery, category]);
+
+  useEffect(() => {
+    document.querySelector('.' + GRID_CONTAINER_CLASS)?.scrollTo(0, 0);
+  }, [category]);
 
   const Cell = ({
     columnIndex,
@@ -97,7 +125,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           left: `${parseFloat(style.left as string) + PADDING}px`,
           top: `${parseFloat(style.top as string) + PADDING}px`,
         }}
-        title={matchedEmojis[emojiIndex].key}
+        title={matchedEmojis[emojiIndex].title}
         onClick={(): void => onEmojiClick(matchedEmojis[emojiIndex].emoji)}
       >
         {matchedEmojis[emojiIndex].emoji}
@@ -121,21 +149,47 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   );
   innerElementType.displayName = 'innerElementType';
 
+  const onCategoryClick = (c: string): void => {
+    setCategory(c);
+  };
+
   return (
     <ClientOnlyPortal selector={PORTAL_SELECTOR}>
       <div ref={positionModal} className={styles.popoverContainer}>
-        <FixedSizeGrid
-          columnWidth={CELL_SIZE}
-          rowHeight={CELL_SIZE}
-          columnCount={COLUMN_COUNT}
-          rowCount={rowCount}
-          height={165}
-          width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
-          className={gridContainerClassName}
-          innerElementType={innerElementType}
-        >
-          {Cell}
-        </FixedSizeGrid>
+        {matchedEmojis.length > 0 ? (
+          <>
+            <FixedSizeGrid
+              columnWidth={CELL_SIZE}
+              rowHeight={CELL_SIZE}
+              columnCount={COLUMN_COUNT}
+              rowCount={rowCount}
+              height={165}
+              width={COLUMN_COUNT * CELL_SIZE + PADDING * 2}
+              className={gridContainerClassName + ' ' + GRID_CONTAINER_CLASS}
+              innerElementType={innerElementType}
+            >
+              {Cell}
+            </FixedSizeGrid>
+            <div className={styles.groupsContainer + ' ' + gridContainerClassName}>
+              {EMOJI_CATEGORIES.map((c) => (
+                <span
+                  key={c.name}
+                  className={getClassName(styles.emojiItem, c.name === category && styles.selected)}
+                  title={c.name}
+                  onClick={(): void => onCategoryClick(c.name)}
+                >
+                  {c.emoji}
+                </span>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div className={gridContainerClassName}>
+            <p style={{ color: themeColors.font }} className='mx-2'>
+              Stikerlar topilmadi
+            </p>
+          </div>
+        )}
       </div>
     </ClientOnlyPortal>
   );
