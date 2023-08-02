@@ -5,9 +5,6 @@
     border: 1px solid var(--lightGray);
     .emojiItem {
       color: var(--gray);
-      &:hover {
-        background-color: var(--lightGray);
-      }
     }
   }
   &.dark {
@@ -15,9 +12,6 @@
     background-color: var(--lightGray);
     .emojiItem {
       color: #fff;
-      &:hover {
-        background-color: var(--lightGray);
-      }
     }
   }
 }
@@ -46,6 +40,7 @@
   &:hover {
     border-radius: 5px;
     transition: background-color 0.2s;
+    background-color: var(--lightGray);
   }
 
   &.selected:not([title='All']) {
@@ -59,6 +54,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 0.2rem;
   padding: 0.4rem;
 }
