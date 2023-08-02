@@ -85,13 +85,26 @@ export const Navigation = (): JSX.Element => {
             const Icon = ICONS[icon];
             return (
               <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
-                <NavItem
-                  onClick={(): void => clickHandler(navigationIcon)}
-                  icon={Icon}
-                  className='pointer'
-                  active={WEB_APP_ROOT_DIR + href === router.pathname}
-                  badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
-                />
+                {isAuthenticated ? (
+                  <Link href={`${WEB_APP_ROOT_DIR}/${href}`}>
+                    <a>
+                      <NavItem
+                        icon={Icon}
+                        className='pointer'
+                        active={WEB_APP_ROOT_DIR + href === router.pathname}
+                        badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
+                      />
+                    </a>
+                  </Link>
+                ) : (
+                  <NavItem
+                    onClick={(): void => clickHandler(navigationIcon)}
+                    icon={Icon}
+                    className='pointer'
+                    active={WEB_APP_ROOT_DIR + href === router.pathname}
+                    badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
+                  />
+                )}
               </Tooltip>
             );
           })}
