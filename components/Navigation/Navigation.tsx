@@ -83,6 +83,9 @@ export const Navigation = (): JSX.Element => {
           {icons.map((navigationIcon) => {
             const { icon, tooltip, href } = navigationIcon;
             const Icon = ICONS[icon];
+            const isNavActive = WEB_APP_ROOT_DIR + href === router.pathname;
+            const notificationsCount =
+              icon === 'notification' && fetchBlogNotificationsCountRes.data;
             return (
               <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
                 {isAuthenticated ? (
@@ -91,8 +94,8 @@ export const Navigation = (): JSX.Element => {
                       <NavItem
                         icon={Icon}
                         className='pointer'
-                        active={WEB_APP_ROOT_DIR + href === router.pathname}
-                        badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
+                        active={isNavActive}
+                        badge={notificationsCount}
                       />
                     </a>
                   </Link>
@@ -101,8 +104,8 @@ export const Navigation = (): JSX.Element => {
                     onClick={(): void => clickHandler(navigationIcon)}
                     icon={Icon}
                     className='pointer'
-                    active={WEB_APP_ROOT_DIR + href === router.pathname}
-                    badge={icon === 'notification' && fetchBlogNotificationsCountRes.data}
+                    active={isNavActive}
+                    badge={notificationsCount}
                   />
                 )}
               </Tooltip>
