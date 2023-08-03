@@ -184,7 +184,7 @@ export const SearchIcon = ({ color = 'black' }) => (
   </svg>
 );
 
-export const TelegramIcon = ({ color = 'black', width = 20, height = 20 }) => (
+export const TelegramIcon = ({ color = 'black', width = 30, height = 30 }) => (
   <svg
     viewBox='0 0 26 25'
     fill='none'
