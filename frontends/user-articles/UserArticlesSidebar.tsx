@@ -1,7 +1,7 @@
-import { ArticleStatus, Button, Divider, IOption, MultiSelect } from 'components';
+import { ArticleStatus, Button, Divider, IOption, MultiSelect, Tooltip } from 'components';
 import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
-import { FC, useEffect } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazySearchLabelsQuery, useUpdateArticleMutation } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
@@ -18,6 +18,9 @@ import { PublishArticleModal } from './components/PublishArticleModal';
 export const UserArticlesSidebar: FC = () => {
   const dispatch = useAppDispatch();
   const { themeColors } = useTheme();
+  const [, updateRes] = useUpdateArticleMutation({
+    fixedCacheKey: 'update-article',
+  });
 
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
@@ -58,6 +61,17 @@ export const UserArticlesSidebar: FC = () => {
     if (isPublishPressed) togglePublishModal();
   }, [isSavePressed, isPublishPressed]);
 
+  const StatusIcon = useMemo(() => {
+    const { isLoading, isError } = updateRes;
+    if (isLoading) return { component: ICONS.uploading, tooltip: 'Saqlanmoqda...' };
+    if (isError)
+      return {
+        component: ICONS.uploadError,
+        tooltip: 'Saqlashda xatolik yuz berdi. Iltimos internet aloqasini tekshiring',
+      };
+    return { component: ICONS.uploadSuccess, tooltip: 'Saqlangan' };
+  }, [updateRes]);
+
   if (!article) return null;
 
   return (
@@ -75,15 +89,9 @@ export const UserArticlesSidebar: FC = () => {
       )}
       <>
         <div className='d-flex flex-wrap m--1'>
-          <Button
-            className='flex-auto m-1 mb-0'
-            color='outline-dark'
-            type='button'
-            onClick={saveChanges}
-            loading={updateArticleRes.isLoading}
-          >
-            Saqlash
-          </Button>
+          <Tooltip tooltip={StatusIcon.tooltip} position='left'>
+            <StatusIcon.component color={themeColors.icon} width={30} height={30} />
+          </Tooltip>
           <Button
             className='flex-auto m-1 mb-0'
             type='button'
