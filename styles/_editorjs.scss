@@ -27,6 +27,7 @@
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
       font-family: inherit !important;
+      word-break: break-word !important;
     }
   }
 
