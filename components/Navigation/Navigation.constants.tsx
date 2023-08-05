@@ -22,7 +22,7 @@ export const NAVIGATION_ICONS: INavigationIcon[] = [
     icon: 'notification',
     href: '/notifications',
     isPrivateRoute: true,
-    tooltip: 'Habarlar',
+    tooltip: 'Xabarlar',
     isShownAfterAuthentication: true,
   },
   {

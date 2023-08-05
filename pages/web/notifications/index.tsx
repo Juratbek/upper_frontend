@@ -5,8 +5,8 @@ import { checkAuthInServer } from 'utils';
 export default function NotificationsPage(): JSX.Element {
   return (
     <div className='container'>
-      <Head title='Habarlar' url='/notifications' />
-      <h1 className='mb-1'>Habarlar</h1>
+      <Head title='Xabarlar' url='/notifications' />
+      <h1 className='mb-1'>Xabarlar</h1>
       <NotificationsTab />
     </div>
   );

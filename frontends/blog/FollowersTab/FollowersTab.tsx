@@ -44,7 +44,7 @@ export const FollowersTab: FC = () => {
             src='/storyset/subscriber.svg'
             storysetUri='creativity'
           />
-          <p>Bloglarga obuna bo&apos;ling va yangi maqolalar haqida habarlar oling</p>
+          <p>Bloglarga obuna bo&apos;ling va yangi maqolalar haqida Xabarlar oling</p>
         </div>
       );
     return subscribersList.map((blog) => (
