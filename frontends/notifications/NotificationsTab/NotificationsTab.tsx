@@ -55,8 +55,8 @@ export const NotificationsTab: FC = () => {
             height={250}
             storysetUri='internet'
           />
-          <p>Bloglarga obuna bo&apos;ling va maqolalar haqida habarlar oling</p>
-          <p className='fs-1'>Hozirda habarlar mavjud emas</p>
+          <p>Bloglarga obuna bo&apos;ling va maqolalar haqida xabarlar oling</p>
+          <p className='fs-1'>Hozirda xabarlar mavjud emas</p>
         </div>
       );
 
