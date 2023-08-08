@@ -25,7 +25,7 @@ export const ConnectTelegram: FC = () => {
       <div className='text-center'>
         <Divider className='my-2' />
         <TelegramIcon color={themeColors.icon} width={40} height={40} />
-        <p>Telegram botimiz orqali yangi maqolalar haqida Xabarlar oling</p>
+        <p>Telegram botimiz orqali yangi maqolalar haqida xabarlar oling</p>
         <a
           href={`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${data.username}`}
           target='_blank'
