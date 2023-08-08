@@ -350,7 +350,11 @@
         left: 50%;
         transform: translateX(-50%);
         min-width: $min-width;
+        .list{
+          max-height: 100px;
+        }
       }
+
       .option {
         &:hover,
         &.focus {
