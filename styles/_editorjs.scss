@@ -5,6 +5,10 @@
     padding-bottom: 0 !important;
   }
 
+  .ce-popover--opened{
+    overflow:visible;
+  }
+
   .ce-popover-item__icon {
     svg {
       width: unset;
@@ -18,6 +22,17 @@
     .ce-popover .ce-popover__item[data-item-name='quiz'] .ce-popover__item-icon svg {
       width: 16px;
       height: 16px;
+    }
+    .nice-select {
+      $min-width: 100%;
+      min-width: $min-width;
+      width: 100%;
+      .nice-select-dropdown {
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: $min-width;
+      }
+
     }
   }
 
@@ -341,18 +356,9 @@
     }
 
     .nice-select {
-      $min-width: 118px;
-      min-width: $min-width;
-      width: 100%;
       background-color: var(--lightBlack);
       .nice-select-dropdown {
         background-color: var(--popover-bg);
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: $min-width;
-        .list{
-          max-height: 35px;
-        }
       }
 
       .option {
