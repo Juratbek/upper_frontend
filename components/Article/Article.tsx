@@ -3,7 +3,7 @@ import { Divider } from 'components/lib';
 import { useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef } from 'react';
-import { addAmazonUri, dateInterval, formatToKMB, getClassName } from 'utils';
+import { addAmazonUri, dateInterval, extractInnerTexts, formatToKMB, getClassName } from 'utils';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Article.module.scss';
@@ -33,10 +33,12 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
   useEffect(() => {
     const contentContainer = contentRef.current;
     const contentMaxChar = 500;
+
     if (contentContainer) {
       const span = document.createElement('span');
-      span.innerHTML =
-        content.length > contentMaxChar ? `${content.slice(0, contentMaxChar)}...` : content;
+      span.innerHTML = content;
+      const text = extractInnerTexts(span);
+      span.innerHTML = text.length > contentMaxChar ? `${text.slice(0, contentMaxChar)}...` : text;
       contentContainer.appendChild(span);
     }
   }, [content]);
