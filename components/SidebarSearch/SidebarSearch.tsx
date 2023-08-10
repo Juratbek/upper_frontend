@@ -94,7 +94,7 @@ export const SidebarSearch: FC = () => {
       searchArticleRes.data.length === 0
     );
 
-    if (!(hasBlogsContent || hasArticlesContent)) return <p className='my-1'>Ma`lumot topilmadi</p>;
+    if (!(hasBlogsContent || hasArticlesContent)) return <p className='m-1'>Ma`lumot topilmadi</p>;
     return (
       <>
         {hasBlogsContent && (
