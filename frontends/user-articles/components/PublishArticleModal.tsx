@@ -21,7 +21,7 @@ export const PublishArticleModal: FC<{
   status: TArticleStatus;
 }> = ({ editor, article, ...props }) => {
   const [alert, setAlert] = useState<string>();
-  const { themeColors } = useTheme();
+  const { themeColors, theme } = useTheme();
   const [isNotificationOn, setIsNotificationOn] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
@@ -76,12 +76,18 @@ export const PublishArticleModal: FC<{
     if (props.open) publishBtnRef.current?.focus();
   }, [props.open]);
 
+  console.log(theme);
   const renderContent = (): JSX.Element => {
     if (publishArticleRes.isSuccess) {
       return (
         <>
           <div className='text-center'>
-            <Lordicon width={100} height={100} src='/icons/congrats.webp' />
+            <Lordicon
+              width={100}
+              height={100}
+              src={`/icons/congrats-${theme}.apng
+            `}
+            />
             <h3>Maqolangiz nashr qilindi</h3>
             <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
               <a target={'_blank'}>
@@ -100,7 +106,7 @@ export const PublishArticleModal: FC<{
     }
     return (
       <>
-        <Image width={0} height={0} src='/icons/congrats.webp' hidden />
+        <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
         <h3 className='mb-2 mt-0'>
           {props.status === 'SAVED'
             ? 'Maqolangizni nashr qilmoqchimisiz?'
