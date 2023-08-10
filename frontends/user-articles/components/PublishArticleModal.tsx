@@ -1,5 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { Alert, Button, Input, Lordicon, Modal } from 'components';
+import { Alert, Button, Input, LottieIcon, Modal } from 'components';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -82,12 +82,7 @@ export const PublishArticleModal: FC<{
       return (
         <>
           <div className='text-center'>
-            <Lordicon
-              width={100}
-              height={100}
-              src={`/icons/congrats-${theme}.apng
-            `}
-            />
+            <LottieIcon width={100} height={100} isDark={theme == 'dark'} />
             <h3>Maqolangiz nashr qilindi</h3>
             <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
               <a target={'_blank'}>
@@ -106,7 +101,7 @@ export const PublishArticleModal: FC<{
     }
     return (
       <>
-        <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
+        {/* <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden /> */}
         <h3 className='mb-2 mt-0'>
           {props.status === 'SAVED'
             ? 'Maqolangizni nashr qilmoqchimisiz?'
