@@ -2,8 +2,8 @@ import { ArticleImg, Author, Label } from 'components';
 import { Divider } from 'components/lib';
 import { useTheme } from 'hooks';
 import Link from 'next/link';
-import { FC, useEffect, useMemo, useRef } from 'react';
-import { addAmazonUri, dateInterval, extractInnerTexts, formatToKMB, getClassName } from 'utils';
+import { FC, useMemo } from 'react';
+import { addAmazonUri, dateInterval, formatToKMB, getClassName } from 'utils';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Article.module.scss';
@@ -28,21 +28,6 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
   const { theme } = useTheme();
   const rootClassName = getClassName(classes.article, classes[theme], props.className);
 
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const contentContainer = contentRef.current;
-    const contentMaxChar = 500;
-
-    if (contentContainer) {
-      const span = document.createElement('span');
-      span.innerHTML = content;
-      const text = extractInnerTexts(span);
-      span.innerHTML = text.length > contentMaxChar ? `${text.slice(0, contentMaxChar)}...` : text;
-      contentContainer.appendChild(span);
-    }
-  }, [content]);
-
   const date: JSX.Element | string = useMemo(() => {
     if (updatedDate) return <>{dateInterval(updatedDate)} yangilangan</>;
     if (publishedDate) return dateInterval(publishedDate);
@@ -59,7 +44,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
                 className={classes.title}
                 dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
               />
-              <p className={classes.content} ref={contentRef} />
+              <p className={classes.content} dangerouslySetInnerHTML={{ __html: content }} />
             </div>
             {imgUrl && <ArticleImg imgUrl={imgUrl} />}
           </div>
