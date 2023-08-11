@@ -5,8 +5,8 @@
     padding-bottom: 0 !important;
   }
 
-  .ce-popover--opened{
-    overflow:visible;
+  .ce-popover--opened {
+    overflow: visible;
   }
 
   .ce-popover-item__icon {
@@ -31,8 +31,12 @@
         left: 50%;
         transform: translateX(-50%);
         min-width: $min-width;
-      }
 
+        ul.list {
+          border: 0.5px solid;
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
