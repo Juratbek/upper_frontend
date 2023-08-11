@@ -6,15 +6,6 @@ export const getClassName = (...classNames: TClassName[]): string =>
 
 export const isClientSide = (): boolean => typeof window !== 'undefined';
 
-export const extractInnerTexts = (node: Node): string => {
-  const text = node.textContent || '';
-  const childNodes = node.childNodes;
-  if (!childNodes || !childNodes.length) return text;
-  return Array.from(childNodes).reduce((res, childNode) => {
-    return res + extractInnerTexts(childNode);
-  }, '');
-};
-
 export const get = <T>(
   obj: Record<string | symbol, any> | undefined | null,
   getters: string,
