@@ -196,6 +196,8 @@
     // inline toolbar 'CONVERT TO' popover styles
     .ce-conversion-toolbar {
       background-color: var(--popover-bg);
+      width: unset;
+      min-width: 150px;
 
       .ce-conversion-tool {
         .ce-conversion-tool__icon {
