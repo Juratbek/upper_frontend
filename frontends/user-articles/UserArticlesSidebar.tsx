@@ -68,8 +68,9 @@ export const UserArticlesSidebar: FC = () => {
       return {
         component: ICONS.uploadError,
         tooltip: 'Saqlashda xatolik yuz berdi. Iltimos internet aloqasini tekshiring',
+        color: '#cc0000',
       };
-    return { component: ICONS.uploadSuccess, tooltip: 'Saqlangan' };
+    return { component: ICONS.uploadSuccess, tooltip: 'Saqlangan', color: '#4BB543' };
   }, [updateRes]);
 
   if (!article) return null;
@@ -88,18 +89,22 @@ export const UserArticlesSidebar: FC = () => {
         />
       )}
       <>
-        <div className='d-flex flex-wrap m--1'>
-          <Tooltip tooltip={StatusIcon.tooltip} position='left'>
-            <StatusIcon.component color={themeColors.icon} width={30} height={30} />
-          </Tooltip>
+        <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
           <Button
-            className='flex-auto m-1 mb-0'
+            className='flex-auto m-1 mt-0 mb-0'
             type='button'
             onClick={togglePublishModal}
             disabled={updateArticleRes.isLoading}
           >
             {article.status === ARTICLE_STATUSES.SAVED ? 'Nashr qilish' : 'Qayta nashr qilish'}
           </Button>
+          <Tooltip tooltip={StatusIcon.tooltip} position='left'>
+            <StatusIcon.component
+              color={StatusIcon.color || themeColors.icon}
+              width={30}
+              height={30}
+            />
+          </Tooltip>
         </div>
       </>
       <Divider className='my-2' />
