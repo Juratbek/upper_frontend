@@ -78,7 +78,7 @@ export const ChangeCredentialsForm: FC = () => {
         <Button className='w-100'>Saqlash</Button>
       </>
     );
-  }, [token, isTokenAbsent, watch('password')]);
+  }, [token, isTokenAbsent, watch('password'), errors]);
 
   const closeAlert = (): void => {
     setAlert(undefined);
