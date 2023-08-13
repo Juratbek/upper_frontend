@@ -17,7 +17,11 @@ export const Tooltip: FC<ITooltipProps> = ({
   };
 
   return (
-    <div className='position-relative' onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
+    <div
+      className='position-relative d-flex align-items-center'
+      onMouseEnter={toggleHover}
+      onMouseLeave={toggleHover}
+    >
       {isHovered && <div className={`${classes.tooltip} ${classes[position]}`}>{tooltip}</div>}
       {children}
     </div>
