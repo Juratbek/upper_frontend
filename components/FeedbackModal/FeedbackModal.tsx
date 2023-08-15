@@ -115,8 +115,8 @@ export const FeedbackModal: FC = () => {
         <div className='text-center'>
           <Lordicon
             className={classes.congrats}
-            width={100}
-            height={100}
+            width={120}
+            height={120}
             src={`/icons/congrats-${theme}.apng`}
           />
           <h3>Fikringiz uchun rahmat :)</h3>

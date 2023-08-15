@@ -94,8 +94,8 @@ export const PublishTutorialModal: FC = () => {
         <div className='text-center'>
           <Lordicon
             className={classes.congrats}
-            width={100}
-            height={100}
+            width={120}
+            height={120}
             src={`/icons/congrats-${theme}.apng`}
           />
           <h3>Maqolangiz nashr qilindi</h3>
