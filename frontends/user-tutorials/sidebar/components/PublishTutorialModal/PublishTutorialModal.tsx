@@ -9,6 +9,7 @@ import {
   Modal,
   MultiSelect,
 } from 'components';
+import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
@@ -45,7 +46,7 @@ export const PublishTutorialModal: FC = () => {
   const { query } = useRouter();
   const imgUrl = useAppSelector(getTutorialImgUrl);
   const labels = useAppSelector(getTutorialLabels);
-
+  const { theme } = useTheme();
   const close = (): void => {
     dispatch(publishTutorialModalHandler({ isOpen: false }));
     setIsPublishError(false);
@@ -95,7 +96,7 @@ export const PublishTutorialModal: FC = () => {
             className={classes.congrats}
             width={100}
             height={100}
-            src='/icons/congrats.webp'
+            src={`/icons/congrats-${theme}.apng`}
           />
           <h3>Maqolangiz nashr qilindi</h3>
         </div>
@@ -156,7 +157,7 @@ export const PublishTutorialModal: FC = () => {
           </div>
         </form>
       )}
-      <Image width={0} height={0} src='/icons/congrats.webp' hidden />
+      <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
     </Modal>
   );
 };

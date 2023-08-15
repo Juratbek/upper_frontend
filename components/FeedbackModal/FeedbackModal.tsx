@@ -1,6 +1,6 @@
 import { Modal } from 'components';
 import { Button, Lordicon, Spinner, Textarea } from 'components/lib';
-import { useModal } from 'hooks';
+import { useModal, useTheme } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ICreateFeedbackDto, useCreateFeedbackMutation } from 'store/apis';
@@ -16,7 +16,7 @@ export const FeedbackModal: FC = () => {
   const [isOpen, , { close, open }] = useModal();
   const { register, setFocus, handleSubmit, watch } = useForm();
   const [createFeedback, createFeedbackRes] = useCreateFeedbackMutation();
-
+  const { theme } = useTheme();
   const markChangeHandler = (mark: number): void => {
     setMark(mark);
     setTimeout(() => {
@@ -117,7 +117,7 @@ export const FeedbackModal: FC = () => {
             className={classes.congrats}
             width={100}
             height={100}
-            src='/icons/congrats.webp'
+            src={`/icons/congrats-${theme}.apng`}
           />
           <h3>Fikringiz uchun rahmat :)</h3>
         </div>
