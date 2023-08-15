@@ -143,7 +143,7 @@ export const Article: FC<IArticleProps> = ({
       {showAuthor && article.author && (
         <>
           <Blog {...addAmazonUri(article.author)} isLink />
-          {Boolean(article.author.cardNumber) && (
+          {/* {Boolean(article.author.cardNumber) && (
             <>
               <div style={{ height: '1rem' }} />
               <Link href={`${WEB_APP_ROOT_DIR}/blogs/${article.author.id}/support`}>
@@ -157,7 +157,7 @@ export const Article: FC<IArticleProps> = ({
                 </a>
               </Link>
             </>
-          )}
+          )} */}
           <Divider className='mt-1' />
         </>
       )}

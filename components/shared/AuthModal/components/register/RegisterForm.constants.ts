@@ -1,5 +1,5 @@
 import { TFormFields } from 'types';
-import { validatePassword } from 'utils';
+import { validateLogin, validatePassword } from 'utils';
 
 import { TField } from './RegisterForm.types';
 
@@ -49,6 +49,7 @@ export const REGISTER_FORM_FIELDS: TFormFields<TField> = {
         value: 60,
         message: "Login o'ta uzun",
       },
+      validate: validateLogin,
     },
   },
   password: {

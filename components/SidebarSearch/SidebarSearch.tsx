@@ -41,11 +41,11 @@ export const SidebarSearch: FC = () => {
     const { data: blogs } = searchBlogRes;
     return (
       <ApiErrorBoundary
-        fallback={<BlogSkeleton size='small' className='py-1' />}
+        fallback={<BlogSkeleton size='small' className='p-1' />}
         res={searchBlogRes}
       >
         {!blogs || blogs.length === 0 ? (
-          <p className='my-1'>Bloglar yo&apos;q</p>
+          <p className='m-1'>Bloglar yo&apos;q</p>
         ) : (
           blogs.map((blog) => (
             <Link href={`${WEB_APP_ROOT_DIR}/blogs/${blog.id}`} key={blog.id}>
@@ -62,7 +62,7 @@ export const SidebarSearch: FC = () => {
   const articles = useMemo(
     () => (
       <ApiErrorBoundary
-        fallback={<SidebarSearchArticleSkeleton className='py-1' />}
+        fallback={<SidebarSearchArticleSkeleton className='p-1' />}
         res={searchArticleRes}
       >
         {addUriToArticleImages(searchArticleRes.data).map((article) => (
@@ -94,7 +94,7 @@ export const SidebarSearch: FC = () => {
       searchArticleRes.data.length === 0
     );
 
-    if (!(hasBlogsContent || hasArticlesContent)) return <p className='my-1'>Ma`lumot topilmadi</p>;
+    if (!(hasBlogsContent || hasArticlesContent)) return <p className='m-1'>Ma`lumot topilmadi</p>;
     return (
       <>
         {hasBlogsContent && (

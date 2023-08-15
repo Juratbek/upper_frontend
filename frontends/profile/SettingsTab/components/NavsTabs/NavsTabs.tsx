@@ -15,10 +15,10 @@ const tabs = [
     name: 'Siz haqingizda',
     value: 'about',
   },
-  {
-    name: '"Hissa qo\'shish" hizmati',
-    value: 'support',
-  },
+  // {
+  //   name: '"Hissa qo\'shish" hizmati',
+  //   value: 'support',
+  // },
   {
     name: 'Havfsizlik',
     value: 'security',

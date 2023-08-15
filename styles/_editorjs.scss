@@ -5,6 +5,10 @@
     padding-bottom: 0 !important;
   }
 
+  .ce-popover--opened {
+    overflow: visible;
+  }
+
   .ce-popover-item__icon {
     svg {
       width: unset;
@@ -19,6 +23,21 @@
       width: 16px;
       height: 16px;
     }
+    .nice-select {
+      $min-width: 100%;
+      min-width: $min-width;
+      width: 100%;
+      .nice-select-dropdown {
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: $min-width;
+
+        ul.list {
+          border: 0.5px solid;
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   & .ce-block__content {
@@ -27,6 +46,7 @@
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
       font-family: inherit !important;
+      word-break: break-word !important;
     }
   }
 
@@ -35,6 +55,8 @@
       height: unset;
     }
     .editorjs-codeFlask_CopyButton {
+      line-height: 12px;
+
       svg {
         fill: none;
 
@@ -174,6 +196,8 @@
     // inline toolbar 'CONVERT TO' popover styles
     .ce-conversion-toolbar {
       background-color: var(--popover-bg);
+      width: unset;
+      min-width: 150px;
 
       .ce-conversion-tool {
         .ce-conversion-tool__icon {
@@ -338,16 +362,11 @@
     }
 
     .nice-select {
-      $min-width: 118px;
-      min-width: $min-width;
-      width: 100%;
       background-color: var(--lightBlack);
       .nice-select-dropdown {
         background-color: var(--popover-bg);
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: $min-width;
       }
+
       .option {
         &:hover,
         &.focus {

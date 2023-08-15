@@ -7,6 +7,7 @@ import {
   useSendEmailConfirmationForPasswordMutation,
 } from 'store/apis';
 import { IBlogSmall } from 'types';
+import { addAmazonUri } from 'utils';
 
 import { BlogOption } from '../blog-option/BlogOption';
 import classes from './ForgotCredentialsForm.module.scss';
@@ -71,7 +72,7 @@ export const ForgotCredentialsForm: FC = () => {
           className={`${classes.option} ${classes[`option--${theme}`]}`}
           onClick={(): Promise<void> => selectBlogHandler(blog)}
         >
-          <BlogOption {...blog} />
+          <BlogOption {...addAmazonUri(blog)} />
         </div>
       ))}
     </ApiErrorBoundary>

@@ -23,9 +23,9 @@ interface IEmojiPopoverProps {
   cleanUp: () => void;
 }
 
-const COLUMN_COUNT = 8;
+const COLUMN_COUNT = 10;
 const PADDING = 16;
-const CELL_SIZE = 30;
+const CELL_SIZE = 32;
 const GRID_CONTAINER_CLASS = 'gridContainer';
 
 export const EmojiPopover: FC<IEmojiPopoverProps> = ({
