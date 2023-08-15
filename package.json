@@ -45,7 +45,6 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.2",
     "react-infinite-scroll-component": "^6.1.0",
-    "react-lottie": "^1.2.3",
     "react-redux": "^8.0.2",
     "react-window": "^1.8.8",
     "sass": "^1.53.0"
