@@ -55,6 +55,7 @@ export const LoginForm: FC<{ closeModal: TNoop; showRegisterForm: TNoop }> = ({
       const error = e as IResponseError;
       if (error.status === 404) {
         setAlert('Login yoki parol xato kiritilgan!');
+        setAlert('');
       }
       if (error.status === 400) {
         setAlert('Bot emasligingizni qayta tasdiqlang!');
