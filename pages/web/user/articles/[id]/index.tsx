@@ -7,7 +7,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazyGetBlogArticleByIdQuery, useUpdateArticleMutation } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
-import { addUriToImageBlocks, checkAuthInServer, debouncer, get } from 'utils';
+import {
+  addUriToImageBlocks,
+  checkAuthInServer,
+  debouncer,
+  get,
+  removeAmazonUriFromImgBlocks,
+} from 'utils';
 
 const debounce = debouncer<TEditorApi>(2500);
 export default function UserArticlePage(): JSX.Element {
@@ -61,11 +67,11 @@ export default function UserArticlePage(): JSX.Element {
   const editorChangeHandler = useCallback(
     async (api: TEditorApi) => {
       if (!article) return;
-      debounce(api, () => {
-        api.saver.save().then(({ blocks }) => {
-          const title = blocks.find((block) => block.type === 'header')?.data.text;
-          updateArticle({ ...article, blocks, title });
-        });
+      debounce(api, async () => {
+        const editorData = await api.saver.save();
+        const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
+        const title = blocks.find((block) => block.type === 'header')?.data.text;
+        updateArticle({ ...article, blocks, title });
       });
     },
     [updateArticle, article],
