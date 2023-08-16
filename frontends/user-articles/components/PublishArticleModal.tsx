@@ -76,7 +76,6 @@ export const PublishArticleModal: FC<{
     if (props.open) publishBtnRef.current?.focus();
   }, [props.open]);
 
-  console.log(theme);
   const renderContent = (): JSX.Element => {
     if (publishArticleRes.isSuccess) {
       return (
