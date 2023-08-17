@@ -70,7 +70,10 @@ export const getTools = async ({
         defaultLevel: 1,
       },
     },
-    alert: TOOLS.Alert,
+    alert: {
+      class: TOOLS.Alert,
+      inlineToolbar: true,
+    },
     quote: TOOLS.Quote,
     delimiter: TOOLS.Delimiter,
     list: TOOLS.List,
