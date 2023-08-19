@@ -1,3 +1,7 @@
-export type TCB = (value: string) => void;
+export type TCB<TValue> = (value: TValue) => void;
 
-export type TDebauncer = (value: string, cb: TCB, ms?: number) => void;
+export type TDebauncer<TValue> = (
+  value: TValue,
+  cb: TCB<TValue>,
+  config?: Partial<{ ms: number; onClear: () => void }>,
+) => void;
