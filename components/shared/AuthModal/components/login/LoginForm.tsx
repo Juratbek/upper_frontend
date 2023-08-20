@@ -26,6 +26,7 @@ export const LoginForm: FC<{ closeModal: TNoop; showRegisterForm: TNoop }> = ({
     formState: { errors },
     control,
     reset,
+    clearErrors,
   } = useForm();
   const Title = useAppSelector(getAuthModalTitle);
   const recaptchaRef = useRef<{ reset: () => void }>(null);
@@ -55,6 +56,7 @@ export const LoginForm: FC<{ closeModal: TNoop; showRegisterForm: TNoop }> = ({
       const error = e as IResponseError;
       if (error.status === 404) {
         setAlert('Login yoki parol xato kiritilgan!');
+        clearErrors(recaptcha.name);
       }
       if (error.status === 400) {
         setAlert('Bot emasligingizni qayta tasdiqlang!');

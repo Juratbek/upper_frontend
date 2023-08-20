@@ -1,16 +1,26 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
 import { Alert, EditorSpinner, Head } from 'components';
-import { Editor } from 'components/Editor';
+import { Editor, TEditorApi } from 'components/Editor';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLazyGetBlogArticleByIdQuery } from 'store/apis';
+import { useLazyGetBlogArticleByIdQuery, useUpdateArticleMutation } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
-import { addUriToImageBlocks, checkAuthInServer, get } from 'utils';
+import {
+  addUriToImageBlocks,
+  checkAuthInServer,
+  debouncer,
+  get,
+  removeAmazonUriFromImgBlocks,
+} from 'utils';
 
+const debounce = debouncer<TEditorApi>(2500);
 export default function UserArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
+  const [updateArticle] = useUpdateArticleMutation({
+    fixedCacheKey: 'update-article',
+  });
   const { query } = useRouter();
   const article = useAppSelector(getArticle);
   const [blocks, setBlocks] = useState<OutputBlockData[] | null>(article?.blocks || null);
@@ -54,6 +64,19 @@ export default function UserArticlePage(): JSX.Element {
 
   if (isError) return <h1>{JSON.stringify(get(error, 'data.message'))}</h1>;
 
+  const editorChangeHandler = useCallback(
+    async (api: TEditorApi) => {
+      if (!article) return;
+      debounce(api, async () => {
+        const editorData = await api.saver.save();
+        const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
+        const title = blocks.find((block) => block.type === 'header')?.data.text;
+        updateArticle({ ...article, blocks, title });
+      });
+    },
+    [updateArticle, article],
+  );
+
   const renderEditor = (): JSX.Element => {
     if (!id || !article || !blocks) return <EditorSpinner />;
 
@@ -64,6 +87,7 @@ export default function UserArticlePage(): JSX.Element {
         }}
         handleInstance={getInstance}
         autoFocus
+        changeHandler={editorChangeHandler}
       />
     );
   };

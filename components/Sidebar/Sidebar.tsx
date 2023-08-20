@@ -150,7 +150,6 @@ export const Sidebar = (): JSX.Element => {
       <div
         className={classes.sidebar}
         style={{
-          overflowY: 'auto',
           backgroundColor: themeColors.bg,
         }}
       >

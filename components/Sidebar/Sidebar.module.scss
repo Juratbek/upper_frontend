@@ -41,8 +41,6 @@
   padding: 1rem 1.8rem;
   max-height: 100vh;
   height: calc(100vh - var(--noticeboard-height));
-  overflow-y: auto;
-  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     display: none;
