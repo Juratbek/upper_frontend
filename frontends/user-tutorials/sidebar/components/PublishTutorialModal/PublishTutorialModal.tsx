@@ -95,6 +95,7 @@ export const PublishTutorialModal: FC = () => {
           <Lordicon
             className={classes.congrats}
             width={120}
+            priority
             height={120}
             src={`/icons/congrats-${theme}.apng`}
           />

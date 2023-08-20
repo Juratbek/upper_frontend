@@ -84,6 +84,7 @@ export const PublishArticleModal: FC<{
             <Lordicon
               width={120}
               height={120}
+              priority
               src={`/icons/congrats-${theme}.apng
             `}
             />

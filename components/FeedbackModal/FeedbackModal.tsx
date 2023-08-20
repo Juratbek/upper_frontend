@@ -117,6 +117,7 @@ export const FeedbackModal: FC = () => {
             className={classes.congrats}
             width={120}
             height={120}
+            priority
             src={`/icons/congrats-${theme}.apng`}
           />
           <h3>Fikringiz uchun rahmat :)</h3>
