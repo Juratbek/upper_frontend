@@ -96,13 +96,13 @@
 .codex-editor--narrow {
   .ce-toolbar__actions {
     @include screenMin1200 {
-      right: 100% !important;
+      right: 100%;
     }
   }
   .ce-toolbox .ce-popover,
   .ce-settings .ce-popover {
     @include screenMin1200 {
-      left: 100% !important;
+      left: 0;
     }
   }
 }
