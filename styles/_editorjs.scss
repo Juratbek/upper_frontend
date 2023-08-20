@@ -3,7 +3,6 @@
 .codex-editor {
   &__redactor {
     padding-bottom: 0 !important;
-    margin-right: 4rem !important;
   }
 
   .ce-popover--opened {
@@ -94,7 +93,19 @@
     }
   }
 }
-
+.codex-editor--narrow {
+  .ce-toolbar__actions {
+    @include screenMin1200 {
+      right: 100% !important;
+    }
+  }
+  .ce-toolbox .ce-popover,
+  .ce-settings .ce-popover {
+    @include screenMin1200 {
+      left: 100% !important;
+    }
+  }
+}
 .readMode {
   .inline-image__picture img,
   img.image-tool__image-picture {
