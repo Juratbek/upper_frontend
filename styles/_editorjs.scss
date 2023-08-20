@@ -388,6 +388,8 @@
   }
 
   .codex-editor__redactor {
+    max-height: 600px;
+    height: 600px;
     .cdx-block.inline-image {
       & > .inline-image__control-panel {
         box-shadow: none;
