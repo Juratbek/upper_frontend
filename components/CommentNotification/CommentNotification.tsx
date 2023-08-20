@@ -5,7 +5,7 @@ import { dateInterval, getClassName } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const CommentNotification: FC<INotificationComponentProp> = (props) => {
-  const { className, article, author, status, createdDate } = props;
+  const { className, article, author, status, createdDate, message } = props;
   const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
 
   const clickHandler = (): void => props.onClick?.(props);
@@ -23,6 +23,9 @@ export const CommentNotification: FC<INotificationComponentProp> = (props) => {
             <strong className='pointer'>{author.name}</strong>
           </Link>{' '}
           izoh qoldirdi
+        </div>
+        <div>
+          <strong>Izoh:</strong> {message}
         </div>
         <time className='date'>{dateInterval(createdDate)}</time>
       </div>
