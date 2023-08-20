@@ -93,7 +93,19 @@
     }
   }
 }
-
+.codex-editor--narrow {
+  .ce-toolbar__actions {
+    @include screenMin1200 {
+      right: 100%;
+    }
+  }
+  .ce-toolbox .ce-popover,
+  .ce-settings .ce-popover {
+    @include screenMin1200 {
+      left: 0;
+    }
+  }
+}
 .readMode {
   .inline-image__picture img,
   img.image-tool__image-picture {
