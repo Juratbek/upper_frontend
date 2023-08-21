@@ -1,10 +1,6 @@
 @import './mixins';
 
 .codex-editor {
-  &__redactor {
-    padding-bottom: 0 !important;
-  }
-
   .ce-popover--opened {
     overflow: visible;
   }
@@ -95,6 +91,10 @@
 }
 
 .readMode {
+  .codex-editor__redactor {
+    padding-bottom: 0 !important;
+  }
+
   .inline-image__picture img,
   img.image-tool__image-picture {
     cursor: zoom-in;
@@ -388,8 +388,6 @@
   }
 
   .codex-editor__redactor {
-    max-height: 600px;
-    height: 600px;
     .cdx-block.inline-image {
       & > .inline-image__control-panel {
         box-shadow: none;
