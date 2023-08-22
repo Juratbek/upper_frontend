@@ -179,6 +179,13 @@
       background-color: var(--selected-text-bg);
     }
   }
+  // inline actions icon styles in mobile view
+  .ce-toolbar__plus,
+  .ce-toolbar__settings-btn {
+    @include screenMax576 {
+      background-color: var(--popover-bg);
+    }
+  }
 
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
