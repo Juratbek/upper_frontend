@@ -12,6 +12,7 @@ export const AuthModal: FC = () => {
   const dispatch = useAppDispatch();
 
   const closeModal = useCallback(() => {
+    setCurrentFormType('login');
     dispatch(closeAuthModal());
   }, []);
 
