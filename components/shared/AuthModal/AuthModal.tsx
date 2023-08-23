@@ -27,7 +27,7 @@ export const AuthModal: FC = () => {
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
       {form}
-      <Divider />
+      <Divider className='mt-2' />
       <GoogleAuthScript />
       <GoogleSignIn id='google-sign-in' className='mt-2' />
       <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
