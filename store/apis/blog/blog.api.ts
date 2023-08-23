@@ -163,6 +163,10 @@ export const blogApi = createApi({
     getTelegramConnectionStatus: build.query<ITelegramConnectionStatusResponseDto, void>({
       query: () => 'telegram-connection-status',
     }),
+    logout: build.mutation<null, void>({
+      queryFn: () => ({ data: null }),
+      invalidatesTags: ['current-blog'],
+    }),
   }),
 });
 
@@ -189,4 +193,5 @@ export const {
   useChangeCredentialsMutation,
   useChangeDonatCredentialsMutation,
   useContinueWithGitHubMutation,
+  useLogoutMutation,
 } = blogApi;
