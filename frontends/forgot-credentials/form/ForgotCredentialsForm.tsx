@@ -86,7 +86,12 @@ export const ForgotCredentialsForm: FC = () => {
         </Alert>
       )}
       {getByEmailRes.isUninitialized && form}
-      {sendEmailForPasswordRes.isUninitialized && blogs}
+      {sendEmailForPasswordRes.isUninitialized && getByEmailRes.data?.length != 0 && blogs}
+      {getByEmailRes.data?.length === 0 && (
+        <h3 className='text-center'>
+          Kechirasiz, biz ushbu e-pochta manzili bilan bog&apos;liq profillarni topa olmadik.
+        </h3>
+      )}
       {sendEmailForPasswordRes.isLoading && (
         <h3>
           Elektron pochtangizga havola jo&apos;natilmoqda <br />
