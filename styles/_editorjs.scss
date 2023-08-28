@@ -19,10 +19,12 @@
       width: 16px;
       height: 16px;
     }
+
     .nice-select {
       $min-width: 100%;
       min-width: $min-width;
       width: 100%;
+
       .nice-select-dropdown {
         left: 50%;
         transform: translateX(-50%);
@@ -50,6 +52,7 @@
     .editorjs-codeFlask_LangDisplay {
       height: unset;
     }
+
     .editorjs-codeFlask_CopyButton {
       line-height: 12px;
 
@@ -73,8 +76,10 @@
       #color-left-btn {
         width: 20px;
       }
+
       #color-btn-text {
         height: unset;
+
         svg {
           height: 18px;
         }
@@ -83,18 +88,21 @@
   }
 
   .codeflask {
+
     &.codeflask--has-line-numbers:before,
     & .codeflask__lines {
       z-index: 4;
     }
   }
 }
+
 .codex-editor--narrow {
   .ce-toolbar__actions {
     @include screenMin1200 {
       right: 100%;
     }
   }
+
   .ce-toolbox .ce-popover,
   .ce-settings .ce-popover {
     @include screenMin1200 {
@@ -102,6 +110,7 @@
     }
   }
 }
+
 .readMode {
   .codex-editor__redactor {
     padding-bottom: 0 !important;
@@ -122,6 +131,7 @@
 .editor-container,
 .ce-toolbar__content {
   max-width: 820px;
+
   @include screenMin1200 {
     max-width: 880px;
   }
@@ -130,6 +140,7 @@
 .editor-container {
   margin: 0 auto;
   position: relative;
+
   .ce-inline-toolbar {
     z-index: 4;
   }
@@ -169,16 +180,20 @@
 .theme-dark .codex-editor {
   *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
     color: inherit !important;
+
     &:host {
       background-color: var(--popover-bg);
     }
+
     &::selection {
       background-color: var(--selected-text-bg);
     }
+
     &::-moz-selection {
       background-color: var(--selected-text-bg);
     }
   }
+
   // inline actions icon styles in mobile view
   .ce-toolbar__plus,
   .ce-toolbar__settings-btn {
@@ -222,6 +237,7 @@
         .ce-conversion-tool__icon {
           background-color: transparent;
         }
+
         &:hover {
           background-color: var(--lightBlack);
         }
@@ -245,6 +261,7 @@
         background-color: var(--selected-text-bg);
       }
     }
+
     .tc-row--selected,
     .tc-cell--selected {
       background-color: var(--selected-text-bg);
@@ -259,6 +276,7 @@
         fill: var(--popover-bg);
       }
     }
+
     .tc-add-column:hover,
     .tc-add-row:hover {
       background-color: var(--selected-text-bg);
@@ -272,12 +290,14 @@
   .editorjs-codeFlask_Wrapper {
     border: 0.5px solid;
     background-color: transparent;
+
     .editorjs-codeFlask_LangDisplay {
       background-color: transparent;
       border-top: 0.5px solid;
       border-left: 0.5px solid;
       padding: 2px 10px;
     }
+
     .editorjs-codeFlask_CopyButton {
       background-color: var(--popover-bg);
       border: 0.5px solid;
@@ -286,6 +306,7 @@
         stroke: #ffffff;
       }
     }
+
     .codeflask {
       &.codeflask--has-line-numbers {
         border-bottom: 2px solid transparent;
@@ -296,7 +317,9 @@
           border-bottom: 0.5px solid;
         }
       }
+
       .token {
+
         &.function,
         &.keyword,
         &.selector,
@@ -308,6 +331,7 @@
         }
       }
     }
+
     .codeflask__textarea {
       caret-color: inherit;
       overflow-y: hidden;
@@ -316,9 +340,11 @@
       &::-webkit-scrollbar {
         height: 0.4rem;
       }
+
       &::-webkit-scrollbar-track {
         background: transparent;
       }
+
       &::-webkit-scrollbar-thumb {
         background: rgb(162, 162, 162);
         border-radius: 1rem;
@@ -332,6 +358,7 @@
 
   .ce-toolbar {
     .ce-toolbar__actions {
+
       .ce-toolbar__plus:hover,
       .ce-toolbar__settings-btn:hover {
         background-color: transparent;
@@ -370,7 +397,7 @@
           background-color: transparent;
 
           path {
-            fill: white;
+            fill: transparent;
           }
         }
       }
@@ -382,11 +409,13 @@
 
     .nice-select {
       background-color: var(--lightBlack);
+
       .nice-select-dropdown {
         background-color: var(--popover-bg);
       }
 
       .option {
+
         &:hover,
         &.focus {
           background-color: var(--lightBlack);
@@ -401,6 +430,7 @@
 
   .image-tool {
     --bg-color: transparent;
+
     &.image-tool--loading .image-tool__image {
       background-color: transparent;
     }
@@ -408,11 +438,13 @@
 
   .codex-editor__redactor {
     .cdx-block.inline-image {
-      & > .inline-image__control-panel {
+      &>.inline-image__control-panel {
         box-shadow: none;
       }
+
       .inline-image__control-panel {
         border: 1px solid lightgrey;
+
         .panel-scroll {
           &::-webkit-scrollbar {
             width: 0.5rem;
@@ -436,6 +468,7 @@
   }
 
   .quiz-tool-container {
+
     .quiz-item .icon-button:hover,
     .quiz-footer .qt-add-btn:hover {
       background-color: var(--popover-bg);
