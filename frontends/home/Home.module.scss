@@ -1,3 +1,10 @@
+.label-wrapper {
+  position: sticky;
+  top: 0;
+  background-color: #252a31;
+  z-index: 10;
+}
+
 .labels-container {
   display: flex;
   margin-top: 0.5rem;

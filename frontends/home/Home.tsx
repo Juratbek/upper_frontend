@@ -69,20 +69,22 @@ export const HomePage: FC = () => {
 
   return (
     <div className='container'>
-      <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
-      <div className='my-2' />
-      <div className={`${classes['labels-container']} ${classes[theme]}`}>
-        {labels.map((label) => (
-          <Button
-            onClick={(): void => labelSelectHandler(label.id)}
-            size='small'
-            color={query.label === label.id.toString() ? 'dark' : 'outline-dark'}
-            className={classes['label-buttons']}
-            key={label.id}
-          >
-            {label.name}
-          </Button>
-        ))}
+      <div className={classes['label-wrapper']}>
+        <h1 className='mb-1'>UPPER - Yanada yuqoriroq</h1>
+        <div className='my-2' />
+        <div className={`${classes['labels-container']} ${classes[theme]}`}>
+          {labels.map((label) => (
+            <Button
+              onClick={(): void => labelSelectHandler(label.id)}
+              size='small'
+              color={query.label === label.id.toString() ? 'dark' : 'outline-dark'}
+              className={classes['label-buttons']}
+              key={label.id}
+            >
+              {label.name}
+            </Button>
+          ))}
+        </div>
       </div>
       <ApiErrorBoundary
         fallback={<ArticleSkeleton className='p-2' />}
