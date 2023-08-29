@@ -18,16 +18,7 @@ export const validateArticle = ({
       reason: 'title',
       isValid: false,
     };
-  // check if article has an image
-  const mainImg = blocks.find(
-    (block) => block.type === BLOCK_TYPES.unsplash || block.type === BLOCK_TYPES.image,
-  );
-  if (!mainImg)
-    return {
-      message: "Maqolada kamida bitta rasm bo'lishi zarur",
-      reason: 'image',
-      isValid: false,
-    };
+
   // check if article has selected labels
   if (labels.length === 0)
     return { message: 'Iltimos teglarni tanlang', reason: 'labels', isValid: false };
