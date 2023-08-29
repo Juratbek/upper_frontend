@@ -1,8 +1,8 @@
 @import './mixins';
 
 .codex-editor {
-  &__redactor {
-    padding-bottom: 0 !important;
+  .ce-popover--opened {
+    overflow: visible;
   }
 
   .ce-popover-item__icon {
@@ -19,6 +19,21 @@
       width: 16px;
       height: 16px;
     }
+    .nice-select {
+      $min-width: 100%;
+      min-width: $min-width;
+      width: 100%;
+      .nice-select-dropdown {
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: $min-width;
+
+        ul.list {
+          border: 0.5px solid;
+          margin-bottom: 0;
+        }
+      }
+    }
   }
 
   & .ce-block__content {
@@ -27,6 +42,7 @@
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
       font-family: inherit !important;
+      word-break: break-word !important;
     }
   }
 
@@ -35,6 +51,8 @@
       height: unset;
     }
     .editorjs-codeFlask_CopyButton {
+      line-height: 12px;
+
       svg {
         fill: none;
 
@@ -71,8 +89,24 @@
     }
   }
 }
-
+.codex-editor--narrow {
+  .ce-toolbar__actions {
+    @include screenMin1200 {
+      right: 100%;
+    }
+  }
+  .ce-toolbox .ce-popover,
+  .ce-settings .ce-popover {
+    @include screenMin1200 {
+      left: 0;
+    }
+  }
+}
 .readMode {
+  .codex-editor__redactor {
+    padding-bottom: 0 !important;
+  }
+
   .inline-image__picture img,
   img.image-tool__image-picture {
     cursor: zoom-in;
@@ -145,6 +179,13 @@
       background-color: var(--selected-text-bg);
     }
   }
+  // inline actions icon styles in mobile view
+  .ce-toolbar__plus,
+  .ce-toolbar__settings-btn {
+    @include screenMax576 {
+      background-color: var(--popover-bg);
+    }
+  }
 
   .ce-inline-toolbar {
     background-color: var(--popover-bg);
@@ -174,6 +215,8 @@
     // inline toolbar 'CONVERT TO' popover styles
     .ce-conversion-toolbar {
       background-color: var(--popover-bg);
+      width: unset;
+      min-width: 150px;
 
       .ce-conversion-tool {
         .ce-conversion-tool__icon {
@@ -338,16 +381,11 @@
     }
 
     .nice-select {
-      $min-width: 118px;
-      min-width: $min-width;
-      width: 100%;
       background-color: var(--lightBlack);
       .nice-select-dropdown {
         background-color: var(--popover-bg);
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: $min-width;
       }
+
       .option {
         &:hover,
         &.focus {

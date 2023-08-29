@@ -45,28 +45,28 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
       },
     ],
   },
-  {
-    name: 'Blog yuritish',
-    url: 'blogging',
-    children: [
-      {
-        name: 'Sozlamalar',
-        url: 'settings',
-        children: [
-          // {
-          //   name: 'Siz haqingizda',
-          //   url: 'about-you',
-          // },
-          {
-            name: '"Hissa qo\'shish" hizmati',
-            url: 'sponsor',
-          },
-          // {
-          //   name: 'Havfsizlik',
-          //   url: 'security',
-          // },
-        ],
-      },
-    ],
-  },
+  // {
+  //   name: 'Blog yuritish',
+  //   url: 'blogging',
+  //   children: [
+  //     {
+  //       name: 'Sozlamalar',
+  //       url: 'settings',
+  //       children: [
+  //         // {
+  //         //   name: 'Siz haqingizda',
+  //         //   url: 'about-you',
+  //         // },
+  //         {
+  //           name: '"Hissa qo\'shish" hizmati',
+  //           url: 'sponsor',
+  //         },
+  //         // {
+  //         //   name: 'Havfsizlik',
+  //         //   url: 'security',
+  //         // },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];

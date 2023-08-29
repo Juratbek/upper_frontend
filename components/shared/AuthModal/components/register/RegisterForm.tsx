@@ -5,6 +5,7 @@ import { Controller, FieldErrors, useForm } from 'react-hook-form';
 import { useRegisterMutation } from 'store/apis';
 import { IResponseError, TNoop, TSubmitFormEvent } from 'types';
 
+import { UsernameValidityError } from '../username-validity-error/UsernameValidityError';
 import { REGISTER_FORM_FIELDS } from './RegisterForm.constants';
 
 const { name, bio, login, password, email, recaptcha } = REGISTER_FORM_FIELDS;
@@ -115,7 +116,11 @@ export const RegisterForm: FC<{ closeModal: TNoop }> = ({ closeModal }) => {
             Loginni kiriting
           </label>
           <Input id='login' {...register(login.name, login.options)} />
-          <Error error={errors[login.name]} />
+          <UsernameValidityError
+            value={watch(login.name)}
+            show={Boolean(errors[login.name])}
+            error={errors[login.name]}
+          />
         </div>
         <div className='form-element'>
           <label htmlFor='email' className='d-block mb-1'>

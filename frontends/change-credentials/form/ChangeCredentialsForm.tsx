@@ -1,5 +1,6 @@
 import { Alert, Button, Error, Input, PasswordValidityLevel } from 'components';
 import { REGISTER_FORM_FIELDS } from 'components/shared/AuthModal/components';
+import { UsernameValidityError } from 'components/shared/AuthModal/components/username-validity-error/UsernameValidityError';
 import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -8,6 +9,8 @@ import { useForm } from 'react-hook-form';
 import { useChangeCredentialsMutation } from 'store/apis';
 import { IResponseError } from 'types';
 import { WEB_APP_ROOT_DIR } from 'variables';
+
+const { login, password } = REGISTER_FORM_FIELDS;
 
 export const ChangeCredentialsForm: FC = () => {
   const [isTokenAbsent, setIsTokenAbsent] = useState(false);
@@ -55,14 +58,18 @@ export const ChangeCredentialsForm: FC = () => {
           <label htmlFor='login' className='mb-1 d-block'>
             Login
           </label>
-          <Input {...register('login', REGISTER_FORM_FIELDS.login.options)} />
-          <Error error={errors.login} />
+          <Input {...register('login', login.options)} />
+          <UsernameValidityError
+            value={watch(login.name)}
+            show={Boolean(errors[login.name])}
+            error={errors[login.name]}
+          />
         </div>
         <div className='mb-2'>
           <label htmlFor='passowrd' className='mb-1 d-block'>
             Parol
           </label>
-          <Input type='password' {...register('password', REGISTER_FORM_FIELDS.password.options)} />
+          <Input type='password' {...register('password', password.options)} />
           <PasswordValidityLevel password={watch('password')} />
         </div>
         <div className='mb-2'>
@@ -78,7 +85,7 @@ export const ChangeCredentialsForm: FC = () => {
         <Button className='w-100'>Saqlash</Button>
       </>
     );
-  }, [token, isTokenAbsent, watch('password')]);
+  }, [token, isTokenAbsent, watch('password'), errors]);
 
   const closeAlert = (): void => {
     setAlert(undefined);

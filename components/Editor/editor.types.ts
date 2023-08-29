@@ -1,4 +1,4 @@
-import EditorJS, { EditorConfig, OutputData } from '@editorjs/editorjs';
+import EditorJS, { API, EditorConfig, OutputData } from '@editorjs/editorjs';
 
 export interface IEditorProps {
   changeHandler?: EditorConfig['onChange'];
@@ -31,3 +31,5 @@ export interface IUploadedImage {
     url: string;
   };
 }
+
+export type TEditorApi = API;

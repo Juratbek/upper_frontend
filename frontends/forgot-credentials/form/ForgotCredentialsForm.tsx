@@ -7,6 +7,7 @@ import {
   useSendEmailConfirmationForPasswordMutation,
 } from 'store/apis';
 import { IBlogSmall } from 'types';
+import { addAmazonUri } from 'utils';
 
 import { BlogOption } from '../blog-option/BlogOption';
 import classes from './ForgotCredentialsForm.module.scss';
@@ -71,7 +72,7 @@ export const ForgotCredentialsForm: FC = () => {
           className={`${classes.option} ${classes[`option--${theme}`]}`}
           onClick={(): Promise<void> => selectBlogHandler(blog)}
         >
-          <BlogOption {...blog} />
+          <BlogOption {...addAmazonUri(blog)} />
         </div>
       ))}
     </ApiErrorBoundary>
@@ -85,7 +86,12 @@ export const ForgotCredentialsForm: FC = () => {
         </Alert>
       )}
       {getByEmailRes.isUninitialized && form}
-      {sendEmailForPasswordRes.isUninitialized && blogs}
+      {sendEmailForPasswordRes.isUninitialized && getByEmailRes.data?.length != 0 && blogs}
+      {getByEmailRes.data?.length === 0 && (
+        <h3 className='text-center'>
+          Kechirasiz, biz ushbu e-pochta manzili bilan bog&apos;liq profillarni topa olmadik.
+        </h3>
+      )}
       {sendEmailForPasswordRes.isLoading && (
         <h3>
           Elektron pochtangizga havola jo&apos;natilmoqda <br />

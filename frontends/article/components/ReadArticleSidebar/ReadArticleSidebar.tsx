@@ -30,7 +30,7 @@ export const ReadArticleSidebar = (): JSX.Element => {
   return (
     <>
       <Author {...addAmazonUri(articleAuthor)} className='mt-2' />
-      {Boolean(articleAuthor.cardNumber) && (
+      {/* {Boolean(articleAuthor.cardNumber) && (
         <Link href={`${WEB_APP_ROOT_DIR}/blogs/${articleAuthor.id}/support`}>
           <a className='link d-flex mt-2'>
             <span className='sponsor-icon'>
@@ -39,7 +39,7 @@ export const ReadArticleSidebar = (): JSX.Element => {
             <h4 className='m-0'>Blog faoliyatiga hissa qo&apos;shing</h4>
           </a>
         </Link>
-      )}
+      )} */}
       <Divider className='my-2' />
       <ApiErrorBoundary res={fetchPublishedTutorialsRes} className='mb-2'>
         {tutorials?.length > 0 && <h3 className='mb-1'>To&apos;plamlar</h3>}
