@@ -12,7 +12,6 @@ export const Head: FC<IHeadProps> = (props) => {
     publishedDate,
     description = '',
   } = props;
-  console.log('🚀 ~ file: Head.tsx:15 ~ props:', imgUrl);
 
   return (
     <NextHead>
@@ -28,12 +27,7 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='og:url' content={url} />
       <meta property='og:title' content={title} />
       <meta property='og:description' content={description} />
-      <meta
-        property='og:image'
-        content={
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&amp;cs=srgb&amp;fm=jpg&amp;ixid=M3wzNTg2MDB8MHwxfHNlYXJjaHwzfHx0ZWFtfGVufDB8fHx8MTY5Mjg4ODkwM3ww&amp;ixlib=rb-4.0.3&q=10'
-        }
-      />
+      <meta property='og:image' content={imgUrl} />
       <meta property='og:locale' content='uz' />
       <meta property='og:site_name' content='upper.uz' />
 
@@ -42,12 +36,7 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='twitter:url' content={url} />
       <meta property='twitter:title' content={title} />
       <meta property='twitter:description' content={description} />
-      <meta
-        property='twitter:image'
-        content={
-          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&amp;cs=srgb&amp;fm=jpg&amp;ixid=M3wzNTg2MDB8MHwxfHNlYXJjaHwzfHx0ZWFtfGVufDB8fHx8MTY5Mjg4ODkwM3ww&amp;ixlib=rb-4.0.3&q=10'
-        }
-      />
+      <meta property='twitter:image' content={imgUrl} />
 
       {props.children}
     </NextHead>
