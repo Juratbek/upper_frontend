@@ -42,7 +42,12 @@ export const Head: FC<IHeadProps> = (props) => {
       <meta property='twitter:url' content={url} />
       <meta property='twitter:title' content={title} />
       <meta property='twitter:description' content={description} />
-      <meta property='twitter:image' content={imgUrl} />
+      <meta
+        property='twitter:image'
+        content={
+          'https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&amp;cs=srgb&amp;fm=jpg&amp;ixid=M3wzNTg2MDB8MHwxfHNlYXJjaHwzfHx0ZWFtfGVufDB8fHx8MTY5Mjg4ODkwM3ww&amp;ixlib=rb-4.0.3&q=10'
+        }
+      />
 
       {props.children}
     </NextHead>
