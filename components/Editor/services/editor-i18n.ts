@@ -26,5 +26,12 @@ export const i18n: I18nConfig = {
         'Move down': 'Pastga surish',
       },
     },
+    tools: {
+      image: {
+        'With border': 'Chegara bilan',
+        'Stretch image': "Rasimni cho'zish",
+        'With background': 'Orqa fon bilan',
+      },
+    },
   },
 };
