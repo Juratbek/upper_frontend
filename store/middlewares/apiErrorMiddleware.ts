@@ -17,7 +17,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
       window.location.replace(
         `${WEB_APP_ROOT_DIR}/login?redirect=${
           window.location.pathname
-        }&message=${'Token muddadi yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
+        }&message=${'Token muddati yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
       );
     }
 
