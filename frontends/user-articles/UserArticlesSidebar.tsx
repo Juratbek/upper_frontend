@@ -142,7 +142,7 @@ export const UserArticlesSidebar: FC = () => {
         {article.publishedArticleId && (
           <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
             <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
-              Nashr varyantini ko&apos;rish
+              Nashr variantini ko&apos;rish
               <ICONS.openExternal color={themeColors.icon} />
             </a>
           </Link>

@@ -92,7 +92,7 @@ export const PublishArticleModal: FC<{
             <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
               <a target={'_blank'}>
                 <Button className='d-flex align-items-center f-gap-1 w-100 justify-content-center'>
-                  Nashr varyantini ko&apos;rish
+                  Nashr variantini ko&apos;rish
                   <ICONS.openExternal color={themeColors.icon} />
                 </Button>
               </a>
