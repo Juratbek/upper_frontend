@@ -1,5 +1,6 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
+  --color-shadow: rgba(13,20,33,.13);
   --darkGray: rgb(77, 77, 77, 0.9);
   --mediumGray: rgba(196, 196, 196, 0.8);
   --lightGray: rgb(199 199 199 / 20%);
@@ -30,6 +31,9 @@
   // sizes
   --noticeboard-height: 0px;
   --sidebar-width: 25rem;
+
+  // shadows
+  --box-shadow: 0 3px 15px -3px var(--color-shadow);
 }
 
 * {

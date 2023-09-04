@@ -2,8 +2,9 @@
   border-radius: 5px;
 
   &.light {
-    background-color: var(--brightGray);
+    background-color: #ffffff;
     border: 1px solid var(--lightGray);
+    box-shadow: var(--box-shadow);
 
     .emojiItem {
       color: var(--gray);
@@ -11,8 +12,8 @@
   }
 
   &.dark {
-    border: 0.5px solid var(--gray);
-    background-color: var(--lightGray);
+    border: 0.5px solid #c2c2c2;
+    background-color: #343a42;
 
     .emojiItem {
       color: #fff;
@@ -23,8 +24,6 @@
 .popoverContainer {
   position: absolute;
   z-index: 10;
-  background-color: var(--light);
-  border-radius: 3px;
 
   ::-webkit-scrollbar {
     width: 5px;
