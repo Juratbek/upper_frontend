@@ -88,20 +88,20 @@ export const DeleteArticleModal: FC<{
       <>
         <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
         {props.status === ARTICLE_STATUSES.PUBLISHED ? (
-          <h3 className='mb-2 mt-0'>
+          <h3 className='mb-2 mt-0 fw-6'>
             &quot;{article.title}&quot; maqolani o&apos;chirmoqchimisiz?
           </h3>
         ) : (
-          <h3 className='mb-2 mt-0'>Ushbu saqlangan maqolani o&apos;chirmoqchimisiz?</h3>
+          <h3 className='mb-2 mt-0 fw-6'>Ushbu saqlangan maqolani o&apos;chirmoqchimisiz?</h3>
         )}
         <div>
-          <h4 className='mb-2 mt-0'>
+          <h4 className='mb-2 mt-0 fw-4'>
             Maqolani o&apos;chirish uchun <i>&quot;o&apos;chirish&quot;</i> so&apos;zini yozing
           </h4>
           <Input className='mb-2' onChange={handleChange} />
         </div>
         <div className='d-flex'>
-          <Button color='outline-dark' onClick={closeDeleteArticleModal} className='me-1'>
+          <Button color='outline-dark' onClick={closeDeleteArticleModal} className='me-1 flex-1'>
             Bekor qilish
           </Button>
           <Button
@@ -109,7 +109,6 @@ export const DeleteArticleModal: FC<{
             onClick={submitDeletion}
             disabled={!isConfirmedToDeletion}
             color='outline-red'
-            className='flex-1'
             loading={deleteArticleRes.isLoading}
           >
             O&apos;chirish

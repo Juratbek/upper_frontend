@@ -161,10 +161,15 @@ export const UserArticlesSidebar: FC = () => {
           <ICONS.openExternal color={themeColors.icon} />
         </a>
       </Link>
-      <Divider className='my-2' />
+      <div className='mt-3'>
+        <p className='fs-1'>
+          Maqolani o&apos;chirib tashlaganingizdan so&apos;ng, orqaga qaytishning iloji yo&apos;q.
+          Iltimos, ishonch hosil qiling.
+        </p>
+      </div>
       <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
         <Button
-          className='flex-auto m-1 mt-0 mb-0'
+          className='flex-auto m-1 mt-0 mb-0 fw-6'
           type='button'
           color='outline-red'
           onClick={toggleDeleteModal}
