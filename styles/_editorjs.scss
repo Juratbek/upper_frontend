@@ -379,8 +379,10 @@
         background-color: var(--lightBlack);
       }
 
-      .qt-settings-icon__single svg path {
-        fill: white;
+      .qt-settings-icon__single, .qt-settings-icon__multi {
+        svg path {
+          fill: white;
+        }
       }
     }
 
@@ -395,10 +397,6 @@
 
         &__icon {
           background-color: transparent;
-
-          path {
-            fill: transparent;
-          }
         }
       }
 
