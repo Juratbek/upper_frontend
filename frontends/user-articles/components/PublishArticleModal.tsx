@@ -85,8 +85,8 @@ export const PublishArticleModal: FC<{
               width={120}
               height={120}
               priority
-              src={`/icons/congrats-${theme}.apng
-            `}
+              hidden={false}
+              src={`/icons/congrats-${theme}.apng`}
             />
             <h3>Maqolangiz nashr qilindi</h3>
             <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
