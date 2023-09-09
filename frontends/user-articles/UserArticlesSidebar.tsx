@@ -1,4 +1,5 @@
 import { ArticleStatus, Button, Divider, IOption, MultiSelect, Tooltip } from 'components';
+import { Dropdown } from 'components';
 import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
 import React, { FC, useEffect, useMemo } from 'react';
@@ -161,22 +162,29 @@ export const UserArticlesSidebar: FC = () => {
           <ICONS.openExternal color={themeColors.icon} />
         </a>
       </Link>
-      <div className='mt-3'>
-        <p className='fs-1'>
-          Maqolani o&apos;chirib tashlaganingizdan so&apos;ng, orqaga qaytishning iloji yo&apos;q.
-          Iltimos, ishonch hosil qiling.
-        </p>
-      </div>
-      <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
-        <Button
-          className='flex-auto m-1 mt-0 mb-0 fw-6'
-          type='button'
-          color='outline-red'
-          onClick={toggleDeleteModal}
-        >
-          Maqolani o&apos;chirish
-        </Button>
-      </div>
+      <Dropdown
+        title='Qoshimcha sozlamalar'
+        titleClassName='my-2 pe-3'
+        paddingLeft='0'
+        iconSize='small'
+      >
+        <div className='mt-3'>
+          <p className='fs-1'>
+            Maqolani o&apos;chirib tashlaganingizdan so&apos;ng, orqaga qaytishning iloji yo&apos;q.
+            Iltimos, ishonch hosil qiling.
+          </p>
+        </div>
+        <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
+          <Button
+            className='flex-auto m-1 mt-0 mb-0 fw-6'
+            type='button'
+            color='outline-red'
+            onClick={toggleDeleteModal}
+          >
+            Maqolani o&apos;chirish
+          </Button>
+        </div>
+      </Dropdown>
     </>
   );
 };

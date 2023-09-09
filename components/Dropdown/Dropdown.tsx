@@ -25,7 +25,11 @@ export const Dropdown: FC<IDropdownProps> = (props) => {
         }}
       >
         {title}
-        <span className={`${classes.icon} ${isOpen && classes['icon-open']}`}>
+        <span
+          className={`${classes.icon} ${isOpen && classes['icon-open']} ${
+            props.iconSize ? classes[`icon-${props.iconSize}`] : 'icon-large'
+          }`}
+        >
           <Triangle />
         </span>
       </div>
