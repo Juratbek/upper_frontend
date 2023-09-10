@@ -1,4 +1,5 @@
 import { ArticleStatus, Button, Divider, IOption, MultiSelect, Tooltip } from 'components';
+import { Dropdown } from 'components';
 import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
 import React, { FC, useEffect, useMemo } from 'react';
@@ -13,6 +14,7 @@ import {
 } from 'utils';
 import { ARTICLE_STATUSES, ICONS, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
+import { DeleteArticleModal } from './components/DeleteArticleModal';
 import { PublishArticleModal } from './components/PublishArticleModal';
 
 export const UserArticlesSidebar: FC = () => {
@@ -21,11 +23,10 @@ export const UserArticlesSidebar: FC = () => {
   const [, updateRes] = useUpdateArticleMutation({
     fixedCacheKey: 'update-article',
   });
-
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
   const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
-
+  const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
   const [updateArticle, updateArticleRes] = useUpdateArticleMutation();
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
@@ -88,6 +89,12 @@ export const UserArticlesSidebar: FC = () => {
           status={article.status}
         />
       )}
+      <DeleteArticleModal
+        status={article.status}
+        open={isDeleteModalOpen}
+        close={closeDeleteModal}
+        article={article}
+      />
       <>
         <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
           <Button
@@ -155,6 +162,29 @@ export const UserArticlesSidebar: FC = () => {
           <ICONS.openExternal color={themeColors.icon} />
         </a>
       </Link>
+      <Dropdown
+        title='Qoshimcha sozlamalar'
+        titleClassName='my-2 pe-3'
+        paddingLeft='0'
+        iconSize='small'
+      >
+        <div className='mt-3'>
+          <p className='fs-1'>
+            Maqolani o&apos;chirib tashlaganingizdan so&apos;ng, orqaga qaytishning iloji yo&apos;q.
+            Iltimos, ishonch hosil qiling.
+          </p>
+        </div>
+        <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
+          <Button
+            className='flex-auto m-1 mt-0 mb-0 fw-6'
+            type='button'
+            color='outline-red'
+            onClick={toggleDeleteModal}
+          >
+            Maqolani o&apos;chirish
+          </Button>
+        </div>
+      </Dropdown>
     </>
   );
 };
