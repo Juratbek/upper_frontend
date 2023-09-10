@@ -2,7 +2,7 @@
   border-radius: 5px;
 
   &.light {
-    background-color: #ffffff;
+    background-color:var(--brightGray);
     border: 1px solid var(--lightGray);
     box-shadow: var(--box-shadow);
 
