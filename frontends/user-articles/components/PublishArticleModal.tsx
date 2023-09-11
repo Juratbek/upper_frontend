@@ -81,13 +81,7 @@ export const PublishArticleModal: FC<{
       return (
         <>
           <div className='text-center'>
-            <Lordicon
-              width={120}
-              height={120}
-              priority
-              hidden={false}
-              src={`/icons/congrats-${theme}.apng`}
-            />
+            <Lordicon width={120} height={120} priority src={`/icons/congrats-${theme}.apng`} />
             <h3>Maqolangiz nashr qilindi</h3>
             <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
               <a target={'_blank'}>
@@ -106,7 +100,7 @@ export const PublishArticleModal: FC<{
     }
     return (
       <>
-        <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
+        {/* <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden /> */}
         <h3 className='mb-2 mt-0'>
           {props.status === 'SAVED'
             ? 'Maqolangizni nashr qilmoqchimisiz?'
