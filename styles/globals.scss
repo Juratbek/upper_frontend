@@ -1,5 +1,7 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
+  --light-bg:#fff;
+  --color-shadow: rgba(13,20,33,.13);
   --darkGray: rgb(77, 77, 77, 0.9);
   --mediumGray: rgba(196, 196, 196, 0.8);
   --lightGray: rgb(199 199 199 / 20%);
@@ -30,6 +32,9 @@
   // sizes
   --noticeboard-height: 0px;
   --sidebar-width: 25rem;
+
+  // shadows
+  --box-shadow: 0 3px 15px -3px var(--color-shadow);
 }
 
 * {
@@ -48,13 +53,14 @@
   @include screenMax576 {
     flex-direction: column;
   }
+
   @include screenMin1200 {
     max-width: 1600px;
     margin: 0 auto;
   }
 }
 
-.app > .main {
+.app>.main {
   flex: 1 1 auto;
   height: calc(100vh - var(--noticeboard-height));
   overflow-y: auto;
@@ -66,6 +72,7 @@
   &::-webkit-scrollbar {
     width: 0.4rem;
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: transparent;
     border-radius: 10rem;
@@ -84,6 +91,7 @@
     &::-webkit-scrollbar {
       width: 0.3rem;
     }
+
     &::-webkit-scrollbar-thumb {
       background-color: var(--scrollbar-thumb-color);
     }
@@ -105,6 +113,7 @@
 .form--medium {
   width: 30rem;
 }
+
 .form {
   width: 20rem;
   margin: 10rem auto;
@@ -116,6 +125,7 @@
     width: 95vw;
   }
 }
+
 .card {
   padding: 3rem;
   border-radius: 1em;
@@ -126,6 +136,7 @@
 .form-element {
   margin-bottom: 0.8em;
 }
+
 .form-label {
   margin-bottom: $size1;
   display: block;
@@ -135,6 +146,7 @@
   margin-bottom: 0.5em;
   display: block;
 }
+
 // form end
 
 .date {
@@ -164,16 +176,20 @@
   & svg {
     fill: black;
   }
+
   &--active svg {
     fill: blue;
   }
 }
+
 .sponsor-icon {
   display: flex;
   margin-right: 0.3rem;
+
   & svg {
     width: 1rem;
     height: 1rem;
+
     & path {
       fill: var(--blue);
     }
@@ -185,16 +201,14 @@
     background-color: var(--lightGray);
   }
 }
+
 // light theme
 .theme-light {
   .skeleton {
-    background: linear-gradient(
-        100deg,
+    background: linear-gradient(100deg,
         rgba(255, 255, 255, 0) 50%,
         rgba(255, 255, 255, 0.5) 60%,
-        rgba(255, 255, 255, 0) 70%
-      )
-      #ededed;
+        rgba(255, 255, 255, 0) 70%) #ededed;
     background-size: 200% 100%;
     background-position-x: 180%;
     animation: 800ms loading ease-in-out infinite;
@@ -212,13 +226,10 @@
   --light: #343a42;
 
   .skeleton {
-    background: linear-gradient(
-        100deg,
+    background: linear-gradient(100deg,
         rgba(255, 255, 255, 0) 50%,
         rgba(255, 255, 255, 0.1) 60%,
-        rgba(255, 255, 255, 0) 70%
-      )
-      #3b4048;
+        rgba(255, 255, 255, 0) 70%) #3b4048;
     background-size: 200% 100%;
     background-position-x: 180%;
     animation: 800ms loading ease-in-out infinite;
@@ -361,12 +372,15 @@
   .mt-xs-2 {
     margin-top: $size2-xs;
   }
+
   .mt-xs-3 {
     margin-top: $size3-xs;
   }
+
   .me-xs-1 {
     margin-right: $size1-xs;
   }
+
   .me-xs-2 {
     margin-right: $size2-xs;
   }
@@ -376,51 +390,65 @@
 .p-0 {
   padding: 0;
 }
+
 .p-1 {
   padding: $size1;
 }
+
 .p-2 {
   padding: $size2;
 }
+
 .py-1 {
   padding-top: $size1;
   padding-bottom: $size1;
 }
+
 .py-2 {
   padding-top: $size2;
   padding-bottom: $size2;
 }
+
 .px-1 {
   padding-left: $size1;
   padding-right: $size1;
 }
+
 .px-2 {
   padding-right: $size2;
   padding-left: $size2;
 }
+
 .px-3 {
   padding-right: $size3;
   padding-left: $size3;
 }
+
 .px-4 {
   padding-right: $size4;
   padding-left: $size4;
 }
+
 .pt-1 {
   padding-top: $size1;
 }
+
 .pt-2 {
   padding-top: $size2;
 }
+
 .pt-3 {
   padding-top: $size3;
 }
+
 .pt-4 {
   padding-top: $size4;
 }
+
 .pb-4 {
   padding-bottom: $size4;
 }
+
 // margins for screens smaller than 576px
 @include screenMax576 {
   .px-xs-1 {
@@ -454,12 +482,15 @@
 .justify-content-between {
   justify-content: space-between;
 }
+
 .justify-content-center {
   justify-content: center;
 }
+
 .justify-content-around {
   justify-content: space-around;
 }
+
 .justify-content-end {
   justify-content: flex-end;
 }
@@ -467,9 +498,11 @@
 .float-firgt {
   float: right;
 }
+
 .text-start {
   text-align: start;
 }
+
 .text-center {
   text-align: center;
 }
@@ -483,24 +516,31 @@
 .w-0 {
   width: 0;
 }
+
 .w-30 {
   width: 30%;
 }
+
 .w-40 {
   width: 40%;
 }
+
 .w-50 {
   width: 50%;
 }
+
 .w-75 {
   width: 75%;
 }
+
 .w-80 {
   width: 80%;
 }
+
 .w-90 {
   width: 90%;
 }
+
 .w-100 {
   width: 100%;
 }
@@ -521,15 +561,19 @@
 .flex-1 {
   flex: 1;
 }
+
 .flex-auto {
   flex: 1 1 auto;
 }
+
 .flex-wrap {
   flex-wrap: wrap;
 }
+
 .flex-col {
   flex-direction: column;
 }
+
 .flex-mobile-col {
   @include screenMax576 {
     flex-direction: column;
@@ -545,12 +589,15 @@
 .text-blue {
   color: blue;
 }
+
 .text-danger {
   color: var(--red);
 }
+
 .text-green {
   color: var(--green);
 }
+
 .text-gray {
   color: var(--gray);
 }
