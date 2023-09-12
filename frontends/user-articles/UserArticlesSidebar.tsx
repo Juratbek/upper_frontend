@@ -19,7 +19,7 @@ import { PublishArticleModal } from './components/PublishArticleModal';
 
 export const UserArticlesSidebar: FC = () => {
   const dispatch = useAppDispatch();
-  const { themeColors } = useTheme();
+  const { themeColors, theme } = useTheme();
   const [, updateRes] = useUpdateArticleMutation({
     fixedCacheKey: 'update-article',
   });
@@ -61,6 +61,11 @@ export const UserArticlesSidebar: FC = () => {
     if (isSavePressed) saveChanges();
     if (isPublishPressed) togglePublishModal();
   }, [isSavePressed, isPublishPressed]);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = `/icons/congrats-${theme}.apng`;
+  }, [theme]);
 
   const StatusIcon = useMemo(() => {
     const { isLoading, isError } = updateRes;
