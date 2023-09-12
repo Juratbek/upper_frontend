@@ -100,7 +100,6 @@ export const PublishArticleModal: FC<{
     }
     return (
       <>
-        {/* <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden /> */}
         <h3 className='mb-2 mt-0'>
           {props.status === 'SAVED'
             ? 'Maqolangizni nashr qilmoqchimisiz?'
