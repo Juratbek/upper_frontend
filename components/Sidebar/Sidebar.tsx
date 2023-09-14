@@ -90,7 +90,7 @@ export const Sidebar = (): JSX.Element => {
         <Divider className='my-2' color='medium-gray' />
         <h3>Obuna bo&apos;ling</h3>
         {data?.map((blog, index) => (
-          <div key={blog.id}>
+          <div key={blog.id} onClick={closeSidebarHandler}>
             <SidebarBlog {...addAmazonUri(blog)} />
             {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
           </div>
