@@ -66,7 +66,7 @@ export const Sidebar = (): JSX.Element => {
       >
         {data &&
           addUriToArticleImages(data).map((article, index) => (
-            <div key={article.id}>
+            <div key={article.id} onClick={closeSidebarHandler}>
               <SidebarArticle {...article} />
               {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
             </div>
