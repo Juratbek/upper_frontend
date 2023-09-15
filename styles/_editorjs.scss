@@ -93,6 +93,10 @@
       z-index: 4;
     }
   }
+
+  .cdx-alert-light {
+    display: none;
+  }
 }
 
 .codex-editor--narrow {
@@ -472,8 +476,4 @@
       background-color: var(--popover-bg);
     }
   }
-}
-
-.cdx-alert-light {
-  display: none;
 }
