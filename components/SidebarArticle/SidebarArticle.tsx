@@ -23,8 +23,8 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
     dispatch(closeSidebar());
   };
   return (
-    <div className={rootClassName}>
-      <div className={classes.body} onClick={closeSidebarHandler}>
+    <div className={rootClassName} onClick={closeSidebarHandler}>
+      <div className={classes.body}>
         <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`}>
           <a className={classes.title + ' link'}>
             <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />
