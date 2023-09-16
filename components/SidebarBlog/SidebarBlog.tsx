@@ -16,6 +16,7 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());
   };
+
   return (
     <div className={rootClassName}>
       <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>
