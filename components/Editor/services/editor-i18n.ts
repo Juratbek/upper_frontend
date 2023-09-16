@@ -4,8 +4,8 @@ export const i18n: I18nConfig = {
   messages: {
     ui: {
       popover: {
-        "Nothing found": "Blok topilmadi.",
-      }
+        'Nothing found': 'Blok topilmadi.',
+      },
     },
     toolNames: {
       Heading: 'Sarlavha',
