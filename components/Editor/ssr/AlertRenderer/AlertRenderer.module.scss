@@ -34,14 +34,6 @@ $alert-themes:
   margin-bottom: 10px;
 }
 
-.theme-dark .cdx-alert {
-  background-color: transparent;
-}
-
-.theme-dark .cdx-alert__message {
-  color: #ffffffd9;
-}
-
 @each $name, $backgorund-color, $border-color, $content-color in $alert-themes {
   .cdx-alert-#{$name} {
     @include alert-variant($backgorund-color, $border-color, $content-color);
@@ -60,24 +52,6 @@ $alert-themes:
 
 .cdx-alert__message {
   outline: none;
-}
-
-.cdx-alert [contentEditable='true'][data-placeholder] {
-  &::before {
-    position: absolute;
-    content: attr(data-placeholder);
-    color: #707684;
-    font-weight: normal;
-    opacity: 0;
-  }
-
-  &:empty::before {
-    opacity: 1;
-  }
-
-  &:empty:focus::before {
-    opacity: 0;
-  }
 }
 
 @each $name, $backgorund-color, $border-color, $content-color in $alert-themes {

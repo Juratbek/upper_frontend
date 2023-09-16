@@ -1,9 +1,14 @@
 import EditorJS from '@editorjs/editorjs';
 import { ApiError, Blog, Button, Divider, Head, StorysetImage } from 'components';
-import { IQuizData } from 'components/Editor';
-import Blocks, { RenderFn } from 'editorjs-blocks-react-renderer';
-import { ImageBlockData } from 'editorjs-blocks-react-renderer/dist/renderers/image';
-import { useModal, useTheme } from 'hooks';
+import {
+  AlertRenderer,
+  DelimiterRenderer,
+  ImageRenderer,
+  IQuizData,
+  QuoteRenderer,
+} from 'components/Editor';
+import Blocks from 'editorjs-blocks-react-renderer';
+import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from 'store';
@@ -42,7 +47,6 @@ export const Article: FC<IArticleProps> = ({
   const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
     useModal();
-  const { theme } = useTheme();
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
   const [submitQuiz, submitQuizRes] = useSubmitQuizMutation();
@@ -107,101 +111,16 @@ export const Article: FC<IArticleProps> = ({
   //   [blocks, quizSubmitHandler],
   // );
 
-  const imageRenderer: RenderFn<ImageBlockData> = ({
-    data,
-    className,
-    actionsClassNames,
-    captionClass,
-  }) => {
-    return (
-      <div className={className}>
-        <div
-          className={[
-            data.stretched && actionsClassNames.stretched,
-            data.withBorder && actionsClassNames.withBorder,
-            data.withBackground && actionsClassNames.withBackground,
-          ].join(' ')}
-        >
-          <img src={data.url || data.file?.url} />
-        </div>
-        {data.caption && <div className={captionClass}>{data.caption}</div>}
-      </div>
-    );
-  };
-
-  const alertRenderer: RenderFn<{ type: string; message: string }> = ({
-    data,
-    className,
-    alertMessageClassName,
-  }) => {
-    return (
-      <div className={`${className} ${className}-${data.type}`}>
-        <div className={alertMessageClassName}>{data.message}</div>
-      </div>
-    );
-  };
-
-  const quoteRenderer: RenderFn<{ caption: string; text: string }> = ({
-    data,
-    className,
-    quoteTextClassname,
-    quoteCaptionClassname,
-  }) => {
-    return (
-      <blockquote className={className}>
-        <div className={quoteTextClassname}>{data.text}</div>
-        <div className={quoteCaptionClassname}>{data.caption}</div>
-      </blockquote>
-    );
-  };
-
-  const delimiterRenderer: RenderFn = ({ className }) => {
-    return <div className={className}></div>;
-  };
-
   const articleComponent = useMemo(() => {
-    console.log(blocks);
     return (
       <Blocks
         data={{ blocks: addUriToImageBlocks(blocks), time: 0, version: '2.27.2' }}
         renderers={{
-          unsplash: imageRenderer,
-          image: imageRenderer,
-          alert: alertRenderer,
-          quote: quoteRenderer,
-          delimiter: delimiterRenderer,
-        }}
-        config={{
-          unsplash: {
-            className: 'inline-image',
-            actionsClassNames: {
-              stretched: 'inline-image__picture--stretched',
-              withBorder: 'inline-image__picture--withBorder',
-              withBackground: 'inline-image__picture--withBackground',
-            },
-            captionClass: 'inline-image__caption cdx-input',
-          },
-          image: {
-            className: 'inline-image',
-            actionsClassNames: {
-              stretched: 'inline-image__picture--stretched',
-              withBorder: 'inline-image__picture--withBorder',
-              withBackground: 'inline-image__picture--withBackground',
-            },
-            captionClass: 'inline-image__caption cdx-input',
-          },
-          alert: {
-            className: 'cdx-alert',
-            alertMessageClassName: 'cdx-alert__message',
-          },
-          quote: {
-            className: 'cdx-quote',
-            quoteTextClassname: 'cdx-input cdx-quote__text',
-            quoteCaptionClassname: 'cdx-input cdx-quote__caption',
-          },
-          delimiter: {
-            className: 'ce-delimiter',
-          },
+          unsplash: ImageRenderer,
+          image: ImageRenderer,
+          alert: AlertRenderer,
+          quote: QuoteRenderer,
+          delimiter: DelimiterRenderer,
         }}
       />
     );
@@ -235,7 +154,7 @@ export const Article: FC<IArticleProps> = ({
   }
 
   return (
-    <div className={`container ${props.className} editor-readonly`}>
+    <div className={`container ${props.className}`}>
       <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
       <QuizResultModal
         isError={Boolean(submitQuizRes.error)}
@@ -265,7 +184,7 @@ export const Article: FC<IArticleProps> = ({
         </>
       )}
       <div className={`${styles.articleContainer} editor-container`}>
-        <article className={`theme-${theme}`}>{articleComponent}</article>
+        <article className={'codex-editor'}>{articleComponent}</article>
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
           <div className={styles.stats}>

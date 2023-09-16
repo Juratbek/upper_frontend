@@ -1,0 +1,42 @@
+.inline-image {
+  margin-bottom: 10px;
+}
+
+.inline-image .cdx-input {
+  margin-top: 10px;
+}
+
+.inline-image img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+.inline-image__picture {
+  margin-bottom: 10px;
+}
+
+.theme-dark .inline-image__picture--withBackground {
+  background-color: transparent;
+}
+
+.inline-image__picture--withBackground {
+  background: #eff2f5;
+  padding: 10px;
+  text-align: center;
+}
+
+.inline-image__picture--withBackground img {
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+
+.inline-image__picture--withBorder {
+  border: 1px solid #e8e8eb;
+  padding: 1px;
+}
+
+.inline-image__picture--stretched img {
+  max-width: none;
+  width: 100%;
+}
