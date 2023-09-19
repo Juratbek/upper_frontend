@@ -32,7 +32,7 @@ export const articleApi = createApi({
         },
       }),
     }),
-    publish: build.mutation<IArticle, { id: number; notificationsOn: boolean }>({
+    publish: build.mutation<IArticle, { id: number }>({
       query: ({ id, ...body }) => ({
         url: `publish/${id}`,
         method: 'POST',

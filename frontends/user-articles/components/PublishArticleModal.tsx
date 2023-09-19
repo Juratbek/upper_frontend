@@ -51,7 +51,7 @@ export const PublishArticleModal: FC<{
     let res;
     try {
       await props.save();
-      res = await publishArticle({ id: article.id, notificationsOn: true }).unwrap();
+      res = await publishArticle({ id: article.id }).unwrap();
     } catch (e) {
       const error = e as IResponseError;
       return setAlert(error.data.message);
