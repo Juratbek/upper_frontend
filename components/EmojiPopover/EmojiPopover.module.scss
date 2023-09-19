@@ -2,12 +2,12 @@
   border-radius: 5px;
 
   &.light {
-    background-color:var(--brightGray);
+    background-color:var(--light-bg);
     border: 1px solid var(--lightGray);
     box-shadow: var(--box-shadow);
 
     .emojiItem {
-      color: var(--gray);
+      color: #fff;
     }
   }
 
@@ -16,7 +16,7 @@
     background-color: var(--popover-bg);
 
     .emojiItem {
-      color: #fff;
+      color: var(--brightGray);
     }
   }
 }
