@@ -20,7 +20,7 @@ const LoginNextPage: NextPage = () => {
 
   return (
     <div>
-      <Head title='Login' url='/login' />
+      <Head title='Login' url='/web/login' />
       <LoginPage />
     </div>
   );
