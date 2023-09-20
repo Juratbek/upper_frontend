@@ -1,14 +1,16 @@
 import { TelegramLoginButton } from 'components';
-import { Avatar } from 'components/lib';
+import { Alert, Avatar } from 'components/lib';
 import { useAuth } from 'hooks';
 import { FC, useCallback, useMemo, useState } from 'react';
 import {
   useGetTelegramAccountConnectedBlogsMutation,
   useLoginWithTelegramMutation,
 } from 'store/apis';
-import { IBlogSmall, ITelegramUser } from 'types';
+import { IBlogSmall, IResponseError, ITelegramUser } from 'types';
+import { addAmazonUri } from 'utils';
 
 export const TelegramLogin: FC<{ onAuth?: () => void }> = (props) => {
+  const [alert, setAlert] = useState<string>();
   const [blogs, setBlogs] = useState<IBlogSmall[]>([]);
   const [telegramUser, setTelegramUser] = useState<ITelegramUser>();
   const [loginWithTelegram, loginWithTelegramRes] = useLoginWithTelegramMutation();
@@ -29,9 +31,15 @@ export const TelegramLogin: FC<{ onAuth?: () => void }> = (props) => {
   const selectBlogHandler = useCallback(
     (blog: IBlogSmall, telegramUser?: ITelegramUser) => async () => {
       if (!telegramUser) return Promise.reject();
-      const authData = await loginWithTelegram({ blogId: blog.id, telegramUser }).unwrap();
-      authenticate(authData);
-      props.onAuth?.();
+      try {
+        const authData = await loginWithTelegram({ blogId: blog.id, telegramUser }).unwrap();
+        authenticate(authData);
+        props.onAuth?.();
+      } catch (e) {
+        const error = e as IResponseError;
+        setAlert(error.data?.message || "Xatolik yuz berdi, iltimos qaytadan urinib ko'ring");
+        setBlogs([]);
+      }
     },
     [telegramUser],
   );
@@ -46,7 +54,7 @@ export const TelegramLogin: FC<{ onAuth?: () => void }> = (props) => {
             key={blog.id}
             onClick={selectBlogHandler(blog, telegramUser)}
           >
-            <Avatar size='medium' imgUrl={blog.imgUrl} />
+            <Avatar size='medium' imgUrl={addAmazonUri(blog).imgUrl} />
             <h4 className='m-0'>{blog.name}</h4>
           </div>
         ))}
@@ -57,6 +65,9 @@ export const TelegramLogin: FC<{ onAuth?: () => void }> = (props) => {
 
   return (
     <div>
+      <Alert color='red' className='mt-1' show={Boolean(alert)}>
+        {alert}
+      </Alert>
       {blogs.length > 1 ? (
         blogsUI
       ) : (
