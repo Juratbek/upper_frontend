@@ -2,7 +2,7 @@ import { ArticleStatus, Button, Divider, IOption, MultiSelect, Tooltip } from 'c
 import { Dropdown } from 'components';
 import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
-import React, { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { useLazySearchLabelsQuery, useUpdateArticleMutation } from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
@@ -27,7 +27,9 @@ export const UserArticlesSidebar: FC = () => {
   const editor = useAppSelector(getEditor);
   const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
   const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
-  const [updateArticle, updateArticleRes] = useUpdateArticleMutation();
+  const [updateArticle, updateArticleRes] = useUpdateArticleMutation({
+    fixedCacheKey: 'update-article',
+  });
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
   const isSavePressed = useShortCut('s');
@@ -49,8 +51,10 @@ export const UserArticlesSidebar: FC = () => {
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
+    if (!article) return;
     const selectedLabels = convertOptionsToLabels(options);
     dispatch(setLabels(selectedLabels));
+    updateArticle({ ...article, labels: selectedLabels });
   };
 
   const SearchLabels = (value: string): void => {
