@@ -1,12 +1,8 @@
 import { RenderFn } from 'editorjs-blocks-react-renderer';
 
 import commonStyles from '../Common.module.scss';
+import { IQuoteData } from './IQuoteData.types';
 import styles from './QuoteRenderer.module.scss';
-
-interface IQuoteData {
-  caption: string;
-  text: string;
-}
 
 export const QuoteRenderer: RenderFn<{ caption: string; text: string }> = ({
   data,

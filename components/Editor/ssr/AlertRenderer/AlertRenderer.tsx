@@ -1,11 +1,7 @@
 import { RenderFn } from 'editorjs-blocks-react-renderer';
 
 import styles from './AlertRenderer.module.scss';
-
-interface IAlertData {
-  type: string;
-  message: string;
-}
+import { IAlertData } from './AlertRenderer.types';
 
 export const AlertRenderer: RenderFn<{ type: string; message: string }> = ({
   data,
