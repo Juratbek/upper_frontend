@@ -2,6 +2,11 @@ import { I18nConfig } from '@editorjs/editorjs';
 
 export const i18n: I18nConfig = {
   messages: {
+    ui: {
+      popover: {
+        'Nothing found': 'Blok topilmadi.',
+      },
+    },
     toolNames: {
       Heading: 'Sarlavha',
       Text: 'Yozuv',

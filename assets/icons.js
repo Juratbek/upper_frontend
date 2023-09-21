@@ -228,8 +228,8 @@ export const TelegramColoredIcon = ({ width = 20, height = 20 }) => (
         y2='20.0169'
         gradientUnits='userSpaceOnUse'
       >
-        <stop stop-color='#37AEE2' />
-        <stop offset='1' stop-color='#1E96C8' />
+        <stop stopColor='#37AEE2' />
+        <stop offset='1' stopColor='#1E96C8' />
       </linearGradient>
       <linearGradient
         id='paint1_linear_1501_342'
@@ -239,8 +239,8 @@ export const TelegramColoredIcon = ({ width = 20, height = 20 }) => (
         y2='18.4222'
         gradientUnits='userSpaceOnUse'
       >
-        <stop stop-color='#EFF7FC' />
-        <stop offset='1' stop-color='white' />
+        <stop stopColor='#EFF7FC' />
+        <stop offset='1' stopColor='white' />
       </linearGradient>
       <clipPath id='clip0_1501_342'>
         <rect width='27' height='27' fill='white' />

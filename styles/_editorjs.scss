@@ -88,11 +88,14 @@
   }
 
   .codeflask {
-
     &.codeflask--has-line-numbers:before,
     & .codeflask__lines {
       z-index: 4;
     }
+  }
+
+  .cdx-alert-light {
+    display: none;
   }
 }
 
@@ -319,7 +322,6 @@
       }
 
       .token {
-
         &.function,
         &.keyword,
         &.selector,
@@ -358,7 +360,6 @@
 
   .ce-toolbar {
     .ce-toolbar__actions {
-
       .ce-toolbar__plus:hover,
       .ce-toolbar__settings-btn:hover {
         background-color: transparent;
@@ -379,8 +380,11 @@
         background-color: var(--lightBlack);
       }
 
-      .qt-settings-icon__single svg path {
-        fill: white;
+      .qt-settings-icon__single,
+      .qt-settings-icon__multi {
+        svg path {
+          fill: white;
+        }
       }
     }
 
@@ -395,10 +399,6 @@
 
         &__icon {
           background-color: transparent;
-
-          path {
-            fill: transparent;
-          }
         }
       }
 
@@ -415,7 +415,6 @@
       }
 
       .option {
-
         &:hover,
         &.focus {
           background-color: var(--lightBlack);
@@ -438,7 +437,7 @@
 
   .codex-editor__redactor {
     .cdx-block.inline-image {
-      &>.inline-image__control-panel {
+      & > .inline-image__control-panel {
         box-shadow: none;
       }
 
@@ -468,7 +467,6 @@
   }
 
   .quiz-tool-container {
-
     .quiz-item .icon-button:hover,
     .quiz-footer .qt-add-btn:hover {
       background-color: var(--popover-bg);
