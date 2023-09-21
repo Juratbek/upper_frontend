@@ -14,6 +14,7 @@ import {
 } from 'utils';
 import { ARTICLE_STATUSES, ICONS, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
+import { ConnectTelegram } from './components/ConnectTelegram';
 import { DeleteArticleModal } from './components/DeleteArticleModal';
 import { PublishArticleModal } from './components/PublishArticleModal';
 
@@ -164,7 +165,8 @@ export const UserArticlesSidebar: FC = () => {
           </Link>
         )}
       </ArticleStatus>
-      <Divider className='mb-1' />
+      <ConnectTelegram />
+      <Divider className='my-2' />
       <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
         <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
           Foydalanish uchun qo&apos;llanma
