@@ -163,6 +163,9 @@ export const blogApi = createApi({
     getTelegramConnectionStatus: build.query<ITelegramConnectionStatusResponseDto, void>({
       query: () => 'telegram-connection-status',
     }),
+    getAuthCode: build.query<string, void>({
+      query: () => 'get-auth-code',
+    }),
   }),
 });
 
@@ -173,6 +176,7 @@ export const {
   useGetCurrentBlogQuery,
   useLazyGetCurrentBlogLabelsQuery,
   useLazyGetTelegramConnectionStatusQuery,
+  useLazyGetAuthCodeQuery,
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
