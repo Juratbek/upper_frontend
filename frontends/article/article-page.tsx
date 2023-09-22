@@ -1,6 +1,13 @@
 import EditorJS from '@editorjs/editorjs';
-import { ApiError, Blog, Button, Divider, Editor, Head, StorysetImage } from 'components';
-import { IQuizData } from 'components/Editor';
+import { ApiError, Blog, Button, Divider, Head, StorysetImage } from 'components';
+import {
+  AlertRenderer,
+  DelimiterRenderer,
+  ImageRenderer,
+  IQuizData,
+  QuoteRenderer,
+} from 'components/Editor';
+import Blocks from 'editorjs-blocks-react-renderer';
 import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
@@ -92,17 +99,32 @@ export const Article: FC<IArticleProps> = ({
     }
   }, [article?.id]);
 
-  const articleComponent = useMemo(
-    () => (
-      <Editor
-        content={{ blocks: addUriToImageBlocks(blocks) }}
-        isEditable={false}
-        handleInstance={setEditorInstance}
-        onQuizSubmit={quizSubmitHandler}
+  // const articleComponent = useMemo(
+  //   () => (
+  //     <Editor
+  //       content={{ blocks: addUriToImageBlocks(blocks) }}
+  //       isEditable={false}
+  //       handleInstance={setEditorInstance}
+  //       onQuizSubmit={quizSubmitHandler}
+  //     />
+  //   ),
+  //   [blocks, quizSubmitHandler],
+  // );
+
+  const articleComponent = useMemo(() => {
+    return (
+      <Blocks
+        data={{ blocks: addUriToImageBlocks(blocks), time: 0, version: '2.27.2' }}
+        renderers={{
+          unsplash: ImageRenderer,
+          image: ImageRenderer,
+          alert: AlertRenderer,
+          quote: QuoteRenderer,
+          delimiter: DelimiterRenderer,
+        }}
       />
-    ),
-    [blocks, quizSubmitHandler],
-  );
+    );
+  }, [blocks, quizSubmitHandler]);
 
   const dateContent = useMemo(() => {
     if (updatedDate) return <>{dateInterval(updatedDate)} yangilangan</>;
@@ -162,7 +184,7 @@ export const Article: FC<IArticleProps> = ({
         </>
       )}
       <div className={`${styles.articleContainer} editor-container`}>
-        <article>{articleComponent}</article>
+        <article className={'codex-editor'}>{articleComponent}</article>
         <Divider className='my-2' />
         <div className={styles.articleDetail}>
           <div className={styles.stats}>
