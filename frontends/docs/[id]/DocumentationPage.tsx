@@ -90,7 +90,7 @@ export const DocumentationPage: FC = () => {
           </div>
         )}
         res={fetchDocRes}
-        className='editor-container'
+        className='editor-container px-2'
       >
         {fetchDocRes.data && (
           <Editor
