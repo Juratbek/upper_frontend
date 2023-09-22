@@ -107,12 +107,7 @@ export const UserArticlesSidebar: FC = () => {
       />
       <>
         <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
-          <Button
-            className='flex-auto m-1 mt-0 mb-0'
-            type='button'
-            onClick={togglePublishModal}
-            disabled={updateArticleRes.isLoading}
-          >
+          <Button className='flex-auto m-1 mt-0 mb-0' type='button' onClick={togglePublishModal}>
             {article.status === ARTICLE_STATUSES.SAVED ? 'Nashr qilish' : 'Qayta nashr qilish'}
           </Button>
           <Tooltip tooltip={StatusIcon.tooltip} position='left'>

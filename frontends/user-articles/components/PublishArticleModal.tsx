@@ -1,15 +1,16 @@
 import EditorJS from '@editorjs/editorjs';
-import { Alert, Button, Input, Lordicon, Modal } from 'components';
+import { Alert, Button, Lordicon, Modal } from 'components';
 import { useTheme } from 'hooks';
-import Image from 'next/image';
 import Link from 'next/link';
-import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { usePublishMutation } from 'store/apis';
-import { setArticle } from 'store/states';
+import { useGetConnectedTelegramChannelsQuery, usePublishMutation } from 'store/apis';
+import { openAuthModal, setArticle } from 'store/states';
 import { IArticle, IResponseError, TArticleStatus } from 'types';
 import { validateArticle } from 'utils';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+
+import { ConnectedTelegramChannels } from './ConnectedTelegramChannels';
 
 export const PublishArticleModal: FC<{
   open: boolean;
@@ -25,6 +26,9 @@ export const PublishArticleModal: FC<{
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
   const publishBtnRef = useRef<HTMLButtonElement>(null);
+  const { data: channels } = useGetConnectedTelegramChannelsQuery(undefined, {
+    skip: !props.open,
+  });
 
   const alertComponent = useMemo(
     () => (
@@ -98,6 +102,7 @@ export const PublishArticleModal: FC<{
             ? 'Maqolangizni nashr qilmoqchimisiz?'
             : 'Maqolangizni qayta nashr qilmoqchimisiz?'}
         </h3>
+        {channels && <ConnectedTelegramChannels channels={channels} />}
         <div className='d-flex'>
           <Button color='outline-dark' onClick={closePublishModalHandler} className='me-1'>
             Modalni yopish

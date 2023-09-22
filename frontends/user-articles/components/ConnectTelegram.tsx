@@ -1,32 +1,62 @@
-import { Button, Divider } from 'components/lib';
-import { useAuth, useTheme } from 'hooks';
-import { FC, useEffect } from 'react';
-import { useLazyGetTelegramConnectionStatusQuery } from 'store/apis';
+import { Button } from 'components/lib';
+import { useTheme } from 'hooks';
+import { FC, useCallback } from 'react';
+import { useGetTelegramChannelConnectionStatusQuery, useLazyGetAuthCodeQuery } from 'store/apis';
 import { ICONS } from 'variables';
 
 const TelegramIcon = ICONS.telegramColored;
 
 export const ConnectTelegram: FC = () => {
-  const [fetchConnectionStatus, fetchConnectionStatusRes] =
-    useLazyGetTelegramConnectionStatusQuery();
+  const { data } = useGetTelegramChannelConnectionStatusQuery();
+  const [fetchAuthCode] = useLazyGetAuthCodeQuery();
   const { themeColors } = useTheme();
 
-  const { data } = fetchConnectionStatusRes;
+  const connectWithBotHandler = useCallback(async () => {
+    try {
+      const code = await fetchAuthCode().unwrap();
+      window.open(`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${code}`, '_blank');
+    } catch (e) {
+      alert(e);
+    }
+  }, [fetchAuthCode]);
 
-  return (
-    <div className='text-center'>
-      <TelegramIcon color={themeColors.icon} width={40} height={40} />
-      <p className='my-1'>UPPER blogingizni Telegram kanalingiz bilan ulang</p>
-      <a
-        href={`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${data?.username}`}
-        target='_blank'
-        rel='noreferrer'
-      >
-        <Button className='d-flex w-100 justify-content-center align-items-center f-gap-1'>
+  const openTelegramBot = useCallback(() => {
+    try {
+      window.open(`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}`, '_blank');
+    } catch (e) {
+      alert(e);
+    }
+  }, []);
+
+  if (data?.isConnectedWithBot === false)
+    return (
+      <div className='text-center'>
+        <TelegramIcon color={themeColors.icon} width={40} height={40} />
+        <p>Telegram botimiz orqali yangi maqolalar haqida xabarlar oling</p>
+        <Button
+          className='d-flex w-100 justify-content-center align-items-center f-gap-1'
+          onClick={connectWithBotHandler}
+        >
           <TelegramIcon color={themeColors.icon} width={20} height={20} />
           Telegram bilan ulash
         </Button>
-      </a>
-    </div>
-  );
+      </div>
+    );
+
+  if (data?.isConnectedWithChannel === false)
+    return (
+      <div className='text-center'>
+        <TelegramIcon color={themeColors.icon} width={40} height={40} />
+        <p className='my-1'>UPPER blogingizni Telegram kanalingiz bilan ulang</p>
+        <Button
+          className='d-flex w-100 justify-content-center align-items-center f-gap-1'
+          onClick={openTelegramBot}
+        >
+          <TelegramIcon color={themeColors.icon} width={20} height={20} />
+          Telegram bilan ulash
+        </Button>
+      </div>
+    );
+
+  return null;
 };
