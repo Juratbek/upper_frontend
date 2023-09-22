@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { useGetConnectedTelegramChannelsQuery, usePublishMutation } from 'store/apis';
-import { openAuthModal, setArticle } from 'store/states';
+import { setArticle } from 'store/states';
 import { IArticle, IResponseError, TArticleStatus } from 'types';
 import { validateArticle } from 'utils';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLE_STATUSES, ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import { ConnectedTelegramChannels } from './ConnectedTelegramChannels';
 
@@ -27,7 +27,7 @@ export const PublishArticleModal: FC<{
   const [publishArticle, publishArticleRes] = usePublishMutation();
   const publishBtnRef = useRef<HTMLButtonElement>(null);
   const { data: channels } = useGetConnectedTelegramChannelsQuery(undefined, {
-    skip: !props.open,
+    skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED,
   });
 
   const alertComponent = useMemo(
