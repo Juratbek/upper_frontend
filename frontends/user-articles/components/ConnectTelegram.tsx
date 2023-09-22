@@ -22,7 +22,10 @@ export const ConnectTelegram: FC = () => {
 
   const openTelegramBot = useCallback(() => {
     try {
-      window.open(`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}`, '_blank');
+      window.open(
+        `https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=connect-with-channel`,
+        '_blank',
+      );
     } catch (e) {
       alert(e);
     }
