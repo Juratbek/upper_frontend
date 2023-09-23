@@ -2,6 +2,11 @@ import { I18nConfig } from '@editorjs/editorjs';
 
 export const i18n: I18nConfig = {
   messages: {
+    ui: {
+      popover: {
+        'Nothing found': 'Blok topilmadi.',
+      },
+    },
     toolNames: {
       Heading: 'Sarlavha',
       Text: 'Yozuv',
@@ -24,6 +29,13 @@ export const i18n: I18nConfig = {
       },
       moveDown: {
         'Move down': 'Pastga surish',
+      },
+    },
+    tools: {
+      image: {
+        'With border': 'Chegara bilan',
+        'Stretch image': "Rasimni cho'zish",
+        'With background': 'Orqa fon bilan',
       },
     },
   },

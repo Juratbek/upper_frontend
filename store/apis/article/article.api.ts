@@ -9,14 +9,15 @@ import {
 import { PAGINATION_SIZE } from 'variables';
 
 import { baseQuery } from '../config';
-import { create, update } from './article.endpoints';
+import { create, updateBlocks, updateLabels } from './article.endpoints';
 
 export const articleApi = createApi({
   reducerPath: 'article',
   baseQuery: baseQuery('article'),
   endpoints: (build) => ({
     create: create(build),
-    update: update(build),
+    updateBlocks: updateBlocks(build),
+    updateLabels: updateLabels(build),
     getBlogArticleById: build.query<IArticle, number>({
       query: (id: number) => `need-auth/${id}`,
     }),
@@ -32,7 +33,7 @@ export const articleApi = createApi({
         },
       }),
     }),
-    publish: build.mutation<IArticle, { id: number; notificationsOn: boolean }>({
+    publish: build.mutation<IArticle, { id: number }>({
       query: ({ id, ...body }) => ({
         url: `publish/${id}`,
         method: 'POST',
@@ -56,7 +57,8 @@ export const articleApi = createApi({
 
 export const {
   useCreateMutation: useCreateArticleMutation,
-  useUpdateMutation: useUpdateArticleMutation,
+  useUpdateBlocksMutation: useUpdateArticleBlocksMutation,
+  useUpdateLabelsMutation: useUpdateArticleLabelsMutation,
   useDeleteMutation: useDeleteArticleMutation,
   useLazySearchQuery: useLazySearchArticleQuery,
   usePublishMutation,

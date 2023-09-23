@@ -44,11 +44,11 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   useLayoutEffect(() => {
     if (document.querySelector(PORTAL_SELECTOR)) return;
 
-    const body = document.querySelector('body');
-    if (body) {
+    const mainAppDiv = document.querySelector('.app');
+    if (mainAppDiv) {
       const modalDiv = document.createElement('div');
       modalDiv.setAttribute('id', PORTAL_SELECTOR.slice(1));
-      body.appendChild(modalDiv);
+      mainAppDiv.appendChild(modalDiv);
     }
   }, []);
 

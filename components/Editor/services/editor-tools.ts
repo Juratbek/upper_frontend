@@ -11,7 +11,6 @@ type TTool =
   | 'List'
   | 'Quote'
   | 'Delimiter'
-  | 'TextColor'
   | 'Alert'
   | 'Unsplash'
   | 'InclineCode'
@@ -27,7 +26,6 @@ const TOOLS: Record<TTool, any> = {
   List: undefined,
   Quote: undefined,
   Delimiter: undefined,
-  TextColor: undefined,
   Alert: undefined,
   Unsplash: undefined,
   InclineCode: undefined,
@@ -48,7 +46,6 @@ export const getTools = async ({
     import('@editorjs/list'),
     import('@editorjs/quote'),
     import('@editorjs/delimiter'),
-    import('editorjs-text-color-plugin'),
     import('editorjs-alert'),
     import('@samandar.boymurodov/editorjs-inline-image'),
     import('@editorjs/inline-code'),
@@ -148,10 +145,6 @@ export const getTools = async ({
           },
         },
       },
-    },
-    textColor: {
-      class: TOOLS.TextColor,
-      inlineToolbar: true,
     },
     inlineCode: {
       class: TOOLS.InclineCode,

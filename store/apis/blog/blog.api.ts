@@ -19,7 +19,6 @@ import {
   IChangeCredentiasDto,
   IChangeLoginDto,
   IChangePasswordDto,
-  ITelegramConnectionStatusResponseDto,
 } from './blog.types';
 
 export const blogApi = createApi({
@@ -160,9 +159,6 @@ export const blogApi = createApi({
     getCurrentBlogLabels: build.query<ILabel[], void>({
       query: () => 'current-blog-labels',
     }),
-    getTelegramConnectionStatus: build.query<ITelegramConnectionStatusResponseDto, void>({
-      query: () => 'telegram-connection-status',
-    }),
     getAuthCode: build.query<string, void>({
       query: () => 'get-auth-code',
     }),
@@ -170,13 +166,12 @@ export const blogApi = createApi({
 });
 
 export const {
-  useLoginMutation,
-  useRegisterMutation,
-  useLazyGetCurrentBlogQuery,
   useGetCurrentBlogQuery,
+  // lazy queries
+  useLazyGetCurrentBlogQuery,
   useLazyGetCurrentBlogLabelsQuery,
-  useLazyGetTelegramConnectionStatusQuery,
   useLazyGetAuthCodeQuery,
+  // renamed queries
   useLazyGetPublishedArticlesQuery: useLazyGetBlogPublishedArticlesQuery,
   useUpdateMutation: useUpdateBlogMutation,
   useLazyGetSidebarSuggestionsQuery: useLazyGetSidebarBlogSuggestionsQuery,
@@ -184,6 +179,9 @@ export const {
   useLazyGetByIdQuery: useLazyGetBlogByIdQuery,
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
+  // mutations
+  useLoginMutation,
+  useRegisterMutation,
   useContinueWithGoogleMutation,
   useGetTelegramAccountConnectedBlogsMutation,
   useLoginWithTelegramMutation,

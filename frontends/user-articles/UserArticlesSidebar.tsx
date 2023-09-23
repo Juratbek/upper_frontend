@@ -1,9 +1,14 @@
 import { ArticleStatus, Button, Divider, IOption, MultiSelect, Tooltip } from 'components';
+import { Dropdown } from 'components';
 import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
-import React, { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLazySearchLabelsQuery, useUpdateArticleMutation } from 'store/apis';
+import {
+  useLazySearchLabelsQuery,
+  useUpdateArticleBlocksMutation,
+  useUpdateArticleLabelsMutation,
+} from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
 import {
   addUriToImageBlocks,
@@ -13,20 +18,21 @@ import {
 } from 'utils';
 import { ARTICLE_STATUSES, ICONS, MAX_LABELS, WEB_APP_ROOT_DIR } from 'variables';
 
+import { ConnectTelegram } from './components/ConnectTelegram';
+import { DeleteArticleModal } from './components/DeleteArticleModal';
 import { PublishArticleModal } from './components/PublishArticleModal';
 
 export const UserArticlesSidebar: FC = () => {
   const dispatch = useAppDispatch();
-  const { themeColors } = useTheme();
-  const [, updateRes] = useUpdateArticleMutation({
+  const { themeColors, theme } = useTheme();
+  const [updateArticle, updateArticleRes] = useUpdateArticleBlocksMutation({
     fixedCacheKey: 'update-article',
   });
-
+  const [updateLabels] = useUpdateArticleLabelsMutation();
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
   const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
-
-  const [updateArticle, updateArticleRes] = useUpdateArticleMutation();
+  const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
   const isSavePressed = useShortCut('s');
@@ -39,17 +45,18 @@ export const UserArticlesSidebar: FC = () => {
 
     // Don't save image urls in database. Only image IDs
     const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-    const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
 
-    const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
+    const updatedArticle = await updateArticle({ ...article, blocks: oldBlocks }).unwrap();
     dispatch(setArticle({ ...article, ...updatedArticle }));
 
     if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
   };
 
   const labelsChangeHandler = (options: IOption[]): void => {
+    if (!article) return;
     const selectedLabels = convertOptionsToLabels(options);
     dispatch(setLabels(selectedLabels));
+    updateLabels({ ...article, labels: selectedLabels });
   };
 
   const SearchLabels = (value: string): void => {
@@ -61,8 +68,13 @@ export const UserArticlesSidebar: FC = () => {
     if (isPublishPressed) togglePublishModal();
   }, [isSavePressed, isPublishPressed]);
 
+  useEffect(() => {
+    const img = new Image();
+    img.src = `/icons/congrats-${theme}.apng`;
+  }, [theme]);
+
   const StatusIcon = useMemo(() => {
-    const { isLoading, isError } = updateRes;
+    const { isLoading, isError } = updateArticleRes;
     if (isLoading) return { component: ICONS.uploading, tooltip: 'Saqlanmoqda...' };
     if (isError)
       return {
@@ -71,7 +83,7 @@ export const UserArticlesSidebar: FC = () => {
         color: '#cc0000',
       };
     return { component: ICONS.uploadSuccess, tooltip: 'Saqlangan', color: '#4BB543' };
-  }, [updateRes]);
+  }, [updateArticleRes]);
 
   if (!article) return null;
 
@@ -84,18 +96,18 @@ export const UserArticlesSidebar: FC = () => {
           editor={editor}
           article={article}
           save={saveChanges}
-          saving={updateArticleRes.isLoading}
           status={article.status}
         />
       )}
+      <DeleteArticleModal
+        status={article.status}
+        open={isDeleteModalOpen}
+        close={closeDeleteModal}
+        article={article}
+      />
       <>
         <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
-          <Button
-            className='flex-auto m-1 mt-0 mb-0'
-            type='button'
-            onClick={togglePublishModal}
-            disabled={updateArticleRes.isLoading}
-          >
+          <Button className='flex-auto m-1 mt-0 mb-0' type='button' onClick={togglePublishModal}>
             {article.status === ARTICLE_STATUSES.SAVED ? 'Nashr qilish' : 'Qayta nashr qilish'}
           </Button>
           <Tooltip tooltip={StatusIcon.tooltip} position='left'>
@@ -142,19 +154,43 @@ export const UserArticlesSidebar: FC = () => {
         {article.publishedArticleId && (
           <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
             <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
-              Nashr varyantini ko&apos;rish
+              Nashr variantini ko&apos;rish
               <ICONS.openExternal color={themeColors.icon} />
             </a>
           </Link>
         )}
       </ArticleStatus>
-      <Divider className='mb-1' />
+      <ConnectTelegram />
+      <Divider className='my-2' />
       <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
         <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
           Foydalanish uchun qo&apos;llanma
           <ICONS.openExternal color={themeColors.icon} />
         </a>
       </Link>
+      <Dropdown
+        title='Qoshimcha sozlamalar'
+        titleClassName='my-2 pe-3'
+        paddingLeft='0'
+        iconSize='small'
+      >
+        <div className='mt-3'>
+          <p className='fs-1'>
+            Maqolani o&apos;chirib tashlaganingizdan so&apos;ng, orqaga qaytishning iloji yo&apos;q.
+            Iltimos, ishonch hosil qiling.
+          </p>
+        </div>
+        <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
+          <Button
+            className='flex-auto m-1 mt-0 mb-0 fw-6'
+            type='button'
+            color='outline-red'
+            onClick={toggleDeleteModal}
+          >
+            Maqolani o&apos;chirish
+          </Button>
+        </div>
+      </Dropdown>
     </>
   );
 };

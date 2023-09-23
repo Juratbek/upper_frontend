@@ -17,7 +17,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
       window.location.replace(
         `${WEB_APP_ROOT_DIR}/login?redirect=${
           window.location.pathname
-        }&message=${'Token muddadi yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
+        }&message=${'Token muddati yakunlandi. Iltimos profilingizga qaytadan kiring'}`,
       );
     }
 
@@ -34,7 +34,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
         await dispatch(authenticate());
         setLocalStorateTokens({ token: data.token, refreshToken: data.refreshToken });
         await dispatch(setCurrentBlog(res.data));
-        window.location.reload();
+        // window.location.reload();
       }
     }
   }

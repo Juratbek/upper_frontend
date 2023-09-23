@@ -1,29 +1,41 @@
 .title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .open {
-    display: block;
+  display: block;
 }
 
 .closed {
-    display: none;
+  display: none;
 }
 
 .icon {
-    transition: all 300ms;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  transition: all 300ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    & svg {
-        width: 20px;
-        height: 20px;
-    }
+  & svg {
+    width: 20px;
+    height: 20px;
+  }
 
-    &-open {
-        transform: rotate(90deg);
-    }
+  &-open {
+    transform: rotate(90deg);
+  }
+  &-small svg {
+    width: 10px;
+    height: 10px;
+  }
+  &-medium svg {
+    width: 15px;
+    height: 15px;
+  }
+  &-large svg {
+    width: 20px;
+    height: 20px;
+  }
 }
