@@ -70,23 +70,6 @@
     width: unset;
   }
 
-  // styles for text color inline plugin
-  .ce-inline-toolbar {
-    .ce-inline-tool.colorPlugin {
-      #color-left-btn {
-        width: 20px;
-      }
-
-      #color-btn-text {
-        height: unset;
-
-        svg {
-          height: 18px;
-        }
-      }
-    }
-  }
-
   .codeflask {
     &.codeflask--has-line-numbers:before,
     & .codeflask__lines {
@@ -213,14 +196,6 @@
     .ce-inline-toolbar__dropdown {
       &:hover {
         background-color: var(--lightBlack);
-      }
-    }
-
-    .ce-inline-tool:not(.ce-inline-tool--active).colorPlugin {
-      #color-btn-text {
-        svg {
-          fill: white;
-        }
       }
     }
 
