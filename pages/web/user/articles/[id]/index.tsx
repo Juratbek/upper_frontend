@@ -70,8 +70,7 @@ export default function UserArticlePage(): JSX.Element {
       debounce(api, async () => {
         const editorData = await api.saver.save();
         const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-        const a = { ...article, blocks };
-        updateArticle(a);
+        updateArticle({ ...article, blocks });
       });
     },
     [updateArticle, article],

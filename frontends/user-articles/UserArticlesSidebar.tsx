@@ -45,8 +45,7 @@ export const UserArticlesSidebar: FC = () => {
     // Don't save image urls in database. Only image IDs
     const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
 
-    const a = { ...article, blocks: oldBlocks };
-    const updatedArticle = await updateArticle(a).unwrap();
+    const updatedArticle = await updateArticle({ ...article, blocks: oldBlocks }).unwrap();
     dispatch(setArticle({ ...article, ...updatedArticle }));
 
     if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
