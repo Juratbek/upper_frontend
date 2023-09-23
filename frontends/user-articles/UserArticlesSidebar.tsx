@@ -4,7 +4,11 @@ import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLazySearchLabelsQuery, useUpdateArticleMutation } from 'store/apis';
+import {
+  useLazySearchLabelsQuery,
+  useUpdateArticleBlocksMutation,
+  useUpdateArticleLabelsMutation,
+} from 'store/apis';
 import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
 import {
   addUriToImageBlocks,
@@ -20,16 +24,14 @@ import { PublishArticleModal } from './components/PublishArticleModal';
 export const UserArticlesSidebar: FC = () => {
   const dispatch = useAppDispatch();
   const { themeColors, theme } = useTheme();
-  const [, updateRes] = useUpdateArticleMutation({
+  const [updateArticle, updateArticleRes] = useUpdateArticleBlocksMutation({
     fixedCacheKey: 'update-article',
   });
+  const [updateLabels] = useUpdateArticleLabelsMutation();
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
   const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
   const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
-  const [updateArticle, updateArticleRes] = useUpdateArticleMutation({
-    fixedCacheKey: 'update-article',
-  });
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
   const isSavePressed = useShortCut('s');
@@ -42,9 +44,8 @@ export const UserArticlesSidebar: FC = () => {
 
     // Don't save image urls in database. Only image IDs
     const [oldBlocks, isReset] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-    const title = oldBlocks.find((block) => block.type === 'header')?.data.text;
 
-    const updatedArticle = await updateArticle({ ...article, title, blocks: oldBlocks }).unwrap();
+    const updatedArticle = await updateArticle({ ...article, blocks: oldBlocks }).unwrap();
     dispatch(setArticle({ ...article, ...updatedArticle }));
 
     if (isReset) editor.render({ blocks: addUriToImageBlocks(updatedArticle.blocks) });
@@ -54,7 +55,7 @@ export const UserArticlesSidebar: FC = () => {
     if (!article) return;
     const selectedLabels = convertOptionsToLabels(options);
     dispatch(setLabels(selectedLabels));
-    updateArticle({ ...article, labels: selectedLabels });
+    updateLabels({ ...article, labels: selectedLabels });
   };
 
   const SearchLabels = (value: string): void => {
@@ -72,7 +73,7 @@ export const UserArticlesSidebar: FC = () => {
   }, [theme]);
 
   const StatusIcon = useMemo(() => {
-    const { isLoading, isError } = updateRes;
+    const { isLoading, isError } = updateArticleRes;
     if (isLoading) return { component: ICONS.uploading, tooltip: 'Saqlanmoqda...' };
     if (isError)
       return {
@@ -81,7 +82,7 @@ export const UserArticlesSidebar: FC = () => {
         color: '#cc0000',
       };
     return { component: ICONS.uploadSuccess, tooltip: 'Saqlangan', color: '#4BB543' };
-  }, [updateRes]);
+  }, [updateArticleRes]);
 
   if (!article) return null;
 
@@ -94,7 +95,6 @@ export const UserArticlesSidebar: FC = () => {
           editor={editor}
           article={article}
           save={saveChanges}
-          saving={updateArticleRes.isLoading}
           status={article.status}
         />
       )}
@@ -106,12 +106,7 @@ export const UserArticlesSidebar: FC = () => {
       />
       <>
         <div className='d-flex flex-wrap m--1 align-items-center mt-0'>
-          <Button
-            className='flex-auto m-1 mt-0 mb-0'
-            type='button'
-            onClick={togglePublishModal}
-            disabled={updateArticleRes.isLoading}
-          >
+          <Button className='flex-auto m-1 mt-0 mb-0' type='button' onClick={togglePublishModal}>
             {article.status === ARTICLE_STATUSES.SAVED ? 'Nashr qilish' : 'Qayta nashr qilish'}
           </Button>
           <Tooltip tooltip={StatusIcon.tooltip} position='left'>

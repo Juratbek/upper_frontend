@@ -34,7 +34,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
         await dispatch(authenticate());
         setLocalStorateTokens({ token: data.token, refreshToken: data.refreshToken });
         await dispatch(setCurrentBlog(res.data));
-        window.location.reload();
+        // window.location.reload();
       }
     }
   }
