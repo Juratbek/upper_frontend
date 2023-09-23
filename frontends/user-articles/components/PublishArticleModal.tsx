@@ -28,7 +28,7 @@ export const PublishArticleModal: FC<{
   const { data: channels, isLoading: isChannelsLoading } = useGetConnectedTelegramChannelsQuery(
     undefined,
     {
-      skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED,
+      skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED || true,
     },
   );
 
