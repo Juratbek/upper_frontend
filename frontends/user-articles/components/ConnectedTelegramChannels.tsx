@@ -9,7 +9,7 @@ export const ConnectedTelegramChannels: FC<{ channels: ITelegramChannel[] }> = (
   const { themeColors } = useTheme();
 
   return (
-    <div>
+    <div className='mb-2'>
       <p>Maqolangiz quidagi Telegram kanallarida ham joylanadi</p>
       {channels?.map((channel) => (
         <div key={channel.id} className='d-flex f-gap-1'>

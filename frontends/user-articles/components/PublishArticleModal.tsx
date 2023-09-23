@@ -25,9 +25,12 @@ export const PublishArticleModal: FC<{
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
   const publishBtnRef = useRef<HTMLButtonElement>(null);
-  const { data: channels } = useGetConnectedTelegramChannelsQuery(undefined, {
-    skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED,
-  });
+  const { data: channels, isLoading: isChannelsLoading } = useGetConnectedTelegramChannelsQuery(
+    undefined,
+    {
+      skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED,
+    },
+  );
 
   const alertComponent = useMemo(
     () => (
@@ -110,7 +113,7 @@ export const PublishArticleModal: FC<{
             ref={publishBtnRef}
             onClick={publish}
             className='flex-1'
-            loading={publishArticleRes.isLoading}
+            loading={publishArticleRes.isLoading || isChannelsLoading}
           >
             Nashr qilish
           </Button>
