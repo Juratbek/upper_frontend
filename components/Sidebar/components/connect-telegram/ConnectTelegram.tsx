@@ -28,7 +28,7 @@ export const ConnectTelegram: FC = () => {
     }
   }, [fetchAuthCode]);
 
-  if (fetchConnectionStatusRes.isSuccess && fetchConnectionStatusRes?.data.isConnected !== true) {
+  if (fetchConnectionStatusRes.isSuccess && fetchConnectionStatusRes.data !== true) {
     return (
       <div className='text-center'>
         <Divider className='my-2' />

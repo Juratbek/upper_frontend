@@ -16,6 +16,7 @@ import {
   subscriptionApi,
   tutorialApi,
 } from './apis';
+import { telegramApi } from './apis/telegram';
 import { apiErrorMiddleware } from './middlewares';
 import authReducer from './states/auth';
 import authModalReducer from './states/authModal';
@@ -49,6 +50,7 @@ export const store = configureStore({
     [feedbackApi.reducerPath]: feedbackApi.reducer,
     [subscriptionApi.reducerPath]: subscriptionApi.reducer,
     [quizApi.reducerPath]: quizApi.reducer,
+    [telegramApi.reducerPath]: telegramApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -67,6 +69,7 @@ export const store = configureStore({
       feedbackApi.middleware,
       subscriptionApi.middleware,
       quizApi.middleware,
+      telegramApi.middleware,
       apiErrorMiddleware,
     ),
 });
