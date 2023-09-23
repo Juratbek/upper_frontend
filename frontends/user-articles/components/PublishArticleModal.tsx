@@ -28,7 +28,7 @@ export const PublishArticleModal: FC<{
   const { data: channels, isLoading: isChannelsLoading } = useGetConnectedTelegramChannelsQuery(
     undefined,
     {
-      skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED || true,
+      skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED,
     },
   );
 
@@ -104,7 +104,7 @@ export const PublishArticleModal: FC<{
             ? 'Maqolangizni nashr qilmoqchimisiz?'
             : 'Maqolangizni qayta nashr qilmoqchimisiz?'}
         </h3>
-        {channels && <ConnectedTelegramChannels channels={channels} />}
+        {channels && channels.length > 0 && <ConnectedTelegramChannels channels={channels} />}
         <div className='d-flex'>
           <Button color='outline-dark' onClick={closePublishModalHandler} className='me-1'>
             Modalni yopish

@@ -7,7 +7,7 @@ import { ICONS } from 'variables';
 const TelegramIcon = ICONS.telegramColored;
 
 export const ConnectTelegram: FC = () => {
-  const { data } = useGetTelegramChannelConnectionStatusQuery(undefined, { skip: true });
+  const { data } = useGetTelegramChannelConnectionStatusQuery();
   const [fetchAuthCode] = useLazyGetAuthCodeQuery();
   const { themeColors } = useTheme();
 
