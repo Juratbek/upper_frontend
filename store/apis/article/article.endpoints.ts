@@ -1,11 +1,12 @@
+import { OutputBlockData } from '@editorjs/editorjs';
 import {
   EndpointBuilder,
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { IArticle } from 'types';
+import { IArticle, ILabel } from 'types';
 
 import { TBaseQuery } from '../config';
-import { ICreateArticleDto, IUpdateArticleDto } from './article.types';
+import { ICreateArticleDto } from './article.types';
 
 type TMutationDefinition<TResult, TQueryArg, TReducerPath extends string> = MutationDefinition<
   TQueryArg,
@@ -40,13 +41,24 @@ export const create = (
     }),
   });
 
-export const update = (
+export const updateBlocks = (
   build: TArticleEndpointBuilder,
-): TArticleMutationDefinition<IArticle, IUpdateArticleDto> =>
+): TArticleMutationDefinition<IArticle, { id: number; blocks: OutputBlockData[] }> =>
   build.mutation({
-    query: (body) => ({
-      url: 'update',
+    query: ({ id, blocks }) => ({
+      url: `update-blocks/${id}`,
       method: 'POST',
-      body,
+      body: blocks,
+    }),
+  });
+
+export const updateLabels = (
+  build: TArticleEndpointBuilder,
+): TArticleMutationDefinition<IArticle, { id: number; labels: ILabel[] }> =>
+  build.mutation({
+    query: ({ id, labels }) => ({
+      url: `update-labels/${id}`,
+      method: 'POST',
+      body: labels,
     }),
   });

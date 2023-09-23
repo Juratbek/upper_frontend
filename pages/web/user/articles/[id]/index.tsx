@@ -5,7 +5,7 @@ import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import { useLazyGetBlogArticleByIdQuery, useUpdateArticleMutation } from 'store/apis';
+import { useLazyGetBlogArticleByIdQuery, useUpdateArticleBlocksMutation } from 'store/apis';
 import { getArticle, setArticle, setEditor } from 'store/states';
 import {
   addUriToImageBlocks,
@@ -18,7 +18,7 @@ import {
 const debounce = debouncer<TEditorApi>(2500);
 export default function UserArticlePage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const [updateArticle] = useUpdateArticleMutation({
+  const [updateArticle] = useUpdateArticleBlocksMutation({
     fixedCacheKey: 'update-article',
   });
   const { query } = useRouter();
@@ -70,8 +70,8 @@ export default function UserArticlePage(): JSX.Element {
       debounce(api, async () => {
         const editorData = await api.saver.save();
         const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-        const title = blocks.find((block) => block.type === 'header')?.data.text;
-        updateArticle({ ...article, blocks, title });
+        const a = { ...article, blocks };
+        updateArticle(a);
       });
     },
     [updateArticle, article],

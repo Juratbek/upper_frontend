@@ -51,7 +51,9 @@ export const store = configureStore({
     [quizApi.reducerPath]: quizApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(
       blogApi.middleware,
       articleApi.middleware,
       labelApi.middleware,
