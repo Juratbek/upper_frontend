@@ -17,7 +17,6 @@ export const PublishArticleModal: FC<{
   editor: EditorJS;
   article: IArticle;
   save: () => Promise<void>;
-  saving: boolean;
   close: () => void;
   status: TArticleStatus;
 }> = ({ editor, article, ...props }) => {
@@ -111,7 +110,7 @@ export const PublishArticleModal: FC<{
             ref={publishBtnRef}
             onClick={publish}
             className='flex-1'
-            loading={publishArticleRes.isLoading || props.saving}
+            loading={publishArticleRes.isLoading}
           >
             Nashr qilish
           </Button>

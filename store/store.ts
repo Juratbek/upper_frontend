@@ -53,7 +53,9 @@ export const store = configureStore({
     [telegramApi.reducerPath]: telegramApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }).concat(
       blogApi.middleware,
       articleApi.middleware,
       labelApi.middleware,
