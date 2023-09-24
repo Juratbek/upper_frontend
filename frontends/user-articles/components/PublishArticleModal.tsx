@@ -21,6 +21,7 @@ export const PublishArticleModal: FC<{
   status: TArticleStatus;
 }> = ({ editor, article, ...props }) => {
   const [alert, setAlert] = useState<string>();
+  const [unselectedChannels, setUnselectedChannels] = useState<number[]>([]);
   const { themeColors, theme } = useTheme();
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
@@ -54,15 +55,17 @@ export const PublishArticleModal: FC<{
       return setAlert(validationResult.message);
     }
 
-    let res;
     try {
       await props.save();
-      res = await publishArticle({ id: article.id }).unwrap();
+      const channelIds = channels
+        ?.filter((channel) => !unselectedChannels.includes(channel.id))
+        .map((channel) => channel.id);
+      const res = await publishArticle({ id: article.id, channelIds }).unwrap();
+      dispatch(setArticle({ ...article, ...res }));
     } catch (e) {
       const error = e as IResponseError;
       return setAlert(error.data.message);
     }
-    dispatch(setArticle({ ...article, ...res }));
   };
 
   const closePublishModalHandler = (): void => {
@@ -104,7 +107,12 @@ export const PublishArticleModal: FC<{
             ? 'Maqolangizni nashr qilmoqchimisiz?'
             : 'Maqolangizni qayta nashr qilmoqchimisiz?'}
         </h3>
-        {channels && channels.length > 0 && <ConnectedTelegramChannels channels={channels} />}
+        {channels && channels.length > 0 && (
+          <ConnectedTelegramChannels
+            channels={channels}
+            onSelectionChange={setUnselectedChannels}
+          />
+        )}
         <div className='d-flex'>
           <Button color='outline-dark' onClick={closePublishModalHandler} className='me-1'>
             Modalni yopish

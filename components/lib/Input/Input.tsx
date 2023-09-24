@@ -10,10 +10,10 @@ const EyeIcon = ICONS.eye;
 const EyeSlashIcon = ICONS.eyeSlash;
 
 export const Input = forwardRef<HTMLInputElement, TInputProps>(function Component(
-  { className, ...props },
+  { className, rootClassName, ...props },
   ref,
 ) {
-  const rootClassName = getClassName(className, classes.input);
+  const inputClassName = getClassName(className, classes.input);
   const [type, setType] = useState(props.type);
   const { themeColors } = useTheme();
   const { icon: iconColor } = themeColors;
@@ -23,12 +23,12 @@ export const Input = forwardRef<HTMLInputElement, TInputProps>(function Componen
   };
 
   return (
-    <div className='position-relative'>
+    <div className={`position-relative ${rootClassName}`}>
       <input
         style={{ borderColor: themeColors.input.border }}
         {...props}
         ref={ref}
-        className={rootClassName}
+        className={inputClassName}
         type={type}
       />
       {props.type === 'password' && (
