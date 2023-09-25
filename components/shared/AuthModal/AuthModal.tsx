@@ -29,8 +29,8 @@ export const AuthModal: FC = () => {
     <Modal size='small' isOpen={isOpen} close={closeModal}>
       {form}
       <Divider className='mt-2' />
-      {/* <GoogleAuthScript /> */}
-      {/* <GoogleSignIn id='google-sign-in' className='mt-2' /> */}
+      <GoogleAuthScript />
+      <GoogleSignIn id='google-sign-in' className='mt-2' />
       <GitHubSignIn text='GitHub orqali kirish' className='w-100 mt-1' />
       <TelegramLogin onAuth={closeModal} />
     </Modal>
