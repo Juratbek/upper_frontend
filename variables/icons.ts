@@ -31,6 +31,7 @@ import {
   SendIcon,
   ShareIcon,
   Steps,
+  TelegramChannel,
   TelegramColoredIcon,
   TelegramIcon,
   TringleIcon,
@@ -85,6 +86,7 @@ export const ICON_TYPES = {
   uploading: 'uploading',
   uploadError: 'uploadError',
   uploadSuccess: 'uploadSuccess',
+  telegramChannel: 'telegramChannel',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -139,4 +141,5 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   uploading: Uploading,
   uploadError: UploadError,
   uploadSuccess: UploadSuccess,
+  telegramChannel: TelegramChannel,
 };

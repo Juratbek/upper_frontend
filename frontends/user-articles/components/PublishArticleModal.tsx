@@ -1,22 +1,22 @@
 import EditorJS from '@editorjs/editorjs';
-import { Alert, Button, Input, Lordicon, Modal } from 'components';
+import { Alert, Button, Lordicon, Modal } from 'components';
 import { useTheme } from 'hooks';
-import Image from 'next/image';
 import Link from 'next/link';
-import { ChangeEvent, FC, useEffect, useMemo, useRef, useState } from 'react';
+import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { usePublishMutation } from 'store/apis';
+import { useGetConnectedTelegramChannelsQuery, usePublishMutation } from 'store/apis';
 import { setArticle } from 'store/states';
 import { IArticle, IResponseError, TArticleStatus } from 'types';
 import { validateArticle } from 'utils';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLE_STATUSES, ICONS, WEB_APP_ROOT_DIR } from 'variables';
+
+import { ConnectedTelegramChannels } from './ConnectedTelegramChannels';
 
 export const PublishArticleModal: FC<{
   open: boolean;
   editor: EditorJS;
   article: IArticle;
   save: () => Promise<void>;
-  saving: boolean;
   close: () => void;
   status: TArticleStatus;
 }> = ({ editor, article, ...props }) => {
@@ -25,6 +25,12 @@ export const PublishArticleModal: FC<{
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
   const publishBtnRef = useRef<HTMLButtonElement>(null);
+  const { data: channels, isLoading: isChannelsLoading } = useGetConnectedTelegramChannelsQuery(
+    undefined,
+    {
+      skip: !props.open || article.status !== ARTICLE_STATUSES.SAVED || true,
+    },
+  );
 
   const alertComponent = useMemo(
     () => (
@@ -98,6 +104,7 @@ export const PublishArticleModal: FC<{
             ? 'Maqolangizni nashr qilmoqchimisiz?'
             : 'Maqolangizni qayta nashr qilmoqchimisiz?'}
         </h3>
+        {channels && <ConnectedTelegramChannels channels={channels} />}
         <div className='d-flex'>
           <Button color='outline-dark' onClick={closePublishModalHandler} className='me-1'>
             Modalni yopish
@@ -106,7 +113,7 @@ export const PublishArticleModal: FC<{
             ref={publishBtnRef}
             onClick={publish}
             className='flex-1'
-            loading={publishArticleRes.isLoading || props.saving}
+            loading={publishArticleRes.isLoading || isChannelsLoading}
           >
             Nashr qilish
           </Button>
