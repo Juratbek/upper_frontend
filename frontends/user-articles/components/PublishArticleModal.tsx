@@ -1,6 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
-import { Alert, Button, Lordicon, Modal } from 'components';
+import { Alert, Button, Modal } from 'components';
 import { useTheme } from 'hooks';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useAppDispatch } from 'store';
@@ -83,7 +84,16 @@ export const PublishArticleModal: FC<{
       return (
         <>
           <div className='text-center'>
-            <Lordicon width={120} height={120} priority src={`/icons/congrats-${theme}.apng`} />
+            {/* <Lordicon width={120} height={120} priority src={`/icons/congrats-${theme}.apng`} /> */}
+            <Image
+              src='/icons/congrats.png'
+              width={150}
+              height={150}
+              objectFit='cover'
+              priority
+              alt='congrats icon'
+            />
+
             <h3>Maqolangiz nashr qilindi</h3>
             <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
               <a target={'_blank'}>
