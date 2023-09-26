@@ -41,6 +41,14 @@
   & .ce-block__content {
     max-width: unset;
 
+    .ce-paragraph {
+      font-size: $rem;
+      
+      @include screenMax576 {
+        font-size: $smallText;
+      }
+    }
+
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
       font-family: inherit !important;
