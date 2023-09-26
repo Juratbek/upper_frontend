@@ -13,6 +13,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
+  IBlogRegisterResponse,
   useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
@@ -27,7 +28,7 @@ import classes from './Sidebar.module.scss';
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, authenticate } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
   const isSidebarOpen = useAppSelector(getIsSidebarOpen);
   const [fetchArticleSuggestions, articleSuggestionsRes] =
@@ -99,6 +100,12 @@ export const Sidebar = (): JSX.Element => {
     );
   }, [blogSuggestionsRes]);
 
+  // useEffect(() => {
+  //   window.addEventListener('message', (event: MessageEvent<IBlogRegisterResponse>) =>
+  //     authenticate(event.data),
+  //   );
+  // }, []);
+
   const content: JSX.Element = useMemo(() => {
     const pathname = router.pathname.replace(WEB_APP_ROOT_DIR, '');
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
@@ -125,6 +132,12 @@ export const Sidebar = (): JSX.Element => {
               <Button color='outline-dark' onClick={loginHandler}>
                 Profilga kirish
               </Button>
+              {/* <iframe
+                src={`https://access.upper.uz/btn?origin=http://localhost:3001`}
+                width={100}
+                height={40}
+                style={{ border: 0 }}
+              ></iframe> */}
               <Button className='flex-1' onClick={writeArticleHandler}>
                 Maqola yozish
               </Button>

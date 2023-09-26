@@ -23,19 +23,21 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
 
     if (status === 401) {
       const { dispatch } = api;
-      const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-      if (!refreshToken) {
-        dispatch(unauthenticate());
-      } else {
-        const res = (await dispatch(
-          blogApi.endpoints.getNewToken.initiate(refreshToken) as unknown as AnyAction,
-        )) as unknown as { data: IBlogRegisterResponse };
-        const { data } = res;
-        await dispatch(authenticate());
-        setLocalStorateTokens({ token: data.token, refreshToken: data.refreshToken });
-        await dispatch(setCurrentBlog(res.data));
-        // window.location.reload();
-      }
+      dispatch(unauthenticate());
+
+      // const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+      // if (!refreshToken) {
+      //   dispatch(unauthenticate());
+      // } else {
+      //   const res = (await dispatch(
+      //     blogApi.endpoints.getNewToken.initiate(refreshToken) as unknown as AnyAction,
+      //   )) as unknown as { data: IBlogRegisterResponse };
+      //   const { data } = res;
+      //   await dispatch(authenticate());
+      //   setLocalStorateTokens({ token: data.token, refreshToken: data.refreshToken });
+      //   await dispatch(setCurrentBlog(res.data));
+      //   // window.location.reload();
+      // }
     }
   }
   return next(action);
