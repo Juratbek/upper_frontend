@@ -1,5 +1,5 @@
 import { useAuth } from 'hooks';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { IBlogRegisterResponse } from 'store/apis';
 
 import { TRUSTED_ORIGINS } from './AuthButton.constants';
@@ -20,13 +20,15 @@ export const AuthButton: FC<IAuthButtonProps> = ({ type = 'signIn', ...props }) 
     return () => window.removeEventListener('message', listener);
   }, []);
 
-  return (
-    <iframe
-      src={`https://access.upper.uz/btn?origin=https://upper.uz&type=${type}`}
-      width={150}
-      height={35}
-      style={{ border: 0 }}
-      {...props}
-    ></iframe>
-  );
+  const src = useMemo(() => {
+    let src = `https://access.upper.uz/btn?origin=https://upper.uz&type=${type}`;
+
+    if (props.width) {
+      src += `&width=${props.width}`;
+    }
+
+    return src;
+  }, [props.width]);
+
+  return <iframe src={src} width={150} height={35} style={{ border: 0 }} {...props}></iframe>;
 };
