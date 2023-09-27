@@ -22,7 +22,7 @@ export const AuthButton: FC<IAuthButtonProps> = ({ type = 'signIn', ...props }) 
 
   return (
     <iframe
-      src={`http://localhost:3000/btn?origin=http://localhost:3001&type=${type}`}
+      src={`https://access.upper.uz/btn?origin=https://upper.uz&type=${type}`}
       width={150}
       height={35}
       style={{ border: 0 }}
