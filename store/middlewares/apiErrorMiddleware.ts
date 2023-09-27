@@ -24,6 +24,7 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
     if (status === 401) {
       const { dispatch } = api;
       dispatch(unauthenticate());
+      removeLocalStorageTokens();
 
       // const refreshToken = localStorage.getItem(REFRESH_TOKEN);
       // if (!refreshToken) {
