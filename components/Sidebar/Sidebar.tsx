@@ -1,6 +1,6 @@
 import {
   ApiErrorBoundary,
-  Button,
+  AuthButton,
   Divider,
   SidebarArticle,
   SidebarArticleSkeleton,
@@ -13,11 +13,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import {
-  IBlogRegisterResponse,
   useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openAuthModal } from 'store/states';
+import { closeSidebar, getArticleAuthor, getIsSidebarOpen } from 'store/states';
 import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
@@ -28,7 +27,7 @@ import classes from './Sidebar.module.scss';
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { isAuthenticated, authenticate } = useAuth();
+  const { isAuthenticated } = useAuth();
   const articleAuthor = useAppSelector(getArticleAuthor);
   const isSidebarOpen = useAppSelector(getIsSidebarOpen);
   const [fetchArticleSuggestions, articleSuggestionsRes] =
@@ -41,13 +40,6 @@ export const Sidebar = (): JSX.Element => {
     isSidebarOpen && classes['container--open'],
   );
 
-  const loginHandler = (): void => {
-    dispatch(openAuthModal());
-  };
-
-  const writeArticleHandler = (): void => {
-    dispatch(openAuthModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
-  };
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());
   };
@@ -100,12 +92,6 @@ export const Sidebar = (): JSX.Element => {
     );
   }, [blogSuggestionsRes]);
 
-  // useEffect(() => {
-  //   window.addEventListener('message', (event: MessageEvent<IBlogRegisterResponse>) =>
-  //     authenticate(event.data),
-  //   );
-  // }, []);
-
   const content: JSX.Element = useMemo(() => {
     const pathname = router.pathname.replace(WEB_APP_ROOT_DIR, '');
     const ContentComponent = SIDEBAR_CONTENTS[pathname];
@@ -129,18 +115,8 @@ export const Sidebar = (): JSX.Element => {
         {!isAuthenticated && (
           <>
             <div className='d-flex justify-content-between f-gap-1'>
-              <Button color='outline-dark' onClick={loginHandler}>
-                Profilga kirish
-              </Button>
-              {/* <iframe
-                src={`https://access.upper.uz/btn?origin=http://localhost:3001`}
-                width={100}
-                height={40}
-                style={{ border: 0 }}
-              ></iframe> */}
-              <Button className='flex-1' onClick={writeArticleHandler}>
-                Maqola yozish
-              </Button>
+              <AuthButton />
+              <AuthButton width={180} className='flex-1' type='writeArticle' />
             </div>
             <Divider className='my-2' color='medium-gray' />
           </>
