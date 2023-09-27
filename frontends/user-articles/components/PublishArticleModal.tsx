@@ -84,9 +84,8 @@ export const PublishArticleModal: FC<{
       return (
         <>
           <div className='text-center'>
-            {/* <Lordicon width={120} height={120} priority src={`/icons/congrats-${theme}.apng`} /> */}
             <Image
-              src='/icons/congrats.png'
+              src='/images/congrats.png'
               width={150}
               height={150}
               objectFit='cover'
