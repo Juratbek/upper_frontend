@@ -1,6 +1,5 @@
 import {
   ApiErrorBoundary,
-  Button,
   Divider,
   SidebarArticle,
   SidebarArticleSkeleton,
@@ -16,13 +15,15 @@ import {
   useLazyGetSidebarArticleSuggestionsQuery,
   useLazyGetSidebarBlogSuggestionsQuery,
 } from 'store/apis';
-import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openAuthModal } from 'store/states';
-import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
+import { closeSidebar, getArticleAuthor, getIsSidebarOpen } from 'store/states';
+import { addAmazonUri, addUriToArticleImages, appDynamic, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 import { ConnectTelegram } from './components';
 import { ADDITIONAL_SIDEBAR_CONTENTS, SIDEBAR_CONTENTS } from './Sidebar.constants';
 import classes from './Sidebar.module.scss';
+
+const DynamicAuthButton = appDynamic(() => import('components/AuthButton'), { ssr: false });
 
 export const Sidebar = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -40,13 +41,6 @@ export const Sidebar = (): JSX.Element => {
     isSidebarOpen && classes['container--open'],
   );
 
-  const loginHandler = (): void => {
-    dispatch(openAuthModal());
-  };
-
-  const writeArticleHandler = (): void => {
-    dispatch(openAuthModal("Maqola yozish uchun profilingizga kiring, yoki ro'yxatdan o'ting"));
-  };
   const closeSidebarHandler = (): void => {
     dispatch(closeSidebar());
   };
@@ -122,12 +116,8 @@ export const Sidebar = (): JSX.Element => {
         {!isAuthenticated && (
           <>
             <div className='d-flex justify-content-between f-gap-1'>
-              <Button color='outline-dark' onClick={loginHandler}>
-                Profilga kirish
-              </Button>
-              <Button className='flex-1' onClick={writeArticleHandler}>
-                Maqola yozish
-              </Button>
+              <DynamicAuthButton />
+              <DynamicAuthButton width={180} className='flex-1' type='writeArticle' />
             </div>
             <Divider className='my-2' color='medium-gray' />
           </>

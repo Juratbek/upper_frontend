@@ -33,6 +33,7 @@ export const useAuth = (): IUseAuth => {
   } = useRouter();
 
   const authenticate: TAuthenticateFn = (data) => {
+    if (!data.token) return;
     setCurrentBlog(data);
     setLocalStorateTokens(data);
     dispatch(storeAuthenticate());
