@@ -23,7 +23,7 @@ export const PublishArticleModal: FC<{
 }> = ({ editor, article, ...props }) => {
   const [alert, setAlert] = useState<string>();
   const [unselectedChannels, setUnselectedChannels] = useState<number[]>([]);
-  const { themeColors, theme } = useTheme();
+  const { themeColors } = useTheme();
   const dispatch = useAppDispatch();
   const [publishArticle, publishArticleRes] = usePublishMutation();
   const publishBtnRef = useRef<HTMLButtonElement>(null);
