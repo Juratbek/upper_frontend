@@ -5,7 +5,6 @@ import { IAuthState, ICurrentBlog } from './authSlice.types';
 const initialState: IAuthState = {
   status: 'loading',
   isAuthenticated: null,
-  isGoogleScriptLoaded: false,
 };
 
 const authSlice = createSlice({
@@ -20,15 +19,11 @@ const authSlice = createSlice({
       state.status = 'unauthenticated';
       state.isAuthenticated = false;
     },
-    setIsGoogleScriptLoaded(state, { payload }: PayloadAction<boolean>) {
-      state.isGoogleScriptLoaded = payload;
-    },
     setCurrentBlog(state, { payload }: PayloadAction<ICurrentBlog>) {
       state.currentBlog = payload;
     },
   },
 });
 
-export const { authenticate, unauthenticate, setIsGoogleScriptLoaded, setCurrentBlog } =
-  authSlice.actions;
+export const { authenticate, unauthenticate, setCurrentBlog } = authSlice.actions;
 export default authSlice.reducer;

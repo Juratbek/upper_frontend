@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useContinueWithGoogleMutation } from 'store/apis';
-import { closeAuthModal, setIsGoogleScriptLoaded } from 'store/states';
+import { closeAuthModal } from 'store/states';
 
 import { IGoogleSignInRes } from './GoogleAuthScript.types';
 
@@ -29,7 +29,6 @@ export const GoogleAuthScript: FC = () => {
       callback,
     });
     google.accounts.id.prompt();
-    dispatch(setIsGoogleScriptLoaded(true));
   };
 
   return isAuthenticated === false ? (

@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { FeedbackModal, Footer, Navigation, Sidebar } from 'components';
+import { Footer, Navigation, Sidebar } from 'components';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -22,7 +22,6 @@ function WebApp({ Component, pageProps }: AppProps): JSX.Element {
     <>
       <Navigation />
       <DynamicAuthModal />
-      {/* <FeedbackModal /> */}
       <main className='main web-app' id='main'>
         <Component {...pageProps} />
         <Footer />

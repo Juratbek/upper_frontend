@@ -9,6 +9,3 @@ export const getCurrentBlog = (store: TRootState): ICurrentBlog | undefined =>
   store.auth.currentBlog;
 
 export const getIsAuthenticated = (store: TRootState): boolean | null => store.auth.isAuthenticated;
-
-export const getIsGoogleScriptLoaded = (store: TRootState): boolean =>
-  store.auth.isGoogleScriptLoaded;
