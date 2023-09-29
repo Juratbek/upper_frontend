@@ -449,11 +449,16 @@
   padding-bottom: $size4;
 }
 
-// margins for screens smaller than 576px
+// paddings for screens smaller than 576px
 @include screenMax576 {
   .px-xs-1 {
     padding-right: $size1-xs;
     padding-left: $size1-xs;
+  }
+
+  .px-xs-2 {
+    padding-right: $size2-xs;
+    padding-left: $size2-xs;
   }
 }
 
