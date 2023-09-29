@@ -20,4 +20,4 @@ export const USER_THEME = 'user_theme';
 
 export const WEB_APP_ROOT_DIR = '/web';
 
-export const ACCESS_UPPER_UZ = 'https://access.upper.uz';
+export const ACCESS_UPPER_UZ = process.env.NEXT_PUBLIC_ACCESS_UPPER;

@@ -3,6 +3,7 @@ import { FC, useEffect, useMemo } from 'react';
 import { useAppDispatch } from 'store';
 import { IBlogRegisterResponse } from 'store/apis';
 import { closeAuthModal } from 'store/states';
+import { ACCESS_UPPER_UZ } from 'variables';
 
 import { TRUSTED_ORIGINS } from './AuthButton.constants';
 import { IAuthButtonProps } from './AuthButton.types';
@@ -25,7 +26,7 @@ export const AuthButton: FC<IAuthButtonProps> = ({ type = 'signIn', ...props }) 
   }, []);
 
   const src = useMemo(() => {
-    let src = `https://access.upper.uz/btn?origin=https://upper.uz&type=${type}`;
+    let src = `${ACCESS_UPPER_UZ}/btn?origin=${window.location.origin}&type=${type}`;
 
     if (props.width) {
       src += `&width=${props.width}`;
