@@ -1,7 +1,7 @@
 :root {
   --lightBlack: rgba(0, 0, 0, 0.25);
-  --light-bg:#fff;
-  --color-shadow: rgba(13,20,33,.13);
+  --light-bg: #fff;
+  --color-shadow: rgba(13, 20, 33, 0.13);
   --darkGray: rgb(77, 77, 77, 0.9);
   --mediumGray: rgba(196, 196, 196, 0.8);
   --lightGray: rgb(199 199 199 / 20%);
@@ -60,7 +60,7 @@
   }
 }
 
-.app>.main {
+.app > .main {
   flex: 1 1 auto;
   height: calc(100vh - var(--noticeboard-height));
   overflow-y: auto;
@@ -205,10 +205,13 @@
 // light theme
 .theme-light {
   .skeleton {
-    background: linear-gradient(100deg,
+    background: linear-gradient(
+        100deg,
         rgba(255, 255, 255, 0) 50%,
         rgba(255, 255, 255, 0.5) 60%,
-        rgba(255, 255, 255, 0) 70%) #ededed;
+        rgba(255, 255, 255, 0) 70%
+      )
+      #ededed;
     background-size: 200% 100%;
     background-position-x: 180%;
     animation: 800ms loading ease-in-out infinite;
@@ -226,10 +229,13 @@
   --light: #343a42;
 
   .skeleton {
-    background: linear-gradient(100deg,
+    background: linear-gradient(
+        100deg,
         rgba(255, 255, 255, 0) 50%,
         rgba(255, 255, 255, 0.1) 60%,
-        rgba(255, 255, 255, 0) 70%) #3b4048;
+        rgba(255, 255, 255, 0) 70%
+      )
+      #3b4048;
     background-size: 200% 100%;
     background-position-x: 180%;
     animation: 800ms loading ease-in-out infinite;
@@ -597,6 +603,10 @@
 
 .text-danger {
   color: var(--red);
+}
+
+.text-warning {
+  color: var(--yellow);
 }
 
 .text-green {

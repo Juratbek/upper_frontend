@@ -18,7 +18,8 @@ export const ConnectedTelegramChannels: FC<{
 
   return (
     <div className='mb-2'>
-      <p>Maqolangiz quidagi Telegram kanallarida ham joylanadi</p>
+      <p className='mb-0'>Maqolangiz quidagi Telegram kanallarida ham joylanadi</p>
+      <p className='mt-0 text-warning'>Bu imkoniyat test rejimida</p>
       {channels?.map((channel) => (
         <div key={channel.id} className='d-flex f-gap-1 align-items-center'>
           <Input type='checkbox' defaultChecked onChange={checkboxChangeHandler(channel.id)} />
