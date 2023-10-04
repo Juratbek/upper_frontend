@@ -25,10 +25,8 @@ export const Comment: FC<ICommentProps> = (props) => {
         <div className={classes.author}>
           <Avatar imgUrl={addAmazonUri(author).imgUrl} size='small' />
           <div className='ms-1'>
-            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`}>
-              <a onClick={closeComments}>
-                <h5 className='m-0 link pointer'>{author.name}</h5>
-              </a>
+            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} onClick={closeComments}>
+              <h5 className='m-0 link pointer'>{author.name}</h5>
             </Link>
             <p className={`m-0 ${classes.date}`}>
               {dateInterval(date)} {Boolean(updatedText) && "(o'zgartirilgan)"}{' '}

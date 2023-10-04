@@ -16,9 +16,7 @@ export const NotFound = (): JSX.Element => {
         <div className='text-center'>
           <h1>Sahifa topilmadi</h1>
           <Link href={WEB_APP_ROOT_DIR}>
-            <a>
-              <Button>Bosh sahifaga qaytish</Button>
-            </a>
+            <Button>Bosh sahifaga qaytish</Button>
           </Link>
         </div>
       </div>

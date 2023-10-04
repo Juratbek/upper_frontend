@@ -40,9 +40,7 @@ export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', 
   return (
     <div className={rootClassName}>
       {isLink ? (
-        <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>
-          <a>{getBlog('pointer')}</a>
-        </Link>
+        <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>{getBlog('pointer')}</Link>
       ) : (
         getBlog()
       )}

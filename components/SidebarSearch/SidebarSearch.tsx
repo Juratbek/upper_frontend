@@ -48,10 +48,13 @@ export const SidebarSearch: FC = () => {
           <p className='m-1'>Bloglar yo&apos;q</p>
         ) : (
           blogs.map((blog) => (
-            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${blog.id}`} key={blog.id}>
-              <a onClick={closeResultsContainer} className={classes.blog}>
-                <Author {...addAmazonUri(blog)} />
-              </a>
+            <Link
+              href={`${WEB_APP_ROOT_DIR}/blogs/${blog.id}`}
+              key={blog.id}
+              onClick={closeResultsContainer}
+              className={classes.blog}
+            >
+              <Author {...addAmazonUri(blog)} />
             </Link>
           ))
         )}
@@ -66,13 +69,15 @@ export const SidebarSearch: FC = () => {
         res={searchArticleRes}
       >
         {addUriToArticleImages(searchArticleRes.data).map((article) => (
-          <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`} key={article.id}>
-            <a onClick={closeResultsContainer}>
-              <div className={classes.article}>
-                <h4 dangerouslySetInnerHTML={{ __html: article.title }} className='m-0'></h4>
-                <ArticleImg imgUrl={article.imgUrl} size='micro' className={classes.img} />
-              </div>
-            </a>
+          <Link
+            href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`}
+            key={article.id}
+            onClick={closeResultsContainer}
+          >
+            <div className={classes.article}>
+              <h4 dangerouslySetInnerHTML={{ __html: article.title }} className='m-0'></h4>
+              <ArticleImg imgUrl={article.imgUrl} size='micro' className={classes.img} />
+            </div>
           </Link>
         ))}
       </ApiErrorBoundary>

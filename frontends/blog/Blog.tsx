@@ -114,26 +114,25 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
               <>
                 {subscriptionButton}
                 {Boolean(blog.cardNumber) && (
-                  <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}/support`}>
-                    <a className='link d-flex mt-xs-2 w-100'>
-                      {isMobile ? (
-                        <Button className='w-100' color='outline-dark'>
-                          <span className='sponsor-icon'>
-                            <HeartIcon />
-                          </span>
-                          Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
-                        </Button>
-                      ) : (
-                        <>
-                          <span className='sponsor-icon'>
-                            <HeartIcon />
-                          </span>
-                          <h4 className='m-0'>
-                            Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
-                          </h4>
-                        </>
-                      )}
-                    </a>
+                  <Link
+                    href={`${WEB_APP_ROOT_DIR}/blogs/${id}/support`}
+                    className='link d-flex mt-xs-2 w-100'
+                  >
+                    {isMobile ? (
+                      <Button className='w-100' color='outline-dark'>
+                        <span className='sponsor-icon'>
+                          <HeartIcon />
+                        </span>
+                        Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
+                      </Button>
+                    ) : (
+                      <>
+                        <span className='sponsor-icon'>
+                          <HeartIcon />
+                        </span>
+                        <h4 className='m-0'>Blog faoliyatiga o&apos;z hissangizni qo&apos;shing</h4>
+                      </>
+                    )}
                   </Link>
                 )}
               </>

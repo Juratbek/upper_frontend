@@ -117,10 +117,12 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
         <div className='form-element'>
           <div className='mb-1 d-flex justify-content-between'>
             <label htmlFor='credit-card'>Plastik karta raqami</label>
-            <Link href={`${WEB_APP_ROOT_DIR}/docs/blogging_settings_sponsor`}>
-              <a target='_blank' className='link'>
-                Karta raqam nega kerak?
-              </a>
+            <Link
+              href={`${WEB_APP_ROOT_DIR}/docs/blogging_settings_sponsor`}
+              target='_blank'
+              className='link'
+            >
+              Karta raqam nega kerak?
             </Link>
           </div>
           <Input

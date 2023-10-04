@@ -143,21 +143,6 @@ export const Article: FC<IArticleProps> = ({
       {showAuthor && article.author && (
         <>
           <Blog {...addAmazonUri(article.author)} isLink />
-          {/* {Boolean(article.author.cardNumber) && (
-            <>
-              <div style={{ height: '1rem' }} />
-              <Link href={`${WEB_APP_ROOT_DIR}/blogs/${article.author.id}/support`}>
-                <a className='link'>
-                  <Button className='w-100'>
-                    <span className='sponsor-icon'>
-                      <HeartIcon />
-                    </span>
-                    Blog faoliyatiga hissa qo&apos;shing
-                  </Button>
-                </a>
-              </Link>
-            </>
-          )} */}
           <Divider className='mt-1' />
         </>
       )}

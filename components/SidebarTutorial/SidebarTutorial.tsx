@@ -18,20 +18,18 @@ export const SidebarTutorial: FC<ISidebarTutorialProps> = ({
 
   return (
     <Link href={`${WEB_APP_ROOT_DIR}/tutorials/${id}`}>
-      <div className={rootClassName}>
-        <div className='d-flex justify-content-between'>
-          <div>
-            <h4 className='my-1' style={{ marginBottom: '0.3rem' }}>
-              {name}
-            </h4>
-            {labels.map((label) => (
-              <span key={label} className={classes.label}>
-                {label}
-              </span>
-            ))}
-          </div>
-          <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
+      <div className={`${rootClassName} d-flex justify-content-between`}>
+        <div>
+          <h4 className='my-1' style={{ marginBottom: '0.3rem' }}>
+            {name}
+          </h4>
+          {labels.map((label) => (
+            <span key={label} className={classes.label}>
+              {label}
+            </span>
+          ))}
         </div>
+        <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
       </div>
     </Link>
   );

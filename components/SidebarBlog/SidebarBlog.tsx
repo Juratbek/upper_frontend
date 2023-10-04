@@ -20,17 +20,15 @@ export const SidebarBlog: FC<ISidebarBlogProps> = (props) => {
   return (
     <div className={rootClassName}>
       <Link href={`${WEB_APP_ROOT_DIR}/blogs/${id}`}>
-        <a>
-          <div className='d-flex pointer' onClick={closeSidebarHandler}>
-            <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />
-            <div className='d-flex align-items-center'>
-              <div>
-                <h4 className='m-0'>{name}</h4>
-                {bio && <p className={classes.bio}>{bio}</p>}
-              </div>
+        <div className='d-flex pointer' onClick={closeSidebarHandler}>
+          <Avatar imgUrl={imgUrl} size='medium' className={classes.avatar} />
+          <div className='d-flex align-items-center'>
+            <div>
+              <h4 className='m-0'>{name}</h4>
+              {bio && <p className={classes.bio}>{bio}</p>}
             </div>
           </div>
-        </a>
+        </div>
       </Link>
     </div>
   );

@@ -25,19 +25,13 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
   return (
     <div className={rootClassName} onClick={closeSidebarHandler}>
       <div className={classes.body}>
-        <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`}>
-          <a className={classes.title + ' link'}>
-            <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />
-          </a>
+        <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`} className={classes.title + ' link'}>
+          <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />
         </Link>
         {author && <Author {...addAmazonUri(author)} />}
       </div>
       <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`}>
-        <a>
-          <div>
-            <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
-          </div>
-        </a>
+        <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />
       </Link>
     </div>
   );

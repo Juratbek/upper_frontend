@@ -74,10 +74,8 @@ export const Navigation = (): JSX.Element => {
         className={`${classes.navigation} ${classes.positioned}`}
         style={{ backgroundColor: themeColors.bg }}
       >
-        <Link href={WEB_APP_ROOT_DIR}>
-          <a className={classes.logo}>
-            <Logo color={themeColors.icon} />
-          </a>
+        <Link href={WEB_APP_ROOT_DIR} className={classes.logo}>
+          <Logo color={themeColors.icon} />
         </Link>
         <div className={classes.icons} style={{ backgroundColor: themeColors.bg }}>
           {icons.map((navigationIcon) => {
@@ -90,14 +88,12 @@ export const Navigation = (): JSX.Element => {
               <Tooltip tooltip={tooltip} invisible={isMobile} key={icon}>
                 {isAuthenticated ? (
                   <Link href={`${WEB_APP_ROOT_DIR}/${href}`}>
-                    <a>
-                      <NavItem
-                        icon={Icon}
-                        className='pointer'
-                        active={isNavActive}
-                        badge={notificationsCount}
-                      />
-                    </a>
+                    <NavItem
+                      icon={Icon}
+                      className='pointer'
+                      active={isNavActive}
+                      badge={notificationsCount}
+                    />
                   </Link>
                 ) : (
                   <NavItem
@@ -113,10 +109,11 @@ export const Navigation = (): JSX.Element => {
           })}
         </div>
         <div className={classes['third-block']}>
-          <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
-            <a className={`${classes.help} ${classes.icon} pointer`}>
-              <HelpIcon color={themeColors.icon} />
-            </a>
+          <Link
+            href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}
+            className={`${classes.help} ${classes.icon} pointer`}
+          >
+            <HelpIcon color={themeColors.icon} />
           </Link>
           {buttons}
           <div className={`${classes.burger} ${classes.icon}`} onClick={openSidebarHandler}>

@@ -11,9 +11,7 @@ export const Footer: FC = () => {
       <ul className={styles.footerNav}>
         {LINKS.map((link) => (
           <li key={link.text}>
-            <Link href={WEB_APP_ROOT_DIR + link.url}>
-              <a>{link.text}</a>
-            </Link>
+            <Link href={WEB_APP_ROOT_DIR + link.url}>{link.text}</Link>
           </li>
         ))}
       </ul>

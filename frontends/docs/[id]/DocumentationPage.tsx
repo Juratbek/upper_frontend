@@ -48,24 +48,20 @@ export const DocumentationPage: FC = () => {
       <div className='editor-container d-flex justify-content-between my-2'>
         {prevDoc ? (
           <Link href={getDocUrl('/docs/', urlsWithoutCurrentDocId, prevDoc.url)}>
-            <a>
-              <Button color='outline-dark'>
-                <span className='px-4' style={{ marginLeft: '-15px' }}>
-                  &laquo;&nbsp;{prevDoc.name}
-                </span>
-              </Button>
-            </a>
+            <Button color='outline-dark'>
+              <span className='px-4' style={{ marginLeft: '-15px' }}>
+                &laquo;&nbsp;{prevDoc.name}
+              </span>
+            </Button>
           </Link>
         ) : (
           <div />
         )}
         {nextDoc ? (
           <Link href={getDocUrl('/docs/', urlsWithoutCurrentDocId, nextDoc.url)}>
-            <a>
-              <Button color='outline-dark'>
-                <span className={styles['documentation-button']}>{nextDoc.name}&nbsp;&raquo;</span>
-              </Button>
-            </a>
+            <Button color='outline-dark'>
+              <span className={styles['documentation-button']}>{nextDoc.name}&nbsp;&raquo;</span>
+            </Button>
           </Link>
         ) : (
           <div />

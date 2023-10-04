@@ -26,10 +26,13 @@ export const TeamPage = (): JSX.Element => {
             <p>{member.position}</p>
             <div>
               {member.links.map((link) => (
-                <Link href={link.url} key={link.url}>
-                  <a className={classes.icon} target={link.target || '_blank'}>
-                    <link.icon color={iconColor} />
-                  </a>
+                <Link
+                  href={link.url}
+                  key={link.url}
+                  className={classes.icon}
+                  target={link.target ?? '_blank'}
+                >
+                  <link.icon color={iconColor} />
                 </Link>
               ))}
             </div>

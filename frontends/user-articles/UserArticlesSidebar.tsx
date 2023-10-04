@@ -126,10 +126,12 @@ export const UserArticlesSidebar: FC = () => {
           <label htmlFor='labels' className='mb-1 d-block'>
             Teglar
           </label>
-          <Link href={`${WEB_APP_ROOT_DIR}/create-label`}>
-            <a target='_blank' className='text-gray link'>
-              Teg yaratish
-            </a>
+          <Link
+            href={`${WEB_APP_ROOT_DIR}/create-label`}
+            target='_blank'
+            className='text-gray link'
+          >
+            Teg yaratish
           </Link>
         </div>
         <MultiSelect
@@ -152,21 +154,25 @@ export const UserArticlesSidebar: FC = () => {
       </div>
       <ArticleStatus className='mb-1' status={article.status}>
         {article.publishedArticleId && (
-          <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
-            <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
-              Nashr variantini ko&apos;rish
-              <ICONS.openExternal color={themeColors.icon} />
-            </a>
+          <Link
+            href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}
+            target={'_blank'}
+            className='link mt-1 d-flex align-items-center f-gap-1'
+          >
+            Nashr variantini ko&apos;rish
+            <ICONS.openExternal color={themeColors.icon} />
           </Link>
         )}
       </ArticleStatus>
       <ConnectTelegram />
       <Divider className='my-2' />
-      <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}>
-        <a target={'_blank'} className='link mt-1 d-flex align-items-center f-gap-1'>
-          Foydalanish uchun qo&apos;llanma
-          <ICONS.openExternal color={themeColors.icon} />
-        </a>
+      <Link
+        href={`${WEB_APP_ROOT_DIR}/docs/write-article_introduction_quick-start`}
+        target={'_blank'}
+        className='link mt-1 d-flex align-items-center f-gap-1'
+      >
+        Foydalanish uchun qo&apos;llanma
+        <ICONS.openExternal color={themeColors.icon} />
       </Link>
       <Dropdown
         title='Qoshimcha sozlamalar'

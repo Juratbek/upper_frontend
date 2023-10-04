@@ -39,14 +39,14 @@ export const DocsSidebar: FC = () => {
           );
         }
         return (
-          <Link href={`${WEB_APP_ROOT_DIR}/docs/${url + link.url}`} key={index}>
-            <a
-              className={classes.link}
-              style={{ paddingLeft: pdLeftInRem }}
-              onClick={closeSidebarHandler}
-            >
-              {link.name}
-            </a>
+          <Link
+            href={`${WEB_APP_ROOT_DIR}/docs/${url + link.url}`}
+            key={index}
+            className={classes.link}
+            style={{ paddingLeft: pdLeftInRem }}
+            onClick={closeSidebarHandler}
+          >
+            {link.name}
           </Link>
         );
       });

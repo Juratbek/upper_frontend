@@ -38,10 +38,12 @@ export const PublishArticleModal: FC<{
     () => (
       <Alert show={Boolean(alert)} color='red' onClose={(): void => setAlert('')} className='mb-1'>
         <div>{alert}</div>
-        <Link href={`${WEB_APP_ROOT_DIR}/docs/write-article_publish_requirements`}>
-          <a target='_blank' className='link text-underline'>
-            Yo&apos;riqnomani o&apos;qish
-          </a>
+        <Link
+          target='_blank'
+          className='link text-underline'
+          href={`${WEB_APP_ROOT_DIR}/docs/write-article_publish_requirements`}
+        >
+          Yo&apos;riqnomani o&apos;qish
         </Link>
       </Alert>
     ),
@@ -94,13 +96,14 @@ export const PublishArticleModal: FC<{
             />
 
             <h3>Maqolangiz nashr qilindi</h3>
-            <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}>
-              <a target={'_blank'}>
-                <Button className='d-flex align-items-center f-gap-1 w-100 justify-content-center'>
-                  Nashr variantini ko&apos;rish
-                  <ICONS.openExternal color={themeColors.icon} />
-                </Button>
-              </a>
+            <Link
+              href={`${WEB_APP_ROOT_DIR}/articles/${article.publishedArticleId}`}
+              target='_blank'
+            >
+              <Button className='d-flex align-items-center f-gap-1 w-100 justify-content-center'>
+                Nashr variantini ko&apos;rish
+                <ICONS.openExternal color={themeColors.icon} />
+              </Button>
             </Link>
             <Button onClick={closePublishModalHandler} className='w-100 mt-1'>
               Modalni yopish

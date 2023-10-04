@@ -36,74 +36,72 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
 
   return (
     <div className={rootClassName}>
-      <Link href={`${redirectUrl || `${WEB_APP_ROOT_DIR}/articles`}/${id}`}>
-        <a>
-          <div className={classes.body}>
-            <div className={classes['text-content']}>
-              <h2
-                className={classes.title}
-                dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
-              />
-              <p className={classes.content} dangerouslySetInnerHTML={{ __html: content }} />
-            </div>
-            {imgUrl && <ArticleImg imgUrl={imgUrl} />}
+      <Link href={`${redirectUrl ?? `${WEB_APP_ROOT_DIR}/articles`}/${id}`}>
+        <div className={classes.body}>
+          <div className={classes['text-content']}>
+            <h2
+              className={classes.title}
+              dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
+            />
+            <p className={classes.content} dangerouslySetInnerHTML={{ __html: content }} />
           </div>
-          <div className={classes.footer}>
-            <div className={classes.stats}>
-              {Boolean(date) && (
-                <time style={{ flex: 1 }}>
-                  <span className={classes.icon}>
-                    <CalendarIcon color='gray' />
-                  </span>
-                  {date}
-                </time>
-              )}
-
-              {viewCount > 0 && (
-                <>
-                  <Divider type='vertical' className='mx-1' />
-                  <div className='d-flex align-items-center'>
-                    <span className={`${classes.icon} ${classes.eye}`}>
-                      <EyeIcon color='gray' />
-                    </span>
-                    <span className='d-flex align-items-center'>
-                      {formatToKMB(viewCount)} marta o&apos;qilgan
-                    </span>
-                  </div>
-                </>
-              )}
-              {props.showLikeCount && likeCount > 0 && (
-                <>
-                  <Divider type='vertical' className='mx-1' />
-                  <div className='d-flex align-items-center'>
-                    <span className={`${classes.icon} ${classes.eye}`}>
-                      <LikeIcon color='gray' />
-                    </span>
-                    <span className='d-flex align-items-center'>
-                      <strong>{formatToKMB(likeCount)}</strong>&nbsp;layk
-                      {Boolean(likeCount > 1) && 'lar'}
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
-            <div style={{ textAlign: 'end' }}>
-              {labels?.map((label) => (
-                <span
-                  key={label.id}
-                  style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
-                >
-                  <Label>{label.name}</Label>
+          {imgUrl && <ArticleImg imgUrl={imgUrl} />}
+        </div>
+        <div className={classes.footer}>
+          <div className={classes.stats}>
+            {Boolean(date) && (
+              <time style={{ flex: 1 }}>
+                <span className={classes.icon}>
+                  <CalendarIcon color='gray' />
                 </span>
-              ))}
-            </div>
+                {date}
+              </time>
+            )}
+
+            {viewCount > 0 && (
+              <>
+                <Divider type='vertical' className='mx-1' />
+                <div className='d-flex align-items-center'>
+                  <span className={`${classes.icon} ${classes.eye}`}>
+                    <EyeIcon color='gray' />
+                  </span>
+                  <span className='d-flex align-items-center'>
+                    {formatToKMB(viewCount)} marta o&apos;qilgan
+                  </span>
+                </div>
+              </>
+            )}
+            {props.showLikeCount && likeCount > 0 && (
+              <>
+                <Divider type='vertical' className='mx-1' />
+                <div className='d-flex align-items-center'>
+                  <span className={`${classes.icon} ${classes.eye}`}>
+                    <LikeIcon color='gray' />
+                  </span>
+                  <span className='d-flex align-items-center'>
+                    <strong>{formatToKMB(likeCount)}</strong>&nbsp;layk
+                    {Boolean(likeCount > 1) && 'lar'}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
-          {author && (
-            <div className={classes.footer} style={{ marginTop: '.2rem' }}>
-              <Author {...addAmazonUri(author)} />
-            </div>
-          )}
-        </a>
+          <div style={{ textAlign: 'end' }}>
+            {labels?.map((label) => (
+              <span
+                key={label.id}
+                style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
+              >
+                <Label>{label.name}</Label>
+              </span>
+            ))}
+          </div>
+        </div>
+        {author && (
+          <div className={classes.footer} style={{ marginTop: '.2rem' }}>
+            <Author {...addAmazonUri(author)} />
+          </div>
+        )}
       </Link>
     </div>
   );

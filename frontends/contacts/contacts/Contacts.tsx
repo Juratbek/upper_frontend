@@ -11,13 +11,16 @@ export const Contacts = (): JSX.Element => {
   return (
     <div className={`${classes.contacts} flex-mobile-col`}>
       {CONTACTS.map((contact) => (
-        <Link href={contact.link} key={contact.link}>
-          <a target='_blank' className={`${classes.contact} mb-4 card w-30 w-mobile-100`}>
-            <span className={classes.icon}>
-              <contact.icon color={iconColor} />
-            </span>
-            <h3>{contact.text}</h3>
-          </a>
+        <Link
+          href={contact.link}
+          key={contact.link}
+          target='_blank'
+          className={`${classes.contact} mb-4 card w-30 w-mobile-100`}
+        >
+          <span className={classes.icon}>
+            <contact.icon color={iconColor} />
+          </span>
+          <h3>{contact.text}</h3>
         </Link>
       ))}
     </div>

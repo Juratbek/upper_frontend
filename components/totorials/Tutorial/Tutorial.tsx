@@ -16,28 +16,29 @@ export const Tutorial: FC<ITutorialProps> = ({
   publishedDate,
 }) => {
   return (
-    <Link href={`${WEB_APP_ROOT_DIR}/user/tutorials/${id}`}>
-      <a className={`${classes.container} ${className}`}>
-        <div className={classes.body}>
-          <h2 className='my-1'>{name}</h2>
-          <Status status={status} />
+    <Link
+      href={`${WEB_APP_ROOT_DIR}/user/tutorials/${id}`}
+      className={`${classes.container} ${className}`}
+    >
+      <div className={classes.body}>
+        <h2 className='my-1'>{name}</h2>
+        <Status status={status} />
+      </div>
+      <div className={classes.footer}>
+        <span className={classes.stats}>
+          <strong>{toDateString(publishedDate)}</strong>
+        </span>
+        <div className={classes.labels}>
+          {labels?.map((label) => (
+            <span
+              key={label.id}
+              style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
+            >
+              <Label>{label.name}</Label>
+            </span>
+          ))}
         </div>
-        <div className={classes.footer}>
-          <span className={classes.stats}>
-            <strong>{toDateString(publishedDate)}</strong>
-          </span>
-          <div className={classes.labels}>
-            {labels?.map((label) => (
-              <span
-                key={label.id}
-                style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
-              >
-                <Label>{label.name}</Label>
-              </span>
-            ))}
-          </div>
-        </div>
-      </a>
+      </div>
     </Link>
   );
 };
