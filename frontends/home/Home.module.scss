@@ -1,8 +1,11 @@
 .labels-container {
   display: flex;
-  margin-top: 0.5rem;
   overflow-x: scroll;
-  padding-bottom: 0.3rem;
+  padding: 0.3rem 2px;
+  position: sticky;
+  top: 0;
+  background-color: #252a31;
+  z-index: 1;
 
   &.light {
     &::-webkit-scrollbar-thumb {
