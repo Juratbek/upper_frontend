@@ -84,7 +84,7 @@ export const Sidebar = (): JSX.Element => {
         fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
         res={blogSuggestionsRes}
       >
-        <Divider className='my-2' color='medium-gray' />
+        <Divider className='my-2' />
         <h3>Obuna bo&apos;ling</h3>
         {data?.map((blog, index) => (
           <div key={blog.id}>
@@ -121,7 +121,7 @@ export const Sidebar = (): JSX.Element => {
             <Button className='w-100' onClick={writeArticleHandler}>
               Maqola yozish
             </Button>
-            <Divider className='my-2' color='medium-gray' />
+            <Divider className='my-2' />
           </>
         )}
         {AdditionalComponent && <AdditionalComponent />}

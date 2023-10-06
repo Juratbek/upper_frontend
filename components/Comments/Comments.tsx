@@ -142,7 +142,7 @@ export const Comments = (): JSX.Element => {
           <div>
             <p className='mt-0'>Izoh qoldirish uchun shaxsiy profilingizga kiring</p>
             <div className='d-flex f-gap-1'>
-              <Button className='flex-auto' color='outline-dark' onClick={loginClickHandler}>
+              <Button className='flex-auto' onClick={loginClickHandler}>
                 Profilga kirish
               </Button>
             </div>

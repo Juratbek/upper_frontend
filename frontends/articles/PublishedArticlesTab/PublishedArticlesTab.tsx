@@ -62,11 +62,7 @@ const PublishedArticlesTab: FC = () => {
               storysetUri='creativity'
             />
             <p>Maqola yozing va bilimlaringizni ulashing</p>
-            <Button
-              onClick={writeArticleHandler}
-              loading={createArticleRes.isLoading}
-              color='outline-dark'
-            >
+            <Button onClick={writeArticleHandler} loading={createArticleRes.isLoading}>
               Maqola yozish
             </Button>
           </div>

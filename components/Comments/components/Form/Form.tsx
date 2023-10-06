@@ -117,7 +117,7 @@ export const Form: FC<IFormProps> = (props) => {
                 onChange={onChangeComment}
               />
             </div>
-            <Button loading={isLoading} color='light' className={`${classes['send-icon']} p-1`}>
+            <Button loading={isLoading} className={`${classes['send-icon']} p-1`}>
               <ICONS.send />
             </Button>
           </div>
@@ -143,7 +143,7 @@ export const Form: FC<IFormProps> = (props) => {
             onChange={onChangeComment}
           />
           <Error error={errors.text} />
-          <Button loading={isLoading} className='w-100 mx-auto mt-1' color='outline-dark'>
+          <Button loading={isLoading} className='w-100 mx-auto mt-1'>
             Izoh qoldirish
           </Button>
         </>

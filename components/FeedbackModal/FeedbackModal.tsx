@@ -59,9 +59,12 @@ export const FeedbackModal: FC = () => {
     const feedback = localStorage.getItem(FEEDBACK);
     if (feedback) return;
 
-    setTimeout(() => {
-      open();
-    }, 1000 * 60 * 5); // 5 minutes
+    setTimeout(
+      () => {
+        open();
+      },
+      1000 * 60 * 5,
+    ); // 5 minutes
   }, []);
 
   const markComponent = useMemo(() => {
@@ -83,7 +86,7 @@ export const FeedbackModal: FC = () => {
         </h2>
         <Textarea {...register('text')} />
         <div className='d-flex f-gap-1 mt-1'>
-          <Button type='button' onClick={(): void => prevHandler()} color='outline-dark'>
+          <Button type='button' onClick={(): void => prevHandler()}>
             Oldingi
           </Button>
           <Button type='button' onClick={(): void => nextHandler('suggestion')} className='flex-1'>
@@ -100,7 +103,7 @@ export const FeedbackModal: FC = () => {
         <h2>Qanday imkoniyatlar bo&apos;lishini hohlar edingiz</h2>
         <Textarea {...register('suggestion')} />
         <div className='d-flex f-gap-1 mt-1'>
-          <Button type='button' onClick={(): void => prevHandler('text')} color='outline-dark'>
+          <Button type='button' onClick={(): void => prevHandler('text')}>
             Oldingi
           </Button>
           <Button className='flex-1'>Jo&apos;natish</Button>
@@ -114,6 +117,7 @@ export const FeedbackModal: FC = () => {
       {createFeedbackRes.isSuccess && (
         <div className='text-center'>
           <Lordicon
+            alt=''
             className={classes.congrats}
             width={120}
             height={120}

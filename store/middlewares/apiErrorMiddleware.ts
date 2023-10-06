@@ -1,9 +1,7 @@
-import { AnyAction, isRejectedWithValue, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
-import { blogApi } from 'store/apis';
-import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
-import { authenticate, setCurrentBlog, unauthenticate } from 'store/states';
-import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
-import { REFRESH_TOKEN, WEB_APP_ROOT_DIR } from 'variables';
+import { isRejectedWithValue, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
+import { unauthenticate } from 'store/states';
+import { removeLocalStorageTokens } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => async (action) => {
   if (isRejectedWithValue(action)) {

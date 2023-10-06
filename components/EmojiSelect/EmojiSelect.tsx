@@ -18,7 +18,6 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
   const caretCoords = useRef<DOMRect | null>(null);
   const textTarget = useRef<HTMLElement>();
   const [emojiQuery, setEmojiQuery] = useState<string | null>(null);
-  const [modal, setModal] = useState<HTMLElement>();
 
   const checkIfPluginExcluded = (el: HTMLElement): boolean => {
     let isElementBlackListed = false;

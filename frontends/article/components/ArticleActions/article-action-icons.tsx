@@ -66,7 +66,7 @@ export const ArticleActionIcons: FC<IArticleActionsIconsProps> = ({
     if (isLikedOrDisliked === undefined || isLikedOrDisliked === null) {
       return (
         <div style={{ transform: 'rotate(180deg) scale(1.2)', display: 'flex' }}>
-          <Image width={40} height={40} src='/icons/dislike.webp' />
+          <Image alt='' width={40} height={40} src='/icons/dislike.webp' />
         </div>
       );
     }

@@ -59,7 +59,7 @@ export const Navigation = (): JSX.Element => {
   const buttons = useMemo(
     () => (
       <div className={isMobile && !isAuthenticated ? 'd-flex align-items-center' : 'd-none'}>
-        <Button color='outline-dark' className='me-xs-1' onClick={writeArticleHandler}>
+        <Button className='me-xs-1' onClick={writeArticleHandler}>
           Maqola yozish
         </Button>
         <Button onClick={loginClickHandler}>Kirish</Button>

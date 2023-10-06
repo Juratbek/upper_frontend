@@ -54,12 +54,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
 
   const subscriptionButton = useMemo(() => {
     if (checkSubscriptionRes.isLoading) return null;
-    if (isSubscribed)
-      return (
-        <Button color='outline-dark' onClick={openUnsubscribeModal}>
-          Obuna bo&apos;lingan
-        </Button>
-      );
+    if (isSubscribed) return <Button onClick={openUnsubscribeModal}>Obuna bo&apos;lingan</Button>;
     return (
       <Button onClick={subscribe} loading={subscribeBlogRes.isLoading}>
         Obuna bo&apos;lish
@@ -95,10 +90,10 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
       >
         <strong>{blog.name}</strong> obunasini bekor qilmoqchimisiz
         <div className={['mt-2', styles.buttonsContainer].join(' ')}>
-          <Button onClick={closeUnsubscribeModal} color='outline-dark' className='me-2'>
+          <Button onClick={closeUnsubscribeModal} className='me-2'>
             Yopish
           </Button>
-          <Button onClick={unsubscribe} loading={unsubscribeRes.isLoading} color='outline-dark'>
+          <Button onClick={unsubscribe} loading={unsubscribeRes.isLoading}>
             Obunani bekor qilish
           </Button>
         </div>
@@ -119,7 +114,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
                     className='link d-flex mt-xs-2 w-100'
                   >
                     {isMobile ? (
-                      <Button className='w-100' color='outline-dark'>
+                      <Button className='w-100'>
                         <span className='sponsor-icon'>
                           <HeartIcon />
                         </span>

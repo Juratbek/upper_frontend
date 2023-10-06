@@ -106,7 +106,6 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
         <Button
           loading={isLoading}
           className={styles.copyButton}
-          color={isCopied ? 'dark' : 'outline-dark'}
           type='button'
           onClick={onCopyLink}
         >

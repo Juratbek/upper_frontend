@@ -1,5 +1,7 @@
-import { ImageProps } from 'next/image';
-
-export interface IStorysetImageProps extends ImageProps {
+export interface IStorysetImageProps {
   storysetUri: string;
+  className?: string;
+  width: number;
+  height: number;
+  src: string;
 }

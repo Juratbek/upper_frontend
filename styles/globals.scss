@@ -98,16 +98,16 @@
   }
 }
 
-.container {
-  max-width: 80rem;
-  width: 80%;
-  margin: 0 auto;
+// .container {
+//   max-width: 80rem;
+//   width: 80%;
+//   margin: 0 auto;
 
-  @include screenMax576 {
-    width: 100%;
-    padding: 0.5rem;
-  }
-}
+//   @include screenMax576 {
+//     width: 100%;
+//     padding: 0.5rem;
+//   }
+// }
 
 // form
 .form--medium {

@@ -49,11 +49,7 @@ export const QuizResultModal: FC<{
       )}
       {isError && !doesShowAnswers && (
         <div className='mt-2 d-flex f-gap-1'>
-          <Button
-            className='flex-1'
-            color='outline-blue'
-            onClick={(): void => setDoesShowAnswers(true)}
-          >
+          <Button className='flex-1' onClick={(): void => setDoesShowAnswers(true)}>
             Javobni ko&apos;rish
           </Button>
         </div>

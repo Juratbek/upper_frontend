@@ -1,3 +1,4 @@
+import { Divider } from 'components/lib';
 import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FocusEvent, forwardRef, useEffect, useState } from 'react';
 import { getClassName } from 'utils';
@@ -16,7 +17,7 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const debauncedValue = useDebounce(value);
   const { themeColors } = useTheme();
-  const rootClassName = getClassName(classes.search, className, isFocused && classes.focused);
+  const rootClassName = getClassName(classes.root, className, isFocused && classes.focused);
 
   useEffect(() => {
     onDebounce?.(debauncedValue);
@@ -40,11 +41,12 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
 
   return (
     <div className={rootClassName}>
-      <span className={classes.icon}>
-        <SearchIcon color={themeColors.icon} />
-      </span>
+      <SearchIcon color={themeColors.icon} width={20} height={20} />
+      <Divider type='vertical' className={classes.divider} />
       <input
         type='text'
+        className={classes.input}
+        placeholder='Qidirish'
         {...props}
         value={value}
         ref={ref}

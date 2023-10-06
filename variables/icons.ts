@@ -42,64 +42,10 @@ import {
   WebsiteIcon,
   YouTubeIcon,
 } from 'assets';
-import { TIcon, TIconComponent } from 'types';
+import { FC } from 'react';
+import { IIconProps } from 'types';
 
-export const ICON_TYPES = {
-  delete: 'delete',
-  save: 'save',
-  home: 'gome',
-  user: 'user',
-  notification: 'notification',
-  menuList: 'menuList',
-  pen: 'pen',
-  search: 'search',
-  eye: 'eye',
-  telegram: 'telegram',
-  telegramColored: 'telegramColored',
-  google: 'google',
-  facebook: 'facebook',
-  github: 'github',
-  comment: 'comment',
-  like: 'like',
-  dislike: 'dislike',
-  share: 'share',
-  next: 'next',
-  prev: 'prev',
-  instagram: 'instagram',
-  linkedIn: 'linkedIn',
-  youtube: 'youtube',
-  triangle: 'triangle',
-  logOut: 'logOut',
-  logo: 'logo',
-  eyeSlash: 'eyeSlash',
-  burger: 'burger',
-  logoIcon: 'logoIcon',
-  heart: 'heart',
-  addFolder: 'addFolder',
-  plus: 'plus',
-  calendar: 'calendar',
-  help: 'help',
-  website: 'website',
-  send: 'send',
-  openExternal: 'openExternal',
-  steps: 'steps',
-  uploading: 'uploading',
-  uploadError: 'uploadError',
-  uploadSuccess: 'uploadSuccess',
-  telegramChannel: 'telegramChannel',
-};
-
-export const SOCIAL_MEDIA_ICONS = [
-  ICON_TYPES.telegram,
-  ICON_TYPES.facebook,
-  ICON_TYPES.github,
-  ICON_TYPES.linkedIn,
-  ICON_TYPES.youtube,
-  ICON_TYPES.instagram,
-  ICON_TYPES.website,
-];
-
-export const ICONS: Record<TIcon, TIconComponent> = {
+export const ICONS = {
   delete: DeleteIcon,
   save: SaveIcon,
   home: HomeIcon,
@@ -142,4 +88,4 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   uploadError: UploadError,
   uploadSuccess: UploadSuccess,
   telegramChannel: TelegramChannel,
-};
+} satisfies Record<string, FC<IIconProps>>;

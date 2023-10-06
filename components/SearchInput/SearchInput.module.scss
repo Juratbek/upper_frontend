@@ -1,34 +1,29 @@
-.search {
+.root {
+  border-radius: 8px;
+  padding: 6px 12px;
   display: flex;
   align-items: center;
-  border-radius: 100rem;
-  border: 1px solid;
-  padding: 0 0.8rem;
+  gap: 10px;
+  background: var(--input-background);
+  width: 723px;
 
   &.focused {
     border-color: var(--blue);
     outline: 1px solid var(--light-blue);
   }
-
-  & input {
-    padding: 0.5rem 0.3rem;
-    flex: 1 1 auto;
-    border: none;
-    font-size: 0.9rem;
-    background-color: transparent;
-    color: inherit;
-
-    &:focus {
-      outline: none;
-    }
-  }
 }
 
-.icon {
-  margin-right: 0.2rem;
-  & svg {
-    height: 1.2rem;
-    position: relative;
-    bottom: -0.2rem;
+.divider {
+  height: 16px;
+}
+
+.input {
+  padding: 0.5rem 0;
+  flex: 1 1 auto;
+  border: none;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
   }
 }

@@ -1,8 +1,8 @@
-import { HTMLAttributes, ReactNode } from 'react';
-import { TIconComponent } from 'types';
+import { FC, HTMLAttributes, ReactNode } from 'react';
+import { IIconProps } from 'types';
 
 export interface INavItemProps extends HTMLAttributes<HTMLDivElement> {
-  icon: TIconComponent;
+  icon: FC<IIconProps>;
   active?: boolean;
   badge?: ReactNode;
 }

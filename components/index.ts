@@ -39,4 +39,3 @@ export * from './EmojiSelect';
 export * from './ClientOnlyPortal';
 export * from './Noticeboard/Noticeboard';
 export * from './AuthButton';
-export * from './shared';

@@ -7,7 +7,7 @@ import { IDividerProps } from './Divider.types';
 export const Divider: FC<IDividerProps> = ({
   className = '',
   type = 'horisontal',
-  color = 'light-gray',
+  color = 'primary',
   ...props
 }): JSX.Element => {
   const rootClassName = useMemo(

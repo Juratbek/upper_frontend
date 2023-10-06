@@ -1,6 +1,7 @@
 import 'styles/index.scss';
 
-import { Footer, Navigation, Sidebar } from 'components';
+import { Footer } from 'components';
+import { Header } from 'components/shared';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -20,13 +21,14 @@ const DynamicAuthModal = appDynamic(() => import('components/shared/AuthModal'))
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
-      <Navigation />
+      {/* <Navigation /> */}
       <DynamicAuthModal />
-      <main className='main web-app' id='main'>
+      <Header />
+      <div className='main web-app' id='main'>
         <Component {...pageProps} />
         <Footer />
-      </main>
-      <Sidebar />
+      </div>
+      {/* <Sidebar /> */}
     </>
   );
 }
@@ -87,7 +89,7 @@ function MyApp(props: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className={`app theme-${theme}`}>
+      <div className={`theme-${theme}`}>
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
           <WebApp {...props} />
         ) : (

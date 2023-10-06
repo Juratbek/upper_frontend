@@ -3,7 +3,6 @@ import { useTheme } from 'hooks';
 import { forwardRef, useMemo } from 'react';
 import { getClassName } from 'utils';
 
-import { BUTTON_SPINNER_COLORS } from './Button.constants';
 import classes from './Button.module.scss';
 import { IButtonProps } from './Button.types';
 
@@ -11,7 +10,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
   { children, loading = false, ...props },
   ref,
 ) {
-  const { color = 'dark', size = 'medium' } = props;
+  const { color = 'primary', size = 'medium' } = props;
   const { theme } = useTheme();
   const className = useMemo(
     () =>
@@ -29,7 +28,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
   const loader = useMemo(() => {
     if (typeof props.loader === 'function') return props.loader();
     if (props.loader) return props.loader;
-    return <Spinner className={classes.spinner} color={BUTTON_SPINNER_COLORS[color]} />;
+    return <Spinner className={classes.spinner} />;
   }, [props.loader, color]);
 
   const content = useMemo(() => {

@@ -34,12 +34,7 @@ export const Comment: FC<ICommentProps> = (props) => {
           </div>
         </div>
         {currentBlog?.id === author.id && (
-          <Button
-            className={classes['edit-button']}
-            size='small'
-            color='light'
-            onClick={onEditClick}
-          >
+          <Button className={classes['edit-button']} size='small' onClick={onEditClick}>
             O&apos;zgartirish
           </Button>
         )}

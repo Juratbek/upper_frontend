@@ -42,11 +42,7 @@ export const ArticlesTab: FC = () => {
           />
           <p>Maqolalar hozircha yo&apos;q</p>
           <p className='text-gray'>O&apos;z maqolangizni yozing va bilimlaringizni ulashing</p>
-          <Button
-            onClick={writeArticleHandler}
-            loading={createArticleRes.isLoading}
-            color='outline-dark'
-          >
+          <Button onClick={writeArticleHandler} loading={createArticleRes.isLoading}>
             Maqola yozish
           </Button>
         </div>

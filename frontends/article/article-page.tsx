@@ -23,7 +23,6 @@ import styles from './article.module.scss';
 import { IArticleProps } from './article.types';
 import { ArticleActionIcons, ArticleActions, QuizResultModal } from './components';
 
-const HeartIcon = ICONS.heart;
 const CalendarIcon = ICONS.calendar;
 const EyeIcon = ICONS.eye;
 

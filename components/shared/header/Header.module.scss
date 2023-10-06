@@ -1,0 +1,13 @@
+.header {
+  height: 64px;
+  display: flex;
+  padding: 16px 0 12px 0;
+  border-bottom: 1px solid var(--divider-secondary-background, #e8e9e9);
+  justify-content: space-between;
+}
+
+.logo svg {
+  width: 86px;
+  height: 36px;
+  margin: 0 auto;
+}
