@@ -4,15 +4,16 @@
   padding: 0.3rem 2px;
   position: sticky;
   top: 0;
-  background-color: #252a31;
   z-index: 1;
 
   &.light {
+    background: #fff;
     &::-webkit-scrollbar-thumb {
       background: rgb(204, 204, 204);
     }
   }
   &.dark {
+    background-color: #252a31;
     &::-webkit-scrollbar-thumb {
       background: rgb(109, 109, 109);
     }
