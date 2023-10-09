@@ -1,8 +1,6 @@
 .labels-container {
   display: flex;
-  margin-top: 0.5rem;
-  overflow-x: scroll;
-  padding-bottom: 0.3rem;
+  gap: 12px;
 
   &.light {
     &::-webkit-scrollbar-thumb {
@@ -24,9 +22,9 @@
   }
 }
 
-.label-buttons {
-  margin-right: 0.5rem;
-  width: fit-content;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+// .label {
+//   margin-right: 0.5rem;
+//   width: fit-content;
+//   white-space: nowrap;
+//   text-overflow: ellipsis;
+// }

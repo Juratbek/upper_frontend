@@ -1,0 +1,16 @@
+.root {
+  padding: 8px 12px;
+  border-radius: 8px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  &:hover {
+    background: var(--nav-active-bg);
+  }
+}
+
+.active {
+  background: var(--nav-active-bg);
+}

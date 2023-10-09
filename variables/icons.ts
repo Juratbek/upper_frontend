@@ -12,7 +12,7 @@ import {
   GoogleIcon,
   HeartIcon,
   HelpIcon,
-  HomeIcon,
+  Home,
   InstagramIcon,
   LikeIcon,
   LinkedInIcon,
@@ -48,7 +48,7 @@ import { IIconProps } from 'types';
 export const ICONS = {
   delete: DeleteIcon,
   save: SaveIcon,
-  home: HomeIcon,
+  home: Home,
   user: UserIcon,
   notification: NotificationIcon,
   menuList: MenuListIcon,

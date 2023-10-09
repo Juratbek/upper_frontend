@@ -7,7 +7,7 @@ import classes from './Button.module.scss';
 import { IButtonProps } from './Button.types';
 
 export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Component(
-  { children, loading = false, ...props },
+  { children, loading = false, rounded = false, ...props },
   ref,
 ) {
   const { color = 'primary', size = 'medium' } = props;
@@ -16,11 +16,10 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
     () =>
       getClassName(
         classes.button,
-        classes[`theme-${theme}`],
-        props.disabled ? classes[`${color}-disabled`] : classes[color],
-        classes[size],
+        classes[color],
         props.className,
         loading && classes.loading,
+        rounded && classes.rounded,
       ),
     [props.className, color, props.disabled, size, theme, loading],
   );

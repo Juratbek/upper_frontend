@@ -1,0 +1,32 @@
+$sticky-top: 40px;
+
+.root {
+  display: flex;
+  min-height: 100vh;
+  padding-top: 48px;
+}
+
+.navigation {
+  width: 222px;
+  min-width: 222px;
+  border-right: 1px solid var(--divider-secondary-background);
+  padding-right: 15px;
+  position: sticky;
+  top: $sticky-top;
+  align-self: flex-start;
+}
+
+.main {
+  padding-right: 40px;
+  padding-left: 40px;
+  overflow-x: scroll;
+}
+
+.sidebar {
+  width: 294px;
+  min-width: 294px;
+  padding-left: 20px;
+  position: sticky;
+  top: $sticky-top;
+  align-self: flex-start;
+}

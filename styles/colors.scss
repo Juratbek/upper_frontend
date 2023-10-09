@@ -33,10 +33,16 @@
   // divider
   --divider-primary-background: var(--black-100, #d0d1d2);
   --divider-secondary-background: var(--black-50, #e8e9e9);
+  --divider-tertiary-background: var(--gray, #f5f5f5);
 
   // button
   --btn-primary-bg: var(--blue-500, #007aff);
   --btn-primary-text: var(--white, #fff);
   --btn-secondary-bg: var(--blue-900, #000c1a);
   --btn-secondary-text: var(--white, #fff);
+  --btn-outlined-bg: var(--black-50, #e8e9e9);
+  --btn-outlined-text: inherit;
+
+  // navigation
+  --nav-active-bg: var(--gray, #f5f5f5);
 }

@@ -21,7 +21,6 @@ const DynamicAuthModal = appDynamic(() => import('components/shared/AuthModal'))
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
-      {/* <Navigation /> */}
       <DynamicAuthModal />
       <Header />
       <div className='main web-app' id='main'>

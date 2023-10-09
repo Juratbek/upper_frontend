@@ -1,4 +1,3 @@
-export * from './Navigation/Navigation';
 export * from './Sidebar/Sidebar';
 export * from './Article/Article';
 export * from './Actions';
