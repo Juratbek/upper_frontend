@@ -1,5 +1,13 @@
 @import 'styles/_mixins';
 
+.title {
+  color: var(--black-800, #060707);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+}
+
 .article {
   border-top: 0.5px solid;
   border-right: unset;

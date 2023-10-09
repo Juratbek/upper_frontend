@@ -1,0 +1,9 @@
+:root {
+  // primary
+  --tab-btn-primary-bg: var(--blue-100, #cce4ff);
+  --tab-btn-primary-text: var(--blue-500, #fff);
+  // outlined
+  --tab-btn-outlined-bg: transparent;
+  --tab-btn-outlined-text: var(--black-300, #737677);
+  --tab-btn-outlined-border: var(--black-50, #e8e9e9);
+}

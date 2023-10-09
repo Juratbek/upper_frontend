@@ -10,21 +10,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.rounded {
-  border-radius: 100rem;
-}
-
-// colors
-.primary {
-  background-color: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-}
-.secondary {
-  background-color: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-}
-.outlined {
-  border: 1px solid var(--btn-outlined-bg);
-  color: var(--btn-outlined-text);
-}

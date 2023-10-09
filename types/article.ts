@@ -19,10 +19,6 @@ export interface IArticleResult extends IArticleSmall {
   imgUrl: string;
   author: IBlogSmall;
   labels: ILabel[];
-  publishedDate: Date;
-  updatedDate?: Date;
-  viewCount: number;
-  likeCount: number;
 }
 
 export interface IArticle extends IArticleSmall {

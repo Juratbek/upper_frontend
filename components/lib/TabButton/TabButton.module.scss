@@ -1,0 +1,12 @@
+@import 'styles/_mixins';
+
+.button {
+  all: unset;
+  box-sizing: inherit;
+  border-radius: 100rem;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}

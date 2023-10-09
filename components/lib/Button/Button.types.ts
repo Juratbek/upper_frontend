@@ -9,5 +9,4 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   loader?: (() => ReactNode) | ReactNode;
   size?: TButtonSize;
-  rounded?: boolean;
 }

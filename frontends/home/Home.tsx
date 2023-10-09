@@ -1,5 +1,4 @@
-import { ApiErrorBoundary, Article, ArticleSkeleton, Button } from 'components';
-import { SEARCH_PAGE_ARTICLE_ICONS } from 'frontends/search';
+import { ApiErrorBoundary, Article, ArticleSkeleton, TabButton } from 'components';
 import { useAuth, useInfiniteScroll, useTheme, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
@@ -71,15 +70,13 @@ export const HomePage: FC = () => {
     <div className='container'>
       <div className={`${classes['labels-container']} ${classes[theme]}`}>
         {labels.map((label) => (
-          <Button
+          <TabButton
             onClick={(): void => labelSelectHandler(label.id)}
-            size='small'
             color='outlined'
             key={label.id}
-            rounded
           >
             {label.name}
-          </Button>
+          </TabButton>
         ))}
       </div>
       <ApiErrorBoundary
@@ -97,12 +94,7 @@ export const HomePage: FC = () => {
         >
           {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
           {addUriToArticleImages(articles).map((article) => (
-            <Article
-              key={article.id}
-              article={article}
-              author={article.author}
-              icons={SEARCH_PAGE_ARTICLE_ICONS}
-            />
+            <Article key={article.id} article={article} author={article.author} />
           ))}
         </InfiniteScroll>
       </ApiErrorBoundary>

@@ -1,0 +1,11 @@
+:root {
+  // primary
+  --btn-primary-bg: var(--blue-500, #007aff);
+  --btn-primary-text: var(--white, #fff);
+  // secondary
+  --btn-secondary-bg: var(--blue-900, #000c1a);
+  --btn-secondary-text: var(--white, #fff);
+  // outlined
+  --btn-outlined-bg: var(--black-50, #e8e9e9);
+  --btn-outlined-text: inherit;
+}

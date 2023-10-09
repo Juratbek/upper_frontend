@@ -1,10 +1,8 @@
-import { IArticleResult, IBlogSmall, TIcon } from 'types';
+import { IArticleResult, IBlogSmall } from 'types';
 
 export interface IArticleProps {
   className?: string;
-  icons?: TIcon[];
   redirectUrl?: string;
   article: IArticleResult;
-  author?: IBlogSmall;
-  showLikeCount?: boolean;
+  author: IBlogSmall;
 }
