@@ -71,6 +71,7 @@
         "props": false
       }
     ],
+    "no-debugger": "warn",
     "no-nested-ternary": "error",
     "no-underscore-dangle": "error",
     "no-lonely-if": "error",
