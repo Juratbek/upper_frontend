@@ -13,16 +13,14 @@ export const Divider: FC<IDividerProps> = ({
   ...props
 }): JSX.Element => {
   const rootClassName = useMemo(
-    () =>
-      getClassName(
-        classes.divider,
-        className,
-        classes[`divider--${type}`],
-        classes[`divider--${color}`],
-      ),
-    [className, type, color],
+    () => getClassName(classes.divider, className, classes[`divider--${type}`]),
+    [className, type],
   );
-  const style = computeStyles(props.style, Boolean(my) && { marginTop: my, marginBottom: my });
+  const style = computeStyles(
+    { backgroundColor: `var(--divider-${color}-background)` },
+    props.style,
+    Boolean(my) && { marginTop: my, marginBottom: my },
+  );
 
   return <div className={rootClassName} {...props} style={style} />;
 };

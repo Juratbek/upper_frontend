@@ -6,14 +6,4 @@
     width: 1px;
     display: inline-block;
   }
-
-  &--primary {
-    background-color: var(--divider-primary-background);
-  }
-  &--secondary {
-    background-color: var(--divider-secondary-background);
-  }
-  &--tertiary {
-    background-color: var(--divider-tertiary-background);
-  }
 }

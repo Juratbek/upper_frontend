@@ -68,13 +68,7 @@ const SavedArticlesTab: FC = () => {
           </div>
         )}
         {addUriToArticleImages(data?.list || []).map((article) => {
-          return (
-            <Article
-              redirectUrl={`${WEB_APP_ROOT_DIR}/user/articles`}
-              key={article.id}
-              article={article}
-            />
-          );
+          return <Article key={article.id} article={article} />;
         })}
       </ApiErrorBoundary>
       <div className='text-center'>

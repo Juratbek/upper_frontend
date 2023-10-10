@@ -124,11 +124,7 @@ export const TutorialPage: FC = () => {
         className='mb-2'
       />
       {selectedArticle && (
-        <Article
-          redirectUrl='/user/articles'
-          className='p-1'
-          article={addAmazonBucketUriToArticle(selectedArticle)}
-        />
+        <Article className='p-1' article={addAmazonBucketUriToArticle(selectedArticle)} />
       )}
     </div>
   );

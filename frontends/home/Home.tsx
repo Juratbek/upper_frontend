@@ -1,7 +1,8 @@
-import { ApiErrorBoundary, Article, ArticleSkeleton, TabButton } from 'components';
+import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
+import { Divider, TabButton } from 'components/lib';
 import { useAuth, useInfiniteScroll, useTheme, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, Fragment, useEffect, useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   useLazyGetCurrentBlogLabelsQuery,
@@ -70,7 +71,11 @@ export const HomePage: FC = () => {
     <>
       <div className={`${classes['labels-container']} ${classes[theme]}`}>
         {labels.map((label) => (
-          <TabButton onClick={labelSelectHandler(label.id)} color='outlined' key={label.id}>
+          <TabButton
+            onClick={labelSelectHandler(label.id)}
+            color={label.id == query.label ? 'primary' : 'outlined'}
+            key={label.id}
+          >
             {label.name}
           </TabButton>
         ))}
@@ -90,7 +95,10 @@ export const HomePage: FC = () => {
         >
           {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
           {addUriToArticleImages(articles).map((article) => (
-            <Article key={article.id} article={article} author={article.author} />
+            <Fragment key={article.id}>
+              <Divider color='secondary' />
+              <Article article={article} author={article.author} />
+            </Fragment>
           ))}
         </InfiniteScroll>
       </ApiErrorBoundary>

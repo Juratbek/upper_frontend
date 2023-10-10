@@ -1,82 +1,51 @@
 @import 'styles/_mixins';
 
-.title {
-  color: var(--black-800, #060707);
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 28px;
-}
-
-.article {
-  border-top: 0.5px solid;
-  border-right: unset;
-  border-left: unset;
-  padding: 0.8rem 0.5rem;
-
-  &:last-child {
-    border-bottom: 0.5px solid;
-  }
-  &.dark {
-    border-color: hsl(0deg 0% 78.51% / 60%);
-  }
-  &.light {
-    border-color: rgba(166, 166, 166, 0.6);
-  }
-}
-
-.title {
-  margin: 0;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-}
-
-.content {
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  line-height: 1.5;
-  word-break: break-word;
-  color: var(--black-300, #737677);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 20px;
-
-  *:not(code) {
-    background-color: transparent !important;
-    color: inherit !important;
-  }
-
-  @include screenMax576 {
-    display: none;
-  }
-
-  code {
-    border-radius: 5px;
-    font-family: inherit;
-    font-size: 0.85em;
-    font-weight: 500;
-    letter-spacing: 0.3px;
-  }
+.root {
+  padding: 32px 0;
 }
 
 .body {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.3rem;
 
-  &:hover {
-    cursor: pointer;
+  .title {
+    margin: 0;
+    color: var(--black-800, #060707);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 28px;
   }
-}
 
-.text-content {
-  margin-right: 1rem;
-  @include screenMax576 {
-    margin-right: 0.2rem;
+  .content {
+    margin-top: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+    word-break: break-word;
+    color: var(--black-300, #737677);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+
+    *:not(code) {
+      background-color: transparent !important;
+      color: inherit !important;
+    }
+
+    @include screenMax576 {
+      display: none;
+    }
+
+    code {
+      border-radius: 5px;
+      font-family: inherit;
+      font-size: 0.85em;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
   }
 }
 
@@ -84,23 +53,4 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  & .stats {
-    font-size: 0.65rem;
-    color: var(--gray);
-    display: flex;
-
-    & .icon > svg {
-      $size: 0.7rem;
-      width: $size;
-      height: $size;
-      margin-right: 0.3rem;
-    }
-    & .eye > svg {
-      $size: 1rem;
-      width: $size;
-      height: $size;
-      display: flex;
-      margin-right: 0.2rem;
-    }
-  }
 }
