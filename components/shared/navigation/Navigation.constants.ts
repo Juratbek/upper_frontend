@@ -8,9 +8,9 @@ export const NAVIGATION: INavigation[] = [
     active: true,
   },
   {
-    href: '',
-    icon: 'home',
-    text: 'Postlar',
+    href: '/user/articles',
+    icon: 'books',
+    text: 'Maqolalaringiz',
   },
   {
     href: '',

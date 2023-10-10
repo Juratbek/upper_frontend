@@ -1,5 +1,6 @@
 import {
   AddFolderIcon,
+  Books,
   BurgerIcon,
   CalendarIcon,
   CommentIcon,
@@ -88,4 +89,5 @@ export const ICONS = {
   uploadError: UploadError,
   uploadSuccess: UploadSuccess,
   telegramChannel: TelegramChannel,
+  books: Books,
 } satisfies Record<string, FC<IIconProps>>;

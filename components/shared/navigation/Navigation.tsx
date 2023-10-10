@@ -13,7 +13,7 @@ export const Navigation = (): JSX.Element => {
         return (
           <Fragment key={item.text}>
             <NavItem active={item.active} key={item.text} href={item.href}>
-              {Icon && <Icon />} {item.text}
+              {Icon && <Icon width={20} height={20} />} {item.text}
             </NavItem>
             {index + 1 !== NAVIGATION.length && <Divider color='tertiary' my={4} />}
           </Fragment>
