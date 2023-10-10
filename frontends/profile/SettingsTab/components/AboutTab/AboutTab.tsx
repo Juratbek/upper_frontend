@@ -9,14 +9,13 @@ import {
   Input,
   Textarea,
 } from 'components';
-import { useTheme } from 'hooks';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUpdateBlogMutation } from 'store/apis';
-import { ILink, TIcon, TSubmitFormEvent } from 'types';
+import { TSubmitFormEvent } from 'types';
 import { addAmazonUri, compressImage, toBase64 } from 'utils';
-import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 
+// import { ICONS, SOCIAL_MEDIA_ICONS } from 'variables';
 import { INavTab } from '../NavsTabs/NavsTabs.types';
 import classes from './AboutTab.module.scss';
 import { ThemeSettings } from './components';
@@ -25,7 +24,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   const [alert, setAlert] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
   const [updateBlog, updateBlogRes] = useUpdateBlogMutation();
-  const { themeColors } = useTheme();
+  // const { themeColors } = useTheme();
   const {
     register,
     handleSubmit,
@@ -52,14 +51,14 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
   };
 
   const submitHandler = async (event: TSubmitFormEvent): Promise<void> => {
-    const { name, bio, ...values } = event;
-    const mediaIconsSet = new Set(SOCIAL_MEDIA_ICONS);
-    const socialMediaLinks = Object.keys(values).reduce((res, value) => {
-      if (mediaIconsSet.has(value) && values[value]) {
-        return [...res, { type: value as TIcon, link: values[value] }];
-      }
-      return res;
-    }, [] as Array<ILink>);
+    const { name, bio } = event;
+    // const mediaIconsSet = new Set(SOCIAL_MEDIA_ICONS);
+    // const socialMediaLinks = Object.keys(values).reduce((res, value) => {
+    //   if (mediaIconsSet.has(value) && values[value]) {
+    //     return [...res, { type: value as TIcon, link: values[value] }];
+    //   }
+    //   return res;
+    // }, [] as Array<ILink>);
     const avatar = event.avatar[0] as unknown as File;
 
     const formData = new FormData();
@@ -72,7 +71,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
     }
     formData.set('name', name);
     formData.set('bio', bio);
-    formData.set('links', JSON.stringify(socialMediaLinks));
+    // formData.set('links', JSON.stringify(socialMediaLinks));
 
     updateBlog(formData);
   };
@@ -119,7 +118,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
           </div>
           <div className='w-50 w-mobile-100 p-1'>
             <h4 className='mb-1'>Ijtimoiy tarmoqlar</h4>
-            <div>
+            {/* <div>
               {SOCIAL_MEDIA_ICONS.map((icon, index) => {
                 const Icon = ICONS[icon as TIcon];
                 const link = currentBlog?.links?.find((link) => link.type === icon)?.link;
@@ -135,7 +134,7 @@ export const AboutTab: FC<INavTab> = ({ currentBlog, res = {} }) => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </div>
           <div className='px-1'>
             <Button loading={updateBlogRes.isLoading}>Saqlash</Button>

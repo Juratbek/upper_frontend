@@ -1,4 +1,4 @@
-import { Label, Status } from 'components';
+import { Status } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { toDateString } from 'utils';
@@ -7,14 +7,7 @@ import { WEB_APP_ROOT_DIR } from 'variables';
 import classes from './Tutorial.module.scss';
 import { ITutorialProps } from './Tutorial.types';
 
-export const Tutorial: FC<ITutorialProps> = ({
-  id,
-  name,
-  labels = [],
-  status,
-  className,
-  publishedDate,
-}) => {
+export const Tutorial: FC<ITutorialProps> = ({ id, name, status, className, publishedDate }) => {
   return (
     <Link
       href={`${WEB_APP_ROOT_DIR}/user/tutorials/${id}`}
@@ -28,16 +21,6 @@ export const Tutorial: FC<ITutorialProps> = ({
         <span className={classes.stats}>
           <strong>{toDateString(publishedDate)}</strong>
         </span>
-        <div className={classes.labels}>
-          {labels?.map((label) => (
-            <span
-              key={label.id}
-              style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
-            >
-              <Label>{label.name}</Label>
-            </span>
-          ))}
-        </div>
       </div>
     </Link>
   );

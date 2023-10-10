@@ -35,10 +35,10 @@ export const RemoveSectionModal: FC = () => {
         &quot;{selectedSection.name}&quot; bo&apos;limini o&apos;chirmoqchimisiz?
       </h3>
       <div className='mt-2 d-flex justify-content-end'>
-        <Button color='outline-dark' className='me-1' onClick={close}>
+        <Button color='outlined' className='me-1' onClick={close}>
           Modalni yopish
         </Button>
-        <Button color='outline-red' onClick={removeSection} loading={removeSectionRes.isLoading}>
+        <Button onClick={removeSection} loading={removeSectionRes.isLoading}>
           Bo&apos;limni o&apos;chirish
         </Button>
       </div>

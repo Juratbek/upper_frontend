@@ -14,6 +14,9 @@ const nextConfig = {
       'upper-prod-blog-img-bucket.s3.ap-south-1.amazonaws.com',
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;

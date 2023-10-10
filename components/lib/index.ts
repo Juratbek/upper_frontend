@@ -16,7 +16,6 @@ export * from './Tooltip';
 export * from './TabBody';
 export * from './TabBody';
 export * from './TabsHeader';
-export * from './Label';
 export * from './Input';
 export * from './Head';
 export * from './Badge';

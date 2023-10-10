@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "typeRoots": ["./node_modules/@editorjs/editorjs/types"]
+    "typeRoots": ["./node_modules/@editorjs/editorjs/types", "./node_modules/@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__tests__/**.ts"],
   "exclude": ["node_modules"]

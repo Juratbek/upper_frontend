@@ -74,15 +74,10 @@ export const NotificationsTab: FC = () => {
             deleteNotification={deleteNotification}
             loading={sendReadNotificationRes.isLoading || deleteNotificationRes.isLoading}
           />
-          {index !== notifications.length - 1 && (
-            <Divider
-              className='w-90 mx-auto'
-              color={
-                notification.status === NOTIFICATION_STATUSES.UNREAD ? 'transparent' : undefined
-              }
-              style={{ marginTop: 2, marginBottom: 2 }}
-            />
-          )}
+          {index !== notifications.length - 1 &&
+            notification.status === NOTIFICATION_STATUSES.UNREAD && (
+              <Divider className='w-90 mx-auto' style={{ marginTop: 2, marginBottom: 2 }} />
+            )}
         </div>
       );
     });

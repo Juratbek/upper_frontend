@@ -12,7 +12,7 @@ export const LogOutTab = (): JSX.Element => {
   return (
     <div>
       <h3>Profilingizdan chiqmoqchimisiz</h3>
-      <Button onClick={logOut} color='outline-dark'>
+      <Button onClick={logOut} color='outlined'>
         Profildan chiqish
       </Button>
     </div>

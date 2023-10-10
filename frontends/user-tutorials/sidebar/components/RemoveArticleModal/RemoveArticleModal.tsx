@@ -34,10 +34,10 @@ export const RemoveArticleModal: FC = () => {
     <Modal isOpen={isOpen} close={close} color='outline-red'>
       <h3 className='text-center'>&quot;{selectedArticle.name}&quot;ni o&apos;chirmoqchimisiz?</h3>
       <div className='mt-2 d-flex justify-content-end'>
-        <Button color='outline-dark' className='me-1' onClick={close}>
+        <Button color='outlined' className='me-1' onClick={close}>
           Modalni yopish
         </Button>
-        <Button color='outline-red' onClick={removeArticle} loading={removeArticleRes.isLoading}>
+        <Button onClick={removeArticle} loading={removeArticleRes.isLoading}>
           O&apos;chirish
         </Button>
       </div>

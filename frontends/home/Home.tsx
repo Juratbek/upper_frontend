@@ -28,7 +28,7 @@ export const HomePage: FC = () => {
     });
   const { list: articles, hasMore } = fetchArticlesRes;
 
-  const labelSelectHandler = (id: number | string): void => {
+  const labelSelectHandler = (id: number | string) => (): void => {
     setParam(LABEL_ID_PARAM, id);
     fetchArticles({ label: id, page: 0 }, { reset: true });
   };
@@ -67,14 +67,10 @@ export const HomePage: FC = () => {
   }, [isAuthenticated, fetchCurrentBlogLabelsRes]);
 
   return (
-    <div className='container'>
+    <>
       <div className={`${classes['labels-container']} ${classes[theme]}`}>
         {labels.map((label) => (
-          <TabButton
-            onClick={(): void => labelSelectHandler(label.id)}
-            color='outlined'
-            key={label.id}
-          >
+          <TabButton onClick={labelSelectHandler(label.id)} color='outlined' key={label.id}>
             {label.name}
           </TabButton>
         ))}
@@ -98,6 +94,6 @@ export const HomePage: FC = () => {
           ))}
         </InfiniteScroll>
       </ApiErrorBoundary>
-    </div>
+    </>
   );
 };

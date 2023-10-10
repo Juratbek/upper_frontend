@@ -52,7 +52,7 @@ export const LoginForm: FC = () => {
         <Input type='password' {...register('password', { required: 'Parolni kiriting' })} />
         <Error error={errors.password} />
       </div>
-      <Button color='outline-dark' loading={changeLoginRes.isLoading}>
+      <Button color='outlined' loading={changeLoginRes.isLoading}>
         O&apos;zgartirish
       </Button>
     </form>

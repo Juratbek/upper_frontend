@@ -190,7 +190,6 @@ export const UserArticlesSidebar: FC = () => {
           <Button
             className='flex-auto m-1 mt-0 mb-0 fw-6'
             type='button'
-            color='outline-red'
             onClick={toggleDeleteModal}
           >
             Maqolani o&apos;chirish

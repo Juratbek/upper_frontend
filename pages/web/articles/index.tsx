@@ -27,7 +27,7 @@ export default function ArticlesPage(): JSX.Element {
         <Button
           onClick={writeArticleHandler}
           loading={createArticleRes.isLoading}
-          color='outline-dark'
+          color='outlined'
           loader='Maqola yaratilmoqda...'
         >
           Maqola yozish

@@ -27,7 +27,7 @@ export default function TutorialsPage(): JSX.Element {
         <Button
           onClick={writeArticleHandler}
           loading={createTutorialRes.isLoading}
-          color='outline-dark'
+          color='outlined'
           loader='Maqola yaratilmoqda...'
         >
           To&apos;plam yaratish

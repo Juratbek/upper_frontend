@@ -1,5 +1,4 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton, Button, StorysetImage } from 'components';
-import { SEARCH_PAGE_ARTICLE_ICONS } from 'frontends/search';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useCreateArticleMutation, useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
@@ -48,12 +47,7 @@ export const ArticlesTab: FC = () => {
         </div>
       );
     return addUriToArticleImages(articles).map((article) => (
-      <Article
-        key={article.id}
-        article={article}
-        author={article.author}
-        icons={SEARCH_PAGE_ARTICLE_ICONS}
-      />
+      <Article key={article.id} article={article} author={article.author} />
     ));
   }, [fetchBlogArticlesRes.data, createArticleRes.isLoading, writeArticleHandler]);
 

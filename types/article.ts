@@ -18,7 +18,6 @@ export interface IArticleResult extends IArticleSmall {
   status: TArticleStatus;
   imgUrl: string;
   author: IBlogSmall;
-  labels: ILabel[];
 }
 
 export interface IArticle extends IArticleSmall {

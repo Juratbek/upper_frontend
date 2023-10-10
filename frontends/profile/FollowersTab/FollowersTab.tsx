@@ -49,7 +49,7 @@ export const FollowersTab: FC = () => {
             onClick={writeArticleHandler}
             loading={createArticleRes.isLoading}
             disabled={createArticleRes.isSuccess}
-            color='outline-dark'
+            color='outlined'
           >
             Maqola yozish
           </Button>

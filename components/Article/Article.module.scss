@@ -39,6 +39,10 @@
   overflow: hidden;
   line-height: 1.5;
   word-break: break-word;
+  color: var(--black-300, #737677);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
 
   *:not(code) {
     background-color: transparent !important;

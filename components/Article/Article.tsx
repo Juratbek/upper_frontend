@@ -1,4 +1,4 @@
-import { ArticleImg, Author, Label } from 'components';
+import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { addAmazonUri, getClassName } from 'utils';
@@ -8,7 +8,7 @@ import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
 
 export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...props }) => {
-  const { title, content, labels = [], id, imgUrl } = article;
+  const { title, content, id, imgUrl } = article;
   const rootClassName = getClassName(classes.root, props.className);
 
   return (
@@ -23,17 +23,7 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
         </div>
         {imgUrl && <ArticleImg imgUrl={imgUrl} />}
       </Link>
-      <div className={classes.footer}>
-        <Author {...addAmazonUri(author)} />
-        {labels?.map((label) => (
-          <span
-            key={label.id}
-            style={{ marginLeft: '.3rem', marginBottom: '0.3rem', display: 'inline-block' }}
-          >
-            <Label>{label.name}</Label>
-          </span>
-        ))}
-      </div>
+      <div className={classes.footer}>{author && <Author {...addAmazonUri(author)} />}</div>
     </div>
   );
 };

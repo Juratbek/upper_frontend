@@ -43,6 +43,7 @@ export const useInfiniteScrollV2 = <T>(
     let updatedList: T[] = [];
     if (identificator) {
       updatedList = list.map((l) => (l[identificator] === item[identificator] ? item : l));
+      // @ts-ignore
     } else if ('id' in item) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

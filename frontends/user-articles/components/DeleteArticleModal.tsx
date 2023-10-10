@@ -68,6 +68,7 @@ export const DeleteArticleModal: FC<{
         <>
           <div className='text-center'>
             <Lordicon
+              alt='tabriklaymiz'
               width={120}
               height={120}
               priority
@@ -86,7 +87,7 @@ export const DeleteArticleModal: FC<{
       setConfirmInput(e.target.value);
     return (
       <>
-        <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
+        <Image alt='' width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
         {props.status === ARTICLE_STATUSES.PUBLISHED ? (
           <h3 className='mb-2 mt-0 fw-6'>
             &quot;{article.title}&quot; maqolani o&apos;chirmoqchimisiz?
@@ -101,14 +102,13 @@ export const DeleteArticleModal: FC<{
           <Input className='mb-2' onChange={handleChange} />
         </div>
         <div className='d-flex'>
-          <Button color='outline-dark' onClick={closeDeleteArticleModal} className='me-1 flex-1'>
+          <Button color='outlined' onClick={closeDeleteArticleModal} className='me-1 flex-1'>
             Bekor qilish
           </Button>
           <Button
             ref={deleteBtnRef}
             onClick={submitDeletion}
             disabled={!isConfirmedToDeletion}
-            color='outline-red'
             loading={deleteArticleRes.isLoading}
           >
             O&apos;chirish

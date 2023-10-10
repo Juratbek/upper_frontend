@@ -47,7 +47,7 @@ export const BlogsTab: FC = () => {
           key={blog.id}
         >
           <Blog {...addAmazonUri(blog)} isLink />
-          <Button color='outline-dark'>Follow</Button>
+          <Button color='outlined'>Follow</Button>
         </div>
       ))}
     </ApiErrorBoundary>

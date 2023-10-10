@@ -62,7 +62,7 @@ const TutorialsTab: FC = () => {
               storysetUri='creativity'
             />
             <p>Maqola to&apos;plamlarini yarating va bilimlaringizni ulashing</p>
-            <Button onClick={createTutorialHandler} color='outline-dark'>
+            <Button onClick={createTutorialHandler} color='outlined'>
               To&apos;plam yaratish
             </Button>
           </div>

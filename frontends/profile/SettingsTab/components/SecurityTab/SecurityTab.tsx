@@ -82,7 +82,7 @@ export const SecurityTab: FC = () => {
         />
         <Error error={errors['confirm-password']} message='Parollar mos kelmadi' />
       </div>
-      <Button color='outline-dark' loading={changePasswordRes.isLoading}>
+      <Button color='outlined' loading={changePasswordRes.isLoading}>
         O&apos;zgartirish
       </Button>
     </form>

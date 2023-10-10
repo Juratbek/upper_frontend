@@ -56,7 +56,7 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
         </h4>
         {Boolean(values.text) && <h4>{values.text}</h4>}
         <p>{validatedCardNumer}</p>
-        <Button onClick={toggleConfirmationModal} color='outline-dark'>
+        <Button onClick={toggleConfirmationModal} color='outlined'>
           Bekor qilish
         </Button>
         <Button
@@ -74,13 +74,13 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
     () => (
       <Modal isOpen={isTurnOffModalOpen} bodyClassName='text-center' close={toggleTurnOffModal}>
         <h4>&quot;Hissa qo&apos;shish&quot; hizmatini o&apos;chirmoqchimisiz</h4>
-        <Button onClick={toggleTurnOffModal} color='outline-dark'>
+        <Button onClick={toggleTurnOffModal} color='outlined'>
           Bekor qilish
         </Button>
         <Button
           onClick={turnOffSponsor}
           className='ms-2'
-          color='outline-red'
+          color='outlined'
           loading={changeDonatCredentialsRes.isLoading}
         >
           Hizmarni o&apos;chirish
@@ -138,11 +138,11 @@ export const SponsorTab: FC<INavTab> = ({ currentBlog }) => {
           <Error error={errors.card} />
         </div>
         <div className='d-flex'>
-          <Button color={cardNumber ? 'outline-dark' : 'dark'}>
+          <Button color={cardNumber ? 'outlined' : 'primary'}>
             {cardNumber ? "Ma'lumotlarni o'zgartirish" : '"Hissa qo\'shish" hizmatini yoqish'}
           </Button>
           {Boolean(cardNumber) && (
-            <Button onClick={toggleTurnOffModal} type='button' color='outline-red' className='ms-1'>
+            <Button onClick={toggleTurnOffModal} type='button' color='outlined' className='ms-1'>
               Hizmatni o&apos;chirish
             </Button>
           )}

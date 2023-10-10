@@ -73,7 +73,6 @@ const SavedArticlesTab: FC = () => {
               redirectUrl={`${WEB_APP_ROOT_DIR}/user/articles`}
               key={article.id}
               article={article}
-              showLikeCount
             />
           );
         })}

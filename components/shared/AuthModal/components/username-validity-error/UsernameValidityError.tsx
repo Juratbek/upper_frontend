@@ -5,7 +5,7 @@ import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
 export const UsernameValidityError: FC<{
   value: string;
   show: boolean;
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<FieldError>> | undefined;
 }> = ({ value, show = false, error }) => {
   if (!show) return null;
 

@@ -1,5 +1,5 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton, StorysetImage } from 'components';
-import { SEARCH_PAGE_ARTICLE_ICONS, SEARCH_PAGE_TAB_IDS } from 'frontends/search';
+import { SEARCH_PAGE_TAB_IDS } from 'frontends/search';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazySearchPublishedArticleQuery } from 'store/apis';
@@ -42,12 +42,7 @@ export const ArticlesTab: FC = () => {
         </div>
       )}
       {addUriToArticleImages(searchArticleRes.data).map((article) => (
-        <Article
-          key={article.id}
-          article={article}
-          author={article.author}
-          icons={SEARCH_PAGE_ARTICLE_ICONS}
-        />
+        <Article key={article.id} article={article} author={article.author} />
       ))}
     </ApiErrorBoundary>
   );

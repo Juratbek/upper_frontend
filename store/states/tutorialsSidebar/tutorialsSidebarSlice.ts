@@ -125,10 +125,9 @@ const tutorialsSidebarSlice = createSlice({
       state.isPublishTutorialModalOpen = action.payload.isOpen;
     },
     setTutorial(state, { payload }: PayloadAction<ITutorial>) {
-      const { name, sections, labels, imgUrl } = payload;
+      const { name, sections, imgUrl } = payload;
       state.sections = sections || [];
       state.name = name;
-      state.labels = labels;
       state.imgUrl = imgUrl;
     },
     clearTutorial(state) {

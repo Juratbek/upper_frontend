@@ -30,11 +30,7 @@ export const SupportBlog: FC = () => {
       <h3 className='mt-1'>Blog faoliyatiga o&apos;z hissangizni qo&apos;shing</h3>
       {Boolean(data?.donatText) && <p>{data?.donatText}</p>}
       <h4>{convertToCardNumbers(data?.cardNumber)}</h4>
-      <Button
-        loading={isLoading}
-        onClick={copyCardNumber}
-        color={isCopied ? 'outline-dark' : 'dark'}
-      >
+      <Button loading={isLoading} onClick={copyCardNumber}>
         {isCopied ? 'Nushalandi' : 'Karta raqamidan nusha olish'}
       </Button>
     </ApiErrorBoundary>

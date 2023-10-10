@@ -93,6 +93,7 @@ export const PublishTutorialModal: FC = () => {
       {publishRes.isSuccess ? (
         <div className='text-center'>
           <Lordicon
+            alt='tabriklaymiz'
             className={classes.congrats}
             width={120}
             priority
@@ -149,7 +150,7 @@ export const PublishTutorialModal: FC = () => {
             <Error error={errors.image} />
           </div>
           <div className='d-flex justify-content-end'>
-            <Button type='button' onClick={close} color='outline-dark' className='me-1'>
+            <Button type='button' onClick={close} color='outlined' className='me-1'>
               Bekor qilish
             </Button>
             <Button className='w-30' loading={publishRes.isLoading}>
@@ -158,7 +159,7 @@ export const PublishTutorialModal: FC = () => {
           </div>
         </form>
       )}
-      <Image width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
+      <Image alt='tabriklaymiz' width={0} height={0} src={`/icons/congrats-${theme}.apng`} hidden />
     </Modal>
   );
 };

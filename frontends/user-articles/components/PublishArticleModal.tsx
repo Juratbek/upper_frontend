@@ -126,7 +126,7 @@ export const PublishArticleModal: FC<{
           />
         )}
         <div className='d-flex'>
-          <Button color='outline-dark' onClick={closePublishModalHandler} className='me-1'>
+          <Button color='outlined' onClick={closePublishModalHandler} className='me-1'>
             Modalni yopish
           </Button>
           <Button
