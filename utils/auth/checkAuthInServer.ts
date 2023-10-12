@@ -1,12 +1,13 @@
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps } from 'next';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const checkAuthInServer: GetServerSideProps = async ({ req, res, resolvedUrl }) => {
   const token = getCookie('token', { req, res }) || null;
   if (!token) {
     return {
       redirect: {
-        destination: `/login?redirect=${resolvedUrl}&message=${"Iltimos profilingizga kiring yoki ro'yxatdan o'ting"}`,
+        destination: `${WEB_APP_ROOT_DIR}/login?redirect=${resolvedUrl}&message=${"Iltimos profilingizga kiring yoki ro'yxatdan o'ting"}`,
         permanent: false,
       },
     };
