@@ -1,7 +1,7 @@
-$sticky-top: 20px;
-
 .root {
   display: flex;
+  max-width: 100vw;
+  // width: 100%;
   min-height: 100vh;
   padding-top: 48px;
 }
@@ -12,7 +12,7 @@ $sticky-top: 20px;
   border-right: 1px solid var(--divider-secondary-background);
   padding-right: 15px;
   position: sticky;
-  top: $sticky-top;
+  top: 20px;
   align-self: flex-start;
 }
 
@@ -26,7 +26,5 @@ $sticky-top: 20px;
   width: 294px;
   min-width: 294px;
   padding-left: 20px;
-  position: sticky;
-  top: $sticky-top;
   align-self: flex-start;
 }

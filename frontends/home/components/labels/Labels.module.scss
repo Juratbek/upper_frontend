@@ -1,8 +1,10 @@
 .labels-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   position: sticky;
   top: 20px;
+  transition: all 500ms linear;
 
   &.light {
     &::-webkit-scrollbar-thumb {

@@ -1,27 +1,22 @@
 import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
-import { Divider, TabButton } from 'components/lib';
-import { useAuth, useInfiniteScroll, useTheme, useUrlParams } from 'hooks';
+import { Divider } from 'components/lib';
+import { useAuth, useInfiniteScroll, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, Fragment, useEffect, useMemo } from 'react';
+import { FC, Fragment, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import {
-  useLazyGetCurrentBlogLabelsQuery,
-  useLazyGetPublishedArticlesByLabelQuery,
-} from 'store/apis';
+import { useLazyGetPublishedArticlesByLabelQuery } from 'store/apis';
 import { IArticleResult } from 'types';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT } from 'variables';
 
+import { Labels } from './components';
 import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './Home.constants';
-import classes from './Home.module.scss';
 
 export const HomePage: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
-  const { theme } = useTheme();
   const { query, isReady } = useRouter();
   const { label } = query;
   const { setParam } = useUrlParams();
-  const [fetchCurrentBlogLabels, fetchCurrentBlogLabelsRes] = useLazyGetCurrentBlogLabelsQuery();
   const [fetchArticles, fetchArticlesRes, fetchNextArticlesPage] =
     useInfiniteScroll<IArticleResult>(useLazyGetPublishedArticlesByLabelQuery, {
       removeDublicates: true,
@@ -29,16 +24,11 @@ export const HomePage: FC = () => {
     });
   const { list: articles, hasMore } = fetchArticlesRes;
 
-  const labelSelectHandler = (id: number | string) => (): void => {
-    setParam(LABEL_ID_PARAM, id);
-    fetchArticles({ label: id, page: 0 }, { reset: true });
-  };
-
   const fetchNextPage = (): Promise<void> => fetchNextArticlesPage({ label });
 
   useEffect(() => {
-    isAuthenticated && fetchCurrentBlogLabels();
-  }, [isAuthenticated]);
+    fetchArticles({ label, page: 0 }, { reset: true });
+  }, [label]);
 
   useEffect(() => {
     if (isLoading || !isReady) return;
@@ -56,30 +46,9 @@ export const HomePage: FC = () => {
     fetchArticles({ label: TopLabel.id, page: 0 });
   }, [isAuthenticated, isLoading, isReady]);
 
-  const labels = useMemo(() => {
-    const labels: { id: number | string; name: string }[] = [TopLabel];
-
-    if (isAuthenticated) labels.unshift(ForYouLabel);
-
-    const { data, isSuccess } = fetchCurrentBlogLabelsRes;
-    if (isSuccess) labels.push(...data);
-
-    return labels;
-  }, [isAuthenticated, fetchCurrentBlogLabelsRes]);
-
   return (
     <>
-      <div className={`${classes['labels-container']} ${classes[theme]}`}>
-        {labels.map((label) => (
-          <TabButton
-            onClick={labelSelectHandler(label.id)}
-            color={label.id == query.label ? 'primary' : 'outlined'}
-            key={label.id}
-          >
-            {label.name}
-          </TabButton>
-        ))}
-      </div>
+      <Labels />
       <ApiErrorBoundary
         fallback={<ArticleSkeleton className='p-2' />}
         fallbackItemCount={ARTICLES_SKELETON_COUNT}
