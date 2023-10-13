@@ -4,6 +4,12 @@
   }
 }
 
+@mixin screenMax960 {
+  @media (max-width: 960px) {
+    @content;
+  }
+}
+
 @mixin screenMin1200 {
   @media (min-width: 1200px) {
     @content;

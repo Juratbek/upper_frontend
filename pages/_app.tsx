@@ -23,11 +23,8 @@ function WebApp({ Component, pageProps }: AppProps): JSX.Element {
     <>
       <DynamicAuthModal />
       <Header />
-      <div className='main web-app' id='main'>
-        <Component {...pageProps} />
-        <Footer />
-      </div>
-      {/* <Sidebar /> */}
+      <Component {...pageProps} />
+      <Footer />
     </>
   );
 }

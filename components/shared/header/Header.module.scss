@@ -1,3 +1,5 @@
+@import 'styles/mixins';
+
 .header {
   height: 64px;
   display: flex;
@@ -10,4 +12,10 @@
   width: 86px;
   height: 36px;
   margin: 0 auto;
+}
+
+@include screenMax960 {
+  .write-article-btn {
+    display: none;
+  }
 }

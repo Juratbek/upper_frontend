@@ -1,9 +1,13 @@
+@import 'styles/mixins';
+
 .root {
   display: flex;
-  max-width: 100vw;
-  // width: 100%;
   min-height: 100vh;
   padding-top: 48px;
+
+  @include screenMax960 {
+    justify-content: center;
+  }
 }
 
 .navigation {
@@ -14,11 +18,17 @@
   position: sticky;
   top: 20px;
   align-self: flex-start;
+
+  @include screenMax960 {
+    display: none;
+  }
 }
 
 .main {
-  padding-right: 40px;
-  padding-left: 40px;
+  width: 720px;
+  max-width: 720px;
+  margin-right: 40px;
+  margin-left: 40px;
   flex: 1;
 }
 
@@ -27,4 +37,8 @@
   min-width: 294px;
   padding-left: 20px;
   align-self: flex-start;
+
+  @include screenMax960 {
+    display: none;
+  }
 }

@@ -1,4 +1,4 @@
-@import 'styles/_mixins';
+@import 'styles/mixins';
 
 .modal {
   display: none;
@@ -31,7 +31,7 @@
 
   @include screenMax576 {
     width: 95vw;
-  height: 95vh;
+    height: 95vh;
   }
 
   img {

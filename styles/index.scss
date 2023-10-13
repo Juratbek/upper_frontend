@@ -1,10 +1,10 @@
 @import './normalize';
-@import './_config';
+@import './config';
 @import './colors/index.scss';
 @import './_helpers';
 @import './_editorjs';
 @import './_variables';
-@import './_mixins';
+@import './mixins';
 @import './globals';
 @import './colors';
 @import './lib.scss';

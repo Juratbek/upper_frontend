@@ -1,33 +1,33 @@
-@import 'styles/_mixins';
+@import 'styles/mixins';
 
 .navs {
-    $width: 14rem;
+  $width: 14rem;
+  width: $width;
+  min-width: $width;
+  min-height: 20rem;
+  border-right: 0.5px solid black;
+  padding-right: 0.5rem;
+
+  @include screenMax576 {
+    $width: 8rem;
     width: $width;
     min-width: $width;
-    min-height: 20rem;
-    border-right: 0.5px solid black;
-    padding-right: 0.5rem;
-
-    @include screenMax576 {
-        $width: 8rem;
-        width: $width;
-        min-width: $width;
-    }
+  }
 }
 
 .content {
-    flex: 1 1 auto;
-    padding: 0 0.5rem;
-    overflow: auto;
+  flex: 1 1 auto;
+  padding: 0 0.5rem;
+  overflow: auto;
 }
 
 .tab {
-    padding: 0.5rem;
-    cursor: pointer;
+  padding: 0.5rem;
+  cursor: pointer;
 
-    &--active {
-        background-color: var(--blue);
-        color: white;
-        border-radius: 0.4rem;
-    }
+  &--active {
+    background-color: var(--blue);
+    color: white;
+    border-radius: 0.4rem;
+  }
 }

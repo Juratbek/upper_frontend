@@ -17,7 +17,7 @@ export const Header: FC = () => {
         <Logo color={themeColors.icon} />
       </Link>
       <SearchInput />
-      <Button>+ Maqola yozish</Button>
+      <Button className={classes['write-article-btn']}>+ Maqola yozish</Button>
     </div>
   );
 };
