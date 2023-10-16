@@ -1,17 +1,20 @@
 import { TabButton } from 'components';
-import { useAuth, useTheme, useUrlParams } from 'hooks';
+import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useLazyGetCurrentBlogLabelsQuery } from 'store/apis';
+import { ICONS } from 'variables';
 
 import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from '../../Home.constants';
 import classes from './Labels.module.scss';
 
+const NextIcon = ICONS.next;
+
 export const Labels = (): JSX.Element => {
-  const { theme } = useTheme();
   const { isAuthenticated } = useAuth();
   const { setParam } = useUrlParams();
   const { query } = useRouter();
+  const labelsContainerRef = useRef<HTMLDivElement>(null);
   const [fetchCurrentBlogLabels, fetchCurrentBlogLabelsRes] = useLazyGetCurrentBlogLabelsQuery();
 
   const labelSelectHandler = (id: number | string) => (): void => {
@@ -33,32 +36,29 @@ export const Labels = (): JSX.Element => {
     isAuthenticated && fetchCurrentBlogLabels();
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    const listener = (): void => {
-      const labelsDiv = document.getElementById('labels');
-      if (window.scrollY > 50) {
-        labelsDiv?.classList.add(classes.scrolled);
-      } else {
-        labelsDiv?.classList.remove(classes.scrolled);
-      }
-      console.log(window.scrollY);
-    };
-    window.addEventListener('scroll', listener);
-
-    return () => window.removeEventListener('scroll', listener);
-  }, []);
+  const moveLabelsRight = (): void => {
+    const labelsContainer = labelsContainerRef.current;
+    if (!labelsContainer) return;
+    const leftScroll = labelsContainer.scrollLeft;
+    labelsContainer.scrollTo({ left: leftScroll + 600, behavior: 'smooth' });
+  };
 
   return (
-    <div className={`${classes['labels-container']} ${classes[theme]}`} id='labels'>
-      {[...labels, ...labels, ...labels].map((label) => (
-        <TabButton
-          onClick={labelSelectHandler(label.id)}
-          color={label.id == query.label ? 'primary' : 'outlined'}
-          key={label.id}
-        >
-          {label.name}
-        </TabButton>
-      ))}
+    <div className={classes.root}>
+      <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
+        {[...labels, ...labels, ...labels].map((label) => (
+          <TabButton
+            onClick={labelSelectHandler(label.id)}
+            color={label.id == query.label ? 'primary' : 'outlined'}
+            key={label.id}
+          >
+            {label.name}
+          </TabButton>
+        ))}
+      </div>
+      <div className={classes['next-btn']} onClick={moveLabelsRight}>
+        <NextIcon />
+      </div>
     </div>
   );
 };

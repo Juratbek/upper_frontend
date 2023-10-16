@@ -3,10 +3,12 @@
 .button {
   all: unset;
   box-sizing: inherit;
+  cursor: pointer;
   border-radius: 100rem;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 16px;
+  padding: 1rem 1.6rem;
+  min-width: fit-content;
+  color: var(--black-300);
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.2rem;
 }

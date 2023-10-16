@@ -6,7 +6,7 @@ import { ILinkProps } from './Link.types';
 
 export const Link: FC<ILinkProps> = ({ children, ...props }) => {
   return (
-    <NextLink {...props} href={`${WEB_APP_ROOT_DIR}/${props.href}`}>
+    <NextLink {...props} href={`${WEB_APP_ROOT_DIR}${props.href}`}>
       {children}
     </NextLink>
   );

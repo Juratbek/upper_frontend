@@ -1,27 +1,29 @@
+.root {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1.2rem;
+}
+
 .labels-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  width: 720px;
+  overflow-x: scroll;
+  gap: 1.2rem;
   position: sticky;
   top: 20px;
   transition: all 500ms linear;
 
-  &.light {
-    &::-webkit-scrollbar-thumb {
-      background: rgb(204, 204, 204);
-    }
-  }
-  &.dark {
-    &::-webkit-scrollbar-thumb {
-      background: rgb(109, 109, 109);
-    }
-  }
-
   &::-webkit-scrollbar {
-    height: 0.1rem;
+    display: none;
   }
+}
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-  }
+.next-btn {
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-left: 1px solid var(--black-50);
 }
