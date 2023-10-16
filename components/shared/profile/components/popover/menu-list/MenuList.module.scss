@@ -1,0 +1,29 @@
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+
+  .icon {
+    padding: 1rem;
+  }
+
+  .text {
+    flex: 1;
+    margin: 0;
+    color: var(--black-600);
+    line-height: 120%;
+  }
+
+  .next-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

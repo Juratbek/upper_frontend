@@ -4,6 +4,7 @@ import { useTheme } from 'hooks';
 import { FC } from 'react';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
+import { Profile } from '../profile';
 import classes from './Header.module.scss';
 
 const Logo = ICONS.logo;
@@ -18,6 +19,7 @@ export const Header: FC = () => {
       </Link>
       <SearchInput />
       <Button className={classes['write-article-btn']}>+ Maqola yozish</Button>
+      <Profile />
     </div>
   );
 };

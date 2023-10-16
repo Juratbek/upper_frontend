@@ -4,8 +4,8 @@
   }
 }
 
-@mixin screenMax960 {
-  @media (max-width: 960px) {
+@mixin screenMax992 {
+  @media (max-width: 992px) {
     @content;
   }
 }

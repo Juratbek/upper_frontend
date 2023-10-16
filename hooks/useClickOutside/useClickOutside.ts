@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { LegacyRef, MouseEvent, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { MouseEvent, MouseEventHandler, Ref, useEffect, useRef, useState } from 'react';
 
 export const useClickOutside = (
   callBack?: () => void,
   selector?: string,
-): [LegacyRef<HTMLDivElement>, boolean] => {
+): [Ref<HTMLDivElement>, boolean] => {
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 

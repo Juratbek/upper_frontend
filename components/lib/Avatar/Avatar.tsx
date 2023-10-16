@@ -9,7 +9,7 @@ import classes from './Avatar.module.scss';
 import { IAvatarProps } from './Avatar.types';
 
 export const Avatar: FC<IAvatarProps> = ({
-  size = 'medium',
+  size = 'small',
   imgUrl,
   zoomable = false,
   ...props

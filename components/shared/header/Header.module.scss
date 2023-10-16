@@ -1,20 +1,24 @@
 @import 'styles/mixins';
 
 .header {
-  height: 64px;
+  height: 6.4rem;
   display: flex;
-  padding: 16px 0 12px 0;
+  padding: 1.6rem 0 1.2rem 0;
   border-bottom: 1px solid var(--divider-secondary-background, #e8e9e9);
   justify-content: space-between;
+
+  @include screenMax992 {
+    gap: 3rem;
+  }
 }
 
 .logo svg {
-  width: 86px;
-  height: 36px;
+  width: 8rem;
+  height: 3rem;
   margin: 0 auto;
 }
 
-@include screenMax960 {
+@include screenMax992 {
   .write-article-btn {
     display: none;
   }

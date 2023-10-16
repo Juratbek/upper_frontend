@@ -1,18 +1,13 @@
-.root {
-  position: fixed;
-}
-
 .ad-box {
-  width: 274px;
-  height: 320px;
-  border-radius: 8px;
-  padding: 20px;
+  height: 32rem;
+  border-radius: 0.8rem;
+  padding: 2rem;
   background: linear-gradient(183deg, #74ecfc 9.91%, #548cfa 100.34%);
 }
 
 .ad-text {
   color: #1604eb;
-  font-size: 25px;
+  font-size: 2.5rem;
   font-style: italic;
   font-weight: 900;
   line-height: 28px;
