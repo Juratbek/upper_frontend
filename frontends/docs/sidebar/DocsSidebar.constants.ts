@@ -62,7 +62,7 @@ export const DOCS_SIDEBAR_LINKS: IDocsSidebarLink[] = [
   //           url: 'sponsor',
   //         },
   //         // {
-  //         //   name: 'Havfsizlik',
+  //         //   name: 'Xavfsizlik',
   //         //   url: 'security',
   //         // },
   //       ],

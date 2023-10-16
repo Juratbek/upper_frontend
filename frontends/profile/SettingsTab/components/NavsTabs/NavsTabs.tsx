@@ -20,7 +20,7 @@ const tabs = [
   //   value: 'support',
   // },
   {
-    name: 'Havfsizlik',
+    name: 'Xavfsizlik',
     value: 'security',
   },
   {
