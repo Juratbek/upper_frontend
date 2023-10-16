@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   padding-bottom: 1.2rem;
+  position: sticky;
+  top: 4.8rem;
+  background-color: white;
 }
 
 .labels-container {
@@ -9,8 +12,6 @@
   width: 720px;
   overflow-x: scroll;
   gap: 1.2rem;
-  position: sticky;
-  top: 20px;
   transition: all 500ms linear;
 
   &::-webkit-scrollbar {
