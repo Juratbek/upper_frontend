@@ -1,8 +1,7 @@
-import { TIcon } from 'types';
+import { TIconComponent } from 'types';
 
 export interface INavigation {
   href: string;
-  icon?: TIcon;
+  icon?: TIconComponent;
   text: string;
-  active?: boolean;
 }

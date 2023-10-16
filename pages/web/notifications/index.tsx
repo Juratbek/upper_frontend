@@ -1,14 +1,15 @@
 import { Head } from 'components';
+import { GenericWrapper } from 'components/wrappers';
 import { NotificationsTab } from 'frontends/notifications';
 import { checkAuthInServer } from 'utils';
 
 export default function NotificationsPage(): JSX.Element {
   return (
-    <div className='container'>
+    <GenericWrapper>
       <Head title='Xabarlar' url='/notifications' />
       <h1 className='mb-1'>Xabarlar</h1>
       <NotificationsTab />
-    </div>
+    </GenericWrapper>
   );
 }
 

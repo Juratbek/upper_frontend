@@ -1,20 +1,21 @@
+import { ICONS } from 'variables';
+
 import { INavigation } from './Navigation.types';
 
 export const NAVIGATION: INavigation[] = [
   {
     href: '',
-    icon: 'home',
+    icon: ICONS.home,
     text: 'Bosh sahifa',
-    active: true,
   },
   {
-    href: '/user/articles',
-    icon: 'books',
-    text: 'Maqolalaringiz',
+    href: '/notifications',
+    icon: ICONS.notification,
+    text: 'Xabarlar',
   },
   {
-    href: '',
-    icon: 'search',
+    href: '/search',
+    icon: ICONS.search,
     text: 'Qidirish',
   },
 ];

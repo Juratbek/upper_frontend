@@ -22,6 +22,8 @@ export interface IIconProps {
   height?: number;
 }
 
+export type TIconComponent = FC<IIconProps>;
+
 export type TClassName = string | undefined | Record<string, string> | boolean;
 
 export interface IGetServerSideProps<T = Record<string, never>> {

@@ -5,7 +5,8 @@ import { useAppDispatch } from 'store';
 import { useDislikeMutation, useLazyCheckIfLikedDislikedQuery, useLikeMutation } from 'store/apis';
 import { openAuthModal, toggleCommentsSidebar } from 'store/states';
 import { appDynamic } from 'utils';
-import { ICONS, UPPER_BLUE_COLOR } from 'variables';
+import { ICONS } from 'variables';
+import { UPPER_BLUE_COLOR } from 'variables/colors';
 
 import { IArticleSharePopupProps } from '../ArticleSharePopup';
 import styles from './article-actions.module.scss';
