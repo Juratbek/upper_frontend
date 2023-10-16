@@ -14,7 +14,7 @@ export const SupportBlog: FC = () => {
   const { data } = getDonatCredentialsRes;
 
   const copyCardNumber = (): void => {
-    writeText(data?.cardNumber || 'Nushalashda xatolik yuz berdi');
+    writeText(data?.cardNumber || 'Nusxalashda xatolik yuz berdi');
   };
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const SupportBlog: FC = () => {
         onClick={copyCardNumber}
         color={isCopied ? 'outline-dark' : 'dark'}
       >
-        {isCopied ? 'Nushalandi' : 'Karta raqamidan nusha olish'}
+        {isCopied ? 'Nusxalandi' : 'Karta raqamidan nusxa olish'}
       </Button>
     </ApiErrorBoundary>
   );
