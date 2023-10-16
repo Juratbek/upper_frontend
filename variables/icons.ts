@@ -19,7 +19,7 @@ export const ICONS = {
   comment: icons.CommentIcon,
   like: icons.LikeIcon,
   dislike: icons.DislikeIcon,
-  share: icons.ShareIcon,
+  share: icons.Share,
   next: icons.NextIcon,
   prev: icons.PrevIcon,
   instagram: icons.InstagramIcon,

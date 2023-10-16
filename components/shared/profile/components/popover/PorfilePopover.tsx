@@ -1,4 +1,5 @@
 import { Avatar } from 'components/lib';
+import { useAuth } from 'hooks';
 import { forwardRef } from 'react';
 import { ICONS } from 'variables';
 
@@ -31,11 +32,15 @@ const Profile = (): JSX.Element => (
   </div>
 );
 
-const LogOutBtn = (): JSX.Element => (
-  <div className={classes['log-out']}>
-    <span className={classes.icon}>
-      <LogOut />
-    </span>
-    <p className={classes.text}>Profildan chiqish</p>
-  </div>
-);
+const LogOutBtn = (): JSX.Element => {
+  const { unauthenticate } = useAuth();
+
+  return (
+    <div className={classes['log-out']} onClick={unauthenticate}>
+      <span className={classes.icon}>
+        <LogOut />
+      </span>
+      <p className={classes.text}>Profildan chiqish</p>
+    </div>
+  );
+};

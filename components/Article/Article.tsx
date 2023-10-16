@@ -2,10 +2,13 @@ import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { addAmazonUri, getClassName } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables';
+import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Article.module.scss';
 import { IArticleProps } from './Article.types';
+
+const SaveIcon = ICONS.save;
+const ShareIcon = ICONS.share;
 
 export const Article: FC<IArticleProps> = ({ article, author, ...props }) => {
   const { title, content, id, imgUrl } = article;
@@ -20,7 +23,17 @@ export const Article: FC<IArticleProps> = ({ article, author, ...props }) => {
         </div>
         {imgUrl && <ArticleImg imgUrl={imgUrl} />}
       </Link>
-      <div className={classes.footer}>{author && <Author {...addAmazonUri(author)} />}</div>
+      <div className={classes.footer}>
+        {author && <Author {...addAmazonUri(author)} />}
+        <div className={classes.actions}>
+          <span className={classes['action-icon']}>
+            <SaveIcon />
+          </span>
+          <span className={classes['action-icon']}>
+            <ShareIcon />
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
