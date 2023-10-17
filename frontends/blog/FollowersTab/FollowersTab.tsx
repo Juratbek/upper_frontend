@@ -25,7 +25,7 @@ export const FollowersTab: FC = () => {
   } = infiniteScrollApi;
 
   const fetchNextPageHandler = (): void => {
-    id && fetchNextPage({ articleId: +id });
+    id && fetchNextPage({ id: +id });
   };
 
   useEffect(() => {
