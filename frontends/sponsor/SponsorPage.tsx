@@ -18,7 +18,7 @@ export const SponsorPage: FC = () => {
         <h3>Birodar, muhimi miqdor emas, muhimi niyat :)</h3>
         <p>{convertToCardNumbers(CARD_NUMBER)}</p>
         <Button onClick={(): Promise<void> => writeText(CARD_NUMBER)} loading={isCopying}>
-          {isCopied ? 'Nusha olindi' : 'Karta raqamidan nusha olish'}
+          {isCopied ? 'Nusxa olindi' : 'Karta raqamidan nusxa olish'}
         </Button>
       </Modal>
     ),
