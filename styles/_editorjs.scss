@@ -257,7 +257,7 @@
 
     .tc-add-column:hover,
     .tc-add-row:hover {
-      background-color: var(--selected-text-bg);
+      background-color: transparent;
 
       &::before {
         background-color: var(--selected-text-bg);
@@ -267,18 +267,20 @@
 
   .editorjs-codeFlask_Wrapper {
     border: 0.5px solid;
-    background-color: transparent;
+    background-color: var(--popover-bg);
 
     .editorjs-codeFlask_LangDisplay {
-      background-color: transparent;
+      background-color: inherit;
       border-top: 0.5px solid;
       border-left: 0.5px solid;
       padding: 2px 10px;
+      z-index: 10;
     }
 
     .editorjs-codeFlask_CopyButton {
       background-color: var(--popover-bg);
       border: 0.5px solid;
+      z-index: 10;
 
       svg path {
         stroke: #ffffff;
