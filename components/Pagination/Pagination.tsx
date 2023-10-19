@@ -1,14 +1,14 @@
-import { useTheme, useUrlParams } from 'hooks';
-import { FC, useMemo, useState } from 'react';
+import { usePagination, useTheme, useUrlParams } from 'hooks';
+import { FC, useState } from 'react';
 import { getClassName } from 'utils';
+import { DOTS } from 'variables';
 
 import classes from './Pagination.module.scss';
 import { IPagesProps } from './Pagination.types';
 
 export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) => {
   const [acitvePage, setActivePage] = useState(1);
-  const totalPages = useMemo(() => Math.ceil(count), [count]);
-  const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
+  const totalPages = Math.ceil(count);
   const { setParam } = useUrlParams();
   const { themeColors } = useTheme();
   const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
@@ -16,6 +16,13 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
     classes.page,
     acitvePage === totalPages && classes['page--disabled'],
   );
+  const dots = getClassName(classes.page, classes['page--disabled']);
+
+  const paginationRange = usePagination({
+    totalPageCount: totalPages,
+    siblingCount: 1,
+    currentPage: acitvePage,
+  });
 
   const clickHandler = (page: number): void => {
     changeActivePage(page);
@@ -32,7 +39,9 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
     setParam('page', page);
   };
 
-  if (arr.length < 2) return <></>;
+  if (acitvePage === 0 || paginationRange.length < 2) return null;
+
+  const lastPage = paginationRange[paginationRange.length - 1];
 
   return (
     <div className={`${classes.container} ${props.className}`}>
@@ -43,21 +52,27 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
       >
         &#8249;
       </div>
-      {arr.map((_, index) => {
-        const page = index + 1;
+      {paginationRange.map((pageNumber, index) => {
+        if (pageNumber === DOTS) {
+          return (
+            <li key={index} className={dots}>
+              &#8230;
+            </li>
+          );
+        }
         return (
           <div
-            key={page}
-            onClick={(): void => clickHandler(page)}
-            className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
-            style={page === acitvePage ? {} : { borderColor: themeColors.pagination.border }}
+            key={index}
+            onClick={(): void => clickHandler(pageNumber as number)}
+            className={`${classes.page} ${pageNumber === acitvePage && classes['page--active']}`}
+            style={pageNumber === acitvePage ? {} : { borderColor: themeColors.pagination.border }}
           >
-            {page}
+            {pageNumber}
           </div>
         );
       })}
       <div
-        style={acitvePage === totalPages ? {} : { borderColor: themeColors.pagination.border }}
+        style={acitvePage === lastPage ? {} : { borderColor: themeColors.pagination.border }}
         className={nextClassName}
         onClick={(): void => addPage(1)}
       >
