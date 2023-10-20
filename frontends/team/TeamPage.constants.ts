@@ -67,4 +67,21 @@ export const team: ITeamMember[] = [
       },
     ],
   },
+  {
+    name: 'Shahzod',
+    imgUrl:
+      'https://media.licdn.com/dms/image/C4D03AQGgn61ucuORPw/profile-displayphoto-shrink_800_800/0/1646602440521?e=1703116800&v=beta&t=zaYUYq_oy3FTMDD2wgTmqiDDWHkg8wzG-08Q43W89-c',
+    position: 'Software Development Engineer',
+    links: [
+      {
+        url: 'https://www.linkedin.com/in/shakhzod-bobolov',
+        icon: ICONS.linkedIn,
+      },
+      {
+        url: '/blogs/233',
+        icon: ICONS.logoIcon,
+        target: '_self',
+      },
+    ],
+  },
 ];
