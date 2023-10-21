@@ -10,6 +10,6 @@ declare module '@samandar.boymurodov/editorjs-inline-image';
 declare module 'editorjs-tooltip';
 declare module 'editorjs-text-color-plugin';
 declare module 'editorjs-alert';
-declare module '@samandar.boymurodov/editorjs-codeflask';
+declare module '@juratbek/editorjs-code';
 declare module '@editorjs/table';
 declare module '@juratbek/editorjs-quiz';
