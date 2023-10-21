@@ -14,7 +14,7 @@ type TTool =
   | 'Alert'
   | 'Unsplash'
   | 'InclineCode'
-  | 'CodeFlask'
+  | 'Code'
   | 'Table'
   | 'Quiz';
 
@@ -29,7 +29,7 @@ const TOOLS: Record<TTool, any> = {
   Alert: undefined,
   Unsplash: undefined,
   InclineCode: undefined,
-  CodeFlask: undefined,
+  Code: undefined,
   Table: undefined,
   Quiz: undefined,
 };
@@ -49,7 +49,7 @@ export const getTools = async ({
     import('editorjs-alert'),
     import('@samandar.boymurodov/editorjs-inline-image'),
     import('@editorjs/inline-code'),
-    import('@samandar.boymurodov/editorjs-codeflask'),
+    import('@juratbek/editorjs-code'),
     import('@editorjs/table'),
     import('@juratbek/editorjs-quiz'),
   ]);
@@ -101,7 +101,7 @@ export const getTools = async ({
             return {
               success: 1,
               file: {
-                url: imageUrl?.toString() || '',
+                url: imageUrl?.toString() ?? '',
               },
             };
           },
@@ -109,7 +109,7 @@ export const getTools = async ({
         buttonContent: 'Rasmni tanlang',
       },
     },
-    code: TOOLS.CodeFlask,
+    code: TOOLS.Code,
     embed: {
       class: TOOLS.Embed,
       inlineToolbar: true,
