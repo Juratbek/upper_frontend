@@ -32,6 +32,7 @@
     "@editorjs/image": "^2.8.1",
     "@editorjs/list": "^1.8.0",
     "@editorjs/table": "^2.2.2",
+    "@juratbek/editorjs-code": "^1.0.3",
     "@juratbek/editorjs-quiz": "^1.0.11",
     "@reduxjs/toolkit": "^1.8.3",
     "@samandar.boymurodov/editorjs-inline-image": "1.2.42",
