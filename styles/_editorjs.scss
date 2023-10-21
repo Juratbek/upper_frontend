@@ -344,6 +344,11 @@
     background-color: var(--popover-bg);
   }
 
+  // code editor container
+  .cdx-editor__container {
+    border: 1px solid var(--gray);
+  }
+
   .image-tool {
     --bg-color: transparent;
 
