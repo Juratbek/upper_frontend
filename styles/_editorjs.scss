@@ -1,4 +1,5 @@
 @import './mixins';
+@import './variables';
 
 .codex-editor {
   .ce-popover--opened {
@@ -40,6 +41,7 @@
 
   & .ce-block__content {
     max-width: unset;
+    padding-block: $size3;
 
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
