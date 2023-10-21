@@ -66,17 +66,6 @@
     }
   }
 
-  .codeflask--has-line-numbers pre.codeflask__flatten {
-    width: unset;
-  }
-
-  .codeflask {
-    &.codeflask--has-line-numbers:before,
-    & .codeflask__lines {
-      z-index: 4;
-    }
-  }
-
   .cdx-alert-light {
     display: none;
   }
@@ -155,18 +144,14 @@
   }
 }
 
-// styles for light theme
-.theme-light .codex-editor {
-  *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
-    color: inherit !important;
-  }
+.ce-paragraph,
+.ce-paragraph *:not(font):not(code) {
+  color: inherit !important;
 }
 
 // styles for dark theme
 .theme-dark .codex-editor {
   *:not(font):not(.token):not(code):not(.cdx-quiz-error) {
-    color: inherit !important;
-
     &:host {
       background-color: var(--popover-bg);
     }
@@ -284,49 +269,6 @@
         stroke: #ffffff;
       }
     }
-
-    .codeflask {
-      &.codeflask--has-line-numbers {
-        border-bottom: 2px solid transparent;
-
-        &:before {
-          background-color: var(--popover-bg);
-          border-right: 0.5px solid;
-          border-bottom: 0.5px solid;
-        }
-      }
-
-      .token {
-        &.function,
-        &.keyword,
-        &.selector,
-        &.property,
-        &.tag,
-        &.attr-value,
-        &.number {
-          color: #6cb6ff;
-        }
-      }
-    }
-
-    .codeflask__textarea {
-      caret-color: inherit;
-      overflow-y: hidden;
-      overflow-x: auto;
-
-      &::-webkit-scrollbar {
-        height: 0.4rem;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: rgb(162, 162, 162);
-        border-radius: 1rem;
-      }
-    }
   }
 
   .cdx-alert {
@@ -400,6 +342,11 @@
 
   .ce-block--selected .ce-block__content {
     background-color: var(--popover-bg);
+  }
+
+  // code editor container
+  .cdx-editor__container {
+    border: 1px solid var(--gray);
   }
 
   .image-tool {

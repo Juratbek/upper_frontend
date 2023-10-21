@@ -98,13 +98,13 @@ export const Article: FC<IArticleProps> = ({ article, author, redirectUrl, ...pr
               ))}
             </div>
           </div>
-          {author && (
-            <div className={classes.footer} style={{ marginTop: '.2rem' }}>
-              <Author {...addAmazonUri(author)} />
-            </div>
-          )}
         </a>
       </Link>
+      {author && (
+        <div className={classes.footer} style={{ marginTop: '.2rem' }}>
+          <Author {...addAmazonUri(author)} />
+        </div>
+      )}
     </div>
   );
 };

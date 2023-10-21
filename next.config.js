@@ -12,6 +12,7 @@ const nextConfig = {
       'upper-dev-tutorial-img-bucket.s3.ap-south-1.amazonaws.com',
       'upper-prod-article-img-bucket.s3.ap-south-1.amazonaws.com',
       'upper-prod-blog-img-bucket.s3.ap-south-1.amazonaws.com',
+      'media.licdn.com',
     ],
   },
 };

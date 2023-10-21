@@ -15,7 +15,7 @@ export const i18n: I18nConfig = {
       Delimiter: 'Ajratuvchi',
       List: "Ro'yxat",
       Image: 'Rasm',
-      CodeFlask: 'Kod',
+      Code: 'Kod',
       Table: 'Jadval',
       Quiz: 'Test',
     },

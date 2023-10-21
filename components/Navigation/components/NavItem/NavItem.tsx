@@ -25,9 +25,9 @@ export const NavItem: FC<INavItemProps> = ({ active, icon, badge, ...props }) =>
   return (
     <div {...props} className={rootClassName} onMouseEnter={toggleHover} onMouseLeave={toggleHover}>
       {badge ? <Badge color='blue'>{badge}</Badge> : null}
-      <a className={iconClassName}>
+      <span className={iconClassName}>
         <Icon color={active || isHovered ? UPPER_BLUE_COLOR : themeColors.icon} />
-      </a>
+      </span>
     </div>
   );
 };

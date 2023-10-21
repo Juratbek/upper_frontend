@@ -52,7 +52,7 @@ export const CreateLabelForm = (): JSX.Element => {
         So&apos;rov yuborish
       </Button>
       <p className='text-gray'>
-        Tag yaratish uchun so&apos;riv yuboriladi va ko&apos;rib chiqiladi
+        Tag yaratish uchun so&apos;rov yuboriladi va ko&apos;rib chiqiladi
       </p>
     </form>
   );
