@@ -1,3 +1,4 @@
+import { GenericWrapper } from 'components/wrappers';
 import { Article } from 'frontends/article';
 import { useDevice } from 'hooks';
 import { GetServerSideProps, NextPage } from 'next';
@@ -18,16 +19,16 @@ const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   const { isMobile } = useDevice();
 
   return (
-    <div>
+    <GenericWrapper>
       <Article {...props} showAuthor={isMobile} />
       <DynamicComments />
-    </div>
+    </GenericWrapper>
   );
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const host = context.req.headers.host || '';
+    const host = context.req.headers.host ?? '';
     const url = context.req.url;
 
     const articleId = get<number>(context, 'query.id');
@@ -36,7 +37,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
     );
     return {
       props: {
-        article: article || null,
+        article: article ?? null,
         error: error as IResponseError,
         fullUrl: `https://${host}${url}`,
       },

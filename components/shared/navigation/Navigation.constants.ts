@@ -9,6 +9,11 @@ export const NAVIGATION: INavigation[] = [
     text: 'Bosh sahifa',
   },
   {
+    href: '/posts',
+    icon: ICONS.home,
+    text: 'Lenta',
+  },
+  {
     href: '/notifications',
     icon: ICONS.notification,
     text: 'Xabarlar',

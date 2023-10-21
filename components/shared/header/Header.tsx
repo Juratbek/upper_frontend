@@ -2,7 +2,7 @@ import { Button, Link } from 'components/lib';
 import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useTheme } from 'hooks';
 import { FC } from 'react';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { ICONS } from 'variables';
 
 import { Profile } from '../profile';
 import classes from './Header.module.scss';
@@ -14,7 +14,7 @@ export const Header: FC = () => {
 
   return (
     <div className={`${classes.header} container`}>
-      <Link href={WEB_APP_ROOT_DIR} className={classes.logo}>
+      <Link href='/' className={classes.logo}>
         <Logo color={themeColors.icon} />
       </Link>
       <SearchInput />
