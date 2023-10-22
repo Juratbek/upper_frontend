@@ -46,7 +46,7 @@ export const Labels = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
-        {[...labels, ...labels, ...labels].map((label) => (
+        {labels.map((label) => (
           <TabButton
             onClick={labelSelectHandler(label.id)}
             color={label.id == query.label ? 'primary' : 'outlined'}
