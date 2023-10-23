@@ -41,8 +41,7 @@
 
   & .ce-block__content {
     max-width: unset;
-    padding-block: $size3;
-
+    margin-block: $size1;
     .ce-paragraph *:not(code) {
       background-color: transparent !important;
       font-family: inherit !important;
