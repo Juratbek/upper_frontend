@@ -1,17 +1,12 @@
-import {
-  ApiErrorBoundary,
-  Article,
-  ArticleSkeleton,
-  Button,
-  Pagination,
-  StorysetImage,
-} from 'components';
+import { ApiErrorBoundary, ArticleSkeleton, Button, Pagination, StorysetImage } from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect } from 'react';
 import { useCreateArticleMutation, useLazyGetBlogArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
+
+import { Article } from '../Article/Article';
 
 const PublishedArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();

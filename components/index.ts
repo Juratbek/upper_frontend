@@ -1,5 +1,4 @@
 export * from './Sidebar/Sidebar';
-export * from './Article/Article';
 export * from './Actions';
 export * from './Author/Author';
 export * from './Blog/Blog';

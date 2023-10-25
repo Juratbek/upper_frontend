@@ -4,13 +4,13 @@ import { FC } from 'react';
 import { addAmazonUri, getClassName } from 'utils';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
-import classes from './Article.module.scss';
-import { IArticleProps } from './Article.types';
+import classes from './PublishedArticle.module.scss';
+import { IPublishedArticleProps } from './PublishedArticle.types';
 
 const SaveIcon = ICONS.save;
 const ShareIcon = ICONS.share;
 
-export const Article: FC<IArticleProps> = ({ article, author, ...props }) => {
+export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, author, ...props }) => {
   const { title, content, id, imgUrl } = article;
   const rootClassName = getClassName(classes.root, props.className);
 

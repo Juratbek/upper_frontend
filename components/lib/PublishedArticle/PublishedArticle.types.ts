@@ -1,6 +1,6 @@
 import { IArticleResult, IBlogSmall } from 'types';
 
-export interface IArticleProps {
+export interface IPublishedArticleProps {
   className?: string;
   article: IArticleResult;
   author?: IBlogSmall;
