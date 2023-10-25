@@ -1,0 +1,28 @@
+.log-out {
+  border-top: 1px solid var(--black-50);
+  display: flex;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  align-items: center;
+  gap: 1.2rem;
+
+  &:hover {
+    background-color: var(--black-50);
+  }
+
+  .icon {
+    display: flex;
+    width: 3.2rem;
+    height: 3.2rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.6rem;
+    background: rgba(255, 62, 51, 0.2);
+  }
+
+  .text {
+    color: var(--red);
+    font-weight: 500;
+    margin: 0;
+  }
+}

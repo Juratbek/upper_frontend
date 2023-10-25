@@ -1,13 +1,12 @@
 import { Avatar } from 'components/lib';
-import { useAuth } from 'hooks';
 import { forwardRef } from 'react';
 import { ICONS } from 'variables';
 
+import { LogOutBtn } from './log-out/LogOut';
 import { MenuList } from './menu-list/MenuList';
 import classes from './ProfilePopover.module.scss';
 
 const PenIcon = ICONS.pen;
-const LogOut = ICONS.logOut;
 
 export const ProfilePopover = forwardRef<HTMLDivElement>(function Component(_, ref) {
   return (
@@ -31,16 +30,3 @@ const Profile = (): JSX.Element => (
     </div>
   </div>
 );
-
-const LogOutBtn = (): JSX.Element => {
-  const { unauthenticate } = useAuth();
-
-  return (
-    <div className={classes['log-out']} onClick={unauthenticate}>
-      <span className={classes.icon}>
-        <LogOut />
-      </span>
-      <p className={classes.text}>Profildan chiqish</p>
-    </div>
-  );
-};

@@ -1,10 +1,11 @@
 @import 'styles/mixins';
 
-$padding-top: 4.8rem;
+$sticky-top: 3rem;
 
 .root {
   display: flex;
-  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: 4.8rem;
 
   @include screenMax992 {
     padding-top: 3.2rem;
@@ -16,9 +17,8 @@ $padding-top: 4.8rem;
   border-right: 1px solid var(--divider-secondary-background);
   padding-right: 1.5rem;
   position: sticky;
-  top: 0;
-  padding-top: $padding-top;
-  flex: 1 1 22rem;
+  top: $sticky-top;
+  flex: 1 1 var(--navigation-container-width);
   align-self: flex-start;
 
   @include screenMax992 {
@@ -29,16 +29,15 @@ $padding-top: 4.8rem;
 .main {
   margin-right: 4rem;
   margin-left: 4rem;
-  flex: 1 0 720px;
+  flex: 1 0 var(--main-container-width);
+  min-width: var(--main-container-width);
 }
 
 .sidebar {
-  flex: 1 1 29.4rem;
-  padding-left: 2rem;
+  flex: 1 1 var(--sidebar-container-width);
   align-self: flex-start;
   position: sticky;
-  top: 0;
-  padding-top: $padding-top;
+  top: $sticky-top;
 
   @include screenMax992 {
     display: none;

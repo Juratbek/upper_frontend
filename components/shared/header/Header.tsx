@@ -1,7 +1,9 @@
 import { Button, Link } from 'components/lib';
 import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useTheme } from 'hooks';
-import { FC, useCallback, useEffect, useRef } from 'react';
+import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
+import { FC, useCallback, useRef } from 'react';
+import { useCreateArticleMutation } from 'store/apis';
 import { ICONS } from 'variables';
 
 import { Profile } from '../profile';
@@ -12,40 +14,35 @@ const Logo = ICONS.logo;
 export const Header: FC = () => {
   const { themeColors } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [createArticle, createArticleRes] = useCreateArticleMutation();
+  const { push } = useAppRouter();
 
-  const scrollListener = useCallback(() => {
-    let headerPositionTop = 0;
-    let prevScrollY = 0;
-    return () => {
-      const { scrollY } = window;
-      const container = containerRef.current;
-      if (!container) return;
-      const direction = scrollY > prevScrollY ? 'down' : 'up';
-
-      if (direction === 'down' && headerPositionTop >= -64) {
-        --headerPositionTop;
-        container.style.transform = `translateY(${headerPositionTop}px)`;
-      } else if (direction === 'up' && headerPositionTop < 0) {
-        ++headerPositionTop;
-        container.style.transform = `translateY(${headerPositionTop}px)`;
-      }
-      prevScrollY = scrollY;
-    };
+  const createArticleHandler = useCallback(async () => {
+    try {
+      const res = await createArticle({ blocks: [], labels: [], title: '' }).unwrap();
+      push(`/user/articles/${res.id}`);
+    } catch (err) {
+      alert('Maqola yaratishda xatolik yuz berdi');
+    }
   }, []);
 
-  useEffect(() => {
-    window.addEventListener('scroll', scrollListener());
-    return () => window.removeEventListener('scroll', scrollListener());
-  }, [scrollListener]);
-
   return (
-    <div className={`${classes.header} container`} ref={containerRef}>
-      <Link href='/' className={classes.logo}>
+    <header className={`${classes.header} container`} ref={containerRef}>
+      <Link href='/' className={classes['left-container']}>
         <Logo color={themeColors.icon} />
       </Link>
-      <SearchInput />
-      <Button className={classes['write-article-btn']}>+ Maqola yozish</Button>
-      <Profile />
-    </div>
+      <SearchInput className={classes['main-container']} />
+      <div className={classes['right-container']}>
+        <Button
+          loading={createArticleRes.isLoading}
+          className={classes['write-article-btn']}
+          onClick={createArticleHandler}
+          loader={'Yaratilmoqda...'}
+        >
+          + Maqola yozish
+        </Button>
+        <Profile />
+      </div>
+    </header>
   );
 };

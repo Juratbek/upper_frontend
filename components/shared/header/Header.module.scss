@@ -3,25 +3,39 @@
 .header {
   height: 6.4rem;
   display: flex;
-  padding: 1.6rem 0 1.2rem 0;
+  padding-top: 1.6rem;
+  padding-bottom: 1.2rem;
   border-bottom: 1px solid var(--divider-secondary-background, #e8e9e9);
   justify-content: space-between;
-  position: sticky;
-  top: 0;
 
   @include screenMax992 {
-    gap: 3rem;
+    // gap: 3rem;
   }
-}
-
-.logo svg {
-  width: 8rem;
-  height: 3rem;
-  margin: 0 auto;
 }
 
 @include screenMax992 {
   .write-article-btn {
     display: none;
   }
+}
+
+.left-container {
+  flex: 1 1 var(--navigation-container-width);
+
+  & svg {
+    width: 8rem;
+    height: 3rem;
+  }
+}
+
+.main-container {
+  margin-right: 4rem;
+  margin-left: 4rem;
+  flex: 1 0 var(--main-container-width);
+}
+
+.right-container {
+  display: flex;
+  justify-content: space-between;
+  flex: 1 1 var(--sidebar-container-width);
 }

@@ -8,6 +8,7 @@
 .container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
   border-top: 1px solid var(--black-50);
 }
@@ -30,6 +31,11 @@
 
   & > li {
     list-style: none;
+
+    & > a {
+      display: flex;
+      align-items: center;
+    }
 
     @include screenMax576 {
       width: 45%;
@@ -60,4 +66,3 @@
   font-style: normal;
   font-weight: 400;
 }
-

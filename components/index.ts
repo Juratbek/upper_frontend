@@ -22,7 +22,6 @@ export * from './PublishedArticleNotification/PublishedArticleNotification';
 export * from './skeletons';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
-export * from './Footer';
 export * from './EditorSpinner/EditorSpinner';
 export * from './FeedbackModal/FeedbackModal';
 export * from './Recaptcha/Recaptcha';

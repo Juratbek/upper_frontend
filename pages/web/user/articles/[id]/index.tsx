@@ -1,6 +1,7 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
 import { Alert, EditorSpinner, Head } from 'components';
 import { Editor, TEditorApi } from 'components/Editor';
+import { GenericWrapper } from 'components/wrappers';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
@@ -92,16 +93,18 @@ export default function UserArticlePage(): JSX.Element {
   };
 
   return (
-    <div className='editor-container container pb-4'>
-      <Head title='Blog maqolasi' url='/user/articles' />
-      {hasAlert && (
-        <Alert className='mt-2' onClose={closeAlert}>
-          Saqlangan lekin nashr etilmagan o&apos;zgarishlar mavjud. Ularni nashr qilish uchun
-          &quot;Nashr qilish&quot; tugmasini bosing
-        </Alert>
-      )}
-      {renderEditor()}
-    </div>
+    <GenericWrapper sidebar={null} navigation={null}>
+      <div className='editor-container container pb-4'>
+        <Head title='Blog maqolasi' url='/user/articles' />
+        {hasAlert && (
+          <Alert className='mt-2' onClose={closeAlert}>
+            Saqlangan lekin nashr etilmagan o&apos;zgarishlar mavjud. Ularni nashr qilish uchun
+            &quot;Nashr qilish&quot; tugmasini bosing
+          </Alert>
+        )}
+        {renderEditor()}
+      </div>
+    </GenericWrapper>
   );
 }
 

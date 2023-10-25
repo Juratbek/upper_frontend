@@ -1,7 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer } from 'components';
-import { Header } from 'components/shared';
+import { Footer, Header } from 'components/shared';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -92,7 +91,7 @@ function MyApp(props: AppProps): JSX.Element {
           <MobileApp {...props} />
         )}
       </div>
-      <NextNProgress color={themeColors.progressbar} height={3} showOnShallow={true} />
+      <NextNProgress color={themeColors.progressbar} height={3} />
     </div>
   );
 }
