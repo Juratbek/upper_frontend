@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, Article, ArticleSkeleton } from 'components';
+import { ApiErrorBoundary, ArticleSkeleton, PublishedArticle } from 'components';
 import { Divider } from 'components/lib';
 import { useAuth, useInfiniteScroll, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
@@ -66,7 +66,7 @@ export const HomePage: FC = () => {
           {addUriToArticleImages(articles).map((article) => (
             <Fragment key={article.id}>
               <Divider color='secondary' />
-              <Article article={article} author={article.author} />
+              <PublishedArticle article={article} author={article.author} />
             </Fragment>
           ))}
         </InfiniteScroll>

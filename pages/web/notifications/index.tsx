@@ -7,7 +7,6 @@ export default function NotificationsPage(): JSX.Element {
   return (
     <GenericWrapper>
       <Head title='Xabarlar' url='/notifications' />
-      <h1 className='mb-1'>Xabarlar</h1>
       <NotificationsTab />
     </GenericWrapper>
   );
