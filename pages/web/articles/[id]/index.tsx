@@ -19,7 +19,7 @@ const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   const { isMobile } = useDevice();
 
   return (
-    <GenericWrapper>
+    <GenericWrapper sidebar={null} navigation={null}>
       <Article {...props} showAuthor={isMobile} />
       <DynamicComments />
     </GenericWrapper>

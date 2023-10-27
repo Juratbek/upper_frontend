@@ -144,11 +144,6 @@
   }
 }
 
-.ce-paragraph,
-.ce-paragraph *:not(font):not(code) {
-  color: inherit !important;
-}
-
 // styles for dark theme
 .theme-dark .codex-editor {
   *:not(font):not(.token):not(code):not(.cdx-quiz-error) {

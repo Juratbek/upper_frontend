@@ -45,7 +45,7 @@ export const NotificationsTab: FC = () => {
 
   const notifications = useMemo(() => {
     const { data } = fetchNotificationsRes;
-    const notifications = data?.list || [];
+    const notifications = data?.list ?? [];
     if (!notifications || notifications.length === 0)
       return (
         <div className='text-center'>
