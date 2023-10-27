@@ -1,5 +1,6 @@
-import { ArticleStatus, Button, Divider, IOption, MultiSelect, Tooltip } from 'components';
+import { ArticleStatus, Button, Divider, Tooltip } from 'components';
 import { Dropdown } from 'components';
+import { IOption, MultiSelect } from 'components/form';
 import { useModal, useShortCut, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useEffect, useMemo } from 'react';

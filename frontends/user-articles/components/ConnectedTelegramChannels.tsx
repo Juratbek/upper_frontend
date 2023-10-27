@@ -1,4 +1,4 @@
-import { Input } from 'components';
+import { Input } from 'components/form';
 import { useTheme } from 'hooks';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { ITelegramChannel } from 'types';

@@ -1,4 +1,5 @@
-import { Alert, Article, Button, ISelectOption, Select } from 'components';
+import { Alert, Button, PublishedArticle } from 'components';
+import { ISelectOption, Select } from 'components/form';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -124,7 +125,7 @@ export const TutorialPage: FC = () => {
         className='mb-2'
       />
       {selectedArticle && (
-        <Article className='p-1' article={addAmazonBucketUriToArticle(selectedArticle)} />
+        <PublishedArticle className='p-1' article={addAmazonBucketUriToArticle(selectedArticle)} />
       )}
     </div>
   );

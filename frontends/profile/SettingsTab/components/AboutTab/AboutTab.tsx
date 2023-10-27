@@ -1,14 +1,5 @@
-import {
-  Alert,
-  ApiErrorBoundary,
-  Avatar,
-  Button,
-  Divider,
-  Error,
-  FileInput,
-  Input,
-  Textarea,
-} from 'components';
+import { Alert, ApiErrorBoundary, Avatar, Button, Divider, Error } from 'components';
+import { FileInput, Input, Textarea } from 'components/form';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useUpdateBlogMutation } from 'store/apis';

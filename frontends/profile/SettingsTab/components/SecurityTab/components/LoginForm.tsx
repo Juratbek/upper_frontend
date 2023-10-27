@@ -1,4 +1,5 @@
-import { Alert, Button, Error, IAlert, Input } from 'components';
+import { Alert, Button, Error, IAlert } from 'components';
+import { Input } from 'components/form';
 import { useAuth } from 'hooks';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';

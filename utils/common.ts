@@ -1,4 +1,4 @@
-import { IOption } from 'components';
+import { IOption } from 'components/form';
 import { ILabel, ITag, TClassName } from 'types';
 
 export const getClassName = (...classNames: TClassName[]): string =>

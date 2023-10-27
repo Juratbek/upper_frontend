@@ -1,4 +1,4 @@
-import { ISelectOption, Select } from 'components';
+import { ISelectOption, Select } from 'components/form';
 import { useTheme } from 'hooks';
 import { FC } from 'react';
 import { TSelectedThemeOption } from 'types';

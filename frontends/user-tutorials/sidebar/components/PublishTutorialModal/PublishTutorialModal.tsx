@@ -1,14 +1,5 @@
-import {
-  Alert,
-  ArticleImg,
-  Button,
-  Error,
-  FileDragDrop,
-  IOption,
-  Lordicon,
-  Modal,
-  MultiSelect,
-} from 'components';
+import { Alert, ArticleImg, Button, Error, FileDragDrop, Lordicon, Modal } from 'components';
+import { IOption, MultiSelect } from 'components/form';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { useRouter } from 'next/router';

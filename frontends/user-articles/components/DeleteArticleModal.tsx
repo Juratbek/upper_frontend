@@ -1,4 +1,5 @@
-import { Alert, Button, Input, Lordicon, Modal } from 'components';
+import { Alert, Button, Lordicon, Modal } from 'components';
+import { Input } from 'components/form';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { useRouter } from 'next/router';

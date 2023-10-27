@@ -1,4 +1,5 @@
-import { Alert, Button, Error, Input, Modal, Textarea } from 'components';
+import { Alert, Button, Error, Modal } from 'components';
+import { Input, Textarea } from 'components/form';
 import { useModal } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';

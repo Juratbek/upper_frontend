@@ -1,4 +1,5 @@
-import { Alert, Button, Error, IAlert, Input, Textarea } from 'components';
+import { Alert, Button, Error, IAlert } from 'components';
+import { Input, Textarea } from 'components/form';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useCreateLabelRequestMutation } from 'store/apis';

@@ -1,4 +1,5 @@
-import { Alert, Button, Error, Input, PasswordValidityLevel } from 'components';
+import { Alert, Button, Error, PasswordValidityLevel } from 'components';
+import { Input } from 'components/form';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useChangePasswordMutation } from 'store/apis';
