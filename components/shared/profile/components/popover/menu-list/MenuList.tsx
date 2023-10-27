@@ -9,7 +9,10 @@ import { IMenuListItem } from './MenuList.types';
 
 const NextIcon = ICONS.next;
 
-export const MenuList: FC<{ closePopover: TNoop }> = ({ closePopover }) => {
+export const MenuList: FC<{ closePopover: TNoop; itemClassName?: string }> = ({
+  closePopover,
+  itemClassName,
+}) => {
   const renderItem = useCallback((item: IMenuListItem, className: string) => {
     if (item.href) {
       return (
@@ -27,7 +30,7 @@ export const MenuList: FC<{ closePopover: TNoop }> = ({ closePopover }) => {
 
     return (
       <span className={className}>
-        <span className={classes.icon}>
+        <span>
           <item.icon width={24} height={24} />
         </span>
         <p className={classes.text}>{item.text}</p>
@@ -41,7 +44,7 @@ export const MenuList: FC<{ closePopover: TNoop }> = ({ closePopover }) => {
   return (
     <ul className={classes.list}>
       {MENU_LIST_ITEMS.map((item) => (
-        <li key={item.text}>{renderItem(item, `${classes.item} pointer`)}</li>
+        <li key={item.text}>{renderItem(item, `${classes.item} pointer ${itemClassName}`)}</li>
       ))}
     </ul>
   );

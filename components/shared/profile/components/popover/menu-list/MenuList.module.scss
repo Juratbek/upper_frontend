@@ -8,12 +8,11 @@
   align-items: center;
   gap: 1.2rem;
   border-radius: 2px;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
 
   &:hover {
     background: rgba(232, 233, 233, 0.40);
-  }
-  .icon {
-    padding: 1rem;
   }
 
   .text {
