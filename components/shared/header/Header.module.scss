@@ -21,11 +21,11 @@
 
 .left-container {
   flex: 1 1 var(--navigation-container-width);
+}
 
-  & svg {
-    width: 8rem;
-    height: 3rem;
-  }
+.logo svg {
+  width: 8rem;
+  height: 3rem;
 }
 
 .main-container {

@@ -28,9 +28,11 @@ export const Header: FC = () => {
 
   return (
     <header className={`${classes.header} container`} ref={containerRef}>
-      <Link href='/' className={classes['left-container']}>
-        <Logo color={themeColors.icon} />
-      </Link>
+      <div className={classes['left-container']}>
+        <Link href='/' className={classes.logo}>
+          <Logo color={themeColors.icon} />
+        </Link>
+      </div>
       <SearchInput className={classes['main-container']} />
       <div className={classes['right-container']}>
         <Button
