@@ -1,10 +1,9 @@
 import { useState } from 'react';
-
-import { TVoidFn } from './useModal.types';
+import { TNoop } from 'types';
 
 export const useModal = (
   defaultState = false,
-): [boolean, () => void, { open: TVoidFn; close: TVoidFn }] => {
+): [boolean, () => void, { open: TNoop; close: TNoop }] => {
   const [isOpen, setIsOpen] = useState(defaultState);
 
   const toggle = (): void => {

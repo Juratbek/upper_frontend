@@ -1,6 +1,6 @@
 import { Avatar } from 'components/lib';
 import { useClickOutside } from 'hooks';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { ICONS } from 'variables';
 
 import { ProfilePopover } from './components/popover/PorfilePopover';
@@ -10,7 +10,10 @@ const NextIcon = ICONS.next;
 
 export const Profile = (): JSX.Element => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-  const [rootRef] = useClickOutside(() => setIsPopoverOpen(false), '#profile-btn');
+
+  const closePopover = useCallback(() => setIsPopoverOpen(false), []);
+
+  const [rootRef] = useClickOutside(closePopover, '#profile-btn');
 
   const profileBtnClickHandler = (): void => setIsPopoverOpen((prev) => !prev);
 
@@ -22,7 +25,7 @@ export const Profile = (): JSX.Element => {
           <NextIcon width={6} height={10} />
         </span>
       </div>
-      {isPopoverOpen && <ProfilePopover ref={rootRef} />}
+      {isPopoverOpen && <ProfilePopover ref={rootRef} close={closePopover} />}
     </div>
   );
 };

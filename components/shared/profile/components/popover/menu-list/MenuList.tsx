@@ -1,5 +1,6 @@
 import { Link } from 'components/lib';
-import { useCallback } from 'react';
+import { FC, useCallback } from 'react';
+import { TNoop } from 'types';
 import { ICONS } from 'variables';
 
 import { MENU_LIST_ITEMS } from './MenuList.constants';
@@ -8,11 +9,11 @@ import { IMenuListItem } from './MenuList.types';
 
 const NextIcon = ICONS.next;
 
-export const MenuList = (): JSX.Element => {
+export const MenuList: FC<{ closePopover: TNoop }> = ({ closePopover }) => {
   const renderItem = useCallback((item: IMenuListItem, className: string) => {
     if (item.href) {
       return (
-        <Link href={item.href} className={className}>
+        <Link href={item.href} className={className} onClick={closePopover}>
           <span className={classes.icon}>
             <item.icon width={24} height={24} />
           </span>

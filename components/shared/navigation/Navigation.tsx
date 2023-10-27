@@ -1,17 +1,18 @@
 import { Divider } from 'components/lib';
 import { useRouter } from 'next/router';
-import { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components/item';
 import { NAVIGATION } from './Navigation.constants';
+import { INavigation } from './Navigation.types';
 
-export const Navigation = (): JSX.Element => {
+export const Navigation: FC<{ items?: INavigation[] }> = ({ items = NAVIGATION }) => {
   const { pathname } = useRouter();
 
   return (
     <>
-      {NAVIGATION.map((item, index) => {
+      {items.map((item, index) => {
         const isActive = WEB_APP_ROOT_DIR + item.href === pathname;
         return (
           <Fragment key={item.text}>
