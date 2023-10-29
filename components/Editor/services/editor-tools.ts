@@ -67,29 +67,7 @@ export const getTools = async ({
         defaultLevel: 1,
       },
     },
-    alert: {
-      class: TOOLS.Alert,
-      inlineToolbar: true,
-    },
-    quote: TOOLS.Quote,
-    delimiter: TOOLS.Delimiter,
-    list: TOOLS.List,
-    unsplash: {
-      class: TOOLS.Unsplash,
-      toolbox: {
-        title: 'Unsplash',
-      },
-      config: {
-        unsplashInnerHtml: unsplashToolHtml,
-        unsplash: {
-          appName: 'udas',
-          clientId: 'YUiELidZbnKRhMEECKChvST2BMHOfCR6X3mPia5ZdbU',
-          updateUrlOnSelect: (url: string): string => {
-            return updateQueryParam(url, 'q', '10');
-          },
-        },
-      },
-    },
+    code: TOOLS.Code,
     image: {
       class: TOOLS.ImageTool,
       config: {
@@ -109,7 +87,39 @@ export const getTools = async ({
         buttonContent: 'Rasmni tanlang',
       },
     },
-    code: TOOLS.Code,
+    unsplash: {
+      class: TOOLS.Unsplash,
+      toolbox: {
+        title: 'Unsplash',
+      },
+      config: {
+        unsplashInnerHtml: unsplashToolHtml,
+        unsplash: {
+          appName: 'udas',
+          clientId: 'YUiELidZbnKRhMEECKChvST2BMHOfCR6X3mPia5ZdbU',
+          updateUrlOnSelect: (url: string): string => {
+            return updateQueryParam(url, 'q', '10');
+          },
+        },
+      },
+    },
+    list: TOOLS.List,
+    delimiter: TOOLS.Delimiter,
+    alert: {
+      class: TOOLS.Alert,
+      inlineToolbar: true,
+    },
+    quiz: {
+      class: TOOLS.Quiz,
+      config: {
+        onSubmit: onQuizSubmit,
+      },
+    },
+    quote: TOOLS.Quote,
+    table: {
+      class: TOOLS.Table,
+      inlineToolbar: true,
+    },
     embed: {
       class: TOOLS.Embed,
       inlineToolbar: true,
@@ -149,16 +159,6 @@ export const getTools = async ({
     inlineCode: {
       class: TOOLS.InclineCode,
       inlineToolbar: true,
-    },
-    table: {
-      class: TOOLS.Table,
-      inlineToolbar: true,
-    },
-    quiz: {
-      class: TOOLS.Quiz,
-      config: {
-        onSubmit: onQuizSubmit,
-      },
     },
   };
 };
