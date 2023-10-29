@@ -7,7 +7,6 @@ export interface IMenuListItem {
   icon: FC<IIconProps>;
   text: string;
   menu?: FC<ISubmenuProps>;
-  // menu?: string;
   href?: string;
 }
 
