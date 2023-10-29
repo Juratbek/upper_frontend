@@ -69,6 +69,10 @@
   .cdx-alert-light {
     display: none;
   }
+
+  .cdx-alert__message {
+    line-height: 1.3rem;
+  }
 }
 
 .codex-editor--narrow {
@@ -145,6 +149,11 @@
 }
 
 .ce-paragraph,
+.ce-inline-tool-input,
+.ce-toolbar__settings-btn,
+.ce-toolbar__plus,
+.ce-popover-item,
+.cdx-search-field__input,
 .ce-paragraph *:not(font):not(code) {
   color: inherit !important;
 }
