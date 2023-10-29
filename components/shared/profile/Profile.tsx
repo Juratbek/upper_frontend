@@ -9,7 +9,7 @@ import classes from './Profile.module.scss';
 const NextIcon = ICONS.next;
 
 export const Profile = (): JSX.Element => {
-  const [isPopoverOpen, setIsPopoverOpen] = useState(true);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const closePopover = useCallback(() => setIsPopoverOpen(false), []);
 
@@ -25,7 +25,7 @@ export const Profile = (): JSX.Element => {
           <NextIcon width={6} height={10} />
         </span>
       </div>
-      {isPopoverOpen && <ProfilePopover ref={rootRef} close={closePopover} />}
+      <ProfilePopover ref={rootRef} close={closePopover} isOpen={isPopoverOpen} />
     </div>
   );
 };

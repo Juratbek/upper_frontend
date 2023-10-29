@@ -21,7 +21,7 @@ export const ICONS = {
   dislike: icons.DislikeIcon,
   share: icons.Share,
   next: icons.NextIcon,
-  prev: icons.PrevIcon,
+  prev: icons.Prev,
   instagram: icons.InstagramIcon,
   linkedIn: icons.LinkedIn,
   youtube: icons.YouTubeIcon,

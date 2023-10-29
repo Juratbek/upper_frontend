@@ -1,5 +1,6 @@
 import { ICONS } from 'variables';
 
+import { ThemeMenu } from '../theme-menu/ThemeMenu';
 import { IMenuListItem } from './MenuList.types';
 
 export const MENU_LIST_ITEMS: IMenuListItem[] = [
@@ -26,5 +27,6 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
   {
     icon: ICONS.loon,
     text: 'Qiyofa',
+    menu: ThemeMenu,
   },
 ];

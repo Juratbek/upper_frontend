@@ -1,0 +1,52 @@
+.root {
+    border: 1px solid var(--black-50, #E8E9E9);
+    overflow: hidden;
+}
+
+.title {
+    &-container {
+        padding: 1.6rem 2rem;
+        display: flex;
+        gap: 1.2rem;
+        align-items: center;
+    }
+    &-text {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin: 0;
+    }
+}
+
+.content {
+    padding-top: 1.6rem;
+    padding-bottom: 2rem;
+    list-style: none;
+    padding-left: 0;
+    background-color: white;
+    margin: 0;
+}
+
+.variant {
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    border-radius: 0.2rem;
+
+    &:hover {
+        background: rgba(245, 245, 245, 0.60);
+    }
+
+    &-radio {
+        $size: 1.8rem;
+        width: $size;
+        height: $size;
+        padding: 0.3rem;
+    }
+    &-text {
+        margin: 0;
+        color: var(--black-400, #45494A);
+        font-size: 1.4rem;
+        font-weight: 400;
+    }
+}

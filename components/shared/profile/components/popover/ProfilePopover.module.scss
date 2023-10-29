@@ -8,6 +8,11 @@
   border-radius: 1.2rem;
   background-color: var(--gray);
   overflow: hidden;
+  transition: all 1000ms linear;
+}
+
+.main-menu {
+  transition: all 1000ms linear;
 }
 
 .vertical-padding {
