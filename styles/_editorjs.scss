@@ -69,6 +69,10 @@
   .cdx-alert-light {
     display: none;
   }
+
+  .cdx-alert__message {
+    line-height: 1.3rem;
+  }
 }
 
 .codex-editor--narrow {
