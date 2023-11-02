@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button } from 'components/lib';
 import { Link } from 'components/lib';
 import { IMAGES } from 'variables';
 

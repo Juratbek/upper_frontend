@@ -1,4 +1,4 @@
-import { Avatar } from 'components';
+import { Avatar } from 'components/lib';
 import { FC } from 'react';
 import { IBlogSmall } from 'types';
 

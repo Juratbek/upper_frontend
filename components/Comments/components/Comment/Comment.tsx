@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider } from 'components';
+import { Avatar, Button, Divider } from 'components/lib';
 import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { FC } from 'react';

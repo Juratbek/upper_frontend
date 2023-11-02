@@ -2,9 +2,7 @@ import { ApiErrorBoundary, TutorialSidebarSkeleton } from 'components';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
-import { useAppDispatch } from 'store';
 import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis';
-import { setPublishedTutorialAuthor } from 'store/states';
 import { ITutorialArticle } from 'types';
 import { appDynamic } from 'utils';
 
@@ -16,7 +14,6 @@ export const TutorialSidebar: FC = () => {
   const {
     query: { id },
   } = useRouter();
-  const dispatch = useAppDispatch();
   const { setParam } = useUrlParams();
   const [fetchPublishedTutorial, fetchPublishedTutorialRes] =
     useLazyGetPublishedTutorialByIdQuery();
@@ -28,7 +25,6 @@ export const TutorialSidebar: FC = () => {
     const tutorial = await fetchPublishedTutorial(+id).unwrap();
     const firstArticle = tutorial.sections[0].articles[0];
     setParam('articleId', firstArticle.articleId);
-    dispatch(setPublishedTutorialAuthor(tutorial.author));
   };
 
   const selectArticle = (article: ITutorialArticle): void => {

@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, Button } from 'components';
+import { ApiErrorBoundary } from 'components';
+import { Button } from 'components/lib';
 import { useClipboard } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';

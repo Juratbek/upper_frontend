@@ -1,5 +1,5 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { IHeadProps } from 'components';
+import { IHeadProps } from 'components/lib';
 import { ARTICLE_BUCKET_URL } from 'store/apis';
 import { IArticle, ISidebarArticle } from 'types';
 import { BLOCK_TYPES } from 'variables';

@@ -1,4 +1,4 @@
-import { Alert, Button, Divider, Head, Modal } from 'components';
+import { Alert, Button, Divider, Head, Modal } from 'components/lib';
 import { useAuth, useClipboard, useModal } from 'hooks';
 import { FC, useMemo } from 'react';
 import { convertToCardNumbers } from 'utils';

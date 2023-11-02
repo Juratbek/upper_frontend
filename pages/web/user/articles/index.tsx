@@ -1,4 +1,4 @@
-import { Head, TabBody, TabsHeader } from 'components';
+import { Head, TabBody, TabsHeader } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
 import { ARTICLES_TAB_MENUS, ARTICLES_TABS } from 'frontends/user-articles';
 import { checkAuthInServer } from 'utils';

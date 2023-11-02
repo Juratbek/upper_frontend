@@ -1,5 +1,6 @@
-import { Alert, ApiErrorBoundary, BlogSkeleton, Button, Error } from 'components';
+import { ApiErrorBoundary, BlogSkeleton } from 'components';
 import { Input } from 'components/form';
+import { Alert, Button, Error } from 'components/lib';
 import { useTheme } from 'hooks';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';

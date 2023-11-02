@@ -1,15 +1,17 @@
 import { useTheme } from 'hooks';
 import { FC, useEffect, useState } from 'react';
+import { ICONS } from 'variables';
 
-import { ArticleActionIcons } from './article-action-icons';
 import styles from './article-actions.module.scss';
 import { IArticleActionsProps } from './article-actions.types';
 
 let lastScrollTop = Number.MAX_VALUE;
 
-export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, ...props }) => {
+const Like = ICONS.like;
+const Dislike = ICONS.dislike;
+
+export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
-  const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const { themeColors } = useTheme();
 
   const detectScrollDirection = (e: Event): void => {
@@ -18,7 +20,6 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, ...p
     const st = target.scrollTop;
     if (st > lastScrollTop) {
       setIsScrollingUp(false);
-      setIsSharePopupOpen(false);
     } else {
       setIsScrollingUp(true);
     }
@@ -43,13 +44,9 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article, ...p
         className={`${styles.articleActions}${isScrollingUp ? ' ' + styles.scrollUp : ''}`}
         style={{ backgroundColor: themeColors.bg, border: `1px solid ${themeColors.border}` }}
       >
-        <ArticleActionIcons
-          {...props}
-          popupId='articleActions'
-          isSharePopupOpen={isSharePopupOpen}
-          setIsSharePopupOpen={setIsSharePopupOpen}
-          article={article}
-        />
+        <Like />
+        <span>{article.likeCount}</span>
+        <Dislike />
       </div>
     </div>
   );

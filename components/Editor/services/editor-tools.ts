@@ -41,7 +41,7 @@ export const getTools = async ({
 }): Promise<EditorConfig['tools']> => {
   const tools = await Promise.all([
     import('@editorjs/embed'),
-    import('@editorjs/header'),
+    import('@juratbek/editorjs-header'),
     import('@editorjs/image'),
     import('@editorjs/list'),
     import('@editorjs/quote'),

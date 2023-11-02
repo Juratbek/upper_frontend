@@ -1,17 +1,17 @@
-import { Article } from 'frontends/article';
+import { ArticlePageMain } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
 import { IArticlePageProps } from 'pages/web/articles/[id]';
-import { useAppSelector, wrapper } from 'store';
+import { wrapper } from 'store';
 import { publishedArticleApi } from 'store/apis';
-import { getTutorialAuthor } from 'store/states';
 import { IResponseError } from 'types';
 import { get } from 'utils';
 
-const TutorialNextPage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
-  const author = useAppSelector(getTutorialAuthor);
-  const article = props.article ? { ...props.article, author } : null;
-
-  return <Article {...props} article={article} showAuthor className='pt-2' />;
+const TutorialNextPage: NextPage<IArticlePageProps> = ({
+  article,
+  error,
+  fullUrl,
+}: IArticlePageProps) => {
+  return <ArticlePageMain error={error} article={article} fullUrl={fullUrl} />;
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(

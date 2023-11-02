@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
 import { NotificationsTab } from 'frontends/notifications';
 import { checkAuthInServer } from 'utils';

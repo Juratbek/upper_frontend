@@ -1,4 +1,4 @@
-import { Alert } from 'components';
+import { Alert } from 'components/lib';
 import { FC } from 'react';
 import { TELEGRAM_BOT } from 'variables';
 

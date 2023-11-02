@@ -7,7 +7,7 @@ import { get } from 'utils';
 
 interface IArticlePageProps {
   article: IArticle | null;
-  error: IResponseError;
+  error: IResponseError | null;
   fullUrl: string;
 }
 
@@ -26,13 +26,13 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
     const url = context.req.url;
 
     const articleId = get<number>(context, 'query.id');
-    const { data: article, error = {} } = await store.dispatch(
+    const { data: article, error } = await store.dispatch(
       publishedArticleApi.endpoints.getById.initiate({ id: articleId }, { forceRefetch: 5 }),
     );
     return {
       props: {
         article: article || null,
-        error: error as IResponseError,
+        error: (error as IResponseError) || null,
         fullUrl: `https://${host}${url}`,
       },
     };

@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { ForgotCredentialsForm } from 'frontends/forgot-credentials';
 import { NextPage } from 'next';
 

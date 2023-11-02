@@ -1,4 +1,5 @@
-import { Button, CommentSkeleton, Divider } from 'components';
+import { CommentSkeleton } from 'components';
+import { Button, Divider } from 'components/lib';
 import { StorysetImage } from 'components/lib';
 import { useAuth, useClickOutside, useInfiniteScrollV2, useTheme } from 'hooks';
 import { useRouter } from 'next/router';

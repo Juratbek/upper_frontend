@@ -1,9 +1,9 @@
 import EditorJS from '@editorjs/editorjs';
-import { ApiError, Blog, Button, Divider, Editor, Head, StorysetImage } from 'components';
+import { Editor } from 'components';
 import { IQuizData } from 'components/Editor';
+import { Head } from 'components/lib';
 import { useModal } from 'hooks';
-import Link from 'next/link';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
 import { IQuizSubmission, useIncrementViewCountMutation, useSubmitQuizMutation } from 'store/apis';
 import { setArticleAuthor } from 'store/states/readArticle';
@@ -13,43 +13,21 @@ import {
   addAmazonUri,
   addUriToImageBlocks,
   convertToHeadProp,
-  dateInterval,
-  formatToKMB,
-  get,
 } from 'utils';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
-import styles from './article.module.scss';
-import { IArticleProps } from './article.types';
-import { ArticleActionIcons, ArticleActions, QuizResultModal } from './components';
+import { IArticlePageMainProps } from './article.types';
+import { ArticleActions, Author, QuizResultModal } from './components';
+import { ErrorUI } from './components/Error/Error';
+import { ArticleFooter } from './components/Footer/ArticleFooter';
 
-const CalendarIcon = ICONS.calendar;
-const EyeIcon = ICONS.eye;
-
-export const Article: FC<IArticleProps> = ({
-  article,
-  error,
-  fullUrl,
-  showAuthor = false,
-  ...props
-}) => {
-  const { viewCount = 0, publishedDate, updatedDate, blocks = [] } = article || {};
-  const [likeCount, setLikeCount] = useState(article?.likeCount || 0);
+export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl }) => {
+  const { blocks = [] } = article || {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
-  const [isSharePopupOpen, setIsSharePopupOpen] = useState<boolean>(false);
   const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
     useModal();
   const dispatch = useAppDispatch();
   const [incrementViewCountRequest] = useIncrementViewCountMutation();
   const [submitQuiz, submitQuizRes] = useSubmitQuizMutation();
-
-  const likeHandler = (): void => {
-    setLikeCount((prev) => prev + 1);
-  };
-
-  const dislikeHandler = (wasLikedBefore: boolean): void => {
-    wasLikedBefore && setLikeCount((prev) => prev - 1);
-  };
 
   const quizSubmitHandler = useCallback(
     async (data: IQuizData) => {
@@ -76,62 +54,24 @@ export const Article: FC<IArticleProps> = ({
 
   useEffect(() => {
     if (!article) return;
-    setLikeCount(article.likeCount || 0);
     article.author && dispatch(setArticleAuthor(article.author));
-    // const timeout = setTimeout(() => {
-    //   if (article.token) {
-    //     const { id, token } = article;
-    //     incrementViewCountRequest({ id, token });
-    //   }
-    // }, 15 * 1000);
-    // return () => clearTimeout(timeout);
     if (article.token) {
       const { id, token } = article;
       incrementViewCountRequest({ id, token });
     }
   }, [article?.id]);
 
-  const articleComponent = useMemo(
-    () => (
-      <Editor
-        content={{ blocks: addUriToImageBlocks(blocks) }}
-        isEditable={false}
-        handleInstance={setEditorInstance}
-        onQuizSubmit={quizSubmitHandler}
-      />
-    ),
-    [blocks, quizSubmitHandler],
-  );
-
-  const dateContent = useMemo(() => {
-    if (updatedDate) return <>{dateInterval(updatedDate)} yangilangan</>;
-    if (publishedDate) return dateInterval(publishedDate);
-    return <></>;
-  }, [publishedDate, updatedDate]);
-
   const quizData =
-    submitQuizRes.data ||
-    (submitQuizRes.error as IResponseError<IQuizSubmission[]>)?.data.data ||
+    submitQuizRes.data ??
+    (submitQuizRes.error as IResponseError<IQuizSubmission[]>)?.data.data ??
     [];
 
   if (!article) {
-    if (error?.status === 500) return <ApiError className='container mt-2' error={error} />;
-    if (error?.status === 404)
-      return (
-        <div className='text-center mt-3'>
-          <StorysetImage width={400} height={400} src='/storyset/hidden.svg' storysetUri='data' />
-          <h3>Maqola topilmadi</h3>
-          <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
-          <Link href={WEB_APP_ROOT_DIR}>
-            <Button>Bosh sahifaga qaytish</Button>
-          </Link>
-        </div>
-      );
-    return <h2>{get(error, 'data.message')}</h2>;
+    return <ErrorUI error={error} />;
   }
 
   return (
-    <div className={`container ${props.className}`}>
+    <div className='container'>
       <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
       <QuizResultModal
         isError={Boolean(submitQuizRes.error)}
@@ -139,55 +79,18 @@ export const Article: FC<IArticleProps> = ({
         isOpen={isQuizResultsModalOpen}
         close={closeQuizResultsModal}
       />
-      {showAuthor && article.author && (
-        <>
-          <Blog {...addAmazonUri(article.author)} isLink />
-          <Divider className='mt-1' />
-        </>
-      )}
-      <div className={`${styles.articleContainer} editor-container`}>
-        <article>{articleComponent}</article>
-        <Divider className='my-2' />
-        <div className={styles.articleDetail}>
-          <div className={styles.stats}>
-            <time style={{ flex: 1 }} className='d-flex align-items-center'>
-              <span className={styles.icon}>
-                <CalendarIcon color='gray' />
-              </span>
-              {dateContent}
-            </time>
-            {viewCount > 0 && (
-              <>
-                <Divider type='vertical' className='mx-1' />
-                <div className='d-flex align-items-center'>
-                  <span className={`${styles.icon} ${styles.eye}`}>
-                    <EyeIcon color='gray' />
-                  </span>
-                  <span className='d-flex align-items-center'>
-                    {formatToKMB(viewCount)} marta o&apos;qilgan
-                  </span>
-                </div>
-              </>
-            )}
-          </div>
-          <div className={styles.reactions}>
-            <ArticleActionIcons
-              className={styles.sharePopup}
-              onLike={likeHandler}
-              onDislike={dislikeHandler}
-              popupId='articleDetail'
-              isSharePopupOpen={isSharePopupOpen}
-              setIsSharePopupOpen={setIsSharePopupOpen}
-              article={{ ...article, likeCount }}
-            />
-          </div>
-        </div>
-        <ArticleActions
-          onLike={likeHandler}
-          onDislike={dislikeHandler}
-          editor={editorInstance}
-          article={{ ...article, likeCount }}
-        />
+      {article.author && <Author {...addAmazonUri(article.author)} />}
+      <div className='editor-container'>
+        <article>
+          <Editor
+            content={{ blocks: addUriToImageBlocks(blocks) }}
+            isEditable={false}
+            handleInstance={setEditorInstance}
+            onQuizSubmit={quizSubmitHandler}
+          />
+        </article>
+        <ArticleFooter article={article} />
+        <ArticleActions editor={editorInstance} article={article} />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button } from 'components/lib';
 import { useClickOutside, useModal } from 'hooks';
 import { FC } from 'react';
 import { getClassName } from 'utils';

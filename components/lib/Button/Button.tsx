@@ -1,4 +1,4 @@
-import { Spinner } from 'components';
+import { Spinner } from 'components/lib';
 import { useTheme } from 'hooks';
 import { forwardRef, useMemo } from 'react';
 import { getClassName } from 'utils';

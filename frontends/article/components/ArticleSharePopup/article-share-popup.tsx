@@ -5,7 +5,7 @@ const TelegramIcon = ICONS.telegram;
 const FacebookIcon = ICONS.facebook;
 const LinkedInIcon = ICONS.linkedIn;
 
-import { Button } from 'components';
+import { Button } from 'components/lib';
 import { useClickOutside, useClipboard, useTheme } from 'hooks';
 import { addKeyboardListener } from 'utils';
 

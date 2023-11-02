@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { TeamPage } from 'frontends/team';
 import { NextPage } from 'next';
 

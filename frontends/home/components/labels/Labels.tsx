@@ -1,4 +1,4 @@
-import { TabButton } from 'components';
+import { TabButton } from 'components/lib';
 import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef } from 'react';

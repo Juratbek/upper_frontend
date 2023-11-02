@@ -6,12 +6,7 @@ import { TBaseQuery } from 'store/apis/config';
 import { IPagingResponse, TOptionalPagingRequest } from 'types';
 
 export type THook<T> = UseLazyQuery<
-  QueryDefinition<
-    TOptionalPagingRequest<Record<string, unknown>>,
-    TBaseQuery,
-    never,
-    IPagingResponse<T>
-  >
+  QueryDefinition<any, TBaseQuery, never, IPagingResponse<T>, any>
 >;
 
 export type TUpdateItem<T> = (item: T, identificator?: keyof T) => void;

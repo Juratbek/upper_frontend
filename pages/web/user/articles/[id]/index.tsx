@@ -1,6 +1,7 @@
 import EditorJS, { OutputBlockData } from '@editorjs/editorjs';
-import { Alert, EditorSpinner, Head } from 'components';
+import { EditorSpinner } from 'components';
 import { Editor, TEditorApi } from 'components/Editor';
+import { Alert, Head } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';

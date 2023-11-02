@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, ArticleSkeleton, Button, Pagination, StorysetImage } from 'components';
+import { ApiErrorBoundary, ArticleSkeleton, Pagination } from 'components';
+import { Button, StorysetImage } from 'components/lib';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect } from 'react';

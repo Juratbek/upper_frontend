@@ -1,4 +1,4 @@
-import { Button, Modal } from 'components';
+import { Button, Modal } from 'components/lib';
 import { FC, useState } from 'react';
 import { IQuizSubmission, TQuizSubmissionColor } from 'store/apis';
 

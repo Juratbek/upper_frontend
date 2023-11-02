@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { ChangeCredentialsForm } from 'frontends/change-credentials';
 import { NextPage } from 'next';
 

@@ -1,10 +1,5 @@
-import {
-  ApiErrorBoundary,
-  Divider,
-  NotificationSkeleton,
-  Pagination,
-  StorysetImage,
-} from 'components';
+import { ApiErrorBoundary, NotificationSkeleton, Pagination } from 'components';
+import { Divider, StorysetImage } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {

@@ -1,4 +1,4 @@
-import { TAvatarSize } from 'components';
+import { TAvatarSize } from 'components/lib';
 import { IBlogMedium, ILink } from 'types';
 
 export interface IBlogProps extends IBlogMedium {

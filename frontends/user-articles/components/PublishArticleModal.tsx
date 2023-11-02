@@ -1,5 +1,5 @@
 import EditorJS from '@editorjs/editorjs';
-import { Alert, Button, Modal } from 'components';
+import { Alert, Button, Modal } from 'components/lib';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import Link from 'next/link';

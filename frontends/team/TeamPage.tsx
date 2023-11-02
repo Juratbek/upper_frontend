@@ -1,4 +1,4 @@
-import { Avatar } from 'components';
+import { Avatar } from 'components/lib';
 import { useTheme } from 'hooks';
 import Link from 'next/link';
 

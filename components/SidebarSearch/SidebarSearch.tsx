@@ -3,11 +3,10 @@ import {
   ArticleImg,
   Author,
   BlogSkeleton,
-  Divider,
   SearchInput,
   SidebarSearchArticleSkeleton,
 } from 'components';
-import { SEARCH_RESULTS_SIZE } from 'components/Sidebar/Sidebar.constants';
+import { Divider } from 'components/lib';
 import { useClickOutside, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useMemo, useState } from 'react';
@@ -32,8 +31,8 @@ export const SidebarSearch: FC = () => {
 
   const search = (value: string): void => {
     if (!value || value.length <= 1) return;
-    searchArticle({ search: value, size: SEARCH_RESULTS_SIZE });
-    searchBlog({ search: value, size: SEARCH_RESULTS_SIZE });
+    searchArticle({ search: value, size: 3 });
+    searchBlog({ search: value, size: 3 });
     setInputValue(value);
   };
 

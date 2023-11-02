@@ -1,5 +1,5 @@
-import { Modal } from 'components';
 import { Textarea } from 'components/form';
+import { Modal } from 'components/lib';
 import { Button, Lordicon, Spinner } from 'components/lib';
 import { useModal, useTheme } from 'hooks';
 import { FC, useEffect, useMemo, useState } from 'react';

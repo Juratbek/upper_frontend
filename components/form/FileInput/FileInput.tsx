@@ -1,4 +1,4 @@
-import { Button } from 'components';
+import { Button } from 'components/lib';
 import { useTheme } from 'hooks';
 import { ChangeEvent, forwardRef, useState } from 'react';
 

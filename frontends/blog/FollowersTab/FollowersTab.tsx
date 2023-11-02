@@ -1,4 +1,5 @@
-import { BlogSkeleton, Follower, StorysetImage } from 'components';
+import { BlogSkeleton, Follower } from 'components';
+import { StorysetImage } from 'components/lib';
 import { useInfiniteScrollV2 } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';

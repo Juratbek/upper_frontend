@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Spinner } from 'components';
+import { Spinner } from 'components/lib';
 import { useAuth, useTheme } from 'hooks';
 import { forwardRef, useEffect, useId, useImperativeHandle, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { CreateLabelForm } from 'frontends/create-label';
 
 const CreateLabelPage = (): JSX.Element => {

@@ -1,5 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
-import { ApiErrorBoundary, Button, Editor, Head } from 'components';
+import { ApiErrorBoundary, Editor } from 'components';
+import { Button, Head } from 'components/lib';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, ReactNode, useEffect, useMemo, useState } from 'react';

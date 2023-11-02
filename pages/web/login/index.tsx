@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { LoginPage } from 'frontends/login';
 import { useAuth } from 'hooks';
 import { NextPage } from 'next';

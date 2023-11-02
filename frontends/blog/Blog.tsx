@@ -1,4 +1,5 @@
-import { Alert, Blog, Button, Head, Modal, TabBody, TabsHeader } from 'components';
+import { Blog } from 'components';
+import { Alert, Button, Head, Modal, TabBody, TabsHeader } from 'components/lib';
 import { useAuth, useDevice, useModal } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

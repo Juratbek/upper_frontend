@@ -1,4 +1,4 @@
-import { Head } from 'components';
+import { Head } from 'components/lib';
 import { Contacts } from 'frontends/contacts';
 import { NextPage } from 'next';
 

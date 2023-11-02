@@ -1,8 +1,6 @@
 import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
-import { useAppDispatch } from 'store';
-import { closeSidebar } from 'store/states';
 import { addAmazonUri } from 'utils';
 import { getClassName } from 'utils/common';
 import { WEB_APP_ROOT_DIR } from 'variables';
@@ -17,13 +15,9 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
   author,
   imgUrl,
 }) => {
-  const dispatch = useAppDispatch();
   const rootClassName = getClassName(className, classes['sidebar-article']);
-  const closeSidebarHandler = (): void => {
-    dispatch(closeSidebar());
-  };
   return (
-    <div className={rootClassName} onClick={closeSidebarHandler}>
+    <div className={rootClassName}>
       <div className={classes.body}>
         <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`} className={classes.title + ' link'}>
           <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />

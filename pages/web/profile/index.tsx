@@ -1,5 +1,6 @@
-import { Alert, ApiErrorBoundary, Avatar, Button, Error } from 'components';
+import { ApiErrorBoundary } from 'components';
 import { FileInput, Input, Textarea } from 'components/form';
+import { Alert, Avatar, Button, Error } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';

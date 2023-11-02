@@ -1,4 +1,4 @@
-import { Avatar } from 'components';
+import { Avatar } from 'components/lib';
 import { useModal, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';

@@ -1,4 +1,4 @@
-import { Divider, Spinner } from 'components';
+import { Divider, Spinner } from 'components/lib';
 import { useClickOutside, useTheme } from 'hooks';
 import { FC, Fragment, useMemo, useState } from 'react';
 

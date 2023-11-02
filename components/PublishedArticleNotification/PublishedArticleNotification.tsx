@@ -1,4 +1,5 @@
-import { Actions, Avatar, IAction } from 'components';
+import { Actions, IAction } from 'components';
+import { Avatar } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
 import { INotificationComponentProp } from 'types';

@@ -1,5 +1,6 @@
-import { Alert, Button, Error, PasswordValidityLevel } from 'components';
+import { PasswordValidityLevel } from 'components';
 import { Input } from 'components/form';
+import { Alert, Button, Error } from 'components/lib';
 import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

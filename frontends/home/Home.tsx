@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, ArticleSkeleton, PublishedArticle } from 'components';
+import { ApiErrorBoundary, ArticleSkeleton } from 'components';
+import { PublishedArticle } from 'components/lib';
 import { Divider } from 'components/lib';
 import { useAuth, useInfiniteScroll, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';

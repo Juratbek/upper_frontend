@@ -1,4 +1,4 @@
-import { Spinner } from 'components';
+import { Spinner } from 'components/lib';
 import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getClassName } from 'utils';

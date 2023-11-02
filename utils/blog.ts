@@ -1,4 +1,4 @@
-import { IHeadProps } from 'components';
+import { IHeadProps } from 'components/lib';
 import { BLOG_BUCKET_URL } from 'store/apis';
 import { IBlog, ILink, TIcon } from 'types';
 

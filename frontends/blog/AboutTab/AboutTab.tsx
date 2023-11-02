@@ -1,4 +1,5 @@
-import { ApiErrorBoundary, Divider } from 'components';
+import { ApiErrorBoundary } from 'components';
+import { Divider } from 'components/lib';
 import { useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';

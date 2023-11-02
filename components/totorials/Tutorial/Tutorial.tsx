@@ -1,4 +1,4 @@
-import { Status } from 'components';
+import { Status } from 'components/lib';
 import Link from 'next/link';
 import { FC } from 'react';
 import { toDateString } from 'utils';

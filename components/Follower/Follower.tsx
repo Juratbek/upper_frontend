@@ -1,4 +1,4 @@
-import { Avatar } from 'components';
+import { Avatar } from 'components/lib';
 import Link from 'next/link';
 import { FC } from 'react';
 import { WEB_APP_ROOT_DIR } from 'variables';

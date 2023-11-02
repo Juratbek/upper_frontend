@@ -1,4 +1,5 @@
-import { AuthButton, GoogleAuthScript, Modal } from 'components';
+import { AuthButton, GoogleAuthScript } from 'components';
+import { Modal } from 'components/lib';
 import { FC, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { closeAuthModal, getAuthModalTitle, getIsAuthModalOpen } from 'store/states';

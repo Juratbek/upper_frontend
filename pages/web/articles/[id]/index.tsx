@@ -1,6 +1,5 @@
 import { GenericWrapper } from 'components/wrappers';
-import { Article } from 'frontends/article';
-import { useDevice } from 'hooks';
+import { ArticlePageMain } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
 import { wrapper } from 'store';
 import { publishedArticleApi } from 'store/apis';
@@ -9,18 +8,16 @@ import { appDynamic, get } from 'utils';
 
 export interface IArticlePageProps {
   article: IArticle | null;
-  error: IResponseError;
+  error: IResponseError | null;
   fullUrl: string;
 }
 
 const DynamicComments = appDynamic(() => import('components/Comments'));
 
 const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
-  const { isMobile } = useDevice();
-
   return (
     <GenericWrapper sidebar={null} navigation={null}>
-      <Article {...props} showAuthor={isMobile} />
+      <ArticlePageMain {...props} />
       <DynamicComments />
     </GenericWrapper>
   );
@@ -32,13 +29,13 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
     const url = context.req.url;
 
     const articleId = get<number>(context, 'query.id');
-    const { data: article, error = {} } = await store.dispatch(
+    const { data: article, error } = await store.dispatch(
       publishedArticleApi.endpoints.getById.initiate({ id: articleId }, { forceRefetch: 5 }),
     );
     return {
       props: {
         article: article ?? null,
-        error: error as IResponseError,
+        error: (error as IResponseError) ?? null,
         fullUrl: `https://${host}${url}`,
       },
     };

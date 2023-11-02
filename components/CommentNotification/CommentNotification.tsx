@@ -1,4 +1,4 @@
-import { Link } from 'components';
+import { Link } from 'components/lib';
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
 import { dateInterval, getClassName } from 'utils';

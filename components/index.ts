@@ -1,4 +1,3 @@
-export * from './Sidebar/Sidebar';
 export * from './Actions';
 export * from './Author/Author';
 export * from './Blog/Blog';
@@ -27,7 +26,6 @@ export * from './Recaptcha/Recaptcha';
 export * from './WithPopover';
 export * from './MessageNotification';
 export * from './totorials';
-export * from './lib';
 export * from './SidebarTutorial';
 export * from './GoogleAuthScript';
 export * from './GitHubSignIn';

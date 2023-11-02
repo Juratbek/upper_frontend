@@ -1,5 +1,5 @@
-import { Button, Error } from 'components';
 import { Textarea } from 'components/form';
+import { Button, Error } from 'components/lib';
 import { useDevice } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, FormEvent, useCallback, useEffect } from 'react';
