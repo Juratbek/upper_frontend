@@ -3,23 +3,26 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { useContinueWithGoogleMutation } from 'store/apis';
+import { useContinueWithGoogle } from 'store/clients/blog';
 import { closeAuthModal } from 'store/states';
 
 import { IGoogleSignInRes } from './GoogleAuthScript.types';
 
 export const GoogleAuthScript: FC = () => {
-  const [continueWithGoogle] = useContinueWithGoogleMutation();
   const dispatch = useDispatch();
   const { authenticate, isAuthenticated } = useAuth();
+  const { mutate: continueWithGoogle } = useContinueWithGoogle({
+    onSuccess: (res) => {
+      authenticate(res);
+      dispatch(closeAuthModal());
+    },
+  });
   const {
     query: { code },
   } = useRouter();
 
   const callback = async (googleResponse: IGoogleSignInRes): Promise<void> => {
-    const res = await continueWithGoogle(googleResponse.credential).unwrap();
-    authenticate(res);
-    dispatch(closeAuthModal());
+    continueWithGoogle(googleResponse.credential);
   };
 
   const onLoadHandler = (): void => {

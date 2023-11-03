@@ -9,8 +9,9 @@ import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
+import { QueryClientProvider } from 'react-query';
 import { wrapper } from 'store';
-import { useLazyGetCurrentBlogQuery } from 'store/apis';
+import { queryClient } from 'store/config';
 import { IServerSideContext, TTheme } from 'types';
 import { appDynamic } from 'utils';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
@@ -19,12 +20,12 @@ const DynamicAuthModal = appDynamic(() => import('components/shared/AuthModal'))
 
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <DynamicAuthModal />
       <Header />
       <Component {...pageProps} />
       <Footer />
-    </>
+    </QueryClientProvider>
   );
 }
 
@@ -38,9 +39,7 @@ function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
 
 function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
-  const { getToken, getRefreshToken, authenticateTokens, unauthenticate, setCurrentBlog } =
-    useAuth();
-  const [fetchCurrentBlog] = useLazyGetCurrentBlogQuery();
+  const { getToken, getRefreshToken, authenticateTokens, unauthenticate } = useAuth();
   const { themeColors, theme } = useTheme();
   const { isMobile } = useDevice();
 
@@ -51,7 +50,6 @@ function MyApp(props: AppProps): JSX.Element {
     const refreshToken = getRefreshToken() || '';
     if (token) {
       authenticateTokens({ token, refreshToken });
-      fetchCurrentBlog().unwrap().then(setCurrentBlog);
     } else {
       unauthenticate();
     }

@@ -1,0 +1,44 @@
+
+.w-0 {
+    width: 0;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.w-40 {
+    width: 40%;
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.w-80 {
+    width: 80%;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-mobile-100 {
+    @include screenMax576 {
+        width: 100%;
+    }
+}
+
+.w-mobile-75 {
+    @include screenMax576 {
+        width: 75%;
+    }
+}

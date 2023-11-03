@@ -9,5 +9,4 @@ export interface ICurrentBlog {
 export interface IAuthState {
   status: TAuthStatus;
   isAuthenticated: boolean | null;
-  currentBlog?: ICurrentBlog;
 }

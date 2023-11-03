@@ -1,8 +1,8 @@
 import { TabButton } from 'components/lib';
 import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useRef } from 'react';
-import { useLazyGetCurrentBlogLabelsQuery } from 'store/apis';
+import { useMemo, useRef } from 'react';
+import { useGetCurrentBlogLabels } from 'store/clients/blog';
 import { ICONS } from 'variables';
 
 import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from '../../Home.constants';
@@ -15,7 +15,7 @@ export const Labels = (): JSX.Element => {
   const { setParam } = useUrlParams();
   const { query } = useRouter();
   const labelsContainerRef = useRef<HTMLDivElement>(null);
-  const [fetchCurrentBlogLabels, fetchCurrentBlogLabelsRes] = useLazyGetCurrentBlogLabelsQuery();
+  const fetchCurrentBlogLabelsRes = useGetCurrentBlogLabels();
 
   const labelSelectHandler = (id: number | string) => (): void => {
     setParam(LABEL_ID_PARAM, id);
@@ -26,15 +26,11 @@ export const Labels = (): JSX.Element => {
 
     if (isAuthenticated) labels.unshift(ForYouLabel);
 
-    const { data, isSuccess } = fetchCurrentBlogLabelsRes;
-    if (isSuccess) labels.push(...data);
+    const { data } = fetchCurrentBlogLabelsRes;
+    if (data?.length) labels.push(...data);
 
     return labels;
   }, [isAuthenticated, fetchCurrentBlogLabelsRes]);
-
-  useEffect(() => {
-    isAuthenticated && fetchCurrentBlogLabels();
-  }, [isAuthenticated]);
 
   const moveLabelsRight = (): void => {
     const labelsContainer = labelsContainerRef.current;

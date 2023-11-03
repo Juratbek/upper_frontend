@@ -180,15 +180,9 @@ export const {
   useLazyGetDonatCredentialsQuery: useLazyGetBlogDonatCredentialsQuery,
   useLazyGetByEmailQuery: useLazyBlogsGetByEmailQuery,
   // mutations
-  useLoginMutation,
-  useRegisterMutation,
-  useContinueWithGoogleMutation,
-  useGetTelegramAccountConnectedBlogsMutation,
-  useLoginWithTelegramMutation,
   useChangePasswordMutation,
   useChangeLoginMutation,
   useSendEmailConfirmationForPasswordMutation,
   useChangeCredentialsMutation,
   useChangeDonatCredentialsMutation,
-  useContinueWithGitHubMutation,
 } = blogApi;

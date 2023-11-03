@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from 'store';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
-  getCurrentBlog,
   getIsAuthenticated,
   setCurrentBlog as setStoreCurrentBlog,
   unauthenticate as storeUnauthenticate,
@@ -24,7 +23,6 @@ export const useAuth = (): IUseAuth => {
   const dispatch = useAppDispatch();
   const { signIn, signOut } = useNextAuth();
   const status = useAppSelector(getAuthStatus);
-  const currentBlog = useAppSelector(getCurrentBlog);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
   const isLoading = useMemo(() => status === 'loading', [status]);
   const {
@@ -80,7 +78,6 @@ export const useAuth = (): IUseAuth => {
     status,
     isAuthenticated,
     isLoading,
-    currentBlog,
     authenticate,
     unauthenticate,
     authenticateTokens,

@@ -1,77 +1,43 @@
-import { ApiErrorBoundary, ArticleSkeleton } from 'components';
-import { PublishedArticle } from 'components/lib';
+import { Button, PublishedArticle } from 'components/lib';
 import { Divider } from 'components/lib';
-import { useAuth, useInfiniteScroll, useUrlParams } from 'hooks';
+import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC, Fragment, useEffect } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { useLazyGetPublishedArticlesByLabelQuery } from 'store/apis';
-import { IArticleResult } from 'types';
-import { addUriToArticleImages } from 'utils';
-import { ARTICLES_SKELETON_COUNT } from 'variables';
+import { FC, Fragment } from 'react';
+import { usePublishedArticlesList } from 'store/clients/published-article';
+import { IPublishedArticleItem } from 'types';
+import { addAmazonBucketUrl } from 'utils/published-article';
 
 import { Labels } from './components';
-import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './Home.constants';
+import { LABEL_ID_PARAM, TopLabel } from './Home.constants';
 
 export const HomePage: FC = () => {
-  const { isAuthenticated, isLoading } = useAuth();
-  const { query, isReady } = useRouter();
-  const { label } = query;
-  const { setParam } = useUrlParams();
-  const [fetchArticles, fetchArticlesRes, fetchNextArticlesPage] =
-    useInfiniteScroll<IArticleResult>(useLazyGetPublishedArticlesByLabelQuery, {
-      removeDublicates: true,
-      itemUniqueKey: 'id',
-    });
-  const { list: articles, hasMore } = fetchArticlesRes;
-
-  const fetchNextPage = (): Promise<void> => fetchNextArticlesPage({ label });
-
-  useEffect(() => {
-    fetchArticles({ label, page: 0 }, { reset: true });
-  }, [label]);
-
-  useEffect(() => {
-    if (isLoading || !isReady) return;
-    if (label) {
-      fetchArticles({ label, page: 0 });
-      return;
-    }
-
-    if (isAuthenticated) {
-      setParam(LABEL_ID_PARAM, ForYouLabel.id);
-      fetchArticles({ label: ForYouLabel.id, page: 0 });
-      return;
-    }
-    setParam(LABEL_ID_PARAM, TopLabel.id);
-    fetchArticles({ label: TopLabel.id, page: 0 });
-  }, [isAuthenticated, isLoading, isReady]);
+  const { isReady } = useRouter();
+  const { getParam } = useUrlParams();
+  const label = getParam(LABEL_ID_PARAM) ?? TopLabel.id;
+  const { data, fetchNextPage, isFetchingNextPage } = usePublishedArticlesList(label as string, {
+    enabled: typeof label === 'string' && isReady,
+  });
+  const { pages = [] } = data ?? {};
+  const articles = pages.reduce<IPublishedArticleItem[]>((res, page) => [...res, ...page.list], []);
 
   return (
     <>
       <Labels />
-      <ApiErrorBoundary
-        fallback={<ArticleSkeleton className='p-2' />}
-        fallbackItemCount={ARTICLES_SKELETON_COUNT}
-        res={fetchArticlesRes}
-        className='tab'
+      {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
+      {articles.map(addAmazonBucketUrl).map((article) => (
+        <Fragment key={article.id}>
+          <Divider color='secondary' />
+          <PublishedArticle article={article} author={article.author} />
+        </Fragment>
+      ))}
+      <Button
+        className='w-100'
+        onClick={fetchNextPage}
+        loading={isFetchingNextPage}
+        loader='Yuklanmoqda...'
       >
-        <InfiniteScroll
-          hasMore={hasMore}
-          loader={<ArticleSkeleton className='p-2' />}
-          dataLength={articles.length}
-          next={fetchNextPage}
-          scrollableTarget='main'
-        >
-          {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
-          {addUriToArticleImages(articles).map((article) => (
-            <Fragment key={article.id}>
-              <Divider color='secondary' />
-              <PublishedArticle article={article} author={article.author} />
-            </Fragment>
-          ))}
-        </InfiniteScroll>
-      </ApiErrorBoundary>
+        Yana yuklash
+      </Button>
     </>
   );
 };
