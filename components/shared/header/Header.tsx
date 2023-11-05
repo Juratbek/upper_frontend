@@ -3,7 +3,7 @@ import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useTheme } from 'hooks';
 import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
 import { FC, useCallback, useRef } from 'react';
-import { useCreateArticleMutation } from 'store/apis';
+import { useCreateArticle } from 'store/clients/article';
 import { ICONS } from 'variables';
 
 import { Profile } from '../profile';
@@ -14,16 +14,15 @@ const Logo = ICONS.logo;
 export const Header: FC = () => {
   const { themeColors } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [createArticle, createArticleRes] = useCreateArticleMutation();
   const { push } = useAppRouter();
+  const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
+    onSuccess: (id) => push(`/user/articles/${id}`),
+  });
+  // const [createArticle, createArticleRes] = useCreateArticleMutation();
 
   const createArticleHandler = useCallback(async () => {
-    try {
-      const res = await createArticle({ blocks: [], labels: [], title: '' }).unwrap();
-      push(`/user/articles/${res.id}`);
-    } catch (err) {
-      alert('Maqola yaratishda xatolik yuz berdi');
-    }
+    createArticle({ blocks: [], labels: [], title: '' });
+    // push(`/user/articles/${res.id}`);
   }, []);
 
   return (

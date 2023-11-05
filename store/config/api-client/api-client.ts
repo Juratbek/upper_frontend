@@ -24,7 +24,9 @@ class Client {
     }
   }
 
-  async post<TBody extends BodyInit, TResponse>(config: IPostConfig<TBody>): Promise<TResponse> {
+  async post<TBody extends BodyInit | null | undefined, TResponse>(
+    config: IPostConfig<TBody>,
+  ): Promise<TResponse> {
     try {
       const res = await this.fetch(config.path, { method: 'post', body: config.body });
       const data = await res.json();
