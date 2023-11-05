@@ -1,8 +1,9 @@
-interface IMutationConfig<TData> {
-  onSuccess?: (data: TData) => void;
+export interface IMutationConfig<TData> {
+  onSuccess?: (data: TData) => Promise<unknown> | void;
+  enabled?: boolean;
 }
 
-interface IMutationResult<TData = unknown, TBody = unknown> {
+export interface IMutationResult<TData = unknown, TBody = unknown> {
   data?: TData;
   error: unknown;
   isError: boolean;
@@ -10,8 +11,8 @@ interface IMutationResult<TData = unknown, TBody = unknown> {
   isLoading: boolean;
   isPaused: boolean;
   isSuccess: boolean;
-  mutate: (boady: TBody) => void;
-  reset: () => void;
+  mutate: (body: TBody) => unknown;
+  reset: () => unknown;
   status: 'idle' | 'loading' | 'error' | 'success';
 }
 

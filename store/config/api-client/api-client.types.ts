@@ -1,8 +1,14 @@
-type TContentType = 'application/json';
+type TDataFormat = 'application/json;charset=UTF-8';
+
+export interface IHeaders {
+  Accept: TDataFormat;
+  contentType?: TDataFormat;
+  Authorization?: string;
+}
 
 export interface IConfig {
   baseUrl: string;
-  contentType?: TContentType;
+  headers?: HeadersInit;
 }
 
 export interface IPostConfig<TBody> {

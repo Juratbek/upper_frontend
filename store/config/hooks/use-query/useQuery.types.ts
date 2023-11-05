@@ -1,8 +1,9 @@
-interface IQueryConfig {
+export interface IQueryConfig<TData = unknown> {
   enabled?: boolean;
+  onSuccess?: (data: TData) => unknown;
 }
 
-interface IQeuryResult<TData> {
+export interface IQeuryResult<TData = unknown> {
   data?: TData;
   error: unknown;
   failureCount: number;
