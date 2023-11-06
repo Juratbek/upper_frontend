@@ -1,20 +1,19 @@
 import { useTheme, useUrlParams } from 'hooks';
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Pagination.module.scss';
 import { IPagesProps } from './Pagination.types';
 
-export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) => {
-  const [acitvePage, setActivePage] = useState(1);
+export const Pagination: FC<IPagesProps> = ({ count, activePage, onPageChange, ...props }) => {
   const totalPages = useMemo(() => Math.ceil(count), [count]);
   const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
   const { setParam } = useUrlParams();
   const { themeColors } = useTheme();
-  const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
+  const prevClassName = getClassName(classes.page, activePage === 0 && classes['page--disabled']);
   const nextClassName = getClassName(
     classes.page,
-    acitvePage === totalPages && classes['page--disabled'],
+    activePage === totalPages && classes['page--disabled'],
   );
 
   const clickHandler = (page: number): void => {
@@ -22,13 +21,12 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   };
 
   const addPage = (count: number): void => {
-    changeActivePage(acitvePage + count);
+    changeActivePage(activePage + count);
   };
 
   const changeActivePage = (page: number): void => {
     if (page < 1 || page > totalPages) return;
-    setActivePage(page);
-    onPageChange?.(page);
+    onPageChange?.(page - 1);
     setParam('page', page);
   };
 
@@ -37,27 +35,24 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   return (
     <div className={`${classes.container} ${props.className}`}>
       <div
-        style={acitvePage === 1 ? {} : { borderColor: themeColors.pagination.border }}
+        style={activePage === 1 ? {} : { borderColor: themeColors.pagination.border }}
         className={prevClassName}
         onClick={(): void => addPage(-1)}
       >
         &#8249;
       </div>
-      {arr.map((_, index) => {
-        const page = index + 1;
-        return (
-          <div
-            key={page}
-            onClick={(): void => clickHandler(page)}
-            className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
-            style={page === acitvePage ? {} : { borderColor: themeColors.pagination.border }}
-          >
-            {page}
-          </div>
-        );
-      })}
+      {arr.map((_, index) => (
+        <div
+          key={index}
+          onClick={(): void => clickHandler(index)}
+          className={`${classes.page} ${index === activePage && classes['page--active']}`}
+          style={index === activePage ? {} : { borderColor: themeColors.pagination.border }}
+        >
+          {index + 1}
+        </div>
+      ))}
       <div
-        style={acitvePage === totalPages ? {} : { borderColor: themeColors.pagination.border }}
+        style={activePage === totalPages ? {} : { borderColor: themeColors.pagination.border }}
         className={nextClassName}
         onClick={(): void => addPage(1)}
       >

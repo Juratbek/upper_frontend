@@ -62,7 +62,12 @@ const SavedArticlesTab: FC = () => {
       </ApiErrorBoundary>
       <div className='text-center'>
         {data?.totalPages && (
-          <Pagination count={data.totalPages} className='my-3' onPageChange={changePage} />
+          <Pagination
+            activePage={parseInt(page as string)}
+            count={data.totalPages}
+            className='my-3'
+            onPageChange={changePage}
+          />
         )}
       </div>
     </div>
