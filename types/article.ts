@@ -17,7 +17,6 @@ export interface IArticleResult extends IArticleSmall {
   content: string;
   status: TArticleStatus;
   imgUrl: string;
-  author: IBlogSmall;
 }
 
 export interface IArticle extends IArticleSmall {

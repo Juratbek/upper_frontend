@@ -16,4 +16,5 @@ export type TRtkError = FetchBaseQueryError | SerializedError | undefined;
 export interface IPagingResponse<T> {
   list: T[];
   totalItemCount: number;
+  totalPages?: number;
 }

@@ -4,8 +4,8 @@ import PublishedArticlesTab from './PublishedArticlesTab/PublishedArticlesTab';
 import SavedArticlesTab from './SavedArticlesTab/SavedArticlesTab';
 
 export const TAB_IDS = {
-  publishedArticles: 'publishedArticles',
-  savedArticles: 'savedArticles',
+  publishedArticles: 'published',
+  savedArticles: 'saved',
 };
 
 export const ARTICLES_TAB_MENUS: ITabHeader[] = [

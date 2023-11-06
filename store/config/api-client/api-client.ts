@@ -52,7 +52,6 @@ class Client {
     if (token) {
       config.headers = { ...this.#config.headers, ...config.headers, Authorization: token };
     }
-    console.log('🚀 ~ file: api-client.ts:44 ~ Client ~ fetch ~ config:', config.headers);
     return fetch(fullUrl, config);
   }
 }

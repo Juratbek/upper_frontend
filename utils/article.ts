@@ -1,7 +1,7 @@
 import { OutputBlockData } from '@editorjs/editorjs';
 import { IHeadProps } from 'components/lib';
 import { ARTICLE_BUCKET_URL } from 'store/apis';
-import { IArticle, ISidebarArticle } from 'types';
+import { IArticle } from 'types';
 import { BLOCK_TYPES } from 'variables';
 
 import { compressDataImage, compressUnsplashImage } from './image';
@@ -32,7 +32,7 @@ export const addAmazonBucketUriToArticle = <T extends { imgUrl: string }>(articl
   return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
 };
 
-export const addUriToArticleImages = <T extends ISidebarArticle>(articles: T[] = []): T[] =>
+export const addUriToArticleImages = <T extends { imgUrl: string }>(articles: T[] = []): T[] =>
   articles.map(addAmazonBucketUriToArticle);
 
 export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[] =>

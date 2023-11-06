@@ -1,5 +1,4 @@
 import { HTMLAttributes, ReactNode } from 'react';
-import { TRtkError } from 'types';
 import { Override } from 'utils';
 
 export interface IRes {
@@ -8,8 +7,7 @@ export interface IRes {
   isError?: boolean;
   isSuccess?: boolean;
   isUninitialized?: boolean;
-  error?: TRtkError;
-  [name: string]: unknown;
+  error?: unknown;
 }
 
 export type TApiErrorBoundaryProps = Override<
@@ -19,7 +17,7 @@ export type TApiErrorBoundaryProps = Override<
     fallback?: ReactNode;
     fallbackItemCount?: number;
     memoizationDependencies?: unknown[];
-    onError?: (error: TRtkError) => ReactNode | void;
+    onError?: (error: unknown) => ReactNode | void;
     defaultComponent?: ReactNode;
   }
 >;

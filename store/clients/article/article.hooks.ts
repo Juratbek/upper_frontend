@@ -9,9 +9,9 @@ import {
   useMutation,
   useQuery,
 } from 'store/config';
-import { IArticle } from 'types';
+import { IArticle, IArticleResult, IPagingResponse, TArticleStatus } from 'types';
 
-export const useCreateArticle: TMutationHook<number> = (config) =>
+export const useCreateArticle: TMutationHook<number, void> = (config) =>
   useMutation(
     ['create-article'],
     () =>
@@ -35,4 +35,12 @@ export const useUpdateArticleBlocks = (
     ['update-article', id],
     (article) => apiClient.post({ path: `article/update-blocks/${id}`, body: article.blocks }),
     config,
+  );
+
+export const useBlogArticles = (
+  status: TArticleStatus,
+  page: string,
+): IQeuryResult<IPagingResponse<IArticleResult>> =>
+  useQuery(['saved-articles', status], () =>
+    apiClient.get('article/need-auth/list', { status: status.toUpperCase(), page }),
   );

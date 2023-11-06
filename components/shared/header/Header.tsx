@@ -1,6 +1,6 @@
 import { Button, Link } from 'components/lib';
 import { SearchInput } from 'components/SearchInput/SearchInput';
-import { useTheme } from 'hooks';
+import { useAuth, useTheme } from 'hooks';
 import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
 import { FC, useCallback, useRef } from 'react';
 import { useCreateArticle } from 'store/clients/article';
@@ -13,17 +13,14 @@ const Logo = ICONS.logo;
 
 export const Header: FC = () => {
   const { themeColors } = useTheme();
+  const { isAuthenticated } = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
   const { push } = useAppRouter();
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
     onSuccess: (id) => push(`/user/articles/${id}`),
   });
-  // const [createArticle, createArticleRes] = useCreateArticleMutation();
 
-  const createArticleHandler = useCallback(async () => {
-    createArticle({ blocks: [], labels: [], title: '' });
-    // push(`/user/articles/${res.id}`);
-  }, []);
+  const createArticleHandler = useCallback(() => createArticle(), []);
 
   return (
     <header className={`${classes.header} container`} ref={containerRef}>
@@ -42,7 +39,7 @@ export const Header: FC = () => {
         >
           + Maqola yozish
         </Button>
-        <Profile />
+        {isAuthenticated && <Profile />}
       </div>
     </header>
   );
