@@ -4,20 +4,15 @@ import {
   Divider,
   SidebarArticle,
   SidebarArticleSkeleton,
-  SidebarBlog,
   SidebarSearch,
 } from 'components';
-import { BlogSkeleton } from 'components/skeletons';
 import { useAuth, useDevice, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
-import {
-  useLazyGetSidebarArticleSuggestionsQuery,
-  useLazyGetSidebarBlogSuggestionsQuery,
-} from 'store/apis';
+import { useLazyGetSidebarArticleSuggestionsQuery } from 'store/apis';
 import { closeSidebar, getArticleAuthor, getIsSidebarOpen, openAuthModal } from 'store/states';
-import { addAmazonUri, addUriToArticleImages, getClassName, replaceAll } from 'utils';
+import { addUriToArticleImages, getClassName, replaceAll } from 'utils';
 import { SIDEBAR_ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 import { ConnectTelegram } from './components';
@@ -32,7 +27,6 @@ export const Sidebar = (): JSX.Element => {
   const isSidebarOpen = useAppSelector(getIsSidebarOpen);
   const [fetchArticleSuggestions, articleSuggestionsRes] =
     useLazyGetSidebarArticleSuggestionsQuery();
-  const [fetchBlogSuggestions, blogSuggestionsRes] = useLazyGetSidebarBlogSuggestionsQuery();
   const { isMobile } = useDevice({ isMobile: true });
   const { themeColors } = useTheme();
   const rootClassName = getClassName(
@@ -50,7 +44,6 @@ export const Sidebar = (): JSX.Element => {
 
   useEffect(() => {
     fetchArticleSuggestions();
-    fetchBlogSuggestions();
   }, [isMobile]);
 
   const suggestedArticles = useMemo(() => {
@@ -71,30 +64,6 @@ export const Sidebar = (): JSX.Element => {
       </ApiErrorBoundary>
     );
   }, [articleSuggestionsRes]);
-
-  const suggestedBlogs = useMemo(() => {
-    const { data, isSuccess } = blogSuggestionsRes;
-
-    // if there is no suggested blogs render nothing;
-    if (isSuccess && data.length === 0) return null;
-
-    return (
-      <ApiErrorBoundary
-        fallback={<BlogSkeleton className='my-2' />}
-        fallbackItemCount={SIDEBAR_ARTICLES_SKELETON_COUNT}
-        res={blogSuggestionsRes}
-      >
-        <Divider className='my-2' color='medium-gray' />
-        <h3>Obuna bo&apos;ling</h3>
-        {data?.map((blog, index) => (
-          <div key={blog.id}>
-            <SidebarBlog {...addAmazonUri(blog)} />
-            {index !== data.length - 1 && <Divider className='my-2 w-75 mx-auto' />}
-          </div>
-        ))}
-      </ApiErrorBoundary>
-    );
-  }, [blogSuggestionsRes]);
 
   const content: JSX.Element = useMemo(() => {
     const pathname = router.pathname.replace(WEB_APP_ROOT_DIR, '');
@@ -129,10 +98,9 @@ export const Sidebar = (): JSX.Element => {
         <h3>Siz uchun maqolalar</h3>
         {suggestedArticles}
         <ConnectTelegram />
-        {suggestedBlogs}
       </>
     );
-  }, [router.pathname, isAuthenticated, articleAuthor, suggestedArticles, suggestedBlogs]);
+  }, [router.pathname, isAuthenticated, articleAuthor, suggestedArticles]);
 
   return (
     <div className={rootClassName}>
