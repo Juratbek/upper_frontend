@@ -24,7 +24,7 @@ const writeArticleSlice = createSlice({
     },
     setLabels(state, { payload }: PayloadAction<string[]>) {
       if (state.article) {
-        state.article.labels = payload;
+        state.article.tags = payload;
       }
     },
   },

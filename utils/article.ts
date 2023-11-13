@@ -7,7 +7,7 @@ import { BLOCK_TYPES } from 'variables';
 import { compressDataImage, compressUnsplashImage } from './image';
 
 export const validateArticle = ({
-  labels,
+  tags,
   blocks,
 }: IArticle): { message: string; reason?: 'image' | 'title' | 'labels'; isValid: boolean } => {
   // check if article has a title
@@ -20,7 +20,7 @@ export const validateArticle = ({
     };
 
   // check if article has selected labels
-  if (labels.length === 0)
+  if (tags.length === 0)
     return { message: 'Iltimos teglarni tanlang', reason: 'labels', isValid: false };
   // return valid
   return { message: '', isValid: true };
