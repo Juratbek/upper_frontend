@@ -12,14 +12,14 @@ import { IArticleResult } from 'types';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT } from 'variables';
 
-import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './Home.constants';
+import { FOR_YOU, LABEL_ID_PARAM, TOP } from './Home.constants';
 import classes from './Home.module.scss';
 
 export const HomePage: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
   const { theme } = useTheme();
   const { query, isReady } = useRouter();
-  const { label } = query;
+  const { tag } = query;
   const { setParam } = useUrlParams();
   const [fetchCurrentBlogLabels, fetchCurrentBlogLabelsRes] = useLazyGetCurrentBlogLabelsQuery();
   const [fetchArticles, fetchArticlesRes, fetchNextArticlesPage] =
@@ -31,10 +31,10 @@ export const HomePage: FC = () => {
 
   const labelSelectHandler = (id: number | string): void => {
     setParam(LABEL_ID_PARAM, id);
-    fetchArticles({ label: id, page: 0 }, { reset: true });
+    fetchArticles({ tag: id, page: 0 }, { reset: true });
   };
 
-  const fetchNextPage = (): Promise<void> => fetchNextArticlesPage({ label });
+  const fetchNextPage = (): Promise<void> => fetchNextArticlesPage({ tag });
 
   useEffect(() => {
     isAuthenticated && fetchCurrentBlogLabels();
@@ -42,24 +42,24 @@ export const HomePage: FC = () => {
 
   useEffect(() => {
     if (isLoading || !isReady) return;
-    if (label) {
-      fetchArticles({ label, page: 0 });
+    if (tag) {
+      fetchArticles({ tag, page: 0 });
       return;
     }
 
     if (isAuthenticated) {
-      setParam(LABEL_ID_PARAM, ForYouLabel.id);
-      fetchArticles({ label: ForYouLabel.id, page: 0 });
+      setParam(LABEL_ID_PARAM, FOR_YOU);
+      fetchArticles({ tag: FOR_YOU, page: 0 });
       return;
     }
-    setParam(LABEL_ID_PARAM, TopLabel.id);
-    fetchArticles({ label: TopLabel.id, page: 0 });
+    setParam(LABEL_ID_PARAM, TOP);
+    fetchArticles({ tag: TOP, page: 0 });
   }, [isAuthenticated, isLoading, isReady]);
 
   const labels = useMemo(() => {
-    const labels: { id: number | string; name: string }[] = [TopLabel];
+    const labels: string[] = [TOP];
 
-    if (isAuthenticated) labels.unshift(ForYouLabel);
+    if (isAuthenticated) labels.unshift(FOR_YOU);
 
     const { data, isSuccess } = fetchCurrentBlogLabelsRes;
     if (isSuccess) labels.push(...data);
@@ -74,13 +74,13 @@ export const HomePage: FC = () => {
       <div className={`${classes['labels-container']} ${classes[theme]}`}>
         {labels.map((label) => (
           <Button
-            onClick={(): void => labelSelectHandler(label.id)}
+            onClick={(): void => labelSelectHandler(label)}
             size='small'
-            color={query.label === label.id.toString() ? 'dark' : 'outline-dark'}
+            color={query.tag === label ? 'dark' : 'outline-dark'}
             className={classes['label-buttons']}
-            key={label.id}
+            key={label}
           >
-            {label.name}
+            {label}
           </Button>
         ))}
       </div>

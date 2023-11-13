@@ -1,5 +1,5 @@
-export const ForYouLabel = { name: 'Siz uchun', id: 'for-you' };
+export const FOR_YOU = 'Siz uchun';
 
-export const TopLabel = { name: 'Top', id: 'top' };
+export const TOP = 'top';
 
-export const LABEL_ID_PARAM = 'label';
+export const LABEL_ID_PARAM = 'tag';

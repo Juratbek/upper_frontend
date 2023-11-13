@@ -4,7 +4,6 @@ import {
   IBlog,
   IBlogMedium,
   IBlogSmall,
-  ILabel,
   ITelegramUser,
   TOptionalPagingRequest,
 } from 'types';
@@ -150,14 +149,14 @@ export const blogApi = createApi({
       query: (credentials) => ({
         url: 'change-donat-credentials',
         method: 'PUT',
-        body: credentials || {},
+        body: credentials ?? {},
       }),
     }),
     getDonatCredentials: build.query<IBlogDonatCredentialsDto, number>({
       query: (id) => `donat-credentials/${id}`,
     }),
-    getCurrentBlogLabels: build.query<ILabel[], void>({
-      query: () => 'current-blog-labels',
+    getCurrentBlogLabels: build.query<string[], void>({
+      query: () => 'current-blog-tags',
     }),
     getAuthCode: build.query<string, void>({
       query: () => 'get-auth-code',
