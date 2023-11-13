@@ -1,6 +1,6 @@
 import EditorJS from '@editorjs/editorjs';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IArticle, ILabel } from 'types';
+import { IArticle } from 'types';
 
 interface IWriteArticleState {
   editor: EditorJS | null;
@@ -22,7 +22,7 @@ const writeArticleSlice = createSlice({
     setArticle(state, { payload }: PayloadAction<IArticle | null>) {
       state.article = payload;
     },
-    setLabels(state, { payload }: PayloadAction<ILabel[]>) {
+    setLabels(state, { payload }: PayloadAction<string[]>) {
       if (state.article) {
         state.article.labels = payload;
       }

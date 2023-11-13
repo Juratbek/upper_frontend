@@ -2,9 +2,11 @@ import {
   AddFolderIcon,
   BurgerIcon,
   CalendarIcon,
+  Close,
   CommentIcon,
   DeleteIcon,
   DislikeIcon,
+  Done,
   EyeIcon,
   EyeSlashIcon,
   FacebookIcon,
@@ -87,6 +89,8 @@ export const ICON_TYPES = {
   uploadError: 'uploadError',
   uploadSuccess: 'uploadSuccess',
   telegramChannel: 'telegramChannel',
+  close: 'close',
+  done: 'done',
 };
 
 export const SOCIAL_MEDIA_ICONS = [
@@ -142,4 +146,6 @@ export const ICONS: Record<TIcon, TIconComponent> = {
   uploadError: UploadError,
   uploadSuccess: UploadSuccess,
   telegramChannel: TelegramChannel,
+  close: Close,
+  done: Done,
 };

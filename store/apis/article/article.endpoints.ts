@@ -3,7 +3,7 @@ import {
   EndpointBuilder,
   MutationDefinition,
 } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { IArticle, ILabel } from 'types';
+import { IArticle } from 'types';
 
 import { TBaseQuery } from '../config';
 import { ICreateArticleDto } from './article.types';
@@ -54,10 +54,10 @@ export const updateBlocks = (
 
 export const updateLabels = (
   build: TArticleEndpointBuilder,
-): TArticleMutationDefinition<IArticle, { id: number; labels: ILabel[] }> =>
+): TArticleMutationDefinition<IArticle, { id: number; labels: string[] }> =>
   build.mutation({
     query: ({ id, labels }) => ({
-      url: `update-labels/${id}`,
+      url: `update-tags/${id}`,
       method: 'POST',
       body: labels,
     }),

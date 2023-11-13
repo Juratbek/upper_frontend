@@ -109,6 +109,15 @@
   }
 }
 
+.default-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.unset-all {
+  all: unset;
+}
+
 // form
 .form--medium {
   width: 30rem;

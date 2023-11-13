@@ -29,7 +29,7 @@ export interface IArticle extends IArticleSmall {
   blocks: OutputBlockData[];
   imgUrl: string;
   author?: IBlogSmall;
-  labels: ILabel[];
+  tags: string[];
   publishedDate?: string;
   updatedDate?: string;
   viewCount: number;
