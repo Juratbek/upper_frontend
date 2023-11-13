@@ -1,4 +1,5 @@
 import { Input, Spinner } from 'components';
+import { useTheme } from 'hooks';
 import {
   ChangeEvent,
   FC,
@@ -28,8 +29,10 @@ export const LabelSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], .
   const [isOptionsContainerOpen, setIsOptionsContainerOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const { theme, themeColors } = useTheme();
 
   const selectOption = (label: string): void => {
+    if (!label || label.length < 1) return;
     setSelectedValues((prev) => {
       const set = new Set(prev);
       set.add(label);
@@ -115,10 +118,10 @@ export const LabelSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], .
         ))}
       </ul>
     );
-  }, [searchLabelsRes]);
+  }, [searchLabelsRes, selectOption]);
 
   return (
-    <div className={classes.root} ref={ref}>
+    <div className={`${classes.root} ${classes[theme]}`} ref={ref}>
       <ul
         className={`${classes['selected-labels']} default-list ${
           selectedValues.length ? 'my-1' : 'm-0'
@@ -128,7 +131,7 @@ export const LabelSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], .
           <li key={value} className={classes['selected-label']}>
             <span className={classes.text}>{value}</span>
             <span className={classes.icon} onClick={(): void => removeSelectedLabel(value)}>
-              <CloseIcon />
+              <CloseIcon color={themeColors.icon} />
             </span>
           </li>
         ))}
@@ -145,8 +148,8 @@ export const LabelSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], .
           placeholder={props.inputPlacegolder}
           onKeyDown={keydownHandler}
         />
-        <button className={classes['add-btn']}>
-          <DoneIcon />
+        <button className={classes['add-btn']} onClick={(): void => selectOption(inputValue ?? '')}>
+          <DoneIcon color={themeColors.icon} />
         </button>
       </div>
       <div
