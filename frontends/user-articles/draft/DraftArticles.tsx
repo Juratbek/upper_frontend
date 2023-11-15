@@ -1,30 +1,25 @@
 import { ApiErrorBoundary, ArticleSkeleton, Pagination } from 'components';
 import { Button, StorysetImage } from 'components/lib';
-import { useAppRouter, useUrlParams } from 'hooks';
+import { useAppRouter } from 'hooks';
+import { useRouter } from 'next/router';
 import { FC, useCallback } from 'react';
 import { useBlogArticles, useCreateArticle } from 'store/clients/article';
-import { TArticleStatus } from 'types';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT } from 'variables';
 
 import { Article } from '../Article/Article';
 
-const PublishedArticlesTab: FC = () => {
-  const {
-    query: { tab, page },
-    push,
-  } = useAppRouter();
-  const { setParam } = useUrlParams();
-  const blogArticlesRes = useBlogArticles(tab as TArticleStatus, (page ?? '0') as string);
+export const DraftArticles: FC = () => {
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
     onSuccess: (id) => push(`/user/articles/${id}`),
   });
+  const { push } = useAppRouter();
+  const {
+    query: { page },
+  } = useRouter();
+  const blogArticlesRes = useBlogArticles('SAVED', (page ?? '0') as string);
 
-  const changePage = (page: number): void => {
-    setParam('page', page);
-  };
-
-  const writeArticleHandler = useCallback(() => createArticle(), []);
+  const writeArticleHandler = useCallback(async () => createArticle(), []);
 
   const { data } = blogArticlesRes;
 
@@ -37,7 +32,7 @@ const PublishedArticlesTab: FC = () => {
         className='tab'
         memoizationDependencies={[createArticleRes.isLoading]}
       >
-        {blogArticlesRes.data?.list.length === 0 && (
+        {data?.list.length === 0 && (
           <div className='text-center'>
             <StorysetImage
               width={250}
@@ -46,7 +41,11 @@ const PublishedArticlesTab: FC = () => {
               storysetUri='creativity'
             />
             <p>Maqola yozing va bilimlaringizni ulashing</p>
-            <Button onClick={writeArticleHandler} loading={createArticleRes.isLoading}>
+            <Button
+              onClick={writeArticleHandler}
+              loading={createArticleRes.isLoading}
+              loader='Maqola yaratilmoqda...'
+            >
               Maqola yozish
             </Button>
           </div>
@@ -56,17 +55,8 @@ const PublishedArticlesTab: FC = () => {
         })}
       </ApiErrorBoundary>
       <div className='text-center'>
-        {data?.totalPages && (
-          <Pagination
-            activePage={parseInt(page as string)}
-            count={data.totalPages}
-            className='my-3'
-            onPageChange={changePage}
-          />
-        )}
+        {data?.totalPages && <Pagination pagesCount={data.totalPages} />}
       </div>
     </div>
   );
 };
-
-export default PublishedArticlesTab;

@@ -1,3 +1,4 @@
-export * from './PublishedArticlesTab/PublishedArticlesTab';
-export * from './SavedArticlesTab/SavedArticlesTab';
+export * from './published/PublishedArticles';
+export * from './draft/DraftArticles';
 export * from './Articles.constants';
+export * from './navigation/UserArticlesNavigation';

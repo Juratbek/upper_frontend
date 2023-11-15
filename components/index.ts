@@ -28,7 +28,6 @@ export * from './MessageNotification';
 export * from './totorials';
 export * from './SidebarTutorial';
 export * from './GoogleAuthScript';
-export * from './GitHubSignIn';
 export * from './EmojiPopover';
 export * from './EmojiSelect';
 export * from './ClientOnlyPortal';

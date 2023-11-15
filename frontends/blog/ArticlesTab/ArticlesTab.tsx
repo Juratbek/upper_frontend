@@ -1,9 +1,8 @@
 import { ApiErrorBoundary, ArticleSkeleton } from 'components';
-import { Button, PublishedArticle, StorysetImage } from 'components/lib';
+import { Button, StorysetImage } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { useCreateArticleMutation, useLazyGetBlogPublishedArticlesQuery } from 'store/apis';
-import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 export const ArticlesTab: FC = () => {
@@ -47,9 +46,10 @@ export const ArticlesTab: FC = () => {
           </Button>
         </div>
       );
-    return addUriToArticleImages(articles).map((article) => (
-      <PublishedArticle key={article.id} article={article} author={article.author} />
-    ));
+    return <p>list</p>;
+    // return addUriToArticleImages(articles).map((article) => (
+    //   <PublishedArticle key={article.id} article={article} author={article.author} />
+    // ));
   }, [fetchBlogArticlesRes.data, createArticleRes.isLoading, writeArticleHandler]);
 
   return (

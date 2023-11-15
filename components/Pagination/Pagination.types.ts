@@ -1,6 +1,4 @@
 export interface IPagesProps {
-  count: number;
-  onPageChange: (page: number) => void;
-  activePage: number;
+  pagesCount: number;
   className?: string;
 }

@@ -5,15 +5,18 @@ import { getClassName } from 'utils';
 import classes from './Pagination.module.scss';
 import { IPagesProps } from './Pagination.types';
 
-export const Pagination: FC<IPagesProps> = ({ count, activePage, onPageChange, ...props }) => {
-  const totalPages = useMemo(() => Math.ceil(count), [count]);
-  const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
-  const { setParam } = useUrlParams();
+export const Pagination: FC<IPagesProps> = ({ pagesCount, ...props }) => {
+  const arr = useMemo(() => Array(pagesCount).fill(''), [pagesCount]);
+  const { setParam, getParam } = useUrlParams();
+  const activePage = useMemo(() => {
+    const p = getParam('page') as string;
+    return isNaN(+p) ? 0 : parseInt(p);
+  }, [getParam]);
   const { themeColors } = useTheme();
   const prevClassName = getClassName(classes.page, activePage === 0 && classes['page--disabled']);
   const nextClassName = getClassName(
     classes.page,
-    activePage === totalPages && classes['page--disabled'],
+    activePage === pagesCount && classes['page--disabled'],
   );
 
   const clickHandler = (page: number): void => {
@@ -25,8 +28,7 @@ export const Pagination: FC<IPagesProps> = ({ count, activePage, onPageChange, .
   };
 
   const changeActivePage = (page: number): void => {
-    if (page < 1 || page > totalPages) return;
-    onPageChange?.(page - 1);
+    if (page < 1 || page > pagesCount) return;
     setParam('page', page);
   };
 
@@ -52,7 +54,7 @@ export const Pagination: FC<IPagesProps> = ({ count, activePage, onPageChange, .
         </div>
       ))}
       <div
-        style={activePage === totalPages ? {} : { borderColor: themeColors.pagination.border }}
+        style={activePage === pagesCount ? {} : { borderColor: themeColors.pagination.border }}
         className={nextClassName}
         onClick={(): void => addPage(1)}
       >
