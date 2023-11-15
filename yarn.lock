@@ -677,10 +677,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juratbek/editorjs-code@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@juratbek/editorjs-code/-/editorjs-code-1.0.5.tgz#f0eef1ed84bc90fb65a3731f04201fb749b3d1db"
-  integrity sha512-9BKd0gecR82d7JGZhjTXk9ua2Nfq86nqAIlTfOZ6/deJTb4B9JwWvnLE2pkg++iQARKIOMEhreXNAA5IVJkdTQ==
+"@juratbek/editorjs-code@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@juratbek/editorjs-code/-/editorjs-code-1.0.7.tgz#7a371c813d1f8d3c9dba2c8d7f678d956a9ae1f6"
+  integrity sha512-Sl8Tso9a1cRhT79HjdwdWAq8msIcdNrW/oCOTm/FYkJKPCxYWIKy4MeDiYZ2dXYsiVC3cu3ryMKQgte3MdoAXg==
   dependencies:
     codemirror "^5.65.15"
 

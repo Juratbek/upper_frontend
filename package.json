@@ -49,7 +49,7 @@
     "@editorjs/list": "^1.8.0",
     "@editorjs/quote": "^2.5.0",
     "@editorjs/table": "^2.2.2",
-    "@juratbek/editorjs-code": "^1.0.5",
+    "@juratbek/editorjs-code": "^1.0.7",
     "@juratbek/editorjs-header": "^1.0.0",
     "@juratbek/editorjs-quiz": "^1.0.14",
     "@next/bundle-analyzer": "^12.3.0",
