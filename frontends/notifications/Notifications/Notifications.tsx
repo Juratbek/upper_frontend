@@ -3,26 +3,24 @@ import { Divider, StorysetImage } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {
-  useDeleteNotificationMutation,
-  useLazyGetNotificationsByTypeQuery,
-  useReadNotificationMutation,
-  useResetNotificationsCountQuery,
-} from 'store/apis';
+  useDeleteNotification,
+  useNotificationsList,
+  useReadNotification,
+  useResetNotificationsCount,
+} from 'store/clients/notification';
 import { INotification } from 'types';
 import { NOTIFICATION_STATUSES, NOTIFICATIONS } from 'variables';
 
-export const NotificationsTab: FC = () => {
-  const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
-  const [sendReadNotificationReq, sendReadNotificationRes] = useReadNotificationMutation();
-  const [deleteNotificationReq, deleteNotificationRes] = useDeleteNotificationMutation();
-  useResetNotificationsCountQuery();
+export const Notifications: FC = () => {
+  const { mutate: sendReadNotificationReq } = useReadNotification();
+  const { mutate: deleteNotificationReq } = useDeleteNotification();
+  useResetNotificationsCount();
   const {
     query: { page },
   } = useRouter();
+  const fetchNotificationsRes = useNotificationsList((page as string) ?? '0');
 
   useEffect(() => {
-    const p = (page as unknown as number) || 1;
-    fetchNotifications({ type: 'all', page: p - 1 });
     document.querySelector('#main')?.scrollTo({ top: 0 });
   }, [page]);
 
@@ -67,7 +65,6 @@ export const NotificationsTab: FC = () => {
             className='p-2 pointer'
             markAsRead={markAsRead}
             deleteNotification={deleteNotification}
-            loading={sendReadNotificationRes.isLoading || deleteNotificationRes.isLoading}
           />
           {index !== notifications.length - 1 &&
             notification.status === NOTIFICATION_STATUSES.UNREAD && (

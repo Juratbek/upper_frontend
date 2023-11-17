@@ -1,1 +1,1 @@
-export * from './NotificationsTab/NotificationsTab';
+export * from './Notifications/Notifications';

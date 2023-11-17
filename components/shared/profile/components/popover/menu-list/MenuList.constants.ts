@@ -7,7 +7,7 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
   {
     icon: ICONS.write,
     text: 'Maqolalaringiz',
-    href: '/user/articles',
+    href: '/user/articles/draft',
   },
   {
     icon: ICONS.save,

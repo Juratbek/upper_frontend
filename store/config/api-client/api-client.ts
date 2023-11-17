@@ -6,7 +6,6 @@ class Client {
   #config: IConfig = {
     headers: {
       'Content-Type': 'application/json',
-      // Accept: 'application/json;charset=UTF-8',
     },
     baseUrl: '',
   };
@@ -41,6 +40,16 @@ class Client {
       });
       const data = await res.json();
       return data as TResponse;
+    } catch (e) {
+      throw new Error('An error occured');
+    }
+  }
+
+  async delete(path: string): Promise<void> {
+    try {
+      await this.fetch(path, {
+        method: 'delete',
+      });
     } catch (e) {
       throw new Error('An error occured');
     }
