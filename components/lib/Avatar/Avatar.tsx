@@ -46,10 +46,8 @@ export const Avatar: FC<IAvatarProps> = ({
   }, [imgUrl, zoomable, error]);
 
   return (
-    <>
-      <div className={className} style={{ borderColor: themeColors.avatar.border }}>
-        {image}
-      </div>
-    </>
+    <div className={className} style={{ borderColor: themeColors.avatar.border }}>
+      {image}
+    </div>
   );
 };

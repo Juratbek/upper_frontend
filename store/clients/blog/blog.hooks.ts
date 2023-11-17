@@ -1,11 +1,10 @@
-import { TMutationHook, TQueryHook, useMutation, useQuery } from 'store/config';
-import { apiClient } from 'store/config';
+import { apiClient, TMutationHook, TQueryHook, useMutation, useQuery } from 'store/config';
 import { ILabel } from 'types';
 
-import { IBlogRegisterResponse } from './blog.types';
+import { IBlogRegisterResponse, ICurrentBlog } from './blog.types';
 
-export const useGetCurrentBlog: TQueryHook = (config) =>
-  useQuery('cuyrrent-blog', () => apiClient.get('blog/get-current'), config);
+export const useGetCurrentBlog: TQueryHook<ICurrentBlog> = (config) =>
+  useQuery<ICurrentBlog>('cuyrrent-blog', () => apiClient.get('blog/get-current'), config);
 
 export const useContinueWithGoogle: TMutationHook<IBlogRegisterResponse, string> = (config) =>
   useMutation<IBlogRegisterResponse, unknown, string>(

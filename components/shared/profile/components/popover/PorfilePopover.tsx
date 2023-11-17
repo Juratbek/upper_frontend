@@ -6,20 +6,21 @@ import { MenuList } from './menu-list/MenuList';
 import { Profile } from './profile/Profile';
 import classes from './ProfilePopover.module.scss';
 import { ISubmenuState } from './ProfilePopover.types';
-import { ThemeMenu } from './theme-menu/ThemeMenu';
+
+const EmptySubmenu: ISubmenuState = {
+  Component: () => null,
+  isShown: false,
+};
 
 export const ProfilePopover = forwardRef<HTMLDivElement, { close: TNoop; isOpen: boolean }>(
   function Component({ close, isOpen }, ref) {
-    const [submenu, setSubmenu] = useState<ISubmenuState>({ Component: null, isShown: false });
-
-    const backHandler = (): void => setSubmenu({ Component: null, isShown: false });
+    const [submenu, setSubmenu] = useState<ISubmenuState>(EmptySubmenu);
+    const Submenu = submenu.Component;
+    const backHandler = (): void => setSubmenu(EmptySubmenu);
 
     return (
       <div className={`${classes.root} ${!isOpen && 'h-0'}`} ref={ref}>
-        <ThemeMenu
-          onBack={backHandler}
-          className={submenu.isShown ? 'h-auto' : 'h-0 border-none'}
-        />
+        <Submenu onBack={backHandler} className={submenu.isShown ? 'h-auto' : 'h-0 border-none'} />
         <div className={`${classes['main-menu']} ${Boolean(submenu.isShown) && 'h-0 border-none'}`}>
           <Profile closePopover={close} className={classes['vertical-padding']} />
           <MenuList

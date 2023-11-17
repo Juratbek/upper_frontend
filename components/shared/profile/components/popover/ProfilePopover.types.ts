@@ -7,6 +7,6 @@ export interface ISubmenuProps {
 }
 
 export interface ISubmenuState {
-  Component: FC<ISubmenuProps> | null;
+  Component: FC<ISubmenuProps>;
   isShown: boolean;
 }
