@@ -3,7 +3,9 @@ import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useAuth, useTheme } from 'hooks';
 import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
 import { FC, useCallback, useRef } from 'react';
+import { useAppDispatch } from 'store';
 import { useCreateArticle } from 'store/clients/article';
+import { openAuthModal } from 'store/states';
 import { ICONS } from 'variables';
 
 import { Profile } from '../profile';
@@ -13,14 +15,22 @@ const Logo = ICONS.logo;
 
 export const Header: FC = () => {
   const { themeColors } = useTheme();
-  const { isAuthenticated } = useAuth();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated, isLoading } = useAuth();
   const containerRef = useRef<HTMLDivElement>(null);
   const { push } = useAppRouter();
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
     onSuccess: (id) => push(`/user/articles/${id}`),
   });
 
-  const createArticleHandler = useCallback(() => createArticle(), []);
+  const createArticleHandler = useCallback(() => {
+    if (isAuthenticated) {
+      createArticle();
+      return;
+    } else {
+      dispatch(openAuthModal());
+    }
+  }, []);
 
   return (
     <header className={`${classes.header} container`} ref={containerRef}>
@@ -31,14 +41,16 @@ export const Header: FC = () => {
       </div>
       <SearchInput className={classes['main-container']} />
       <div className={classes['right-container']}>
-        <Button
-          loading={createArticleRes.isLoading}
-          className={classes['write-article-btn']}
-          onClick={createArticleHandler}
-          loader={'Yaratilmoqda...'}
-        >
-          + Maqola yozish
-        </Button>
+        {!isLoading && (
+          <Button
+            loading={createArticleRes.isLoading}
+            className={classes['write-article-btn']}
+            onClick={createArticleHandler}
+            loader={'Yaratilmoqda...'}
+          >
+            + Maqola yozish
+          </Button>
+        )}
         {isAuthenticated && <Profile />}
       </div>
     </header>
