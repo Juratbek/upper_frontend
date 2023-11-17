@@ -24,7 +24,7 @@ const DoneIcon = ICONS.done;
 
 export const LabelSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], ...props }) => {
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
-  const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues);
+  const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues ?? []);
   const [inputValue, setInputValue] = useState<string>();
   const [isOptionsContainerOpen, setIsOptionsContainerOpen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
