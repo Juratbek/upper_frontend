@@ -1,9 +1,7 @@
-import { AnyAction, isRejectedWithValue, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
-import { blogApi } from 'store/apis';
-import { IBlogRegisterResponse } from 'store/apis/blog/blog.types';
-import { authenticate, setCurrentBlog, unauthenticate } from 'store/states';
-import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
-import { REFRESH_TOKEN, WEB_APP_ROOT_DIR } from 'variables';
+import { isRejectedWithValue, Middleware, MiddlewareAPI } from '@reduxjs/toolkit';
+import { unauthenticate } from 'store/states';
+import { removeLocalStorageTokens } from 'utils';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => async (action) => {
   if (isRejectedWithValue(action)) {
@@ -21,24 +19,10 @@ export const apiErrorMiddleware: Middleware = (api: MiddlewareAPI) => (next) => 
       );
     }
 
-    if (status === 401) {
+    if (status === 401 || status === 403) {
       const { dispatch } = api;
       dispatch(unauthenticate());
       removeLocalStorageTokens();
-
-      // const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-      // if (!refreshToken) {
-      //   dispatch(unauthenticate());
-      // } else {
-      //   const res = (await dispatch(
-      //     blogApi.endpoints.getNewToken.initiate(refreshToken) as unknown as AnyAction,
-      //   )) as unknown as { data: IBlogRegisterResponse };
-      //   const { data } = res;
-      //   await dispatch(authenticate());
-      //   setLocalStorateTokens({ token: data.token, refreshToken: data.refreshToken });
-      //   await dispatch(setCurrentBlog(res.data));
-      //   // window.location.reload();
-      // }
     }
   }
   return next(action);
