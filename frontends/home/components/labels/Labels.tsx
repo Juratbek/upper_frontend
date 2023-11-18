@@ -2,7 +2,7 @@ import { TabButton } from 'components/lib';
 import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
-import { useGetCurrentBlogLabels } from 'store/clients/blog';
+import { useGetCurrentBlogTags } from 'store/clients/blog';
 import { ICONS } from 'variables';
 
 import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from '../../Home.constants';
@@ -15,22 +15,22 @@ export const Labels = (): JSX.Element => {
   const { setParam } = useUrlParams();
   const { query } = useRouter();
   const labelsContainerRef = useRef<HTMLDivElement>(null);
-  const fetchCurrentBlogLabelsRes = useGetCurrentBlogLabels();
+  const fetchCurrentBlogTagsRes = useGetCurrentBlogTags();
 
   const labelSelectHandler = (id: number | string) => (): void => {
     setParam(LABEL_ID_PARAM, id);
   };
 
   const labels = useMemo(() => {
-    const labels: { id: number | string; name: string }[] = [TopLabel];
+    const labels: string[] = [TopLabel];
 
     if (isAuthenticated) labels.unshift(ForYouLabel);
 
-    const { data } = fetchCurrentBlogLabelsRes;
+    const { data } = fetchCurrentBlogTagsRes;
     if (data?.length) labels.push(...data);
 
     return labels;
-  }, [isAuthenticated, fetchCurrentBlogLabelsRes]);
+  }, [isAuthenticated, fetchCurrentBlogTagsRes]);
 
   const moveLabelsRight = (): void => {
     const labelsContainer = labelsContainerRef.current;
@@ -44,11 +44,11 @@ export const Labels = (): JSX.Element => {
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
         {labels.map((label) => (
           <TabButton
-            onClick={labelSelectHandler(label.id)}
-            color={label.id == query.label ? 'primary' : 'outlined'}
-            key={label.id}
+            onClick={labelSelectHandler(label)}
+            color={label == query[LABEL_ID_PARAM] ? 'primary' : 'outlined'}
+            key={label}
           >
-            {label.name}
+            {label}
           </TabButton>
         ))}
       </div>
