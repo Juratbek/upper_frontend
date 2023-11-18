@@ -17,7 +17,7 @@ export const ConnectTelegram: FC = () => {
 
   const connectHandler = useCallback(async () => {
     try {
-      const code = await fetchAuthCode();
+      const code = (await fetchAuthCode()).data;
       window.open(`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${code}`, '_blank');
     } catch (e) {
       alert(e);

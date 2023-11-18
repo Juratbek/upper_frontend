@@ -20,7 +20,7 @@ export interface IQeuryResult<TData = unknown> {
   isRefetching: boolean;
   isStale: boolean;
   isSuccess: boolean;
-  refetch: () => void;
+  refetch: () => Promise<IQeuryResult<TData>>;
   remove: () => void;
   status: 'idle' | 'loading' | 'error' | 'success';
 }
