@@ -41,7 +41,7 @@ export const SponsorPage: FC = () => {
       {sponsorModal}
       <h1>Biz uchun eng katta yordam bu biz orqali bilim ulashishingizdir</h1>
       {actionButton}
-      <Button color='outlined' className='ms-1' onClick={toggleSponsorModal}>
+      <Button color='tertiary' className='ms-1' onClick={toggleSponsorModal}>
         Moliyaviy qo&apos;llab quvvatlash
       </Button>
       <Divider className='my-2' />

@@ -21,4 +21,7 @@ export const useGetCurrentBlogLabels: TQueryHook<ILabel[]> = () =>
   useQuery('blog-labels', () => apiClient.get<ILabel[]>('blog/current-blog-labels'));
 
 export const useUpdateBlog: TMutationHook<void, FormData> = () =>
-  useMutation(['update-blog'], (blog) => apiClient.post({ path: 'blog/update', body: blog }));
+  useMutation('update-blog', (blog) => apiClient.post({ path: 'blog/update', body: blog }));
+
+export const useGetAuthCode: TQueryHook<string> = () =>
+  useQuery('auth-code', () => apiClient.get('blog/get-auth-code'), { enabled: false });
