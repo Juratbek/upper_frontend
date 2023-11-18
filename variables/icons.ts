@@ -5,7 +5,7 @@ import { IIconProps } from 'types';
 export const ICONS = {
   delete: icons.DeleteIcon,
   home: icons.Home,
-  user: icons.UserIcon,
+  user: icons.User,
   notification: icons.Notification,
   menuList: icons.MenuListIcon,
   pen: icons.Pen,
