@@ -13,7 +13,7 @@ import { LABEL_ID_PARAM, TopLabel } from './Home.constants';
 export const HomePage: FC = () => {
   const { isReady } = useRouter();
   const { getParam } = useUrlParams();
-  const label = getParam(LABEL_ID_PARAM) ?? TopLabel.id;
+  const label = getParam(LABEL_ID_PARAM) ?? TopLabel;
   const { data, fetchNextPage, isFetchingNextPage } = usePublishedArticlesList(label as string, {
     enabled: typeof label === 'string' && isReady,
   });
