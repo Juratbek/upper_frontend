@@ -1,3 +1,4 @@
+import { isClientSide } from 'utils';
 import { TOKEN } from 'variables';
 
 import { IConfig, IPostConfig } from './api-client.types';
@@ -25,7 +26,7 @@ class Client {
       const data = await res.json();
       return data as TResponse;
     } catch (e) {
-      throw new Error('An error occured');
+      throw new Error(`An error occured: ${e}`);
     }
   }
 
@@ -57,9 +58,11 @@ class Client {
 
   async fetch(path: string, config: RequestInit): Promise<Response> {
     const fullUrl = `${this.#config.baseUrl}/api/${path}`;
-    const token = localStorage.getItem(TOKEN);
-    if (token) {
-      config.headers = { ...this.#config.headers, ...config.headers, Authorization: token };
+    if (isClientSide()) {
+      const token = localStorage.getItem(TOKEN);
+      if (token) {
+        config.headers = { ...this.#config.headers, ...config.headers, Authorization: token };
+      }
     }
     return fetch(fullUrl, config);
   }

@@ -22,7 +22,7 @@ export const Profile: FC<{ closePopover: TNoop; className?: string }> = ({
           <h3 className={classes['profile--name']}>{currentBlog?.name}</h3>
           <p className={classes['profile--bio']}>{currentBlog?.bio}</p>
         </div>
-        <Link href='/profile' className={classes['pen-icon']} onClick={closePopover}>
+        <Link href='/settings/profile' className={classes['pen-icon']} onClick={closePopover}>
           <PenIcon />
         </Link>
       </div>

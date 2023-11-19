@@ -2,7 +2,7 @@ import { GenericWrapper } from 'components/wrappers';
 import { ArticlePageMain } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
 import { wrapper } from 'store';
-import { publishedArticleApi } from 'store/apis';
+import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
 import { appDynamic, get } from 'utils';
 
@@ -24,14 +24,19 @@ const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
-  (store) => async (context) => {
+  () => async (context) => {
     const host = context.req.headers.host ?? '';
     const url = context.req.url;
 
     const articleId = get<number>(context, 'query.id');
-    const { data: article, error } = await store.dispatch(
-      publishedArticleApi.endpoints.getById.initiate({ id: articleId }, { forceRefetch: 5 }),
-    );
+    let article;
+    let error;
+    try {
+      article = await apiClient.get<IArticle>(`published-article/open/${articleId}`);
+    } catch (e) {
+      console.log(e);
+      error = e;
+    }
     return {
       props: {
         article: article ?? null,
