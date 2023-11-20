@@ -61,7 +61,7 @@ export const getTools = async ({
   return {
     header: {
       class: TOOLS.Header,
-      shortcut: 'CMD+SHIFT+H',
+      shortcut: navigator.platform.startsWith('Mac') ? 'CMD+SHIFT+H' : 'ALT+SHIFT+H',
       config: {
         levels: [1, 2, 3, 4, 5, 6],
         defaultLevel: 1,
