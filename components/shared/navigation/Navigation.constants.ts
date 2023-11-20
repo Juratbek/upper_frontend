@@ -19,8 +19,7 @@ export const NAVIGATION: INavigation[] = [
     text: 'Xabarlar',
   },
   {
-    href: '/search',
-    icon: ICONS.search,
-    text: 'Qidirish',
+    href: '/user/articles/draft',
+    text: 'Maqolalaringiz',
   },
 ];

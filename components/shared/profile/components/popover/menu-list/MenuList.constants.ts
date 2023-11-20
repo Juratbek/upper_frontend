@@ -22,7 +22,7 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
   {
     icon: ICONS.settings,
     text: 'Sozlamalar',
-    href: '/settings',
+    href: '/settings/profile',
   },
   {
     icon: ICONS.loon,
