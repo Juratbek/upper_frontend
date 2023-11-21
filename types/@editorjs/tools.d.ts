@@ -1,5 +1,5 @@
 declare module '@editorjs/list';
-declare module '@editorjs/image';
+declare module '@juratbek/editorjs-image';
 declare module '@editorjs/embed';
 declare module '@juratbek/editorjs-header';
 declare module '@editorjs/delimiter';
