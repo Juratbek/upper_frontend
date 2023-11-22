@@ -16,7 +16,10 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
         <h3 className={classes.title}>{article.title} monli maqola nashr qilindi</h3>
       </div>
       <div className={classes.footer}>
-        <Avatar imgUrl={addAmazonUri(author).imgUrl} />
+        <div className={classes.author}>
+          <Avatar imgUrl={addAmazonUri(author).imgUrl} />
+          <span className={classes['author-name']}>{author.name}</span>
+        </div>
         <span className={classes.date}>{dateInterval(createdDate)}</span>
       </div>
     </div>

@@ -22,4 +22,17 @@
     font-size: 1.2rem;
     line-height: 120%;
   }
+
+  .author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    &-name {
+      color: var(--black-400, #45494A);
+      font-size: 1.4rem;
+      font-weight: 500;
+      line-height: 2rem;
+    }
+  }
 }
