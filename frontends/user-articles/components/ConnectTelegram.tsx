@@ -1,19 +1,20 @@
 import { Button } from 'components/lib';
 import { useTheme } from 'hooks';
 import { FC, useCallback } from 'react';
-import { useGetTelegramChannelConnectionStatusQuery, useLazyGetAuthCodeQuery } from 'store/apis';
+import { useGetAuthCode } from 'store/clients/blog';
+import { useGetTelegramChannelConnectionStatus } from 'store/clients/telegram';
 import { ICONS } from 'variables';
 
 const TelegramIcon = ICONS.telegramColored;
 
 export const ConnectTelegram: FC = () => {
-  const { data } = useGetTelegramChannelConnectionStatusQuery();
-  const [fetchAuthCode] = useLazyGetAuthCodeQuery();
+  const { data } = useGetTelegramChannelConnectionStatus();
+  const { refetch: fetchAuthCode, ...fetchAuthCodeRes } = useGetAuthCode();
   const { themeColors } = useTheme();
 
   const connectWithBotHandler = useCallback(async () => {
     try {
-      const code = await fetchAuthCode().unwrap();
+      const code = (await fetchAuthCode()).data;
       window.open(`https://t.me/${process.env.NEXT_PUBLIC_BOT_USERNAME}?start=${code}`, '_blank');
     } catch (e) {
       alert(e);
@@ -39,6 +40,7 @@ export const ConnectTelegram: FC = () => {
         <Button
           className='d-flex w-100 justify-content-center align-items-center f-gap-1'
           onClick={connectWithBotHandler}
+          loading={fetchAuthCodeRes.isLoading}
         >
           <TelegramIcon color={themeColors.icon} width={20} height={20} />
           Telegram bilan ulash

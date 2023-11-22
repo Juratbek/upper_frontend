@@ -20,6 +20,7 @@ export const NAVIGATION: INavigation[] = [
   },
   {
     href: '/user/articles/draft',
+    icon: ICONS.write,
     text: 'Maqolalaringiz',
   },
 ];
