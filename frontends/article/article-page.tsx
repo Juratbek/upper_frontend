@@ -5,7 +5,8 @@ import { Head } from 'components/lib';
 import { useModal } from 'hooks';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
-import { IQuizSubmission, useIncrementViewCountMutation, useSubmitQuizMutation } from 'store/apis';
+import { useIncrementViewCount } from 'store/clients/published-article';
+import { IQuizSubmission, useSubmitQuiz } from 'store/clients/quiz';
 import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
 import {
@@ -26,8 +27,8 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
   const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
     useModal();
   const dispatch = useAppDispatch();
-  const [incrementViewCountRequest] = useIncrementViewCountMutation();
-  const [submitQuiz, submitQuizRes] = useSubmitQuizMutation();
+  const { mutate: incrementViewCountRequest } = useIncrementViewCount();
+  const { mutate: submitQuiz, ...submitQuizRes } = useSubmitQuiz();
 
   const quizSubmitHandler = useCallback(
     async (data: IQuizData) => {
@@ -79,7 +80,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
         isOpen={isQuizResultsModalOpen}
         close={closeQuizResultsModal}
       />
-      {article.author && <Author {...addAmazonUri(article.author)} />}
+      <Author {...addAmazonUri(article.author)} />
       <div className='editor-container'>
         <article>
           <Editor

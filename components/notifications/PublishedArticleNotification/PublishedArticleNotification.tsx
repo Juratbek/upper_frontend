@@ -1,4 +1,4 @@
-import { Avatar } from 'components/lib';
+import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
 import { addAmazonUri, dateInterval, getClassName } from 'utils';
@@ -12,9 +12,9 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
 
   return (
     <div className={rootClassName}>
-      <div className={classes.body}>
-        <h3 className={classes.title}>{article.title} monli maqola nashr qilindi</h3>
-      </div>
+      <Link href={`/articles/${article.id}`} className={classes.body}>
+        <h3 className={classes.title}>{article.title}</h3>
+      </Link>
       <div className={classes.footer}>
         <div className={classes.author}>
           <Avatar imgUrl={addAmazonUri(author).imgUrl} />

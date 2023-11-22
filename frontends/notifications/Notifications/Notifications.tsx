@@ -62,7 +62,6 @@ export const Notifications: FC = () => {
           <Notification
             onClick={readNotification}
             {...notification}
-            className='p-2 pointer'
             markAsRead={markAsRead}
             deleteNotification={deleteNotification}
           />

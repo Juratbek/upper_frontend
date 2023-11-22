@@ -1,3 +1,29 @@
 .root {
   display: flex;
+  align-items: center;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid var(--black-50, #E8E9E9);
+}
+
+.text-block {
+  margin-left: 1.6rem;
+}
+
+.name {
+  color: var(--black-700, #0B0E0F);
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+  margin: 0;
+}
+
+.bio {
+  color: var(--black-400, #45494A);
+  font-size: 1.2rem;
+  line-height: 120%;
+  margin: 0;
+}
+
+.subscribe {
+  margin-left: auto;
 }

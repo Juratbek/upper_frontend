@@ -2,8 +2,10 @@ import {
   apiClient,
   IInfiniteQueryConfig,
   IInfiniteQueryResult,
+  IMutationResult,
   IPage,
   useInfiniteQuery,
+  useMutation,
 } from 'store/config';
 import { IPublishedArticleItem } from 'types';
 
@@ -24,3 +26,8 @@ export const usePublishedArticlesList = (
     },
   );
 };
+
+export const useIncrementViewCount = (): IMutationResult<void, { id: number; token: string }> =>
+  useMutation('increment-view-count', ({ id, token }) =>
+    apiClient.post({ path: `v2/open/has-updates/${id}`, body: token }),
+  );
