@@ -39,6 +39,10 @@ export const Labels = (): JSX.Element => {
     labelsContainer.scrollTo({ left: leftScroll + 600, behavior: 'smooth' });
   };
 
+  const isContentOverflowed = labelsContainerRef.current
+    ? labelsContainerRef.current.scrollWidth > labelsContainerRef.current.clientWidth
+    : false;
+
   return (
     <div className={classes.root}>
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
@@ -52,9 +56,11 @@ export const Labels = (): JSX.Element => {
           </TabButton>
         ))}
       </div>
-      <div className={classes['next-btn']} onClick={moveLabelsRight}>
-        <NextIcon />
-      </div>
+      {isContentOverflowed && (
+        <div className={classes['next-btn']} onClick={moveLabelsRight}>
+          <NextIcon />
+        </div>
+      )}
     </div>
   );
 };

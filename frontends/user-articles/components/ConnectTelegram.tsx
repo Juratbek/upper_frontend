@@ -9,7 +9,7 @@ const TelegramIcon = ICONS.telegramColored;
 
 export const ConnectTelegram: FC = () => {
   const { data } = useGetTelegramChannelConnectionStatus();
-  const { refetch: fetchAuthCode, ...fetchAuthCodeRes } = useGetAuthCode();
+  const { refetch: fetchAuthCode, isLoading } = useGetAuthCode();
   const { themeColors } = useTheme();
 
   const connectWithBotHandler = useCallback(async () => {
@@ -40,7 +40,7 @@ export const ConnectTelegram: FC = () => {
         <Button
           className='d-flex w-100 justify-content-center align-items-center f-gap-1'
           onClick={connectWithBotHandler}
-          loading={fetchAuthCodeRes.isLoading}
+          loading={isLoading}
         >
           <TelegramIcon color={themeColors.icon} width={20} height={20} />
           Telegram bilan ulash
