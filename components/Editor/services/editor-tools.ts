@@ -42,7 +42,7 @@ export const getTools = async ({
   const tools = await Promise.all([
     import('@editorjs/embed'),
     import('@juratbek/editorjs-header'),
-    import('@editorjs/image'),
+    import('@juratbek/editorjs-image'),
     import('@editorjs/list'),
     import('@editorjs/quote'),
     import('@editorjs/delimiter'),

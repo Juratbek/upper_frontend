@@ -1,6 +1,6 @@
 import { Input } from 'components/form';
 import { useTheme } from 'hooks';
-import { ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, useCallback } from 'react';
 import { TSelectedThemeOption } from 'types';
 import { ICONS } from 'variables';
 
@@ -18,6 +18,11 @@ export const ThemeMenu: FC<ISubmenuProps> = ({ onBack, className }) => {
     changeTheme(value);
   };
 
+  const variantClickHandler = useCallback(
+    (variant: TSelectedThemeOption) => () => changeTheme(variant),
+    [changeTheme],
+  );
+
   return (
     <div className={`${classes.root} ${className}`}>
       <div className={classes['title-container']}>
@@ -28,7 +33,11 @@ export const ThemeMenu: FC<ISubmenuProps> = ({ onBack, className }) => {
       </div>
       <ul className={classes.content}>
         {THEME_VARIANTS.map((variant) => (
-          <li key={variant.name} className={classes.variant}>
+          <li
+            key={variant.name}
+            className={classes.variant}
+            onClick={variantClickHandler(variant.value)}
+          >
             <Input
               value={variant.value}
               onChange={themeChangeHandler}

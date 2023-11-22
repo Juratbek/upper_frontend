@@ -351,13 +351,6 @@
   resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.6.0.tgz#6aa5ee2d1953a767b5df0afbff13a25bbdc7d9be"
   integrity sha512-h1Fk26WdRJJGA+eou4ZemcQ4tInmdcsOaoEwvv8+YoM3WWtxJDycb8emqCjfvxGFivT/ZcZFAdGR2VU6MCjzzw==
 
-"@editorjs/image@^2.8.2":
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/@editorjs/image/-/image-2.8.2.tgz#015781a8c33396b0d48f237d20417425d4e6f837"
-  integrity sha512-zWDBEzCuTbdXClgq4ilHDbaKNTl+6hxuuU0KpB4AxizqaTkaDOLsJha+vt7kSTKfpTtVDw1OQMnxI7j4LtAOJw==
-  dependencies:
-    "@codexteam/icons" "^0.0.6"
-
 "@editorjs/inline-code@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@editorjs/inline-code/-/inline-code-1.4.0.tgz#25e9728bc6c73b7af2a009689679b4950e744417"
@@ -690,6 +683,13 @@
   integrity sha512-kEjtPHfN8KJDRINk6nJ8GrsJsMRmYA3nlbwkxlBzbSCpsqShkjIu0ZnNdGL9nllo8EV1DeaDAUJbBSHDSXvYdQ==
   dependencies:
     "@codexteam/icons" "^0.3.0"
+
+"@juratbek/editorjs-image@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@juratbek/editorjs-image/-/editorjs-image-1.0.0.tgz#4aeff0a07793ad3909f393cf770c57585efb9826"
+  integrity sha512-2UA+g/FRw1oWmN8wpLc0vUyOt5T9DYJ+lgKjtBk32UzbfQu8CVFQkCaRA7GwZvV4ff/nXdVqBHMXV/ZcZy0/sg==
+  dependencies:
+    "@codexteam/icons" "^0.0.6"
 
 "@juratbek/editorjs-quiz@^1.0.14":
   version "1.0.14"
