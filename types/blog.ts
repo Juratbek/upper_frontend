@@ -5,7 +5,6 @@ export interface IBlogSmall {
   id: number;
   imgUrl: string;
   name: string;
-  cardNumber?: string;
 }
 export interface IBlogMedium extends IBlogSmall {
   bio?: string;

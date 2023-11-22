@@ -1,39 +1,25 @@
-@import 'styles/mixins';
-
-.container {
-  position: relative;
-
-  & .dots {
-    display: block;
-  }
-
-  &:hover .dots {
-    display: flex;
-  }
+.root {
+  padding: 2.4rem 0;
+  border-bottom: 1px solid var(--black-50, #E8E9E9);
 }
 
-.published-article-notification {
+.title {
+  color: var(--black-900, #020303);
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 2.8rem;
+  margin: 0;
+}
+
+.footer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-}
+  margin-top: 2.4rem;
 
-.text {
-  flex: 1 1 auto;
-  @include screenMax576 {
-    order: 3;
-    margin-top: 0.5rem;
+  .date {
+    color: var(--Black-60, #787878);
+    font-size: 1.2rem;
+    line-height: 120%;
   }
-}
-
-.date {
-  font-size: 0.8rem;
-  color: var(--gray);
-}
-
-.actions {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  z-index: 1;
 }

@@ -50,9 +50,9 @@ export const dateInterval = (date: Date | string | undefined): string => {
 
   const diffInMon: number = Math.floor(diffInDay / 30);
   if (diffInMon < 12) {
-    return `${diffInMon} oy oldin`;
+    return `${diffInMon} oy avval`;
   }
 
   const diffInYear: number = Math.floor(diffInDay / 365);
-  return `${diffInYear} yil oldin`;
+  return `${diffInYear} yil avval`;
 };

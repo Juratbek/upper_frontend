@@ -1,63 +1,23 @@
-import { Actions, IAction } from 'components';
 import { Avatar } from 'components/lib';
-import { useRouter } from 'next/router';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { INotificationComponentProp } from 'types';
 import { addAmazonUri, dateInterval, getClassName } from 'utils';
-import { NOTIFICATION_STATUSES, WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './PublishedArticleNotification.module.scss';
 
 export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
-  const { className, article, author, status, createdDate } = props;
+  const { className, article, author, createdDate } = props;
 
-  const rootClassName = getClassName(
-    classes.container,
-    className,
-    status == 'UNREAD' && 'notification--unread',
-  );
-  const { push } = useRouter();
-
-  const markAsRead = (): void => props.markAsRead?.(props);
-
-  const deleteNotification = (): void => props.deleteNotification?.(props);
-
-  const actions = useMemo(() => {
-    let actions: IAction[] = [{ label: "O'chirish", color: 'red', onClick: deleteNotification }];
-    if (status === NOTIFICATION_STATUSES.UNREAD) {
-      actions = [{ label: "O'qilgan sifatida belgilash", onClick: markAsRead }, ...actions];
-    }
-
-    return actions;
-  }, [status]);
-
-  const clickHandler = (): void => {
-    push(`${WEB_APP_ROOT_DIR}/articles/${article.id}`);
-    props.onClick?.(props);
-  };
+  const rootClassName = getClassName(classes.root, className);
 
   return (
     <div className={rootClassName}>
-      <div className={classes['published-article-notification']} onClick={clickHandler}>
-        <Avatar className='me-1' imgUrl={addAmazonUri(author).imgUrl} />
-        <div>
-          <div>
-            {author?.name}&nbsp;
-            <span className={classes.text}>
-              <strong className='pointer'>&quot;{article.title}&quot;</strong>&nbsp;sarlavhali
-              maqola nashr qildi
-            </span>
-          </div>
-          <span className={classes.date}>{dateInterval(createdDate)}</span>
-        </div>
+      <div className={classes.body}>
+        <h3 className={classes.title}>{article.title} monli maqola nashr qilindi</h3>
       </div>
-      <div className={classes.actions}>
-        <Actions
-          dotsClassName={classes.dots}
-          actions={actions}
-          popupStyle={{ minWidth: 240 }}
-          loading={props.loading}
-        />
+      <div className={classes.footer}>
+        <Avatar imgUrl={addAmazonUri(author).imgUrl} />
+        <span className={classes.date}>{dateInterval(createdDate)}</span>
       </div>
     </div>
   );
