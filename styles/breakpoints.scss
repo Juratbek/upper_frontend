@@ -1,0 +1,37 @@
+$LARGE: 1025px;
+$MEDIUM: 992px;
+$SMALL: 576px;
+
+$breakpoints: (
+  small: $SMALL,
+  medium: $MEDIUM,
+  large: $LARGE,
+);
+
+@mixin media($size) {
+  @each $key, $value in $breakpoints {
+    @if $key == $size {
+      @media (min-width: $value) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin media-max($size) {
+  @each $key, $value in $breakpoints {
+    @if $key == $size {
+      @media (max-width: $value) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin media-between($size-min, $size-max) {
+  @each $key, $value in $breakpoints {
+    @media ($size-min > width > $size-max) {
+      @content;
+    }
+  }
+}

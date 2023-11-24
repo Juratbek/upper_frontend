@@ -21,7 +21,7 @@ export const getDevice = (): IDevice => {
     isTablet = false;
     type = DEVICE_TYPES.mobile;
   }
-  if (576 <= screenWith && screenWith < 768) {
+  if (576 <= screenWith && screenWith < 1025) {
     isMobile = false;
     isTablet = true;
     type = DEVICE_TYPES.tablet;

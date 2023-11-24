@@ -29,5 +29,5 @@ export const usePublishedArticlesList = (
 
 export const useIncrementViewCount = (): IMutationResult<void, { id: number; token: string }> =>
   useMutation('increment-view-count', ({ id, token }) =>
-    apiClient.post({ path: `v2/open/has-updates/${id}`, body: token }),
+    apiClient.post({ path: `published-article/v2/open/has-updates/${id}`, body: token }),
   );

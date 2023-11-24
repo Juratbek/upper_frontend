@@ -9,7 +9,7 @@ export const ICONS = {
   notification: icons.Notification,
   menuList: icons.MenuListIcon,
   pen: icons.Pen,
-  search: icons.SearchIcon,
+  search: icons.Search,
   eye: icons.EyeIcon,
   telegram: icons.Telegram,
   telegramColored: icons.TelegramColoredIcon,
