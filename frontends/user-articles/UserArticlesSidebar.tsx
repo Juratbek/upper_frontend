@@ -81,6 +81,7 @@ export const UserArticlesSidebar: FC = () => {
           editor={editor}
           article={article}
           save={saveChanges}
+          isBeingSaved={updateArticleRes.isLoading}
           status={article.status}
         />
       )}
