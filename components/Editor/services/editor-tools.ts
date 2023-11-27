@@ -44,7 +44,7 @@ export const getTools = async ({
     import('@juratbek/editorjs-header'),
     import('@juratbek/editorjs-image'),
     import('@editorjs/list'),
-    import('@editorjs/quote'),
+    import('@juratbek/editorjs-quote'),
     import('@editorjs/delimiter'),
     import('editorjs-alert'),
     import('@samandar.boymurodov/editorjs-inline-image'),
@@ -115,7 +115,13 @@ export const getTools = async ({
         onSubmit: onQuizSubmit,
       },
     },
-    quote: TOOLS.Quote,
+    quote: {
+      class: TOOLS.Quote,
+      config: {
+        quotePlaceholder: 'Iqtibos matnini kiriting',
+        captionPlaceholder: 'Iqtibos muallifi',
+      },
+    },
     table: {
       class: TOOLS.Table,
       inlineToolbar: true,
