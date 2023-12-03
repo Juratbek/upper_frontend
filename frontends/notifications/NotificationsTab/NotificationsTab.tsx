@@ -100,7 +100,7 @@ export const NotificationsTab: FC = () => {
       </ApiErrorBoundary>
       <div className='my-2'>
         {fetchNotificationsRes.data && (
-          <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
+          <Pagination count={fetchNotificationsRes.data.totalItemCount} />
         )}
       </div>
     </div>

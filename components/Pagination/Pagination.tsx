@@ -1,20 +1,38 @@
 import { useTheme, useUrlParams } from 'hooks';
-import { FC, useMemo, useState } from 'react';
+import { FC, ReactNode } from 'react';
 import { getClassName } from 'utils';
 
 import classes from './Pagination.module.scss';
 import { IPagesProps } from './Pagination.types';
 
-export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) => {
-  const [acitvePage, setActivePage] = useState(1);
-  const totalPages = useMemo(() => Math.ceil(count), [count]);
-  const arr = useMemo(() => Array(totalPages).fill(''), [totalPages]);
-  const { setParam } = useUrlParams();
+const pagesToShow = 10;
+
+const PaginationItem: FC<{
+  pageNumber: number;
+  currentPage: number;
+  onClick: (p: number) => void;
+}> = ({ pageNumber, onClick, currentPage }) => {
   const { themeColors } = useTheme();
-  const prevClassName = getClassName(classes.page, acitvePage === 1 && classes['page--disabled']);
+
+  return (
+    <div
+      onClick={(): void => onClick(pageNumber)}
+      className={`${classes.page} ${pageNumber === currentPage && classes['page--active']}`}
+      style={pageNumber === currentPage ? {} : { borderColor: themeColors.pagination.border }}
+    >
+      {pageNumber}
+    </div>
+  );
+};
+
+export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) => {
+  const { setParam, getParam } = useUrlParams();
+  const currentPage = Number(getParam('page')) || 1;
+  const { themeColors } = useTheme();
+  const prevClassName = getClassName(classes.page, currentPage === 1 && classes['page--disabled']);
   const nextClassName = getClassName(
     classes.page,
-    acitvePage === totalPages && classes['page--disabled'],
+    currentPage === count && classes['page--disabled'],
   );
 
   const clickHandler = (page: number): void => {
@@ -22,42 +40,106 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
   };
 
   const addPage = (count: number): void => {
-    changeActivePage(acitvePage + count);
+    changeActivePage(currentPage + count);
   };
 
+  const ellipsis = (): JSX.Element => <div className={classes.ellipsis}>...</div>;
   const changeActivePage = (page: number): void => {
-    if (page < 1 || page > totalPages) return;
-    setActivePage(page);
+    if (page < 1 || page > count) return;
     onPageChange?.(page);
     setParam('page', page);
   };
+  const getPageItems = (): ReactNode => {
+    if (count <= pagesToShow) {
+      return Array.from({ length: count }, (_, index) => (
+        <PaginationItem
+          key={index + 1}
+          pageNumber={index + 1}
+          currentPage={currentPage}
+          onClick={clickHandler}
+        />
+      ));
+    } else {
+      const middleIndex = Math.ceil(pagesToShow / 2);
 
-  if (arr.length < 2) return <></>;
+      if (currentPage <= middleIndex + 1) {
+        return [
+          ...Array.from({ length: pagesToShow }, (_, index) => (
+            <PaginationItem
+              key={index + 1}
+              pageNumber={index + 1}
+              currentPage={currentPage}
+              onClick={clickHandler}
+            />
+          )),
+          ellipsis(),
+          <PaginationItem
+            key={count}
+            pageNumber={count}
+            currentPage={currentPage}
+            onClick={clickHandler}
+          />,
+        ];
+      } else if (currentPage >= count - middleIndex) {
+        return [
+          <PaginationItem
+            key={1}
+            pageNumber={1}
+            currentPage={currentPage}
+            onClick={clickHandler}
+          />,
+          ellipsis(),
+          ...Array.from({ length: pagesToShow }, (_, index) => (
+            <PaginationItem
+              key={count - pagesToShow + index + 1}
+              pageNumber={count - pagesToShow + index + 1}
+              currentPage={currentPage}
+              onClick={clickHandler}
+            />
+          )),
+        ];
+      } else {
+        return [
+          <PaginationItem
+            key={1}
+            pageNumber={1}
+            currentPage={currentPage}
+            onClick={clickHandler}
+          />,
+          ellipsis(),
+
+          ...Array.from({ length: pagesToShow - 2 }, (_, index) => (
+            <PaginationItem
+              key={currentPage - middleIndex + index + 2}
+              pageNumber={currentPage - middleIndex + index + 2}
+              currentPage={currentPage}
+              onClick={clickHandler}
+            />
+          )),
+          ellipsis(),
+          <PaginationItem
+            key={count}
+            pageNumber={count}
+            currentPage={currentPage}
+            onClick={clickHandler}
+          />,
+        ];
+      }
+    }
+  };
 
   return (
     <div className={`${classes.container} ${props.className}`}>
       <div
-        style={acitvePage === 1 ? {} : { borderColor: themeColors.pagination.border }}
+        style={currentPage === 1 ? {} : { borderColor: themeColors.pagination.border }}
         className={prevClassName}
         onClick={(): void => addPage(-1)}
       >
         &#8249;
       </div>
-      {arr.map((_, index) => {
-        const page = index + 1;
-        return (
-          <div
-            key={page}
-            onClick={(): void => clickHandler(page)}
-            className={`${classes.page} ${page === acitvePage && classes['page--active']}`}
-            style={page === acitvePage ? {} : { borderColor: themeColors.pagination.border }}
-          >
-            {page}
-          </div>
-        );
-      })}
+      {getPageItems()}
       <div
-        style={acitvePage === totalPages ? {} : { borderColor: themeColors.pagination.border }}
+        style={currentPage === count ? {} : { borderColor: themeColors.pagination.border }}
         className={nextClassName}
         onClick={(): void => addPage(1)}
       >
