@@ -2,10 +2,9 @@ import { useTheme, useUrlParams } from 'hooks';
 import { FC, ReactNode } from 'react';
 import { getClassName } from 'utils';
 
+import { PAGINATION_SIZE } from '../../variables';
 import classes from './Pagination.module.scss';
 import { IPagesProps } from './Pagination.types';
-
-const pagesToShow = 10;
 
 const PaginationItem: FC<{
   pageNumber: number;
@@ -50,7 +49,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
     setParam('page', page);
   };
   const getPageItems = (): ReactNode => {
-    if (count <= pagesToShow) {
+    if (count <= PAGINATION_SIZE) {
       return Array.from({ length: count }, (_, index) => (
         <PaginationItem
           key={index + 1}
@@ -60,11 +59,11 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
         />
       ));
     } else {
-      const middleIndex = Math.ceil(pagesToShow / 2);
+      const middleIndex = Math.ceil(PAGINATION_SIZE / 2);
 
       if (currentPage <= middleIndex + 1) {
         return [
-          ...Array.from({ length: pagesToShow }, (_, index) => (
+          ...Array.from({ length: PAGINATION_SIZE }, (_, index) => (
             <PaginationItem
               key={index + 1}
               pageNumber={index + 1}
@@ -89,10 +88,10 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
             onClick={clickHandler}
           />,
           ellipsis(),
-          ...Array.from({ length: pagesToShow }, (_, index) => (
+          ...Array.from({ length: PAGINATION_SIZE }, (_, index) => (
             <PaginationItem
-              key={count - pagesToShow + index + 1}
-              pageNumber={count - pagesToShow + index + 1}
+              key={count - PAGINATION_SIZE + index + 1}
+              pageNumber={count - PAGINATION_SIZE + index + 1}
               currentPage={currentPage}
               onClick={clickHandler}
             />
@@ -108,7 +107,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
           />,
           ellipsis(),
 
-          ...Array.from({ length: pagesToShow - 2 }, (_, index) => (
+          ...Array.from({ length: PAGINATION_SIZE - 2 }, (_, index) => (
             <PaginationItem
               key={currentPage - middleIndex + index + 2}
               pageNumber={currentPage - middleIndex + index + 2}
@@ -127,6 +126,8 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
       }
     }
   };
+
+  if (count < 1) return null;
 
   return (
     <div className={`${classes.container} ${props.className}`}>

@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect } from 'react';
 import { useCreateArticleMutation, useLazyGetBlogArticlesQuery } from 'store/apis';
 import { addUriToArticleImages } from 'utils';
-import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE, WEB_APP_ROOT_DIR } from 'variables';
+import { ARTICLES_SKELETON_COUNT, WEB_APP_ROOT_DIR } from 'variables';
 
 const PublishedArticlesTab: FC = () => {
   const [getBlogArticles, getBlogArticlesRes] = useLazyGetBlogArticlesQuery();
@@ -84,11 +84,7 @@ const PublishedArticlesTab: FC = () => {
       </ApiErrorBoundary>
       <div className='text-center'>
         {data && (
-          <Pagination
-            count={data.totalItemCount / PAGINATION_SIZE}
-            className='my-3'
-            onPageChange={changePage}
-          />
+          <Pagination count={data.totalItemCount} className='my-3' onPageChange={changePage} />
         )}
       </div>
     </div>
