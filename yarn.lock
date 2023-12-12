@@ -346,10 +346,24 @@
   resolved "https://registry.yarnpkg.com/@editorjs/editorjs/-/editorjs-2.28.2.tgz#a265c7d10e83adef81813e4dc0f01fe3464dff50"
   integrity sha512-g6V0Nd3W9IIWMpvxDNTssQ6e4kxBp1Y0W4GIf8cXRlmcBp3TUjrgCYJQmNy3l2a6ZzhyBAoVSe8krJEq4g7PQw==
 
-"@editorjs/embed@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.6.0.tgz#6aa5ee2d1953a767b5df0afbff13a25bbdc7d9be"
-  integrity sha512-h1Fk26WdRJJGA+eou4ZemcQ4tInmdcsOaoEwvv8+YoM3WWtxJDycb8emqCjfvxGFivT/ZcZFAdGR2VU6MCjzzw==
+"@editorjs/embed@^2.5.2":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/embed/-/embed-2.7.0.tgz#9bd368d0e55656dad7c7b5453033ff77aa2458bc"
+  integrity sha512-FieA8YKnqAMX+4Ng6VeusuuuyMg1cX4vADoEKcQVM0LHy2hC17ztNGZh8UHEfrjUwbfJDSr/cPhT0LRGrwTd8g==
+
+"@editorjs/header@^2.7.0":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@editorjs/header/-/header-2.8.1.tgz#ba16f43aaf461aa920c3594bdf0d854c4b5119b9"
+  integrity sha512-y0HVXRP7m2W617CWo3fsb5HhXmSLaRpb9GzFx0Vkp/HEm9Dz5YO1s8tC7R8JD3MskwoYh7V0hRFQt39io/r6hA==
+  dependencies:
+    "@codexteam/icons" "^0.0.5"
+
+"@editorjs/image@^2.8.1":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@editorjs/image/-/image-2.9.0.tgz#0c83252d569a0dc3af14c3f7d16b6df033b9c37b"
+  integrity sha512-xItihKJFiWJ06SMtLWQZvzHv4LRPNAFZYaHAXesBFzXvWwUrtVaVMcNSf0eNnw3InrPO3Po1vZRRgpsT+Ya3Bg==
+  dependencies:
+    "@codexteam/icons" "^0.0.6"
 
 "@editorjs/inline-code@^1.4.0":
   version "1.4.0"
@@ -670,7 +684,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juratbek/editorjs-code@^1.1.1":
+"@juratbek/editorjs-code@^1.0.7":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@juratbek/editorjs-code/-/editorjs-code-1.1.1.tgz#ca3a00b656286c0866115cf0ba32316c45f12c1b"
   integrity sha512-UJfTMHmrDs+r85PHu1AGzOkLGKkwgezuK1mIHkhAMeDEz7t+mBbZoOIarYqtGodBRyix2sJhueP/htXSH6xLpg==
@@ -822,11 +836,12 @@
     nice-select2 "^2.0.0"
     prismjs-components-importer "^0.2.0"
 
-"@samandar.boymurodov/editorjs-inline-image@^1.2.43":
-  version "1.2.43"
-  resolved "https://registry.yarnpkg.com/@samandar.boymurodov/editorjs-inline-image/-/editorjs-inline-image-1.2.43.tgz#a45602be3e07b6cd65e9370d56e404f3d6cbd459"
-  integrity sha512-oa3i4peb5jRoa4V41QnC2UDKfCw632JQ6mdIOaV0MHyjEPMpgV2PU5xJBhP/CkQobFycSrKgoa3e/D6quVaqHQ==
+"@samandar.boymurodov/editorjs-inline-image@^1.2.45":
+  version "1.2.45"
+  resolved "https://registry.yarnpkg.com/@samandar.boymurodov/editorjs-inline-image/-/editorjs-inline-image-1.2.45.tgz#2317d48ceafd6673a497aba6db1ad6b81c3d271f"
+  integrity sha512-b/C898SQigXQhAe7d6kgJ2HDI2JEMb0JehDsXi0o21SvOMSkphYX44ZbygcAQ39S/sdqtWSNN4LjCoyx3Q1/Tw==
   dependencies:
+    "@codexteam/icons" "^0.3.0"
     axios "0.26.0"
     intrinsic-scale "^3.0.4"
 
@@ -947,10 +962,10 @@
   resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.4.1.tgz#bfd02c1f2224567676c1545199f87c3a861d878d"
   integrity sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==
 
-"@types/events@^3.0.1":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.2.tgz#c9b18152fdac34e924260532762255e34ef1d491"
-  integrity sha512-v4Mr60wJuF069iZZCdY5DKhfj0l6eXNJtbSM/oMDNdRLoBEUsktmKnswkz0X3OAic5W8Qy/YU6owKE4A66Y46A==
+"@types/events@^3.0.0":
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/@types/events/-/events-3.0.3.tgz#a8ef894305af28d1fc6d2dfdfc98e899591ea529"
+  integrity sha512-trOc4AAUThEz9hapPtSd7wf5tiQKvTtu5b371UxXdTuqzIh0ArcRspRP0i0Viu+LXstIQ1z96t1nsPxT9ol01g==
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.8"
