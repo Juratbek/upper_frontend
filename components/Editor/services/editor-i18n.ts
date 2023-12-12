@@ -1,5 +1,11 @@
 import { I18nConfig } from '@editorjs/editorjs';
 
+const imageSettings = {
+  'With border': 'Chegara bilan',
+  'Stretch image': "Rasimni cho'zish",
+  'With background': 'Orqa fon bilan',
+};
+
 export const i18n: I18nConfig = {
   messages: {
     ui: {
@@ -32,11 +38,8 @@ export const i18n: I18nConfig = {
       },
     },
     tools: {
-      image: {
-        'With border': 'Chegara bilan',
-        'Stretch image': "Rasimni cho'zish",
-        'With background': 'Orqa fon bilan',
-      },
+      image: imageSettings,
+      unsplash: imageSettings,
     },
   },
 };
