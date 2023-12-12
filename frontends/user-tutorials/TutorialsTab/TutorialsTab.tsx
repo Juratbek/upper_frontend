@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { useCreateTutorialMutation, useLazyGetAllTutorialsQuery } from 'store/apis';
 import { setTutorial } from 'store/states';
 import { TArticleStatus } from 'types';
-import { ARTICLES_SKELETON_COUNT, PAGINATION_SIZE } from 'variables';
+import { ARTICLES_SKELETON_COUNT } from 'variables';
 
 const TutorialsTab: FC = () => {
   const dispatch = useDispatch();
@@ -78,11 +78,7 @@ const TutorialsTab: FC = () => {
       </ApiErrorBoundary>
       <div className='text-center'>
         {data && (
-          <Pagination
-            count={data.totalItemCount / PAGINATION_SIZE}
-            className='my-3'
-            onPageChange={changePage}
-          />
+          <Pagination count={data.totalItemCount} className='my-3' onPageChange={changePage} />
         )}
       </div>
     </div>

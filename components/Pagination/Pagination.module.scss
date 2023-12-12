@@ -1,6 +1,17 @@
 .container {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
+}
+
+.ellipsis {
+  width: 2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 0.25rem;
 }
 
 .page {

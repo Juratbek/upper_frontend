@@ -14,7 +14,7 @@ import {
   useResetNotificationsCountQuery,
 } from 'store/apis';
 import { INotification } from 'types';
-import { NOTIFICATION_STATUSES, NOTIFICATIONS, PAGINATION_SIZE } from 'variables';
+import { NOTIFICATION_STATUSES, NOTIFICATIONS } from 'variables';
 
 export const NotificationsTab: FC = () => {
   const [fetchNotifications, fetchNotificationsRes] = useLazyGetNotificationsByTypeQuery();
@@ -100,7 +100,7 @@ export const NotificationsTab: FC = () => {
       </ApiErrorBoundary>
       <div className='my-2'>
         {fetchNotificationsRes.data && (
-          <Pagination count={fetchNotificationsRes.data.totalItemCount / PAGINATION_SIZE} />
+          <Pagination count={fetchNotificationsRes.data.totalItemCount} />
         )}
       </div>
     </div>
