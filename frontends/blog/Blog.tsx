@@ -1,7 +1,6 @@
 import { Blog } from 'components';
 import { Alert, Button, Head, Modal, TabBody, TabsHeader } from 'components/lib';
-import { useAuth, useDevice, useModal } from 'hooks';
-import Link from 'next/link';
+import { useAuth, useModal } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,12 +11,10 @@ import {
 } from 'store/apis';
 import { openAuthModal } from 'store/states';
 import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, ICONS, TELEGRAM_BOT, WEB_APP_ROOT_DIR } from 'variables';
+import { BLOG_TAB_MENUS, BLOG_TABS, TELEGRAM_BOT } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
-
-const HeartIcon = ICONS.heart;
 
 export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const {
@@ -26,7 +23,6 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
   const [isUnsubscribeModalOpen, , { open: openUnsubscribeModal, close: closeUnsubscribeModal }] =
     useModal();
   const dispatch = useDispatch();
-  const { isMobile } = useDevice();
   const { isAuthenticated } = useAuth();
   const [subscribeBlog, subscribeBlogRes] = useSubscribeMutation();
   const [unsubscribeBlog, unsubscribeRes] = useUnSubscribeMutation();
@@ -106,33 +102,7 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
         {blog && (
           <>
             <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
-            {!blog.isCurrentBlog && (
-              <>
-                {subscriptionButton}
-                {Boolean(blog.cardNumber) && (
-                  <Link
-                    href={`${WEB_APP_ROOT_DIR}/blogs/${id}/support`}
-                    className='link d-flex mt-xs-2 w-100'
-                  >
-                    {isMobile ? (
-                      <Button className='w-100'>
-                        <span className='sponsor-icon'>
-                          <HeartIcon />
-                        </span>
-                        Blog faoliyatiga o&apos;z hissangizni qo&apos;shing
-                      </Button>
-                    ) : (
-                      <>
-                        <span className='sponsor-icon'>
-                          <HeartIcon />
-                        </span>
-                        <h4 className='m-0'>Blog faoliyatiga o&apos;z hissangizni qo&apos;shing</h4>
-                      </>
-                    )}
-                  </Link>
-                )}
-              </>
-            )}
+            {!blog.isCurrentBlog && subscriptionButton}
           </>
         )}
       </div>
