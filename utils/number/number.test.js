@@ -1,4 +1,4 @@
-import { formatToKMB, convertToCardNumbers } from '../../utils/number';
+import { formatToKMB, convertToCardNumbers } from './number';
 
 describe('formatToKMB', () => {
   it('should add suffix for less than 1000', () => {
