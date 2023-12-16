@@ -5,6 +5,7 @@ import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
 import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
@@ -13,10 +14,9 @@ import { QueryClientProvider } from 'react-query';
 import { wrapper } from 'store';
 import { queryClient } from 'store/config';
 import { IServerSideContext, TTheme } from 'types';
-import { appDynamic } from 'utils';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
-const DynamicAuthModal = appDynamic(() => import('components/shared/AuthModal'));
+const DynamicAuthModal = dynamic(() => import('components/shared/AuthModal'), { ssr: false });
 
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (

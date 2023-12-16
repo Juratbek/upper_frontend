@@ -1,10 +1,11 @@
 import { GenericWrapper } from 'components/wrappers';
 import { ArticlePageMain } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import { wrapper } from 'store';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
-import { appDynamic, get } from 'utils';
+import { get } from 'utils';
 
 export interface IArticlePageProps {
   article: IArticle | null;
@@ -12,7 +13,7 @@ export interface IArticlePageProps {
   fullUrl: string;
 }
 
-const DynamicComments = appDynamic(() => import('components/Comments'));
+const DynamicComments = dynamic(() => import('components/Comments'), { ssr: false });
 
 const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   return (

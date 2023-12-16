@@ -7,6 +7,6 @@ export const debouncer = <TValue = unknown>(milliseconds = 1000): TDebauncer<TVa
       clearTimeout(timeout);
       onClear?.();
     }
-    timeout = setTimeout(() => cb(value), ms || milliseconds);
+    timeout = setTimeout(() => cb(value), ms ?? milliseconds);
   };
 };

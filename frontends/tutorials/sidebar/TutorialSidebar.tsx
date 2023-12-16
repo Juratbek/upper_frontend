@@ -1,14 +1,14 @@
 import { ApiErrorBoundary, TutorialSidebarSkeleton } from 'components';
 import { useUrlParams } from 'hooks';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { FC, useEffect } from 'react';
 import { useLazyGetPublishedTutorialByIdQuery } from 'store/apis';
 import { ITutorialArticle } from 'types';
-import { appDynamic } from 'utils';
 
 import classes from './TutorialSidebar.module.scss';
 
-const DynamicComments = appDynamic(() => import('components/Comments'));
+const DynamicComments = dynamic(() => import('components/Comments'), { ssr: false });
 
 export const TutorialSidebar: FC = () => {
   const {
