@@ -1,7 +1,7 @@
 import { TUTORIAL_BUCKET_URL } from 'store/apis';
 import { ITutorialSection } from 'types';
 
-import { addAmazonBucketUri } from './common';
+import { addAmazonBucketUri } from './common/common';
 
 export const addTutorialAmazonUri = <T extends { imgUrl: string }>(tutorial: T): T =>
   addAmazonBucketUri(tutorial, TUTORIAL_BUCKET_URL);
