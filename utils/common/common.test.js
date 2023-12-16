@@ -1,4 +1,4 @@
-import { getClassName, isClientSide, get, validatePassword } from '../../utils/common';
+import { getClassName, isClientSide, get, validatePassword } from './common';
 
 describe('getClassName', () => {
   it('combines classnames', () => {

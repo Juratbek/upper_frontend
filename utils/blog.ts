@@ -2,7 +2,7 @@ import { IHeadProps } from 'components/lib';
 import { BLOG_BUCKET_URL } from 'store/apis';
 import { IBlog, ILink, TIcon } from 'types';
 
-import { addAmazonBucketUri } from './common';
+import { addAmazonBucketUri } from './common/common';
 
 export const addAmazonUri = <T extends { imgUrl: string }>(blog: T): T =>
   addAmazonBucketUri(blog, BLOG_BUCKET_URL);

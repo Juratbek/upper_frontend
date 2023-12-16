@@ -2,7 +2,7 @@ import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { addAmazonUri } from 'utils';
-import { getClassName } from 'utils/common';
+import { getClassName } from 'utils/common/common';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarArticle.module.scss';
