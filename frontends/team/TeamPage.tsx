@@ -20,7 +20,12 @@ export const TeamPage = (): JSX.Element => {
             className={`card mb-4 mt-5 mb-3 w-mobile-100 text-center position-relative ${classes.member}`}
           >
             <div className={classes['avatar-container']}>
-              <Avatar size='xxl' className={classes.avatar} imgUrl={member.imgUrl} zoomable />
+              <Avatar
+                size='extra-large'
+                className={classes.avatar}
+                imgUrl={member.imgUrl}
+                zoomable
+              />
             </div>
             <h2>{member.name}</h2>
             <p>{member.position}</p>

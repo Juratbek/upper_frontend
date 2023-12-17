@@ -1,7 +1,7 @@
 import { useTheme } from 'hooks';
 import { forwardRef, useState } from 'react';
 import { getClassName } from 'utils';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './Input.module.scss';
 import { TInputProps } from './Input.types';

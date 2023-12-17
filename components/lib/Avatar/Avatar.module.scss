@@ -1,5 +1,3 @@
-@import 'styles/mixins';
-
 .avatar {
   overflow: hidden;
   position: relative;
@@ -7,8 +5,14 @@
   background-color: #d9d9d9;
   border: 0.1px solid;
 
-  &--small {
+  &--micro {
     $size: 3.2rem;
+    min-width: $size;
+    width: $size;
+    height: $size;
+  }
+  &--small {
+    $size: 4rem;
     min-width: $size;
     width: $size;
     height: $size;
@@ -19,30 +23,11 @@
     width: $size;
     height: $size;
   }
-  &--large {
+  &--extra-large {
     $size: 6.4rem;
     min-width: $size;
     width: $size;
     height: $size;
-  }
-  &--extra-large {
-    $size: 6rem;
-    min-width: $size;
-    width: $size;
-    height: $size;
-  }
-
-  &--xxl {
-    $size: 8rem;
-    min-width: $size;
-    width: $size;
-    height: $size;
-    @include screenMax576 {
-      $size: 10rem;
-      min-width: $size;
-      width: $size;
-      height: $size;
-    }
   }
 }
 

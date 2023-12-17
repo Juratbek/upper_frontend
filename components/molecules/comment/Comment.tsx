@@ -1,21 +1,15 @@
 import { Avatar, Button, Divider } from 'components/lib';
-import { useAuth } from 'hooks';
 import Link from 'next/link';
 import { FC } from 'react';
-import { useAppDispatch } from 'store';
-import { closeCommentsSidebar } from 'store/states';
-import { addAmazonUri, dateInterval } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables';
+import { addAmazonUri } from 'utils/blog';
+import { dateInterval } from 'utils/date';
+import { WEB_APP_ROOT_DIR } from 'variables/common';
 
 import classes from './Comment.module.scss';
 import { ICommentProps } from './Comment.types';
 
 export const Comment: FC<ICommentProps> = (props) => {
-  const { author, text, date, updatedText } = props;
-  const dispatch = useAppDispatch();
-  const { currentBlog } = useAuth();
-
-  const closeComments = (): unknown => dispatch(closeCommentsSidebar());
+  const { author, text, date, updatedText, currentBlog } = props;
 
   const onEditClick = (): void => props.onEditClick(props);
 
@@ -25,7 +19,7 @@ export const Comment: FC<ICommentProps> = (props) => {
         <div className={classes.author}>
           <Avatar imgUrl={addAmazonUri(author).imgUrl} size='small' />
           <div className='ms-1'>
-            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} onClick={closeComments}>
+            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`}>
               <h5 className='m-0 link pointer'>{author.name}</h5>
             </Link>
             <p className={`m-0 ${classes.date}`}>
