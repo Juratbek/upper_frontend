@@ -1,22 +1,31 @@
 {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": ["./tsconfig.json"],
+    "project": [
+      "./tsconfig.json"
+    ],
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint/eslint-plugin", "react", "simple-import-sort"],
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "react",
+    "simple-import-sort"
+  ],
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
-    "plugin:@next/next/recommended"
+    "plugin:@next/next/recommended",
+    "plugin:storybook/recommended"
   ],
   "root": true,
   "env": {
     "node": true
   },
-  "ignorePatterns": ["*.js"],
+  "ignorePatterns": [
+    "*.js"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -27,26 +36,53 @@
       "error",
       {
         "selector": "variable",
-        "types": ["boolean"],
-        "format": ["PascalCase"],
-        "prefix": ["is", "should", "has", "can", "did", "will", "does", "are"]
+        "types": [
+          "boolean"
+        ],
+        "format": [
+          "PascalCase"
+        ],
+        "prefix": [
+          "is",
+          "should",
+          "has",
+          "can",
+          "did",
+          "will",
+          "does",
+          "are"
+        ]
       },
       {
         "selector": "class",
-        "format": ["PascalCase"]
+        "format": [
+          "PascalCase"
+        ]
       },
       {
         "selector": "typeAlias",
-        "format": ["PascalCase"],
-        "prefix": ["T"]
+        "format": [
+          "PascalCase"
+        ],
+        "prefix": [
+          "T"
+        ]
       },
       {
-        "selector": ["enum", "enumMember"],
-        "format": ["PascalCase", "UPPER_CASE"]
+        "selector": [
+          "enum",
+          "enumMember"
+        ],
+        "format": [
+          "PascalCase",
+          "UPPER_CASE"
+        ]
       },
       {
         "selector": "interface",
-        "format": ["PascalCase"],
+        "format": [
+          "PascalCase"
+        ],
         "custom": {
           "regex": "^I[A-Z]",
           "match": true
@@ -54,14 +90,20 @@
       },
       {
         "selector": "typeParameter",
-        "format": ["PascalCase"],
-        "prefix": ["T"]
+        "format": [
+          "PascalCase"
+        ],
+        "prefix": [
+          "T"
+        ]
       }
     ],
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [".tsx"]
+        "extensions": [
+          ".tsx"
+        ]
       }
     ],
     "no-param-reassign": [

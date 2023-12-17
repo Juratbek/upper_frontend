@@ -1,7 +1,7 @@
 import { Spinner } from 'components/lib';
 import { useTheme } from 'hooks';
 import { forwardRef, useMemo } from 'react';
-import { getClassName } from 'utils';
+import { getClassName } from 'utils/common';
 import { computeStyles } from 'utils/style';
 
 import classes from './Button.module.scss';
@@ -39,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
         },
         props.style,
       ),
-    [props.style],
+    [props.style, color],
   );
 
   return (
@@ -47,7 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
       ref={ref}
       {...props}
       className={className}
-      disabled={props.disabled || loading}
+      disabled={props.disabled ?? loading}
       style={style}
     >
       {content}

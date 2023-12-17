@@ -6,4 +6,5 @@ export interface ITextareaProps extends HTMLAttributes<HTMLTextAreaElement> {
   cols?: number;
   rows?: number;
   disabled?: boolean;
+  placeholder?: string;
 }

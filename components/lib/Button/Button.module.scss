@@ -1,6 +1,18 @@
 @import 'styles/mixins';
 
 .button {
+  // primary
+  --btn-primary-bg: var(--blue-500, #007aff);
+  --btn-primary-text: var(--white, #fff);
+  // secondary
+  --btn-secondary-bg: var(--blue-900, #000c1a);
+  --btn-secondary-text: var(--white, #fff);
+  // outlined
+  --btn-tertiary-bg: var(--black-50, #e8e9e9);
+  --btn-tertiary-text: inherit;
+}
+
+.button {
   cursor: pointer;
   border-radius: 0.6rem;
   min-width: 1.5rem;

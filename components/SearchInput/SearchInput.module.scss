@@ -1,10 +1,12 @@
+$background: var(--gray, #f5f5f5);
+
 .root {
   border-radius: 8px;
   padding: 6px 12px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background: var(--input-background);
+  background: $background;
   width: 723px;
 
   &.focused {

@@ -1,4 +1,10 @@
 .divider {
+  --divider-primary-background: var(--black-100, #d0d1d2);
+  --divider-secondary-background: var(--black-50, #e8e9e9);
+  --divider-tertiary-background: var(--gray, #f5f5f5);
+}
+
+.divider {
   &--horisontal {
     height: 1px;
   }

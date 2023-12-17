@@ -1,6 +1,12 @@
 @import './black.scss';
 @import './blue.scss';
-@import './button.scss';
-@import './divider.scss';
-@import './input.scss';
-@import './tab-button.scss';
+
+:root {
+  --gray: #f5f5f5;
+  --white: #ffffff;
+  --black: #001f40;
+
+  // navigation
+  --nav-active-bg: var(--gray, #f5f5f5);
+  --nav-active-text: var(--blue-500, #007aff);
+}

@@ -1,4 +1,4 @@
-import { BASE_URL } from 'store/apis';
+import { BASE_URL } from 'store/apis/config';
 
 import Client from './api-client';
 

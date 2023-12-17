@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { getClassName } from 'utils';
+import { getClassName } from 'utils/common';
 
 import classes from './Spinner.module.scss';
 import { ISpinnerProps } from './Spinner.types';
