@@ -6,25 +6,25 @@
   border: 0.1px solid;
 
   &--micro {
-    $size: 3.2rem;
+    $size: 32px;
     min-width: $size;
     width: $size;
     height: $size;
   }
   &--small {
-    $size: 4rem;
+    $size: 40px;
     min-width: $size;
     width: $size;
     height: $size;
   }
   &--medium {
-    $size: 4.8rem;
+    $size: 48px;
     min-width: $size;
     width: $size;
     height: $size;
   }
   &--extra-large {
-    $size: 6.4rem;
+    $size: 64px;
     min-width: $size;
     width: $size;
     height: $size;

@@ -1,40 +1,28 @@
-import { Avatar, Button, Divider } from 'components/lib';
-import Link from 'next/link';
+import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
 import { addAmazonUri } from 'utils/blog';
 import { dateInterval } from 'utils/date';
-import { WEB_APP_ROOT_DIR } from 'variables/common';
 
 import classes from './Comment.module.scss';
 import { ICommentProps } from './Comment.types';
 
 export const Comment: FC<ICommentProps> = (props) => {
-  const { author, text, date, updatedText, currentBlog } = props;
-
-  const onEditClick = (): void => props.onEditClick(props);
+  const { author, text, date, updatedText } = props;
 
   return (
-    <>
-      <div className={classes.comment}>
-        <div className={classes.author}>
-          <Avatar imgUrl={addAmazonUri(author).imgUrl} size='small' />
-          <div className='ms-1'>
-            <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`}>
-              <h5 className='m-0 link pointer'>{author.name}</h5>
-            </Link>
-            <p className={`m-0 ${classes.date}`}>
-              {dateInterval(date)} {Boolean(updatedText) && "(o'zgartirilgan)"}{' '}
-            </p>
-          </div>
+    <div className={classes.root}>
+      <Avatar imgUrl={addAmazonUri(author).imgUrl} size='small' />
+      <div className={classes.body}>
+        <div className={classes['body-header']}>
+          <Link href={`/blogs/${author.id}`} className={classes.link}>
+            <h4 className={classes['author-name']}>{author.name}</h4>
+          </Link>
+          <p className={classes.date}>
+            {dateInterval(date)} {Boolean(updatedText) && "(o'zgartirilgan)"}{' '}
+          </p>
         </div>
-        {currentBlog?.id === author.id && (
-          <Button className={classes['edit-button']} size='small' onClick={onEditClick}>
-            O&apos;zgartirish
-          </Button>
-        )}
-        <div className={classes.message}>{updatedText || text}</div>
+        <p className={classes.text}>{updatedText || text}</p>
       </div>
-      <Divider className='w-90 mx-auto' />
-    </>
+    </div>
   );
 };
