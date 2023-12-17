@@ -1,5 +1,7 @@
 @import 'styles/mixins';
 
+$padding: 12px;
+
 .link {
   text-decoration: none;
 }
@@ -7,11 +9,16 @@
 .root {
   display: flex;
   gap: 8px;
-  padding: 12px;
+  padding: $padding;
 }
 
 .body {
   flex: 1;
+  margin-bottom: -$padding;
+  margin-right: -$padding;
+  padding-right: $padding;
+  padding-bottom: $padding;
+  border-bottom: 1px solid var(--black-50, #e8e9e9);
 
   &-header {
     display: flex;
