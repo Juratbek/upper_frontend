@@ -1,6 +1,7 @@
 import { useClickOutside, useTheme } from 'hooks';
 import { ChangeEvent, FC, useMemo, useState } from 'react';
-import { debouncer, getClassName } from 'utils';
+import { getClassName } from 'utils/common';
+import { debouncer } from 'utils/debouncer';
 
 import classes from './Select.module.scss';
 import { ISelectOption, ISelectProps } from './Select.types';

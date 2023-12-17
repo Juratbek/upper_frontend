@@ -39,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
         },
         props.style,
       ),
-    [props.style],
+    [props.style, color],
   );
 
   return (

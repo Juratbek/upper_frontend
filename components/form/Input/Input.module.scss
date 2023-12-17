@@ -1,8 +1,10 @@
 @import 'styles/mixins';
 
+$background: var(--gray, #f5f5f5);
+
 .input {
   border-radius: var(--smallBorderRadius);
-  background-color: transparent;
+  background-color: $background;
   color: inherit;
   border: 1px solid var(--lightBlack);
   outline: transparent solid 1px;

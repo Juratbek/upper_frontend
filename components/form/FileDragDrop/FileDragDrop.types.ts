@@ -7,5 +7,6 @@ export type TFileDragDropProps = Override<
     defaultValue: File | string;
     selectedFileRenderer?: (file: File | string) => JSX.Element;
     onChange?: (file: File) => void;
+    placeholder?: string;
   }
 >;
