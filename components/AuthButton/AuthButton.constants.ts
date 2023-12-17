@@ -1,3 +1,3 @@
-import { ACCESS_UPPER_UZ } from 'variables';
+import { ACCESS_UPPER_UZ } from 'variables/common';
 
 export const TRUSTED_ORIGINS = [ACCESS_UPPER_UZ, 'http://localhost:3000', 'http://localhost:3001'];

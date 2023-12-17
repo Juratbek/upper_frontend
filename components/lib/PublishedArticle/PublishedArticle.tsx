@@ -2,7 +2,8 @@ import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
 import { addAmazonUri, getClassName } from 'utils';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { WEB_APP_ROOT_DIR } from 'variables/common';
+import { ICONS } from 'variables/icons';
 
 import classes from './PublishedArticle.module.scss';
 import { IPublishedArticleProps } from './PublishedArticle.types';

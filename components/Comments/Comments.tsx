@@ -1,6 +1,7 @@
 import { CommentSkeleton } from 'components';
 import { Button, Divider } from 'components/lib';
 import { StorysetImage } from 'components/lib';
+import { Comment } from 'components/molecules';
 import { useAuth, useClickOutside, useInfiniteScrollV2, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -13,13 +14,13 @@ import { IComment } from 'types';
 import { getClassName } from 'utils';
 
 import classes from './Comments.module.scss';
-import { Comment, Form } from './components';
+import { Form } from './components';
 
 export const Comments = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const [selectedComment, setSelectedComment] = useState<IComment>();
   const [isBeingEdited, setIsBeingEdited] = useState<boolean>(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, currentBlog } = useAuth();
   const {
     query: { id },
   } = useRouter();
@@ -94,7 +95,12 @@ export const Comments = (): JSX.Element => {
       );
 
     return comments.map((comment) => (
-      <Comment {...comment} key={comment.id} onEditClick={editClickHandler} />
+      <Comment
+        {...comment}
+        key={comment.id}
+        onEditClick={editClickHandler}
+        currentBlog={currentBlog}
+      />
     ));
   }, [comments, isLoading]);
 

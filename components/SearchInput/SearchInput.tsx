@@ -1,8 +1,8 @@
 import { Divider } from 'components/lib';
 import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FocusEvent, forwardRef, useEffect, useState } from 'react';
-import { getClassName } from 'utils';
-import { ICONS } from 'variables';
+import { getClassName } from 'utils/common';
+import { ICONS } from 'variables/icons';
 
 import classes from './SearchInput.module.scss';
 import { ISearchInputProps } from './SearchInput.types';

@@ -1,7 +1,8 @@
 import { useNextAuth } from 'hooks/useNextAuth/useNextAuth';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from 'store';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from 'store';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
@@ -20,7 +21,7 @@ import {
 } from './useAuth.types';
 
 export const useAuth = (): IUseAuth => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const { signIn, signOut } = useNextAuth();
   const status = useAppSelector(getAuthStatus);
   const isAuthenticated = useAppSelector(getIsAuthenticated);
