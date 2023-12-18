@@ -13,7 +13,7 @@ export default function ArticlesPage(): JSX.Element {
   const writeArticleHandler = useCallback(async () => {
     try {
       const res = await createArticle({ title: '', blocks: [], labels: [] }).unwrap();
-      router.push(`${WEB_APP_ROOT_DIR}/user/articles/${res}`);
+      router.push(`${WEB_APP_ROOT_DIR}/user/articles/${res.id}`);
     } catch (err) {
       alert('Maqola yaratishda xatolik yuz berdi');
     }
