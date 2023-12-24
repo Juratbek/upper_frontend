@@ -21,17 +21,17 @@ type TTool =
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TOOLS: Record<TTool, any> = {
   Embed: undefined,
+  List: undefined,
+  Table: undefined,
+  Delimiter: undefined,
+  InclineCode: undefined,
+  Alert: undefined,
+  Quote: undefined,
   Header: undefined,
   ImageTool: undefined,
-  List: undefined,
-  Quote: undefined,
-  Delimiter: undefined,
-  Alert: undefined,
-  Unsplash: undefined,
-  InclineCode: undefined,
   Code: undefined,
-  Table: undefined,
   Quiz: undefined,
+  Unsplash: undefined,
 };
 
 export const getTools = async ({
@@ -41,17 +41,17 @@ export const getTools = async ({
 }): Promise<EditorConfig['tools']> => {
   const tools = await Promise.all([
     import('@editorjs/embed'),
+    import('@editorjs/list'),
+    import('@editorjs/table'),
+    import('@editorjs/delimiter'),
+    import('@editorjs/inline-code'),
+    import('editorjs-alert'),
+    import('@juratbek/editorjs-quote'),
     import('@juratbek/editorjs-header'),
     import('@juratbek/editorjs-image'),
-    import('@editorjs/list'),
-    import('@editorjs/quote'),
-    import('@editorjs/delimiter'),
-    import('editorjs-alert'),
-    import('@samandar.boymurodov/editorjs-inline-image'),
-    import('@editorjs/inline-code'),
     import('@juratbek/editorjs-code'),
-    import('@editorjs/table'),
     import('@juratbek/editorjs-quiz'),
+    import('@samandar.boymurodov/editorjs-inline-image'),
   ]);
 
   Object.keys(TOOLS).forEach((key, index) => {
