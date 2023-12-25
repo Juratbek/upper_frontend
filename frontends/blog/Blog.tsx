@@ -1,5 +1,6 @@
 import { Blog } from 'components';
-import { Alert, Button, Head, Modal, TabBody, TabsHeader } from 'components/lib';
+import { Alert, Button, Head, Modal } from 'components/lib';
+import { TabsHeader } from 'components/molecules';
 import { useAuth, useModal } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useMemo } from 'react';
@@ -11,7 +12,7 @@ import {
 } from 'store/apis';
 import { openAuthModal } from 'store/states';
 import { addAmazonUri, convertBlogToHeadProp, get, log } from 'utils';
-import { BLOG_TAB_MENUS, BLOG_TABS, TELEGRAM_BOT } from 'variables';
+import { BLOG_TAB_MENUS, TELEGRAM_BOT } from 'variables';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
@@ -107,7 +108,6 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
         )}
       </div>
       <TabsHeader tabs={BLOG_TAB_MENUS} />
-      <TabBody tabs={BLOG_TABS} />
     </div>
   );
 };

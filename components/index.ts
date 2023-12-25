@@ -7,7 +7,6 @@ export * from './SearchInput/SearchInput';
 export * from './SidebarBlog/SidebarBlog';
 export * from './notifications/CommentNotification/CommentNotification';
 export * from './notifications/LikeNotification/LikeNotification';
-export * from './SidebarSearch/SidebarSearch';
 export * from './ArticleStatus/ArticleStatus';
 export * from './Editor/editor';
 export * from './Dropdown/Dropdown';

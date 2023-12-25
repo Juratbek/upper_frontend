@@ -47,9 +47,6 @@ export const ArticlesTab: FC = () => {
         </div>
       );
     return <p>list</p>;
-    // return addUriToArticleImages(articles).map((article) => (
-    //   <PublishedArticle key={article.id} article={article} author={article.author} />
-    // ));
   }, [fetchBlogArticlesRes.data, createArticleRes.isLoading, writeArticleHandler]);
 
   return (

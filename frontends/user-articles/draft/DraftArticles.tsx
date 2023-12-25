@@ -5,7 +5,6 @@ import { useAppRouter } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useCallback } from 'react';
 import { useBlogArticles, useCreateArticle } from 'store/clients/article';
-import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT } from 'variables';
 
 export const DraftArticles: FC = () => {
@@ -49,7 +48,7 @@ export const DraftArticles: FC = () => {
             </Button>
           </div>
         )}
-        {addUriToArticleImages(data?.list ?? []).map((article) => {
+        {data?.list.map((article) => {
           return <Article key={article.id} article={article} />;
         })}
       </ApiErrorBoundary>

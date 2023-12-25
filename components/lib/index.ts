@@ -9,8 +9,6 @@ export * from './Error';
 export * from './Modal';
 export * from './Spinner';
 export * from './Tooltip';
-export * from './TabBody';
-export * from './TabBody';
 export * from './Head';
 export * from './Badge';
 export * from './Avatar';
