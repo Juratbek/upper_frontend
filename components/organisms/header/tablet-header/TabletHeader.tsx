@@ -12,11 +12,13 @@ export const TabletHeader: FC = () => {
   const { themeColors } = useTheme();
 
   return (
-    <header className={`${classes.root} container`}>
-      <Link href='/' className={classes.logo}>
-        <Logo color={themeColors.icon} />
-      </Link>
-      <SearchInput className={classes['search-input']} />
+    <header className={classes.root}>
+      <div className={`${classes.container} container`}>
+        <Link href='/' className={classes.logo}>
+          <Logo color={themeColors.icon} />
+        </Link>
+        <SearchInput className={classes['search-input']} />
+      </div>
     </header>
   );
 };

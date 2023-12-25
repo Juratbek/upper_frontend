@@ -15,15 +15,13 @@ $sticky-top: 3rem;
 }
 
 .navigation {
-  border-right: 1px solid var(--divider-secondary-background);
-  padding-right: 1.5rem;
-  position: sticky;
-  top: $sticky-top;
-  flex: 1 1 var(--navigation-container-width);
-  align-self: flex-start;
-
-  @include media-max(large) {
-    display: none;
+  @include media-min(large) {
+    border-right: 1px solid var(--divider-secondary-background);
+    padding-right: 1.5rem;
+    position: sticky;
+    top: $sticky-top;
+    flex: 1 1 var(--navigation-container-width);
+    align-self: flex-start;
   }
 }
 
@@ -32,6 +30,10 @@ $sticky-top: 3rem;
   margin-left: 4rem;
   flex: 1 0 var(--main-container-width);
   min-width: var(--main-container-width);
+
+  @include media-max(large) {
+    margin-inline: 0;
+  }
 }
 
 .sidebar {

@@ -1,4 +1,4 @@
-import { INavigation } from 'components/shared';
+import { INavigation } from 'components/organisms';
 import { ICONS } from 'variables';
 
 export const SETTINGS_NAVIGATION: INavigation[] = [

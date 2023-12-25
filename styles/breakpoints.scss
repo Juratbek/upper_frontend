@@ -1,4 +1,4 @@
-$LARGE: 1025px;
+$LARGE: 1050px;
 $MEDIUM: 992px;
 $SMALL: 576px;
 
@@ -8,7 +8,7 @@ $breakpoints: (
   large: $LARGE,
 );
 
-@mixin media($size) {
+@mixin media-min($size) {
   @each $key, $value in $breakpoints {
     @if $key == $size {
       @media (min-width: $value) {

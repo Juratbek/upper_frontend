@@ -1,6 +1,6 @@
 import { Button, Link } from 'components/lib';
+import { Profile } from 'components/organisms/profile';
 import { SearchInput } from 'components/SearchInput/SearchInput';
-import { Profile } from 'components/shared/profile';
 import { useAuth, useTheme } from 'hooks';
 import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
 import { FC, useCallback } from 'react';
@@ -25,7 +25,6 @@ export const DesktopHeader: FC = () => {
   const createArticleHandler = useCallback(() => {
     if (isAuthenticated) {
       createArticle();
-      return;
     } else {
       dispatch(openAuthModal());
     }

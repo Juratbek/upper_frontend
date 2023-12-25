@@ -1,4 +1,4 @@
-import { Navigation } from 'components/shared';
+import { Navigation } from 'components/organisms';
 import { FC } from 'react';
 
 import { SETTINGS_NAVIGATION } from './SettingsNavigation.constants';

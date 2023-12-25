@@ -1,8 +1,13 @@
 @import '../mixins.scss';
+@import '../breakpoints.scss';
 
 .container {
   max-width: min(1320px, 98vw);
   margin: 0 auto;
+
+  @include media-max(large) {
+    max-width: 720px;
+  }
 
   @include screenMax992 {
     max-width: 720px;

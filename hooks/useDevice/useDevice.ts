@@ -5,6 +5,7 @@ export const useDevice = (defaultDevice?: Partial<IDevice>): IDevice => {
   const [device, setDevice] = useState<IDevice>({
     isMobile: false,
     isTablet: false,
+    isDesktop: false,
     type: undefined,
     ...defaultDevice,
   });

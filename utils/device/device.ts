@@ -6,6 +6,7 @@ export const getDevice = (): IDevice => {
   let type: TDeviceType = DEVICE_TYPES.desktop;
   let isMobile = false;
   let isTablet = false;
+  let isDesktop = false;
   try {
     screenWith = screen.width;
   } catch (e) {
@@ -13,6 +14,7 @@ export const getDevice = (): IDevice => {
       type,
       isMobile,
       isTablet,
+      isDesktop,
     };
   }
 
@@ -21,15 +23,24 @@ export const getDevice = (): IDevice => {
     isTablet = false;
     type = DEVICE_TYPES.mobile;
   }
-  if (576 <= screenWith && screenWith < 1025) {
+
+  if (576 <= screenWith && screenWith < 1050) {
     isMobile = false;
     isTablet = true;
     type = DEVICE_TYPES.tablet;
+  }
+
+  if (screenWith >= 1050) {
+    type = DEVICE_TYPES.desktop;
+    isDesktop = true;
+    isMobile = false;
+    isTablet = false;
   }
 
   return {
     type,
     isMobile,
     isTablet,
+    isDesktop,
   };
 };

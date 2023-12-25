@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/react';
+import { ReactQueryDecorator } from './decorators/react-query';
+import '../styles/index.scss';
 
 const preview: Preview = {
   parameters: {
@@ -10,6 +12,7 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [ReactQueryDecorator],
 };
 
 export default preview;

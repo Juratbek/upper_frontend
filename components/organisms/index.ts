@@ -1,4 +1,4 @@
-export * from './AuthModal';
+export * from './auth-modal';
 export * from './header';
 export * from './navigation';
 export * from './sidebar';

@@ -1,0 +1,20 @@
+.root {
+  border-bottom: 1px solid var(--black-50, #e8e9e9);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  height: 64px;
+}
+
+.logo {
+  width: 8.6rem;
+  height: 3.6rem;
+}
+
+.search-input {
+  width: unset;
+  flex: 1;
+}

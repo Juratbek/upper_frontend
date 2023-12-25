@@ -1,14 +1,30 @@
-import { Navigation, Sidebar } from 'components/shared';
-import { FC } from 'react';
+import { Navigation, Sidebar } from 'components/organisms';
+import { BottomNavigation } from 'components/organisms/bottom-navigation';
+import { useDevice } from 'hooks';
+import { FC, useMemo } from 'react';
 
 import classes from './GenericWrapper.module.scss';
 import { IGenericWrapperProps } from './GenericWrapper.types';
 
 export const GenericWrapper: FC<IGenericWrapperProps> = ({
-  navigation = <Navigation />,
   children,
   sidebar = <Sidebar />,
+  ...props
 }) => {
+  const { isDesktop } = useDevice();
+
+  const navigation = useMemo(() => {
+    const { navigation } = props;
+
+    if (navigation === null) return navigation;
+
+    if (navigation) return navigation;
+
+    if (isDesktop) return <Navigation />;
+
+    return <BottomNavigation />;
+  }, [props.navigation, isDesktop]);
+
   return (
     <div className={`${classes.root} container`}>
       <nav className={classes.navigation}>{navigation}</nav>

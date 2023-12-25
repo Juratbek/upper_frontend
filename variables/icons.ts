@@ -33,7 +33,7 @@ export const ICONS = {
   logoIcon: icons.LogoIcon,
   heart: icons.HeartIcon,
   addFolder: icons.AddFolderIcon,
-  plus: icons.PlusIcon,
+  plus: icons.Plus,
   calendar: icons.CalendarIcon,
   help: icons.HelpIcon,
   website: icons.WebsiteIcon,

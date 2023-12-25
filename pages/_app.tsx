@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer, Header } from 'components/shared';
+import { Footer, Header } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -16,7 +16,7 @@ import { queryClient } from 'store/config';
 import { IServerSideContext, TTheme } from 'types';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
-const DynamicAuthModal = dynamic(() => import('components/shared/AuthModal'), { ssr: false });
+const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal'), { ssr: false });
 
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
