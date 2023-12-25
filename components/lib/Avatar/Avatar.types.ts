@@ -1,4 +1,4 @@
-export type TAvatarSize = 'micro' | 'small' | 'medium' | 'large' | 'extra-large';
+export type TAvatarSize = 'micro' | 'small' | 'medium' | 'extra-large';
 
 export interface IAvatarProps {
   imgUrl?: string;

@@ -9,7 +9,13 @@ import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
 
-export const Blog: FC<IBlogProps> = ({ imgUrl, name, bio, avatarSize = 'large', ...props }) => {
+export const Blog: FC<IBlogProps> = ({
+  imgUrl,
+  name,
+  bio,
+  avatarSize = 'extra-large',
+  ...props
+}) => {
   const { className, isLink, id, links = [] } = props;
   const rootClassName = getClassName(classes.blog, className);
 

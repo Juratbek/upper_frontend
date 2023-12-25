@@ -17,7 +17,11 @@ export const Profile: FC<{ closePopover: TNoop; className?: string }> = ({
   return (
     <div className={className}>
       <div className={classes.profile}>
-        <Avatar size='large' imgUrl={currentBlog?.imgUrl} className={classes['profile--pick']} />
+        <Avatar
+          size='extra-large'
+          imgUrl={currentBlog?.imgUrl}
+          className={classes['profile--pick']}
+        />
         <div className='flex-1'>
           <h3 className={classes['profile--name']}>{currentBlog?.name}</h3>
           <p className={classes['profile--bio']}>{currentBlog?.bio}</p>
