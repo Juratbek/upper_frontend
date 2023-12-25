@@ -1,13 +1,12 @@
 import { ApiErrorBoundary, ArticleSkeleton, Pagination } from 'components';
 import { Button, StorysetImage } from 'components/lib';
+import { Article } from 'components/molecules';
 import { useAppRouter } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useCallback } from 'react';
 import { useBlogArticles, useCreateArticle } from 'store/clients/article';
 import { addUriToArticleImages } from 'utils';
 import { ARTICLES_SKELETON_COUNT } from 'variables';
-
-import { Article } from '../Article/Article';
 
 export const DraftArticles: FC = () => {
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
@@ -50,7 +49,7 @@ export const DraftArticles: FC = () => {
             </Button>
           </div>
         )}
-        {addUriToArticleImages(data?.list || []).map((article) => {
+        {addUriToArticleImages(data?.list ?? []).map((article) => {
           return <Article key={article.id} article={article} />;
         })}
       </ApiErrorBoundary>

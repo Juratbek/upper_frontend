@@ -14,9 +14,7 @@ export interface ISidebarArticle {
   author: IBlogSmall;
 }
 export interface IArticleResult extends IArticleSmall {
-  content: string;
-  status: TArticleStatus;
-  imgUrl: string;
+  content?: string;
 }
 
 export interface IArticle extends IArticleSmall {
