@@ -5,9 +5,6 @@ import { ICONS } from 'variables';
 export interface ITabHeader {
   name: string;
   id: string;
-  active?: boolean;
-  private?: boolean;
-  defaultSelected?: boolean;
 }
 
 export interface ITabBody {

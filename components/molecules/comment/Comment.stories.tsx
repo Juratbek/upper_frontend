@@ -4,7 +4,7 @@ import { IComment } from 'types';
 import { Comment } from './Comment';
 
 const meta = {
-  title: 'components/lib/Comment',
+  title: 'components/molecules/Comment',
   component: (props): JSX.Element => (
     <div style={{ width: 344 }}>
       <Comment {...props} />

@@ -11,7 +11,6 @@ export * from './Spinner';
 export * from './Tooltip';
 export * from './TabBody';
 export * from './TabBody';
-export * from './TabsHeader';
 export * from './Head';
 export * from './Badge';
 export * from './Avatar';
