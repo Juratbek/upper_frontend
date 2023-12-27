@@ -44,7 +44,7 @@ export const getTools = async ({
     import('@editorjs/list'),
     import('@editorjs/table'),
     import('@editorjs/delimiter'),
-    import('@editorjs/inline-code'),
+    import('@juratbek/editorjs-inline-code'),
     import('editorjs-alert'),
     import('@juratbek/editorjs-quote'),
     import('@juratbek/editorjs-header'),

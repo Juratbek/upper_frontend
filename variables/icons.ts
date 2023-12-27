@@ -48,5 +48,5 @@ export const ICONS = {
   write: icons.Write,
   save: icons.Save,
   settings: icons.Settings,
-  loon: icons.Loon,
+  moon: icons.Moon,
 } satisfies Record<string, FC<IIconProps>>;

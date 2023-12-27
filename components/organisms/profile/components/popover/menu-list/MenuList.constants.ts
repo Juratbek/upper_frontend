@@ -25,7 +25,7 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
     href: '/settings/profile',
   },
   {
-    icon: ICONS.loon,
+    icon: ICONS.moon,
     text: 'Qiyofa',
     menu: ThemeMenu,
   },
