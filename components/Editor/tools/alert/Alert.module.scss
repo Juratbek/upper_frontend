@@ -1,0 +1,31 @@
+.Alert-tool {
+    border-radius: 12px;
+    border: 1px solid;
+    padding: 16px 16px 20px 16px;
+}
+
+.body {
+    display: flex;
+    gap: 12px;
+}
+
+.icon {
+    & path {
+        stroke: unset;
+    }
+}
+
+.text {
+    margin: 0;
+    flex: 1;
+    outline: none;
+    color: var(--black-500, #161B1D);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.info {
+    border-color: #FBD614;
+    background: rgba(243, 248, 3, 0.20);
+}

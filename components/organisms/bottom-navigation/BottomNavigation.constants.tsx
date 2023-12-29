@@ -18,7 +18,7 @@ export const leftButtons: IButton[] = [
 export const rightButtons: IButton[] = [
   {
     icon: ICONS.notification,
-    path: '/user/articles/draft',
+    path: '/notifications',
     label: 'Xabarlar',
   },
   {

@@ -19,7 +19,7 @@ export const menu: Array<{ icon: TIconComponent; text: string; path: string }> =
   },
   {
     icon: ICONS.moon,
-    text: 'Sozlamalar',
-    path: '/settings',
+    text: 'Qiyofa',
+    path: '/settings/theme',
   },
 ];
