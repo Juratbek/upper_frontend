@@ -16,7 +16,7 @@ export const ICONS = {
   google: icons.GoogleIcon,
   facebook: icons.FacebookIcon,
   github: icons.GitHubIcon,
-  comment: icons.CommentIcon,
+  comment: icons.Comment,
   like: icons.Like,
   dislike: icons.Dislike,
   share: icons.Share,

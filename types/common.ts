@@ -15,6 +15,7 @@ export type TIcon = keyof typeof ICONS;
 
 export interface IIconProps {
   color?: string;
+  variant?: 'outlined' | 'fulfilled';
   width?: number;
   height?: number;
 }

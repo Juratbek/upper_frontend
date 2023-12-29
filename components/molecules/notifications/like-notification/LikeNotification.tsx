@@ -1,18 +1,17 @@
 import { Link } from 'components/lib';
 import { FC } from 'react';
-import { INotificationComponentProp } from 'types';
 import { dateInterval, getClassName } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
+
+import { INotificationComponentProp } from '../Notification.types';
 
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
   const { className, author, article, status, createdDate } = props;
   const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
 
-  const clickHandler = (): void => props.onClick?.(props);
-
   return (
     <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`}>
-      <div className={rootClassName} onClick={clickHandler}>
+      <div className={rootClassName}>
         <div>
           <strong
             className='pointer'

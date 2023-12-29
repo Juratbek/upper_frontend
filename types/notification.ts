@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import { IArticleSmall } from './article';
 import { IBlogSmall } from './blog';
 
@@ -14,14 +12,4 @@ export interface INotification {
   status: TNotificationStatus;
   createdDate: string;
   message?: string;
-}
-
-export type TNotificationComponent = FC<INotificationComponentProp>;
-
-export interface INotificationComponentProp extends INotification {
-  onClick?: (notification: INotification) => void;
-  markAsRead?: (notification: INotification) => void;
-  deleteNotification?: (notification: INotification) => void;
-  loading?: boolean;
-  className?: string;
 }

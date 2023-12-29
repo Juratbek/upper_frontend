@@ -1,19 +1,13 @@
 import { ApiErrorBoundary, NotificationSkeleton, Pagination } from 'components';
-import { Divider, StorysetImage } from 'components/lib';
+import { StorysetImage } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
-import {
-  useDeleteNotification,
-  useNotificationsList,
-  useReadNotification,
-  useResetNotificationsCount,
-} from 'store/clients/notification';
-import { INotification } from 'types';
-import { NOTIFICATION_STATUSES, NOTIFICATIONS } from 'variables';
+import { useNotificationsList, useResetNotificationsCount } from 'store/clients/notification';
+import { NOTIFICATIONS } from 'variables/notification';
 
 export const Notifications: FC = () => {
-  const { mutate: sendReadNotificationReq } = useReadNotification();
-  const { mutate: deleteNotificationReq } = useDeleteNotification();
+  // const { mutate: sendReadNotificationReq } = useReadNotification();
+  // const { mutate: deleteNotificationReq } = useDeleteNotification();
   useResetNotificationsCount();
   const {
     query: { page },
@@ -23,18 +17,6 @@ export const Notifications: FC = () => {
   useEffect(() => {
     document.querySelector('#main')?.scrollTo({ top: 0 });
   }, [page]);
-
-  const readNotification = (notification: INotification): void => {
-    markAsRead(notification);
-  };
-
-  const markAsRead = (notification: INotification): void => {
-    sendReadNotificationReq(notification.id);
-  };
-
-  const deleteNotification = (notification: INotification): void => {
-    deleteNotificationReq(notification.id);
-  };
 
   const notifications = useMemo(() => {
     const { data } = fetchNotificationsRes;
@@ -53,22 +35,13 @@ export const Notifications: FC = () => {
         </div>
       );
 
-    return notifications.map((notification, index) => {
+    return notifications.map((notification) => {
       const Notification = NOTIFICATIONS[notification.type];
 
       if (!Notification) return <></>;
       return (
         <div key={notification.id}>
-          <Notification
-            onClick={readNotification}
-            {...notification}
-            markAsRead={markAsRead}
-            deleteNotification={deleteNotification}
-          />
-          {index !== notifications.length - 1 &&
-            notification.status === NOTIFICATION_STATUSES.UNREAD && (
-              <Divider className='w-90 mx-auto' style={{ marginTop: 2, marginBottom: 2 }} />
-            )}
+          <Notification {...notification} />
         </div>
       );
     });

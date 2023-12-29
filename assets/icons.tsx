@@ -269,20 +269,32 @@ export const GitHubIcon: FC<IIconProps> = ({ color = 'black' }) => (
   </svg>
 );
 
-export const CommentIcon: FC<IIconProps> = ({ color = 'black' }) => (
-  <svg viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'>
+export const Comment: FC<IIconProps> = ({
+  width = 24,
+  height = 24,
+  color = 'black',
+  variant = 'outlined',
+}) => (
+  <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
+    {variant === 'fulfilled' && (
+      <path
+        d='M2 19.7307V6.05541C2 4.82811 2.99492 3.83319 4.22222 3.83319H19.7778C21.0051 3.83319 22 4.82811 22 6.05541V15.51C22 16.7373 21.0051 17.7322 19.7778 17.7322H7.5125C6.83742 17.7322 5.77723 18.5662 5.77723 18.5662L3.5 19.9999C3.5 19.9999 2 20.5163 2 19.7307Z'
+        fill='#007AFF'
+      />
+    )}
+    {variant === 'outlined' && (
+      <path
+        d='M2 19.6392V5.96392C2 4.73662 2.99492 3.7417 4.22222 3.7417H19.7778C21.0051 3.7417 22 4.73662 22 5.96392V15.4185C22 16.6458 21.0051 17.6407 19.7778 17.6407H7.5125C6.83742 17.6407 5.77723 18.4747 5.77723 18.4747L3.18724 20.0556C3.18724 20.0556 2 20.7213 2 19.6392Z'
+        stroke='black'
+        strokeWidth='1.4'
+      />
+    )}
+    <path d='M6.5 13.0915H17.5' stroke={color} strokeLinecap='round' strokeLinejoin='round' />
     <path
-      d='M16.6 22C20.5598 22 22.5397 22 23.7698 20.8284C25 19.6569 25 17.7712 25 14C25 10.2288 25 8.34315 23.7698 7.17157C22.5397 6 20.5598 6 16.6 6H12.4C8.4402 6 6.46031 6 5.23015 7.17157C4 8.34315 4 10.2288 4 14C4 17.7712 4 19.6569 5.23015 20.8284C5.91599 21.4816 6.83488 21.7706 8.2 21.8985'
+      d='M6.50101 9.09153L15.501 9.09149'
       stroke={color}
-      strokeWidth='1.2'
       strokeLinecap='round'
       strokeLinejoin='round'
-    />
-    <path
-      d='M16.9352 21.9844C15.5751 22.2488 14.1727 23.0287 12.9277 23.927C10.928 25.3698 9.92813 26.0912 9.32388 25.8729C8.71961 25.6544 8.62701 24.631 8.44182 22.5841L8.39974 22.119'
-      stroke='#54A9EB'
-      strokeWidth='1.2'
-      strokeLinecap='round'
     />
   </svg>
 );

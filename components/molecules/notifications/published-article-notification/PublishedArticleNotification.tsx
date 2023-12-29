@@ -1,8 +1,8 @@
 import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
-import { INotificationComponentProp } from 'types';
 import { addAmazonUri, dateInterval, getClassName } from 'utils';
 
+import { INotificationComponentProp } from '../Notification.types';
 import classes from './PublishedArticleNotification.module.scss';
 
 export const PublishedArticleNotification: FC<INotificationComponentProp> = (props) => {
