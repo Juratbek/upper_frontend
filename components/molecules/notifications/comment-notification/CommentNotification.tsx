@@ -1,7 +1,9 @@
 import { Link } from 'components/lib';
 import { FC } from 'react';
-import { dateInterval, getClassName } from 'utils';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { getClassName } from 'utils/common';
+import { dateInterval } from 'utils/date';
+import { WEB_APP_ROOT_DIR } from 'variables/common';
+import { ICONS } from 'variables/icons';
 
 import classes from '../Notification.module.scss';
 import { INotificationComponentProp } from '../Notification.types';
@@ -11,7 +13,7 @@ const CommentIcon = ICONS.comment;
 
 export const CommentNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate, message } = props;
-  const rootClassName = getClassName(className, status == 'UNREAD' && classes.unread);
+  const rootClassName = getClassName(classes.root, className, status == 'UNREAD' && classes.unread);
 
   return (
     <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`} className={rootClassName}>

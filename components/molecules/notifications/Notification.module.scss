@@ -1,3 +1,9 @@
+.root {
+    padding: 2.4rem 0;
+    border-bottom: 1px solid var(--black-50, #E8E9E9);
+    display: block;
+}
+
 .title {
     margin-top: 0;
     margin-bottom: 20px;
@@ -13,7 +19,7 @@
     &::before {
         position: absolute;
         left: -12px;
-        top: 8px;
+        top: 32px;
         width: 12px;
         height: 12px;
         content: ' ';

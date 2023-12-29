@@ -1,38 +1,12 @@
-.root {
-  padding: 2.4rem 0;
-  border-bottom: 1px solid var(--black-50, #E8E9E9);
-}
-
-.title {
-  color: var(--black-900, #020303);
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 2.8rem;
-  margin: 0;
-}
-
-.footer {
+.author {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 1.4rem;
+  gap: 0.8rem;
 
-  .date {
-    color: var(--Black-60, #787878);
-    font-size: 1.2rem;
-    line-height: 120%;
-  }
-
-  .author {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-
-    &-name {
-      color: var(--black-400, #45494A);
-      font-size: 1.4rem;
-      font-weight: 500;
-      line-height: 2rem;
-    }
+  &-name {
+    color: var(--black-400, #45494A);
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 2rem;
   }
 }
