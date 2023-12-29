@@ -1,7 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer } from 'components/organisms/footer/Footer';
-import { Header } from 'components/organisms/header/Header';
+import { Footer, Header } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
