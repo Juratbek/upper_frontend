@@ -23,7 +23,7 @@ export const MainNavigation: FC = () => {
         href: '/notifications',
         icon: ICONS.notification,
         text: 'Xabarlar',
-        badge: notificationsCount,
+        badge: Number(notificationsCount) > 9 ? '9+' : notificationsCount,
       },
       {
         href: '/user/articles/draft',
