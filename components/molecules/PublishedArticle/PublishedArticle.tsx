@@ -11,8 +11,8 @@ import { IPublishedArticleProps } from './PublishedArticle.types';
 const SaveIcon = ICONS.save;
 const ShareIcon = ICONS.share;
 
-export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, author, ...props }) => {
-  const { title, content, id, imgUrl } = article;
+export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props }) => {
+  const { title, content, id, imgUrl, author } = article;
   const rootClassName = getClassName(classes.root, props.className);
 
   return (

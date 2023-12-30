@@ -2,6 +2,7 @@
 
 .root {
   padding: 32px 0;
+  border-bottom: 1px solid var(--black-50, #E8E9E9);
 }
 
 .body {
@@ -20,7 +21,7 @@
   .content {
     margin-top: 12px;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.5;

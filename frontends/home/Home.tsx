@@ -1,5 +1,5 @@
-import { Button, PublishedArticle } from 'components/lib';
-import { Divider } from 'components/lib';
+import { Button, Divider } from 'components/lib';
+import { PublishedArticle } from 'components/molecules';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment } from 'react';
@@ -27,7 +27,7 @@ export const HomePage: FC = () => {
       {articles.map(addAmazonBucketUrl).map((article) => (
         <Fragment key={article.id}>
           <Divider color='secondary' />
-          <PublishedArticle article={article} author={article.author} />
+          <PublishedArticle article={article} />
         </Fragment>
       ))}
       <Button
