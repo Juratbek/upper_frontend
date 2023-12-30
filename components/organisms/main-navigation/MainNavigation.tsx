@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useNotificationsCount } from 'store/clients/notification';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { INavigation, Navigation } from '../navigation';
 
