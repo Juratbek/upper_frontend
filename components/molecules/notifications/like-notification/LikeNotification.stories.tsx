@@ -6,7 +6,7 @@ import { LikeNotification } from './LikeNotification';
 const meta = {
   title: 'components/molecules/Like Notification',
   component: (props): JSX.Element => (
-    <div style={{ width: 720, margin: 100 }}>
+    <div style={{ width: 720, margin: 20 }}>
       <LikeNotification {...props} />
     </div>
   ),

@@ -10,11 +10,12 @@ const LikeIcon = ICONS.like;
 
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
   const { className, author, article, status, createdDate } = props;
-  const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
+  const rootClassName = getClassName(classes.root, className, status == 'UNREAD' && classes.unread);
 
   return (
     <Link href={`/articles/${article.id}`} className={rootClassName}>
       <h3
+        className={classes.title}
         dangerouslySetInnerHTML={{
           __html: `&quot;${article.title}&quot; maqolangiz ${author.name}ga yoqdi`,
         }}
