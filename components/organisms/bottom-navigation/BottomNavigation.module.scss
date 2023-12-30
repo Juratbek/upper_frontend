@@ -1,3 +1,5 @@
+@import 'styles/breakpoints';
+
 .root {
   position: fixed;
   bottom: 0;
@@ -15,6 +17,10 @@
   justify-content: center;
   gap: 24px;
   height: 60px;
+
+  @include media-max(small) {
+    gap: 4px;
+  }
 }
 
 .navigation-button {
@@ -48,6 +54,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include media-max(small) {
+    margin-inline: 10px;
+  }
 
   .circle {
     border: 1.5px solid #45494a;

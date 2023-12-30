@@ -3,8 +3,9 @@ import {
   LikeNotification,
   MessageNotification,
   PublishedArticleNotification,
-} from 'components/notifications';
-import { TNotification, TNotificationComponent, TNotificationStatus } from 'types';
+  TNotificationComponent,
+} from 'components/molecules';
+import { TNotification, TNotificationStatus } from 'types';
 
 export const NOTIFICATION_TYPES = {
   ARTICLE_PUBLISHED: 'ARTICLE_PUBLISHED',

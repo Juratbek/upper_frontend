@@ -1,3 +1,5 @@
 export * from './comment/Comment';
-export * from './TabsHeader';
+export * from './tabs-header';
 export * from './article/Article';
+export * from './notifications';
+export * from './PublishedArticle';

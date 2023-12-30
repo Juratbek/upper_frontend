@@ -1,5 +1,4 @@
-import { Navigation, Sidebar } from 'components/organisms';
-import { BottomNavigation } from 'components/organisms/bottom-navigation';
+import { BottomNavigation, MainNavigation, Sidebar } from 'components/organisms';
 import { useDevice } from 'hooks';
 import { FC, useMemo } from 'react';
 
@@ -20,7 +19,7 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
 
     if (navigation) return navigation;
 
-    if (isDesktop) return <Navigation />;
+    if (isDesktop) return <MainNavigation />;
 
     return <BottomNavigation />;
   }, [props.navigation, isDesktop]);

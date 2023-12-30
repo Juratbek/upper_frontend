@@ -16,44 +16,32 @@ class Client {
   }
 
   async get<TResponse>(path: string, params?: Record<string, string>): Promise<TResponse> {
-    try {
-      let fullPath = path;
-      if (params) {
-        const searchParams = new URLSearchParams(params);
-        fullPath = `${fullPath}?${searchParams.toString()}`;
-      }
-      const res = await this.fetch(fullPath, { method: 'get' });
-      const data = await res.json();
-      return data as TResponse;
-    } catch (e) {
-      throw new Error(`An error occured: ${e}`);
+    let fullPath = path;
+    if (params) {
+      const searchParams = new URLSearchParams(params);
+      fullPath = `${fullPath}?${searchParams.toString()}`;
     }
+    const res = await this.fetch(fullPath, { method: 'get' });
+    const data = await res.json();
+    return data as TResponse;
   }
 
   async post<TBody = unknown, TResponse = unknown>({
     path,
     ...config
   }: IPostConfig<TBody>): Promise<TResponse> {
-    try {
-      const res = await this.fetch(path, {
-        method: 'post',
-        body: JSON.stringify(config.body),
-      });
-      const data = await res.json();
-      return data as TResponse;
-    } catch (e) {
-      throw new Error('An error occured');
-    }
+    const res = await this.fetch(path, {
+      method: 'post',
+      body: JSON.stringify(config.body),
+    });
+    const data = await res.json();
+    return data as TResponse;
   }
 
   async delete(path: string): Promise<void> {
-    try {
-      await this.fetch(path, {
-        method: 'delete',
-      });
-    } catch (e) {
-      throw new Error('An error occured');
-    }
+    await this.fetch(path, {
+      method: 'delete',
+    });
   }
 
   async fetch(path: string, config: RequestInit): Promise<Response> {
@@ -64,7 +52,12 @@ class Client {
         config.headers = { ...this.#config.headers, ...config.headers, Authorization: token };
       }
     }
-    return fetch(fullUrl, config);
+    const res = await fetch(fullUrl, config);
+    if (res.status === 200) {
+      return res;
+    } else {
+      throw new Error(`An Error occured while fetching ${path}: ${res}`);
+    }
   }
 }
 

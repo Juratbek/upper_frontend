@@ -7,4 +7,5 @@ export interface INavItemProps {
   text: ReactNode;
   href: string;
   className?: string;
+  badge?: ReactNode;
 }
