@@ -1,29 +1,29 @@
 import { Link } from 'components/lib';
 import { FC } from 'react';
 import { dateInterval, getClassName } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables';
+import { ICONS } from 'variables/icons';
 
+import classes from '../Notification.module.scss';
 import { INotificationComponentProp } from '../Notification.types';
+
+const LikeIcon = ICONS.like;
 
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
   const { className, author, article, status, createdDate } = props;
   const rootClassName = getClassName(className, status == 'UNREAD' && 'notification--unread');
 
   return (
-    <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`}>
-      <div className={rootClassName}>
-        <div>
-          <strong
-            className='pointer'
-            dangerouslySetInnerHTML={{ __html: `&quot;${article.title}&quot;` }}
-          />{' '}
-          maqolangiz{' '}
-          <Link href={`${WEB_APP_ROOT_DIR}/blogs/${author.id}`} className='link'>
-            <strong className='pointer'>{author.name}</strong>ga
-          </Link>{' '}
-          yoqdi
+    <Link href={`/articles/${article.id}`} className={rootClassName}>
+      <h3
+        dangerouslySetInnerHTML={{
+          __html: `&quot;${article.title}&quot; maqolangiz ${author.name}ga yoqdi`,
+        }}
+      />
+      <div className={classes.footer}>
+        <div className={classes['icon-box']}>
+          <LikeIcon variant='fulfilled' color='#E6F2FF' />
         </div>
-        <time className='date'>{dateInterval(createdDate)}</time>
+        <time className={`${classes.date} mt-auto`}>{dateInterval(createdDate)}</time>
       </div>
     </Link>
   );

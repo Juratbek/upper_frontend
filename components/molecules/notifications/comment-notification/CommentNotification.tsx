@@ -2,7 +2,6 @@ import { Link } from 'components/lib';
 import { FC } from 'react';
 import { getClassName } from 'utils/common';
 import { dateInterval } from 'utils/date';
-import { WEB_APP_ROOT_DIR } from 'variables/common';
 import { ICONS } from 'variables/icons';
 
 import classes from '../Notification.module.scss';
@@ -16,7 +15,7 @@ export const CommentNotification: FC<INotificationComponentProp> = (props) => {
   const rootClassName = getClassName(classes.root, className, status == 'UNREAD' && classes.unread);
 
   return (
-    <Link href={`${WEB_APP_ROOT_DIR}/articles/${article.id}`} className={rootClassName}>
+    <Link href={`/articles/${article.id}`} className={rootClassName}>
       <h3
         dangerouslySetInnerHTML={{
           __html: `${author.name} &quot;${article.title}&quot; maqolangizga fikr bildirdi`,
