@@ -9,6 +9,9 @@ export const useResetNotificationsCount = (): IQeuryResult =>
     apiClient.get('notification/reset-notifications-count'),
   );
 
+export const useNotificationsCount = (): IQeuryResult<number> =>
+  useQuery(['notifications-count'], () => apiClient.get<number>('notification/count'));
+
 export const useDeleteNotification: TMutationHook<unknown, number> = () =>
   useMutation(['delete-notification'], (id) => apiClient.delete(`notification/${id}`));
 

@@ -11,7 +11,6 @@ export * from './Dropdown/Dropdown';
 export * from './ApiError/ApiError';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
 export * from './ImageModal';
-export * from './Comments/Comments';
 export * from './Follower/Follower';
 export * from './skeletons';
 export * from './PasswordValidityLevel/PasswordValidityLevel';

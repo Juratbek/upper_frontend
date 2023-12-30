@@ -1,7 +1,6 @@
 import { GenericWrapper } from 'components/wrappers';
 import { ArticlePageMain } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import { wrapper } from 'store';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
@@ -13,13 +12,10 @@ export interface IArticlePageProps {
   fullUrl: string;
 }
 
-const DynamicComments = dynamic(() => import('components/Comments'), { ssr: false });
-
 const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   return (
     <GenericWrapper sidebar={null} navigation={null}>
       <ArticlePageMain {...props} />
-      <DynamicComments />
     </GenericWrapper>
   );
 };

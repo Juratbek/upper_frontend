@@ -14,16 +14,21 @@ export const HomePage: FC = () => {
   const { isReady } = useRouter();
   const { getParam } = useUrlParams();
   const label = getParam(LABEL_ID_PARAM) ?? TopLabel;
-  const { data, fetchNextPage, isFetchingNextPage } = usePublishedArticlesList(label as string, {
-    enabled: typeof label === 'string' && isReady,
-  });
+  const { data, fetchNextPage, isFetchingNextPage, isLoading } = usePublishedArticlesList(
+    label as string,
+    {
+      enabled: typeof label === 'string' && isReady,
+    },
+  );
   const { pages = [] } = data ?? {};
   const articles = pages.reduce<IPublishedArticleItem[]>((res, page) => [...res, ...page.list], []);
 
   return (
     <>
       <Labels />
-      {articles.length === 0 && <h3 className='text-center'>Maqolalar mavjud emas</h3>}
+      {articles.length === 0 && !isLoading && (
+        <h3 className='text-center'>Maqolalar mavjud emas</h3>
+      )}
       {articles.map(addAmazonBucketUrl).map((article) => (
         <Fragment key={article.id}>
           <Divider color='secondary' />
