@@ -1,9 +1,11 @@
 import { BlockToolData } from '@editorjs/editorjs';
 
+import { AlertTypes } from './Alert.constants';
+
 /**
  * Alert Tool's type
  */
-export type TAlertType = 'info';
+export type TAlertType = (typeof AlertTypes)[number];
 
 /**
  * Alert Tool's input and output data format

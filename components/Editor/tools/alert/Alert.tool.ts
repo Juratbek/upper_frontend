@@ -7,7 +7,7 @@
 import { IconText } from '@codexteam/icons';
 import { API, BlockAPI, BlockTool } from '@editorjs/editorjs';
 
-import { Warning } from './Alert.icons';
+import { Settings, Warning } from './Alert.constants';
 import classes from './Alert.module.scss';
 /**
  * Import types
@@ -158,7 +158,30 @@ export default class Alert implements BlockTool {
    *
    * @returns {HTMLElement}
    */
-  // renderSettings() {}
+  renderSettings(): HTMLElement {
+    const wrapper = document.createElement('div');
+
+    Object.entries(Settings).map(([type, setting]) => {
+      const option = document.createElement('div');
+      option.classList.add('ce-popover-item');
+
+      const icon = document.createElement('span');
+      icon.classList.add('ce-popover-item__icon');
+      icon.classList.add(classes['popover-item__icon']);
+      icon.classList.add(classes[`popover-item__icon-${type}`]);
+      icon.innerHTML = setting.icon;
+      option.appendChild(icon);
+
+      const text = document.createElement('div');
+      text.innerHTML = setting.text;
+      text.classList.add('ce-popover-item__title');
+      option.appendChild(text);
+
+      wrapper.appendChild(option);
+    });
+
+    return wrapper;
+  }
 
   /**
    * Clear Tools stuff: cache, variables, events.
