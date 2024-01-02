@@ -45,6 +45,7 @@
     font-size: 14px;
     border-top: 1px solid var(--color-border);
     line-height: 1.4;
+    counter-reset: my-counter;
 
     &::after {
         position: absolute;
@@ -87,7 +88,12 @@
     &-column,
     &-row {
         display: flex;
-        color: var(--color-text-secondary);
+        color: var(--blue, #007AFF);
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
     }
 
     @media print {
@@ -110,14 +116,11 @@
     align-items: center;
     padding-left: 4px;
     position: relative;
-
-    &::before {
-        content: "";
-        position: absolute;
-        right: calc(-1 * var(--cell-size));
-        width: var(--cell-size);
-        height: 100%;
-    }
+    border-radius: 6px;
+    background: var(--blue-100, #CCE4FF);
+    justify-content: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
 
     @media print {
         display: none;
@@ -126,8 +129,7 @@
 
 .tc-add {
 
-    &-column,
-    &-row {
+    &-column {
         transition: 0s;
         cursor: pointer;
         will-change: background-color;
@@ -139,11 +141,10 @@
     }
 
     &-row {
-        margin-top: 1px;
+        margin-top: 12px;
 
-        &:hover::before {
-            transition: 0.1s;
-            background-color: var(--color-background);
+        &:hover {
+            cursor: pointer;
         }
     }
 }
@@ -153,6 +154,7 @@
     grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
     position: relative;
     border-bottom: 1px solid var(--color-border);
+    counter-increment: my-counter;
 
     &::after {
         content: "";
@@ -178,10 +180,33 @@
 
 .tc-cell {
     border-right: 1px solid var(--color-border);
-    padding: 6px 12px 6px 12px;
+    padding: 8px 12px 8px 12px;
     overflow: hidden;
     outline: none;
     line-break: normal;
+    color: var(--black-500, #161B1D);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+
+    &:first-child {
+        padding-left: calc(12px + 24px);
+
+        &::before {
+            content: counter(my-counter);
+            min-width: 24px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            color: var(--black-500, #161B1D);
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
 
     &--selected {
         background: var(--color-background);
