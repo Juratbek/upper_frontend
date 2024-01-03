@@ -4,7 +4,6 @@ import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
-import { IPublishedArticleItem } from 'types';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
 import { Labels } from './components';
@@ -14,14 +13,14 @@ export const HomePage: FC = () => {
   const { isReady } = useRouter();
   const { getParam } = useUrlParams();
   const label = getParam(LABEL_ID_PARAM) ?? TopLabel;
-  const { data, fetchNextPage, isFetchingNextPage, isLoading } = usePublishedArticlesList(
-    label as string,
-    {
-      enabled: typeof label === 'string' && isReady,
-    },
-  );
-  const { pages = [] } = data ?? {};
-  const articles = pages.reduce<IPublishedArticleItem[]>((res, page) => [...res, ...page.list], []);
+  const {
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoading,
+    list: articles,
+  } = usePublishedArticlesList(label as string, {
+    enabled: typeof label === 'string' && isReady,
+  });
 
   return (
     <>
@@ -37,7 +36,7 @@ export const HomePage: FC = () => {
       ))}
       <Button
         className='w-100'
-        onClick={fetchNextPage}
+        onClick={() => fetchNextPage()}
         loading={isFetchingNextPage}
         loader='Yuklanmoqda...'
       >

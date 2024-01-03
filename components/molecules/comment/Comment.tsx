@@ -17,9 +17,7 @@ export const Comment: FC<ICommentProps> = (props) => {
           <Link href={`/blogs/${author.id}`} className={classes.link}>
             <h4 className={classes['author-name']}>{author.name}</h4>
           </Link>
-          <p className={classes.date}>
-            {dateInterval(date)} {Boolean(updatedText) && "(o'zgartirilgan)"}{' '}
-          </p>
+          <p className={classes.date}>{dateInterval(date)}</p>
         </div>
         <p className={classes.text}>{updatedText || text}</p>
       </div>

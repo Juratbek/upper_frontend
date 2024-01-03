@@ -2,6 +2,7 @@ import EditorJS from '@editorjs/editorjs';
 import { Editor } from 'components';
 import { IQuizData } from 'components/Editor';
 import { Head } from 'components/lib';
+import { CommentsModal } from 'components/organisms';
 import { useModal } from 'hooks';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
@@ -92,6 +93,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
         </article>
         <ArticleFooter article={article} />
         <ArticleActions editor={editorInstance} article={article} />
+        <CommentsModal />
       </div>
     </div>
   );

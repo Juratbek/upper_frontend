@@ -37,7 +37,7 @@ export const ICONS = {
   calendar: icons.CalendarIcon,
   help: icons.HelpIcon,
   website: icons.WebsiteIcon,
-  send: icons.SendIcon,
+  send: icons.Send,
   openExternal: icons.OpenExternal,
   steps: icons.Steps,
   uploading: icons.Uploading,
