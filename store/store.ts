@@ -3,7 +3,7 @@ import { createWrapper } from 'next-redux-wrapper';
 
 import authReducer from './states/auth';
 import authModalReducer from './states/authModal';
-import commentsSidebarReducer from './states/commentsSidebar';
+import commentsSidebarReducer from './states/commentsModal';
 import readArticleReducer from './states/readArticle';
 import writeArticleReducer from './states/writeArticle';
 

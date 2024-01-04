@@ -1,9 +1,12 @@
 import { Input } from 'components/form';
-import { Spinner } from 'components/lib';
+import { Clickable, Spinner } from 'components/lib';
 import { Comment } from 'components/molecules';
 import { useRouter } from 'next/router';
 import { FC, KeyboardEvent, useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from 'store';
 import { useCommentsList, useCreateComment } from 'store/clients/comments';
+import { closeCommentsModal, getIsCommentsModalOpen } from 'store/states';
 import { ICONS } from 'variables';
 
 import classes from './CommentsModal.module.scss';
@@ -16,6 +19,10 @@ export const CommentsModal: FC = () => {
   const { list: comments } = useCommentsList(articleId);
   const { mutate: createComment, isLoading: isCommentBeingCreated } = useCreateComment();
   const inputRef = useRef<HTMLInputElement>(null);
+  const isOpen = useAppSelector(getIsCommentsModalOpen);
+  const dispatch = useDispatch();
+
+  const closeModal = useCallback(() => dispatch(closeCommentsModal()), []);
 
   const sendCommentHandler = useCallback(() => {
     const { current } = inputRef;
@@ -37,12 +44,14 @@ export const CommentsModal: FC = () => {
   );
 
   return (
-    <div className={classes.root}>
-      <div className={classes.background} />
+    <div className={classes.root} style={{ display: isOpen ? 'block' : 'none' }}>
+      <div className={classes.background} onClick={closeModal} />
       <div className={classes.modal}>
         <div className={classes['modal-header']}>
           <p className={classes.headline}>Izohlar</p>
-          <span className={classes['close-icon']}>&#x2715;</span>
+          <Clickable className={classes['close-icon']} onClick={closeModal}>
+            &#x2715;
+          </Clickable>
         </div>
         <div className={classes['modal-body']}>
           {comments.map((comment) => (

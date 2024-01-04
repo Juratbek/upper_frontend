@@ -299,7 +299,12 @@ export const Comment: FC<IIconProps> = ({
   </svg>
 );
 
-export const Like: FC<IIconProps> = ({ width = 24, height = 24, color = 'black', variant }) => (
+export const Like: FC<IIconProps> = ({
+  width = 24,
+  height = 24,
+  color = 'black',
+  variant = 'outlined',
+}) => (
   <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
     {variant === 'fulfilled' && (
       <>
