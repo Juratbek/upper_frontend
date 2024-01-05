@@ -2,6 +2,7 @@ import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
 import { IQuizData, IUploadedImage } from '../editor.types';
+import Paragraph from '../tools/paragraph/Paragraph.tool';
 import { unsplashToolHtml } from './unsplashTool';
 
 type TTool =
@@ -41,13 +42,13 @@ export const getTools = async ({
 }): Promise<EditorConfig['tools']> => {
   const tools = await Promise.all([
     import('@editorjs/embed'),
-    import('@editorjs/list'),
-    import('@editorjs/table'),
-    import('@editorjs/delimiter'),
+    import('../tools/list/List.tool'),
+    import('../tools/table'),
+    import('../tools/delimiter/Delimiter.tool'),
     import('@juratbek/editorjs-inline-code'),
-    import('editorjs-alert'),
-    import('@juratbek/editorjs-quote'),
-    import('@juratbek/editorjs-header'),
+    import('../tools/alert/Alert.tool'),
+    import('../tools/quote/Quote.tool'),
+    import('../tools/header/Header.tool'),
     import('@juratbek/editorjs-image'),
     import('@juratbek/editorjs-code'),
     import('@juratbek/editorjs-quiz'),
@@ -67,6 +68,7 @@ export const getTools = async ({
         defaultLevel: 1,
       },
     },
+    paragraph: Paragraph,
     code: TOOLS.Code,
     image: {
       class: TOOLS.ImageTool,

@@ -1,0 +1,103 @@
+@mixin icon($path, $rect: #020303) {
+    svg {
+        path {
+            fill: $path;
+        }
+
+        rect {
+            fill: $rect;
+        }
+    }
+}
+
+.Alert-tool {
+    border-radius: 12px;
+    padding: 16px 16px 20px 16px;
+}
+
+.body {
+    display: flex;
+    gap: 12px;
+}
+
+.icon {
+    & path {
+        stroke: unset;
+    }
+}
+
+.text {
+    margin: 0;
+    flex: 1;
+    outline: none;
+    color: var(--black-500, #161B1D);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.popover-item__icon {
+    & path {
+        stroke: unset;
+    }
+
+    &-info {
+        @include icon(#007AFF);
+    }
+
+    &-success {
+        @include icon(#4BE732);
+    }
+
+    &-warning {
+        @include icon(#FBD614);
+    }
+
+    &-dark {
+        @include icon(#45494A, #fff);
+    }
+
+    &-danger {
+        @include icon(#FF0000, #fff);
+    }
+}
+
+.info {
+    background: rgba(0, 122, 255, 0.20);
+
+    .icon {
+        @include icon(#007AFF);
+    }
+}
+
+.success {
+    background: rgba(75, 231, 50, 0.20);
+
+    .icon {
+        @include icon(#4BE732);
+    }
+}
+
+.warning {
+    background: rgba(243, 248, 3, 0.20);
+
+    .icon {
+        @include icon(#FBD614);
+    }
+}
+
+.dark {
+    background: rgba(115, 118, 119, 0.20);
+
+    .icon {
+        @include icon(#45494A, #fff);
+    }
+}
+
+.danger {
+    background: #FFD9D6;
+
+    .icon {
+        @include icon(#FF0000, #fff);
+    }
+}

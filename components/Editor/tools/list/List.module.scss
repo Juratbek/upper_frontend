@@ -1,0 +1,52 @@
+.cdx-list {
+    margin: 0;
+    padding-left: 32px;
+    list-style: none;
+    counter-reset: my-counter;
+    outline: none;
+
+    &__item {
+        color: var(--black-500, #161B1D);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        counter-increment: my-counter;
+        position: relative;
+        padding: 8px 0;
+
+        &::before {
+            content: counter(my-counter);
+            position: absolute;
+            left: -32px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black-500, #161B1D);
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 120%;
+        }
+    }
+
+    &--unordered {
+        li::before {
+            content: ' ';
+            width: 4px;
+            height: 4px;
+            background-color: var(--black-500, #161B1D);
+            top: 20px;
+            left: -22px;
+            border-radius: 100px;
+        }
+    }
+
+    &-settings {
+        display: flex;
+
+        .cdx-settings-button {
+            width: 50%;
+        }
+    }
+}
