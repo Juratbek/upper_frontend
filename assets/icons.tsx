@@ -299,7 +299,12 @@ export const Comment: FC<IIconProps> = ({
   </svg>
 );
 
-export const Like: FC<IIconProps> = ({ width = 24, height = 24, color = 'black', variant }) => (
+export const Like: FC<IIconProps> = ({
+  width = 24,
+  height = 24,
+  color = 'black',
+  variant = 'outlined',
+}) => (
   <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
     {variant === 'fulfilled' && (
       <>
@@ -636,18 +641,6 @@ export const WebsiteIcon: FC<IIconProps> = ({ color = 'black' }) => (
         <rect width='24' height='24' fill='white' />
       </clipPath>
     </defs>
-  </svg>
-);
-
-export const SendIcon: FC<IIconProps> = ({ color = 'black' }) => (
-  <svg width='25' height='25' viewBox='0 0 30 30' fill='none'>
-    <path
-      d='M11.8876 5.28755L22.5876 10.6375C27.3876 13.0375 27.3876 16.9625 22.5876 19.3625L11.8876 24.7125C4.68759 28.3125 1.75009 25.3625 5.35009 18.175L6.43759 16.0125C6.71259 15.4625 6.71259 14.55 6.43759 14L5.35009 11.825C1.75009 4.63755 4.70009 1.68755 11.8876 5.28755Z'
-      stroke={color}
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    />
-    <path d='M6.80005 15H13.55' stroke='#292D32' strokeLinecap='round' strokeLinejoin='round' />
   </svg>
 );
 

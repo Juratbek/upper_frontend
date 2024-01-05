@@ -24,3 +24,21 @@
     height: 2rem;
   }
 }
+
+.comment-container {
+  display: flex;
+  padding: 10px 16px;
+  align-items: center;
+  gap: 12px;
+  border-radius: 300px;
+  background: var(--Sery-Fon, #F5F5F5);
+  margin-left: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.actions-container {
+  margin-left: auto;
+  display: flex;
+  gap: 12px;
+}

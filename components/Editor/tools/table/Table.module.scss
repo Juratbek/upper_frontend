@@ -1,0 +1,218 @@
+/* tc- project's prefix*/
+.tc-wrap {
+    --color-background: #f9f9fb;
+    --color-text-secondary: #7b7e89;
+    --color-border: #e8e8eb;
+    --cell-size: 34px;
+    --toolbox-icon-size: 18px;
+    --toolbox-padding: 6px;
+    --toolbox-aiming-field-size: calc(var(--toolbox-icon-size) + 2 * var(--toolbox-padding));
+
+    border-left: 0px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-top: var(--toolbox-icon-size);
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: calc(100% - var(--cell-size)) var(--cell-size);
+
+    &--readonly {
+        grid-template-columns: 100% var(--cell-size);
+    }
+
+    svg {
+        vertical-align: top;
+    }
+
+    @media print {
+        border-left: 1px solid var(--color-border);
+        grid-template-columns: 100% var(--cell-size);
+    }
+
+    .tc-row::after {
+        @media print {
+            display: none;
+        }
+    }
+}
+
+.tc-table {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    font-size: 14px;
+    border-top: 1px solid var(--color-border);
+    line-height: 1.4;
+    counter-reset: my-counter;
+
+    &::after {
+        position: absolute;
+        content: "";
+        width: calc(var(--cell-size));
+        height: 100%;
+        left: calc(-1 * var(--cell-size));
+        top: 0;
+    }
+
+    &::before {
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: var(--toolbox-aiming-field-size);
+        top: calc(-1 * var(--toolbox-aiming-field-size));
+        left: 0;
+    }
+
+    &--heading {
+        & .tc-row:first-child {
+            font-weight: 600;
+            border-bottom: 2px solid var(--color-border);
+
+            & [contenteditable]:empty::before {
+                content: attr(heading);
+                color: var(--color-text-secondary);
+            }
+
+            &::after {
+                bottom: -2px;
+                border-bottom: 2px solid var(--color-border);
+            }
+        }
+    }
+}
+
+.tc-add {
+
+    &-column,
+    &-row {
+        display: flex;
+        color: var(--blue, #007AFF);
+
+        svg {
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    @media print {
+        display: none;
+    }
+}
+
+.tc-add-column {
+    padding: 4px 0;
+    justify-content: center;
+    border-top: 1px solid var(--color-border);
+
+    @media print {
+        display: none;
+    }
+}
+
+.tc-add-row {
+    height: var(--cell-size);
+    align-items: center;
+    padding-left: 4px;
+    position: relative;
+    border-radius: 6px;
+    background: var(--blue-100, #CCE4FF);
+    justify-content: center;
+    grid-column-start: 1;
+    grid-column-end: 3;
+
+    @media print {
+        display: none;
+    }
+}
+
+.tc-add {
+
+    &-column {
+        transition: 0s;
+        cursor: pointer;
+        will-change: background-color;
+
+        &:hover {
+            transition: background-color 0.1s ease;
+            background-color: var(--color-background);
+        }
+    }
+
+    &-row {
+        margin-top: 12px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.tc-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+    counter-increment: my-counter;
+
+    &::after {
+        content: "";
+        pointer-events: none;
+        position: absolute;
+        width: var(--cell-size);
+        height: 100%;
+        bottom: -1px;
+        right: calc(-1 * var(--cell-size));
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    &--selected {
+        background: var(--color-background);
+    }
+}
+
+.tc-row--selected {
+    &::after {
+        background: var(--color-background);
+    }
+}
+
+.tc-cell {
+    border-right: 1px solid var(--color-border);
+    padding: 8px 12px 8px 12px;
+    overflow: hidden;
+    outline: none;
+    line-break: normal;
+    color: var(--black-500, #161B1D);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+
+    &:first-child {
+        padding-left: calc(12px + 24px);
+
+        &::before {
+            content: counter(my-counter);
+            min-width: 24px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 0;
+            color: var(--black-500, #161B1D);
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+
+    &--selected {
+        background: var(--color-background);
+    }
+}
+
+.tc-wrap--readonly .tc-row::after {
+    display: none;
+}

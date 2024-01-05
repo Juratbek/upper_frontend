@@ -10,7 +10,7 @@ let lastScrollTop = Number.MAX_VALUE;
 const Like = ICONS.like;
 const Dislike = ICONS.dislike;
 
-export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article }) => {
+export const ArticleActions: FC<IArticleActionsProps> = ({ editor }) => {
   const [isScrollingUp, setIsScrollingUp] = useState<boolean>(false);
   const { themeColors } = useTheme();
 

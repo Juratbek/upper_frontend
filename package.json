@@ -28,6 +28,7 @@
     "node": ">=16.17.0"
   },
   "dependencies": {
+    "@codexteam/icons": "^0.3.0",
     "@editorjs/delimiter": "^1.2.0",
     "@editorjs/editorjs": "^2.27.2",
     "@editorjs/embed": "^2.6.0",
