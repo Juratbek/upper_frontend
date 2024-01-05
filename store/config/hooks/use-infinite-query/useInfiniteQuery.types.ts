@@ -1,3 +1,5 @@
+import { UseInfiniteQueryResult } from 'react-query';
+
 export interface IInfiniteQueryConfig {
   enabled?: boolean;
 }
@@ -13,6 +15,10 @@ interface IInfiniteQueryData<TData> {
   pageParams: unknown[];
   pages: Array<IPage<TData>>;
 }
+
+export type TInfiniteQueryResult<T> = UseInfiniteQueryResult<IPage<T>> & {
+  list: T[];
+};
 
 export interface IInfiniteQueryResult<TData> {
   data?: IInfiniteQueryData<TData>;

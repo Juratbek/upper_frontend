@@ -1,9 +1,9 @@
 import {
   apiClient,
   IInfiniteQueryConfig,
-  IInfiniteQueryResult,
   IMutationResult,
   IPage,
+  TInfiniteQueryResult,
   useInfiniteQuery,
   useMutation,
 } from 'store/config';
@@ -12,11 +12,11 @@ import { IPublishedArticleItem } from 'types';
 export const usePublishedArticlesList = (
   label: string,
   config?: IInfiniteQueryConfig,
-): IInfiniteQueryResult<IPublishedArticleItem> => {
-  return useInfiniteQuery(
+): TInfiniteQueryResult<IPublishedArticleItem> => {
+  return useInfiniteQuery<IPublishedArticleItem>(
     ['published-articles', label],
     (params) =>
-      apiClient.get<IPage>('published-article/open/get-by-label', {
+      apiClient.get('published-article/open/get-by-label', {
         page: params.pageParam ?? 0,
         label,
       }),

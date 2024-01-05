@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ICommentSidebarState {
+interface ICommentModalState {
   isOpen: boolean;
 }
 
-const initialState: ICommentSidebarState = {
+const initialState: ICommentModalState = {
   isOpen: false,
 };
 
-const commentsSidebarSlice = createSlice({
-  name: 'commentSidebar',
+const commentsModalSlice = createSlice({
+  name: 'commentModal',
   initialState,
   reducers: {
     open(state) {
@@ -26,8 +26,9 @@ const commentsSidebarSlice = createSlice({
 });
 
 export const {
-  open: openCommentsSidebar,
-  close: closeCommentsSidebar,
-  toggle: toggleCommentsSidebar,
-} = commentsSidebarSlice.actions;
-export default commentsSidebarSlice.reducer;
+  open: openCommentsModal,
+  close: closeCommentsModal,
+  toggle: toggleCommentsModal,
+} = commentsModalSlice.actions;
+
+export default commentsModalSlice.reducer;
