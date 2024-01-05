@@ -17,7 +17,7 @@ export default function DraftArticlesPage(): JSX.Element {
   const tabChangeHandler = (tab: ITabHeader): Promise<boolean> => push(`/user/articles/${tab.id}`);
 
   return (
-    <GenericWrapper navigation={null}>
+    <GenericWrapper desktopNavigation={null}>
       <Head title='Arxiv' url='/draft' />
       <TabsHeader tabs={tabs} activeTab='draft' onChange={tabChangeHandler} />
       <DraftArticles />

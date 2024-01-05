@@ -3,7 +3,7 @@ import { ProfileSettingsUI, SettingsNavigation } from 'frontends/settings';
 
 const ProfileSettingsPage = (): JSX.Element => {
   return (
-    <GenericWrapper navigation={<SettingsNavigation />}>
+    <GenericWrapper desktopNavigation={<SettingsNavigation />}>
       <ProfileSettingsUI />
     </GenericWrapper>
   );

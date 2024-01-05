@@ -845,3 +845,18 @@ export const Moon: FC<IIconProps> = ({ width = 20, height = 20, color = 'black' 
     />
   </svg>
 );
+
+export const Send: FC<IIconProps> = ({ width = 24, height = 24, color = '#007AFF' }) => (
+  <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
+    <path
+      d='M20.9972 11.0896L2.82483 2.82947C2.07389 2.48813 1.2559 3.15153 1.43484 3.95676L2.68318 9.5743C2.87191 10.4236 3.58804 11.0535 4.45448 11.1322L14 12L4.45448 12.8678C3.58804 12.9465 2.87191 13.5764 2.68318 14.4257L1.43484 20.0432C1.2559 20.8485 2.07389 21.5119 2.82483 21.1705L20.9972 12.9104C21.7788 12.5551 21.7788 11.4449 20.9972 11.0896Z'
+      fill={color}
+    />
+  </svg>
+);
+
+export const Back: FC<IIconProps> = ({ width = 24, height = 24, color = '#007AFF' }) => (
+  <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
+    <path d='M15 6L9 12L15 18' stroke={color} strokeWidth='1.6' />
+  </svg>
+);

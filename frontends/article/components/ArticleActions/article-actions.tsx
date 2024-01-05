@@ -45,7 +45,7 @@ export const ArticleActions: FC<IArticleActionsProps> = ({ editor, article }) =>
         style={{ backgroundColor: themeColors.bg, border: `1px solid ${themeColors.border}` }}
       >
         <Like />
-        <span>{article.likeCount}</span>
+        <span>12</span>
         <Dislike />
       </div>
     </div>

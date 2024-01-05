@@ -1,4 +1,4 @@
-import { BottomNavigation, MainNavigation, Sidebar } from 'components/organisms';
+import { BottomNavigation, Header, MainNavigation, Sidebar } from 'components/organisms';
 import { useDevice } from 'hooks';
 import { FC, useMemo } from 'react';
 
@@ -10,25 +10,38 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
   sidebar = <Sidebar />,
   ...props
 }) => {
-  const { isDesktop } = useDevice();
+  const { isDesktop, isTablet, isMobile, type } = useDevice();
 
   const navigation = useMemo(() => {
-    const { navigation } = props;
+    const { desktopNavigation, tabletNavigation, mobileNavigation } = props;
 
-    if (navigation === null) return navigation;
+    if (isDesktop) {
+      return desktopNavigation ?? <MainNavigation />;
+    }
 
-    if (navigation) return navigation;
+    if (isTablet) {
+      return tabletNavigation ?? <BottomNavigation />;
+    }
 
-    if (isDesktop) return <MainNavigation />;
+    if (isMobile) {
+      return mobileNavigation ?? <BottomNavigation />;
+    }
 
-    return <BottomNavigation />;
-  }, [props.navigation, isDesktop]);
+    return <MainNavigation />;
+  }, [type]);
+
+  const header = useMemo(() => {
+    return props.header ?? <Header />;
+  }, [props.header]);
 
   return (
-    <div className={`${classes.root} container`}>
-      <nav className={classes.navigation}>{navigation}</nav>
-      <main className={classes.main}>{children}</main>
-      <aside className={classes.sidebar}>{sidebar}</aside>
-    </div>
+    <>
+      {header}
+      <div className={`${classes.root} container`}>
+        <nav className={classes.navigation}>{navigation}</nav>
+        <main className={classes.main}>{children}</main>
+        <aside className={classes.sidebar}>{sidebar}</aside>
+      </div>
+    </>
   );
 };

@@ -17,3 +17,5 @@ export * from './StorysetImage';
 export * from './Lordicon';
 export * from './Link';
 export * from './TabButton';
+export * from './Clickable';
+export * from './BackButton/BackButton';

@@ -49,4 +49,5 @@ export const ICONS = {
   save: icons.Save,
   settings: icons.Settings,
   moon: icons.Moon,
+  back: icons.Back,
 } satisfies Record<string, FC<IIconProps>>;

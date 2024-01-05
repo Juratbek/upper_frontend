@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { Footer, Header } from 'components/organisms';
+import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
@@ -22,7 +22,6 @@ function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <DynamicAuthModal />
-      <Header />
       <Component {...pageProps} />
       <Footer />
     </QueryClientProvider>

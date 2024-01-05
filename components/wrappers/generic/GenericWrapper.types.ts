@@ -1,7 +1,10 @@
 import { ReactNode } from 'react';
 
 export interface IGenericWrapperProps {
-  navigation?: ReactNode;
+  header?: ReactNode;
+  desktopNavigation?: ReactNode;
+  tabletNavigation?: ReactNode;
+  mobileNavigation?: ReactNode;
   children?: ReactNode;
   sidebar?: ReactNode;
 }

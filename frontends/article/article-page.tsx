@@ -1,7 +1,8 @@
 import EditorJS from '@editorjs/editorjs';
 import { Editor } from 'components';
 import { IQuizData } from 'components/Editor';
-import { Head } from 'components/lib';
+import { BackButton, Head } from 'components/lib';
+// import { CommentsModal } from 'components/organisms';
 import { useModal } from 'hooks';
 import { FC, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from 'store';
@@ -17,12 +18,13 @@ import {
 } from 'utils';
 
 import { IArticlePageMainProps } from './article.types';
-import { ArticleActions, Author, QuizResultModal } from './components';
+import classes from './article-page.module.scss';
+import { Author, QuizResultModal } from './components';
 import { ErrorUI } from './components/Error/Error';
 import { ArticleFooter } from './components/Footer/ArticleFooter';
 
 export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl }) => {
-  const { blocks = [] } = article || {};
+  const { blocks = [] } = article ?? {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
     useModal();
@@ -72,7 +74,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
   }
 
   return (
-    <div className='container'>
+    <>
       <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
       <QuizResultModal
         isError={Boolean(submitQuizRes.error)}
@@ -80,6 +82,9 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
         isOpen={isQuizResultsModalOpen}
         close={closeQuizResultsModal}
       />
+      <div className={classes['back-btn-container']}>
+        <BackButton />
+      </div>
       <Author {...addAmazonUri(article.author)} />
       <div className='editor-container'>
         <article>
@@ -90,9 +95,9 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
             onQuizSubmit={quizSubmitHandler}
           />
         </article>
-        <ArticleFooter article={article} />
-        <ArticleActions editor={editorInstance} article={article} />
+        <ArticleFooter />
+        {/* <CommentsModal /> */}
       </div>
-    </div>
+    </>
   );
 };

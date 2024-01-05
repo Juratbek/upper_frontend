@@ -66,7 +66,7 @@ export default function UserArticlePage(): JSX.Element {
   };
 
   return (
-    <GenericWrapper sidebar={null} navigation={null}>
+    <GenericWrapper sidebar={null} desktopNavigation={null}>
       <div className='editor-container container pb-4'>
         <Head title='Blog maqolasi' url='/user/articles' />
         {renderEditor()}

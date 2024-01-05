@@ -9,8 +9,9 @@
     max-width: 720px;
   }
 
-  @include screenMax992 {
-    max-width: 720px;
+  @include media-max(small) {
+    max-width: unset;
+    padding-inline: 12px;
   }
 }
 

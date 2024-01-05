@@ -1,5 +1,6 @@
+import { BackButton } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
-import { ArticlePageMain } from 'frontends/article';
+import { ArticlePageMain, ReadArticleBottomBar } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
 import { wrapper } from 'store';
 import { apiClient } from 'store/config';
@@ -14,7 +15,13 @@ export interface IArticlePageProps {
 
 const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   return (
-    <GenericWrapper sidebar={null} navigation={null}>
+    <GenericWrapper
+      sidebar={null}
+      desktopNavigation={<BackButton />}
+      header={<></>}
+      tabletNavigation={<ReadArticleBottomBar />}
+      mobileNavigation={<ReadArticleBottomBar />}
+    >
       <ArticlePageMain {...props} />
     </GenericWrapper>
   );

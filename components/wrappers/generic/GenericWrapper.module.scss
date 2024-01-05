@@ -34,6 +34,11 @@ $sticky-top: 3rem;
   @include media-max(large) {
     margin-inline: 0;
   }
+
+  @include media-max(small) {
+    min-width: unset;
+    flex: 1;
+  }
 }
 
 .sidebar {

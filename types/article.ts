@@ -24,16 +24,9 @@ export interface IArticle extends IArticleSmall {
   labels: ILabel[];
   publishedDate?: string;
   updatedDate?: string;
-  viewCount: number;
-  likeCount: number;
-  dislikeCount: number;
-  prevArticleId?: number;
-  nextArticleId?: number;
   status: TArticleStatus;
   publishedArticleId?: number;
-  hasNotpublishedChanges?: boolean;
   token?: string;
-  content?: string;
   textContent?: string;
 }
 

@@ -17,7 +17,7 @@ export default function ArticlesPage(): JSX.Element {
   const tabChangeHandler = (tab: ITabHeader): Promise<boolean> => push(`/user/articles/${tab.id}`);
 
   return (
-    <GenericWrapper navigation={null}>
+    <GenericWrapper desktopNavigation={null}>
       <Head title='Arxiv' url='/published' />
       <TabsHeader tabs={tabs} activeTab='published' onChange={tabChangeHandler} />
       <PublishedArticles />
