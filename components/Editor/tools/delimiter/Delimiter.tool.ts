@@ -95,7 +95,7 @@ export default class Delimiter implements BlockTool {
   render(): HTMLElement {
     const div = document.createElement('div');
     div.classList.add(styles['Delimiter-tool']);
-    div.innerHTML = '*&nbsp;&nbsp;*&nbsp;&nbsp;*';
+    div.innerHTML = '***';
     this.nodes.wrapper = div;
 
     return this.nodes.wrapper;

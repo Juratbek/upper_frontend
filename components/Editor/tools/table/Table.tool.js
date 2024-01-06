@@ -87,8 +87,7 @@ export default class TableBlock {
     this.table = new Table(this.readOnly, this.api, this.data, this.config);
 
     /** creating container around table */
-    this.container = $.make('div', this.api.styles.block);
-    this.container.appendChild(this.table.getWrapper());
+    this.container = this.table.getWrapper();
 
     this.table.setHeadingsSetting(this.data.withHeadings);
 
