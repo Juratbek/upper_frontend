@@ -1623,10 +1623,10 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@juratbek/editorjs-code@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@juratbek/editorjs-code/-/editorjs-code-1.1.1.tgz#ca3a00b656286c0866115cf0ba32316c45f12c1b"
-  integrity sha512-UJfTMHmrDs+r85PHu1AGzOkLGKkwgezuK1mIHkhAMeDEz7t+mBbZoOIarYqtGodBRyix2sJhueP/htXSH6xLpg==
+"@juratbek/editorjs-code@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@juratbek/editorjs-code/-/editorjs-code-1.1.2.tgz#68dceda0eac2cf8bcddbd4e12734d93164094cc7"
+  integrity sha512-QHkRYzodoC0/q8tYjB+1osuSr/OneG+xjAk7eSvci1hGoPVl7qO3MiNmo3S95r+zm3fgPVXk6X5vW0THMjDcTg==
   dependencies:
     codemirror "^5.65.15"
 
@@ -10148,6 +10148,7 @@ string-argv@0.3.2:
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
 "string-width-cjs@npm:string-width@^4.2.0", string-width@^4.1.0, string-width@^4.2.0:
+  name string-width-cjs
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
   integrity sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==
@@ -10231,6 +10232,7 @@ string_decoder@~1.1.1:
     safe-buffer "~5.1.0"
 
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1", strip-ansi@^6.0.0, strip-ansi@^6.0.1:
+  name strip-ansi-cjs
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
   integrity sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==
