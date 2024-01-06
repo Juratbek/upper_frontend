@@ -48,7 +48,7 @@ export const getTools = async ({
     import('@editorjs/delimiter'),
     import('editorjs-alert'),
     import('@samandar.boymurodov/editorjs-inline-image'),
-    import('@editorjs/inline-code'),
+    import('@juratbek/editorjs-inline-code'),
     import('@juratbek/editorjs-code'),
     import('@editorjs/table'),
     import('@juratbek/editorjs-quiz'),
