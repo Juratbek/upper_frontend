@@ -99,7 +99,7 @@ export default class Paragraph implements BlockTool {
   render(): HTMLElement {
     const p = document.createElement('p');
     p.classList.add(styles['Paragraph-tool']);
-    p.contentEditable = 'true';
+    p.contentEditable = (!this.readOnly).toString();
     p.innerHTML = this.data.text ?? '';
 
     this.nodes.wrapper = p;
@@ -274,9 +274,9 @@ export default class Paragraph implements BlockTool {
    *
    * @returns {boolean}
    */
-  // static get isReadOnlySupported() {
-  //   return true;
-  // }
+  static get isReadOnlySupported(): boolean {
+    return true;
+  }
 
   /**
    * LIFE CYCLE HOOKS

@@ -267,9 +267,9 @@ export default class Delimiter implements BlockTool {
    *
    * @returns {boolean}
    */
-  // static get isReadOnlySupported() {
-  //   return true;
-  // }
+  static get isReadOnlySupported(): boolean {
+    return true;
+  }
 
   /**
    * LIFE CYCLE HOOKS
