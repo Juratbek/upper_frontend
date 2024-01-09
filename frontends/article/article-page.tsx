@@ -5,10 +5,8 @@ import { BackButton, Head } from 'components/lib';
 import { CommentsModal } from 'components/organisms';
 import { useModal } from 'hooks';
 import { FC, useCallback, useEffect, useState } from 'react';
-import { useAppDispatch } from 'store';
 import { useIncrementViewCount } from 'store/clients/published-article';
 import { IQuizSubmission, useSubmitQuiz } from 'store/clients/quiz';
-import { setArticleAuthor } from 'store/states/readArticle';
 import { IArticle, IResponseError } from 'types';
 import {
   addAmazonBucketUriToArticle,
@@ -28,7 +26,6 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
     useModal();
-  const dispatch = useAppDispatch();
   const { mutate: incrementViewCountRequest } = useIncrementViewCount();
   const { mutate: submitQuiz, ...submitQuizRes } = useSubmitQuiz();
 
@@ -57,7 +54,6 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
 
   useEffect(() => {
     if (!article) return;
-    article.author && dispatch(setArticleAuthor(article.author));
     if (article.token) {
       const { id, token } = article;
       incrementViewCountRequest({ id, token });

@@ -1,4 +1,5 @@
 import { OutputBlockData } from '@editorjs/editorjs';
+import { UseMutationResult } from 'react-query';
 import {
   apiClient,
   IMutationConfig,
@@ -44,3 +45,6 @@ export const useBlogArticles = (
   useQuery(['saved-articles', status], () =>
     apiClient.get('article/need-auth/list', { status: status.toUpperCase(), page }),
   );
+
+export const usePublish = (id: number): UseMutationResult<unknown, unknown, void, unknown> =>
+  useMutation(['publish', id], () => apiClient.post({ path: `article/publish/${id}` }));

@@ -1,4 +1,4 @@
-import { Avatar, Divider } from 'components/lib';
+import { Avatar } from 'components/lib';
 import { FC } from 'react';
 import { useGetCurrentBlog } from 'store/clients/blog';
 
@@ -18,7 +18,6 @@ export const Profile: FC = () => {
         </div>
       </div>
       <Menu />
-      <Divider className={classes.container} />
       <LogOut className={classes.container} />
     </>
   );

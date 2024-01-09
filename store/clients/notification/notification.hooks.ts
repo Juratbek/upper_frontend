@@ -1,3 +1,4 @@
+import { useAuth } from 'hooks';
 import { apiClient, IQeuryResult, TMutationHook, useMutation, useQuery } from 'store/config';
 import { INotification, IPagingResponse } from 'types';
 
@@ -9,8 +10,16 @@ export const useResetNotificationsCount = (): IQeuryResult =>
     apiClient.get('notification/reset-notifications-count'),
   );
 
-export const useNotificationsCount = (): IQeuryResult<number> =>
-  useQuery(['notifications-count'], () => apiClient.get<number>('notification/count'));
+export const useNotificationsCount = (): IQeuryResult<number> => {
+  const { isAuthenticated } = useAuth();
+  return useQuery(
+    ['notifications-count'],
+    () => apiClient.get<number>('notification/blog-notifications-count'),
+    {
+      enabled: isAuthenticated ?? false,
+    },
+  );
+};
 
 export const useDeleteNotification: TMutationHook<unknown, number> = () =>
   useMutation(['delete-notification'], (id) => apiClient.delete(`notification/${id}`));

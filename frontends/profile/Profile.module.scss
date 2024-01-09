@@ -1,6 +1,12 @@
+@import 'styles/breakpoints';
+
 .container {
   margin-right: 24px;
   margin-left: 32px;
+
+  @include media-max(small) {
+    margin-inline: 8px;
+  }
 }
 
 .profile-container {

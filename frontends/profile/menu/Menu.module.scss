@@ -1,6 +1,12 @@
+@import 'styles/breakpoints';
+
 .root {
   padding: 32px 0;
   list-style: none;
+
+  @include media-max(small) {
+    padding: 20px 0 24px 0;
+  }
 }
 
 .item {
@@ -9,6 +15,17 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+
+  @include media-max(small) {
+    padding-right: 4px;
+    padding-left: 8px;
+  }
+
+  &:hover {
+    background: rgba(232, 233, 233, 0.40);
+  }
 
   &-body {
     display: flex;

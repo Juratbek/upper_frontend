@@ -1,0 +1,13 @@
+.container {
+    padding: 16px 0 12px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--black-50, #E8E9E9);
+}
+
+.right-block {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    width: var(--sidebar-container-width);
+}

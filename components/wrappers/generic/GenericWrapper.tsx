@@ -13,7 +13,9 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
   const { isDesktop, isTablet, isMobile, type } = useDevice();
 
   const navigation = useMemo(() => {
-    const { desktopNavigation, tabletNavigation, mobileNavigation } = props;
+    const { desktopNavigation, tabletNavigation, mobileNavigation, isNavigationHidden } = props;
+
+    if (isNavigationHidden) return null;
 
     if (isDesktop) {
       return desktopNavigation ?? <MainNavigation />;
@@ -28,7 +30,7 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
     }
 
     return <MainNavigation />;
-  }, [type]);
+  }, [type, props]);
 
   const header = useMemo(() => {
     return props.header ?? <Header />;

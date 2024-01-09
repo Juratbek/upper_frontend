@@ -7,10 +7,6 @@
   padding-bottom: 1.2rem;
   border-bottom: 1px solid var(--divider-secondary-background, #e8e9e9);
   justify-content: space-between;
-
-  @include screenMax992 {
-    // gap: 3rem;
-  }
 }
 
 @include screenMax992 {

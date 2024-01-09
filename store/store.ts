@@ -4,14 +4,12 @@ import { createWrapper } from 'next-redux-wrapper';
 import authReducer from './states/auth';
 import authModalReducer from './states/authModal';
 import commentsSidebarReducer from './states/commentsModal';
-import readArticleReducer from './states/readArticle';
 import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
   reducer: {
     authModal: authModalReducer,
     writeArticle: writeArticleReducer,
-    readArticle: readArticleReducer,
     auth: authReducer,
     comments: commentsSidebarReducer,
   },

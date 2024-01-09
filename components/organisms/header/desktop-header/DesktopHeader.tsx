@@ -1,20 +1,17 @@
-import { Button, Link } from 'components/lib';
-import { Profile } from 'components/organisms/profile';
+import { Button } from 'components/lib';
+import { Logo } from 'components/molecules';
+import { Profile } from 'components/organisms';
 import { SearchInput } from 'components/SearchInput/SearchInput';
-import { useAuth, useTheme } from 'hooks';
+import { useAuth } from 'hooks';
 import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
 import { FC, useCallback } from 'react';
 import { useAppDispatch } from 'store';
 import { useCreateArticle } from 'store/clients/article';
 import { openAuthModal } from 'store/states';
-import { ICONS } from 'variables';
 
 import classes from './DesktopHeader.module.scss';
 
-const Logo = ICONS.logo;
-
 export const DesktopHeader: FC = () => {
-  const { themeColors } = useTheme();
   const dispatch = useAppDispatch();
   const { isAuthenticated, isLoading } = useAuth();
   const { push } = useAppRouter();
@@ -33,9 +30,7 @@ export const DesktopHeader: FC = () => {
   return (
     <header className={`${classes.header} container`}>
       <div className={classes['left-container']}>
-        <Link href='/' className={classes.logo}>
-          <Logo color={themeColors.icon} />
-        </Link>
+        <Logo />
       </div>
       <SearchInput className={classes['main-container']} />
       <div className={classes['right-container']}>
