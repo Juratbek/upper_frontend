@@ -1,5 +1,5 @@
 import { Button, Divider } from 'components/lib';
-import { LABEL_ID_PARAM, Labels, PublishedArticle, TopLabel } from 'components/molecules';
+import { LABEL_ID_PARAM, PublishedArticle, TopLabel, UserLabels } from 'components/molecules';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment } from 'react';
@@ -21,7 +21,7 @@ export const HomePage: FC = () => {
 
   return (
     <>
-      <Labels />
+      <UserLabels />
       {articles.length === 0 && !isLoading && (
         <h3 className='text-center'>Maqolalar mavjud emas</h3>
       )}

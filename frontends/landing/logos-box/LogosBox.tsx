@@ -10,7 +10,7 @@ export const LogosBox: FC = () => {
     if (isDesktop)
       return ['vs_code.png', 'flutter.png', 'adobe.png', 'figma.png', 'chat-gpt.png', 'js.png'];
     return ['vs_code.png', 'chat-gpt.png', 'js.png', 'adobe.png'];
-  }, []);
+  }, [isDesktop]);
 
   return (
     <div className={classes.container}>

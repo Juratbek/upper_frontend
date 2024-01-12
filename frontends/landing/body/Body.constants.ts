@@ -1,0 +1,15 @@
+export const labels: string[] = [
+  'Top',
+  'Java',
+  'JavaScript',
+  'Python',
+  'C',
+  'C++',
+  'Go',
+  'SQL',
+  'C#',
+  'PHP',
+  'Swift',
+  'Kotlin',
+  'Rust',
+];

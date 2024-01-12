@@ -1,42 +1,23 @@
 import { TabButton } from 'components/lib';
-import { useAuth, useUrlParams } from 'hooks';
-import { useRouter } from 'next/router';
-import { useMemo, useRef } from 'react';
-import { useGetCurrentBlogTags } from 'store/clients/blog';
+import { FC, useRef } from 'react';
 import { ICONS } from 'variables/icons';
 
-import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './Labels.constants';
 import classes from './Labels.module.scss';
+import { ILabelsProps } from './Labels.types';
 
 const NextIcon = ICONS.next;
 
-export const Labels = (): JSX.Element => {
-  const { isAuthenticated } = useAuth();
-  const { setParam } = useUrlParams();
-  const { query } = useRouter();
+export const Labels: FC<ILabelsProps> = (props) => {
+  const { labels = [], activeLabel } = props;
   const labelsContainerRef = useRef<HTMLDivElement>(null);
-  const fetchCurrentBlogTagsRes = useGetCurrentBlogTags();
 
-  const labelSelectHandler = (id: number | string) => (): void => {
-    setParam(LABEL_ID_PARAM, id);
-  };
-
-  const labels = useMemo(() => {
-    const labels: string[] = [TopLabel];
-
-    if (isAuthenticated) labels.unshift(ForYouLabel);
-
-    const { data } = fetchCurrentBlogTagsRes;
-    if (data?.length) labels.push(...data);
-
-    return labels;
-  }, [isAuthenticated, fetchCurrentBlogTagsRes]);
+  const labelSelectHandler = (id: string) => (): unknown => props.onSelect(id);
 
   const moveLabelsRight = (): void => {
     const labelsContainer = labelsContainerRef.current;
     if (!labelsContainer) return;
     const leftScroll = labelsContainer.scrollLeft;
-    labelsContainer.scrollTo({ left: leftScroll + 600, behavior: 'smooth' });
+    labelsContainer.scrollTo({ left: leftScroll + 300, behavior: 'smooth' });
   };
 
   const isContentOverflowed = labelsContainerRef.current
@@ -49,7 +30,7 @@ export const Labels = (): JSX.Element => {
         {labels.map((label) => (
           <TabButton
             onClick={labelSelectHandler(label)}
-            color={label == query[LABEL_ID_PARAM] ? 'primary' : 'outlined'}
+            color={label == activeLabel ? 'primary' : 'outlined'}
             key={label}
           >
             {label}

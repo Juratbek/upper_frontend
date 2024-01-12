@@ -5,3 +5,4 @@ export * from './notifications';
 export * from './PublishedArticle';
 export * from './logo/Logo';
 export * from './labels';
+export * from './user-labels';

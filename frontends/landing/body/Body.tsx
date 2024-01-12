@@ -1,17 +1,25 @@
 import { Divider } from 'components/lib';
-import { Labels, PublishedArticle, TopLabel } from 'components/molecules';
+import { LABEL_ID_PARAM, Labels, PublishedArticle, TopLabel } from 'components/molecules';
+import { useUrlParams } from 'hooks';
 import { Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
+import { labels } from './Body.constants';
 import classes from './Body.module.scss';
 
 export const Body = (): JSX.Element => {
-  const { list: articles } = usePublishedArticlesList(TopLabel);
+  const { setParam, getParam } = useUrlParams();
+  const activeLabel = (getParam(LABEL_ID_PARAM) ?? TopLabel) as string;
+  const { list: articles } = usePublishedArticlesList(activeLabel);
+
+  const labelSelectHandler = (label: string): void => {
+    setParam(LABEL_ID_PARAM, label);
+  };
 
   return (
     <section className={classes.container}>
-      <Labels />
+      <Labels labels={labels} activeLabel={activeLabel} onSelect={labelSelectHandler} />
       {articles.map(addAmazonBucketUrl).map((article) => (
         <Fragment key={article.id}>
           <Divider color='secondary' />
