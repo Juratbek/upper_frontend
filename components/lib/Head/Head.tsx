@@ -1,7 +1,7 @@
+import { convert } from 'html-to-text';
 import NextHead from 'next/head';
 import { FC } from 'react';
 
-import { cleanTitle } from './cleanTitle';
 import { IHeadProps } from './Head.types';
 
 export const Head: FC<IHeadProps> = (props) => {
@@ -14,7 +14,7 @@ export const Head: FC<IHeadProps> = (props) => {
     description = '',
   } = props;
 
-  const cleanedTitle = cleanTitle(title);
+  const cleanedTitle = convert(title);
 
   return (
     <NextHead>
