@@ -1,7 +1,36 @@
+@import 'styles/breakpoints';
+
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 32px;
     width: 424px;
+
+    @include media-max(large) {
+        flex-wrap: nowrap;
+        transform: rotate(-21deg) translate(20px, 80px);
+        width: unset;
+        gap: 16px;
+        justify-content: flex-end;
+        height: 300px;
+    }
+
+    @include media-max(small) {
+        gap: 0;
+        transform: rotate(-21deg) translate(45px, 85px);
+        justify-content: unset;
+    }
+}
+
+.image {
+    @include media-max(large) {
+        transform: rotate(7deg);
+    }
+
+    @include media-max(small) {
+        position: relative;
+        left: calc(-55px * var(--i));
+        z-index: calc(10 - var(--i));
+    }
 }
