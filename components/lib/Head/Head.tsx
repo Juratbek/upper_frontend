@@ -1,8 +1,8 @@
 import NextHead from 'next/head';
 import { FC } from 'react';
 
+import { cleanTitle } from './cleanTitle';
 import { IHeadProps } from './Head.types';
-import { replaceWithSpace } from './replaceWithSpace';
 
 export const Head: FC<IHeadProps> = (props) => {
   const {
@@ -14,11 +14,13 @@ export const Head: FC<IHeadProps> = (props) => {
     description = '',
   } = props;
 
+  const cleanedTitle = cleanTitle(title);
+
   return (
     <NextHead>
       {/* Primary Meta Tags */}
-      <title>{replaceWithSpace(title)}</title>
-      <meta name='title' content={replaceWithSpace(title)} />
+      <title>{cleanedTitle}</title>
+      <meta name='title' content={cleanedTitle} />
       <meta name='description' content={description} />
       <meta name='author' content={author || ''} />
       <meta name='published_date' content={publishedDate || ''} />
@@ -26,7 +28,7 @@ export const Head: FC<IHeadProps> = (props) => {
       {/* Open Graph / Facebook */}
       <meta property='og:type' content='website' />
       <meta property='og:url' content={url} />
-      <meta property='og:title' content={replaceWithSpace(title)} />
+      <meta property='og:title' content={cleanedTitle} />
       <meta property='og:description' content={description} />
       <meta property='og:image' content={imgUrl} />
       <meta property='og:image:width' content='1200' />
@@ -37,7 +39,7 @@ export const Head: FC<IHeadProps> = (props) => {
       {/* Twitter */}
       <meta name='twitter:card' property='twitter:card' content='summary_large_image' />
       <meta property='twitter:url' content={url} />
-      <meta property='twitter:title' content={replaceWithSpace(title)} />
+      <meta property='twitter:title' content={cleanedTitle} />
       <meta property='twitter:description' content={description} />
       <meta property='twitter:image' content={imgUrl} />
 
