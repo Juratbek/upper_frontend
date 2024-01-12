@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Unbounded');
+
+.container {
+    border-radius: 20px;
+    background: linear-gradient(180deg, #0029FF 0%, #00FFF0 100%);
+    padding: 40px;
+}
+
+.heading {
+    color: #FFF;
+    font-family: Unbounded;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 72px;
+    text-transform: uppercase;
+    margin: 0;
+    width: 787px;
+}
+
+.body {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.start {
+    padding: 8px;
+    padding-left: 32px;
+    border-radius: 40px;
+    background: var(--black-900, #000C1A);
+    color: var(--Oq, #FFF);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .up-right-icon {
+        display: flex;
+        width: 52px;
+        height: 52px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        background: var(--Oq, #FFF);
+    }
+}
