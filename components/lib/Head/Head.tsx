@@ -22,8 +22,8 @@ export const Head: FC<IHeadProps> = (props) => {
       <title>{convertedTitle}</title>
       <meta name='title' content={convertedTitle} />
       <meta name='description' content={description} />
-      <meta name='author' content={author || ''} />
-      <meta name='published_date' content={publishedDate || ''} />
+      <meta name='author' content={author ?? ''} />
+      <meta name='published_date' content={publishedDate ?? ''} />
 
       {/* Open Graph / Facebook */}
       <meta property='og:type' content='website' />
