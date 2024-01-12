@@ -3,9 +3,9 @@ import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo, useRef } from 'react';
 import { useGetCurrentBlogTags } from 'store/clients/blog';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
-import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from '../../Home.constants';
+import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './Labels.constants';
 import classes from './Labels.module.scss';
 
 const NextIcon = ICONS.next;

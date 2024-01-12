@@ -1,0 +1,11 @@
+@import 'styles/breakpoints';
+
+.container {
+    width: 720px;
+    margin-left: 110px;
+
+    @include media-max(large) {
+        margin-left: 0;
+        width: 100%;
+    }
+}

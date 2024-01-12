@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Unbounded');
+@import 'styles/breakpoints';
+
+.container {
+    border-radius: 20px;
+    background: linear-gradient(180deg, #0029FF 0%, #00FFF0 100%);
+    padding: 40px;
+
+    @include media-max(large) {
+        padding: 40px 32px 32px 32px;
+    }
+
+    @include media-max(small) {
+        overflow: hidden;
+        padding: 26px 20px 20px 20px;
+    }
+}
+
+.heading {
+    color: #FFF;
+    font-family: Unbounded;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 72px;
+    text-transform: uppercase;
+    margin: 0;
+    width: 787px;
+    max-width: 100%;
+
+    @include media-max(large) {
+        font-size: 48px;
+        line-height: 60px;
+    }
+
+    @include media-max(small) {
+        font-size: 32px;
+        line-height: 40px;
+    }
+}
+
+.body {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    @include media-max(large) {
+        flex-direction: column-reverse;
+        align-items: unset;
+    }
+}
+
+.start {
+    padding: 8px;
+    padding-left: 32px;
+    border-radius: 40px;
+    background: var(--black-900, #000C1A);
+    color: var(--Oq, #FFF);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .up-right-icon {
+        display: flex;
+        width: 52px;
+        height: 52px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 40px;
+        background: var(--Oq, #FFF);
+    }
+
+    @include media-max(large) {
+        width: 100%;
+        border-radius: 12px;
+        justify-content: center;
+    }
+}

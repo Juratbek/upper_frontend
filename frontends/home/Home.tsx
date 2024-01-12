@@ -1,13 +1,10 @@
 import { Button, Divider } from 'components/lib';
-import { PublishedArticle } from 'components/molecules';
+import { LABEL_ID_PARAM, Labels, PublishedArticle, TopLabel } from 'components/molecules';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
-
-import { Labels } from './components';
-import { LABEL_ID_PARAM, TopLabel } from './Home.constants';
 
 export const HomePage: FC = () => {
   const { isReady } = useRouter();
