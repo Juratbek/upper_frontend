@@ -1,4 +1,4 @@
-import { AuthButton, GoogleAuthScript } from 'components';
+import { AuthButton } from 'components';
 import { Modal } from 'components/lib';
 import { FC, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
@@ -16,7 +16,6 @@ export const AuthModal: FC = () => {
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
       {Boolean(Title) && <h3 className='my-1 mt-0'>{Title}</h3>}
-      <GoogleAuthScript />
       <AuthButton width={300} className='mx-auto' />
     </Modal>
   );

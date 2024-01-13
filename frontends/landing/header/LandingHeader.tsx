@@ -1,5 +1,4 @@
-import { SearchInput } from 'components';
-import { Button } from 'components/lib';
+import { AuthButton, SearchInput } from 'components';
 import { Logo } from 'components/molecules';
 import { FC } from 'react';
 
@@ -10,7 +9,7 @@ export const LandingHeader: FC = () => {
     <div className={`${classes.root} container`}>
       <Logo />
       <SearchInput />
-      <Button>Kirish</Button>
+      <AuthButton />
     </div>
   );
 };

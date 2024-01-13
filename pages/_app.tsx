@@ -1,5 +1,6 @@
 import 'styles/index.scss';
 
+import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
@@ -22,6 +23,7 @@ function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
       <DynamicAuthModal />
+      <GoogleAuthScript />
       <Component {...pageProps} />
       <Footer />
     </QueryClientProvider>
