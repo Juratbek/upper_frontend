@@ -1,40 +1,33 @@
 import { ArticleImg, Author } from 'components';
+import { useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC } from 'react';
 import { addAmazonUri, getClassName } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables/common';
-import { ICONS } from 'variables/icons';
+import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './PublishedArticle.module.scss';
 import { IPublishedArticleProps } from './PublishedArticle.types';
 
-const SaveIcon = ICONS.save;
-const ShareIcon = ICONS.share;
-
 export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props }) => {
-  const { title, content, id, imgUrl, author } = article;
-  const rootClassName = getClassName(classes.root, props.className);
-
+  const { title, content, id, imgUrl } = article;
+  const { theme } = useTheme();
   return (
-    <div className={rootClassName}>
-      <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`} className={classes.body}>
-        <div className='flex-1'>
-          <h2 className={classes.title} dangerouslySetInnerHTML={{ __html: title }} />
-          <p className={classes.content} dangerouslySetInnerHTML={{ __html: content }} />
-        </div>
-        {imgUrl && <ArticleImg imgUrl={imgUrl} />}
-      </Link>
-      <div className={classes.footer}>
-        {author && <Author {...addAmazonUri(author)} />}
-        <div className={classes.actions}>
-          <span className={classes['action-icon']}>
-            <SaveIcon />
-          </span>
-          <span className={classes['action-icon']}>
-            <ShareIcon />
-          </span>
-        </div>
+    <Link
+      key={id}
+      href={`${WEB_APP_ROOT_DIR}/articles/${id}`}
+      className={getClassName(classes.article, classes[theme], props.className)}
+    >
+      {imgUrl && <ArticleImg imgUrl={imgUrl} size={'full'} className={classes['article-img']} />}
+
+      <h2
+        dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
+        className={classes['article-title']}
+      ></h2>
+      <p dangerouslySetInnerHTML={{ __html: content }} className={classes['article-content']}></p>
+
+      <div className={classes['article-footer']}>
+        {article.author && <Author {...addAmazonUri(article.author)} />}
       </div>
-    </div>
+    </Link>
   );
 };
