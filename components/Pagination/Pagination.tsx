@@ -25,14 +25,14 @@ const PaginationItem: FC<{
   );
 };
 
-export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) => {
+export const Pagination: FC<IPagesProps> = ({ pagesCount, onPageChange, ...props }) => {
   const { setParam, getParam } = useUrlParams();
   const currentPage = Number(getParam('page')) || 1;
   const { themeColors } = useTheme();
   const prevClassName = getClassName(classes.page, currentPage === 1 && classes['page--disabled']);
   const nextClassName = getClassName(
     classes.page,
-    currentPage === count && classes['page--disabled'],
+    currentPage === pagesCount && classes['page--disabled'],
   );
 
   const clickHandler = (page: number): void => {
@@ -43,15 +43,15 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
     changeActivePage(currentPage + count);
   };
 
-  const ellipsis = (): JSX.Element => <div className={classes.ellipsis}>...</div>;
+  const ellipsis = (): ReactNode => <div className={classes.ellipsis}>...</div>;
   const changeActivePage = (page: number): void => {
-    if (page < 1 || page > count) return;
+    if (page < 1 || page > pagesCount) return;
     onPageChange?.(page);
     setParam('page', page);
   };
   const getPageItems = (): ReactNode => {
-    if (count <= pagesToShow) {
-      return Array.from({ length: count }, (_, index) => (
+    if (pagesCount <= pagesToShow) {
+      return Array.from({ length: pagesCount }, (_, index) => (
         <PaginationItem
           key={index + 1}
           pageNumber={index + 1}
@@ -74,13 +74,13 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
           )),
           ellipsis(),
           <PaginationItem
-            key={count}
-            pageNumber={count}
+            key={pagesCount}
+            pageNumber={pagesCount}
             currentPage={currentPage}
             onClick={clickHandler}
           />,
         ];
-      } else if (currentPage >= count - middleIndex) {
+      } else if (currentPage >= pagesCount - middleIndex) {
         return [
           <PaginationItem
             key={1}
@@ -91,8 +91,8 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
           ellipsis(),
           ...Array.from({ length: pagesToShow }, (_, index) => (
             <PaginationItem
-              key={count - pagesToShow + index + 1}
-              pageNumber={count - pagesToShow + index + 1}
+              key={pagesCount - pagesToShow + index + 1}
+              pageNumber={pagesCount - pagesToShow + index + 1}
               currentPage={currentPage}
               onClick={clickHandler}
             />
@@ -118,8 +118,8 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
           )),
           ellipsis(),
           <PaginationItem
-            key={count}
-            pageNumber={count}
+            key={pagesCount}
+            pageNumber={pagesCount}
             currentPage={currentPage}
             onClick={clickHandler}
           />,
@@ -139,7 +139,7 @@ export const Pagination: FC<IPagesProps> = ({ count, onPageChange, ...props }) =
       </div>
       {getPageItems()}
       <div
-        style={currentPage === count ? {} : { borderColor: themeColors.pagination.border }}
+        style={currentPage === pagesCount ? {} : { borderColor: themeColors.pagination.border }}
         className={nextClassName}
         onClick={(): void => addPage(1)}
       >

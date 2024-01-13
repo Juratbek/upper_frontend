@@ -11,6 +11,8 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  align-self: flex-end;
+  padding: 1.5rem;
   padding-bottom: 0.25rem;
 }
 
@@ -25,6 +27,7 @@
   justify-content: center;
   cursor: pointer;
   user-select: none;
+  padding: 1.5rem;
 
   &--active {
     background-color: var(--blue);
