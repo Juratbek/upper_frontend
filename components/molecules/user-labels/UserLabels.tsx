@@ -32,6 +32,7 @@ export const UserLabels = (): JSX.Element => {
       labels={labels}
       activeLabel={query[LABEL_ID_PARAM] as string}
       onSelect={labelSelectHandler}
+      style={{ marginTop: '-3rem' }}
     />
   );
 };

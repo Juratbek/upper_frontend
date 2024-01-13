@@ -25,7 +25,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
     : false;
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={props.style}>
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
         {labels.map((label) => (
           <TabButton

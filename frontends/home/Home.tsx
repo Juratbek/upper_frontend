@@ -1,5 +1,5 @@
 import { Button, Divider } from 'components/lib';
-import { LABEL_ID_PARAM, PublishedArticle, TopLabel, UserLabels } from 'components/molecules';
+import { ForYouLabel, LABEL_ID_PARAM, PublishedArticle, UserLabels } from 'components/molecules';
 import { useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, Fragment } from 'react';
@@ -9,7 +9,7 @@ import { addAmazonBucketUrl } from 'utils/published-article';
 export const HomePage: FC = () => {
   const { isReady } = useRouter();
   const { getParam } = useUrlParams();
-  const label = getParam(LABEL_ID_PARAM) ?? TopLabel;
+  const label = getParam(LABEL_ID_PARAM) ?? ForYouLabel;
   const {
     fetchNextPage,
     isFetchingNextPage,
