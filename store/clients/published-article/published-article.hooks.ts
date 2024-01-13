@@ -1,3 +1,4 @@
+import { UseMutationResult } from 'react-query';
 import {
   apiClient,
   IInfiniteQueryConfig,
@@ -30,4 +31,14 @@ export const usePublishedArticlesList = (
 export const useIncrementViewCount = (): IMutationResult<void, { id: number; token: string }> =>
   useMutation('increment-view-count', ({ id, token }) =>
     apiClient.post({ path: `published-article/v2/open/has-updates/${id}`, body: token }),
+  );
+
+export const useLike = (articleId: number): UseMutationResult =>
+  useMutation(['like-article', articleId], () =>
+    apiClient.post({ path: `published-article/v2/like/${articleId}` }),
+  );
+
+export const useDislike = (articleId: number): UseMutationResult =>
+  useMutation(['like-article', articleId], () =>
+    apiClient.post({ path: `published-article/v2/dislike/${articleId}` }),
   );
