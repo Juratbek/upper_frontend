@@ -1,7 +1,8 @@
 @import 'styles/mixins';
+@import 'styles/breakpoints';
 
 .root {
-  height: 12rem;
+  min-height: 12rem;
   width: 100%;
 }
 
@@ -11,12 +12,15 @@
   justify-content: space-between;
   height: 100%;
   border-top: 1px solid var(--black-50);
-}
 
-.logo svg {
-  width: 8rem;
-  height: 3rem;
-  margin: 0 auto;
+  @include media-max(large) {
+    padding-block: 20px 40px;
+  }
+
+  @include media-max(small) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .links {
@@ -29,10 +33,10 @@
     gap: 5%;
   }
 
-  & > li {
+  &>li {
     list-style: none;
 
-    & > a {
+    &>a {
       display: flex;
       align-items: center;
     }
@@ -70,4 +74,33 @@
   color: var(--black-400);
   font-style: normal;
   font-weight: 400;
+  margin: 0;
+}
+
+.main-block {
+  display: flex;
+  gap: 150px;
+  align-items: center;
+
+  @include media-max(large) {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+}
+
+.secondary-block {
+  display: flex;
+  gap: 110px;
+  align-items: center;
+
+  @include media-max(large) {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-end;
+  }
+
+  @include media-max(small) {
+    align-items: flex-start;
+  }
 }

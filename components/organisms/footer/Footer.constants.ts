@@ -16,10 +16,6 @@ export const LINKS: IFooterLink[] = [
     url: '/docs/write-article_introduction_quick-start',
   },
   {
-    text: 'Biz haqimizda',
-    url: '/about-us',
-  },
-  {
     text: 'Jamoa',
     url: '/team',
   },
