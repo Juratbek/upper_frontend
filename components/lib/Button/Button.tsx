@@ -21,7 +21,7 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
   const loader = useMemo(() => {
     if (typeof props.loader === 'function') return props.loader();
     if (props.loader) return props.loader;
-    return <Spinner className={classes.spinner} />;
+    return <Spinner style={{ borderColor: `var(--btn-${color}-spinner)` }} />;
   }, [props.loader, color]);
 
   const content = useMemo(() => {

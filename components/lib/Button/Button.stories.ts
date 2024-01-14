@@ -13,6 +13,13 @@ type TStory = StoryObj<typeof meta>;
 
 export const Default: TStory = {
   args: {
-    children: 'Nimadir',
+    children: 'Click me',
+  },
+};
+
+export const Loading: TStory = {
+  args: {
+    loading: true,
+    children: 'Button',
   },
 };

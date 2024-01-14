@@ -6,3 +6,4 @@ export * from './PublishedArticle';
 export * from './logo/Logo';
 export * from './labels';
 export * from './user-labels';
+export * from './subscription-button/SubscriptionButton';
