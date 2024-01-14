@@ -1,10 +1,10 @@
 import { Clickable, Divider } from 'components/lib';
 import { useAuth } from 'hooks';
+import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDislike, useLike } from 'store/clients/published-article';
 import { openCommentsModal } from 'store/states';
-import { IArticle } from 'types';
 import { ICONS } from 'variables';
 
 import classes from './ArticleFooter.module.scss';
@@ -15,17 +15,19 @@ const CommentIcon = ICONS.comment;
 const SaveIcon = ICONS.save;
 const ShareIcon = ICONS.share;
 
-export const ArticleFooter: FC<{ article: IArticle }> = ({ article }) => {
+export const ArticleFooter: FC = () => {
+  const { query } = useRouter();
+  const articleId = Number(query.id);
   const dispatch = useDispatch();
   const { isAuthenticated, openLoginPage } = useAuth();
-  const { mutate: like } = useLike(article.id);
-  const { mutate: dislike } = useDislike(article.id);
+  const { mutate: like } = useLike(articleId);
+  const { mutate: dislike } = useDislike(articleId);
 
   const commentClickHandler = (): unknown => dispatch(openCommentsModal());
 
   const likeHandler = (): void => {
     if (isAuthenticated) {
-      like(article.id);
+      like(articleId);
     } else {
       openLoginPage("Iltimos maqolaga layk bosish uchun ro'yxatdan o'ting");
     }
@@ -33,7 +35,7 @@ export const ArticleFooter: FC<{ article: IArticle }> = ({ article }) => {
 
   const dislikeHandler = (): void => {
     if (isAuthenticated) {
-      dislike(article.id);
+      dislike(articleId);
     } else {
       openLoginPage("Iltimos maqolaga dislayk bosish uchun ro'yxatdan o'ting");
     }
