@@ -23,7 +23,9 @@ export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props
         dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
         className={classes['article-title']}
       ></h2>
-      <p dangerouslySetInnerHTML={{ __html: content }} className={classes['article-content']}></p>
+      {!Boolean(imgUrl) && (
+        <p dangerouslySetInnerHTML={{ __html: content }} className={classes['article-content']}></p>
+      )}
 
       <div className={classes['article-footer']}>
         {article.author && <Author {...addAmazonUri(article.author)} />}
