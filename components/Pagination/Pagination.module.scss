@@ -1,6 +1,19 @@
 .container {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
+}
+
+.ellipsis {
+  width: 2rem;
+  height: 2rem;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  align-self: flex-end;
+  padding: 1.5rem;
+  padding-bottom: 0.25rem;
 }
 
 .page {
@@ -14,6 +27,7 @@
   justify-content: center;
   cursor: pointer;
   user-select: none;
+  padding: 1.5rem;
 
   &--active {
     background-color: var(--blue);
