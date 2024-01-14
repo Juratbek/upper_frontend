@@ -11,7 +11,7 @@ import {
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
 import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
-import { REFRESH_TOKEN, TOKEN } from 'variables';
+import { ACCESS_UPPER_UZ, REFRESH_TOKEN, TOKEN } from 'variables';
 
 import {
   IUseAuth,
@@ -75,6 +75,12 @@ export const useAuth = (): IUseAuth => {
     }
   };
 
+  const openLoginPage = (title?: string): void => {
+    let url = ACCESS_UPPER_UZ;
+    if (title) url = `${url}?title=${title}`;
+    window.open(url, '_blank');
+  };
+
   return {
     status,
     isAuthenticated,
@@ -85,5 +91,6 @@ export const useAuth = (): IUseAuth => {
     getToken,
     getRefreshToken,
     setCurrentBlog,
+    openLoginPage,
   };
 };

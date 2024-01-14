@@ -1,4 +1,5 @@
 import { Clickable, Divider } from 'components/lib';
+import { useAuth } from 'hooks';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDislike, useLike } from 'store/clients/published-article';
@@ -16,14 +17,27 @@ const ShareIcon = ICONS.share;
 
 export const ArticleFooter: FC<{ article: IArticle }> = ({ article }) => {
   const dispatch = useDispatch();
+  const { isAuthenticated, openLoginPage } = useAuth();
   const { mutate: like } = useLike(article.id);
   const { mutate: dislike } = useDislike(article.id);
 
   const commentClickHandler = (): unknown => dispatch(openCommentsModal());
 
-  const likeHandler = (): unknown => like(article.id);
+  const likeHandler = (): void => {
+    if (isAuthenticated) {
+      like(article.id);
+    } else {
+      openLoginPage("Iltimos maqolaga layk bosish uchun ro'yxatdan o'ting");
+    }
+  };
 
-  const dislikeHandler = (): unknown => dislike(article.id);
+  const dislikeHandler = (): void => {
+    if (isAuthenticated) {
+      dislike(article.id);
+    } else {
+      openLoginPage("Iltimos maqolaga dislayk bosish uchun ro'yxatdan o'ting");
+    }
+  };
 
   return (
     <div className={classes.root}>

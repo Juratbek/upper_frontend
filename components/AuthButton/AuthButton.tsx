@@ -4,12 +4,11 @@ import { FC, useEffect } from 'react';
 import { useAppDispatch } from 'store';
 import { IBlogRegisterResponse } from 'store/apis';
 import { closeAuthModal } from 'store/states';
-import { ACCESS_UPPER_UZ } from 'variables';
 
 import { TRUSTED_ORIGINS } from './AuthButton.constants';
 
 export const AuthButton: FC = () => {
-  const { authenticate } = useAuth();
+  const { authenticate, openLoginPage } = useAuth();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -25,9 +24,7 @@ export const AuthButton: FC = () => {
     return () => window.removeEventListener('message', listener);
   }, []);
 
-  const loginClickHandler = (): void => {
-    window.open(ACCESS_UPPER_UZ, '_blank');
-  };
+  const loginClickHandler = (): void => openLoginPage();
 
   return <Button onClick={loginClickHandler}>Kirish</Button>;
 };
