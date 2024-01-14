@@ -16,7 +16,7 @@ export const AuthModal: FC = () => {
   return (
     <Modal size='small' isOpen={isOpen} close={closeModal}>
       {Boolean(Title) && <h3 className='my-1 mt-0'>{Title}</h3>}
-      <AuthButton width={300} className='mx-auto' />
+      <AuthButton />
     </Modal>
   );
 };
