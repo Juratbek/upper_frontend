@@ -2,6 +2,7 @@ import { isClientSide } from 'utils';
 import { TOKEN } from 'variables';
 
 import { IConfig, IPostConfig } from './api-client.types';
+import { checkContentType } from './api-client.utils';
 
 class Client {
   #config: IConfig = {
@@ -22,8 +23,12 @@ class Client {
       fullPath = `${fullPath}?${searchParams.toString()}`;
     }
     const res = await this.fetch(fullPath, { method: 'get' });
-    const data = await res.json();
-    return data as TResponse;
+    const isJson = checkContentType(res, 'application/json');
+    if (isJson) {
+      const data = await res.json();
+      return data as TResponse;
+    }
+    return res as TResponse;
   }
 
   async post<TBody = unknown, TResponse = unknown>({
@@ -34,8 +39,12 @@ class Client {
       method: 'post',
       body: JSON.stringify(config.body),
     });
-    const data = await res.json();
-    return data as TResponse;
+    const isJson = checkContentType(res, 'application/json');
+    if (isJson) {
+      const data = await res.json();
+      return data as TResponse;
+    }
+    return res as TResponse;
   }
 
   async delete(path: string): Promise<void> {
