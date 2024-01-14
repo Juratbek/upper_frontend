@@ -1,75 +1,55 @@
 @import 'styles/mixins';
 
-.root {
-  padding: 32px 0;
-  border-bottom: 1px solid var(--black-50, #E8E9E9);
-}
-
-.body {
-  width: 100%;
+.article {
   display: flex;
+  flex-direction: column;
 
-  .title {
-    margin: 0;
-    color: var(--black-800, #060707);
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 28px;
+  border-top: 0.5px solid;
+
+  padding: 3rem 0;
+
+  &:last-child {
+    border-bottom: 0.5px solid;
   }
-
-  .content {
-    margin-top: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.5;
-    word-break: break-word;
-    color: var(--black-300, #737677);
-    font-size: 16px;
-    font-weight: 400;
-
-    *:not(code) {
-      background-color: transparent !important;
-      color: inherit !important;
-    }
-
-    @include screenMax576 {
-      display: none;
-    }
-
-    code {
-      border-radius: 5px;
-      font-family: inherit;
-      font-size: 0.85em;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
+  &.dark {
+    border-color: hsl(0deg 0% 78.51% / 60%);
+  }
+  &.light {
+    border-color: rgba(166, 166, 166, 0.6);
   }
 }
 
-.footer {
+.article-footer {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin-top: 1rem;
+}
 
-  .actions {
-    gap: 0.8rem;
-    display: flex;
+.article-img {
+  margin-bottom: 1rem;
+}
+
+.article-title {
+  margin: 0;
+  margin-bottom: 0.75rem;
+  font-size: 2rem;
+}
+
+.article-content {
+  margin: 0;
+  *:not(code) {
+    background-color: transparent !important;
+    color: inherit !important;
   }
 
-  .action-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 3.2rem;
-    height: 3.2rem;
-    border-radius: 0.4rem;
+  @include screenMax576 {
+    display: none;
+  }
 
-    &:hover {
-      background: var(--gray);
-    }
+  code {
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 0.85em;
+    font-weight: 500;
+    letter-spacing: 0.3px;
   }
 }

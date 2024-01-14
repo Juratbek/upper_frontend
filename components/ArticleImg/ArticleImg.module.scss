@@ -2,7 +2,8 @@
 
 .article-img {
   position: relative;
-  & > span {
+
+  &>span {
     border-radius: 0.5rem;
   }
 }
@@ -28,4 +29,15 @@
     min-width: 7rem;
     height: 5rem;
   }
+}
+
+.article-img--full {
+  width: 100%;
+
+  & img {
+    height: auto !important;
+    position: initial !important;
+    border-radius: 12px;
+  }
+
 }
