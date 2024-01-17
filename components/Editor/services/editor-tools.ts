@@ -49,7 +49,7 @@ export const getTools = async ({
     import('../tools/alert/Alert.tool'),
     import('../tools/quote/Quote.tool'),
     import('../tools/header/Header.tool'),
-    import('@juratbek/editorjs-image'),
+    import('../tools/image/Image.tool'),
     import('@juratbek/editorjs-code'),
     import('@juratbek/editorjs-quiz'),
     import('@samandar.boymurodov/editorjs-inline-image'),

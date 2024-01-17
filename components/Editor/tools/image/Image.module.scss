@@ -1,0 +1,139 @@
+.container {}
+
+.image-container {
+  display: block;
+}
+
+.picture {
+  width: 100%;
+  border-radius: 12px;
+  display: block;
+}
+
+.preloader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+  margin: auto;
+  position: relative;
+  background-color: var(--bg-color);
+  background-position: center center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--bg-color);
+    border-top-color: var(--front-color);
+    left: 50%;
+    top: 50%;
+    margin-top: -30px;
+    margin-left: -30px;
+    animation: image-preloader-spin 2s infinite linear;
+    box-sizing: border-box;
+  }
+}
+
+.caption {
+  &[contentEditable='true'][data-placeholder]::before {
+    position: absolute !important;
+    content: attr(data-placeholder);
+    color: #707684;
+    font-weight: normal;
+    display: none;
+  }
+
+  &[contentEditable='true'][data-placeholder]:empty {
+    &::before {
+      display: block;
+    }
+
+    &:focus::before {
+      display: none;
+    }
+  }
+}
+
+.empty {
+  display: none;
+}
+
+.empty,
+.loading {
+  .caption {
+    display: none;
+  }
+}
+
+.load-button {
+  border: 1px solid red;
+}
+
+.filled {
+  .load-button {
+    display: none;
+  }
+
+  .preloader {
+    display: none;
+  }
+}
+
+.loading {
+  .picture {
+    display: none;
+  }
+
+  .load-button {
+    display: none;
+  }
+}
+
+/**
+   * Tunes
+   * ----------------
+   */
+
+// &--withBorder {
+//   ^&__image {
+//     border: 1px solid var(--border-color);
+//   }
+// }
+
+// &--withBackground {
+//   ^&__image {
+//     padding: 15px;
+//     background: var(--bg-color);
+
+//     &-picture {
+//       max-width: 60%;
+//       margin: 0 auto;
+//     }
+//   }
+// }
+
+// &--stretched {
+//   ^&__image {
+//     &-picture {
+//       width: 100%;
+//     }
+//   }
+// }
+
+// &--centeredCaption &__caption {
+//   text-align: center;
+// }
+
+@keyframes image-preloader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

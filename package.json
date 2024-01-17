@@ -28,6 +28,7 @@
     "node": ">=16.17.0"
   },
   "dependencies": {
+    "@codexteam/ajax": "^4.2.0",
     "@codexteam/icons": "^0.3.0",
     "@editorjs/delimiter": "^1.2.0",
     "@editorjs/editorjs": "^2.27.2",
@@ -90,7 +91,7 @@
     "jsdom": "^23.0.1",
     "lint-staged": "^15.2.0",
     "prettier": "^3.0.3",
-    "sass": "^1.53.0",
+    "sass": "^1.69.7",
     "storybook": "^7.6.5",
     "typescript": "^5",
     "vitest": "^1.0.4"
