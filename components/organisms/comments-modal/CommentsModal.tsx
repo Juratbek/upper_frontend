@@ -10,6 +10,7 @@ import { closeCommentsModal, getIsCommentsModalOpen } from 'store/states';
 import { ICONS } from 'variables';
 
 import classes from './CommentsModal.module.scss';
+import { NoComments } from './no-comments/NoComments';
 
 const SendIcon = ICONS.send;
 
@@ -45,7 +46,7 @@ export const CommentsModal: FC = () => {
 
   return (
     <div className={classes.root} style={{ display: isOpen ? 'block' : 'none' }}>
-      <div className={classes.background} onClick={closeModal} />
+      <Clickable className={classes.background} onClick={closeModal} />
       <div className={classes.modal}>
         <div className={classes['modal-header']}>
           <p className={classes.headline}>Izohlar</p>
@@ -54,9 +55,11 @@ export const CommentsModal: FC = () => {
           </Clickable>
         </div>
         <div className={classes['modal-body']}>
-          {comments.map((comment) => (
-            <Comment {...comment} key={comment.id} />
-          ))}
+          {comments.length === 0 ? (
+            <NoComments />
+          ) : (
+            comments.map((comment) => <Comment {...comment} key={comment.id} />)
+          )}
         </div>
         <div className={classes['modal-footer']}>
           <div className={classes['comment-input-container']}>
