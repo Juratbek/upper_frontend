@@ -16,7 +16,7 @@ export const NotFound = (): JSX.Element => {
         <div className='text-center'>
           <h1>Sahifa topilmadi</h1>
           <Link href='/'>
-            <Button>Bosh sahifaga qaytish</Button>
+            <Button>Asosiy sahifaga qaytish</Button>
           </Link>
         </div>
       </div>

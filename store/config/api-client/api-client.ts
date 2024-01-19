@@ -1,4 +1,5 @@
 import { isClientSide } from 'utils';
+import { ApiError } from 'utils/error';
 import { TOKEN } from 'variables';
 
 import { IConfig, IPostConfig } from './api-client.types';
@@ -65,7 +66,9 @@ class Client {
     if (res.status === 200) {
       return res;
     } else {
-      throw new Error(`An Error occured while fetching ${path}: ${res}`);
+      const error = await res.json();
+      console.log('🚀 ~ Client ~ fetch ~ error:', error);
+      throw new ApiError('', res);
     }
   }
 }

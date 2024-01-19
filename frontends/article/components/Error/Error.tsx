@@ -13,7 +13,7 @@ export const ErrorUI: FC<{ error: IResponseError | null }> = ({ error }) => {
         <h3>Maqola topilmadi</h3>
         <p className='text-gray'>Maqola o&apos;chirilgan yoki bloklangan bo&apos;lishi mumkin</p>
         <Link href='/'>
-          <Button>Bosh sahifaga qaytish</Button>
+          <Button>Asosiy sahifaga qaytish</Button>
         </Link>
       </div>
     );

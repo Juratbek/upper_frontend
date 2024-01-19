@@ -6,6 +6,7 @@ import { wrapper } from 'store';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
 import { get } from 'utils';
+import { ApiError } from 'utils/error';
 
 export interface IArticlePageProps {
   article: IArticle | null;
@@ -38,8 +39,8 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
     try {
       article = await apiClient.get<IArticle>(`published-article/open/${articleId}`);
     } catch (e) {
-      console.log(e);
-      error = e;
+      const apiError = e as ApiError;
+      error = { status: apiError.status } satisfies Partial<IResponseError>;
     }
     return {
       props: {
