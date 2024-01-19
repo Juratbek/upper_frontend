@@ -1,10 +1,11 @@
-import { UseMutationResult, useQueryClient } from 'react-query';
+import { UseMutationResult, useQueryClient, UseQueryResult } from 'react-query';
 import {
   apiClient,
   IPage,
   TInfiniteQueryResult,
   useInfiniteQuery,
   useMutation,
+  useQuery,
 } from 'store/config';
 import { IComment } from 'types';
 
@@ -31,3 +32,6 @@ export const useCreateComment = (): UseMutationResult<
     onSuccess: () => client.invalidateQueries('comments-list'),
   });
 };
+
+export const useCommentsCount = (articleId: number): UseQueryResult<number> =>
+  useQuery(['comments-count', articleId], () => apiClient.get(`comment/open/count/${articleId}`));

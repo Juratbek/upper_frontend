@@ -35,6 +35,13 @@
   margin-left: 12px;
   border: none;
   cursor: pointer;
+
+  .count {
+    color: var(--black-400, #45494A);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+  }
 }
 
 .actions-container {

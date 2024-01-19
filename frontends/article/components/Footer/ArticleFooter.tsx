@@ -3,6 +3,7 @@ import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { useCommentsCount } from 'store/clients/comments';
 import { useDislike, useLike } from 'store/clients/published-article';
 import { openCommentsModal } from 'store/states';
 import { ICONS } from 'variables';
@@ -22,6 +23,7 @@ export const ArticleFooter: FC = () => {
   const { isAuthenticated, openLoginPage } = useAuth();
   const { mutate: like } = useLike(articleId);
   const { mutate: dislike } = useDislike(articleId);
+  const { data } = useCommentsCount(articleId);
 
   const commentClickHandler = (): unknown => dispatch(openCommentsModal());
 
@@ -55,6 +57,7 @@ export const ArticleFooter: FC = () => {
       </div>
       <Clickable onClick={commentClickHandler} className={classes['comment-container']}>
         <CommentIcon />
+        <span className={classes['count']}>{data}</span>
       </Clickable>
       <div className={classes['actions-container']}>
         <Clickable>
