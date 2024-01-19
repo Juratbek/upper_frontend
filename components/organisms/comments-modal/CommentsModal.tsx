@@ -68,6 +68,7 @@ export const CommentsModal: FC = () => {
               rootClassName={classes['comment-input-root']}
               className={classes['comment-input']}
               onKeyDown={heyDownHandler}
+              placeholder='Izoh'
             />
             <button
               className={classes['send-btn']}
