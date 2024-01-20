@@ -76,7 +76,7 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
               {data?.map((article) => (
                 <li key={article.id}>
                   <Link className={classes.item} href={`/articles/${article.id}`}>
-                    {article.title}
+                    <span dangerouslySetInnerHTML={{ __html: article.title }} />
                   </Link>
                 </li>
               ))}

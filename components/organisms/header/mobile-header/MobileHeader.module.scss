@@ -4,8 +4,8 @@
     border-bottom: 1px solid var(--black-50, #E8E9E9);
     padding: 0 2rem;
     align-items: center;
-    justify-content: space-between;
     width: 100%;
+    position: relative;
 }
 
 .logo {
@@ -13,13 +13,46 @@
     height: 3.6rem;
 }
 
+.search-icon {
+    margin-left: auto;
+}
+
 .search {
     &-container {
         align-items: center;
         gap: 8px;
         width: 100%;
+        display: flex;
     }
+
     &-input {
-        width: 100%;
+        border-radius: 8px;
+        background: var(--Sery-Fon, #F5F5F5);
+        border: none;
+        padding: 6px 12px;
     }
+}
+
+.results-container {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: -1px;
+    transform: translateY(100%);
+    background-color: white;
+    z-index: 2;
+    height: 100vh;
+    margin: 0;
+    list-style: none;
+    padding: 14px 0;
+
+    .item {
+        padding: 10px 20px;
+        display: block;
+    }
+}
+
+.hidden {
+    width: 0;
+    overflow: hidden;
 }
