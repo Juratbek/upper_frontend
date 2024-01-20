@@ -8,6 +8,8 @@ $background: var(--gray, #f5f5f5);
   gap: 10px;
   background: $background;
   width: 723px;
+  z-index: 3;
+  position: relative;
 
   &.focused {
     border-color: var(--blue);
@@ -27,5 +29,37 @@ $background: var(--gray, #f5f5f5);
 
   &:focus {
     outline: none;
+  }
+}
+
+.bg {
+  background: rgba(26, 26, 26, 0.10);
+  backdrop-filter: blur(2px);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.results-container {
+  padding-block: 12px;
+  border-radius: 8px;
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+  z-index: 3;
+  background-color: white;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+
+  .item {
+    display: flex;
+    padding: 12px 20px 12px 24px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--gray, #F5F5F5);
+    ;
   }
 }

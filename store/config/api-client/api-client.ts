@@ -66,8 +66,6 @@ class Client {
     if (res.status === 200) {
       return res;
     } else {
-      const error = await res.json();
-      console.log('🚀 ~ Client ~ fetch ~ error:', error);
       throw new ApiError('', res);
     }
   }

@@ -1,4 +1,4 @@
-import { UseMutationResult } from 'react-query';
+import { UseMutationResult, UseQueryResult } from 'react-query';
 import {
   apiClient,
   IInfiniteQueryConfig,
@@ -7,6 +7,7 @@ import {
   TInfiniteQueryResult,
   useInfiniteQuery,
   useMutation,
+  useQuery,
 } from 'store/config';
 import { IPublishedArticleItem } from 'types';
 
@@ -41,4 +42,13 @@ export const useLike = (articleId: number): UseMutationResult =>
 export const useDislike = (articleId: number): UseMutationResult =>
   useMutation(['like-article', articleId], () =>
     apiClient.post({ path: `published-article/v2/dislike/${articleId}` }),
+  );
+
+export const useSearch = (value: string): UseQueryResult<IPublishedArticleItem[]> =>
+  useQuery(
+    'search-published-article',
+    () => apiClient.get('published-article/open/search', { search: value, limit: '5' }),
+    {
+      enabled: Boolean(value?.trim()),
+    },
   );
