@@ -12,7 +12,7 @@ import { ISearchInputProps } from './SearchInput.types';
 const SearchIcon = ICONS.search;
 
 export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(function Component(
-  { className, onChange, ...props },
+  { inputContainerClassName, onChange, ...props },
   ref,
 ) {
   const [value, setValue] = useState<string>(props.defaultValue as string);
@@ -21,7 +21,6 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
   const debauncedValue = useDebounce(value);
   const { data, ...searchRes } = useSearch(debauncedValue);
   const { themeColors } = useTheme();
-  const rootClassName = getClassName(classes.root, className, isFocused && classes.focused);
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     onChange?.(event);
@@ -40,18 +39,27 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
     props.onBlur?.(event);
   };
 
-  const closePopover = (): unknown => setIsPopoverOpen(false);
+  const closePopover = (): void => {
+    setIsPopoverOpen(false);
+    props.onClosePopover?.();
+  };
 
   return (
-    <div>
-      <div className={rootClassName}>
+    <>
+      <div
+        className={getClassName(
+          classes.root,
+          isFocused && classes.focused,
+          inputContainerClassName,
+        )}
+      >
         <SearchIcon color={themeColors.icon} width={20} height={20} />
         <Divider type='vertical' className={classes.divider} />
         <input
           type='text'
-          className={classes.input}
           placeholder='Qidirish'
           {...props}
+          className={getClassName(classes.input, props.className)}
           value={value}
           ref={ref}
           onChange={changeHandler}
@@ -78,6 +86,6 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
         )}
       </div>
       {isPopoverOpen && <Clickable className={classes.bg} onClick={closePopover} />}
-    </div>
+    </>
   );
 });

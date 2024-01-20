@@ -32,7 +32,7 @@ export const DesktopHeader: FC = () => {
       <div className={classes['left-container']}>
         <Logo />
       </div>
-      <SearchInput className={classes['main-container']} />
+      <SearchInput inputContainerClassName={classes['main-container']} />
       <div className={classes['right-container']}>
         {!isLoading && (
           <Button
