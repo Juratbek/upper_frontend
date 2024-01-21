@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useCommentsCount } from 'store/clients/comments';
-import { useDislike, useLike } from 'store/clients/published-article';
-import { openCommentsModal } from 'store/states';
+import { useDislike, useLike, useLikeCount } from 'store/clients/published-article';
+import { toggleCommentsModal } from 'store/states';
 import { ICONS } from 'variables';
 
 import classes from './ArticleFooter.module.scss';
@@ -23,9 +23,10 @@ export const ArticleFooter: FC = () => {
   const { isAuthenticated, openLoginPage } = useAuth();
   const { mutate: like } = useLike(articleId);
   const { mutate: dislike } = useDislike(articleId);
-  const { data } = useCommentsCount(articleId);
+  const { data: commentsCount } = useCommentsCount(articleId);
+  const { data: likeCount } = useLikeCount(articleId);
 
-  const commentClickHandler = (): unknown => dispatch(openCommentsModal());
+  const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());
 
   const likeHandler = (): void => {
     if (isAuthenticated) {
@@ -49,7 +50,7 @@ export const ArticleFooter: FC = () => {
         <Clickable onClick={likeHandler}>
           <Like />
         </Clickable>
-        <span className={classes['like-count']}>12</span>
+        {Boolean(likeCount) && <span className={classes['like-count']}>{likeCount}</span>}
         <Divider color='secondary' className={classes.divider} type='vertical' />
         <Clickable onClick={dislikeHandler}>
           <Dislike />
@@ -57,7 +58,7 @@ export const ArticleFooter: FC = () => {
       </div>
       <Clickable onClick={commentClickHandler} className={classes['comment-container']}>
         <CommentIcon />
-        <span className={classes['count']}>{data}</span>
+        {Boolean(commentsCount) && <span className={classes['count']}>{commentsCount}</span>}
       </Clickable>
       <div className={classes['actions-container']}>
         <Clickable>
