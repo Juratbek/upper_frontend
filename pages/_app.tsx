@@ -41,7 +41,7 @@ function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
 function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate } = useAuth();
-  const { themeColors, theme } = useTheme();
+  const { themeColors } = useTheme();
 
   useEffect(() => {
     const token = getToken();
@@ -80,7 +80,9 @@ function MyApp(props: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className={`theme-${theme}`} style={{ height: '100vh', overflow: 'scroll' }}>
+      {/* TODO: change to <div className={`theme-${theme}`} style={{ height: '100vh', overflow: 'scroll' }}>
+      when dark theme is ready */}
+      <div className={`theme-light`} style={{ height: '100vh', overflow: 'scroll' }}>
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
           <WebApp {...props} />
         ) : (
