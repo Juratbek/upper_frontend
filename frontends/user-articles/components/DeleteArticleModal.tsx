@@ -120,12 +120,7 @@ export const DeleteArticleModal: FC<{
   };
 
   return (
-    <Modal
-      size='small'
-      isOpen={props.open}
-      close={closeDeleteArticleModal}
-      bodyClassName='text-center'
-    >
+    <Modal isOpen={props.open} close={closeDeleteArticleModal} bodyClassName='text-center'>
       {alertComponent}
       {renderContent()}
     </Modal>

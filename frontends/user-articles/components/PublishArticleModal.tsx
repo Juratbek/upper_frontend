@@ -143,12 +143,7 @@ export const PublishArticleModal: FC<{
   };
 
   return (
-    <Modal
-      size='small'
-      isOpen={props.open}
-      close={closePublishModalHandler}
-      bodyClassName='text-center'
-    >
+    <Modal isOpen={props.open} close={closePublishModalHandler} bodyClassName='text-center'>
       {alertComponent}
       {renderContent()}
     </Modal>

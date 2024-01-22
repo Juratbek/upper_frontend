@@ -114,7 +114,7 @@ export const FeedbackModal: FC = () => {
   }, []);
 
   return (
-    <Modal size='small' isOpen={isOpen} close={closeHandler}>
+    <Modal isOpen={isOpen} close={closeHandler}>
       {createFeedbackRes.isSuccess && (
         <div className='text-center'>
           <Lordicon
