@@ -11,9 +11,11 @@
   &:last-child {
     border-bottom: 0.5px solid;
   }
+
   &.dark {
     border-color: hsl(0deg 0% 78.51% / 60%);
   }
+
   &.light {
     border-color: rgba(166, 166, 166, 0.6);
   }
@@ -32,10 +34,19 @@
   margin: 0;
   margin-bottom: 0.75rem;
   font-size: 2rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .article-content {
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
   *:not(code) {
     background-color: transparent !important;
     color: inherit !important;

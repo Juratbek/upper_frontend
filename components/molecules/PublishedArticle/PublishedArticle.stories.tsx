@@ -25,10 +25,11 @@ const mock: IPublishedArticleProps = {
         'https://upper-prod-blog-img-bucket.s3.ap-south-1.amazonaws.com/1/21a46cc7-cb3b-4c88-82da-dbf3f29ae85d',
     },
     content:
-      "maqolada nima haqida yozilgani haqida qisqacha kontent. Bu matn ikki qatordan oshib ketmasligi kerak. Ikki qatordan oshsa oshib qolgan qismini o'rniga ... qo'yilishi kerak. Buni test qilish uchun uzun matn kitirish kerak. Hozir bu ishlamayabdi, demak stillash kerak",
+      "maqolada nima haqida yozilgani haqida qisqacha kontent. Bu matn ikki qatordan oshib ketmasligi kerak. Ikki qatordan oshsa oshib qolgan qismini o'rniga ... qo'yilishi kerak. Buni test qilish uchun uzun matn kitirish kerak. Hozir bu ishlamayabdi, demak stillash kerak Bu matn ikki qatordan oshib ketmasligi kerak. Ikki qatordan oshsa oshib qolgan qismini o'rniga ... qo'yilishi kerak. Buni test qilish uchun uzun matn kitirish kerak. Hozir bu ishlamayabdi, demak stillash kerak",
     id: 12,
     imgUrl: '',
-    title: 'Bilmadim, nimadir deb yozilganda',
+    title:
+      "Bilmadim, nimadir deb yozilganda Bu matn ikki qatordan oshib ketmasligi kerak. Ikki qatordan oshsa oshib qolgan qismini o'rniga ... qo'yilishi kerak. Buni test qilish uchun uzun matn kitirish kerak. Hozir bu ishlamayabdi, demak stillash kerak",
   },
 };
 
