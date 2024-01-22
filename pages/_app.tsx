@@ -82,7 +82,10 @@ function MyApp(props: AppProps): JSX.Element {
       )}
       {/* TODO: change to <div className={`theme-${theme}`} style={{ height: '100vh', overflow: 'scroll' }}>
       when dark theme is ready */}
-      <div className={`theme-light`} style={{ height: '100vh', overflow: 'scroll' }}>
+      <div
+        className={`theme-light`}
+        style={{ height: '100vh', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
+      >
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
           <WebApp {...props} />
         ) : (

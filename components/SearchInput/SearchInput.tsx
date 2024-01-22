@@ -80,7 +80,7 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
                   </Link>
                 </li>
               ))}
-              {data?.length === 0 && <p>Ma&apos;lumot topilmadi</p>}
+              {data?.length === 0 && <p className='text-center'>Ma&apos;lumot topilmadi</p>}
             </ApiErrorBoundary>
           </ul>
         )}

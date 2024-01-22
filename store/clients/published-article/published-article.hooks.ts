@@ -20,7 +20,7 @@ export const usePublishedArticlesList = (
     (params) =>
       apiClient.get('published-article/open/get-by-label', {
         page: params.pageParam ?? 0,
-        label,
+        tag: label,
       }),
     {
       getNextPageParam: (lastPage: IPage) => (lastPage.hasMore ? ++lastPage.page : undefined),

@@ -1,13 +1,13 @@
 import { Button } from 'components/lib';
 import { useAuth } from 'hooks';
-import { FC, useEffect } from 'react';
+import { FC, ReactNode, useEffect } from 'react';
 import { useAppDispatch } from 'store';
 import { IBlogRegisterResponse } from 'store/apis';
 import { closeAuthModal } from 'store/states';
 
 import { TRUSTED_ORIGINS } from './AuthButton.constants';
 
-export const AuthButton: FC = () => {
+export const AuthButton: FC<{ children: ReactNode }> = ({ children }) => {
   const { authenticate, openLoginPage } = useAuth();
   const dispatch = useAppDispatch();
 
@@ -26,5 +26,5 @@ export const AuthButton: FC = () => {
 
   const loginClickHandler = (): void => openLoginPage();
 
-  return <Button onClick={loginClickHandler}>Kirish</Button>;
+  return <Button onClick={loginClickHandler}>{children}</Button>;
 };

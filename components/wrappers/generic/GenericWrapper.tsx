@@ -37,13 +37,13 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
   }, [props.header]);
 
   return (
-    <>
+    <div className='flex-1'>
       {header}
       <div className={`${classes.root} container`}>
         <nav className={classes.navigation}>{navigation}</nav>
         <main className={classes.main}>{children}</main>
         <aside className={classes.sidebar}>{sidebar}</aside>
       </div>
-    </>
+    </div>
   );
 };
