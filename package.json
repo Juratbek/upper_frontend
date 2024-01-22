@@ -34,7 +34,7 @@
     "@editorjs/embed": "^2.6.0",
     "@editorjs/list": "^1.8.0",
     "@editorjs/table": "^2.2.2",
-    "@juratbek/editorjs-code": "^1.1.2",
+    "@juratbek/editorjs-code": "^1.1.3",
     "@juratbek/editorjs-header": "^1.0.0",
     "@juratbek/editorjs-image": "^1.0.0",
     "@juratbek/editorjs-inline-code": "^1.0.0",
