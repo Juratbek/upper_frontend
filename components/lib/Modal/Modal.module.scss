@@ -7,11 +7,7 @@
   z-index: 100;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 3rem;
-
-  @include screenMax576 {
-    padding: 3rem 1rem;
-  }
+  padding-top: 5rem;
 }
 
 .modal-bg {
@@ -25,34 +21,13 @@
 
 .modal-dialog {
   z-index: 1000;
-  border-radius: var(--mediumBorderRadius);
-  overflow: hidden;
-
-  &--small {
-    $size: 400px;
-    width: $size;
-    min-width: $size;
-
-    @include screenMax576 {
-      $size: 370px;
-      width: $size;
-      min-width: $size;
-    }
-  }
-  &--medium {
-    width: 600px;
-  }
-  &--large {
-    width: 800px;
-  }
-
-  &--outline-red {
-    border: 1px solid var(--color-modal-border-red);
-  }
+  border-radius: 12px;
+  min-width: 280px;
 }
 
+
 .modal-body {
-  padding: 2rem;
+  padding: 2.4rem 2rem;
   position: relative;
 }
 

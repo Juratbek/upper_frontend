@@ -4,6 +4,7 @@ import { createWrapper } from 'next-redux-wrapper';
 import authReducer from './states/auth';
 import authModalReducer from './states/authModal';
 import commentsSidebarReducer from './states/commentsModal';
+import unsubscribeModalReducer from './states/unsubscribeModal';
 import writeArticleReducer from './states/writeArticle';
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     writeArticle: writeArticleReducer,
     auth: authReducer,
     comments: commentsSidebarReducer,
+    unsubscribeModal: unsubscribeModalReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

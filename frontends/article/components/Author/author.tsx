@@ -1,5 +1,5 @@
 import { Avatar } from 'components/lib';
-import { SubscriptionButton } from 'components/molecules';
+import { SubscriptionButton, UnsubscribeModal } from 'components/molecules';
 import { FC } from 'react';
 
 import classes from './Author.module.scss';
@@ -14,6 +14,7 @@ export const Author: FC<IAuthorProps> = ({ name, bio, imgUrl, id }) => {
         <p className={classes.bio}>{bio}</p>
       </div>
       <SubscriptionButton className={classes.subscribe} blogId={id} />
+      <UnsubscribeModal />
     </div>
   );
 };

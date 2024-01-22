@@ -1,6 +1,8 @@
 import { Button } from 'components/lib';
 import { FC } from 'react';
-import { useSubscribe, useSubscriptionStatus, useUnsubscribe } from 'store/clients/subscription';
+import { useDispatch } from 'react-redux';
+import { useSubscribe, useSubscriptionStatus } from 'store/clients/subscription';
+import { openUnsubscribeModal } from 'store/states';
 
 export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
   blogId,
@@ -8,13 +10,15 @@ export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
 }) => {
   const { data: isSubscribed, isLoading } = useSubscriptionStatus(blogId);
   const { mutate: subscribe, isLoading: isBeingSubscribed } = useSubscribe(blogId);
-  const { mutate: unsubscribe } = useUnsubscribe(blogId);
+  const dispatch = useDispatch();
+
+  const unsubscribeHandler = (): unknown => dispatch(openUnsubscribeModal(blogId));
 
   if (isLoading) return <></>;
 
   if (isSubscribed)
     return (
-      <Button className={className} onClick={unsubscribe}>
+      <Button className={className} onClick={unsubscribeHandler}>
         Obuna bo&apos;lingan
       </Button>
     );
