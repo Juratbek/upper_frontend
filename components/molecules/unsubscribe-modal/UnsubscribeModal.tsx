@@ -26,11 +26,11 @@ export const UnsubscribeModal: FC = () => {
   const footer = useMemo(
     () => (
       <div className='d-flex'>
-        <Clickable className={classes['no-btn']} onClick={closeHandler}>
-          yo&apos;q
-        </Clickable>
         <Clickable className={classes['unsubscribe-btn']} onClick={unsibscribeHandler}>
           {isUnsubscribeLoading ? <Spinner /> : 'Bekor qilish'}
+        </Clickable>
+        <Clickable className={classes['no-btn']} onClick={closeHandler}>
+          yo&apos;q
         </Clickable>
       </div>
     ),
