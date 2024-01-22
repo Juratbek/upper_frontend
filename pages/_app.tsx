@@ -4,7 +4,7 @@ import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
-import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
+import { useAuth, useTheme } from 'hooks';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -42,9 +42,6 @@ function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate } = useAuth();
   const { themeColors, theme } = useTheme();
-  const { isMobile } = useDevice();
-
-  useScrollToggler('.main', !isMobile);
 
   useEffect(() => {
     const token = getToken();
@@ -83,7 +80,7 @@ function MyApp(props: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className={`theme-${theme}`}>
+      <div className={`theme-${theme}`} style={{ height: '100vh', overflow: 'scroll' }}>
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
           <WebApp {...props} />
         ) : (
