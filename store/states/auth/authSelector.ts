@@ -1,6 +1,8 @@
 import { TRootState } from 'store/store';
-import { TAuthStatus } from 'types';
 
-export const getAuthStatus = (store: TRootState): TAuthStatus => store.auth.status;
+import { IAuthState } from './authSlice.types';
 
-export const getIsAuthenticated = (store: TRootState): boolean | null => store.auth.isAuthenticated;
+export const getAuthStatus = (store: TRootState): IAuthState['status'] => store.auth.status;
+
+export const getIsAuthenticated = (store: TRootState): IAuthState['isAuthenticated'] =>
+  store.auth.isAuthenticated;

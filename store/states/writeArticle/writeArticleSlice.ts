@@ -2,7 +2,7 @@ import EditorJS from '@editorjs/editorjs';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IArticle, ILabel } from 'types';
 
-interface IWriteArticleState {
+export interface IWriteArticleState {
   editor: EditorJS | null;
   article: IArticle | null;
 }

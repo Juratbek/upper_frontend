@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface ICommentModalState {
+export interface ICommentModalState {
   isOpen: boolean;
 }
 
