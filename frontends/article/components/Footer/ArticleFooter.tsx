@@ -1,11 +1,18 @@
 import { Clickable, Divider } from 'components/lib';
-import { useAuth } from 'hooks';
+import { SharePopover } from 'components/organisms';
+import { useAuth, useClickOutside } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { useAppSelector } from 'store';
 import { useCommentsCount } from 'store/clients/comments';
 import { useDislike, useLike, useLikeCount } from 'store/clients/published-article';
 import { toggleCommentsModal } from 'store/states';
+import {
+  closeSharePopover,
+  getIsSharePopoverOpen,
+  toggleSharePopover,
+} from 'store/states/sharePopover';
 import { ICONS } from 'variables';
 
 import classes from './ArticleFooter.module.scss';
@@ -25,8 +32,12 @@ export const ArticleFooter: FC = () => {
   const { mutate: dislike } = useDislike(articleId);
   const { data: commentsCount } = useCommentsCount(articleId);
   const { data: likeCount } = useLikeCount(articleId);
+  const isOpen = useAppSelector(getIsSharePopoverOpen);
 
   const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());
+  const shareClickHandler = (): unknown => dispatch(toggleSharePopover());
+
+  const [rootRef] = useClickOutside((): unknown => dispatch(closeSharePopover()), '#share-btn');
 
   const likeHandler = (): void => {
     if (isAuthenticated) {
@@ -64,9 +75,10 @@ export const ArticleFooter: FC = () => {
         <Clickable>
           <SaveIcon />
         </Clickable>
-        <Clickable>
+        <Clickable className={classes.share} onClick={shareClickHandler} id='share-btn'>
           <ShareIcon />
         </Clickable>
+        <SharePopover ref={rootRef} isOpen={isOpen} />
       </div>
     </div>
   );
