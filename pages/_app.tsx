@@ -1,5 +1,6 @@
 import 'styles/index.scss';
 
+import { QueryClientProvider } from '@tanstack/react-query';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
@@ -11,7 +12,6 @@ import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
-import { QueryClientProvider } from 'react-query';
 import { wrapper } from 'store';
 import { queryClient } from 'store/config';
 import { IServerSideContext, TTheme } from 'types';

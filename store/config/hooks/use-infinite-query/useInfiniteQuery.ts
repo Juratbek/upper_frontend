@@ -1,4 +1,4 @@
-import { useInfiniteQuery as useInfiniteReactQuery } from 'react-query';
+import { useInfiniteQuery as useInfiniteReactQuery } from '@tanstack/react-query';
 
 import { IPage, TInfiniteQueryResult } from './useInfiniteQuery.types';
 

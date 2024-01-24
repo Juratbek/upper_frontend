@@ -1,4 +1,4 @@
-import { UseInfiniteQueryResult } from 'react-query';
+import { UseInfiniteQueryResult } from '@tanstack/react-query';
 
 export interface IInfiniteQueryConfig {
   enabled?: boolean;
@@ -16,7 +16,7 @@ interface IInfiniteQueryData<TData> {
   pages: Array<IPage<TData>>;
 }
 
-export type TInfiniteQueryResult<T> = UseInfiniteQueryResult<IPage<T>> & {
+export type TInfiniteQueryResult<T> = UseInfiniteQueryResult & {
   list: T[];
 };
 

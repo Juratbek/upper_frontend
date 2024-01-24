@@ -1,4 +1,4 @@
-import { UseMutationResult, useQueryClient, UseQueryResult } from 'react-query';
+import { UseMutationResult, useQueryClient, UseQueryResult } from '@tanstack/react-query';
 import {
   apiClient,
   IPage,
@@ -28,10 +28,14 @@ export const useCreateComment = (): UseMutationResult<
 > => {
   const client = useQueryClient();
 
-  return useMutation('create-comment', (body) => apiClient.post({ path: 'comment/create', body }), {
+  return useMutation({
+    mutationFn: (body) => apiClient.post({ path: 'comment/create', body }),
     onSuccess: () => client.invalidateQueries('comments-list'),
   });
 };
 
 export const useCommentsCount = (articleId: number): UseQueryResult<number> =>
-  useQuery(['comments-count', articleId], () => apiClient.get(`comment/open/count/${articleId}`));
+  useQuery({
+    queryKey: ['comments-count', articleId],
+    queryFn: () => apiClient.get(`comment/open/count/${articleId}`),
+  });

@@ -1,31 +1,41 @@
+import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
-import { apiClient, TMutationHook, TQueryHook, useMutation, useQuery } from 'store/config';
+import { apiClient, useMutation, useQuery } from 'store/config';
 
 import { IBlogRegisterResponse, ICurrentBlog } from './blog.types';
 
-export const useGetCurrentBlog: TQueryHook<ICurrentBlog> = (config) =>
-  useQuery<ICurrentBlog>('cuyrrent-blog', () => apiClient.get('blog/get-current'), config);
+export const useGetCurrentBlog = (config: UseQueryOptions<ICurrentBlog>) =>
+  useQuery<ICurrentBlog>({
+    ...config,
+    queryKey: ['cuyrrent-blog'],
+    queryFn: () => apiClient.get('blog/get-current'),
+  });
 
-export const useContinueWithGoogle: TMutationHook<IBlogRegisterResponse, string> = (config) =>
-  useMutation<IBlogRegisterResponse, unknown, string>(
-    'continue-with-google',
-    (data) =>
+export const useContinueWithGoogle = (
+  options: UseMutationOptions<IBlogRegisterResponse, unknown, string>,
+) =>
+  useMutation<IBlogRegisterResponse, unknown, string>({
+    mutationFn: (data) =>
       apiClient.post({
         path: 'blog/open/continue-with-google',
         body: data,
       }),
-    config,
-  );
+    ...options,
+  });
 
-export const useGetCurrentBlogTags: TQueryHook<string[]> = () => {
+export const useGetCurrentBlogTags = () => {
   const { isAuthenticated } = useAuth();
-  return useQuery('blog-tags', () => apiClient.get<string[]>('blog/current-blog-tags'), {
+  return useQuery<string[]>({
+    queryKey: ['blog-tags'],
+    queryFn: () => apiClient.get('blog/current-blog-tags'),
     enabled: isAuthenticated ?? false,
   });
 };
 
-export const useUpdateBlog: TMutationHook<void, FormData> = () =>
-  useMutation('update-blog', (blog) => apiClient.post({ path: 'blog/update', body: blog }));
+export const useUpdateBlog = () =>
+  useMutation<void, FormData>({
+    mutationFn: (blog) => apiClient.post({ path: 'blog/update', body: blog }),
+  });
 
-export const useGetAuthCode: TQueryHook<string> = () =>
-  useQuery('auth-code', () => apiClient.get('blog/get-auth-code'), { enabled: false });
+export const useGetAuthCode = () =>
+  useQuery<string>({ queryKey: ['auth-code'], queryFn: () => apiClient.get('blog/get-auth-code') });

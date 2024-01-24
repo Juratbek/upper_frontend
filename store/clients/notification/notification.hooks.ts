@@ -1,28 +1,35 @@
 import { useAuth } from 'hooks';
-import { apiClient, IQeuryResult, TMutationHook, useMutation, useQuery } from 'store/config';
-import { INotification, IPagingResponse } from 'types';
+import { apiClient, useMutation, useQuery } from 'store/config';
 
-export const useNotificationsList = (page: string): IQeuryResult<IPagingResponse<INotification>> =>
-  useQuery(['notifications-list'], () => apiClient.get(`notification/list?page=${page}`));
+export const useNotificationsList = (page: string) =>
+  useQuery({
+    queryKey: ['notifications-list'],
+    queryFn: () => apiClient.get(`notification/list?page=${page}`),
+  });
 
-export const useResetNotificationsCount = (): IQeuryResult =>
-  useQuery(['reset-notifications-count'], () =>
-    apiClient.get('notification/reset-notifications-count'),
-  );
+export const useResetNotificationsCount = () =>
+  useQuery({
+    queryKey: ['reset-notifications-count'],
+    queryFn: () => apiClient.get('notification/reset-notifications-count'),
+  });
 
-export const useNotificationsCount = (): IQeuryResult<number> => {
+export const useNotificationsCount = () => {
   const { isAuthenticated } = useAuth();
-  return useQuery(
-    ['notifications-count'],
-    () => apiClient.get<number>('notification/blog-notifications-count'),
-    {
-      enabled: isAuthenticated ?? false,
-    },
-  );
+  return useQuery<number>({
+    queryKey: ['notifications-count'],
+    queryFn: () => apiClient.get<number>('notification/blog-notifications-count'),
+    enabled: isAuthenticated ?? false,
+  });
 };
 
-export const useDeleteNotification: TMutationHook<unknown, number> = () =>
-  useMutation(['delete-notification'], (id) => apiClient.delete(`notification/${id}`));
+export const useDeleteNotification = () =>
+  useMutation<unknown, number>({
+    mutationFn: (id) => apiClient.delete(`notification/${id}`),
+    mutationKey: ['delete-notification'],
+  });
 
-export const useReadNotification: TMutationHook = () =>
-  useMutation(['read-notification'], (id) => apiClient.post({ path: `notification/read/${id}` }));
+export const useReadNotification = () =>
+  useMutation({
+    mutationKey: ['read-notification'],
+    mutationFn: (id) => apiClient.post({ path: `notification/read/${id}` }),
+  });

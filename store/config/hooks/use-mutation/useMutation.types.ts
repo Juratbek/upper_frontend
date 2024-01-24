@@ -1,3 +1,5 @@
+import { UseMutationResult } from '@tanstack/react-query';
+
 export interface IMutationConfig<TData> {
   onSuccess?: (data: TData) => Promise<unknown> | void;
   enabled?: boolean;
@@ -15,6 +17,8 @@ export interface IMutationResult<TData = unknown, TBody = unknown> {
   reset: () => unknown;
   status: 'idle' | 'loading' | 'error' | 'success';
 }
+
+export type TMutationResult = UseMutationResult;
 
 export type TMutationHook<TData = unknown, TBody = unknown> = (
   config?: IMutationConfig<TData>,
