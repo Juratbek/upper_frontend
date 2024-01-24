@@ -8,21 +8,26 @@ import { ICONS } from 'variables';
 import { MEDIA_ICONS } from './SharePopover.constants';
 import classes from './SharePopover.module.scss';
 
+const CopyIcon = ICONS.copy;
+const TickIcon = ICONS.tick;
+
 export const SharePopover = forwardRef<HTMLDivElement, { isOpen: boolean }>(function Component(
   { isOpen },
   ref,
 ) {
   const [contentUrl, setContentUrl] = useState('');
+  const [isUrlCopied, setIsUrlCopied] = useState(false);
   const dispatch = useDispatch();
-
-  const CopyIcon = ICONS.copy;
 
   const closePopover = useCallback(() => dispatch(closeSharePopover()), []);
   const copyUrlHandler = async (): Promise<void> => {
     try {
       await navigator.clipboard.writeText(contentUrl);
+      setIsUrlCopied(true);
     } finally {
-      setTimeout(() => {}, 1000);
+      setTimeout(() => {
+        setIsUrlCopied(false);
+      }, 1000);
     }
   };
 
@@ -52,9 +57,9 @@ export const SharePopover = forwardRef<HTMLDivElement, { isOpen: boolean }>(func
       </div>
       <div className={classes['popover-footer']}>
         <Clickable onClick={copyUrlHandler} className={classes['copy-container']}>
-          <CopyIcon />
+          {isUrlCopied ? <TickIcon /> : <CopyIcon />}
         </Clickable>
-        <p className={classes['copy-text']}>Nusxalash</p>
+        <p className={classes['copy-text']}>{isUrlCopied ? 'Havola nusxalandi' : 'Nusxalash'}</p>
       </div>
     </div>
   );
