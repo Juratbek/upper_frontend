@@ -1,8 +1,7 @@
 import { Clickable } from 'components/lib';
 import Link from 'next/link';
-import { forwardRef, useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { closeSharePopover } from 'store/states/sharePopover';
+import { forwardRef, useEffect, useState } from 'react';
+import { TNoop } from 'types';
 import { ICONS } from 'variables';
 
 import { MEDIA_ICONS } from './SharePopover.constants';
@@ -11,15 +10,13 @@ import classes from './SharePopover.module.scss';
 const CopyIcon = ICONS.copy;
 const TickIcon = ICONS.tick;
 
-export const SharePopover = forwardRef<HTMLDivElement, { isOpen: boolean }>(function Component(
-  { isOpen },
-  ref,
-) {
+export const SharePopover = forwardRef<
+  HTMLDivElement,
+  { isOpen: boolean; closeSharePopover: TNoop }
+>(function Component({ isOpen, closeSharePopover }, ref) {
   const [contentUrl, setContentUrl] = useState('');
   const [isUrlCopied, setIsUrlCopied] = useState(false);
-  const dispatch = useDispatch();
 
-  const closePopover = useCallback(() => dispatch(closeSharePopover()), []);
   const copyUrlHandler = async (): Promise<void> => {
     try {
       await navigator.clipboard.writeText(contentUrl);
@@ -39,7 +36,7 @@ export const SharePopover = forwardRef<HTMLDivElement, { isOpen: boolean }>(func
     <div className={classes.popover} style={{ display: isOpen ? 'block' : 'none' }} ref={ref}>
       <div className={classes['popover-header']}>
         <p className={classes.headline}>Ulashish</p>
-        <Clickable className={classes['close-icon']} onClick={closePopover}>
+        <Clickable className={classes['close-icon']} onClick={closeSharePopover}>
           &#x2715;
         </Clickable>
       </div>
@@ -57,9 +54,9 @@ export const SharePopover = forwardRef<HTMLDivElement, { isOpen: boolean }>(func
       </div>
       <div className={classes['popover-footer']}>
         <Clickable onClick={copyUrlHandler} className={classes['copy-container']}>
-          {isUrlCopied ? <TickIcon /> : <CopyIcon />}
+          <div className={classes['copy-icon']}>{isUrlCopied ? <TickIcon /> : <CopyIcon />}</div>
+          <p className={classes['copy-text']}>{isUrlCopied ? 'Havola nusxalandi' : 'Nusxalash'}</p>
         </Clickable>
-        <p className={classes['copy-text']}>{isUrlCopied ? 'Havola nusxalandi' : 'Nusxalash'}</p>
       </div>
     </div>
   );

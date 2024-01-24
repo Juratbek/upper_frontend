@@ -2,17 +2,11 @@ import { Clickable, Divider } from 'components/lib';
 import { SharePopover } from 'components/organisms';
 import { useAuth, useClickOutside } from 'hooks';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useAppSelector } from 'store';
 import { useCommentsCount } from 'store/clients/comments';
 import { useDislike, useLike, useLikeCount } from 'store/clients/published-article';
 import { toggleCommentsModal } from 'store/states';
-import {
-  closeSharePopover,
-  getIsSharePopoverOpen,
-  toggleSharePopover,
-} from 'store/states/sharePopover';
 import { ICONS } from 'variables';
 
 import classes from './ArticleFooter.module.scss';
@@ -23,7 +17,7 @@ const CommentIcon = ICONS.comment;
 const SaveIcon = ICONS.save;
 const ShareIcon = ICONS.share;
 
-export const ArticleFooter: FC = () => {
+export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }) => {
   const { query } = useRouter();
   const articleId = Number(query.id);
   const dispatch = useDispatch();
@@ -32,12 +26,13 @@ export const ArticleFooter: FC = () => {
   const { mutate: dislike } = useDislike(articleId);
   const { data: commentsCount } = useCommentsCount(articleId);
   const { data: likeCount } = useLikeCount(articleId);
-  const isOpen = useAppSelector(getIsSharePopoverOpen);
+  const [isOpen, setIsOpen] = useState(false);
 
   const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());
-  const shareClickHandler = (): unknown => dispatch(toggleSharePopover());
+  const shareClickHandler = (): unknown => setIsOpen((prev) => !prev);
+  const closeSharePopover = (): unknown => setIsOpen(false);
 
-  const [rootRef] = useClickOutside((): unknown => dispatch(closeSharePopover()), '#share-btn');
+  const [rootRef] = useClickOutside(closeSharePopover, `#${sharePopoverId}`);
 
   const likeHandler = (): void => {
     if (isAuthenticated) {
@@ -75,10 +70,10 @@ export const ArticleFooter: FC = () => {
         <Clickable>
           <SaveIcon />
         </Clickable>
-        <Clickable className={classes.share} onClick={shareClickHandler} id='share-btn'>
+        <Clickable className={classes.share} onClick={shareClickHandler} id={sharePopoverId}>
           <ShareIcon />
         </Clickable>
-        <SharePopover ref={rootRef} isOpen={isOpen} />
+        <SharePopover ref={rootRef} isOpen={isOpen} closeSharePopover={closeSharePopover} />
       </div>
     </div>
   );
