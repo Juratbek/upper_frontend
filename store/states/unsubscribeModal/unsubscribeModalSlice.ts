@@ -10,7 +10,7 @@ const initialState: IState = {
 };
 
 const unsubscribeModal = createSlice({
-  name: 'unsibscribeModal',
+  name: 'unsubscribeModal',
   initialState,
   reducers: {
     open(state, { payload }: PayloadAction<number>) {

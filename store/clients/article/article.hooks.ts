@@ -1,5 +1,5 @@
 import { OutputBlockData } from '@editorjs/editorjs';
-import { UseMutationResult } from 'react-query';
+import { UseMutationOptions, UseMutationResult } from 'react-query';
 import {
   apiClient,
   IMutationConfig,
@@ -10,7 +10,7 @@ import {
   useMutation,
   useQuery,
 } from 'store/config';
-import { IArticle, IArticleResult, IPagingResponse, TArticleStatus } from 'types';
+import { IArticle, IArticleResult, IPagingResponse, IResponseError, TArticleStatus } from 'types';
 
 export const useCreateArticle: TMutationHook<number, void> = (config) =>
   useMutation(
@@ -46,5 +46,12 @@ export const useBlogArticles = (
     apiClient.get('article/need-auth/list', { status: status.toUpperCase(), page }),
   );
 
-export const usePublish = (id: number): UseMutationResult<unknown, unknown, void, unknown> =>
-  useMutation(['publish', id], () => apiClient.post({ path: `article/publish/${id}` }));
+export const usePublish = (
+  id: number,
+  config?: UseMutationOptions<number, IResponseError>,
+): UseMutationResult<number, unknown, void> =>
+  useMutation(
+    ['publish', id],
+    () => apiClient.post<void, number>({ path: `article/publish/${id}` }),
+    config,
+  );
