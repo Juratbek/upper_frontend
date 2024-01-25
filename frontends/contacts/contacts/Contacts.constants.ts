@@ -8,9 +8,9 @@ export const CONTACTS: IContact[] = [
     link: 'https://t.me/upper_contact_bot',
     text: 'Telegram',
   },
-  {
-    icon: ICONS.instagram,
-    link: 'https://www.instagram.com/upperuz/',
-    text: 'Instagram',
-  },
+  // {
+  //   icon: ICONS.instagram,
+  //   link: 'https://www.instagram.com/upperuz/',
+  //   text: 'Instagram',
+  // },
 ];

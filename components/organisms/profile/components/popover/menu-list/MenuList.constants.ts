@@ -9,11 +9,11 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
     text: 'Maqolalaringiz',
     href: '/user/articles/draft',
   },
-  {
-    icon: ICONS.save,
-    text: 'Saqlangan maqolalar',
-    href: '/saved-articles',
-  },
+  // {
+  //   icon: ICONS.save,
+  //   text: 'Saqlangan maqolalar',
+  //   href: '/saved-articles',
+  // },
   {
     icon: ICONS.notification,
     text: 'Bildirishnomalar',

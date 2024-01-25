@@ -14,7 +14,7 @@ import classes from './ArticleFooter.module.scss';
 const Like = ICONS.like;
 const Dislike = ICONS.dislike;
 const CommentIcon = ICONS.comment;
-const SaveIcon = ICONS.save;
+// const SaveIcon = ICONS.save;
 const ShareIcon = ICONS.share;
 
 export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }) => {
@@ -67,9 +67,9 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
         {Boolean(commentsCount) && <span className={classes['count']}>{commentsCount}</span>}
       </Clickable>
       <div className={classes['actions-container']}>
-        <Clickable>
+        {/* <Clickable>
           <SaveIcon />
-        </Clickable>
+        </Clickable> */}
         <Clickable className={classes.share} onClick={shareClickHandler} id={sharePopoverId}>
           <ShareIcon />
         </Clickable>

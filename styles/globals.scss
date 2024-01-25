@@ -353,6 +353,12 @@
   justify-content: flex-end;
 }
 
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .float-firgt {
   float: right;
 }

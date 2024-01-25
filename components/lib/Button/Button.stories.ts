@@ -17,6 +17,20 @@ export const Default: TStory = {
   },
 };
 
+export const Primary: TStory = {
+  args: {
+    children: 'Click me',
+    color: 'primary',
+  },
+};
+
+export const Secondary: TStory = {
+  args: {
+    children: 'Click me',
+    color: 'secondary',
+  },
+};
+
 export const Loading: TStory = {
   args: {
     loading: true,

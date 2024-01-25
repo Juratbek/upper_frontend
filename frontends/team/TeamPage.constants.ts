@@ -6,7 +6,7 @@ export const team: ITeamMember[] = [
   {
     name: "Jur'atbek",
     imgUrl: '/team/juratbek.jpg',
-    position: 'CEO',
+    position: 'Asoschi',
     links: [
       {
         url: 'https://www.linkedin.com/in/jur-atbek-mahammadaliyev-b66396203',
@@ -22,7 +22,7 @@ export const team: ITeamMember[] = [
   {
     name: 'Samandar',
     imgUrl: '/team/samandar_1.jpg',
-    position: 'Lead Software Engineer',
+    position: 'Asoschi',
     links: [
       {
         url: 'https://www.linkedin.com/in/boymurodov-samandar',
@@ -36,25 +36,9 @@ export const team: ITeamMember[] = [
     ],
   },
   {
-    name: 'Ayyubxon',
-    imgUrl: '/team/ayyubxon.jpg',
-    position: 'Software Development Engineer',
-    links: [
-      {
-        url: 'https://www.linkedin.com/in/ayyubxon-kamoldinov/',
-        icon: ICONS.linkedIn,
-      },
-      {
-        url: '/blogs/20',
-        icon: ICONS.logoIcon,
-        target: '_self',
-      },
-    ],
-  },
-  {
     name: 'Musojon',
     imgUrl: '/team/musojon.jpg',
-    position: 'Software Development Engineer',
+    position: 'Frontend Dasturchi',
     links: [
       {
         url: 'https://www.linkedin.com/in/musojon-tursunov/',
@@ -68,20 +52,21 @@ export const team: ITeamMember[] = [
     ],
   },
   {
-    name: 'Shahzod',
-    imgUrl:
-      'https://media.licdn.com/dms/image/C4D03AQGgn61ucuORPw/profile-displayphoto-shrink_800_800/0/1646602440521?e=1703116800&v=beta&t=zaYUYq_oy3FTMDD2wgTmqiDDWHkg8wzG-08Q43W89-c',
-    position: 'Software Development Engineer',
-    links: [
-      {
-        url: 'https://www.linkedin.com/in/shakhzod-bobolov',
-        icon: ICONS.linkedIn,
-      },
-      {
-        url: '/blogs/233',
-        icon: ICONS.logoIcon,
-        target: '_self',
-      },
-    ],
+    name: "Og'abek Yusufov",
+    imgUrl: '',
+    position: 'Web Dizayner',
+    links: [],
+  },
+  {
+    name: 'Azimjon Nazarov',
+    imgUrl: '',
+    position: 'Backend Dasturchi',
+    links: [],
+  },
+  {
+    name: 'Sobirjon',
+    imgUrl: '',
+    position: 'Backend Dasturchi',
+    links: [],
   },
 ];

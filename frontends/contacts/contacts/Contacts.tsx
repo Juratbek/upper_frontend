@@ -15,7 +15,7 @@ export const Contacts = (): JSX.Element => {
           href={contact.link}
           key={contact.link}
           target='_blank'
-          className={`${classes.contact} mb-4 card w-30 w-mobile-100`}
+          className={`${classes.contact} card`}
         >
           <span className={classes.icon}>
             <contact.icon color={iconColor} />

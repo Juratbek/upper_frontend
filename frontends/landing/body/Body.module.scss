@@ -3,6 +3,7 @@
 .container {
     width: 720px;
     margin-left: 110px;
+    margin-bottom: 3rem;
 
     @include media-max(large) {
         margin-left: 0;

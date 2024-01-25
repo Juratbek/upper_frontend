@@ -11,14 +11,11 @@ export const TeamPage = (): JSX.Element => {
   } = useTheme();
 
   return (
-    <div className='container pt-3'>
+    <div className='container flex-1'>
       <h1 className='text-center'>Bizning Jamoa</h1>
-      <div className='d-flex flex-mobile-col justify-content-around flex-wrap'>
+      <div className={classes['cards-container']}>
         {team.map((member, index) => (
-          <div
-            key={index}
-            className={`card mb-4 mt-5 mb-3 w-mobile-100 text-center position-relative ${classes.member}`}
-          >
+          <div key={index} className={`card text-center position-relative ${classes.member}`}>
             <div className={classes['avatar-container']}>
               <Avatar
                 size='extra-large'

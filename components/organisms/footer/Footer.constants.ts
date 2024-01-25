@@ -11,10 +11,10 @@ export const LINKS: IFooterLink[] = [
     text: 'Aloqa',
     url: '/contacts',
   },
-  {
-    text: "Qo'llanma",
-    url: '/docs/write-article_introduction_quick-start',
-  },
+  // {
+  //   text: "Qo'llanma",
+  //   url: '/docs/write-article_introduction_quick-start',
+  // },
   {
     text: 'Jamoa',
     url: '/team',
