@@ -1,12 +1,11 @@
-import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
+import { UseMutationOptions } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
 import { apiClient, useMutation, useQuery } from 'store/config';
 
 import { IBlogRegisterResponse, ICurrentBlog } from './blog.types';
 
-export const useGetCurrentBlog = (config: UseQueryOptions<ICurrentBlog>) =>
+export const useGetCurrentBlog = () =>
   useQuery<ICurrentBlog>({
-    ...config,
     queryKey: ['cuyrrent-blog'],
     queryFn: () => apiClient.get('blog/get-current'),
   });
@@ -33,7 +32,7 @@ export const useGetCurrentBlogTags = () => {
 };
 
 export const useUpdateBlog = () =>
-  useMutation<void, FormData>({
+  useMutation<void, unknown, FormData>({
     mutationFn: (blog) => apiClient.post({ path: 'blog/update', body: blog }),
   });
 

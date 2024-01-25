@@ -1,18 +1,16 @@
-import { apiClient, IPage, useInfiniteQuery, useMutation, useQuery } from 'store/config';
+import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IPublishedArticleItem } from 'types';
 
 export const usePublishedArticlesList = (label: string) => {
-  return useInfiniteQuery<IPublishedArticleItem>(
-    ['published-articles', label],
-    (params) =>
+  return useInfiniteQuery<IPublishedArticleItem>({
+    queryKey: ['published-articles', label],
+    queryFn: (params) =>
       apiClient.get('published-article/open/get-by-label', {
         page: params.pageParam ?? 0,
         tag: label,
       }),
-    {
-      getNextPageParam: (lastPage: IPage) => (lastPage.hasMore ? ++lastPage.page : undefined),
-    },
-  );
+    enabled: typeof label === 'string',
+  });
 };
 
 export const useIncrementViewCount = () =>

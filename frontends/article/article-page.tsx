@@ -91,7 +91,8 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
             onQuizSubmit={quizSubmitHandler}
           />
         </article>
-        {editorInstance?.isReady ? <ArticleFooter /> : null}
+        {/* {editorInstance?.isReady ? <ArticleFooter /> : null} */}
+        <ArticleFooter />
         <CommentsModal />
       </div>
     </>

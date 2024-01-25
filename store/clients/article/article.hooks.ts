@@ -1,6 +1,6 @@
 import { OutputBlockData } from '@editorjs/editorjs';
 import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
-import { apiClient, IMutationConfig, useMutation, useQuery } from 'store/config';
+import { apiClient, IMutationConfig, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IArticle, IArticleResult, IPagingResponse, IResponseError, TArticleStatus } from 'types';
 
 export const useCreateArticle = (config: UseMutationOptions) =>
@@ -12,7 +12,7 @@ export const useCreateArticle = (config: UseMutationOptions) =>
     ...config,
   });
 
-export const useArticleById = (id: number, config: UseQueryOptions<IArticle>) =>
+export const useArticleById = (id: number, config: Partial<UseQueryOptions<IArticle>>) =>
   useQuery<IArticle>({
     ...config,
     queryKey: ['article', id],
@@ -27,13 +27,13 @@ export const useUpdateArticleBlocks = (id: number, config?: IMutationConfig<Outp
     ...config,
   });
 
-export const useBlogArticles = (status: TArticleStatus, page: string) =>
-  useQuery<IPagingResponse<IArticleResult>>({
-    queryFn: ['saved-articles', status],
-    queryKey: () =>
+export const useBlogArticles = (status: TArticleStatus) =>
+  useInfiniteQuery<IArticleResult>({
+    queryKey: ['saved-articles', status],
+    queryFn: (params) =>
       apiClient.get<IPagingResponse<IArticleResult>>('article/need-auth/list', {
         status: status.toUpperCase(),
-        page,
+        page: params.pageParam,
       }),
   });
 

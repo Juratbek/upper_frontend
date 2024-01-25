@@ -9,7 +9,7 @@ export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
   className,
 }) => {
   const { data: isSubscribed, isLoading } = useSubscriptionStatus(blogId);
-  const { mutate: subscribe, isLoading: isBeingSubscribed } = useSubscribe(blogId);
+  const { mutate: subscribe, isPending: isBeingSubscribed } = useSubscribe(blogId);
   const dispatch = useDispatch();
 
   const unsubscribeHandler = (): unknown => dispatch(openUnsubscribeModal(blogId));

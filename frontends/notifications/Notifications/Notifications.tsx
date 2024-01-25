@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, NotificationSkeleton, Pagination } from 'components';
+import { ApiErrorBoundary, NotificationSkeleton } from 'components';
 import { StorysetImage } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
@@ -12,15 +12,15 @@ export const Notifications: FC = () => {
   const {
     query: { page },
   } = useRouter();
-  const fetchNotificationsRes = useNotificationsList((page as string) ?? '0');
+  const fetchNotificationsRes = useNotificationsList();
 
   useEffect(() => {
     document.querySelector('#main')?.scrollTo({ top: 0 });
   }, [page]);
 
   const notifications = useMemo(() => {
-    const { data } = fetchNotificationsRes;
-    const notifications = data?.list ?? [];
+    const { list } = fetchNotificationsRes;
+    const notifications = list;
     if (!notifications || notifications.length === 0)
       return (
         <div className='text-center'>
@@ -48,20 +48,13 @@ export const Notifications: FC = () => {
   }, [fetchNotificationsRes.data]);
 
   return (
-    <div>
-      <ApiErrorBoundary
-        res={fetchNotificationsRes}
-        fallback={<NotificationSkeleton className='px-3 py-2' />}
-        fallbackItemCount={3}
-        className='tab pt-1'
-      >
-        {notifications}
-      </ApiErrorBoundary>
-      <div className='my-2'>
-        {fetchNotificationsRes.data?.totalPages && (
-          <Pagination pagesCount={fetchNotificationsRes.data.totalPages} />
-        )}
-      </div>
-    </div>
+    <ApiErrorBoundary
+      res={fetchNotificationsRes}
+      fallback={<NotificationSkeleton className='px-3 py-2' />}
+      fallbackItemCount={3}
+      className='tab pt-1'
+    >
+      {notifications}
+    </ApiErrorBoundary>
   );
 };

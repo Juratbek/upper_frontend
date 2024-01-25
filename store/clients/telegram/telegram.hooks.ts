@@ -3,11 +3,11 @@ import { apiClient, useQuery } from 'store/config';
 
 import { ITelegramChannelConnectionStatusResponse } from './telegram.types';
 
-export const useGetTelegramConnectionStatus = (config: UseQueryOptions) =>
+export const useGetTelegramConnectionStatus = (config: Partial<UseQueryOptions>) =>
   useQuery({
-    ...config,
     queryKey: ['telegram-connection-status'],
     queryFn: () => apiClient.get('telegram/telegram-connection-status'),
+    ...config,
   });
 
 export const useGetTelegramChannelConnectionStatus = () =>

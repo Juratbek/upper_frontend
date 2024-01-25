@@ -1,10 +1,11 @@
 import { useAuth } from 'hooks';
-import { apiClient, useMutation, useQuery } from 'store/config';
+import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
+import { INotification } from 'types';
 
-export const useNotificationsList = (page: string) =>
-  useQuery({
+export const useNotificationsList = () =>
+  useInfiniteQuery<INotification>({
     queryKey: ['notifications-list'],
-    queryFn: () => apiClient.get(`notification/list?page=${page}`),
+    queryFn: ({ pageParam }) => apiClient.get(`notification/list?page=${pageParam}`),
   });
 
 export const useResetNotificationsCount = () =>

@@ -1,25 +1,15 @@
 import { UseMutationResult, useQueryClient, UseQueryResult } from '@tanstack/react-query';
-import {
-  apiClient,
-  IPage,
-  TInfiniteQueryResult,
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-} from 'store/config';
+import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IComment } from 'types';
 
-export const useCommentsList = (articleId: number): TInfiniteQueryResult<IComment> =>
-  useInfiniteQuery<IComment>(
-    'comments-list',
-    (params) =>
+export const useCommentsList = (articleId: number) =>
+  useInfiniteQuery<IComment>({
+    queryKey: ['comments-list'],
+    queryFn: (params) =>
       apiClient.get(`comment/open/${articleId}`, {
-        page: params.pageParam ?? 0,
+        page: params.pageParam,
       }),
-    {
-      getNextPageParam: (lastPage: IPage) => (lastPage.hasMore ? ++lastPage.page : undefined),
-    },
-  );
+  });
 
 export const useCreateComment = (): UseMutationResult<
   IComment,
@@ -30,7 +20,7 @@ export const useCreateComment = (): UseMutationResult<
 
   return useMutation({
     mutationFn: (body) => apiClient.post({ path: 'comment/create', body }),
-    onSuccess: () => client.invalidateQueries('comments-list'),
+    onSuccess: () => client.invalidateQueries({ queryKey: ['comments-list'] }),
   });
 };
 

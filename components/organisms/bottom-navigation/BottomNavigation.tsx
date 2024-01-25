@@ -12,14 +12,14 @@ const Plus = ICONS.plus;
 
 export const BottomNavigation: FC = () => {
   const { push } = useAppRouter();
-  const { mutate: createArticle, isLoading } = useCreateArticle({
+  const { mutate: createArticle, isPending: isArticleBeingCreated } = useCreateArticle({
     onSuccess: (id) => push(`/user/articles/${id}`),
   });
 
   const createArticleHandler = useCallback(() => createArticle(), []);
 
   const createButton = useMemo(() => {
-    if (isLoading)
+    if (isArticleBeingCreated)
       return (
         <button className={classes['add-btn']} onClick={createArticleHandler} disabled>
           <Spinner />
@@ -33,7 +33,7 @@ export const BottomNavigation: FC = () => {
         </span>
       </button>
     );
-  }, [isLoading]);
+  }, [isArticleBeingCreated]);
 
   return (
     <div className={classes.root}>
