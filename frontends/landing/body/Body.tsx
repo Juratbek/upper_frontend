@@ -1,9 +1,10 @@
-import { ApiErrorBoundary, AuthButton } from 'components';
+import { ApiErrorBoundary } from 'components';
 import { Divider, Spinner } from 'components/lib';
 import {
   LABEL_ID_PARAM,
   Labels,
   LoadMoreButton,
+  NoArticle,
   PublishedArticle,
   TopLabel,
 } from 'components/molecules';
@@ -45,13 +46,7 @@ export const Body = (): JSX.Element => {
             <PublishedArticle article={article} />
           </Fragment>
         ))}
-        {articles.length === 0 && (
-          <div className=''>
-            <h3>{activeLabel} uchun maqolalar topilmadi</h3>
-            <p>{activeLabel} mavzusida maqolalar yozing va bilim ulashing</p>
-            <AuthButton>Maqola yozish</AuthButton>
-          </div>
-        )}
+        {articles.length === 0 && <NoArticle label={activeLabel} />}
         {articles.length !== 0 && <LoadMoreButton onClick={fetchNextPage} />}
       </ApiErrorBoundary>
     </section>

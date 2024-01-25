@@ -1,5 +1,5 @@
-import { AuthButton } from 'components';
 import { Modal } from 'components/lib';
+import { AuthButton } from 'components/molecules';
 import { FC, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from 'store';
 import { closeAuthModal, getAuthModalTitle, getIsAuthModalOpen } from 'store/states';

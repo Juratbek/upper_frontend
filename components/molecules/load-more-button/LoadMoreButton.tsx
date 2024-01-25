@@ -1,7 +1,7 @@
 import { Button } from 'components/lib';
 import { FC } from 'react';
 
-export const LoadMoreButton: FC<{ onClick: () => unknown }> = (props) => (
+export const LoadMoreButton: FC<{ onClick: () => unknown; loading?: boolean }> = (props) => (
   <Button
     color='tertiary'
     style={{
@@ -10,6 +10,6 @@ export const LoadMoreButton: FC<{ onClick: () => unknown }> = (props) => (
     }}
     onClick={props.onClick}
   >
-    Yana yuklash
+    {props.loading ? 'Yuklanmoqda...' : 'Yana yuklash'}
   </Button>
 );

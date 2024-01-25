@@ -1,5 +1,13 @@
-import { Button, Divider } from 'components/lib';
-import { ForYouLabel, LABEL_ID_PARAM, PublishedArticle, UserLabels } from 'components/molecules';
+import { ApiErrorBoundary } from 'components';
+import { Divider, Spinner } from 'components/lib';
+import {
+  ForYouLabel,
+  LABEL_ID_PARAM,
+  LoadMoreButton,
+  NoArticle,
+  PublishedArticle,
+  UserLabels,
+} from 'components/molecules';
 import { useUrlParams } from 'hooks';
 import { FC, Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
@@ -7,34 +15,27 @@ import { addAmazonBucketUrl } from 'utils/published-article';
 
 export const HomePage: FC = () => {
   const { getParam } = useUrlParams();
-  const label = getParam(LABEL_ID_PARAM) ?? ForYouLabel;
-  const {
-    fetchNextPage,
-    isFetchingNextPage,
-    isLoading,
-    list: articles,
-  } = usePublishedArticlesList(label as string);
+  const label = (getParam(LABEL_ID_PARAM) ?? ForYouLabel) as string;
+  const { fetchNextPage, list: articles, ...articlesRes } = usePublishedArticlesList(label);
 
   return (
     <>
       <UserLabels />
-      {articles.length === 0 && !isLoading && (
-        <h3 className='text-center'>Maqolalar mavjud emas</h3>
-      )}
-      {articles.map(addAmazonBucketUrl).map((article) => (
-        <Fragment key={article.id}>
-          <Divider color='secondary' />
-          <PublishedArticle article={article} />
-        </Fragment>
-      ))}
-      <Button
-        className='w-100'
-        onClick={() => fetchNextPage()}
-        loading={isFetchingNextPage}
-        loader='Yuklanmoqda...'
-      >
-        Yana yuklash
-      </Button>
+      <ApiErrorBoundary res={articlesRes} fallback={<Spinner />}>
+        {articles.length === 0 && !articlesRes.isLoading && <NoArticle label={label} />}
+        {articles.map(addAmazonBucketUrl).map((article) => (
+          <Fragment key={article.id}>
+            <Divider color='secondary' />
+            <PublishedArticle article={article} />
+          </Fragment>
+        ))}
+        {articles.length !== 0 && (
+          <LoadMoreButton
+            onClick={() => fetchNextPage()}
+            loading={articlesRes.isFetchingNextPage}
+          />
+        )}
+      </ApiErrorBoundary>
     </>
   );
 };

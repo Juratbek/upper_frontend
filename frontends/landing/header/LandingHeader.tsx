@@ -1,5 +1,5 @@
-import { AuthButton, SearchInput } from 'components';
-import { Logo } from 'components/molecules';
+import { SearchInput } from 'components';
+import { AuthButton, Logo } from 'components/molecules';
 import { FC } from 'react';
 
 import classes from './LandingHeader.module.scss';

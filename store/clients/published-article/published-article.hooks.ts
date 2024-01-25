@@ -6,7 +6,7 @@ export const usePublishedArticlesList = (label: string) => {
     queryKey: ['published-articles', label],
     queryFn: (params) =>
       apiClient.get('published-article/open/get-by-label', {
-        page: params.pageParam ?? 0,
+        page: params.pageParam.toString(),
         tag: label,
       }),
     enabled: typeof label === 'string',

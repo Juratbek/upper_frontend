@@ -33,7 +33,7 @@ export const useBlogArticles = (status: TArticleStatus) =>
     queryFn: (params) =>
       apiClient.get<IPagingResponse<IArticleResult>>('article/need-auth/list', {
         status: status.toUpperCase(),
-        page: params.pageParam,
+        page: params.pageParam.toString(),
       }),
   });
 
