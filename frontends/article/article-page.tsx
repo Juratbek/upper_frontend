@@ -91,8 +91,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
             onQuizSubmit={quizSubmitHandler}
           />
         </article>
-        {/* {editorInstance?.isReady ? <ArticleFooter /> : null} */}
-        <ArticleFooter />
+        <ArticleFooter sharePopoverId='share-btn-in-article-page' />
         <CommentsModal />
       </div>
     </>
