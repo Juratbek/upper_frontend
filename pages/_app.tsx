@@ -1,17 +1,17 @@
 import 'styles/index.scss';
 
+import { QueryClientProvider } from '@tanstack/react-query';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
-import { useAuth, useDevice, useScrollToggler, useTheme } from 'hooks';
+import { useAuth, useTheme } from 'hooks';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
-import { QueryClientProvider } from 'react-query';
 import { wrapper } from 'store';
 import { queryClient } from 'store/config';
 import { IServerSideContext, TTheme } from 'types';
@@ -41,10 +41,7 @@ function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
 function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate } = useAuth();
-  const { themeColors, theme } = useTheme();
-  const { isMobile } = useDevice();
-
-  useScrollToggler('.main', !isMobile);
+  const { themeColors } = useTheme();
 
   useEffect(() => {
     const token = getToken();
@@ -83,7 +80,12 @@ function MyApp(props: AppProps): JSX.Element {
           />
         </>
       )}
-      <div className={`theme-${theme}`}>
+      {/* TODO: change to <div className={`theme-${theme}`} style={{ height: '100vh', overflow: 'scroll' }}>
+      when dark theme is ready */}
+      <div
+        className={`theme-light`}
+        style={{ height: '100vh', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
+      >
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
           <WebApp {...props} />
         ) : (

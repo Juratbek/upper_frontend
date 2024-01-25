@@ -32,7 +32,7 @@ export const UserArticlesSidebar: FC = () => {
   const [updateLabels] = useUpdateArticleLabelsMutation();
   const article = useAppSelector(getArticle);
   const editor = useAppSelector(getEditor);
-  const [isPublishModalOpen, togglePublishModal, { close: closePublishModal }] = useModal(false);
+  const [, togglePublishModal] = useModal(false);
   const [isDeleteModalOpen, toggleDeleteModal, { close: closeDeleteModal }] = useModal(false);
   const [searchLabels, searchLabelsRes] = useLazySearchLabelsQuery();
 
@@ -90,16 +90,7 @@ export const UserArticlesSidebar: FC = () => {
 
   return (
     <>
-      {editor && (
-        <PublishArticleModal
-          open={isPublishModalOpen}
-          close={closePublishModal}
-          editor={editor}
-          article={article}
-          save={saveChanges}
-          status={article.status}
-        />
-      )}
+      {editor && <PublishArticleModal />}
       <DeleteArticleModal
         status={article.status}
         open={isDeleteModalOpen}

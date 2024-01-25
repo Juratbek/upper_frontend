@@ -7,3 +7,4 @@ export * from './logo/Logo';
 export * from './labels';
 export * from './user-labels';
 export * from './subscription-button/SubscriptionButton';
+export * from './unsubscribe-modal/UnsubscribeModal';

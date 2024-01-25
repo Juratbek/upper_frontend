@@ -36,7 +36,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
 
   const likeHandler = (): void => {
     if (isAuthenticated) {
-      like(articleId);
+      like();
     } else {
       openLoginPage("Iltimos maqolaga layk bosish uchun ro'yxatdan o'ting");
     }
@@ -44,7 +44,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
 
   const dislikeHandler = (): void => {
     if (isAuthenticated) {
-      dislike(articleId);
+      dislike();
     } else {
       openLoginPage("Iltimos maqolaga dislayk bosish uchun ro'yxatdan o'ting");
     }

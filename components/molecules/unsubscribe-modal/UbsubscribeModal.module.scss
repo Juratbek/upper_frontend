@@ -1,0 +1,32 @@
+.text {
+    color: var(--black-400, #45494A);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0;
+    text-align: center;
+}
+
+@mixin btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48px;
+    flex: 1;
+    color: var(--black-500, #161B1D);
+    font-weight: 500;
+    line-height: 24px;
+    border-top: 1px solid var(--black-50, #E8E9E9) !important;
+}
+
+.no-btn {
+    border-right: 1px solid var(--black-50, #E8E9E9) !important;
+
+    @include btn;
+}
+
+.unsubscribe-btn {
+    @include btn;
+
+    color: var(--red, #F00);
+}

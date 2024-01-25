@@ -3,7 +3,7 @@ import { EditorSpinner } from 'components';
 import { Editor, TEditorApi } from 'components/Editor';
 import { Head } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
-import { WriteArticleHeader } from 'frontends/user-articles';
+import { PublishArticleModal, WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -69,6 +69,7 @@ export default function UserArticlePage(): JSX.Element {
   return (
     <GenericWrapper sidebar={null} isNavigationHidden header={<WriteArticleHeader />}>
       <div className='editor-container container pb-4'>
+        <PublishArticleModal />
         <Head title='Blog maqolasi' url='/user/articles' />
         {renderEditor()}
       </div>

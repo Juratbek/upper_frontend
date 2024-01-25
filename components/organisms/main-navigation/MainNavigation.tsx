@@ -14,11 +14,11 @@ export const MainNavigation: FC = () => {
         icon: ICONS.home,
         text: 'Bosh sahifa',
       },
-      {
-        href: '/posts',
-        icon: ICONS.home,
-        text: 'Lenta',
-      },
+      // {
+      //   href: '/posts',
+      //   icon: ICONS.home,
+      //   text: 'Lenta',
+      // },
       {
         href: '/notifications',
         icon: ICONS.notification,

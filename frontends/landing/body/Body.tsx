@@ -1,3 +1,4 @@
+import { AuthButton } from 'components';
 import { Divider } from 'components/lib';
 import { LABEL_ID_PARAM, Labels, PublishedArticle, TopLabel } from 'components/molecules';
 import { useUrlParams } from 'hooks';
@@ -26,6 +27,13 @@ export const Body = (): JSX.Element => {
           <PublishedArticle article={article} />
         </Fragment>
       ))}
+      {articles.length === 0 && (
+        <div className=''>
+          <h3>{activeLabel} uchun maqolalar topilmadi</h3>
+          <p>{activeLabel} mavzusida maqolalar yozing va bilim ulashing</p>
+          <AuthButton>Maqola yozish</AuthButton>
+        </div>
+      )}
     </section>
   );
 };

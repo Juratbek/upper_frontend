@@ -9,7 +9,7 @@ export const LandingHeader: FC = () => {
     <div className={`${classes.root} container`}>
       <Logo />
       <SearchInput />
-      <AuthButton />
+      <AuthButton>Kirish</AuthButton>
     </div>
   );
 };

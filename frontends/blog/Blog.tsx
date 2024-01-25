@@ -81,7 +81,6 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
       </Alert>
       <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
       <Modal
-        size='small'
         isOpen={isUnsubscribeModalOpen}
         close={closeUnsubscribeModal}
         bodyClassName='text-center'

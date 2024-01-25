@@ -6,7 +6,7 @@ export const LandingPage = (): JSX.Element => {
   return (
     <>
       <LandingHeader />
-      <main className='container' style={{ paddingTop: 48 }}>
+      <main className='container' style={{ paddingTop: 48, flex: 1, width: '100%' }}>
         <BlueBox />
         <Body />
       </main>

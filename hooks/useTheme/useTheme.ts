@@ -15,7 +15,8 @@ export const useTheme = (): IUseTheme => {
   );
 
   const themeColors = useMemo(() => {
-    return THEME_COLORS[theme] || THEME_COLORS.light;
+    // TODO: change to THEME_COLORS[theme] || THEME_COLORS.light; when dark theme is ready
+    return THEME_COLORS.light;
   }, [theme]);
 
   return {

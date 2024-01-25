@@ -9,6 +9,11 @@
     display: flex;
     align-items: center;
     z-index: 2;
+    transition: all 500ms;
+}
+
+.hide {
+    transform: translateY(100%);
 }
 
 .body {

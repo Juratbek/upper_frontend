@@ -1,4 +1,4 @@
-import { ApiErrorBoundary, ArticleSkeleton, Pagination } from 'components';
+import { ApiErrorBoundary, ArticleSkeleton } from 'components';
 import { Button, StorysetImage } from 'components/lib';
 import { Article } from 'components/molecules';
 import { useAppRouter } from 'hooks';
@@ -7,18 +7,15 @@ import { useBlogArticles, useCreateArticle } from 'store/clients/article';
 import { ARTICLES_SKELETON_COUNT } from 'variables';
 
 export const PublishedArticles: FC = () => {
-  const {
-    query: { page },
-    push,
-  } = useAppRouter();
-  const blogArticlesRes = useBlogArticles('PUBLISHED', (page ?? '0') as string);
+  const { push } = useAppRouter();
+  const blogArticlesRes = useBlogArticles('PUBLISHED');
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
     onSuccess: (id) => push(`/user/articles/${id}`),
   });
 
   const writeArticleHandler = useCallback(() => createArticle(), []);
 
-  const { data } = blogArticlesRes;
+  const { list } = blogArticlesRes;
 
   return (
     <div>
@@ -27,9 +24,9 @@ export const PublishedArticles: FC = () => {
         fallback={<ArticleSkeleton className='px-2 py-2' />}
         fallbackItemCount={ARTICLES_SKELETON_COUNT}
         className='tab'
-        memoizationDependencies={[createArticleRes.isLoading]}
+        memoizationDependencies={[createArticleRes.isPending]}
       >
-        {blogArticlesRes.data?.list.length === 0 && (
+        {list.length === 0 && (
           <div className='text-center'>
             <StorysetImage
               width={250}
@@ -38,18 +35,15 @@ export const PublishedArticles: FC = () => {
               storysetUri='creativity'
             />
             <p>Maqola yozing va bilimlaringizni ulashing</p>
-            <Button onClick={writeArticleHandler} loading={createArticleRes.isLoading}>
+            <Button onClick={writeArticleHandler} loading={createArticleRes.isPending}>
               Maqola yozish
             </Button>
           </div>
         )}
-        {data?.list.map((article) => {
+        {list.map((article) => {
           return <Article key={article.id} article={article} />;
         })}
       </ApiErrorBoundary>
-      <div className='text-center'>
-        {data?.totalPages && <Pagination pagesCount={data.totalPages} className='my-3' />}
-      </div>
     </div>
   );
 };
