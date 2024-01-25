@@ -14,8 +14,10 @@ export const useInfiniteQuery = <T = unknown>(
   const res = useInfiniteReactQuery<any, any, { pages: IPage<T>[] }, any, number>({
     ...options,
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages, lastPageParam) => {
-      return lastPageParam + 1;
+    getNextPageParam: (lastPage: IPage<T>, allPages, lastPageParam) => {
+      if (lastPage.hasMore) {
+        return lastPageParam + 1;
+      }
     },
   });
 

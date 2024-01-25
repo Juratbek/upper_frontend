@@ -1,26 +1,36 @@
-import { getCookie } from 'cookies-next';
 import { BlogPage, IBlogPageProps } from 'frontends/blog';
 import { GetServerSideProps, NextPage } from 'next';
 import { wrapper } from 'store';
-import { blogApi } from 'store/apis';
+import { apiClient } from 'store/config';
 import { IResponseError } from 'types';
 import { get } from 'utils';
+import { ApiError } from 'utils/error';
 
 const BlogNextPage: NextPage<IBlogPageProps> = (props: IBlogPageProps) => {
   return <BlogPage {...props} />;
 };
 
 export const getServerSideProps: GetServerSideProps<IBlogPageProps> = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req, res, query }) => {
-      const host = req.headers.host || '';
+  () =>
+    async ({ req, query }) => {
+      const host = req.headers.host ?? '';
       const url = req.url;
-      const token = (getCookie('token', { req, res }) || null) as string | null;
 
       const blogId = get<number>(query, 'id');
-      const { data: blog = null, error = {} } = await store.dispatch(
-        blogApi.endpoints.getById.initiate({ id: blogId, token }, { forceRefetch: true }),
-      );
+      let blog: IBlogPageProps['blog'] = null;
+      let error: IBlogPageProps['error'] = null;
+      try {
+        blog = await apiClient.get(`blog/open/${blogId}`);
+      } catch (e) {
+        const apiError = e as ApiError;
+        error = {
+          status: apiError.status,
+          data: {
+            code: apiError.status,
+            message: apiError.message,
+          },
+        } satisfies Partial<IResponseError>;
+      }
       return {
         props: {
           blog: blog,

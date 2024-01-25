@@ -7,7 +7,6 @@ export interface IResponseError<T = unknown> {
     code: number;
     message: string;
     data?: T;
-    httpStatus: string;
   };
 }
 

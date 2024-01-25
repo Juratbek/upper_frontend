@@ -1,4 +1,5 @@
 import { Input } from 'components/form';
+import { Clickable } from 'components/lib';
 import { useTheme } from 'hooks';
 import { ChangeEvent, FC, useCallback } from 'react';
 import { TSelectedThemeOption } from 'types';
@@ -26,9 +27,9 @@ export const ThemeMenu: FC<ISubmenuProps> = ({ onBack, className }) => {
   return (
     <div className={`${classes.root} ${className}`}>
       <div className={classes['title-container']}>
-        <span className='pointer' onClick={onBack}>
+        <Clickable className='pointer' onClick={onBack}>
           <PrevIcon />
-        </span>
+        </Clickable>
         <p className={classes['title-text']}>Qiyofani tanlash</p>
       </div>
       <ul className={classes.content}>

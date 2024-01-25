@@ -2,6 +2,6 @@ import { IBlog, IResponseError } from 'types';
 
 export interface IBlogPageProps {
   blog?: IBlog | null;
-  error?: IResponseError;
+  error?: IResponseError | null;
   fullUrl: string;
 }

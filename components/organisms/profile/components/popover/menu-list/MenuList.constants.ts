@@ -1,6 +1,5 @@
 import { ICONS } from 'variables';
 
-import { ThemeMenu } from '../theme-menu/ThemeMenu';
 import { IMenuListItem } from './MenuList.types';
 
 export const MENU_LIST_ITEMS: IMenuListItem[] = [
@@ -24,9 +23,9 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
     text: 'Sozlamalar',
     href: '/settings/profile',
   },
-  {
-    icon: ICONS.moon,
-    text: 'Qiyofa',
-    menu: ThemeMenu,
-  },
+  // {
+  //   icon: ICONS.moon,
+  //   text: 'Qiyofa',
+  //   menu: ThemeMenu,
+  // },
 ];
