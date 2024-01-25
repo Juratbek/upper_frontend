@@ -18,7 +18,7 @@ export const CommentsModal: FC = () => {
   const { query } = useRouter();
   const articleId = +(query?.id as string);
   const { list: comments } = useCommentsList(articleId);
-  const { mutate: createComment, isLoading: isCommentBeingCreated } = useCreateComment();
+  const { mutate: createComment, isPending: isCommentBeingCreated } = useCreateComment();
   const inputRef = useRef<HTMLInputElement>(null);
   const isOpen = useAppSelector(getIsCommentsModalOpen);
   const dispatch = useDispatch();

@@ -14,7 +14,7 @@ export const UnsubscribeModal: FC = () => {
   const isOpen = useSelector(getIsUnsubscribeModalOpen);
   const dispatch = useDispatch();
   const blogId = useSelector(getBlogIdToUnsubscribe);
-  const { mutate: unsubscribe, isLoading: isUnsubscribeLoading } = useUnsubscribe(Number(blogId));
+  const { mutate: unsubscribe, isPending: isUnsubscribeLoading } = useUnsubscribe(Number(blogId));
 
   const closeHandler = useCallback(() => dispatch(closeUnsubscribeModal()), []);
 

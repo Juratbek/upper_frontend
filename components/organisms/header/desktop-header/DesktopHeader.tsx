@@ -36,7 +36,7 @@ export const DesktopHeader: FC = () => {
       <div className={classes['right-container']}>
         {!isLoading && (
           <Button
-            loading={createArticleRes.isLoading}
+            loading={createArticleRes.isPending}
             className={classes['write-article-btn']}
             onClick={createArticleHandler}
             loader={'Yaratilmoqda...'}

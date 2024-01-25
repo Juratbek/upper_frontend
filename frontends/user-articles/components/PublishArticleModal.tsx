@@ -109,7 +109,7 @@ export const PublishArticleModal: FC = () => {
             ref={publishBtnRef}
             onClick={publishHandler}
             className='flex-1'
-            loading={publishArticleRes.isLoading}
+            loading={publishArticleRes.isPending}
           >
             Nashr qilish
           </Button>

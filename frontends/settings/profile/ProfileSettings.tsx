@@ -12,7 +12,7 @@ export const ProfileSettingsUI: FC = () => {
   const { data: currentBlog } = useGetCurrentBlog();
   const [alert, setAlert] = useState<string>();
   const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
-  const { mutate: updateBlog, isLoading } = useUpdateBlog();
+  const { mutate: updateBlog, isPending: isBeingUpdated } = useUpdateBlog();
   const {
     register,
     handleSubmit,
@@ -94,7 +94,7 @@ export const ProfileSettingsUI: FC = () => {
             })}
           />
         </div>
-        <Button className='mt-1' loading={isLoading}>
+        <Button className='mt-1' loading={isBeingUpdated}>
           Saqlash
         </Button>
       </form>
