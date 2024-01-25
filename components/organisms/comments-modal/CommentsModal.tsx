@@ -3,6 +3,7 @@ import { Clickable, Spinner } from 'components/lib';
 import { Comment } from 'components/molecules';
 import { useRouter } from 'next/router';
 import { FC, KeyboardEvent, useCallback, useRef } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
 import { useCommentsList, useCreateComment } from 'store/clients/comments';
@@ -17,7 +18,7 @@ const SendIcon = ICONS.send;
 export const CommentsModal: FC = () => {
   const { query } = useRouter();
   const articleId = +(query?.id as string);
-  const { list: comments } = useCommentsList(articleId);
+  const { list: comments, hasNextPage, fetchNextPage, isLoading } = useCommentsList(articleId);
   const { mutate: createComment, isPending: isCommentBeingCreated } = useCreateComment();
   const inputRef = useRef<HTMLInputElement>(null);
   const isOpen = useAppSelector(getIsCommentsModalOpen);
@@ -54,13 +55,24 @@ export const CommentsModal: FC = () => {
             &#x2715;
           </Clickable>
         </div>
-        <div className={classes['modal-body']}>
-          {comments.length === 0 ? (
+        <div className={classes['modal-body']} id='comments'>
+          {comments.length === 0 && !isLoading ? (
             <NoComments />
           ) : (
-            comments.map((comment) => <Comment {...comment} key={comment.id} />)
+            <InfiniteScroll
+              hasMore={hasNextPage}
+              dataLength={comments.length}
+              next={fetchNextPage}
+              loader='Yuklanmoqda'
+              scrollableTarget='comments'
+            >
+              {comments.map((comment) => (
+                <Comment {...comment} key={comment.id} />
+              ))}
+            </InfiniteScroll>
           )}
         </div>
+
         <div className={classes['modal-footer']}>
           <div className={classes['comment-input-container']}>
             <Input

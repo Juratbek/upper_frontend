@@ -4,11 +4,12 @@ import { IComment } from 'types';
 
 export const useCommentsList = (articleId: number) =>
   useInfiniteQuery<IComment>({
-    queryKey: ['comments-list'],
-    queryFn: (params) =>
-      apiClient.get(`comment/open/${articleId}`, {
-        page: params.pageParam,
-      }),
+    queryKey: ['comments-list', articleId],
+    queryFn: (params) => {
+      return apiClient.get(`comment/open/${articleId}`, {
+        page: params.pageParam.toString(),
+      });
+    },
   });
 
 export const useCreateComment = (): UseMutationResult<

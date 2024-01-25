@@ -7,14 +7,16 @@ import { IPage, TInfiniteQueryResult } from './useInfiniteQuery.types';
 
 export const useInfiniteQuery = <T = unknown>(
   options: Omit<
-    UseInfiniteQueryOptions<any, any, { pages: IPage<T>[] }, any, any, string>,
+    UseInfiniteQueryOptions<any, any, { pages: IPage<T>[] }, any, any, number>,
     'initialPageParam' | 'getNextPageParam'
   >,
 ): TInfiniteQueryResult<T> => {
-  const res = useInfiniteReactQuery<any, any, { pages: IPage<T>[] }, any, string>({
+  const res = useInfiniteReactQuery<any, any, { pages: IPage<T>[] }, any, number>({
     ...options,
-    initialPageParam: '0',
-    getNextPageParam: (lastPage: IPage) => (lastPage.hasMore ? String(++lastPage.page) : undefined),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      return lastPageParam + 1;
+    },
   });
 
   if (!res.data) return { ...res, list: [] };
