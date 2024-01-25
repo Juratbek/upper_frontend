@@ -30,7 +30,7 @@ export const ReadArticleBottomBar: FC = () => {
   return (
     <div className={`${classes.root} ${isScrollingUp && classes.hide}`}>
       <div className={`${classes.body} container`}>
-        <ArticleFooter />
+        <ArticleFooter sharePopoverId='share-btn-in-bottom-bar' />
       </div>
     </div>
   );

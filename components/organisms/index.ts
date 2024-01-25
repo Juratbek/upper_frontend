@@ -8,3 +8,4 @@ export * from './main-navigation/MainNavigation';
 export * from './bottom-navigation/BottomNavigation';
 export * from './comments-modal/CommentsModal';
 export * from './profile';
+export * from './share-popover/SharePopover ';
