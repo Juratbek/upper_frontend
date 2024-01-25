@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper
           props: {
             article: null,
             error: {
-              data: { message: '', code: 200, httpStatus: 'SUCCESS' },
+              data: { message: '', code: 200 },
               status: 200,
             },
             fullUrl: `https://${host}${url}`,
