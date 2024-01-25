@@ -8,7 +8,6 @@ import { MEDIA_ICONS } from './SharePopover.constants';
 import classes from './SharePopover.module.scss';
 
 const CopyIcon = ICONS.copy;
-const TickIcon = ICONS.tick;
 
 export const SharePopover = forwardRef<
   HTMLDivElement,
@@ -54,7 +53,9 @@ export const SharePopover = forwardRef<
       </div>
       <div className={classes['popover-footer']}>
         <Clickable onClick={copyUrlHandler} className={classes['copy-container']}>
-          <div className={classes['copy-icon']}>{isUrlCopied ? <TickIcon /> : <CopyIcon />}</div>
+          <div className={classes['copy-icon']}>
+            {isUrlCopied ? <span className={classes['done-icon']}>&#10003;</span> : <CopyIcon />}
+          </div>
           <p className={classes['copy-text']}>{isUrlCopied ? 'Havola nusxalandi' : 'Nusxalash'}</p>
         </Clickable>
       </div>

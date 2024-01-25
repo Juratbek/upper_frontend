@@ -5,7 +5,7 @@ export interface ICommentModalState {
 }
 
 const initialState: ICommentModalState = {
-  isOpen: true,
+  isOpen: false,
 };
 
 const commentsModalSlice = createSlice({
