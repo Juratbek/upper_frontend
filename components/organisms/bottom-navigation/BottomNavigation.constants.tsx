@@ -6,7 +6,7 @@ export const leftButtons: IButton[] = [
   {
     icon: ICONS.home,
     path: '/',
-    label: 'Asosiy sahifa',
+    label: 'Asosiy',
   },
   {
     icon: ICONS.write,

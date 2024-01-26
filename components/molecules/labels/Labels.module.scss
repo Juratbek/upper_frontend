@@ -15,6 +15,7 @@
   overflow-x: scroll;
   gap: 1.2rem;
   transition: all 500ms linear;
+  flex-wrap: wrap;
 
   &::-webkit-scrollbar {
     display: none;
@@ -29,4 +30,5 @@
   justify-content: center;
   cursor: pointer;
   border-left: 1px solid var(--black-50);
+  display: none;
 }
