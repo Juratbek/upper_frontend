@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
@@ -13,8 +13,8 @@ import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect } from 'react';
 import { wrapper } from 'store';
-import { queryClient } from 'store/config';
-import { IServerSideContext, TTheme } from 'types';
+import { queryClientDefaultOptions } from 'store/config/query-client';
+import { IResponseError, IServerSideContext, TTheme } from 'types';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
 const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal'), { ssr: false });
@@ -103,6 +103,18 @@ interface IAppWithProviderProps extends AppProps {
 }
 
 const AppWithProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Element => {
+  const { unauthenticate } = useAuth();
+  const queryCache = new QueryCache({
+    onError: (e) => {
+      const error = e as unknown as IResponseError;
+      if (error.status === 401) {
+        unauthenticate();
+      }
+    },
+  });
+
+  const queryClient = new QueryClient({ defaultOptions: queryClientDefaultOptions, queryCache });
+
   return (
     <ThemeProvider defaultTheme={theme}>
       <QueryClientProvider client={queryClient}>

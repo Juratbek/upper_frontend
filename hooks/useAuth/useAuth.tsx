@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
-import { useGetAuthTokens } from 'store/clients/blog';
+import { IBlogRegisterResponse } from 'store/apis';
+import { apiClient } from 'store/config';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
@@ -40,8 +41,6 @@ export const useAuth = (): IUseAuth => {
     signIn(data.token);
     if (typeof redirect === 'string') push(redirect);
   };
-
-  const { mutateAsync: getAuthTokens } = useGetAuthTokens({ onSuccess: authenticate });
 
   const authenticateTokens: TAuthenticateTokensFn = (tokens) => {
     setLocalStorateTokens(tokens);
@@ -87,7 +86,14 @@ export const useAuth = (): IUseAuth => {
   const syncTokens = async () => {
     const refreshToken = getRefreshToken();
     if (refreshToken) {
-      getAuthTokens({ refreshToken });
+      const res = await apiClient.post<{ refreshToken: string }, IBlogRegisterResponse>({
+        path: 'blog/open/get-token',
+        body: { refreshToken },
+        headers: {
+          Authorization: '',
+        },
+      });
+      authenticate(res);
     }
   };
 

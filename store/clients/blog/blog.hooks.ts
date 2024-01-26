@@ -6,8 +6,9 @@ import { IBlogRegisterResponse, ICurrentBlog } from './blog.types';
 
 export const useGetCurrentBlog = () =>
   useQuery<ICurrentBlog>({
-    queryKey: ['cuyrrent-blog'],
-    queryFn: () => apiClient.get('blog/get-current'),
+    queryKey: ['current-blog'],
+    queryFn: () => apiClient.get('blog/get-current1'),
+    retry: false,
   });
 
 export const useContinueWithGoogle = (
@@ -38,18 +39,3 @@ export const useUpdateBlog = () =>
 
 export const useGetAuthCode = () =>
   useQuery<string>({ queryKey: ['auth-code'], queryFn: () => apiClient.get('blog/get-auth-code') });
-
-export const useGetAuthTokens = (
-  options: Partial<UseMutationOptions<IBlogRegisterResponse, Error, { refreshToken: string }>>,
-) =>
-  useMutation<IBlogRegisterResponse, Error, { refreshToken: string }>({
-    ...options,
-    mutationFn: (body) =>
-      apiClient.post({
-        path: 'blog/open/get-token',
-        body: body,
-        headers: {
-          Authorization: '',
-        },
-      }),
-  });

@@ -1,3 +1,1 @@
-import { queryClient } from './query-client';
-
-export default queryClient;
+export * from './query-client';
