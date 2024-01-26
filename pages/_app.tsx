@@ -1,6 +1,6 @@
 import 'styles/index.scss';
 
-import { QueryClientProvider } from '@tanstack/react-query';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
@@ -11,22 +11,22 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { wrapper } from 'store';
-import { queryClient } from 'store/config';
-import { IServerSideContext, TTheme } from 'types';
+import { queryClientDefaultOptions } from 'store/config/query-client';
+import { IResponseError, IServerSideContext, TTheme } from 'types';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
 
 const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal'), { ssr: false });
 
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <DynamicAuthModal />
       <GoogleAuthScript />
       <Component {...pageProps} />
       <Footer />
-    </QueryClientProvider>
+    </>
   );
 }
 
@@ -40,7 +40,7 @@ function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
 
 function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
-  const { getToken, getRefreshToken, authenticateTokens, unauthenticate } = useAuth();
+  const { getToken, getRefreshToken, authenticateTokens, unauthenticate, syncTokens } = useAuth();
   const { themeColors } = useTheme();
 
   useEffect(() => {
@@ -48,6 +48,7 @@ function MyApp(props: AppProps): JSX.Element {
     const refreshToken = getRefreshToken() || '';
     if (token) {
       authenticateTokens({ token, refreshToken });
+      syncTokens();
     } else {
       unauthenticate();
     }
@@ -102,9 +103,34 @@ interface IAppWithProviderProps extends AppProps {
 }
 
 const AppWithProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Element => {
+  const { unauthenticate } = useAuth();
+
+  const errorHandler = useCallback((e: Error) => {
+    const error = e as unknown as IResponseError;
+    if (error.status === 401) {
+      unauthenticate();
+    }
+  }, []);
+
+  const queryCache = new QueryCache({
+    onError: errorHandler,
+  });
+
+  const mutationCache = new MutationCache({
+    onError: errorHandler,
+  });
+
+  const queryClient = new QueryClient({
+    defaultOptions: queryClientDefaultOptions,
+    queryCache,
+    mutationCache,
+  });
+
   return (
     <ThemeProvider defaultTheme={theme}>
-      <MyApp {...props} />
+      <QueryClientProvider client={queryClient}>
+        <MyApp {...props} />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

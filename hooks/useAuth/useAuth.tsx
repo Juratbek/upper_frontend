@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
+import { IBlogRegisterResponse } from 'store/apis';
+import { apiClient } from 'store/config';
 import {
   authenticate as storeAuthenticate,
   getAuthStatus,
@@ -75,10 +77,24 @@ export const useAuth = (): IUseAuth => {
     }
   };
 
-  const openLoginPage = (title?: string): void => {
+  const openLoginPage = (title?: string) => {
     let url = ACCESS_UPPER_UZ;
     if (title) url = `${url}?title=${title}`;
     window.open(url, '_blank');
+  };
+
+  const syncTokens = async () => {
+    const refreshToken = getRefreshToken();
+    if (refreshToken) {
+      const res = await apiClient.post<{ refreshToken: string }, IBlogRegisterResponse>({
+        path: 'blog/open/get-token',
+        body: { refreshToken },
+        headers: {
+          Authorization: '',
+        },
+      });
+      authenticate(res);
+    }
   };
 
   return {
@@ -92,5 +108,6 @@ export const useAuth = (): IUseAuth => {
     getRefreshToken,
     setCurrentBlog,
     openLoginPage,
+    syncTokens,
   };
 };

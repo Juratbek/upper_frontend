@@ -24,17 +24,17 @@ export const getServerSideProps: GetServerSideProps<IBlogPageProps> = wrapper.ge
       } catch (e) {
         const apiError = e as ApiError;
         error = {
-          status: apiError.status,
+          status: apiError.status ?? null,
           data: {
-            code: apiError.status,
+            code: apiError.status ?? null,
             message: apiError.message,
           },
         } satisfies Partial<IResponseError>;
       }
       return {
         props: {
-          blog: blog,
-          error: error as IResponseError,
+          blog: blog ?? null,
+          error: (error as IResponseError) ?? null,
           fullUrl: `https://${host}${url}`,
         },
       };

@@ -39,6 +39,7 @@ class Client {
     const res = await this.fetch(path, {
       method: 'post',
       body: JSON.stringify(config.body),
+      headers: config.headers,
     });
     const isJson = checkContentType(res, 'application/json');
     if (isJson) {
@@ -59,14 +60,15 @@ class Client {
     if (isClientSide()) {
       const token = localStorage.getItem(TOKEN);
       if (token) {
-        config.headers = { ...this.#config.headers, ...config.headers, Authorization: token };
+        config.headers = { ...this.#config.headers, Authorization: token, ...config.headers };
       }
     }
     const res = await fetch(fullUrl, config);
     if (res.status === 200) {
       return res;
     } else {
-      throw new ApiError('', res);
+      const message = checkContentType(res, 'application/json') ? (await res.json()).message : '';
+      throw new ApiError(message, res);
     }
   }
 }

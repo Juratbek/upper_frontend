@@ -6,8 +6,9 @@ import { IBlogRegisterResponse, ICurrentBlog } from './blog.types';
 
 export const useGetCurrentBlog = () =>
   useQuery<ICurrentBlog>({
-    queryKey: ['cuyrrent-blog'],
+    queryKey: ['current-blog'],
     queryFn: () => apiClient.get('blog/get-current'),
+    retry: false,
   });
 
 export const useContinueWithGoogle = (
