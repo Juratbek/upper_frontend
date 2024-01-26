@@ -9,7 +9,7 @@ import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
 
 export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
-  if (!blog) return <h3>{get(error, 'data.message')}</h3>;
+  if (!blog) return <h3 className='text-center flex-1'>{get(error, 'data.message')}</h3>;
 
   return (
     <GenericWrapper>

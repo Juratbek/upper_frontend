@@ -25,4 +25,5 @@ export interface IUseAuth {
   getRefreshToken: () => string | null;
   setCurrentBlog: TSetCurrentBlogFn;
   openLoginPage: (title?: string) => void;
+  syncTokens: () => void;
 }

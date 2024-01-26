@@ -21,12 +21,12 @@ const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal')
 
 function WebApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <DynamicAuthModal />
       <GoogleAuthScript />
       <Component {...pageProps} />
       <Footer />
-    </QueryClientProvider>
+    </>
   );
 }
 
@@ -40,7 +40,7 @@ function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
 
 function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
-  const { getToken, getRefreshToken, authenticateTokens, unauthenticate } = useAuth();
+  const { getToken, getRefreshToken, authenticateTokens, unauthenticate, syncTokens } = useAuth();
   const { themeColors } = useTheme();
 
   useEffect(() => {
@@ -48,6 +48,7 @@ function MyApp(props: AppProps): JSX.Element {
     const refreshToken = getRefreshToken() || '';
     if (token) {
       authenticateTokens({ token, refreshToken });
+      syncTokens();
     } else {
       unauthenticate();
     }
@@ -104,7 +105,9 @@ interface IAppWithProviderProps extends AppProps {
 const AppWithProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Element => {
   return (
     <ThemeProvider defaultTheme={theme}>
-      <MyApp {...props} />
+      <QueryClientProvider client={queryClient}>
+        <MyApp {...props} />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 };

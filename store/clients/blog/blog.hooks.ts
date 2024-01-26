@@ -38,3 +38,18 @@ export const useUpdateBlog = () =>
 
 export const useGetAuthCode = () =>
   useQuery<string>({ queryKey: ['auth-code'], queryFn: () => apiClient.get('blog/get-auth-code') });
+
+export const useGetAuthTokens = (
+  options: Partial<UseMutationOptions<IBlogRegisterResponse, Error, { refreshToken: string }>>,
+) =>
+  useMutation<IBlogRegisterResponse, Error, { refreshToken: string }>({
+    ...options,
+    mutationFn: (body) =>
+      apiClient.post({
+        path: 'blog/open/get-token',
+        body: body,
+        headers: {
+          Authorization: '',
+        },
+      }),
+  });
