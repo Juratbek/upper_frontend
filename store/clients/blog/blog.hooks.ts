@@ -7,7 +7,7 @@ import { IBlogRegisterResponse, ICurrentBlog } from './blog.types';
 export const useGetCurrentBlog = () =>
   useQuery<ICurrentBlog>({
     queryKey: ['current-blog'],
-    queryFn: () => apiClient.get('blog/get-current1'),
+    queryFn: () => apiClient.get('blog/get-current'),
     retry: false,
   });
 
