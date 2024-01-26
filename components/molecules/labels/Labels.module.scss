@@ -10,16 +10,19 @@
 }
 
 .labels-container {
-  display: flex;
-  width: 100%;
-  overflow-x: scroll;
-  gap: 1.2rem;
+  width: 200px;
+  overflow: scroll;
+  flex: 1;
   transition: all 500ms linear;
-  flex-wrap: wrap;
 
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+.lebels-list {
+  display: flex;
+  gap: 1.2rem;
 }
 
 .next-btn {
@@ -30,5 +33,4 @@
   justify-content: center;
   cursor: pointer;
   border-left: 1px solid var(--black-50);
-  display: none;
 }

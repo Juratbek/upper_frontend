@@ -1,4 +1,4 @@
-import { TabButton } from 'components/lib';
+import { Clickable, TabButton } from 'components/lib';
 import { FC, useRef } from 'react';
 import { ICONS } from 'variables/icons';
 
@@ -27,20 +27,22 @@ export const Labels: FC<ILabelsProps> = (props) => {
   return (
     <div className={classes.root} style={props.style}>
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
-        {labels.map((label) => (
-          <TabButton
-            onClick={labelSelectHandler(label)}
-            color={label == activeLabel ? 'primary' : 'outlined'}
-            key={label}
-          >
-            {label}
-          </TabButton>
-        ))}
+        <div className={classes['lebels-list']}>
+          {labels.map((label) => (
+            <TabButton
+              onClick={labelSelectHandler(label)}
+              color={label == activeLabel ? 'primary' : 'outlined'}
+              key={label}
+            >
+              {label}
+            </TabButton>
+          ))}
+        </div>
       </div>
       {isContentOverflowed && (
-        <div className={classes['next-btn']} onClick={moveLabelsRight}>
+        <Clickable className={classes['next-btn']} onClick={moveLabelsRight}>
           <NextIcon />
-        </div>
+        </Clickable>
       )}
     </div>
   );
