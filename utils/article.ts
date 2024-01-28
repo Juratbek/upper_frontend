@@ -7,9 +7,10 @@ import { BLOCK_TYPES } from 'variables';
 import { compressDataImage, compressUnsplashImage } from './image';
 
 export const validateArticle = ({
-  labels,
   blocks,
-}: IArticle): { message: string; reason?: 'image' | 'title' | 'labels'; isValid: boolean } => {
+}: {
+  blocks: OutputBlockData[];
+}): { message: string; reason?: 'image' | 'title' | 'labels'; isValid: boolean } => {
   // check if article has a title
   const title = blocks.find((block) => block.type === BLOCK_TYPES.header)?.data.text;
   if (!title)
@@ -19,9 +20,6 @@ export const validateArticle = ({
       isValid: false,
     };
 
-  // check if article has selected labels
-  if (labels.length === 0)
-    return { message: 'Iltimos teglarni tanlang', reason: 'labels', isValid: false };
   // return valid
   return { message: '', isValid: true };
 };

@@ -1,28 +1,50 @@
-.mx-auto {
-    margin-right: auto;
-    margin-left: auto;
-}
-
-.ms-auto {
-    margin-left: auto;
-}
-
-.mt-auto {
-    margin-top: auto;
-}
-
+// margin for all sides
 .m-0 {
     margin: 0;
 }
 
-.me-0 {
-    margin-right: 0;
+// margin top
+.mt-auto {
+    margin-top: auto;
 }
 
 .mt-0 {
     margin-top: 0;
 }
 
+.mt-1 {
+    margin-top: $size1;
+}
+
+.mt-2 {
+    margin-top: $size2;
+}
+
+// margin bottom
 .mb-0 {
     margin-bottom: 0;
+}
+
+.mb-1 {
+    margin-bottom: $size1;
+}
+
+// margins start
+.ms-auto {
+    margin-left: auto;
+}
+
+// margin end
+.me-0 {
+    margin-right: 0;
+}
+
+.me-1 {
+    margin-right: $size1;
+}
+
+// horisontal margin
+.mx-auto {
+    margin-right: auto;
+    margin-left: auto;
 }

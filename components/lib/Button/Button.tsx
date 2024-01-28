@@ -36,10 +36,11 @@ export const Button = forwardRef<HTMLButtonElement, IButtonProps>(function Compo
           backgroundColor: `var(--btn-${color}-bg)`,
           color: `var(--btn-${color}-text)`,
           border: `1px solid var(--btn-${color}-border)`,
+          opacity: props.disabled ? '0.5' : '1',
         },
         props.style,
       ),
-    [props.style, color],
+    [props.style, color, props.disabled],
   );
 
   return (

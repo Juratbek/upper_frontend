@@ -67,7 +67,12 @@ class Client {
     if (res.status === 200) {
       return res;
     } else {
-      const message = checkContentType(res, 'application/json') ? (await res.json()).message : '';
+      let message = '';
+      const isJson = checkContentType(res, 'application/json');
+      if (isJson) {
+        const json = await res.json();
+        message = json.message ?? json.error ?? '';
+      }
       throw new ApiError(message, res);
     }
   }

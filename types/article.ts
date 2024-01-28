@@ -1,7 +1,6 @@
 import { OutputBlockData } from '@editorjs/editorjs';
 
 import { IBlogSmall } from './blog';
-import { ILabel } from './label';
 
 export interface IArticleSmall {
   id: number;
@@ -21,7 +20,7 @@ export interface IArticle extends IArticleSmall {
   blocks: OutputBlockData[];
   imgUrl: string;
   author: IBlogSmall;
-  labels: ILabel[];
+  tags: string[];
   publishedDate?: string;
   updatedDate?: string;
   status: TArticleStatus;

@@ -10,7 +10,7 @@ import {
   useUpdateArticleBlocksMutation,
   useUpdateArticleLabelsMutation,
 } from 'store/apis';
-import { getArticle, getEditor, setArticle, setLabels } from 'store/states';
+import { getArticle, getEditor, setArticle } from 'store/states';
 import {
   addUriToImageBlocks,
   convertLabelsToOptions,
@@ -56,7 +56,6 @@ export const UserArticlesSidebar: FC = () => {
   const labelsChangeHandler = (options: IOption[]): void => {
     if (!article) return;
     const selectedLabels = convertOptionsToLabels(options);
-    dispatch(setLabels(selectedLabels));
     updateLabels({ ...article, labels: selectedLabels });
   };
 
@@ -130,7 +129,6 @@ export const UserArticlesSidebar: FC = () => {
           max={MAX_LABELS}
           onChange={labelsChangeHandler}
           onInputDebounce={SearchLabels}
-          defaultValues={convertLabelsToOptions(article.labels)}
           renderItem={(item): JSX.Element => {
             return (
               <div className='p-1 pointer'>

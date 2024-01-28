@@ -101,7 +101,7 @@ export const MultiSelect: FC<TMultiSelectProps> = ({
     if (props.loading) {
       return (
         <div className={classes['option__item']}>
-          <Spinner color='light' className='mx-auto' />
+          <Spinner className='mx-auto' />
         </div>
       );
     }

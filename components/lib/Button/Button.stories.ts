@@ -37,3 +37,10 @@ export const Loading: TStory = {
     children: 'Button',
   },
 };
+
+export const Disabled: TStory = {
+  args: {
+    disabled: true,
+    children: 'Button',
+  },
+};
