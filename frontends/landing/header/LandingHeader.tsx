@@ -13,7 +13,7 @@ export const LandingHeader: FC = () => {
     if (isMobile) return <MobileHeader />;
     if (isTablet) return <TabletHeader />;
     return (
-      <div className='container'>
+      <div className={`container ${classes.desktop}`}>
         <Logo />
         <SearchInput />
         <AuthButton>Kirish</AuthButton>

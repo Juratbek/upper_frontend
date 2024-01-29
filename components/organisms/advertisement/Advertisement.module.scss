@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Unbounded');
+
+.add {
+    &-container {
+        display: block;
+        border-radius: 8px;
+        background: rgb(254, 127, 33);
+        background: linear-gradient(132deg, rgba(254, 127, 33, 1) 16%, rgba(157, 31, 249, 1) 79%);
+        padding: 30px 20px;
+        color: white;
+        font-family: Unbounded, monospace;
+    }
+}
+
+.sale {
+    margin: 0;
+    font-size: 35px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.percent {
+    margin-block: 10px 0;
+    font-size: 90px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.text {
+    font-family: unset;
+    font-size: 22px;
+    line-height: 26px;
+    margin-bottom: 0;
+}
+
+.btn {
+    font-size: 20px;
+    font-weight: 600;
+    background: rgb(254, 127, 33);
+    background: linear-gradient(145deg, rgba(254, 127, 33, 1) 16%, rgba(157, 31, 249, 1) 79%);
+}

@@ -1,10 +1,5 @@
-import { ConnectTelegram } from '../connect-telegram';
-import classes from './Sidebar.module.scss';
+import { Advertisement } from '../advertisement/Advertisement';
 
 export const Sidebar = (): JSX.Element => {
-  return (
-    <div className={classes.root}>
-      <ConnectTelegram />
-    </div>
-  );
+  return <Advertisement />;
 };

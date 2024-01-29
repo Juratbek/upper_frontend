@@ -33,8 +33,9 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
   }, [type, props]);
 
   const header = useMemo(() => {
+    if (props.isHeaderHidden) return null;
     return props.header ?? <Header />;
-  }, [props.header]);
+  }, [props.header, props.isHeaderHidden]);
 
   return (
     <div className='flex-1'>

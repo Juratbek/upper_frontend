@@ -1,11 +1,35 @@
 @import 'styles/breakpoints';
 
-.container {
-    width: 720px;
-    margin-left: 110px;
+.root {
+    display: flex;
+    gap: 30px;
+    padding-inline: 110px;
 
     @include media-max(large) {
-        margin-left: 0;
+        padding: unset;
+    }
+}
+
+.container {
+    min-width: 720px;
+    width: 720px;
+
+    @include media-max(large) {
         width: 100%;
+    }
+
+    @include media-max(small) {
+        min-width: unset;
+    }
+}
+
+.sidebar {
+    padding-top: 3rem;
+    height: 300px;
+    position: sticky;
+    top: 0;
+
+    @include media-max(large) {
+        display: none;
     }
 }
