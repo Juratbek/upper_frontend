@@ -5,9 +5,15 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useCommentsCount } from 'store/clients/comments';
-import { useDislike, useLike, useLikeCount } from 'store/clients/published-article';
+import {
+  useDislike,
+  useIsLikedOrDisliked,
+  useLike,
+  useLikeCount,
+} from 'store/clients/published-article';
 import { toggleCommentsModal } from 'store/states';
 import { ICONS } from 'variables';
+import { UPPER_BLUE_COLOR } from 'variables/colors';
 
 import classes from './ArticleFooter.module.scss';
 
@@ -27,6 +33,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const { data: commentsCount } = useCommentsCount(articleId);
   const { data: likeCount } = useLikeCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
+  const { data: isLikedOrDisliked } = useIsLikedOrDisliked(articleId);
 
   const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());
   const shareClickHandler = (): unknown => setIsOpen((prev) => !prev);
@@ -54,12 +61,12 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
     <div className={classes.root}>
       <div className={classes['reactions-container']}>
         <Clickable onClick={likeHandler}>
-          <Like />
+          <Like color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : undefined} />
         </Clickable>
         {Boolean(likeCount) && <span className={classes['like-count']}>{likeCount}</span>}
         <Divider color='secondary' className={classes.divider} type='vertical' />
         <Clickable onClick={dislikeHandler}>
-          <Dislike />
+          <Dislike color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : undefined} />
         </Clickable>
       </div>
       <Clickable onClick={commentClickHandler} className={classes['comment-container']}>

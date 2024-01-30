@@ -17,16 +17,25 @@ class Client {
     this.#config = { ...this.#config, ...config };
   }
 
-  async get<TResponse>(path: string, params?: Record<string, string>): Promise<TResponse> {
+  async get<TResponse>(
+    path: string,
+    params?: Record<string, string>,
+    config?: RequestInit,
+  ): Promise<TResponse> {
     let fullPath = path;
     if (params) {
       const searchParams = new URLSearchParams(params);
       fullPath = `${fullPath}?${searchParams.toString()}`;
     }
-    const res = await this.fetch(fullPath, { method: 'get' });
+    const res = await this.fetch(fullPath, { ...config, method: 'get' });
     const isJson = checkContentType(res, 'application/json');
     if (isJson) {
       const data = await res.json();
+      return data as TResponse;
+    }
+    const isText = checkContentType(res, 'text/plain');
+    if (isText) {
+      const data = await res.text;
       return data as TResponse;
     }
     return res as TResponse;
