@@ -16,7 +16,7 @@ export const usePublishedArticlesList = (label: string) => {
 export const useIncrementViewCount = () =>
   useMutation<void, unknown, { id: number; token: string }>({
     mutationFn: ({ id, token }) =>
-      apiClient.post({ path: `published-article/v2/open/has-updates/${id}`, body: token }),
+      apiClient.post({ path: `published-article/v2/open/has-updates/${id}`, body: { token } }),
   });
 
 export const useLike = (articleId: number) =>
