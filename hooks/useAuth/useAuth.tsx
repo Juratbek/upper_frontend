@@ -86,14 +86,18 @@ export const useAuth = (): IUseAuth => {
   const syncTokens = async () => {
     const refreshToken = getRefreshToken();
     if (refreshToken) {
-      const res = await apiClient.post<{ refreshToken: string }, IBlogRegisterResponse>({
-        path: 'blog/open/get-token',
-        body: { refreshToken },
-        headers: {
-          Authorization: '',
-        },
-      });
-      authenticate(res);
+      try {
+        const res = await apiClient.post<{ refreshToken: string }, IBlogRegisterResponse>({
+          path: 'blog/open/get-token',
+          body: { refreshToken },
+          headers: {
+            Authorization: '',
+          },
+        });
+        authenticate(res);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
