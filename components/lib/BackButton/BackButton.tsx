@@ -3,7 +3,7 @@ import { ICONS } from 'variables/icons';
 
 import { Clickable } from '../Clickable';
 
-const BackIcon = ICONS.back;
+const PrevIcon = ICONS.prev;
 
 export const BackButton = (): JSX.Element => {
   const router = useRouter();
@@ -12,7 +12,7 @@ export const BackButton = (): JSX.Element => {
       style={{ color: '#007AFF', display: 'flex', alignItems: 'center' }}
       onClick={router.back}
     >
-      <BackIcon /> Ortga
+      <PrevIcon /> Ortga
     </Clickable>
   );
 };

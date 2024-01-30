@@ -29,7 +29,7 @@ export const ApiErrorBoundary: FC<TApiErrorBoundaryProps> = ({
 
       const nodeEnv = process.env.NODE_ENV;
       if (nodeEnv === 'development') {
-        return <pre>{JSON.stringify(error, null, 2)}</pre>;
+        return <pre>Xatolik yuz berdi: {JSON.stringify(error, null, 2)}</pre>;
       }
       return <></>;
     }
