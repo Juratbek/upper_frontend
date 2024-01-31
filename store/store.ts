@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
 
 import authReducer from './states/auth';
 import authModalReducer from './states/authModal';
@@ -23,10 +22,5 @@ export const store = configureStore({
     }),
 });
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const makeStore = () => store;
-
 export type TDispatch = typeof store.dispatch;
 export type TRootState = ReturnType<typeof store.getState>;
-
-export const wrapper = createWrapper(makeStore);
