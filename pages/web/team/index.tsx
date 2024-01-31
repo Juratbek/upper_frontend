@@ -6,7 +6,9 @@ import { NextPage } from 'next';
 const TeamNextPage: NextPage = () => {
   return (
     <>
-      <Header />
+      <div className='w-100'>
+        <Header />
+      </div>
       <Head title='Jamoa' url='/team' />
       <TeamPage />
     </>
