@@ -12,7 +12,7 @@ export const BackButton = (): JSX.Element => {
       style={{ color: '#007AFF', display: 'flex', alignItems: 'center' }}
       onClick={router.back}
     >
-      <PrevIcon /> Ortga
+      <PrevIcon color='#007AFF' /> Ortga
     </Clickable>
   );
 };
