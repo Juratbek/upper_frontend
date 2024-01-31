@@ -6,7 +6,7 @@ export interface IRes {
   isFetching?: boolean;
   isError?: boolean;
   isSuccess?: boolean;
-  isIdle?: boolean;
+  isPending?: boolean;
   error?: unknown;
 }
 
