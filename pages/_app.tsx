@@ -12,7 +12,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useCallback, useEffect } from 'react';
-import { wrapper } from 'store';
+import { Provider } from 'react-redux';
+import { store } from 'store';
 import { queryClientDefaultOptions } from 'store/config/query-client';
 import { IResponseError, IServerSideContext, TTheme } from 'types';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
@@ -102,7 +103,7 @@ interface IAppWithProviderProps extends AppProps {
   theme: TTheme;
 }
 
-const AppWithProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Element => {
+const AppWithThemeAndQueryProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Element => {
   const { unauthenticate } = useAuth();
 
   const errorHandler = useCallback((e: Error) => {
@@ -135,9 +136,13 @@ const AppWithProvider = ({ theme, ...props }: IAppWithProviderProps): JSX.Elemen
   );
 };
 
-const WrappedApp = wrapper.withRedux(AppWithProvider);
+const AppWithReduxProvider = (props: IAppWithProviderProps) => (
+  <Provider store={store}>
+    <AppWithThemeAndQueryProvider {...props} />
+  </Provider>
+);
 
-WrappedApp.getInitialProps = async (context: {
+AppWithReduxProvider.getInitialProps = async (context: {
   ctx: IServerSideContext;
 }): Promise<{ theme: TTheme }> => {
   const { req, res } = context.ctx;
@@ -146,4 +151,4 @@ WrappedApp.getInitialProps = async (context: {
   return { theme };
 };
 
-export default WrappedApp;
+export default AppWithReduxProvider;

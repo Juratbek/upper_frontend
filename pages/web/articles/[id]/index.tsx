@@ -2,7 +2,6 @@ import { BackButton } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
 import { ArticlePageMain, ReadArticleBottomBar } from 'frontends/article';
 import { GetServerSideProps, NextPage } from 'next';
-import { wrapper } from 'store';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
 import { get } from 'utils';
@@ -28,28 +27,26 @@ const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<IArticlePageProps> = wrapper.getServerSideProps(
-  () => async (context) => {
-    const host = context.req.headers.host ?? '';
-    const url = context.req.url;
+export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (context) => {
+  const host = context.req.headers.host ?? '';
+  const url = context.req.url;
 
-    const articleId = get<number>(context, 'query.id');
-    let article;
-    let error;
-    try {
-      article = await apiClient.get<IArticle>(`published-article/open/${articleId}`);
-    } catch (e) {
-      const apiError = e as ApiError;
-      error = { status: apiError.status } satisfies Partial<IResponseError>;
-    }
-    return {
-      props: {
-        article: article ?? null,
-        error: (error as IResponseError) ?? null,
-        fullUrl: `https://${host}${url}`,
-      },
-    };
-  },
-);
+  const articleId = get<number>(context, 'query.id');
+  let article;
+  let error;
+  try {
+    article = await apiClient.get<IArticle>(`published-article/open/${articleId}`);
+  } catch (e) {
+    const apiError = e as ApiError;
+    error = { status: apiError.status } satisfies Partial<IResponseError>;
+  }
+  return {
+    props: {
+      article: article ?? null,
+      error: (error as IResponseError) ?? null,
+      fullUrl: `https://${host}${url}`,
+    },
+  };
+};
 
 export default ArticlePage;
