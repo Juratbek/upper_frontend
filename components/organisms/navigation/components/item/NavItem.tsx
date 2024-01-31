@@ -19,7 +19,11 @@ export const NavItem: FC<INavItemProps> = ({
     <Link {...props} className={rootClassName}>
       {Icon && <Icon width={20} height={20} color={active ? BLUE[500] : 'black'} />}
       <p className='m-0 flex-1'>{text}</p>
-      {Boolean(badge) && <Badge color='red'>{badge}</Badge>}
+      {Boolean(badge) && (
+        <Badge color='red' className={classes.badge}>
+          {badge}
+        </Badge>
+      )}
     </Link>
   );
 };

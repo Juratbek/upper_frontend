@@ -24,7 +24,7 @@ export const Profile = (): JSX.Element => {
       <button className={classes.profile} onClick={profileBtnClickHandler} id='profile-btn'>
         <Avatar imgUrl={currentBlog?.imgUrl} size='micro' />
         <span className={classes.icon}>
-          <NextIcon width={6} height={10} />
+          <NextIcon width={24} height={24} />
         </span>
       </button>
       <ProfilePopover ref={rootRef} close={closePopover} isOpen={isPopoverOpen} />
