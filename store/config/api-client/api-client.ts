@@ -38,6 +38,8 @@ class Client {
       const data = await res.text;
       return data as TResponse;
     }
+    const isResponseEmpty = !res.headers.get('Content-Type');
+    if (isResponseEmpty) return undefined as TResponse;
     return res as TResponse;
   }
 
