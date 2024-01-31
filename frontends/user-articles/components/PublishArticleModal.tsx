@@ -124,7 +124,7 @@ export const PublishArticleModal: FC = () => {
             onClick={publishHandler}
             className='flex-1'
             loading={publishArticleRes.isPending || areLabelsBeingUpdated}
-            disabled={!article?.tags.length}
+            disabled={!article?.tags?.length}
           >
             Nashr qilish
           </Button>
