@@ -6,6 +6,7 @@ import classes from './Labels.module.scss';
 import { ILabelsProps } from './Labels.types';
 
 const NextIcon = ICONS.next;
+const PrevIcon = ICONS.prev;
 
 export const Labels: FC<ILabelsProps> = (props) => {
   const { labels = [], activeLabel } = props;
@@ -13,11 +14,13 @@ export const Labels: FC<ILabelsProps> = (props) => {
 
   const labelSelectHandler = (id: string) => (): unknown => props.onSelect(id);
 
-  const moveLabelsRight = (): void => {
-    const labelsContainer = labelsContainerRef.current;
-    if (!labelsContainer) return;
-    const leftScroll = labelsContainer.scrollLeft;
-    labelsContainer.scrollTo({ left: leftScroll + 300, behavior: 'smooth' });
+  const moveLabels = (space: number = 300) => {
+    return () => {
+      const labelsContainer = labelsContainerRef.current;
+      if (!labelsContainer) return;
+      const leftScroll = labelsContainer.scrollLeft;
+      labelsContainer.scrollTo({ left: leftScroll + space, behavior: 'smooth' });
+    };
   };
 
   const isContentOverflowed = labelsContainerRef.current
@@ -26,6 +29,11 @@ export const Labels: FC<ILabelsProps> = (props) => {
 
   return (
     <div className={classes.root} style={props.style}>
+      {isContentOverflowed && (
+        <Clickable className={classes['next-btn']} onClick={moveLabels(-300)}>
+          <PrevIcon />
+        </Clickable>
+      )}
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
         <div className={classes['lebels-list']}>
           {labels.map((label) => (
@@ -40,7 +48,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
         </div>
       </div>
       {isContentOverflowed && (
-        <Clickable className={classes['next-btn']} onClick={moveLabelsRight}>
+        <Clickable className={classes['next-btn']} onClick={moveLabels(300)}>
           <NextIcon />
         </Clickable>
       )}

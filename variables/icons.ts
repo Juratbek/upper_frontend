@@ -20,7 +20,7 @@ export const ICONS = {
   like: icons.Like,
   dislike: icons.Dislike,
   share: icons.Share,
-  next: icons.NextIcon,
+  next: icons.Next,
   prev: icons.Prev,
   instagram: icons.InstagramIcon,
   linkedIn: icons.LinkedIn,
@@ -49,6 +49,5 @@ export const ICONS = {
   save: icons.Save,
   settings: icons.Settings,
   moon: icons.Moon,
-  back: icons.Back,
   copy: icons.Copy,
 } satisfies Record<string, FC<IIconProps>>;
