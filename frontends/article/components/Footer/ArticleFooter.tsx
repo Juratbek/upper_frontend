@@ -28,8 +28,8 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const articleId = Number(query.id);
   const dispatch = useDispatch();
   const { isAuthenticated, openLoginPage } = useAuth();
-  const { mutate: like } = useLike(articleId);
-  const { mutate: dislike } = useDislike(articleId);
+  const { mutate: like, isPending: isLikePending } = useLike(articleId);
+  const { mutate: dislike, isPending: isDisLikePending } = useDislike(articleId);
   const { data: commentsCount } = useCommentsCount(articleId);
   const { data: likeCount } = useLikeCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
@@ -60,12 +60,12 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   return (
     <div className={classes.root}>
       <div className={classes['reactions-container']}>
-        <Clickable onClick={likeHandler}>
+        <Clickable disabled={!!isLikedOrDisliked || isLikePending} onClick={likeHandler}>
           <Like color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : undefined} />
         </Clickable>
         {Boolean(likeCount) && <span className={classes['like-count']}>{likeCount}</span>}
         <Divider color='secondary' className={classes.divider} type='vertical' />
-        <Clickable onClick={dislikeHandler}>
+        <Clickable disabled={!isLikedOrDisliked || isDisLikePending} onClick={dislikeHandler}>
           <Dislike color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : undefined} />
         </Clickable>
       </div>
