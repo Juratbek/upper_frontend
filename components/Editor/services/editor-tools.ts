@@ -68,7 +68,10 @@ export const getTools = async ({
         defaultLevel: 1,
       },
     },
-    paragraph: Paragraph,
+    paragraph: {
+      class: Paragraph,
+      inlineToolbar: true,
+    },
     code: TOOLS.Code,
     image: {
       class: TOOLS.ImageTool,

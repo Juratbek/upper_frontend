@@ -22,14 +22,14 @@ export default class Paragraph implements BlockTool {
    *
    * @link https://editorjs.io/api
    */
-  private readonly api: API;
+  // private readonly api: API;
 
   /**
    * Block API — methods and properties to work with Block instance
    *
    * @link https://editorjs.io/blockapi
    */
-  private readonly block: BlockAPI;
+  // private readonly block: BlockAPI;
 
   /**
    * Read-only mode flag
@@ -59,21 +59,17 @@ export default class Paragraph implements BlockTool {
   constructor({
     data,
     config,
-    api,
-    block,
     readOnly,
-  }: {
+  }: Partial<{
     data: IParagraphData;
-    config: IParagraphConfig;
+    config?: IParagraphConfig;
     api: API;
     block: BlockAPI;
     readOnly: boolean;
-  }) {
-    this.data = data;
-    this.config = config;
-    this.api = api;
-    this.block = block;
-    this.readOnly = readOnly;
+  }>) {
+    this.data = data ?? { text: '' };
+    this.config = config ?? {};
+    this.readOnly = readOnly ?? false;
 
     /**
      * Declare Tool's nodes
