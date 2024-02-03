@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IPublishedArticleItem } from 'types';
 
@@ -19,15 +20,30 @@ export const useIncrementViewCount = () =>
       apiClient.post({ path: `published-article/v2/open/has-updates/${id}`, body: { token } }),
   });
 
-export const useLike = (articleId: number) =>
-  useMutation({
+export const useLike = (articleId: number) => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
     mutationFn: () => apiClient.post({ path: `published-article/v2/like/${articleId}` }),
+    onSuccess: () => {
+      queryClient.setQueryData(['like-count', articleId], (likeCount: number) => likeCount + 1);
+      queryClient.setQueryData(['liked-disliked', articleId], true);
+    },
   });
+  return mutation;
+};
 
-export const useDislike = (articleId: number) =>
-  useMutation({
+export const useDislike = (articleId: number) => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
     mutationFn: () => apiClient.post({ path: `published-article/v2/dislike/${articleId}` }),
+    onSuccess: () => {
+      queryClient.setQueryData(['like-count', articleId], (likeCount: number) => likeCount - 1);
+      queryClient.setQueryData(['liked-disliked', articleId], false);
+    },
   });
+  return mutation;
+};
 
 export const useIsLikedOrDisliked = (articleId: number) =>
   useQuery({

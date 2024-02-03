@@ -4,7 +4,7 @@
 /**
  * Import icons
  */
-import { IconText } from '@codexteam/icons';
+import { IconWarning } from '@codexteam/icons';
 import { API, BlockAPI, BlockTool } from '@editorjs/editorjs';
 
 import { Settings, Warning } from './Alert.constants';
@@ -138,7 +138,7 @@ export default class Alert implements BlockTool {
   save(): IAlertData {
     return {
       message: this.nodes.text?.innerHTML ?? '',
-      type: 'info',
+      type: this.type,
     };
   }
 
@@ -164,6 +164,12 @@ export default class Alert implements BlockTool {
     Object.entries(Settings).map(([type, setting]) => {
       const option = document.createElement('div');
       option.classList.add('ce-popover-item');
+      option.onclick = () => {
+        const { wrapper } = this.nodes;
+        wrapper?.classList.remove(classes[this.type]);
+        wrapper?.classList.add(classes[type]);
+        this.type = type as TAlertType;
+      };
 
       const icon = document.createElement('span');
       icon.classList.add('ce-popover-item__icon');
@@ -262,8 +268,8 @@ export default class Alert implements BlockTool {
    */
   static get toolbox(): { title: string; icon: string } {
     return {
-      title: 'Matn',
-      icon: IconText,
+      title: 'Ogohlantiruvchi',
+      icon: IconWarning,
     };
   }
 
