@@ -17,7 +17,6 @@ export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
 export * from './EditorSpinner/EditorSpinner';
 export * from './FeedbackModal/FeedbackModal';
-export * from './Recaptcha/Recaptcha';
 export * from './WithPopover';
 export * from './totorials';
 export * from './SidebarTutorial';
