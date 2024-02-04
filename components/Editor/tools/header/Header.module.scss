@@ -24,4 +24,9 @@
     &_center {
         text-align: center;
     }
+
+    &:empty:before {
+        content: var(--placeholder, ' ');
+        color: var(--black-200);
+    }
 }
