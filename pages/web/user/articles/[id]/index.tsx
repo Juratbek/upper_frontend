@@ -57,7 +57,15 @@ export default function UserArticlePage(): JSX.Element {
     return (
       <Editor
         content={{
-          blocks: article.blocks,
+          blocks:
+            article.blocks.length > 0
+              ? article.blocks
+              : [
+                  {
+                    type: 'header',
+                    data: { text: '', level: 1, placeholder: 'Maqola sarlavhasini kiriting' },
+                  },
+                ],
         }}
         handleInstance={getInstance}
         autoFocus

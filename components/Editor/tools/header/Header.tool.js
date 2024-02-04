@@ -28,6 +28,7 @@ export default class Header {
     this._CSS = {
       block: this.api.styles.block,
       wrapper: classes.header,
+      placeholder: classes.placeholder,
     };
 
     /**
@@ -73,6 +74,7 @@ export default class Header {
     newData.text = data.text || '';
     newData.level = parseInt(data.level) || this.defaultLevel.number;
     newData.alignment = data.alignment;
+    newData.placeholder = data.placeholder;
 
     return newData;
   }
@@ -301,6 +303,9 @@ export default class Header {
      */
     tag.classList.add(this._CSS.wrapper);
     tag.classList.add(classes[`header_h${this.currentLevel.number}`]);
+    if (this._data.placeholder) {
+      tag.style.setProperty('--placeholder', `"${this._data.placeholder}"`);
+    }
 
     /**
      * Add alignment class
