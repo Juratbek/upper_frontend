@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Unbounded');
+@import 'styles/breakpoints';
 
 .add {
     &-container {
@@ -17,6 +18,10 @@
     font-size: 35px;
     font-weight: 900;
     text-transform: uppercase;
+
+    @include media-max(small) {
+        font-size: 24px;
+    }
 }
 
 .percent {
@@ -24,6 +29,14 @@
     font-size: 90px;
     font-weight: 900;
     text-transform: uppercase;
+
+    @include media-max(large) {
+        font-size: 60px;
+    }
+
+    @include media-max(small) {
+        font-size: 50px;
+    }
 }
 
 .text {
