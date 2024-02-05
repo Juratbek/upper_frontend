@@ -18,14 +18,13 @@
 
 .heading {
     color: #FFF;
-    font-family: Unbounded;
+    font-family: Unbounded, monospace;
     font-size: 64px;
     font-style: normal;
     font-weight: 800;
     line-height: 72px;
     text-transform: uppercase;
     margin: 0;
-    width: 787px;
     max-width: 100%;
 
     @include media-max(large) {

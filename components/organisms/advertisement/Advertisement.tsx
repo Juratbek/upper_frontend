@@ -1,9 +1,10 @@
 import { Button } from 'components/lib';
 import { useDevice } from 'hooks';
+import { FC } from 'react';
 
 import classes from './Advertisement.module.scss';
 
-export const Advertisement = () => {
+export const Advertisement: FC<{ className?: string }> = (props) => {
   const { type } = useDevice();
 
   const linkClickHandler = () => {
@@ -11,7 +12,7 @@ export const Advertisement = () => {
   };
 
   return (
-    <div>
+    <div {...props}>
       <div className={classes['add-container']}>
         <h4 className={classes.sale}>Chegirma</h4>
         <h3 className={classes.percent}>15%</h3>

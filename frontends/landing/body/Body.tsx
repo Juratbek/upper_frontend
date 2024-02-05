@@ -8,8 +8,8 @@ import {
   PublishedArticle,
   TopLabel,
 } from 'components/molecules';
-import { Sidebar } from 'components/organisms';
-import { useUrlParams } from 'hooks';
+import { Advertisement, Sidebar } from 'components/organisms';
+import { useDevice, useUrlParams } from 'hooks';
 import { Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
@@ -19,6 +19,7 @@ import classes from './Body.module.scss';
 
 export const Body = (): JSX.Element => {
   const { setParam, getParam } = useUrlParams();
+  const { isDesktop } = useDevice();
   const activeLabel = (getParam(LABEL_ID_PARAM) ?? TopLabel) as string;
   const {
     list: articles,
@@ -34,6 +35,7 @@ export const Body = (): JSX.Element => {
     <div className={classes.root}>
       <section className={classes.container}>
         <Labels labels={labels} activeLabel={activeLabel} onSelect={labelSelectHandler} />
+        {!isDesktop && <Advertisement />}
         <ApiErrorBoundary
           res={articlesListRes}
           fallback={
