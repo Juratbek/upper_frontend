@@ -8,20 +8,30 @@ import {
   PublishedArticle,
   UserLabels,
 } from 'components/molecules';
-import { useUrlParams } from 'hooks';
+import { Advertisement } from 'components/organisms';
+import { useDevice, useUrlParams } from 'hooks';
 import { FC, Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
 export const HomePage: FC = () => {
   const { getParam } = useUrlParams();
+  const { isDesktop } = useDevice();
   const label = (getParam(LABEL_ID_PARAM) ?? ForYouLabel) as string;
   const { fetchNextPage, list: articles, ...articlesRes } = usePublishedArticlesList(label);
 
   return (
     <>
       <UserLabels />
-      <ApiErrorBoundary res={articlesRes} fallback={<Spinner />}>
+      {!isDesktop && <Advertisement />}
+      <ApiErrorBoundary
+        res={articlesRes}
+        fallback={
+          <div style={{ height: '15rem' }} className='content-center'>
+            <Spinner />
+          </div>
+        }
+      >
         {articles.length === 0 && !articlesRes.isLoading && <NoArticle label={label} />}
         {articles.map(addAmazonBucketUrl).map((article) => (
           <Fragment key={article.id}>

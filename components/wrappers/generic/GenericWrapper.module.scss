@@ -11,6 +11,10 @@ $sticky-top: 3rem;
     padding-top: 3.2rem;
     justify-content: center;
   }
+
+  @include media-max(small) {
+    display: block;
+  }
 }
 
 .navigation {
