@@ -1,22 +1,19 @@
 import { ArticlePageMain } from 'frontends/article';
+import { convert } from 'html-to-text';
 import { GetServerSideProps, NextPage } from 'next';
 import { IArticlePageProps } from 'pages/web/articles/[id]';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
 import { get } from 'utils';
 
-const TutorialNextPage: NextPage<IArticlePageProps> = ({
-  article,
-  error,
-  fullUrl,
-}: IArticlePageProps) => {
-  return <ArticlePageMain error={error} article={article} fullUrl={fullUrl} />;
+const TutorialNextPage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
+  return <ArticlePageMain {...props} />;
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
   context,
 ): Promise<{ props: IArticlePageProps }> => {
-  const host = context.req.headers.host || '';
+  const host = context.req.headers.host ?? '';
   const url = context.req.url;
 
   const articleId = get<number>(context, 'query.articleId');
@@ -25,6 +22,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
     return {
       props: {
         article: null,
+        title: '',
         error: {
           data: { message: '', code: 200 },
           status: 200,
@@ -43,7 +41,8 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
 
   return {
     props: {
-      article: article || null,
+      title: convert(article?.title ?? ''),
+      article: article ?? null,
       error: (error as IResponseError) || null,
       fullUrl: `https://${host}${url}`,
     },

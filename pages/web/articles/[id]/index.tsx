@@ -1,6 +1,7 @@
 import { BackButton } from 'components/lib';
 import { GenericWrapper } from 'components/wrappers';
 import { ArticlePageMain, ReadArticleBottomBar } from 'frontends/article';
+import { convert } from 'html-to-text';
 import { GetServerSideProps, NextPage } from 'next';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
@@ -8,6 +9,7 @@ import { get } from 'utils';
 import { ApiError } from 'utils/error';
 
 export interface IArticlePageProps {
+  title: string;
   article: IArticle | null;
   error: IResponseError | null;
   fullUrl: string;
@@ -42,6 +44,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
   }
   return {
     props: {
+      title: convert(article?.title ?? ''),
       article: article ?? null,
       error: (error as IResponseError) ?? null,
       fullUrl: `https://${host}${url}`,
