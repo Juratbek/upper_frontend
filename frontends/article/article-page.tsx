@@ -21,7 +21,7 @@ import { Author, QuizResultModal } from './components';
 import { ErrorUI } from './components/Error/Error';
 import { ArticleFooter } from './components/Footer/ArticleFooter';
 
-export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl }) => {
+export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl, title }) => {
   const { blocks = [] } = article ?? {};
   const [editorInstance, setEditorInstance] = useState<EditorJS | null>(null);
   const [isQuizResultsModalOpen, , { close: closeQuizResultsModal, open: openQuizResultsModal }] =
@@ -33,7 +33,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
     async (data: IQuizData) => {
       if (!article) return;
       try {
-        await submitQuiz({ ...data, articleId: article?.id });
+        submitQuiz({ ...data, articleId: article?.id });
       } catch (e) {
       } finally {
         openQuizResultsModal();
@@ -71,7 +71,11 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
 
   return (
     <>
-      <Head {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))} url={fullUrl} />
+      <Head
+        {...convertToHeadProp(addAmazonBucketUriToArticle<IArticle>(article))}
+        title={title}
+        url={fullUrl}
+      />
       <QuizResultModal
         isError={Boolean(submitQuizRes.error)}
         quizData={quizData}
