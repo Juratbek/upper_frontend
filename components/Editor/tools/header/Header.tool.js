@@ -428,7 +428,7 @@ export default class Header {
 
     if (this._settings.levels) {
       // Fallback to nearest level when specified not available
-      level = this._settings.levels.reduce((prevLevel, currLevel) => {
+      level = this._settings.levels?.reduce((prevLevel, currLevel) => {
         return Math.abs(currLevel - level) < Math.abs(prevLevel - level) ? currLevel : prevLevel;
       });
     }

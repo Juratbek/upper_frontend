@@ -5,7 +5,7 @@
  * Import icons
  */
 import { IconText } from '@codexteam/icons';
-import { API, BlockAPI, BlockTool } from '@editorjs/editorjs';
+import { API, BlockAPI, BlockTool, HTMLPasteEventDetail, PasteEvent } from '@editorjs/editorjs';
 
 import styles from './Paragraph.module.scss';
 /**
@@ -149,7 +149,12 @@ export default class Paragraph implements BlockTool {
    * @param {PasteEvent} event - event with pasted content
    * @returns {void}
    */
-  // onPaste() {}
+  onPaste(event: PasteEvent) {
+    const content = (event.detail as HTMLPasteEventDetail).data;
+    if (this.nodes.wrapper) {
+      this.nodes.wrapper.innerHTML = content.innerHTML;
+    }
+  }
 
   /**
    * Specifies how to merge two similar Blocks
@@ -172,26 +177,26 @@ export default class Paragraph implements BlockTool {
    *
    * @returns {tags?: string[], files?: { mimeTypes: string[], extensions: string[] }, patterns?: { [string]: RegEx }}
    */
-  // static get pasteConfig() {
-  //   return {
-  //     /**
-  //      * Paste HTML into Editor
-  //      */
-  //     tags: [],
+  static get pasteConfig() {
+    return {
+      /**
+       * Paste HTML into Editor
+       */
+      tags: [],
 
-  //     /**
-  //      * Paste URL of media into the Editor
-  //      */
-  //     patterns: {},
+      /**
+       * Paste URL of media into the Editor
+       */
+      patterns: {},
 
-  //     /**
-  //      * Drag n drop file from into the Editor
-  //      */
-  //     files: {
-  //       mimeTypes: [ ],
-  //     },
-  //   };
-  // }
+      /**
+       * Drag n drop file from into the Editor
+       */
+      files: {
+        mimeTypes: [],
+      },
+    };
+  }
 
   /**
    * Clean unwanted HTML tags or attributes
