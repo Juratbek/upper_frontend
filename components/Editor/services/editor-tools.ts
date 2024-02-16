@@ -52,7 +52,7 @@ export const getTools = async ({
     import('@juratbek/editorjs-image'),
     import('@juratbek/editorjs-code'),
     import('@juratbek/editorjs-quiz'),
-    import('@samandar.boymurodov/editorjs-inline-image'),
+    import('../tools/inline-image/InlineImage.tool'),
   ]);
 
   Object.keys(TOOLS).forEach((key, index) => {
