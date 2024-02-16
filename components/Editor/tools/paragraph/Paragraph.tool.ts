@@ -150,8 +150,8 @@ export default class Paragraph implements BlockTool {
    * @returns {void}
    */
   onPaste(event: PasteEvent) {
-    const content = (event.detail as HTMLPasteEventDetail).data;
-    if (this.nodes.wrapper) {
+    if (event.type === 'tag' && this.nodes.wrapper) {
+      const content = (event.detail as HTMLPasteEventDetail).data;
       this.nodes.wrapper.innerHTML = content.innerHTML;
     }
   }
