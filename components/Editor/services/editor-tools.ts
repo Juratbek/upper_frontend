@@ -112,7 +112,10 @@ export const getTools = async ({
     },
     bold: BoldInlineTool,
     italic: ItalicInlineTool,
-    list: TOOLS.List,
+    list: {
+      class: TOOLS.List,
+      inlineToolbar: true,
+    },
     delimiter: TOOLS.Delimiter,
     alert: {
       class: TOOLS.Alert,
