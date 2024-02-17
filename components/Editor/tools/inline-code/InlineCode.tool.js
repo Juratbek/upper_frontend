@@ -1,7 +1,7 @@
 /**
  * Build styles
  */
-import { IconInlineCode } from '@codexteam/icons';
+import { IconBrackets } from '@codexteam/icons';
 import { isTextEmpty, isCaretAtLastPosition, isTextNode, startsWithCharacters } from './utils';
 /**
  * Inline Code Tool for the Editor.js
@@ -172,7 +172,7 @@ export default class InlineCode {
    * @return {string}
    */
   get toolboxIcon() {
-    return IconInlineCode;
+    return IconBrackets;
   }
 
   /**

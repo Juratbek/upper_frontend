@@ -205,9 +205,12 @@ export default class Paragraph implements BlockTool {
    *
    * @returns {{[string]: boolean|object}} - Sanitizer rules
    */
-  // static get sanitize() {
-  //   return {};
-  // }
+  static get sanitize() {
+    return {
+      strong: {},
+      em: true,
+    };
+  }
 
   /**
    * Describe an icon and title here

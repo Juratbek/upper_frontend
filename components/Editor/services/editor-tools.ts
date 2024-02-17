@@ -2,6 +2,8 @@ import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
 import { IQuizData, IUploadedImage } from '../editor.types';
+import BoldInlineTool from '../tools/inline-bold/InlineBold.tool';
+import ItalicInlineTool from '../tools/inline-italic/InlineItalic.tool';
 import Paragraph from '../tools/paragraph/Paragraph.tool';
 import { unsplashToolHtml } from './unsplashTool';
 
@@ -108,6 +110,8 @@ export const getTools = async ({
         },
       },
     },
+    bold: BoldInlineTool,
+    italic: ItalicInlineTool,
     list: TOOLS.List,
     delimiter: TOOLS.Delimiter,
     alert: {
