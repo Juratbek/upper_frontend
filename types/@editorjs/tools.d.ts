@@ -3,7 +3,6 @@ declare module '@editorjs/list';
 declare module '@editorjs/table';
 declare module '@editorjs/delimiter';
 declare module 'editorjs-alert';
-declare module '@juratbek/editorjs-inline-code';
 declare module '@juratbek/editorjs-quote';
 declare module '@juratbek/editorjs-header';
 declare module '@juratbek/editorjs-image';

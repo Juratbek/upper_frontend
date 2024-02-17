@@ -228,7 +228,7 @@ export default class Quote {
       /**
        * Paste HTML into Editor
        */
-      tags: ['blockquote'],
+      tags: ['BLOCKQUOTE'],
 
       /**
        * Paste URL of media into the Editor
