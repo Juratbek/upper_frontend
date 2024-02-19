@@ -12,6 +12,7 @@ export const Avatar: FC<IAvatarProps> = ({
   size = 'small',
   imgUrl,
   zoomable = false,
+  test,
   ...props
 }) => {
   const [error, setError] = useState<string>();
@@ -44,7 +45,7 @@ export const Avatar: FC<IAvatarProps> = ({
       />
     );
   }, [imgUrl, zoomable, error]);
-
+  console.log(imgUrl, test);
   return (
     <div className={className} style={{ borderColor: themeColors.avatar.border }}>
       {image}

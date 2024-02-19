@@ -1,6 +1,6 @@
 import { Avatar } from 'components/lib';
 import { useClickOutside } from 'hooks';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useGetCurrentBlog } from 'store/clients/blog';
 import { ICONS } from 'variables';
 
@@ -12,15 +12,7 @@ const NextIcon = ICONS.next;
 export const Profile = (): JSX.Element => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data: currentBlog } = useGetCurrentBlog();
-  const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
   console.log('🚀 ~ Profile ~ currentBlog:', currentBlog);
-
-  useEffect(() => {
-    if (currentBlog) {
-      const imgUrl = currentBlog?.imgUrl;
-      setImgUrl(imgUrl);
-    }
-  }, [currentBlog]);
 
   const closePopover = useCallback(() => setIsPopoverOpen(false), []);
 
@@ -31,7 +23,7 @@ export const Profile = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <button className={classes.profile} onClick={profileBtnClickHandler} id='profile-btn'>
-        <Avatar imgUrl={imgUrl ?? ''} size='micro' />
+        <Avatar imgUrl={currentBlog?.imgUrl} size='micro' test='ProfileMenu' />
         <span className={classes.icon}>
           <NextIcon width={24} height={24} />
         </span>
