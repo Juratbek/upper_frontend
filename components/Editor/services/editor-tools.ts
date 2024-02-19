@@ -52,7 +52,7 @@ export const getTools = async ({
     import('../tools/quote/Quote.tool'),
     import('../tools/header/Header.tool'),
     import('@juratbek/editorjs-image'),
-    import('@juratbek/editorjs-code'),
+    import('../tools/code/Code.tool'),
     import('@juratbek/editorjs-quiz'),
     import('../tools/inline-image/InlineImage.tool'),
   ]);

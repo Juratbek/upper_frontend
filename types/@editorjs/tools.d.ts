@@ -1,11 +1,3 @@
 declare module '@editorjs/embed';
-declare module '@editorjs/list';
-declare module '@editorjs/table';
-declare module '@editorjs/delimiter';
-declare module 'editorjs-alert';
-declare module '@juratbek/editorjs-quote';
-declare module '@juratbek/editorjs-header';
 declare module '@juratbek/editorjs-image';
-declare module '@juratbek/editorjs-code';
 declare module '@juratbek/editorjs-quiz';
-declare module '@samandar.boymurodov/editorjs-inline-image';
