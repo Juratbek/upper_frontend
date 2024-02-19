@@ -13,6 +13,7 @@ export const Profile = (): JSX.Element => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data: currentBlog } = useGetCurrentBlog();
   const [imgUrl, setImgUrl] = useState<string | undefined>(currentBlog?.imgUrl);
+  console.log('🚀 ~ Profile ~ currentBlog:', currentBlog);
 
   useEffect(() => {
     if (currentBlog) {
