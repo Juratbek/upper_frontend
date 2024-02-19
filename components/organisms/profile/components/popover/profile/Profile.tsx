@@ -16,6 +16,7 @@ export const Profile: FC<{ closePopover: TNoop; className?: string }> = ({
 
   return (
     <div className={className}>
+      swsw
       <div className={classes.profile}>
         <Avatar
           size='extra-large'
