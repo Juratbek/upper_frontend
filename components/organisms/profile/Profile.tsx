@@ -12,7 +12,6 @@ const NextIcon = ICONS.next;
 export const Profile = (): JSX.Element => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data: currentBlog } = useGetCurrentBlog();
-  console.log('🚀 ~ Profile ~ currentBlog:', currentBlog);
 
   const closePopover = useCallback(() => setIsPopoverOpen(false), []);
 
@@ -23,7 +22,7 @@ export const Profile = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <button className={classes.profile} onClick={profileBtnClickHandler} id='profile-btn'>
-        <Avatar imgUrl={currentBlog?.imgUrl} size='micro' test='ProfileMenu' />
+        <Avatar imgUrl={currentBlog?.imgUrl} size='micro' />
         <span className={classes.icon}>
           <NextIcon width={24} height={24} />
         </span>

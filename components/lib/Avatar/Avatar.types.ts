@@ -5,5 +5,4 @@ export interface IAvatarProps {
   size?: TAvatarSize;
   className?: string;
   zoomable?: boolean;
-  test?: string;
 }

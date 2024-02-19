@@ -19,7 +19,6 @@ export const ProfileSettingsUI: FC = () => {
     watch,
     formState: { errors },
   } = useForm();
-  console.log('🚀 ~ imgUrl:', imgUrl);
 
   useEffect(() => {
     if (currentBlog) {
@@ -66,7 +65,7 @@ export const ProfileSettingsUI: FC = () => {
       )}
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
         <div>
-          <Avatar imgUrl={imgUrl ?? ''} className='my-2' size='extra-large' test='Setting' />
+          <Avatar imgUrl={imgUrl ?? ''} className='my-2' size='extra-large' />
           <FileInput
             {...register('avatar', {
               validate: {
