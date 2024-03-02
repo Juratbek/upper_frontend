@@ -150,8 +150,8 @@ export default class Paragraph implements BlockTool {
    * @returns {void}
    */
   onPaste(event: PasteEvent) {
-    const content = (event.detail as HTMLPasteEventDetail).data;
-    if (this.nodes.wrapper) {
+    if (event.type === 'tag' && this.nodes.wrapper) {
+      const content = (event.detail as HTMLPasteEventDetail).data;
       this.nodes.wrapper.innerHTML = content.innerHTML;
     }
   }
@@ -182,19 +182,7 @@ export default class Paragraph implements BlockTool {
       /**
        * Paste HTML into Editor
        */
-      tags: [],
-
-      /**
-       * Paste URL of media into the Editor
-       */
-      patterns: {},
-
-      /**
-       * Drag n drop file from into the Editor
-       */
-      files: {
-        mimeTypes: [],
-      },
+      tags: ['P'],
     };
   }
 
@@ -204,9 +192,13 @@ export default class Paragraph implements BlockTool {
    *
    * @returns {{[string]: boolean|object}} - Sanitizer rules
    */
-  // static get sanitize() {
-  //   return {};
-  // }
+  static get sanitize() {
+    return {
+      br: {},
+      strong: {},
+      em: {},
+    };
+  }
 
   /**
    * Describe an icon and title here

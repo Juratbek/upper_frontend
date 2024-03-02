@@ -2,6 +2,8 @@ import { EditorConfig } from '@editorjs/editorjs';
 import { compressImage, toBase64, updateQueryParam } from 'utils';
 
 import { IQuizData, IUploadedImage } from '../editor.types';
+import BoldInlineTool from '../tools/inline-bold/InlineBold.tool';
+import ItalicInlineTool from '../tools/inline-italic/InlineItalic.tool';
 import Paragraph from '../tools/paragraph/Paragraph.tool';
 import { unsplashToolHtml } from './unsplashTool';
 
@@ -45,14 +47,14 @@ export const getTools = async ({
     import('../tools/list/List.tool'),
     import('../tools/table'),
     import('../tools/delimiter/Delimiter.tool'),
-    import('@juratbek/editorjs-inline-code'),
+    import('../tools/inline-code/InlineCode.tool'),
     import('../tools/alert/Alert.tool'),
     import('../tools/quote/Quote.tool'),
     import('../tools/header/Header.tool'),
     import('@juratbek/editorjs-image'),
-    import('@juratbek/editorjs-code'),
+    import('../tools/code/Code.tool'),
     import('@juratbek/editorjs-quiz'),
-    import('@samandar.boymurodov/editorjs-inline-image'),
+    import('../tools/inline-image/InlineImage.tool'),
   ]);
 
   Object.keys(TOOLS).forEach((key, index) => {
@@ -108,7 +110,12 @@ export const getTools = async ({
         },
       },
     },
-    list: TOOLS.List,
+    bold: BoldInlineTool,
+    italic: ItalicInlineTool,
+    list: {
+      class: TOOLS.List,
+      inlineToolbar: true,
+    },
     delimiter: TOOLS.Delimiter,
     alert: {
       class: TOOLS.Alert,

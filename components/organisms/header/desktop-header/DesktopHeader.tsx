@@ -25,7 +25,7 @@ export const DesktopHeader: FC = () => {
     } else {
       dispatch(openAuthModal());
     }
-  }, []);
+  }, [isAuthenticated]);
 
   return (
     <header className={`${classes.header} container`}>

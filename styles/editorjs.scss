@@ -97,12 +97,6 @@
   }
 }
 
-.inline-code {
-  background: rgba(240, 240, 240, 0.7) !important;
-  color: black !important;
-  padding: 3px 6px !important;
-}
-
 .editor-container,
 .ce-toolbar__content {
   max-width: 820px;
@@ -272,6 +266,7 @@
 
   .ce-toolbar {
     .ce-toolbar__actions {
+
       .ce-toolbar__plus:hover,
       .ce-toolbar__settings-btn:hover {
         background-color: transparent;
@@ -327,6 +322,7 @@
       }
 
       .option {
+
         &:hover,
         &.focus {
           background-color: var(--lightBlack);
@@ -354,7 +350,7 @@
 
   .codex-editor__redactor {
     .cdx-block.inline-image {
-      & > .inline-image__control-panel {
+      &>.inline-image__control-panel {
         box-shadow: none;
       }
 
@@ -384,6 +380,7 @@
   }
 
   .quiz-tool-container {
+
     .quiz-item .icon-button:hover,
     .quiz-footer .qt-add-btn:hover {
       background-color: var(--popover-bg);

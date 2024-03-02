@@ -212,6 +212,39 @@ export default class Quote {
   }
 
   /**
+   * STATIC GETTERS
+   *
+   * @link https://editorjs.io/tools-api#static-getters
+   */
+
+  /**
+   * Process pasted content before appending to the Editor
+   * @link https://editorjs.io/tools-api#pasteconfig
+   *
+   * @returns {tags?: string[], files?: { mimeTypes: string[], extensions: string[] }, patterns?: { [string]: RegEx }}
+   */
+  static get pasteConfig() {
+    return {
+      tags: ['BLOCKQUOTE'],
+    };
+  }
+
+  /**
+   * Handle content pasted by ways that described by pasteConfig static getter
+   * @link https://editorjs.io/tools-api#on-paste
+   *
+   * @param {PasteEvent} event - event with pasted content
+   * @returns {void}
+   */
+  onPaste(event) {
+    console.log('🚀 ~ Quote ~ onPaste ~ event:', event);
+    if (event.type === 'tag') {
+      const blockquote = event.detail.data;
+      this.quote.innerHTML = blockquote.innerHTML;
+    }
+  }
+
+  /**
    * Create Quote Tool container with inputs
    *
    * @returns {Element}
@@ -275,13 +308,7 @@ export default class Quote {
    */
   static get sanitize() {
     return {
-      text: {
-        br: true,
-      },
-      caption: {
-        br: true,
-      },
-      alignment: {},
+      blockquote: {},
     };
   }
 
