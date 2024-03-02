@@ -225,22 +225,7 @@ export default class Quote {
    */
   static get pasteConfig() {
     return {
-      /**
-       * Paste HTML into Editor
-       */
       tags: ['BLOCKQUOTE'],
-
-      /**
-       * Paste URL of media into the Editor
-       */
-      patterns: {},
-
-      /**
-       * Drag n drop file from into the Editor
-       */
-      files: {
-        mimeTypes: [],
-      },
     };
   }
 
@@ -252,6 +237,7 @@ export default class Quote {
    * @returns {void}
    */
   onPaste(event) {
+    console.log('🚀 ~ Quote ~ onPaste ~ event:', event);
     if (event.type === 'tag') {
       const blockquote = event.detail.data;
       this.quote.innerHTML = blockquote.innerHTML;
@@ -322,13 +308,7 @@ export default class Quote {
    */
   static get sanitize() {
     return {
-      text: {
-        br: true,
-      },
-      caption: {
-        br: true,
-      },
-      alignment: {},
+      blockquote: {},
     };
   }
 

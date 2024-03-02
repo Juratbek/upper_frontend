@@ -1,20 +1,20 @@
-import "codemirror/mode/javascript/javascript";
-import "codemirror/mode/python/python";
-import "codemirror/mode/css/css";
-import "codemirror/mode/go/go";
-import "codemirror/mode/sql/sql";
-import "codemirror/mode/markdown/markdown";
-import "codemirror/mode/htmlmixed/htmlmixed";
-import "codemirror/mode/clike/clike";
-import { convert } from "html-to-text";
+import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/python/python';
+import 'codemirror/mode/css/css';
+import 'codemirror/mode/go/go';
+import 'codemirror/mode/sql/sql';
+import 'codemirror/mode/markdown/markdown';
+import 'codemirror/mode/htmlmixed/htmlmixed';
+import 'codemirror/mode/clike/clike';
+import { convert } from 'html-to-text';
 
-import CodeMirror from "codemirror";
+import CodeMirror from 'codemirror';
 
-import { Toolbox, LANGUAGES } from "./constants";
-import { CopyIcon, DoneIcon } from "./icons";
+import { Toolbox, LANGUAGES } from './constants';
+import { CopyIcon, DoneIcon } from './icons';
 
 export default class Code {
-  #language = "javascript";
+  #language = 'javascript';
   #readOnly = false;
 
   constructor(args) {
@@ -25,7 +25,7 @@ export default class Code {
     this.api = api;
     this.editor = null;
 
-    this.#language = data.language ?? config.defaultLanguage ?? "javascript";
+    this.#language = data.language ?? config.defaultLanguage ?? 'javascript';
   }
 
   static get isReadOnlySupported() {
@@ -42,15 +42,15 @@ export default class Code {
 
   get CSS() {
     return {
-      codeContainer: "cdx-editor__container code-editor__container",
-      dropdown: "cdx-editor-dropdown",
-      dropdownInput: "cdx-editor-dropdown__input",
-      dropdownContent: "cdx-editor-dropdown__content",
-      langDisplay: "cdx-editor__langDisplay",
-      copyButton: "cdx-editor__copyButton",
-      header: "cdx-editor__header",
-      textArea: "cdx-editor__textarea",
-      textAreaContainer: "cdx-editor__textarea-container",
+      codeContainer: 'cdx-editor__container code-editor__container',
+      dropdown: 'cdx-editor-dropdown',
+      dropdownInput: 'cdx-editor-dropdown__input',
+      dropdownContent: 'cdx-editor-dropdown__content',
+      langDisplay: 'cdx-editor__langDisplay',
+      copyButton: 'cdx-editor__copyButton',
+      header: 'cdx-editor__header',
+      textArea: 'cdx-editor__textarea',
+      textAreaContainer: 'cdx-editor__textarea-container',
     };
   }
 
@@ -73,24 +73,20 @@ export default class Code {
       styleSelectedText: true,
       matchBrackets: true,
       showCursorWhenSelecting: true,
-      theme: "dracula",
+      theme: 'dracula',
       autoCloseTags: true,
       foldGutter: true,
       dragDrop: true,
       lint: true,
-      extraKeys: { Ctrl: "autocomplete" },
+      extraKeys: { Ctrl: 'autocomplete' },
       readOnly: this.#readOnly,
       hintOptions: {
         completeSingle: false,
       },
     });
 
-    this.editor.on("keydown", (cm, event) => {
-      if (
-        event.key === "Tab" ||
-        event.key === "ArrowRight" ||
-        event.key === "ArrowDown"
-      ) {
+    this.editor.on('keydown', (cm, event) => {
+      if (event.key === 'Tab' || event.key === 'ArrowRight' || event.key === 'ArrowDown') {
         event.stopPropagation();
       }
     });
@@ -106,34 +102,34 @@ export default class Code {
 
   renderHeader() {
     function renderCopyButton(icon, text) {
-      copyButton.innerHTML = "";
-      const span = document.createElement("span");
+      copyButton.innerHTML = '';
+      const span = document.createElement('span');
       span.innerHTML = icon;
-      span.style.display = "flex";
-      span.style.alignItems = "center";
+      span.style.display = 'flex';
+      span.style.alignItems = 'center';
       copyButton.appendChild(span);
       copyButton.append(text);
     }
 
-    this.header = document.createElement("div");
+    this.header = document.createElement('div');
     this.header.classList.add(this.CSS.header);
 
-    this.langDisplay = document.createElement("span");
+    this.langDisplay = document.createElement('span');
     this.langDisplay.classList.add(this.CSS.langDisplay);
     this.header.appendChild(this.langDisplay);
     this.langDisplay.innerHTML = this.#language;
 
-    let copyButton = document.createElement("button");
+    let copyButton = document.createElement('button');
     copyButton.classList.add(this.CSS.copyButton);
-    renderCopyButton(CopyIcon, "Nusxalash");
+    renderCopyButton(CopyIcon, 'Nusxalash');
 
-    copyButton.addEventListener("click", async () => {
-      renderCopyButton(DoneIcon, "Nusxalandi");
+    copyButton.addEventListener('click', async () => {
+      renderCopyButton(DoneIcon, 'Nusxalandi');
       try {
         await navigator.clipboard.writeText(this.editor.getValue());
       } finally {
         setTimeout(() => {
-          renderCopyButton(CopyIcon, "Nusxalash");
+          renderCopyButton(CopyIcon, 'Nusxalash');
         }, 1000);
       }
     });
@@ -142,9 +138,9 @@ export default class Code {
 
     const languageDropdown = this.dropdownRender();
     if (!this.#readOnly) {
-      this.langDisplay.addEventListener("click", (e) => {
+      this.langDisplay.addEventListener('click', (e) => {
         e.stopPropagation();
-        languageDropdown.classList.toggle("show");
+        languageDropdown.classList.toggle('show');
       });
     }
 
@@ -154,16 +150,16 @@ export default class Code {
   }
 
   render() {
-    this.container = document.createElement("div");
+    this.container = document.createElement('div');
     this.container.className = this.CSS.codeContainer;
 
     this.renderHeader();
 
-    this.texarea = document.createElement("textarea");
+    this.texarea = document.createElement('textarea');
     this.texarea.classList.add(this.CSS.textArea);
-    this.texarea.value = this.data.code ?? "// Salom Dunyo";
+    this.texarea.value = this.data.code ?? '// Salom Dunyo';
 
-    const textareaContainer = document.createElement("div");
+    const textareaContainer = document.createElement('div');
     textareaContainer.classList.add(this.CSS.textAreaContainer);
     textareaContainer.appendChild(this.texarea);
     this.container.appendChild(textareaContainer);
@@ -176,13 +172,13 @@ export default class Code {
     const self = this;
     return function (e) {
       const filter = e.target.value.toUpperCase();
-      const a = self.languageDropdown.getElementsByTagName("li");
+      const a = self.languageDropdown.getElementsByTagName('li');
       for (const element of a) {
         const txtValue = element.textContent || element.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          element.style.display = "";
+          element.style.display = '';
         } else {
-          element.style.display = "none";
+          element.style.display = 'none';
         }
       }
     };
@@ -190,14 +186,15 @@ export default class Code {
 
   onPaste(event) {
     switch (event.type) {
-      case "pattern":
-      case "tag": {
+      case 'pattern':
+      case 'tag': {
         const tag = event.detail.data;
-        if (tag.nodeName !== "PRE") {
-          const blocksApi = this.api.blocks
+        if (tag.nodeName !== 'PRE') {
+          debugger;
+          const blocksApi = this.api.blocks;
           const index = blocksApi.getCurrentBlockIndex();
           blocksApi.delete(index);
-        };
+        }
         const code = tag?.innerHTML;
         const htmlCode = convert(code);
         this.editor.setValue(htmlCode);
@@ -208,7 +205,7 @@ export default class Code {
 
   static get pasteConfig() {
     return {
-      tags: ["PRE", "BR"],
+      tags: ['PRE'],
       patterns: { code: /```([\s\S]+?)```/ },
     };
   }
@@ -223,28 +220,28 @@ export default class Code {
     this.#language = lang.label;
     this.langDisplay.innerText = lang.label;
 
-    this.editor.setOption("mode", lang.value);
+    this.editor.setOption('mode', lang.value);
   };
 
   dropdownRender = () => {
-    const wrapper = document.createElement("div");
+    const wrapper = document.createElement('div');
     wrapper.className = this.CSS.dropdown;
-    const input = document.createElement("input");
+    const input = document.createElement('input');
 
     input.className = this.CSS.dropdownInput;
-    input.type = "text";
-    input.id = "searchInput";
-    input.placeholder = "Search language";
-    input.addEventListener("keyup", this.onSearchLanguages());
+    input.type = 'text';
+    input.id = 'searchInput';
+    input.placeholder = 'Search language';
+    input.addEventListener('keyup', this.onSearchLanguages());
 
-    const dropdownContent = document.createElement("ul");
+    const dropdownContent = document.createElement('ul');
     dropdownContent.className = this.CSS.dropdownContent;
-    dropdownContent.id = "dropdownContent";
+    dropdownContent.id = 'dropdownContent';
     LANGUAGES.forEach((lang) => {
-      const item = document.createElement("li");
-      item.addEventListener("click", () => {
+      const item = document.createElement('li');
+      item.addEventListener('click', () => {
         this.handleLanguageChange(lang);
-        wrapper.classList.remove("show");
+        wrapper.classList.remove('show');
       });
       item.innerText = lang.label;
       item.value = lang.value;
@@ -254,9 +251,9 @@ export default class Code {
     wrapper.appendChild(input);
     wrapper.appendChild(dropdownContent);
 
-    document.addEventListener("click", function (e) {
+    document.addEventListener('click', function (e) {
       if (!wrapper.contains(e.target)) {
-        wrapper.classList.remove("show");
+        wrapper.classList.remove('show');
       }
     });
 
