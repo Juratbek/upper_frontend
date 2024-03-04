@@ -51,7 +51,9 @@ export const Body = (): JSX.Element => {
             </Fragment>
           ))}
           {articles.length === 0 && <NoArticle label={activeLabel} />}
-          {articles.length !== 0 && <LoadMoreButton onClick={fetchNextPage} />}
+          {articles.length !== 0 && articlesListRes.hasNextPage && (
+            <LoadMoreButton loading={articlesListRes.isLoading} onClick={fetchNextPage} />
+          )}
         </ApiErrorBoundary>
       </section>
       <div className={classes.sidebar}>
