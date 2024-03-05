@@ -42,12 +42,6 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
     [article?.id],
   );
 
-  // when selecting articles from sidebar, scroll position is reset
-  useEffect(() => {
-    const main = document.querySelector('#main');
-    main?.scrollTo(0, 0);
-  }, [article]);
-
   useEffect(() => {
     editorInstance?.render?.({ blocks: addUriToImageBlocks(blocks) });
   }, [blocks]);
