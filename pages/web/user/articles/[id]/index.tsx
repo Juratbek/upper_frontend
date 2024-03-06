@@ -10,7 +10,12 @@ import { useCallback } from 'react';
 import { useAppDispatch } from 'store';
 import { useArticleById, useUpdateArticleBlocks } from 'store/clients/article';
 import { setEditor } from 'store/states';
-import { checkAuthInServer, debouncer, removeAmazonUriFromImgBlocks } from 'utils';
+import {
+  addUriToImageBlocks,
+  checkAuthInServer,
+  debouncer,
+  removeAmazonUriFromImgBlocks,
+} from 'utils';
 
 const debounce = debouncer<TEditorApi>(2000);
 
@@ -59,7 +64,7 @@ export default function UserArticlePage(): JSX.Element {
         content={{
           blocks:
             article.blocks.length > 0
-              ? article.blocks
+              ? addUriToImageBlocks(article.blocks)
               : [
                   {
                     type: 'header',

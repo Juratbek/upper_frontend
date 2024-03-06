@@ -2,17 +2,20 @@ import { ApiErrorBoundary, NotificationSkeleton } from 'components';
 import { StorysetImage } from 'components/lib';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
-import { useNotificationsList, useResetNotificationsCount } from 'store/clients/notification';
+import {
+  useNotificationsList,
+  useReadNotification,
+  useResetNotificationsCount,
+} from 'store/clients/notification';
 import { NOTIFICATIONS } from 'variables/notification';
 
 export const Notifications: FC = () => {
-  // const { mutate: sendReadNotificationReq } = useReadNotification();
-  // const { mutate: deleteNotificationReq } = useDeleteNotification();
   useResetNotificationsCount();
   const {
     query: { page },
   } = useRouter();
   const fetchNotificationsRes = useNotificationsList();
+  const { mutate: readNotification } = useReadNotification();
 
   useEffect(() => {
     document.querySelector('#main')?.scrollTo({ top: 0 });
@@ -40,7 +43,7 @@ export const Notifications: FC = () => {
 
       if (!Notification) return <></>;
       return (
-        <div key={notification.id}>
+        <div key={notification.id} onClick={() => readNotification(notification.id)}>
           <Notification {...notification} />
         </div>
       );

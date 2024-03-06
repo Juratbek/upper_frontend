@@ -1,4 +1,3 @@
-import { IBlogRegisterResponse } from 'store/apis';
 import { ICurrentBlog } from 'store/states';
 import { TAuthStatus } from 'types';
 
@@ -7,7 +6,7 @@ export interface ITokens {
   refreshToken: string;
 }
 
-export type TAuthenticateFn = (data: IBlogRegisterResponse) => void;
+export type TAuthenticateFn = (data: IRegisterResponse) => void;
 
 export type TAuthenticateTokensFn = (tokens: ITokens) => void;
 
@@ -26,4 +25,13 @@ export interface IUseAuth {
   setCurrentBlog: TSetCurrentBlogFn;
   openLoginPage: (title?: string) => void;
   syncTokens: () => void;
+}
+
+export interface IRegisterResponse {
+  id: number;
+  token: string;
+  refreshToken: string;
+  name?: string;
+  email?: string;
+  image?: string;
 }

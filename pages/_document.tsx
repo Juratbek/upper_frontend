@@ -5,6 +5,10 @@ export default function Document(): JSX.Element {
     <Html>
       <Head>
         <link rel='icon' href='/logo.svg' />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Unbounded:wght@800&display=swap'
+          rel='stylesheet'
+        />
       </Head>
       <body>
         <Main />

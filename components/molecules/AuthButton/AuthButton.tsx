@@ -1,8 +1,8 @@
 import { Button } from 'components/lib';
 import { useAuth } from 'hooks';
+import { IRegisterResponse } from 'hooks/useAuth';
 import { FC, ReactNode, useEffect } from 'react';
 import { useAppDispatch } from 'store';
-import { IBlogRegisterResponse } from 'store/apis';
 import { closeAuthModal } from 'store/states';
 
 import { TRUSTED_ORIGINS } from './AuthButton.constants';
@@ -12,7 +12,7 @@ export const AuthButton: FC<{ children: ReactNode }> = ({ children }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const listener = (event: MessageEvent<IBlogRegisterResponse>): void => {
+    const listener = (event: MessageEvent<IRegisterResponse>): void => {
       if (TRUSTED_ORIGINS.includes(event.origin) && event.data?.token) {
         authenticate(event.data);
         dispatch(closeAuthModal());

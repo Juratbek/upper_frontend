@@ -1,6 +1,6 @@
 import { Button, Modal } from 'components/lib';
 import { FC, useState } from 'react';
-import { IQuizSubmission, TQuizSubmissionColor } from 'store/apis';
+import { IQuizSubmission, TQuizSubmissionColor } from 'store/clients/quiz';
 
 import classes from './QuizResultModal.module.scss';
 

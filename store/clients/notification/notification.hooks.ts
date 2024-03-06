@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from 'hooks';
 import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { INotification } from 'types';
@@ -29,8 +30,14 @@ export const useDeleteNotification = () =>
     mutationKey: ['delete-notification'],
   });
 
-export const useReadNotification = () =>
-  useMutation({
+export const useReadNotification = () => {
+  const client = useQueryClient();
+
+  return useMutation<unknown, unknown, number>({
     mutationKey: ['read-notification'],
     mutationFn: (id) => apiClient.post({ path: `notification/read/${id}` }),
+    onSuccess() {
+      client.invalidateQueries({ queryKey: ['notifications-list'] });
+    },
   });
+};

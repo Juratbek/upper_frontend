@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
-import { IBlogRegisterResponse } from 'store/apis';
 import { apiClient } from 'store/config';
 import {
   authenticate as storeAuthenticate,
@@ -16,6 +15,7 @@ import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
 import { ACCESS_UPPER_UZ, REFRESH_TOKEN, TOKEN } from 'variables';
 
 import {
+  IRegisterResponse,
   IUseAuth,
   TAuthenticateFn,
   TAuthenticateTokensFn,
@@ -87,7 +87,7 @@ export const useAuth = (): IUseAuth => {
     const refreshToken = getRefreshToken();
     if (refreshToken) {
       try {
-        const res = await apiClient.post<{ refreshToken: string }, IBlogRegisterResponse>({
+        const res = await apiClient.post<{ refreshToken: string }, IRegisterResponse>({
           path: 'blog/open/get-token',
           body: { refreshToken },
           headers: {

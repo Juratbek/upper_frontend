@@ -1,4 +1,3 @@
-import { ReadArticle } from 'frontends/mobile';
 import { GetServerSideProps, NextPage } from 'next';
 import { apiClient } from 'store/config';
 import { IArticle, IResponseError } from 'types';
@@ -16,7 +15,7 @@ const MobileAppReadArticlePage: NextPage<IArticlePageProps> = ({
 }: IArticlePageProps) => {
   if (!article) return <pre>{JSON.stringify(error, null, 2)}</pre>;
 
-  return <ReadArticle {...article} />;
+  return null;
 };
 
 export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (context) => {
