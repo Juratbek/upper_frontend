@@ -16,7 +16,6 @@ export * from './skeletons';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
 export * from './EditorSpinner/EditorSpinner';
-export * from './FeedbackModal/FeedbackModal';
 export * from './WithPopover';
 export * from './totorials';
 export * from './SidebarTutorial';
