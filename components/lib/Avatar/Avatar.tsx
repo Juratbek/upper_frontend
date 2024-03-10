@@ -1,4 +1,4 @@
-import { ZoomImage } from 'components/ZoomImage';
+import { ZoomImage } from 'components';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
