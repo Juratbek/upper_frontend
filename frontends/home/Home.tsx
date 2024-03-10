@@ -1,7 +1,7 @@
 import { ApiErrorBoundary } from 'components';
 import { Divider, Spinner } from 'components/lib';
 import {
-  ForYouLabel,
+  DefaultLabel,
   LABEL_ID_PARAM,
   LoadMoreButton,
   NoArticle,
@@ -17,7 +17,7 @@ import { addAmazonBucketUrl } from 'utils/published-article';
 export const HomePage: FC = () => {
   const { getParam } = useUrlParams();
   const { isDesktop } = useDevice();
-  const label = (getParam(LABEL_ID_PARAM) ?? ForYouLabel) as string;
+  const label = (getParam(LABEL_ID_PARAM) ?? DefaultLabel) as string;
   const { fetchNextPage, list: articles, ...articlesRes } = usePublishedArticlesList(label);
 
   return (

@@ -3,6 +3,7 @@ import { Divider, Spinner } from 'components/lib';
 import {
   LABEL_ID_PARAM,
   Labels,
+  LastPublished,
   LoadMoreButton,
   NoArticle,
   PublishedArticle,
@@ -13,8 +14,8 @@ import { useDevice, useUrlParams } from 'hooks';
 import { Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
+import { PopularLabels } from 'variables';
 
-import { labels } from './Body.constants';
 import classes from './Body.module.scss';
 
 export const Body = (): JSX.Element => {
@@ -34,7 +35,11 @@ export const Body = (): JSX.Element => {
   return (
     <div className={classes.root}>
       <section className={classes.container}>
-        <Labels labels={labels} activeLabel={activeLabel} onSelect={labelSelectHandler} />
+        <Labels
+          labels={[LastPublished, TopLabel, ...PopularLabels]}
+          activeLabel={activeLabel}
+          onSelect={labelSelectHandler}
+        />
         {!isDesktop && <Advertisement />}
         <ApiErrorBoundary
           res={articlesListRes}
