@@ -20,6 +20,7 @@ export default defineConfig({
       utils: path.resolve(__dirname, './utils'),
       store: path.resolve(__dirname, './store'),
       variables: path.resolve(__dirname, './variables'),
+      'variables/icons': path.resolve(__dirname, './variables/icons'),
       assets: path.resolve(__dirname, './assets'),
       context: path.resolve(__dirname, './context'),
       components: path.resolve(__dirname, './components'),
