@@ -484,7 +484,7 @@ export const LogOut: FC<IIconProps> = ({ width = 24, height = 24, color = '#FF00
 );
 
 export const Logo: FC<IIconProps> = ({ color = 'black' }) => (
-  <svg viewBox='0 0 188 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
+  <svg data-testid='logo-svg' viewBox='0 0 188 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
     <mask id='path-1-inside-1_804_345' fill='white'>
       <path d='M0 0H80V80H0V0Z' />
     </mask>

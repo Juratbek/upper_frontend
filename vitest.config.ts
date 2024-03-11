@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: './test/setup.ts',
+    setupFiles: ['./tests/mocks/router.ts', './tests/setup.ts'],
     css: {
       modules: {
         classNameStrategy: 'non-scoped',
@@ -22,6 +22,7 @@ export default defineConfig({
       variables: path.resolve(__dirname, './variables'),
       'variables/icons': path.resolve(__dirname, './variables/icons'),
       assets: path.resolve(__dirname, './assets'),
+      tests: path.resolve(__dirname, './tests'),
       context: path.resolve(__dirname, './context'),
       components: path.resolve(__dirname, './components'),
       'components/molecules': path.resolve(__dirname, './components/molecules'),
