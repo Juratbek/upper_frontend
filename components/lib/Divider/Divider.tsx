@@ -22,5 +22,5 @@ export const Divider: FC<IDividerProps> = ({
     Boolean(my) && { marginTop: my, marginBottom: my },
   );
 
-  return <div className={rootClassName} {...props} style={style} />;
+  return <div role='divider' className={rootClassName} {...props} style={style} />;
 };

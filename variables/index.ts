@@ -9,3 +9,4 @@ export * from './editor';
 export * from './published-article';
 export * from './theme';
 export * from './emoji-select';
+export * from './labels';

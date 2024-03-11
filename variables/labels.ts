@@ -1,5 +1,4 @@
-export const labels: string[] = [
-  'Top',
+export const PopularLabels: string[] = [
   'Java',
   'JavaScript',
   'TypeScript',

@@ -1,7 +1,7 @@
 import { useAuth } from 'hooks';
 import { FC } from 'react';
 
-import AuthButton from '../AuthButton';
+import AuthButton from '../auth-button';
 
 export const NoArticle: FC<{ label: string }> = ({ label }) => {
   const { isAuthenticated } = useAuth();

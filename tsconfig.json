@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
+    // "types": ["vitest/globals"],
     "typeRoots": ["./node_modules/@editorjs/editorjs/types", "./node_modules/@types"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "__tests__/**.ts"],
