@@ -2,9 +2,16 @@ import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useGetCurrentBlogTags } from 'store/clients/blog';
+import { PopularLabels } from 'variables';
 
 import { Labels } from '../labels';
-import { ForYouLabel, LABEL_ID_PARAM, TopLabel } from './UserLabels.constants';
+import {
+  DefaultLabel,
+  ForYouLabel,
+  LABEL_ID_PARAM,
+  LastPublished,
+  TopLabel,
+} from './UserLabels.constants';
 
 export const UserLabels = (): JSX.Element => {
   const { isAuthenticated } = useAuth();
@@ -17,11 +24,21 @@ export const UserLabels = (): JSX.Element => {
   };
 
   const labels = useMemo(() => {
-    const labels: string[] = [TopLabel];
+    const labels: string[] = [LastPublished, TopLabel];
 
-    if (isAuthenticated) labels.unshift(ForYouLabel);
+    if (isAuthenticated) labels.push(ForYouLabel);
 
-    const { data } = fetchCurrentBlogTagsRes;
+    const { data, isSuccess } = fetchCurrentBlogTagsRes;
+    if (isSuccess) {
+      const userLabels = data ?? [];
+      const userLabelsSet = new Set(userLabels);
+      let popularLabelIndex = 0;
+      while (userLabels.length < PopularLabels.length) {
+        const popularLabel = PopularLabels[popularLabelIndex];
+        if (!userLabelsSet.has(popularLabel)) userLabels.push(popularLabel);
+        popularLabelIndex++;
+      }
+    }
     if (data?.length) labels.push(...data);
 
     return labels;
@@ -30,7 +47,7 @@ export const UserLabels = (): JSX.Element => {
   return (
     <Labels
       labels={labels}
-      activeLabel={query[LABEL_ID_PARAM] as string}
+      activeLabel={(query[LABEL_ID_PARAM] ?? DefaultLabel) as string}
       onSelect={labelSelectHandler}
       style={{ marginTop: '-3rem' }}
     />
