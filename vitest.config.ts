@@ -13,6 +13,9 @@ export default defineConfig({
         classNameStrategy: 'non-scoped',
       },
     },
+    coverage: {
+      provider: 'v8',
+    },
   },
   resolve: {
     alias: {
