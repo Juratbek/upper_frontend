@@ -1,46 +1,37 @@
-import { DEVICE_TYPES } from './device.constants';
+import { DEVICE_SIZES, DEVICE_TYPES } from './device.constants';
 import { IDevice, TDeviceType } from './device.types';
 
 export const getDevice = (): IDevice => {
   let screenWith = 0;
   let type: TDeviceType = DEVICE_TYPES.desktop;
-  let isMobile = false;
-  let isTablet = false;
-  let isDesktop = false;
+
   try {
     screenWith = screen.width;
   } catch (e) {
     return {
       type,
-      isMobile,
-      isTablet,
-      isDesktop,
+      isMobile: type === 'mobile',
+      isTablet: type === 'tablet',
+      isDesktop: type === 'desktop',
     };
   }
 
-  if (screenWith < 576) {
-    isMobile = true;
-    isTablet = false;
+  if (screenWith < DEVICE_SIZES.mobile) {
     type = DEVICE_TYPES.mobile;
   }
 
-  if (576 <= screenWith && screenWith < 1050) {
-    isMobile = false;
-    isTablet = true;
+  if (DEVICE_SIZES.mobile <= screenWith && screenWith < DEVICE_SIZES.tablet) {
     type = DEVICE_TYPES.tablet;
   }
 
-  if (screenWith >= 1050) {
+  if (screenWith >= DEVICE_SIZES.tablet) {
     type = DEVICE_TYPES.desktop;
-    isDesktop = true;
-    isMobile = false;
-    isTablet = false;
   }
 
   return {
     type,
-    isMobile,
-    isTablet,
-    isDesktop,
+    isMobile: type === 'mobile',
+    isTablet: type === 'tablet',
+    isDesktop: type === 'desktop',
   };
 };

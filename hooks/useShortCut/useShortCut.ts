@@ -17,10 +17,12 @@ export const useShortCut = (targetKey: string): boolean => {
   useEffect(() => {
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
+
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);
     };
   }, []);
+
   return isKeyPressed;
 };
