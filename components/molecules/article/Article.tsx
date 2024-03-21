@@ -8,13 +8,14 @@ export const Article: FC<IArticleProps> = ({ article }) => {
   const { title, id, content } = article;
 
   return (
-    <div className={classes.root}>
-      <Link className={classes.title} href={`/user/articles/${id}`}>
-        <h3 dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }} />
-      </Link>
+    <Link className={classes.root} href={`/user/articles/${id}`}>
+      <h3
+        className={classes.title}
+        dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
+      />
       {Boolean(content) && (
         <p className={classes.content} dangerouslySetInnerHTML={{ __html: content ?? '' }} />
       )}
-    </div>
+    </Link>
   );
 };
