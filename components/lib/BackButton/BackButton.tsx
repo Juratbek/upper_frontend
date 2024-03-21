@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import { useAppRouter } from 'hooks';
 import { ICONS } from 'variables/icons';
 
 import { Clickable } from '../Clickable';
@@ -6,9 +6,9 @@ import { Clickable } from '../Clickable';
 const PrevIcon = ICONS.prev;
 
 export const BackButton = (): JSX.Element => {
-  const router = useRouter();
+  const router = useAppRouter();
   const backClickHandler = () => {
-    window.history?.length > 1 ? router.back() : router.push('/web');
+    window.history?.length > 2 ? router.back() : router.push('/');
   };
 
   return (
