@@ -5,3 +5,9 @@ export const DEVICE_TYPES: Record<TDeviceType, TDeviceType> = {
   desktop: 'desktop',
   tablet: 'tablet',
 };
+
+export const DEVICE_SIZES: Record<TDeviceType, number> = {
+  mobile: 576,
+  tablet: 1050,
+  desktop: Infinity,
+};

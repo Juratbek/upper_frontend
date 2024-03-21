@@ -28,7 +28,7 @@ export const Modal: FC<IModalProps> = ({
   }, []);
 
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} data-testid='modal-root'>
       <Clickable
         className={classes['modal-bg']}
         onClick={close}

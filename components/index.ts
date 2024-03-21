@@ -24,3 +24,4 @@ export * from './EmojiPopover';
 export * from './EmojiSelect';
 export * from './ClientOnlyPortal';
 export * from './Noticeboard/Noticeboard';
+export * from './ZoomImage';

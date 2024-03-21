@@ -1,4 +1,4 @@
-import { useNextAuth } from 'hooks/useNextAuth/useNextAuth';
+import { useNextAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
@@ -11,7 +11,7 @@ import {
   setCurrentBlog as setStoreCurrentBlog,
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
-import { removeLocalStorageTokens, setLocalStorateTokens } from 'utils';
+import { removeLocalStorageTokens, setLocalStorageTokens } from 'utils';
 import { ACCESS_UPPER_UZ, REFRESH_TOKEN, TOKEN } from 'variables';
 
 import {
@@ -36,14 +36,14 @@ export const useAuth = (): IUseAuth => {
   const authenticate: TAuthenticateFn = (data) => {
     if (!data.token) return;
     setCurrentBlog(data);
-    setLocalStorateTokens(data);
+    setLocalStorageTokens(data);
     dispatch(storeAuthenticate());
     signIn(data.token);
     if (typeof redirect === 'string') push(redirect);
   };
 
   const authenticateTokens: TAuthenticateTokensFn = (tokens) => {
-    setLocalStorateTokens(tokens);
+    setLocalStorageTokens(tokens);
     dispatch(storeAuthenticate());
     signIn(tokens.token);
     if (typeof redirect === 'string') push(redirect);

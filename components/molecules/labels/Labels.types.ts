@@ -5,4 +5,5 @@ export interface ILabelsProps {
   activeLabel: string;
   onSelect: (label: string) => unknown;
   style?: CSSProperties;
+  className?: string;
 }

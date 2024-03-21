@@ -9,4 +9,7 @@ export interface IGenericWrapperProps {
   mobileNavigation?: ReactNode;
   children?: ReactNode;
   sidebar?: ReactNode;
+  classes?: {
+    main?: string;
+  };
 }

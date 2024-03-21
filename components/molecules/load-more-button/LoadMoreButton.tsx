@@ -9,6 +9,7 @@ export const LoadMoreButton: FC<{ onClick: () => unknown; loading?: boolean }> =
       width: '100%',
     }}
     onClick={props.onClick}
+    disabled={props.loading}
   >
     {props.loading ? 'Yuklanmoqda...' : 'Yana yuklash'}
   </Button>

@@ -43,7 +43,11 @@ export const Notifications: FC = () => {
 
       if (!Notification) return <></>;
       return (
-        <div key={notification.id} onClick={() => readNotification(notification.id)}>
+        <div
+          key={notification.id}
+          className='container'
+          onClick={() => readNotification(notification.id)}
+        >
           <Notification {...notification} />
         </div>
       );
@@ -55,7 +59,7 @@ export const Notifications: FC = () => {
       res={fetchNotificationsRes}
       fallback={<NotificationSkeleton className='px-3 py-2' />}
       fallbackItemCount={3}
-      className='tab pt-1'
+      className='tab'
     >
       {notifications}
     </ApiErrorBoundary>

@@ -1,5 +1,6 @@
 import { Clickable, TabButton } from 'components/lib';
 import { FC, useRef } from 'react';
+import { getClassName } from 'utils';
 import { ICONS } from 'variables/icons';
 
 import classes from './Labels.module.scss';
@@ -28,9 +29,13 @@ export const Labels: FC<ILabelsProps> = (props) => {
     : false;
 
   return (
-    <div className={classes.root} style={props.style}>
+    <div className={getClassName(classes.root, props.className)} style={props.style}>
       {isContentOverflowed && (
-        <Clickable className={classes['next-btn']} onClick={moveLabels(-300)}>
+        <Clickable
+          data-testid='prev-btn'
+          className={classes['next-btn']}
+          onClick={moveLabels(-300)}
+        >
           <PrevIcon />
         </Clickable>
       )}
@@ -48,7 +53,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
         </div>
       </div>
       {isContentOverflowed && (
-        <Clickable className={classes['next-btn']} onClick={moveLabels(300)}>
+        <Clickable data-testid='next-btn' className={classes['next-btn']} onClick={moveLabels(300)}>
           <NextIcon />
         </Clickable>
       )}

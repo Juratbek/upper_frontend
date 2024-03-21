@@ -1,6 +1,7 @@
 import { BottomNavigation, Header, MainNavigation, Sidebar } from 'components/organisms';
 import { useDevice } from 'hooks';
 import { FC, useMemo } from 'react';
+import { getClassName } from 'utils';
 
 import classes from './GenericWrapper.module.scss';
 import { IGenericWrapperProps } from './GenericWrapper.types';
@@ -42,7 +43,7 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
       {header}
       <div className={`${classes.root} container`}>
         <nav className={classes.navigation}>{navigation}</nav>
-        <main className={classes.main}>{children}</main>
+        <main className={getClassName(classes.main, props.classes?.main)}>{children}</main>
         <aside className={classes.sidebar}>{sidebar}</aside>
       </div>
     </div>
