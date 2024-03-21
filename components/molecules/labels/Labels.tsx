@@ -1,5 +1,6 @@
 import { Clickable, TabButton } from 'components/lib';
 import { FC, useRef } from 'react';
+import { getClassName } from 'utils';
 import { ICONS } from 'variables/icons';
 
 import classes from './Labels.module.scss';
@@ -28,7 +29,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
     : false;
 
   return (
-    <div className={classes.root} style={props.style}>
+    <div className={getClassName(classes.root, props.className)} style={props.style}>
       {isContentOverflowed && (
         <Clickable
           data-testid='prev-btn'
