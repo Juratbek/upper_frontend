@@ -1,4 +1,3 @@
-import { useTheme } from 'hooks';
 import { FC, useEffect } from 'react';
 import { addKeyboardListener, getClassName } from 'utils';
 
@@ -15,7 +14,6 @@ export const Modal: FC<IModalProps> = ({
   footer,
 }) => {
   const rootClassName = getClassName(classes.modal, isOpen && classes['modal--open']);
-  const { themeColors } = useTheme();
   const dialogClassName = getClassName(
     classes['modal-dialog'],
     classes[`modal-dialog--${color}`],
@@ -29,17 +27,8 @@ export const Modal: FC<IModalProps> = ({
 
   return (
     <div className={rootClassName} data-testid='modal-root'>
-      <Clickable
-        className={classes['modal-bg']}
-        onClick={close}
-        style={{ backgroundColor: themeColors.modal.bg }}
-      />
-      <div
-        className={dialogClassName}
-        style={{
-          backgroundColor: themeColors.modal.dialogBg,
-        }}
-      >
+      <Clickable className={classes['modal-bg']} onClick={close} />
+      <div className={dialogClassName}>
         <div className={classes['modal-body']}>{children}</div>
         {Boolean(footer) && footer}
       </div>

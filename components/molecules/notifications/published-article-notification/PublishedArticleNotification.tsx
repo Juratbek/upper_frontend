@@ -1,6 +1,5 @@
 import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
-import { addAmazonUri } from 'utils/blog';
 import { getClassName } from 'utils/common';
 import { dateInterval } from 'utils/date';
 
@@ -18,7 +17,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
       <h3 className={classes.title} dangerouslySetInnerHTML={{ __html: article.title }} />
       <div className={`${classes.footer} align-items-center`}>
         <div className={styles.author}>
-          <Avatar imgUrl={addAmazonUri(author).imgUrl} />
+          <Avatar imgUrl={author.imgUrl} />
           <span className={styles['author-name']}>{author.name}</span>
         </div>
         <span className={classes.date}>{dateInterval(createdDate)}</span>
