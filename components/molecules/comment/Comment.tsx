@@ -1,6 +1,6 @@
 import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
-import { addAmazonUri } from 'utils/blog';
+import { addAmazonUri } from 'utils/blog/blog';
 import { dateInterval } from 'utils/date';
 
 import classes from './Comment.module.scss';
