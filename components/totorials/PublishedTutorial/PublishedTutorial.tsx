@@ -1,7 +1,6 @@
 import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
-import { addAmazonUri } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './PublishedTutorial.module.scss';
@@ -14,7 +13,7 @@ export const PublishedTutorial: FC<ITutorialProps> = ({ id, name, imgUrl, author
         <ArticleImg className={classes.img} imgUrl={imgUrl} />
         <div className={classes.body}>
           <h3 className='mt-0'>{name}</h3>
-          <Author {...addAmazonUri(author)} />
+          <Author {...author} />
         </div>
       </div>
     </Link>

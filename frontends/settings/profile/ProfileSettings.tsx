@@ -3,8 +3,9 @@ import { Alert, Avatar, Button, Error } from 'components/lib';
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useGetCurrentBlog, useUpdateBlog } from 'store/clients/blog';
+import { ICurrentBlog } from 'store/clients/blog';
 import { TSubmitFormEvent } from 'types';
-import { addAmazonUri, compressImage, toBase64 } from 'utils';
+import { addBlogAmazonUrl, compressImage, toBase64 } from 'utils';
 
 import classes from './ProfileSettings.module.scss';
 
@@ -22,7 +23,7 @@ export const ProfileSettingsUI: FC = () => {
 
   useEffect(() => {
     if (currentBlog) {
-      const imgUrl = addAmazonUri(currentBlog).imgUrl;
+      const imgUrl = addBlogAmazonUrl<ICurrentBlog>(currentBlog).imgUrl;
       setImgUrl(imgUrl);
     }
   }, [currentBlog]);

@@ -2,7 +2,7 @@ import { ArticleImg, Author } from 'components';
 import { useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC } from 'react';
-import { addAmazonUri, getClassName } from 'utils';
+import { getClassName } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './PublishedArticle.module.scss';
@@ -28,7 +28,7 @@ export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props
       )}
 
       <div className={classes['article-footer']}>
-        {article.author && <Author {...addAmazonUri(article.author)} />}
+        {article.author && <Author {...article.author} />}
       </div>
     </Link>
   );
