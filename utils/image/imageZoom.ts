@@ -2,8 +2,9 @@ import { BLOG_BUCKET_URL } from 'store/apis';
 
 const GOOGLE_IMG_API = 'googleusercontent.com';
 const GITHUB_IMG_API = 'avatars.githubusercontent.com';
+const TELEGRAM_IMG_API = 'https://t.me';
 
-export type TImageSources = 'google' | 'github' | 'upper' | 'telegram';
+export type TImageSources = 'google' | 'github' | 'upper' | 'telegram' | 'unknown';
 
 type TGetImageType = (imgUrl: string) => {
   type: TImageSources;
@@ -11,12 +12,14 @@ type TGetImageType = (imgUrl: string) => {
 };
 
 export const getImageType: TGetImageType = (imgUrl) => {
-  if (imgUrl.includes(GOOGLE_IMG_API))
+  if (imgUrl.includes(GOOGLE_IMG_API)) {
     return {
       type: 'google',
       zoomable: false,
     };
-  if (imgUrl.includes(BLOG_BUCKET_URL)) {
+  }
+
+  if (BLOG_BUCKET_URL && imgUrl.includes(BLOG_BUCKET_URL)) {
     return {
       type: 'upper',
       zoomable: true,
@@ -30,8 +33,15 @@ export const getImageType: TGetImageType = (imgUrl) => {
     };
   }
 
+  if (imgUrl.startsWith(TELEGRAM_IMG_API)) {
+    return {
+      type: 'telegram',
+      zoomable: true,
+    };
+  }
+
   return {
-    type: 'telegram',
-    zoomable: true,
+    type: 'unknown',
+    zoomable: false,
   };
 };

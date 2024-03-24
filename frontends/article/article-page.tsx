@@ -8,12 +8,7 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { useIncrementViewCount } from 'store/clients/published-article';
 import { IQuizSubmission, useSubmitQuiz } from 'store/clients/quiz';
 import { IArticle, IResponseError } from 'types';
-import {
-  addAmazonBucketUriToArticle,
-  addAmazonUri,
-  addUriToImageBlocks,
-  convertToHeadProp,
-} from 'utils';
+import { addAmazonBucketUriToArticle, addUriToImageBlocks, convertToHeadProp } from 'utils';
 
 import { IArticlePageMainProps } from './article.types';
 import classes from './article-page.module.scss';
@@ -79,7 +74,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
       <div className={classes['back-btn-container']}>
         <BackButton />
       </div>
-      <Author {...addAmazonUri(article.author)} />
+      <Author {...article.author} />
       <div className='editor-container pb-2'>
         <article>
           <Editor
