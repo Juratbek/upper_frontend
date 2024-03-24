@@ -12,6 +12,5 @@ export * from './device';
 export * from './uuid';
 export * from './listeners/addKeyboardListener';
 export * from './debouncer';
-export * from './tutorial';
 export * from './theme';
 export * from './link';

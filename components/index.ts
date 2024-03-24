@@ -17,8 +17,6 @@ export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
 export * from './EditorSpinner/EditorSpinner';
 export * from './WithPopover';
-export * from './totorials';
-export * from './SidebarTutorial';
 export * from './GoogleAuthScript';
 export * from './EmojiPopover';
 export * from './EmojiSelect';
