@@ -1,0 +1,9 @@
+.toolbar {
+    position: absolute;
+    left: -1rem;
+    transform: translateX(-100%);
+
+    &-content {
+        position: relative;
+    }
+}

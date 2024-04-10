@@ -1,0 +1,22 @@
+.popover {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transform: translateY(100%);
+    border: 1px solid #e8e8eb;
+    padding: 6px;
+    display: none;
+    border-radius: 4px;
+    background-color: white;
+    min-width: 200px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.open {
+    display: block;
+}

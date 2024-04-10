@@ -18,6 +18,7 @@ export interface IIconProps {
   variant?: 'outlined' | 'fulfilled';
   width?: number;
   height?: number;
+  strokeWidth?: number;
 }
 
 export type TIconComponent = FC<IIconProps>;

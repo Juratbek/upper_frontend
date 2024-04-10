@@ -1,7 +1,8 @@
 import EditorJS from '@editorjs/editorjs';
 import { EditorSpinner } from 'components';
-import { Editor, TEditorApi } from 'components/Editor';
+import { TEditorApi } from 'components/Editor';
 import { Head } from 'components/lib';
+import { Editor } from 'components/molecules';
 import { GenericWrapper } from 'components/wrappers';
 import { PublishArticleModal, WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
@@ -72,9 +73,9 @@ export default function UserArticlePage(): JSX.Element {
                   },
                 ],
         }}
-        handleInstance={getInstance}
-        autoFocus
-        changeHandler={editorChangeHandler}
+        // handleInstance={getInstance}
+        // autoFocus
+        // changeHandler={editorChangeHandler}
       />
     );
   };

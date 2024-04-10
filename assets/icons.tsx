@@ -554,7 +554,12 @@ export const AddFolderIcon: FC<IIconProps> = () => (
   </svg>
 );
 
-export const Plus: FC<IIconProps> = ({ width = 24, height = 24, color = 'black' }) => (
+export const Plus: FC<IIconProps> = ({
+  width = 24,
+  height = 24,
+  color = 'black',
+  strokeWidth = 2,
+}) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width={width}
@@ -565,14 +570,14 @@ export const Plus: FC<IIconProps> = ({ width = 24, height = 24, color = 'black' 
     <path
       d='M22 14.6667V29.3334'
       stroke={color}
-      strokeWidth='2'
+      strokeWidth={strokeWidth}
       strokeLinecap='square'
       strokeLinejoin='round'
     />
     <path
       d='M14.6641 22H29.3307'
       stroke={color}
-      strokeWidth='2'
+      strokeWidth={strokeWidth}
       strokeLinecap='square'
       strokeLinejoin='round'
     />

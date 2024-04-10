@@ -1,0 +1,27 @@
+.btn {
+    border: none;
+    background-color: transparent;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+
+    &:hover {
+        background-color: #f1f4f8;
+        cursor: pointer;
+
+        .icon {
+            box-shadow: unset;
+        }
+    }
+
+}
+
+.icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(201, 201, 204, .48);
+}
