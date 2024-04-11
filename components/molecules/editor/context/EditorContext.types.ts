@@ -9,6 +9,10 @@ export interface IEditorProviderProps extends IEditorProps {
 
 export type TAddBlock = (type: IBlockData['type'], currentBlock: IBlockNode) => void;
 
+export type TRemoveBlock = (id: IBlockData['id']) => void;
+
+export type TFocusPreviousText = (id: IBlockData['id']) => void;
+
 export interface IEditorContext {
   data: IBlockData[];
   hoveredBlock?: IBlockNode;

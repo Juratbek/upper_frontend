@@ -1,7 +1,7 @@
 import { FC, KeyboardEventHandler, useCallback, useEffect, useRef } from 'react';
 
-import { IBlockNode } from '../../instance/Editor.types';
 import { IToolProps } from '../tool.types';
+import { textBlockKeydownHandler } from '../utils';
 import classes from './Paragraph.module.scss';
 
 export const Paragraph: FC<IToolProps<{ text: string }>> = ({
@@ -20,16 +20,7 @@ export const Paragraph: FC<IToolProps<{ text: string }>> = ({
     (event) => {
       if (!ref.current) return;
 
-      const { code, metaKey: isMetaKey } = event;
-      if (code === 'Enter' && isMetaKey) {
-        const node = {
-          ...ref.current,
-          ...props,
-          data,
-        } satisfies IBlockNode;
-
-        api.addBlock('paragraph', node);
-      }
+      textBlockKeydownHandler(event, api, ref.current, props);
     },
     [data, props],
   );

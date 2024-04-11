@@ -5,7 +5,13 @@ import { Block } from '../block/Block';
 import { IBlockData, IBlockNode } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
 import { EditorContext } from './EditorContext';
-import { IEditorContext, IEditorProviderProps, TAddBlock } from './EditorContext.types';
+import {
+  IEditorContext,
+  IEditorProviderProps,
+  TAddBlock,
+  TFocusPreviousText,
+  TRemoveBlock,
+} from './EditorContext.types';
 
 export const EditorProvider: FC<IEditorProviderProps> = ({
   children,
@@ -24,6 +30,21 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
     });
   }, []);
 
+  const removeBlock: TRemoveBlock = useCallback((removedBlockId) => {
+    setData((prevData) => {
+      return prevData.filter((block) => block.id !== removedBlockId);
+    });
+  }, []);
+
+  const focusPreviousText: TFocusPreviousText = useCallback(() => {
+    // TODO: implement previous focusable text
+  }, []);
+
+  const api = useMemo(
+    () => ({ addBlock, removeBlock, focusPreviousText }),
+    [addBlock, removeBlock, focusPreviousText],
+  );
+
   const renderBlocks = useCallback(() => {
     return data.map((block) => {
       const Component = EDITOR_TOOLS[block.type].block;
@@ -34,11 +55,11 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
 
       return (
         <Block {...block} key={block.id} onMouseEnter={setHoveredBlock}>
-          <Component api={{ addBlock: addBlock }} isEditable={isEditable} {...block} />
+          <Component api={api} isEditable={isEditable} {...block} />
         </Block>
       );
     });
-  }, [data, addBlock]);
+  }, [data, api]);
 
   const store = useMemo(
     () =>

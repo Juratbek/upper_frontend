@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { TAddBlock } from '../context/EditorContext.types';
+import { TAddBlock, TFocusPreviousText, TRemoveBlock } from '../context/EditorContext.types';
 import { IBlockData, IEditorProps } from '../instance/Editor.types';
 
 export type TToolType = 'paragraph' | 'header' | 'image' | 'list' | 'code';
@@ -15,10 +15,14 @@ export interface ITool {
   block: FC<IToolProps>;
 }
 
+export interface IEditorAPI {
+  addBlock: TAddBlock;
+  removeBlock: TRemoveBlock;
+  focusPreviousText: TFocusPreviousText;
+}
+
 export interface IToolProps<T = any>
   extends IBlockData<T>,
     Required<Pick<IEditorProps, 'isEditable'>> {
-  api: {
-    addBlock: TAddBlock;
-  };
+  api: IEditorAPI;
 }
