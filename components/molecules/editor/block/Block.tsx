@@ -1,6 +1,6 @@
 import { memo, useCallback, useRef } from 'react';
 
-import { IBlockNode } from '../instance/Editor.types';
+import { generateBlockNode } from '../tools/utils';
 import { IBlockProps } from './Block.types';
 
 export const Block = memo(function Component({ children, onMouseEnter, ...props }: IBlockProps) {
@@ -8,13 +8,11 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
   const mouseEnterHandler = useCallback(() => {
     if (!blockRef.current) return;
 
-    const node = {
-      ...blockRef.current,
-      ...props,
-    } satisfies IBlockNode;
+    const node = generateBlockNode(blockRef.current, props);
 
     if (blockRef.current) onMouseEnter(node);
   }, [props]);
+  // console.log('render blocks');
 
   return (
     <div ref={blockRef} onMouseEnter={mouseEnterHandler}>

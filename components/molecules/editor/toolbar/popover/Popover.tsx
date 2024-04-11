@@ -1,33 +1,22 @@
-import { FC } from 'react';
+import { FC, HTMLAttributes, memo, ReactNode } from 'react';
 import { getClassName } from 'utils';
 
-import { useEditorContext } from '../../context/useEditorContext';
-import { TToolType } from '../../tools/tool.types';
-import { Item } from './item/Item';
-import classes from './Popover.module.scss';
+import { IToolbar } from '../../tools/tool.types';
+import cls from './Popover.module.scss';
 
-export const Popover: FC<{ open: boolean; close: VoidFunction }> = ({ open, close }) => {
-  const { tools, addBlock, hoveredBlock } = useEditorContext();
-
-  const clickHandler = (type: TToolType) => {
-    if (!hoveredBlock) {
-      console.error("Tooltip shouldn't be shown if there is no hovered block");
-      return;
-    }
-    addBlock(type, hoveredBlock);
-    close();
-  };
-
-  const toolTypes = Object.keys(tools) as TToolType[];
-
-  return (
-    <div className={getClassName(classes.popover, open && classes.open)}>
-      <div className={classes.list}>
-        {toolTypes.map((type) => {
-          const tool = tools[type];
-          return <Item onClick={clickHandler} {...tool} key={tool.toolbar.text} type={type} />;
-        })}
-      </div>
-    </div>
-  );
+export const Popover: FC<{ open: boolean; children?: ReactNode }> = ({ open, children }) => {
+  return <div className={getClassName(cls.popover, open && cls.open)}>{children}</div>;
 };
+
+export const Item = memo(function Component({
+  icon,
+  children,
+  ...props
+}: HTMLAttributes<HTMLButtonElement> & { icon: IToolbar['icon'] }) {
+  return (
+    <button className={cls.btn} {...props}>
+      <span className={cls.icon} dangerouslySetInnerHTML={{ __html: icon }} />
+      {children}
+    </button>
+  );
+});

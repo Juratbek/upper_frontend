@@ -13,10 +13,21 @@ export type TRemoveBlock = (id: IBlockData['id']) => void;
 
 export type TFocusPreviousText = (id: IBlockData['id']) => void;
 
-export interface IEditorContext {
+export type TMoveBlockUp = (id: IBlockData['id']) => void;
+
+export type TMoveBlockDown = (id: IBlockData['id']) => void;
+
+export interface IEditorAPI {
+  addBlock: TAddBlock;
+  removeBlock: TRemoveBlock;
+  focusPreviousText: TFocusPreviousText;
+  moveBlockUp: TMoveBlockUp;
+  moveBlockDown: TMoveBlockDown;
+}
+
+export interface IEditorContext extends IEditorAPI {
   data: IBlockData[];
   hoveredBlock?: IBlockNode;
   tools: typeof EDITOR_TOOLS;
   renderBlocks: () => ReactNode;
-  addBlock: TAddBlock;
 }

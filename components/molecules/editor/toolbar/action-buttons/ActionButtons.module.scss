@@ -1,4 +1,10 @@
+.container {
+    display: flex;
+}
+
 .btn {
+    width: 36px;
+    height: 36px;
     padding: 2px;
     display: grid;
     place-items: center;

@@ -1,16 +1,26 @@
 import { useContext, useState } from 'react';
 
 import { EditorContext } from '../context/EditorContext';
-import { Plus } from './plus/Plus';
-import { Popover } from './popover/Popover';
+import { ActionButtons } from './action-buttons/ActionButtons';
+import { SettingsPopover } from './settings-popover/SettingsPopover';
 import classes from './Toolbar.module.scss';
+import { ToolsPopover } from './tools-popover/ToolsPopover';
 
 export const Toolbar = () => {
   const { hoveredBlock } = useContext(EditorContext);
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isToolsPopoverOpen, setIsToolsPopoverOpen] = useState(false);
+  const [isSettingsPopoverOpen, setIsSettingsPopoverOpen] = useState(false);
   const toolbarPosition = hoveredBlock?.offsetTop;
 
-  const togglePopover = () => setIsPopoverOpen((prev) => !prev);
+  const toggleToolsPopover = () => {
+    if (isSettingsPopoverOpen) setIsSettingsPopoverOpen(false);
+    setIsToolsPopoverOpen((prev) => !prev);
+  };
+
+  const toggleSettingsPopover = () => {
+    if (isToolsPopoverOpen) setIsToolsPopoverOpen(false);
+    setIsSettingsPopoverOpen((prev) => !prev);
+  };
 
   return (
     <div
@@ -21,8 +31,9 @@ export const Toolbar = () => {
       }}
     >
       <div className={classes['toolbar-content']}>
-        <Plus onClick={togglePopover} />
-        <Popover open={isPopoverOpen} close={togglePopover} />
+        <ActionButtons onPlus={toggleToolsPopover} onSettings={toggleSettingsPopover} />
+        <ToolsPopover open={isToolsPopoverOpen} close={toggleToolsPopover} />
+        <SettingsPopover open={isSettingsPopoverOpen} close={toggleSettingsPopover} />
       </div>
     </div>
   );

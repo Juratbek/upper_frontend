@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useMemo } from 'react';
 
 import { EditorContext } from '../context/EditorContext';
 import { EditorProvider } from '../context/EditorProvider';
@@ -15,10 +15,12 @@ export const Editor: FC<IEditorProps> = (props) => (
 const Instance = () => {
   const { renderBlocks } = useContext(EditorContext);
 
+  const blocks = useMemo(renderBlocks, [renderBlocks]);
+
   return (
     <div className={classes['editor-root']}>
       <Toolbar />
-      {renderBlocks()}
+      {blocks}
     </div>
   );
 };
