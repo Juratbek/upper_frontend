@@ -21,10 +21,10 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
 
   const renderBlocks = useCallback(() => {
     return data.map((block) => {
-      const Component = mapper[block.type].block;
+      const Component = mapper[block.type]?.block;
 
       if (!Component) {
-        console.error('Tool not found for ', block.type);
+        console.error('Tool not found for ', block.type, block.data);
         return <div key={block.id}>default block</div>;
       }
 

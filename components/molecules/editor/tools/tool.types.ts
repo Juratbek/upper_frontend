@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { IEditorAPI, IEditorContext } from '../context/EditorContext.types';
 import { IBlockData, IEditorProps } from '../instance/Editor.types';
 
-export type TToolType = 'paragraph' | 'header' | 'image' | 'list' | 'code';
+export type TToolType = 'paragraph' | 'header' | 'image' | 'list' | 'code' | 'alert' | 'quote';
 
 export interface IToolbar {
   text: string;
