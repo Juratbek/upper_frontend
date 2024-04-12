@@ -1,0 +1,10 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.language {
+    &-container {
+        position: relative;
+    }
+}
