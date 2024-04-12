@@ -1,6 +1,7 @@
 import { memo, useCallback, useRef } from 'react';
 
 import { generateBlockNode } from '../tools/utils';
+import cls from './Block.module.scss';
 import { IBlockProps } from './Block.types';
 
 export const Block = memo(function Component({ children, onMouseEnter, ...props }: IBlockProps) {
@@ -14,7 +15,7 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
   }, [props]);
 
   return (
-    <div ref={blockRef} onMouseEnter={mouseEnterHandler}>
+    <div className={cls.block} ref={blockRef} onMouseEnter={mouseEnterHandler}>
       <div>{children}</div>
     </div>
   );

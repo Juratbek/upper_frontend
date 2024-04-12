@@ -26,7 +26,7 @@ export const Toolbar = () => {
     <div
       className={classes.toolbar}
       style={{
-        top: toolbarPosition,
+        top: (toolbarPosition ?? 0) - 10,
         display: toolbarPosition === undefined ? 'none' : 'block',
       }}
     >

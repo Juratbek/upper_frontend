@@ -13,13 +13,13 @@ export const Editor: FC<IEditorProps> = (props) => (
 );
 
 const Instance = () => {
-  const { renderBlocks } = useContext(EditorContext);
+  const { renderBlocks, isEditable } = useContext(EditorContext);
 
   const blocks = useMemo(renderBlocks, [renderBlocks]);
 
   return (
     <div className={classes['editor-root']}>
-      <Toolbar />
+      {isEditable && <Toolbar />}
       {blocks}
     </div>
   );

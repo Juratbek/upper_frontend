@@ -44,8 +44,9 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
         ...api,
         renderBlocks,
         hoveredBlock,
+        isEditable,
       }) satisfies IEditorContext,
-    [data, api, hoveredBlock],
+    [data, api, hoveredBlock, isEditable],
   );
 
   return <EditorContext.Provider value={store}>{children}</EditorContext.Provider>;

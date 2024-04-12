@@ -17,7 +17,9 @@ export type TMoveBlockUp = (id: IBlockData['id']) => void;
 
 export type TMoveBlockDown = (id: IBlockData['id']) => void;
 
-export type TSetBlock = <T>(block: IBlockData<T>) => void;
+export type TSetBlock = <T extends Record<string, any> = Record<string, any>>(
+  block: IBlockData<T>,
+) => void;
 
 export interface IEditorAPI {
   addBlock: TAddBlock;
@@ -28,7 +30,7 @@ export interface IEditorAPI {
   moveBlockDown: TMoveBlockDown;
 }
 
-export interface IEditorContext extends IEditorAPI {
+export interface IEditorContext extends IEditorAPI, Required<Pick<IEditorProps, 'isEditable'>> {
   data: IBlockData[];
   hoveredBlock?: IBlockNode;
   tools: typeof EDITOR_TOOLS;

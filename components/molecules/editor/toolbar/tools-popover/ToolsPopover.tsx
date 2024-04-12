@@ -24,6 +24,8 @@ export const ToolsPopover: FC<{ open: boolean; close: VoidFunction }> = ({ open,
       <div className={classes.list}>
         {toolTypes.map((type) => {
           const { toolbar } = tools[type];
+          if (!toolbar) return null;
+
           return (
             <Item onClick={() => itemClickHandler(type)} key={toolbar.text} icon={toolbar.icon}>
               {toolbar.text}

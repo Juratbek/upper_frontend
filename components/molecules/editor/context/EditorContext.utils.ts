@@ -17,7 +17,7 @@ function generateBlockId() {
 }
 
 function createBlock(type: IBlockData['type']): IBlockData {
-  return { data: undefined, id: generateBlockId(), type };
+  return { data: {}, id: generateBlockId(), type };
 }
 
 type TSetData = Dispatch<SetStateAction<IBlockData[]>>;

@@ -11,6 +11,7 @@ import {
 } from '@codexteam/icons';
 
 import { IEditorContext } from '../../context';
+import { IBlockNode } from '../../instance/Editor.types';
 import { IToolbarSetting } from '../tool.types';
 import { IHeaderData } from './Header.types';
 
@@ -19,7 +20,7 @@ function align(
   alignment: Required<IHeaderData['alignment']>,
 ) {
   if (!hoveredBlock) return;
-  const { id, type, data } = hoveredBlock;
+  const { id, type, data } = hoveredBlock as IBlockNode<IHeaderData>;
   setBlock<IHeaderData>({ id, type, data: { ...data, alignment: alignment } });
 }
 
@@ -32,7 +33,7 @@ function generateHeaderLevelSettings(
     text: `${level}-darajali sarlavha`,
     onClick: ({ setBlock, hoveredBlock }) => {
       if (!hoveredBlock) return;
-      const { id, type, data } = hoveredBlock;
+      const { id, type, data } = hoveredBlock as IBlockNode<IHeaderData>;
       setBlock<IHeaderData>({ id, type, data: { ...data, level } });
     },
   };
@@ -54,7 +55,7 @@ export const HeaderSettings: IToolbarSetting[] = [
     text: 'Chapga joylashtirish',
     onClick: ({ setBlock, hoveredBlock }) => {
       if (!hoveredBlock) return;
-      const { id, type, data } = hoveredBlock;
+      const { id, type, data } = hoveredBlock as IBlockNode<IHeaderData>;
       delete data.alignment;
       setBlock<IHeaderData>({ id, type, data: data });
     },
