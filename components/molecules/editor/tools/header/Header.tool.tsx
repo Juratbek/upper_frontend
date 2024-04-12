@@ -7,15 +7,14 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { getClassName } from 'utils';
 
 import { IToolProps } from '../tool.types';
 import { textBlockKeydownHandler } from '../utils';
 import classes from './Header.module.scss';
-import { THeaderLevel } from './Header.types';
+import { IHeaderData } from './Header.types';
 
-interface IProps extends HTMLAttributes<HTMLHeadingElement> {
-  level: THeaderLevel;
-}
+interface IProps extends HTMLAttributes<HTMLHeadingElement>, Pick<IHeaderData, 'level'> {}
 
 const H = forwardRef<HTMLHeadingElement, IProps>(function Component({ level, ...props }, ref) {
   switch (level) {
@@ -36,13 +35,8 @@ const H = forwardRef<HTMLHeadingElement, IProps>(function Component({ level, ...
   }
 });
 
-export const Header: FC<IToolProps<{ level: THeaderLevel; text: string }>> = ({
-  data,
-  isEditable,
-  api,
-  ...props
-}) => {
-  const { level = 2, text } = data ?? { level: 1, text: '' };
+export const Header: FC<IToolProps<IHeaderData>> = ({ data, isEditable, api, ...props }) => {
+  const { level, text } = data ?? { level: 1, text: '' };
   const ref = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -53,7 +47,7 @@ export const Header: FC<IToolProps<{ level: THeaderLevel; text: string }>> = ({
     (event) => {
       if (!ref.current) return;
 
-      textBlockKeydownHandler(event, api, ref.current, props);
+      textBlockKeydownHandler(event, api, ref.current, props.id);
     },
     [props, data, api],
   );
@@ -64,7 +58,7 @@ export const Header: FC<IToolProps<{ level: THeaderLevel; text: string }>> = ({
       level={level}
       dangerouslySetInnerHTML={{ __html: text }}
       contentEditable={isEditable}
-      className={classes.heading}
+      className={getClassName(classes.heading, data?.alignment && classes[data.alignment])}
       ref={ref}
     />
   );

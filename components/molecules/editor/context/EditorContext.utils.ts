@@ -9,6 +9,7 @@ import {
   TMoveBlockDown,
   TMoveBlockUp,
   TRemoveBlock,
+  TSetBlock,
 } from './EditorContext.types';
 
 function generateBlockId() {
@@ -22,9 +23,9 @@ function createBlock(type: IBlockData['type']): IBlockData {
 type TSetData = Dispatch<SetStateAction<IBlockData[]>>;
 
 export const bindEditorDataState = (setData: TSetData): IEditorAPI => {
-  const addBlock: TAddBlock = (type, currentBlock) => {
+  const addBlock: TAddBlock = (type, currentBlockId) => {
     setData((prevData) => {
-      const index = prevData.findIndex((block) => block.id === currentBlock.id);
+      const index = prevData.findIndex((block) => block.id === currentBlockId);
       const newBlock = createBlock(type);
 
       return [...prevData.slice(0, index + 1), newBlock, ...prevData.slice(index + 1)];
@@ -89,11 +90,21 @@ export const bindEditorDataState = (setData: TSetData): IEditorAPI => {
     });
   };
 
+  const setBlock: TSetBlock = (block) => {
+    setData((prevBlocks) =>
+      prevBlocks.map((b) => {
+        if (b.id === block.id) return block;
+        return b;
+      }),
+    );
+  };
+
   return {
     addBlock,
     moveBlockDown,
     moveBlockUp,
     focusPreviousText,
     removeBlock,
+    setBlock,
   };
 };

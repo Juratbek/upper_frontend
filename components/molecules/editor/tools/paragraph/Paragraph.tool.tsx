@@ -20,7 +20,7 @@ export const Paragraph: FC<IToolProps<{ text: string }>> = ({
     (event) => {
       if (!ref.current) return;
 
-      textBlockKeydownHandler(event, api, ref.current, props);
+      textBlockKeydownHandler(event, api, ref.current, props.id);
     },
     [data, props],
   );

@@ -16,7 +16,7 @@ export const Item = memo(function Component({
   return (
     <button className={cls.btn} {...props}>
       <span className={cls.icon} dangerouslySetInnerHTML={{ __html: icon }} />
-      {children}
+      <div className={cls.text}>{children}</div>
     </button>
   );
 });

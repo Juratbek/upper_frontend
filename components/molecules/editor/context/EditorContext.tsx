@@ -18,4 +18,5 @@ export const EditorContext = createContext<IEditorContext>({
   moveBlockUp: notImplementedFunction,
   removeBlock: notImplementedFunction,
   addBlock: notImplementedFunction,
+  setBlock: notImplementedFunction,
 });

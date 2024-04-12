@@ -7,6 +7,8 @@ import { EditorContext } from './EditorContext';
 import { IEditorContext, IEditorProviderProps } from './EditorContext.types';
 import { bindEditorDataState } from './EditorContext.utils';
 
+const mapper = EDITOR_TOOLS;
+
 export const EditorProvider: FC<IEditorProviderProps> = ({
   children,
   content,
@@ -19,7 +21,7 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
 
   const renderBlocks = useCallback(() => {
     return data.map((block) => {
-      const Component = EDITOR_TOOLS[block.type].block;
+      const Component = mapper[block.type].block;
 
       if (!Component) {
         console.error('Tool not found for ', block.type);

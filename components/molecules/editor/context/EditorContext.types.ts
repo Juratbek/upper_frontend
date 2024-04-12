@@ -7,7 +7,7 @@ export interface IEditorProviderProps extends IEditorProps {
   children: ReactNode;
 }
 
-export type TAddBlock = (type: IBlockData['type'], currentBlock: IBlockNode) => void;
+export type TAddBlock = (type: IBlockData['type'], currentBlockId: IBlockNode['id']) => void;
 
 export type TRemoveBlock = (id: IBlockData['id']) => void;
 
@@ -17,8 +17,11 @@ export type TMoveBlockUp = (id: IBlockData['id']) => void;
 
 export type TMoveBlockDown = (id: IBlockData['id']) => void;
 
+export type TSetBlock = <T>(block: IBlockData<T>) => void;
+
 export interface IEditorAPI {
   addBlock: TAddBlock;
+  setBlock: TSetBlock;
   removeBlock: TRemoveBlock;
   focusPreviousText: TFocusPreviousText;
   moveBlockUp: TMoveBlockUp;

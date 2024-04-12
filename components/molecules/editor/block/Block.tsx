@@ -12,7 +12,6 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
 
     if (blockRef.current) onMouseEnter(node);
   }, [props]);
-  // console.log('render blocks');
 
   return (
     <div ref={blockRef} onMouseEnter={mouseEnterHandler}>

@@ -2,13 +2,9 @@ import { IconChevronDown, IconChevronUp, IconCross } from '@codexteam/icons';
 import { useMemo } from 'react';
 
 import { useEditorContext } from '../../context';
-import { IToolbar } from '../../tools/tool.types';
+import { IToolbarSetting } from '../../tools/tool.types';
 
-export interface ISettingsBtn extends IToolbar {
-  onClick: VoidFunction;
-}
-
-export const useSettings = (): ISettingsBtn[] => {
+export const useSettings = (): IToolbarSetting[] => {
   const { moveBlockUp, hoveredBlock, moveBlockDown, removeBlock } = useEditorContext();
 
   return useMemo(

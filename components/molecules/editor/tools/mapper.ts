@@ -1,13 +1,13 @@
 import { IconHeading, IconListBulleted, IconPicture, IconText } from '@codexteam/icons';
 
 import { Code } from './code/Code.tool';
-import { Header } from './header/Header.tool';
+import { Header, HeaderSettings } from './header';
 import { Image } from './image/Image.tool';
-import { List } from './list/List.tool';
+import { List, ListSettings } from './list';
 import { Paragraph } from './paragraph/Paragraph.tool';
-import { ITool, TToolType } from './tool.types';
+import { TToolsMapper } from './tool.types';
 
-export const EDITOR_TOOLS: Record<TToolType, ITool> = {
+export const EDITOR_TOOLS: TToolsMapper = {
   paragraph: {
     toolbar: {
       text: 'Matn',
@@ -20,6 +20,7 @@ export const EDITOR_TOOLS: Record<TToolType, ITool> = {
       text: 'Sarlavha',
       icon: IconHeading,
     },
+    settings: HeaderSettings,
     block: Header,
   },
   image: {
@@ -35,6 +36,7 @@ export const EDITOR_TOOLS: Record<TToolType, ITool> = {
       icon: IconListBulleted,
     },
     block: List,
+    settings: ListSettings,
   },
   code: {
     toolbar: {

@@ -13,7 +13,7 @@ export const ToolsPopover: FC<{ open: boolean; close: VoidFunction }> = ({ open,
       console.error("Tooltip shouldn't be shown if there is no hovered block");
       return;
     }
-    addBlock(type, hoveredBlock);
+    addBlock(type, hoveredBlock.id);
     close();
   };
 
