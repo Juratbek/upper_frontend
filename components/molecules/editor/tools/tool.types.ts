@@ -20,14 +20,17 @@ export interface IToolbar {
   icon: string;
 }
 
-export interface IToolbarSetting extends IToolbar {
-  onClick: (context: IEditorContext) => void;
+export interface IToolbarSetting<T = any> extends IToolbar {
+  onClick: (context: IEditorContext<T>) => void;
+  active?: (context: IEditorContext<T>) => boolean;
 }
 
 export interface ITool {
   toolbar?: IToolbar;
   block: FC<IToolProps<any>>;
   settings?: IToolbarSetting[];
+  initialData?: Record<string, any>;
+  sanitize?: (data: IBlockData['data']) => IBlockData['data'];
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;

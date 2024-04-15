@@ -25,7 +25,12 @@ export const SettingsPopover: FC<{ open: boolean; close: VoidFunction }> = ({ op
     <Popover open={open}>
       <div className={cls.list}>
         {toolSettings.concat(buttons).map((item) => (
-          <Item key={item.text} icon={item.icon} onClick={() => itemClickHandler(item)}>
+          <Item
+            active={item.active?.(context)}
+            key={item.text}
+            icon={item.icon}
+            onClick={() => itemClickHandler(item)}
+          >
             {item.text}
           </Item>
         ))}

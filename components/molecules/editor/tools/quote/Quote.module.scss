@@ -1,6 +1,12 @@
 .blockquote {
     outline: none;
     margin: 8px 0;
+    font-family: var(--third-family);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 156%;
+    color: var(--black-500);
 
     &:empty::before {
         content: 'Iqtibosni bu yerga yozing';
@@ -16,6 +22,11 @@
     text-align: end;
     outline: none;
     margin-top: 8px;
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 120%;
+    color: var(--black-700);
 
     &:empty::after {
         content: 'Iqtibos aftori';

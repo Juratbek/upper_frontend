@@ -40,7 +40,7 @@ export const Header: FC<IToolProps<IHeaderData>> = ({ data, isEditable, api, ...
   const ref = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    if (!data) ref.current?.focus();
+    if (isEditable && !data.text) ref.current?.focus();
   }, []);
 
   const keydownHandler: KeyboardEventHandler<HTMLParagraphElement> = useCallback(

@@ -17,7 +17,7 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
   const [data, setData] = useState(content.blocks);
   const [hoveredBlock, setHoveredBlock] = useState<IBlockNode>();
 
-  const api = useMemo(() => bindEditorDataState(setData), []);
+  const api = useMemo(() => bindEditorDataState(setData, mapper), []);
 
   const renderBlocks = useCallback(() => {
     return data.map((block) => {
@@ -40,7 +40,7 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
     () =>
       ({
         data,
-        tools: EDITOR_TOOLS,
+        tools: mapper,
         ...api,
         renderBlocks,
         hoveredBlock,

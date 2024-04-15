@@ -30,9 +30,9 @@ export const Code: FC<IToolProps<ICodeData>> = ({ data, isEditable }) => {
   }, []);
 
   return (
-    <div>
+    <>
       <Header />
       <div ref={textareaRef}></div>
-    </div>
+    </>
   );
 };

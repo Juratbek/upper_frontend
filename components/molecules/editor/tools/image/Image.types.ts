@@ -1,9 +1,10 @@
 export interface IImageData {
-  caption: string;
+  caption?: string;
   file: {
     url: string;
   };
-  stretched: boolean;
-  withBackground: boolean;
-  withBorder: boolean;
+  stretched?: boolean;
+  withBackground?: boolean;
+  withBorder?: boolean;
+  alignment?: 'center';
 }

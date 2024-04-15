@@ -10,13 +10,17 @@ import {
   IconWarning,
 } from '@codexteam/icons';
 
+import { IBlockData } from '../instance/Editor.types';
 import { Alert } from './alert';
 import { Code } from './code/Code.tool';
 import { Delimiter } from './delimiter/Delimiter.tools';
 import { Header, HeaderSettings } from './header';
-import { Image } from './image/Image.tool';
+import { IHeaderData } from './header/Header.types';
+import { Image, ImageSettings } from './image';
+import { IImageData } from './image/Image.types';
 import { List, ListSettings } from './list';
-import { Paragraph } from './paragraph/Paragraph.tool';
+import { IListData } from './list/List.types';
+import { IParagraphData, Paragraph } from './paragraph';
 import { Quote } from './quote';
 import { Table } from './table';
 import { TToolsMapper } from './tool.types';
@@ -28,6 +32,9 @@ export const EDITOR_TOOLS: TToolsMapper = {
       text: 'Matn',
       icon: IconText,
     },
+    sanitize: (data: IBlockData['data']): IBlockData<IParagraphData>['data'] => {
+      return { text: data.text };
+    },
     block: Paragraph,
   },
   header: {
@@ -36,12 +43,26 @@ export const EDITOR_TOOLS: TToolsMapper = {
       icon: IconHeading,
     },
     settings: HeaderSettings,
+    sanitize: (data: IBlockData['data']): IBlockData<IHeaderData>['data'] => {
+      return { text: data.text, level: data.level, alignment: data.alignment };
+    },
     block: Header,
   },
   image: {
     toolbar: {
       text: 'Rasm',
       icon: IconPicture,
+    },
+    settings: ImageSettings,
+    sanitize: (data: IBlockData['data']): IBlockData<IImageData>['data'] => {
+      return {
+        file: data.file,
+        caption: data.caption,
+        alignment: data.alignment,
+        stretched: data.stretched,
+        withBackground: data.withBackground,
+        withBorder: data.withBorder,
+      };
     },
     block: Image,
   },
@@ -69,6 +90,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
     },
     block: List,
     settings: ListSettings,
+    initialData: { items: [''], style: 'unordered' } satisfies IListData,
   },
   alert: {
     toolbar: {

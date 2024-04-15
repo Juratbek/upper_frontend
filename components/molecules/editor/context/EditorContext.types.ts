@@ -30,9 +30,11 @@ export interface IEditorAPI {
   moveBlockDown: TMoveBlockDown;
 }
 
-export interface IEditorContext extends IEditorAPI, Required<Pick<IEditorProps, 'isEditable'>> {
-  data: IBlockData[];
-  hoveredBlock?: IBlockNode;
+export interface IEditorContext<T = any>
+  extends IEditorAPI,
+    Required<Pick<IEditorProps, 'isEditable'>> {
+  data: IBlockData<T>[];
+  hoveredBlock?: IBlockNode<T>;
   tools: typeof EDITOR_TOOLS;
   renderBlocks: () => ReactNode;
 }

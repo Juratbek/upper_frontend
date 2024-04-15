@@ -1,19 +1,18 @@
-import { FC, KeyboardEventHandler, useCallback, useEffect, useRef } from 'react';
+import { ChangeEvent, FC, KeyboardEventHandler, useCallback, useEffect, useRef } from 'react';
+import { debouncer } from 'utils/debouncer';
 
 import { IToolProps } from '../tool.types';
 import { textBlockKeydownHandler } from '../utils';
 import classes from './Paragraph.module.scss';
+import { IParagraphData } from './Paragraph.types';
 
-export const Paragraph: FC<IToolProps<{ text: string }>> = ({
-  data,
-  isEditable,
-  api,
-  ...props
-}) => {
+const debounce = debouncer<IParagraphData>();
+
+export const Paragraph: FC<IToolProps<IParagraphData>> = ({ data, isEditable, api, ...props }) => {
   const ref = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    if (!data) ref.current?.focus();
+    if (isEditable && !data.text) ref.current?.focus();
   }, []);
 
   const keydownHandler: KeyboardEventHandler<HTMLParagraphElement> = useCallback(
@@ -25,13 +24,18 @@ export const Paragraph: FC<IToolProps<{ text: string }>> = ({
     [data, props],
   );
 
+  const changeHandler = (event: ChangeEvent<HTMLParagraphElement>) => {
+    debounce({ text: event.target.innerHTML }, (d) => api.setBlock({ ...props, data: d }));
+  };
+
   return (
     <p
       onKeyDown={keydownHandler}
       className={classes.paragraph}
       ref={ref}
       contentEditable={isEditable}
-      dangerouslySetInnerHTML={{ __html: data?.text ?? '' }}
+      onChange={changeHandler}
+      dangerouslySetInnerHTML={{ __html: data.text ?? '' }}
     />
   );
 };

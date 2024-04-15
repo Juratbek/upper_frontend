@@ -48,3 +48,8 @@
 .text {
     flex: 0 0 auto;
 }
+
+.active {
+    background-color: rgba(56, 138, 229, .1);
+    color: #388AE5;
+}

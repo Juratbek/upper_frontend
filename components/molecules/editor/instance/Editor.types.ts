@@ -1,12 +1,14 @@
 import { TToolType } from '../tools/tool.types';
 
-export interface IBlockData<T = Record<string, any>> {
+export type TInitialBlockData = Record<string, any>;
+
+export interface IBlockData<T = TInitialBlockData> {
   id: string;
   type: TToolType;
   data: T;
 }
 
-export interface IBlockNode<T = Record<string, any>> extends IBlockData<T>, HTMLDivElement {}
+export interface IBlockNode<T = TInitialBlockData> extends IBlockData<T>, HTMLDivElement {}
 
 export interface IEditorProps {
   content: {

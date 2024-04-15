@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes, memo, ReactNode } from 'react';
 import { getClassName } from 'utils';
 
-import { IToolbar } from '../../tools/tool.types';
+import { IToolbarSetting } from '../../tools/tool.types';
 import cls from './Popover.module.scss';
 
 export const Popover: FC<{ open: boolean; children?: ReactNode }> = ({ open, children }) => {
@@ -11,10 +11,11 @@ export const Popover: FC<{ open: boolean; children?: ReactNode }> = ({ open, chi
 export const Item = memo(function Component({
   icon,
   children,
+  active,
   ...props
-}: HTMLAttributes<HTMLButtonElement> & { icon: IToolbar['icon'] }) {
+}: HTMLAttributes<HTMLButtonElement> & Pick<IToolbarSetting, 'icon'> & { active?: boolean }) {
   return (
-    <button className={cls.btn} {...props}>
+    <button className={getClassName(cls.btn, active && cls.active)} {...props}>
       <span className={cls.icon} dangerouslySetInnerHTML={{ __html: icon }} />
       <div className={cls.text}>{children}</div>
     </button>

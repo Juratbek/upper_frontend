@@ -2,8 +2,10 @@ import { Dispatch, SetStateAction } from 'react';
 import { uuid } from 'utils';
 
 import { IBlockData } from '../instance/Editor.types';
+import { ITool } from '../tools/tool.types';
 import {
   IEditorAPI,
+  IEditorContext,
   TAddBlock,
   TFocusPreviousText,
   TMoveBlockDown,
@@ -16,17 +18,20 @@ function generateBlockId() {
   return uuid(8);
 }
 
-function createBlock(type: IBlockData['type']): IBlockData {
-  return { data: {}, id: generateBlockId(), type };
+function createBlock(type: IBlockData['type'], tool: ITool): IBlockData {
+  return { data: tool.initialData ?? {}, id: generateBlockId(), type };
 }
 
 type TSetData = Dispatch<SetStateAction<IBlockData[]>>;
 
-export const bindEditorDataState = (setData: TSetData): IEditorAPI => {
+export const bindEditorDataState = (
+  setData: TSetData,
+  tools: IEditorContext['tools'],
+): IEditorAPI => {
   const addBlock: TAddBlock = (type, currentBlockId) => {
     setData((prevData) => {
       const index = prevData.findIndex((block) => block.id === currentBlockId);
-      const newBlock = createBlock(type);
+      const newBlock = createBlock(type, tools[type]);
 
       return [...prevData.slice(0, index + 1), newBlock, ...prevData.slice(index + 1)];
     });

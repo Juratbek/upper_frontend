@@ -19,7 +19,7 @@ export const List: FC<IToolProps<IListData>> = ({ data, isEditable }) => {
 
   useEffect(() => {
     const { current } = ref;
-    if (!data && current) {
+    if (current && isEditable) {
       const firstItem = current.querySelector('li');
       firstItem?.focus();
     }
