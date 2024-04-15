@@ -29,6 +29,7 @@ export const SettingsPopover: FC<{ open: boolean; close: VoidFunction }> = ({ op
             active={item.active?.(context)}
             key={item.text}
             icon={item.icon}
+            className={item.className}
             onClick={() => itemClickHandler(item)}
           >
             {item.text}

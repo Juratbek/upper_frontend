@@ -15,7 +15,7 @@ export const Item = memo(function Component({
   ...props
 }: HTMLAttributes<HTMLButtonElement> & Pick<IToolbarSetting, 'icon'> & { active?: boolean }) {
   return (
-    <button className={getClassName(cls.btn, active && cls.active)} {...props}>
+    <button {...props} className={getClassName(cls.btn, active && cls.active, props.className)}>
       <span className={cls.icon} dangerouslySetInnerHTML={{ __html: icon }} />
       <div className={cls.text}>{children}</div>
     </button>

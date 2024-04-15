@@ -23,6 +23,7 @@ export interface IToolbar {
 export interface IToolbarSetting<T = any> extends IToolbar {
   onClick: (context: IEditorContext<T>) => void;
   active?: (context: IEditorContext<T>) => boolean;
+  className?: string;
 }
 
 export interface ITool {

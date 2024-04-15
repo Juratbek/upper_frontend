@@ -25,7 +25,9 @@ export const Paragraph: FC<IToolProps<IParagraphData>> = ({ data, isEditable, ap
   );
 
   const changeHandler = (event: ChangeEvent<HTMLParagraphElement>) => {
-    debounce({ text: event.target.innerHTML }, (d) => api.setBlock({ ...props, data: d }));
+    debounce({ text: event.target.innerHTML }, (d) =>
+      api.setBlock({ id: props.id, type: props.type, data: d }),
+    );
   };
 
   return (

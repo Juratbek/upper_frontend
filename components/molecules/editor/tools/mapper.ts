@@ -11,7 +11,7 @@ import {
 } from '@codexteam/icons';
 
 import { IBlockData } from '../instance/Editor.types';
-import { Alert } from './alert';
+import { Alert, AlertSettings, IAlertData } from './alert';
 import { Code } from './code/Code.tool';
 import { Delimiter } from './delimiter/Delimiter.tools';
 import { Header, HeaderSettings } from './header';
@@ -97,6 +97,8 @@ export const EDITOR_TOOLS: TToolsMapper = {
       text: 'Ogohlantiruvchi',
       icon: IconWarning,
     },
+    initialData: { message: '', type: 'info' } satisfies IAlertData,
+    settings: AlertSettings,
     block: Alert,
   },
   quote: {

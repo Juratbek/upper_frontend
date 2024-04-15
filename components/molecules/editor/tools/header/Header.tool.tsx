@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   FC,
   forwardRef,
   HTMLAttributes,
@@ -8,6 +9,7 @@ import {
   useRef,
 } from 'react';
 import { getClassName } from 'utils';
+import { debouncer } from 'utils/debouncer';
 
 import { IToolProps } from '../tool.types';
 import { textBlockKeydownHandler } from '../utils';
@@ -35,6 +37,8 @@ const H = forwardRef<HTMLHeadingElement, IProps>(function Component({ level, ...
   }
 });
 
+const debounce = debouncer<IHeaderData>();
+
 export const Header: FC<IToolProps<IHeaderData>> = ({ data, isEditable, api, ...props }) => {
   const { level, text } = data ?? { level: 1, text: '' };
   const ref = useRef<HTMLHeadingElement>(null);
@@ -52,10 +56,17 @@ export const Header: FC<IToolProps<IHeaderData>> = ({ data, isEditable, api, ...
     [props, data, api],
   );
 
+  const changeHandler = (event: ChangeEvent<HTMLHeadingElement>) => {
+    debounce({ text: event.target.innerHTML }, (d) =>
+      api.setBlock({ id: props.id, type: props.type, data: d }),
+    );
+  };
+
   return (
     <H
       onKeyDown={keydownHandler}
       level={level}
+      onChange={changeHandler}
       dangerouslySetInnerHTML={{ __html: text }}
       contentEditable={isEditable}
       className={getClassName(classes.heading, data?.alignment && classes[data.alignment])}
