@@ -22,7 +22,7 @@ import { List, ListSettings } from './list';
 import { IListData } from './list/List.types';
 import { IParagraphData, Paragraph } from './paragraph';
 import { Quote } from './quote';
-import { Table } from './table';
+import { defaultTableData, ITableData, Table } from './table';
 import { TToolsMapper } from './tool.types';
 import { Unsplash } from './unsplash/Unsplash.tool';
 
@@ -113,6 +113,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
       text: 'Jadval',
       icon: IconTable,
     },
+    initialData: defaultTableData satisfies ITableData,
     block: Table,
   },
 } as const;

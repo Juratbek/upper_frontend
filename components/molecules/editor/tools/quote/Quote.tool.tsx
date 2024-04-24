@@ -1,4 +1,5 @@
-import { FC, useEffect, useRef } from 'react';
+import { ChangeEvent, memo, useEffect, useRef } from 'react';
+import { debouncer } from 'utils/debouncer';
 import { ICONS } from 'variables/icons';
 
 import { IToolProps } from '../tool.types';
@@ -8,25 +9,61 @@ import { IQuoteData } from './Quote.types';
 const QuoteUp = ICONS.quoteUp;
 const QuoteDown = ICONS.quoteDown;
 
-export const Quote: FC<IToolProps<IQuoteData>> = ({ data, isEditable }) => {
-  const quoteRef = useRef<HTMLQuoteElement>(null);
+const debounce = debouncer<string>();
 
-  useEffect(() => {
-    quoteRef.current?.focus();
-  }, []);
+export const Quote = memo(
+  function Memoized({ data, isEditable, api, id, type }: IToolProps<IQuoteData>) {
+    const quoteRef = useRef<HTMLQuoteElement>(null);
 
-  return (
-    <div>
-      <QuoteUp />
-      <blockquote ref={quoteRef} className={cls.blockquote} contentEditable={isEditable}>
-        {data.text}
-      </blockquote>
-      <div className={cls['quote-down']}>
-        <QuoteDown />
+    useEffect(() => {
+      quoteRef.current?.focus();
+    }, []);
+
+    const quoteChangeHandler = (event: ChangeEvent<HTMLQuoteElement>) => {
+      debounce(event.target.innerHTML, (value) =>
+        api.setBlock<IQuoteData>({
+          id,
+          type,
+          data: { alignment: data.alignment, caption: data.caption, text: value },
+        }),
+      );
+    };
+
+    const captionChangeHandler = (event: ChangeEvent<HTMLDivElement>) => {
+      debounce(event.target.innerText, (value) =>
+        api.setBlock<IQuoteData>({
+          id,
+          type,
+          data: { alignment: data.alignment, caption: value, text: data.text },
+        }),
+      );
+    };
+
+    return (
+      <div>
+        <QuoteUp />
+        <blockquote
+          onInput={quoteChangeHandler}
+          ref={quoteRef}
+          className={cls.blockquote}
+          contentEditable={isEditable}
+          dangerouslySetInnerHTML={{ __html: data.text }}
+        />
+        <div className={cls['quote-down']}>
+          <QuoteDown />
+        </div>
+        <div className={cls.author} onInput={captionChangeHandler} contentEditable={isEditable}>
+          {data.caption}
+        </div>
       </div>
-      <div className={cls.author} contentEditable={isEditable}>
-        {data.caption}
-      </div>
-    </div>
-  );
-};
+    );
+  },
+  (prevProps, currentProps) => {
+    const prevData = prevProps.data;
+    const currentData = currentProps.data;
+
+    if (prevData.alignment !== currentData.alignment) return false;
+
+    return true;
+  },
+);

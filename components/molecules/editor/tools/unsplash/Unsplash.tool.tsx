@@ -1,10 +1,10 @@
-import { FC } from 'react';
+import { memo } from 'react';
 
 import { IToolProps } from '../tool.types';
 import cls from './Unsplash.module.scss';
 import { IUnsplashData } from './Unsplash.types';
 
-export const Unsplash: FC<IToolProps<IUnsplashData>> = ({ data }) => {
+export const Unsplash = memo(function Memoized({ data }: IToolProps<IUnsplashData>) {
   const { unsplash } = data;
   return (
     <div>
@@ -20,4 +20,4 @@ export const Unsplash: FC<IToolProps<IUnsplashData>> = ({ data }) => {
       )}
     </div>
   );
-};
+});

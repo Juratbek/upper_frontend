@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef } from 'react';
+import { ChangeEvent, memo, useEffect, useRef } from 'react';
 import { getClassName } from 'utils';
 import { debouncer } from 'utils/debouncer';
 
@@ -9,33 +9,43 @@ import { IAlertData } from './Alert.types';
 
 const debounce = debouncer<string>();
 
-export const Alert: FC<IToolProps<IAlertData>> = ({ data, api, isEditable, ...props }) => {
-  const ref = useRef<HTMLParagraphElement>(null);
+export const Alert = memo(
+  function Memoized({ data, api, isEditable, ...props }: IToolProps<IAlertData>) {
+    const ref = useRef<HTMLParagraphElement>(null);
 
-  const changeHandler = (event: ChangeEvent<HTMLHeadingElement>) => {
-    debounce(event.target.innerHTML, (message) =>
-      api.setBlock<IAlertData>({
-        id: props.id,
-        type: props.type,
-        data: { message, type: data.type },
-      }),
+    const changeHandler = (event: ChangeEvent<HTMLHeadingElement>) => {
+      debounce(event.target.innerHTML, (message) =>
+        api.setBlock<IAlertData>({
+          id: props.id,
+          type: props.type,
+          data: { message, type: data.type },
+        }),
+      );
+    };
+
+    useEffect(() => {
+      if (isEditable && !data.message) ref.current?.focus();
+    }, []);
+
+    return (
+      <div className={getClassName(cls.alert, cls[data.type])}>
+        <span className={cls.icon} dangerouslySetInnerHTML={{ __html: Warning(data.type) }} />
+        <p
+          ref={ref}
+          className={cls.text}
+          onInput={changeHandler}
+          contentEditable={isEditable}
+          dangerouslySetInnerHTML={{ __html: data.message }}
+        />
+      </div>
     );
-  };
+  },
+  (prevProps, currentProps) => {
+    const prevData = prevProps.data;
+    const currentData = currentProps.data;
 
-  useEffect(() => {
-    if (isEditable && !data.message) ref.current?.focus();
-  }, []);
+    if (prevData.type !== currentData.type) return false;
 
-  return (
-    <div className={getClassName(cls.alert, cls[data.type])}>
-      <span className={cls.icon} dangerouslySetInnerHTML={{ __html: Warning(data.type) }} />
-      <p
-        ref={ref}
-        className={cls.text}
-        onChange={changeHandler}
-        contentEditable={isEditable}
-        dangerouslySetInnerHTML={{ __html: data.message }}
-      />
-    </div>
-  );
-};
+    return true;
+  },
+);

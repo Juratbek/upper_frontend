@@ -4,4 +4,5 @@ export interface IHeaderData {
   level?: THeaderLevel;
   text: string;
   alignment?: 'center' | 'right';
+  placeholder?: string;
 }

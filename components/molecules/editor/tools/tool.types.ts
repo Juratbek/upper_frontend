@@ -30,6 +30,7 @@ export interface ITool {
   toolbar?: IToolbar;
   block: FC<IToolProps<any>>;
   settings?: IToolbarSetting[];
+  config?: Record<string, any>;
   initialData?: Record<string, any>;
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
 }
