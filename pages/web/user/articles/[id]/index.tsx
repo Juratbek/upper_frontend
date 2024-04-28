@@ -1,27 +1,15 @@
-// import EditorJS from '@editorjs/editorjs';
 import { EditorSpinner } from 'components';
-// import { TEditorApi } from 'components/Editor';
 import { Head } from 'components/lib';
-import { Editor } from 'components/molecules';
+import { Editor, IBlockData } from 'components/molecules';
 import { GenericWrapper } from 'components/wrappers';
 import { PublishArticleModal, WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
-// import { useCallback } from 'react';
+import { useCallback } from 'react';
 // import { useAppDispatch } from 'store';
-import {
-  useArticleById,
-  // useUpdateArticleBlocks
-} from 'store/clients/article';
+import { useArticleById, useUpdateArticleBlocks } from 'store/clients/article';
 // import { setEditor } from 'store/states';
-import {
-  addUriToImageBlocks,
-  checkAuthInServer,
-  // debouncer,
-  // removeAmazonUriFromImgBlocks,
-} from 'utils';
-
-// const debounce = debouncer<TEditorApi>(2000);
+import { addUriToImageBlocks, checkAuthInServer, removeAmazonUriFromImgBlocks } from 'utils';
 
 export default function UserArticlePage(): JSX.Element {
   // const dispatch = useAppDispatch();
@@ -35,7 +23,7 @@ export default function UserArticlePage(): JSX.Element {
   } = useArticleById(id, {
     enabled: isIdPresent,
   });
-  // const { mutate: updateArticle } = useUpdateArticleBlocks(id, { enabled: isIdPresent });
+  const { mutate: updateArticle } = useUpdateArticleBlocks(id, { enabled: isIdPresent });
 
   useBeforeUnload();
 
@@ -49,16 +37,13 @@ export default function UserArticlePage(): JSX.Element {
 
   if (isError) return <h1>{JSON.stringify(error)}</h1>;
 
-  // const editorChangeHandler = useCallback(
-  //   async (api: TEditorApi) => {
-  //     debounce(api, async () => {
-  //       const editorData = await api.saver.save();
-  //       const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-  //       updateArticle({ id, blocks });
-  //     });
-  //   },
-  //   [updateArticle, article],
-  // );
+  const editorChangeHandler = useCallback(
+    async (b: IBlockData[]) => {
+      const [blocks] = await removeAmazonUriFromImgBlocks(b);
+      updateArticle({ id, blocks });
+    },
+    [updateArticle, article],
+  );
 
   const renderEditor = (): JSX.Element => {
     if (!isIdPresent || !article?.blocks) return <EditorSpinner />;
@@ -80,6 +65,7 @@ export default function UserArticlePage(): JSX.Element {
         // handleInstance={getInstance}
         // autoFocus
         // changeHandler={editorChangeHandler}
+        onChange={editorChangeHandler}
       />
     );
   };

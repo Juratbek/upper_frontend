@@ -15,4 +15,5 @@ export interface IEditorProps {
     blocks: IBlockData[];
   };
   isEditable?: boolean;
+  onChange?: (blocks: IBlockData[]) => void;
 }

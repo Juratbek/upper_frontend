@@ -25,6 +25,6 @@ export const useSettings = (): IToolbarSetting[] => {
         onClick: () => moveBlockDown(hoveredBlock!.id),
       },
     ],
-    [hoveredBlock],
+    [hoveredBlock, moveBlockDown, removeBlock, moveBlockUp],
   );
 };

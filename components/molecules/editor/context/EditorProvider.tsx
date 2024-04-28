@@ -13,11 +13,12 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
   children,
   content,
   isEditable = true,
+  onChange,
 }) => {
   const [data, setData] = useState(content.blocks);
   const [hoveredBlock, setHoveredBlock] = useState<IBlockNode>();
 
-  const api = useMemo(() => bindEditorDataState(setData, mapper), []);
+  const api = useMemo(() => bindEditorDataState(setData, mapper, { onChange }), [onChange]);
 
   const renderBlocks = useCallback(() => {
     return data.map((block) => {

@@ -19,7 +19,7 @@ export const Header = memo(
       const { current } = ref;
       if (isEditable && !data.text && current) {
         current.focus();
-        current.style.setProperty('--placeholder', `"${placeholder}"`);
+        placeholder && current.style.setProperty('--placeholder', `"${placeholder}"`);
       }
     }, []);
 
@@ -33,7 +33,7 @@ export const Header = memo(
     );
 
     const changeHandler = (event: ChangeEvent<HTMLHeadingElement>) => {
-      debounce({ text: event.target.innerHTML }, (d) =>
+      debounce({ text: event.target.innerHTML, level }, (d) =>
         api.setBlock({ id: props.id, type: props.type, data: d }),
       );
     };

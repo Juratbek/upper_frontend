@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { uuid } from 'utils';
 
-import { IBlockData } from '../instance/Editor.types';
+import { IBlockData, IEditorProps } from '../instance/Editor.types';
 import { ITool } from '../tools/tool.types';
 import {
   IEditorAPI,
@@ -24,16 +24,27 @@ function createBlock(type: IBlockData['type'], tool: ITool): IBlockData {
 
 type TSetData = Dispatch<SetStateAction<IBlockData[]>>;
 
+interface ICallbacks extends Pick<IEditorProps, 'onChange'> {}
+
 export const bindEditorDataState = (
   setData: TSetData,
   tools: IEditorContext['tools'],
+  callbacks: ICallbacks,
 ): IEditorAPI => {
   const addBlock: TAddBlock = (type, currentBlockId) => {
     setData((prevData) => {
       const index = prevData.findIndex((block) => block.id === currentBlockId);
       const newBlock = createBlock(type, tools[type]);
 
-      return [...prevData.slice(0, index + 1), newBlock, ...prevData.slice(index + 1)];
+      const updatedBlocks = [
+        ...prevData.slice(0, index + 1),
+        newBlock,
+        ...prevData.slice(index + 1),
+      ];
+
+      callbacks.onChange?.(updatedBlocks);
+
+      return updatedBlocks;
     });
   };
 
@@ -54,9 +65,12 @@ export const bindEditorDataState = (
           newData[i] = nextBlock;
           newData[i + 1] = currentBlock;
 
+          callbacks.onChange?.(newData);
           return newData;
         }
       }
+
+      callbacks.onChange?.(newData);
       return newData;
     });
   };
@@ -67,7 +81,11 @@ export const bindEditorDataState = (
 
   const removeBlock: TRemoveBlock = (removedBlockId) => {
     setData((prevData) => {
-      return prevData.filter((block) => block.id !== removedBlockId);
+      const updatedBlocks = prevData.filter((block) => block.id !== removedBlockId);
+
+      callbacks.onChange?.(updatedBlocks);
+
+      return updatedBlocks;
     });
   };
 
@@ -88,20 +106,27 @@ export const bindEditorDataState = (
           newData[i] = prevBlock;
           newData[i - 1] = currentBlock;
 
+          callbacks.onChange?.(newData);
           return newData;
         }
       }
+
+      callbacks.onChange?.(newData);
       return newData;
     });
   };
 
   const setBlock: TSetBlock = (block) => {
-    setData((prevBlocks) =>
-      prevBlocks.map((b) => {
+    setData((prevBlocks) => {
+      const updatedBlocks = prevBlocks.map((b) => {
         if (b.id === block.id) return block;
         return b;
-      }),
-    );
+      });
+
+      callbacks.onChange?.(updatedBlocks);
+
+      return updatedBlocks;
+    });
   };
 
   return {
