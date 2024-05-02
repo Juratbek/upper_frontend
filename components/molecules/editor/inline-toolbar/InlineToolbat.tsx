@@ -24,6 +24,7 @@ export const InlineToolbar = () => {
   return (
     <div
       className={cls.root}
+      id='inline-toolbar'
       style={inlineToolbar.position ? { ...inlineToolbar.position } : { display: 'none' }}
     >
       <div className={cls['tools']}>

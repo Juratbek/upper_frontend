@@ -11,9 +11,19 @@ export const useListeners = () => {
     const blocksContainer = document.getElementById('editor-blocks');
     if (!selection || !blocksContainer) return;
 
-    // if there is no selected text or selected text is not inside blocks -> do nothing
     const selectedText = Selection.text;
-    if (!selectedText || !blocksContainer.contains(selection.anchorNode)) return;
+    const inlineToolbarContainer = document.getElementById('inline-toolbar');
+    const isSelectionInsideBlocksContainer = blocksContainer.contains(selection.anchorNode);
+    const isSelectionInsideInlineToolbarContainer = inlineToolbarContainer?.contains(
+      selection.anchorNode,
+    );
+
+    if (!selectedText && !isSelectionInsideInlineToolbarContainer) {
+      hideInlineToolbar();
+    }
+
+    // if there is no selected text or selected text is not inside blocks -> do nothing
+    if (!selectedText || !isSelectionInsideBlocksContainer) return;
 
     const selectedTextRect = Selection.rect;
 
