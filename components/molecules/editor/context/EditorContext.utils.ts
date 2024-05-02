@@ -6,6 +6,7 @@ import { ITool } from '../tools/tool.types';
 import {
   IEditorAPI,
   IEditorContext,
+  IInlineToolbar,
   TAddBlock,
   TFocusPreviousText,
   TMoveBlockDown,
@@ -22,12 +23,15 @@ function createBlock(type: IBlockData['type'], tool: ITool): IBlockData {
   return { data: tool.initialData ?? {}, id: generateBlockId(), type };
 }
 
-type TSetData = Dispatch<SetStateAction<IBlockData[]>>;
+interface IStateHandlers {
+  setData: Dispatch<SetStateAction<IBlockData[]>>;
+  setInlineToolbar: Dispatch<SetStateAction<IInlineToolbar>>;
+}
 
 interface ICallbacks extends Pick<IEditorProps, 'onChange'> {}
 
 export const bindEditorDataState = (
-  setData: TSetData,
+  { setData, setInlineToolbar }: IStateHandlers,
   tools: IEditorContext['tools'],
   callbacks: ICallbacks,
 ): IEditorAPI => {
@@ -129,6 +133,10 @@ export const bindEditorDataState = (
     });
   };
 
+  const showInlineToolbar = (data: IInlineToolbar) => setInlineToolbar(data);
+
+  const hideInlineToolbar = () => setInlineToolbar({});
+
   return {
     addBlock,
     moveBlockDown,
@@ -136,5 +144,7 @@ export const bindEditorDataState = (
     focusPreviousText,
     removeBlock,
     setBlock,
+    showInlineToolbar,
+    hideInlineToolbar,
   };
 };

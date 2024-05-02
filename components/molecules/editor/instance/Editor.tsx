@@ -1,7 +1,9 @@
-import { FC, useContext, useMemo } from 'react';
+import { FC, useMemo } from 'react';
 
-import { EditorContext } from '../context/EditorContext';
+import { useEditorContext } from '../context';
 import { EditorProvider } from '../context/EditorProvider';
+import { InlineToolbar } from '../inline-toolbar/InlineToolbat';
+import { useListeners } from '../listeners/useListeners';
 import { Toolbar } from '../toolbar/Toolbar';
 import classes from './Editor.module.scss';
 import { IEditorProps } from './Editor.types';
@@ -13,14 +15,20 @@ export const Editor: FC<IEditorProps> = (props) => (
 );
 
 const Instance = () => {
-  const { renderBlocks, isEditable } = useContext(EditorContext);
+  const { renderBlocks, isEditable } = useEditorContext();
+  useListeners();
 
   const blocks = useMemo(renderBlocks, [renderBlocks]);
 
   return (
-    <div className={classes['editor-root']}>
-      {isEditable && <Toolbar />}
-      {blocks}
+    <div className={classes['editor-root']} id='editor-root'>
+      {isEditable && (
+        <>
+          <Toolbar />
+          <InlineToolbar />
+        </>
+      )}
+      <div id='editor-blocks'>{blocks}</div>
     </div>
   );
 };

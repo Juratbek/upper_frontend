@@ -4,7 +4,7 @@ import { Block } from '../block/Block';
 import { IBlockNode } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
 import { EditorContext } from './EditorContext';
-import { IEditorContext, IEditorProviderProps } from './EditorContext.types';
+import { IEditorContext, IEditorProviderProps, IInlineToolbar } from './EditorContext.types';
 import { bindEditorDataState } from './EditorContext.utils';
 
 const mapper = EDITOR_TOOLS;
@@ -17,8 +17,12 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
 }) => {
   const [data, setData] = useState(content.blocks);
   const [hoveredBlock, setHoveredBlock] = useState<IBlockNode>();
+  const [inlineToolbar, setInlineToolbar] = useState<IInlineToolbar>({});
 
-  const api = useMemo(() => bindEditorDataState(setData, mapper, { onChange }), [onChange]);
+  const api = useMemo(
+    () => bindEditorDataState({ setData, setInlineToolbar }, mapper, { onChange }),
+    [onChange, setInlineToolbar],
+  );
 
   const renderBlocks = useCallback(() => {
     return data.map((block) => {
@@ -46,8 +50,9 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
         renderBlocks,
         hoveredBlock,
         isEditable,
+        inlineToolbar,
       }) satisfies IEditorContext,
-    [data, api, hoveredBlock, isEditable],
+    [data, api, hoveredBlock, isEditable, inlineToolbar],
   );
 
   return <EditorContext.Provider value={store}>{children}</EditorContext.Provider>;

@@ -28,6 +28,8 @@ export interface IEditorAPI {
   focusPreviousText: TFocusPreviousText;
   moveBlockUp: TMoveBlockUp;
   moveBlockDown: TMoveBlockDown;
+  showInlineToolbar: (data: IInlineToolbar) => void;
+  hideInlineToolbar: () => void;
 }
 
 export interface IEditorContext<T = any>
@@ -36,5 +38,10 @@ export interface IEditorContext<T = any>
   data: IBlockData<T>[];
   hoveredBlock?: IBlockNode<T>;
   tools: typeof EDITOR_TOOLS;
+  inlineToolbar: IInlineToolbar;
   renderBlocks: () => ReactNode;
+}
+
+export interface IInlineToolbar {
+  position?: { top: number; left: number };
 }

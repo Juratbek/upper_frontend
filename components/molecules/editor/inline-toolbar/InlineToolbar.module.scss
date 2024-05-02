@@ -1,0 +1,35 @@
+.root {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: start;
+}
+
+.tools {
+    background-color: white;
+    padding: 0 6px;
+    border: 1px solid #E8E8EB;
+    box-shadow: 0 3px 15px -3px #0d142121;
+    border-radius: 6px;
+    display: flex;
+}
+
+.item {
+    padding: 6px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+
+    &:hover {
+        background-color: #eff2f5;
+    }
+}
+
+.popover {
+    background-color: white;
+    border: 1px solid #E8E8EB;
+    box-shadow: 0 3px 15px -3px #0d142121;
+    border-radius: 6px;
+}
