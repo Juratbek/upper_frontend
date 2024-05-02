@@ -1,51 +1,73 @@
 import { IconLink } from '@codexteam/icons';
 import { KeyboardEvent } from 'react';
 
-import { IInlineTool } from '../../inline-toolbar/InlineToolbar.types';
+import { IInlineTool, IPopoverCallbacks } from '../../inline-toolbar/InlineToolbar.types';
 import { Selection } from '../../utils/selection';
 import cls from './InlineToolLink.module.scss';
 
 let range: Range | undefined;
+let link: string | undefined = '';
 
 export const InlineToolLink: IInlineTool = {
   icon: IconLink,
   callback: () => {
     range = Selection.range;
+    const parentLinkTag = Selection.findParentTag('a') as HTMLAnchorElement;
+    link = parentLinkTag?.href;
   },
-  renderPopover: ({ close }) => {
+  renderPopover: (callbacks) => {
     return (
       <input
         placeholder='Havolani kiriting'
         autoFocus
         className={cls.input}
-        onKeyDown={(event) => keydownHandler(event, close)}
+        defaultValue={link}
+        onKeyDown={(event) => keydownHandler(event, callbacks)}
       />
     );
   },
 };
 
-function keydownHandler(event: KeyboardEvent<HTMLInputElement>, close: VoidFunction) {
+function keydownHandler(event: KeyboardEvent<HTMLInputElement>, callbacks: IPopoverCallbacks) {
   const { key } = event;
-  let value = event.currentTarget.value || '';
+  const value = event.currentTarget.value || '';
 
-  if (key === 'Enter' && value.trim()) {
+  if (key === 'Enter') {
     const selection = window.getSelection();
     if (!selection || !range) return;
 
-    selection?.removeAllRanges();
+    // if input value is only spaces -> do nothing
+    const isEmptySpace = value !== '' && value.trim() === '';
+    if (isEmptySpace) return;
 
-    selection?.addRange(range);
+    // if input is empty -> remove link
+    if (!value) {
+      removeLink(selection, range);
+    } else {
+      wrapWithLink(selection, range, value);
+    }
 
-    value = prepareLink(value);
-    document.execCommand('createLink', false, value);
-
-    close();
     event.preventDefault();
-    event.stopPropagation();
+    callbacks.close();
   }
+}
+
+function wrapWithLink(selection: globalThis.Selection, range: Range, value: string) {
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  const link = prepareLink(value);
+  document.execCommand('createLink', false, link);
 }
 
 function prepareLink(link: string) {
   if (link.startsWith('http://' || link.startsWith('https://'))) return link;
   return `https://${link}`;
+}
+
+function removeLink(selection: globalThis.Selection, range: Range) {
+  selection.removeAllRanges();
+  selection.addRange(range);
+
+  document.execCommand('unlink');
 }

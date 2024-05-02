@@ -1,7 +1,12 @@
 import { ReactNode } from 'react';
 
+export interface IPopoverCallbacks {
+  close: VoidFunction;
+  closeToolbar: VoidFunction;
+}
+
 export interface IInlineTool {
   icon: string;
   callback?: VoidFunction;
-  renderPopover?: ({ close }: { close: VoidFunction }) => ReactNode;
+  renderPopover?: (callbacks: IPopoverCallbacks) => ReactNode;
 }

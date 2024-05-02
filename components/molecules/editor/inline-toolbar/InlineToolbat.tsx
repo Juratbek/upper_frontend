@@ -7,7 +7,7 @@ import { IInlineTool } from './InlineToolbar.types';
 import { useInlineTools } from './useInlineTools';
 
 export const InlineToolbar = () => {
-  const { inlineToolbar } = useEditorContext();
+  const { inlineToolbar, hideInlineToolbar } = useEditorContext();
   const [activeTool, setActiveTool] = useState<IInlineTool>();
   const tools = useInlineTools();
 
@@ -35,7 +35,9 @@ export const InlineToolbar = () => {
         ))}
       </div>
       {activeTool?.renderPopover && (
-        <div className={cls.popover}>{activeTool.renderPopover({ close: closePopover })}</div>
+        <div className={cls.popover}>
+          {activeTool.renderPopover({ close: closePopover, closeToolbar: hideInlineToolbar })}
+        </div>
       )}
     </div>
   );
