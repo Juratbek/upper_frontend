@@ -1,6 +1,5 @@
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
-import { javascript } from '@codemirror/lang-javascript';
-import { defaultHighlightStyle, syntaxHighlighting } from '@codemirror/language';
+import { defaultHighlightStyle, language, syntaxHighlighting } from '@codemirror/language';
 import { Compartment, EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
@@ -10,9 +9,12 @@ import { IToolProps } from '../tool.types';
 import cls from './Code.module.scss';
 import { ICodeData } from './Code.types';
 import { Header } from './header/Header';
+import { LANGUAGES } from './header/Header.constants';
 
-const debounce = debouncer<string>();
+const debounce = debouncer<ICodeData>();
+
 export const languageConf = new Compartment();
+export const defaultLanguage = 'javascript';
 
 export const Code = memo(
   function Memoized({ data, isEditable, api, id, type }: IToolProps<ICodeData>) {
@@ -22,23 +24,24 @@ export const Code = memo(
     const updateListener = useMemo(() => {
       return EditorView.updateListener.of((value) => {
         const code = value.state.doc.toString();
-        debounce(code, () =>
-          api.setBlock<ICodeData>({ id, type, data: { code, language: 'javascript' } }),
-        );
+        const lang = value.state.facet(language)?.name ?? defaultLanguage;
+
+        debounce({ code, language: lang }, (data) => api.setBlock<ICodeData>({ id, type, data }));
       });
     }, [id, type, api.setBlock]);
 
-    const extensions = useMemo(
-      () => [
+    const extensions = useMemo(() => {
+      const langExtension = LANGUAGES[data.language]?.extension?.();
+
+      return [
         updateListener,
         EditorState.readOnly.of(!isEditable),
-        languageConf.of(javascript()),
+        languageConf.of(langExtension),
         history(),
         keymap.of([...defaultKeymap, ...historyKeymap]),
         syntaxHighlighting(defaultHighlightStyle),
-      ],
-      [updateListener, isEditable],
-    );
+      ];
+    }, [updateListener, isEditable]);
 
     const state = useMemo(() => {
       return EditorState.create({

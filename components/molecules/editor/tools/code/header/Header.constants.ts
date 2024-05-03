@@ -46,4 +46,4 @@ export const LANGUAGES: Record<string, ILanguage> = {
     label: 'SQL',
     extension: sql,
   },
-};
+} as const;

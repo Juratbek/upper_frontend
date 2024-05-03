@@ -1,9 +1,11 @@
 import { language } from '@codemirror/language';
 import { EditorView } from 'codemirror';
-import { useState } from 'react';
+import { useClipboard } from 'hooks';
+import { useMemo, useState } from 'react';
+import { getClassName } from 'utils';
 import { ICONS } from 'variables/icons';
 
-import { languageConf } from '../Code.tool';
+import { defaultLanguage, languageConf } from '../Code.tool';
 import { ILanguage } from '../Code.types';
 import { LANGUAGES } from './Header.constants';
 import cls from './Header.module.scss';
@@ -13,17 +15,31 @@ const DownIcon = ICONS.down;
 
 export const Header = ({ editor }: { editor: EditorView }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const { writeText, isCopied, isLoading, isError } = useClipboard();
 
   const languageSelectHandler = (language: ILanguage) => {
     setIsPopoverOpen(false);
     editor.dispatch({ effects: languageConf.reconfigure(language.extension()) });
   };
 
+  const copyHandler = () => writeText(editor.state.doc.toString());
+
+  const copyBtnText = useMemo(() => {
+    if (isLoading) return 'Nusxalanmoqda...';
+    if (isCopied) return 'Nusxalandi';
+    if (isError) {
+      alert(
+        "Nusxalashda xatolik yuz berdi. Iltimos qayta urinib ko'ring. Muammo takrorlansa bu haqda upper_contact_bot telegram botimizga xabar bering",
+      );
+    }
+    return 'Nusxalash';
+  }, [isLoading, isCopied]);
+
   return (
     <div className={cls.header}>
       <div className={cls['language-container']}>
         <button className={cls['language-btn']} onClick={() => setIsPopoverOpen((prev) => !prev)}>
-          {LANGUAGES[editor.state.facet(language)?.name ?? 'javascript'].label}
+          {LANGUAGES[editor.state.facet(language)?.name ?? defaultLanguage].label}
           <DownIcon />
         </button>
         <div
@@ -37,9 +53,9 @@ export const Header = ({ editor }: { editor: EditorView }) => {
           ))}
         </div>
       </div>
-      <button className={cls.copy}>
-        <CopyButton color='black' width={20} height={20} />
-        Nushalash
+      <button className={getClassName(cls.copy, isCopied && cls.active)} onClick={copyHandler}>
+        <CopyButton color={isCopied ? 'white' : 'black'} width={20} height={20} />
+        {copyBtnText}
       </button>
     </div>
   );
