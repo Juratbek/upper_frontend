@@ -14,8 +14,18 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
     if (blockRef.current) onMouseEnter(node);
   }, [props]);
 
+  const clickHandler = useCallback(
+    () => props.onClick({ data: props.data, id: props.id, type: props.type }),
+    [props],
+  );
+
   return (
-    <div className={cls.block} ref={blockRef} onMouseEnter={mouseEnterHandler}>
+    <div
+      className={cls.block}
+      ref={blockRef}
+      onMouseEnter={mouseEnterHandler}
+      onClick={clickHandler}
+    >
       {children}
     </div>
   );

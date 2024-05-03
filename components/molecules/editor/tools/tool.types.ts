@@ -33,6 +33,7 @@ export interface ITool {
   config?: Record<string, any>;
   initialData?: Record<string, any>;
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
+  inlineToolEnabled?: boolean;
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;

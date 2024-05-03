@@ -53,7 +53,6 @@ export class Selection {
         /**
          * Check tag's name
          */
-        console.log('🚀 ~ Selection ~ parent.tagName:', parent.tagName);
         if (parent.tagName === tagName.toUpperCase()) {
           /**
            * Save the result

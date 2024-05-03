@@ -37,6 +37,7 @@ export interface IEditorContext<T = any>
     Required<Pick<IEditorProps, 'isEditable'>> {
   data: IBlockData<T>[];
   hoveredBlock?: IBlockNode<T>;
+  focusedBlock?: IBlockData<T>;
   tools: typeof EDITOR_TOOLS;
   inlineToolbar: IInlineToolbar;
   renderBlocks: () => ReactNode;

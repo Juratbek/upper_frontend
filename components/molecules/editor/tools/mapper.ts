@@ -36,6 +36,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
       return { text: data.text };
     },
     block: Paragraph,
+    inlineToolEnabled: true,
   },
   header: {
     toolbar: {
@@ -47,6 +48,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
       return { text: data.text, level: data.level, alignment: data.alignment };
     },
     block: Header,
+    inlineToolEnabled: true,
   },
   image: {
     toolbar: {
@@ -91,6 +93,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
     block: List,
     settings: ListSettings,
     initialData: { items: [''], style: 'unordered' } satisfies IListData,
+    inlineToolEnabled: true,
   },
   alert: {
     toolbar: {
@@ -100,6 +103,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
     initialData: { message: '', type: 'info' } satisfies IAlertData,
     settings: AlertSettings,
     block: Alert,
+    inlineToolEnabled: true,
   },
   quote: {
     toolbar: {
@@ -115,5 +119,6 @@ export const EDITOR_TOOLS: TToolsMapper = {
     },
     initialData: defaultTableData satisfies ITableData,
     block: Table,
+    inlineToolEnabled: true,
   },
 } as const;

@@ -52,4 +52,5 @@ export const ICONS = {
   copy: icons.Copy,
   quoteUp: icons.QuoteUp,
   quoteDown: icons.QuoteDown,
+  down: icons.Down,
 } satisfies Record<string, FC<IIconProps>>;

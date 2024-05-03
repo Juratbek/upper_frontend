@@ -4,9 +4,13 @@ import { useEditorContext } from '../context';
 import { Selection } from '../utils/selection';
 
 export const useListeners = () => {
-  const { showInlineToolbar, hideInlineToolbar } = useEditorContext();
+  const { showInlineToolbar, hideInlineToolbar, focusedBlock, tools } = useEditorContext();
 
   const selectionChangeHandler = useCallback(() => {
+    if (!focusedBlock) return;
+    const isInlineToolbarEnabled = tools[focusedBlock.type].inlineToolEnabled;
+    if (isInlineToolbarEnabled !== true) return;
+
     const selection = Selection.selection;
     const blocksContainer = document.getElementById('editor-blocks');
     if (!selection || !blocksContainer) return;
@@ -40,11 +44,11 @@ export const useListeners = () => {
     showInlineToolbar({
       position: { top, left: selectedTextRect!.x - editorRect.x },
     });
-  }, [showInlineToolbar, hideInlineToolbar]);
+  }, [showInlineToolbar, hideInlineToolbar, focusedBlock, tools]);
 
   useEffect(() => {
     document.addEventListener('selectionchange', selectionChangeHandler);
 
     return () => document.removeEventListener('selectionchange', selectionChangeHandler);
-  }, []);
+  }, [selectionChangeHandler]);
 };

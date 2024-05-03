@@ -6,13 +6,10 @@ import { PublishArticleModal, WriteArticleHeader } from 'frontends/user-articles
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
-// import { useAppDispatch } from 'store';
 import { useArticleById, useUpdateArticleBlocks } from 'store/clients/article';
-// import { setEditor } from 'store/states';
 import { addUriToImageBlocks, checkAuthInServer, removeAmazonUriFromImgBlocks } from 'utils';
 
 export default function UserArticlePage(): JSX.Element {
-  // const dispatch = useAppDispatch();
   const { query } = useRouter();
   const id = +(query?.id as string);
   const isIdPresent = !isNaN(id);
@@ -26,14 +23,6 @@ export default function UserArticlePage(): JSX.Element {
   const { mutate: updateArticle } = useUpdateArticleBlocks(id, { enabled: isIdPresent });
 
   useBeforeUnload();
-
-  // const getInstance = (editor: EditorJS): void => {
-  //   editor.isReady
-  //     .then(() => {
-  //       dispatch(setEditor(editor));
-  //     })
-  //     .catch((e) => console.error('err', e));
-  // };
 
   if (isError) return <h1>{JSON.stringify(error)}</h1>;
 
@@ -63,8 +52,6 @@ export default function UserArticlePage(): JSX.Element {
                 ],
         }}
         // handleInstance={getInstance}
-        // autoFocus
-        // changeHandler={editorChangeHandler}
         onChange={editorChangeHandler}
       />
     );
@@ -72,7 +59,7 @@ export default function UserArticlePage(): JSX.Element {
 
   return (
     <GenericWrapper sidebar={null} isNavigationHidden header={<WriteArticleHeader />}>
-      <div className='editor-container container pb-4'>
+      <div className='editor-container container pb-4' style={{ marginTop: '-3.2rem' }}>
         <PublishArticleModal />
         <Head title='Blog maqolasi' url='/user/articles' />
         {renderEditor()}

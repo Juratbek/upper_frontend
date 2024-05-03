@@ -1,1 +1,13 @@
-.header {}
+.container {
+    border-radius: 12px;
+    background: #F9F9F9;
+    border: 1px solid rgba(69, 73, 74, 0.4);
+}
+
+.textarea {
+    padding: 10px 12px;
+
+    &>div {
+        outline: none !important;
+    }
+}
