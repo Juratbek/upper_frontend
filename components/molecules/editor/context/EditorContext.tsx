@@ -19,5 +19,8 @@ export const EditorContext = createContext<IEditorContext>({
   removeBlock: notImplementedFunction,
   addBlock: notImplementedFunction,
   setBlock: notImplementedFunction,
+  hideInlineToolbar: notImplementedFunction,
+  showInlineToolbar: notImplementedFunction,
+  inlineToolbar: {},
   isEditable: true,
 });
