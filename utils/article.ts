@@ -36,8 +36,8 @@ export const addUriToArticleImages = <T extends { imgUrl: string }>(articles: T[
 export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[] =>
   blocks.map((block) => {
     const blockType = block.type;
-    if (blockType === BLOCK_TYPES.image) {
-      const data = block.data;
+    const data = block.data;
+    if (blockType === BLOCK_TYPES.image && !data.file.url.startsWith('http')) {
       return {
         ...block,
         data: { ...data, file: { url: `${ARTICLE_BUCKET_URL}${data.file.url}` } },
