@@ -1,3 +1,5 @@
+declare module 'html-janitor';
+
 type TCommand = 'config' | 'get' | 'set' | 'event' | 'consent';
 
 type TCommandName = 'click' | 'addvertisement_click';
