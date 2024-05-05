@@ -15,7 +15,6 @@ export const checkAuthInServer: GetServerSideProps = async ({ req, res, resolved
   return {
     props: {
       token,
-      test: 'test',
     },
   };
 };

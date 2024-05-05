@@ -1,8 +1,7 @@
 import { ArticleImg, Author } from 'components';
 import Link from 'next/link';
 import { FC } from 'react';
-import { addAmazonUri } from 'utils';
-import { getClassName } from 'utils/common/common';
+import { getClassName } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './SidebarArticle.module.scss';
@@ -22,7 +21,7 @@ export const SidebarArticle: FC<ISidebarArticleProps> = ({
         <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`} className={classes.title + ' link'}>
           <h4 className='pointer' dangerouslySetInnerHTML={{ __html: title }} />
         </Link>
-        {author && <Author {...addAmazonUri(author)} />}
+        {author && <Author {...author} />}
       </div>
       <Link href={`${WEB_APP_ROOT_DIR}/articles/${id}`}>
         <ArticleImg imgUrl={imgUrl} size='small' className='pointer' />

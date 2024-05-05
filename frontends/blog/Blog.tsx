@@ -5,7 +5,7 @@ import { GenericWrapper } from 'components/wrappers';
 import { FC } from 'react';
 import { useBlogPublishedArticles } from 'store/clients/published-article';
 import { IBlog } from 'types';
-import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
+import { addBlogAmazonUrl, convertBlogToHeadProp, get } from 'utils';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
 import styles from './Blog.module.scss';
@@ -16,14 +16,14 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
 
   return (
     <GenericWrapper>
-      <Head {...convertBlogToHeadProp(addAmazonUri(blog))} url={fullUrl} />
+      <Head {...convertBlogToHeadProp(addBlogAmazonUrl(blog))} url={fullUrl} />
       <UnsubscribeModal />
       <div
         className={`d-flex align-items-center justify-content-between p-2 flex-wrap ${styles.blogContainer}`}
       >
         {blog && (
           <>
-            <Blog {...addAmazonUri(blog)} avatarSize='extra-large' className='mb-2 flex-1' />
+            <Blog {...blog} avatarSize='extra-large' className='mb-2 flex-1' />
             <SubscriptionButton blogId={blog.id} />
           </>
         )}

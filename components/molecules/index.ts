@@ -10,5 +10,5 @@ export * from './subscription-button/SubscriptionButton';
 export * from './unsubscribe-modal/UnsubscribeModal';
 export * from './load-more-button/LoadMoreButton';
 export * from './no-article/NoArticle';
-export * from './AuthButton/AuthButton';
+export * from './auth-button/AuthButton';
 export * from './labels-selector/LabelsSelector';

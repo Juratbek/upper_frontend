@@ -1,7 +1,8 @@
-import { ZoomImage } from 'components/ZoomImage';
+import { ZoomImage } from 'components';
 import { useTheme } from 'hooks';
 import Image from 'next/image';
 import { FC, useMemo, useState } from 'react';
+import { addBlogAmazonUrl, isRemoteUrl } from 'utils';
 import { getClassName } from 'utils/common';
 import { getImageType } from 'utils/image';
 
@@ -21,11 +22,13 @@ export const Avatar: FC<IAvatarProps> = ({
   const image = useMemo(() => {
     if (!imgUrl || error) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
     const imageType = getImageType(imgUrl);
+    const isRemote = isRemoteUrl(imgUrl);
+    const finalUrl = isRemote ? imgUrl : addBlogAmazonUrl<string>(imgUrl);
 
     if (!zoomable || !imageType.zoomable)
       return (
         <Image
-          src={imgUrl}
+          src={finalUrl}
           onError={(): unknown => setError('Image load error')}
           alt='UPPER'
           layout='fill'
@@ -35,7 +38,7 @@ export const Avatar: FC<IAvatarProps> = ({
 
     return (
       <ZoomImage
-        src={imgUrl}
+        src={finalUrl}
         alt='UPPER'
         layout='fill'
         objectFit='cover'
