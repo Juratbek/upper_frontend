@@ -1,7 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
-import { Editor } from 'components';
 import { IQuizData } from 'components/Editor';
 import { BackButton, Head } from 'components/lib';
+import { Editor } from 'components/molecules';
 import { CommentsModal } from 'components/organisms';
 import { useModal } from 'hooks';
 import { FC, useCallback, useEffect, useState } from 'react';
@@ -78,6 +78,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
       <div className='editor-container pb-2'>
         <article>
           <Editor
+            // @ts-ignore
             content={{ blocks: addUriToImageBlocks(blocks) }}
             isEditable={false}
             handleInstance={setEditorInstance}

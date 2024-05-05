@@ -1,0 +1,40 @@
+.alert {
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 12px;
+
+    &.info {
+        background: rgba(0, 122, 255, 0.2);
+    }
+
+    &.danger {
+        background: #ffd9d6;
+    }
+
+    &.dark {
+        background: rgba(115, 118, 119, 0.2);
+    }
+
+    &.success {
+        background: rgba(75, 231, 50, 0.2);
+    }
+
+    &.danger {
+        background: #ffd9d6;
+    }
+
+    &.warning {
+        background: rgba(243, 248, 3, 0.2);
+    }
+}
+
+.text {
+    margin: 0;
+    outline: none;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 144%;
+    color: var(--black-500);
+    flex: 1;
+}

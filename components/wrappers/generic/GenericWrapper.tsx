@@ -41,7 +41,7 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
   return (
     <div className='flex-1'>
       {header}
-      <div className={`${classes.root} container`}>
+      <div className={getClassName(classes.root, 'container', props.classes?.root)}>
         <nav className={classes.navigation}>{navigation}</nav>
         <main className={getClassName(classes.main, props.classes?.main)}>{children}</main>
         <aside className={classes.sidebar}>{sidebar}</aside>

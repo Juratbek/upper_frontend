@@ -1,0 +1,16 @@
+.heading {
+    outline: none;
+
+    &:empty:before {
+        content: var(--placeholder, ' ');
+        color: var(--black-200);
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: end;
+}
