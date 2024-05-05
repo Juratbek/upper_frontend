@@ -7,5 +7,5 @@ export interface IPublishedArticleItem {
   title: string;
   content: string;
   imgUrl: string;
-  author: IBlogSmall;
+  author?: IBlogSmall;
 }

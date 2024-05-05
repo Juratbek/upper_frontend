@@ -1,9 +1,12 @@
-import { Blog } from 'components';
+import { ApiErrorBoundary, Blog } from 'components';
 import { Head } from 'components/lib';
-import { SubscriptionButton, UnsubscribeModal } from 'components/molecules';
+import { PublishedArticle, SubscriptionButton, UnsubscribeModal } from 'components/molecules';
 import { GenericWrapper } from 'components/wrappers';
 import { FC } from 'react';
+import { useBlogPublishedArticles } from 'store/clients/published-article';
+import { IBlog } from 'types';
 import { addAmazonUri, convertBlogToHeadProp, get } from 'utils';
+import { addAmazonBucketUrl } from 'utils/published-article';
 
 import styles from './Blog.module.scss';
 import { IBlogPageProps } from './Blog.types';
@@ -25,6 +28,20 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
           </>
         )}
       </div>
+      <PublishedArticles id={blog.id} />
     </GenericWrapper>
+  );
+};
+
+const PublishedArticles: FC<{ id: IBlog['id'] }> = ({ id }) => {
+  const articlesRes = useBlogPublishedArticles(id);
+  const { data } = articlesRes;
+
+  return (
+    <ApiErrorBoundary res={articlesRes}>
+      {data
+        ?.map(addAmazonBucketUrl)
+        .map((article) => <PublishedArticle key={article.id} article={article} />)}
+    </ApiErrorBoundary>
   );
 };

@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
-import { IPublishedArticleItem } from 'types';
+import { IBlog, IPublishedArticleItem } from 'types';
 
 export const usePublishedArticlesList = (label: string) => {
   return useInfiniteQuery<IPublishedArticleItem>({
@@ -13,6 +13,12 @@ export const usePublishedArticlesList = (label: string) => {
     enabled: typeof label === 'string',
   });
 };
+
+export const useBlogPublishedArticles = (id: IBlog['id']) =>
+  useQuery<IPublishedArticleItem[]>({
+    queryKey: ['blog-published-articles', id],
+    queryFn: () => apiClient.get(`blog/open/published-articles/${id}`),
+  });
 
 export const useIncrementViewCount = () =>
   useMutation<void, unknown, { id: number; token: string }>({
