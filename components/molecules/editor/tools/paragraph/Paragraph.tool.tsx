@@ -31,10 +31,15 @@ export const Paragraph = memo(
       );
     };
 
+    const pasteHandler = () => {
+      console.log('paragraph paste event');
+    };
+
     return (
       <p
         onKeyDown={keydownHandler}
         className={classes.paragraph}
+        onPaste={pasteHandler}
         ref={ref}
         contentEditable={isEditable}
         onInput={changeHandler}

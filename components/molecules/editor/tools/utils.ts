@@ -2,6 +2,7 @@ import { KeyboardEvent } from 'react';
 
 import { IEditorAPI } from '../context/EditorContext.types';
 import { IBlockData, IBlockNode } from '../instance/Editor.types';
+import { isEmpty } from '../utils/html';
 
 export const generateBlockNode = (element: HTMLDivElement, block: IBlockData): IBlockNode => {
   // just creating new object from params will not work
@@ -16,7 +17,7 @@ export const generateBlockNode = (element: HTMLDivElement, block: IBlockData): I
 export const textBlockKeydownHandler = (
   event: KeyboardEvent,
   api: IEditorAPI,
-  element: HTMLDivElement,
+  element: HTMLElement,
   blockId: IBlockData['id'],
 ) => {
   const { code, metaKey: isMetaKey } = event;
@@ -28,7 +29,7 @@ export const textBlockKeydownHandler = (
   }
 
   // if paragraph is empty when user presses Back key remove this paragraph
-  if (code === 'Backspace' && element.innerText === '') {
+  if (code === 'Backspace' && isEmpty(element)) {
     api.removeBlock(blockId);
     return;
   }

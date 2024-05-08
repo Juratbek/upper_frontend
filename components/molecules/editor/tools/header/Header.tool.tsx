@@ -23,7 +23,7 @@ export const Header = memo(
       }
     }, []);
 
-    const keydownHandler: KeyboardEventHandler<HTMLParagraphElement> = useCallback(
+    const keydownHandler: KeyboardEventHandler<HTMLHeadingElement> = useCallback(
       (event) => {
         if (!ref.current) return;
 

@@ -5,7 +5,7 @@ import { IBlockData, IBlockNode } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
 import { EditorContext } from './EditorContext';
 import { IEditorContext, IEditorProviderProps, IInlineToolbar } from './EditorContext.types';
-import { bindEditorDataState } from './EditorContext.utils';
+import { bindEditorDataState, generateToolsTagsMap } from './EditorContext.utils';
 
 const mapper = EDITOR_TOOLS;
 
@@ -42,6 +42,8 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
     });
   }, [data, api]);
 
+  const toolsTagsMap = useMemo(() => generateToolsTagsMap(mapper), [mapper]);
+
   const store = useMemo(
     () =>
       ({
@@ -53,8 +55,9 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
         focusedBlock,
         isEditable,
         inlineToolbar,
+        toolsTagsMap,
       }) satisfies IEditorContext,
-    [data, api, hoveredBlock, focusedBlock, isEditable, inlineToolbar],
+    [data, api, hoveredBlock, focusedBlock, isEditable, inlineToolbar, toolsTagsMap],
   );
 
   return <EditorContext.Provider value={store}>{children}</EditorContext.Provider>;

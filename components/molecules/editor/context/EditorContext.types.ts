@@ -2,12 +2,22 @@ import { ReactNode } from 'react';
 
 import { IBlockData, IBlockNode, IEditorProps } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
+import { TToolType } from '../tools/tool.types';
 
 export interface IEditorProviderProps extends IEditorProps {
   children: ReactNode;
 }
 
-export type TAddBlock = (type: IBlockData['type'], currentBlockId: IBlockNode['id']) => void;
+export type TAddBlock = (
+  type: IBlockData['type'],
+  currentBlockId: IBlockNode['id'],
+  data?: IBlockData['data'],
+) => void;
+
+export type TAddBlocks = (
+  blocks: Pick<IBlockData, 'type' | 'data'>[],
+  currentBlockId: IBlockNode['id'],
+) => void;
 
 export type TRemoveBlock = (id: IBlockData['id']) => void;
 
@@ -23,6 +33,7 @@ export type TSetBlock = <T extends Record<string, any> = Record<string, any>>(
 
 export interface IEditorAPI {
   addBlock: TAddBlock;
+  addBlocks: TAddBlocks;
   setBlock: TSetBlock;
   removeBlock: TRemoveBlock;
   focusPreviousText: TFocusPreviousText;
@@ -32,6 +43,8 @@ export interface IEditorAPI {
   hideInlineToolbar: () => void;
 }
 
+export type TToolsTagsMap = Partial<Record<keyof HTMLElementTagNameMap, TToolType>>;
+
 export interface IEditorContext<T = any>
   extends IEditorAPI,
     Required<Pick<IEditorProps, 'isEditable'>> {
@@ -39,6 +52,7 @@ export interface IEditorContext<T = any>
   hoveredBlock?: IBlockNode<T>;
   focusedBlock?: IBlockData<T>;
   tools: typeof EDITOR_TOOLS;
+  toolsTagsMap: TToolsTagsMap;
   inlineToolbar: IInlineToolbar;
   renderBlocks: () => ReactNode;
 }

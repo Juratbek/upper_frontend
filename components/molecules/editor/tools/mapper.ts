@@ -1,12 +1,10 @@
 import {
   IconBrackets,
   IconDelimiter,
-  IconHeading,
   IconListBulleted,
   IconPicture,
   IconQuote,
   IconTable,
-  IconText,
   IconWarning,
 } from '@codexteam/icons';
 
@@ -14,42 +12,20 @@ import { IBlockData } from '../instance/Editor.types';
 import { Alert, AlertSettings, IAlertData } from './alert';
 import { Code } from './code/Code.tool';
 import { Delimiter } from './delimiter/Delimiter.tools';
-import { Header, HeaderSettings } from './header';
-import { IHeaderData } from './header/Header.types';
+import { HeaderTool } from './header/Header.constants';
 import { Image, ImageSettings } from './image';
 import { IImageData } from './image/Image.types';
 import { List, ListSettings } from './list';
 import { IListData } from './list/List.types';
-import { IParagraphData, Paragraph } from './paragraph';
+import { ParagraphTool } from './paragraph/Paragraph.constants';
 import { Quote } from './quote';
 import { defaultTableData, ITableData, Table } from './table';
 import { TToolsMapper } from './tool.types';
 import { Unsplash } from './unsplash/Unsplash.tool';
 
 export const EDITOR_TOOLS: TToolsMapper = {
-  paragraph: {
-    toolbar: {
-      text: 'Matn',
-      icon: IconText,
-    },
-    sanitize: (data: IBlockData['data']): IBlockData<IParagraphData>['data'] => {
-      return { text: data.text };
-    },
-    block: Paragraph,
-    inlineToolEnabled: true,
-  },
-  header: {
-    toolbar: {
-      text: 'Sarlavha',
-      icon: IconHeading,
-    },
-    settings: HeaderSettings,
-    sanitize: (data: IBlockData['data']): IBlockData<IHeaderData>['data'] => {
-      return { text: data.text, level: data.level, alignment: data.alignment };
-    },
-    block: Header,
-    inlineToolEnabled: true,
-  },
+  paragraph: ParagraphTool,
+  header: HeaderTool,
   image: {
     toolbar: {
       text: 'Rasm',
@@ -67,6 +43,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
       };
     },
     block: Image,
+    tags: ['picture'],
   },
   unsplash: {
     block: Unsplash,
@@ -77,6 +54,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
       icon: IconBrackets,
     },
     block: Code,
+    tags: ['picture'],
   },
   delimiter: {
     toolbar: {
@@ -94,6 +72,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
     settings: ListSettings,
     initialData: { items: [''], style: 'unordered' } satisfies IListData,
     inlineToolEnabled: true,
+    tags: ['ol', 'ul'],
   },
   alert: {
     toolbar: {
@@ -120,5 +99,6 @@ export const EDITOR_TOOLS: TToolsMapper = {
     initialData: defaultTableData satisfies ITableData,
     block: Table,
     inlineToolEnabled: true,
+    tags: ['table'],
   },
 } as const;

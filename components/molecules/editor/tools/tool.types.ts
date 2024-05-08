@@ -34,6 +34,8 @@ export interface ITool {
   initialData?: Record<string, any>;
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
   inlineToolEnabled?: boolean;
+  tags?: Array<keyof HTMLElementTagNameMap>;
+  onPaste?: (node: Node) => IBlockData['data'];
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;
