@@ -2,6 +2,7 @@ import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
 import { defaultHighlightStyle, language, syntaxHighlighting } from '@codemirror/language';
 import { Compartment, EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
+import { useModal } from 'hooks';
 import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { debouncer } from 'utils/debouncer';
 
@@ -19,6 +20,9 @@ export const defaultLanguage = 'javascript';
 export const Code = memo(
   function Memoized({ data, isEditable, api, id, type }: IToolProps<ICodeData>) {
     const textareaRef = useRef<HTMLDivElement>(null);
+    const [isHovered, toggleIsHovered] = useModal();
+    const [isFocused, toggleIsFocused] = useModal();
+    const isHeaderVisible = isHovered || isFocused;
     const [editorView, setEditorView] = useState<EditorView>();
 
     const updateListener = useMemo(() => {
@@ -61,9 +65,14 @@ export const Code = memo(
     }, [state]);
 
     return (
-      <div className={cls.container}>
-        {editorView && <Header isEditable={isEditable} editor={editorView} />}
-        <div ref={textareaRef} className={cls.textarea}></div>
+      <div className={cls.container} onMouseEnter={toggleIsHovered} onMouseLeave={toggleIsHovered}>
+        {isHeaderVisible && editorView && <Header isEditable={isEditable} editor={editorView} />}
+        <div
+          ref={textareaRef}
+          className={cls.textarea}
+          onFocus={toggleIsFocused}
+          onBlur={toggleIsFocused}
+        ></div>
       </div>
     );
   },
