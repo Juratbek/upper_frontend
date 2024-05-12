@@ -13,6 +13,7 @@ export type TToolType =
   | 'quote'
   | 'delimiter'
   | 'unsplash'
+  | 'figure'
   | 'table';
 
 export interface IToolbar {
@@ -35,7 +36,7 @@ export interface ITool {
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
   inlineToolEnabled?: boolean;
   tags?: Array<keyof HTMLElementTagNameMap>;
-  onPaste?: (node: Node) => IBlockData['data'];
+  onPaste?: (node: Node) => IBlockData['data'] | null;
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;

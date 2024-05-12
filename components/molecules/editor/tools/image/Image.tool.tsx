@@ -14,21 +14,42 @@ export const Image = memo(
         </div>
       );
     }
-    const { file } = data;
+    const { file, caption } = data;
+
+    const renderCaption = () => {
+      if (isEditable) {
+        return (
+          <figcaption
+            className={classes.caption}
+            contentEditable
+            dangerouslySetInnerHTML={{ __html: caption ?? '' }}
+          />
+        );
+      }
+
+      if (!caption) return;
+
+      return (
+        <figcaption className={classes.caption} dangerouslySetInnerHTML={{ __html: caption }} />
+      );
+    };
 
     return (
-      <div className={getClassName(data.withBackground && classes['with-background'])}>
-        <img
-          src={file.url}
-          alt=''
-          className={getClassName(
-            classes.image,
-            data.stretched && classes.stretched,
-            data.withBorder && classes['with-border'],
-            data.alignment && classes[data.alignment],
-          )}
-        />
-      </div>
+      <figure>
+        <div className={getClassName(data.withBackground && classes['with-background'])}>
+          <img
+            src={file.url}
+            alt=''
+            className={getClassName(
+              classes.image,
+              data.stretched && classes.stretched,
+              data.withBorder && classes['with-border'],
+              data.alignment && classes[data.alignment],
+            )}
+          />
+        </div>
+        {renderCaption()}
+      </figure>
     );
   },
   (prevProps, currentProps) => {

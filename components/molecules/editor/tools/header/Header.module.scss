@@ -1,5 +1,6 @@
 .heading {
     outline: none;
+    line-height: 115%;
 
     &:empty:before {
         content: var(--placeholder, ' ');

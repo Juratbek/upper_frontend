@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-import { TArrayElement } from 'utils/typescript';
+import { ArrayElement } from 'utils/typescript';
 
 import { IEditorContext, TAddBlocks, useEditorContext } from '../../context';
 import { getNodes } from '../../utils/html';
@@ -33,6 +33,7 @@ export const usePasteListener = () => {
 
       const nodes = getNodes(htmlWithAllAllowedTags);
       const blocks = generateBlocks(nodes, toolsTagsMap, tools);
+
       addBlocks(blocks, focusedBlock.id);
     },
     [addBlocks, toolsTagsMap, focusedBlock, tools],
@@ -49,23 +50,26 @@ function generateBlocks(
   nodes: Node[],
   toolsTagsMap: IEditorContext['toolsTagsMap'],
   tools: IEditorContext['tools'],
-) {
-  return nodes
-    .map((node) => {
-      const nodeName = node.nodeName.toLowerCase() as keyof HTMLElementTagNameMap;
+): TAddBlocksFirstParam {
+  return nodes.reduce<TAddBlocksFirstParam>((res, node) => {
+    const nodeName = node.nodeName.toLowerCase() as keyof HTMLElementTagNameMap;
 
-      if (!Object.hasOwn(toolsTagsMap, nodeName)) return;
+    if (!Object.hasOwn(toolsTagsMap, nodeName)) return res;
 
-      const toolType = toolsTagsMap[nodeName];
-      const tool = tools[toolType!];
+    const toolTypes = toolsTagsMap[nodeName] ?? [];
+
+    toolTypes.forEach((toolType) => {
+      const tool = tools[toolType];
       const data = tool.onPaste?.(node);
 
-      if (!data) return;
+      if (data) {
+        res.push({
+          type: toolType,
+          data,
+        } satisfies ArrayElement<TAddBlocksFirstParam>);
+      }
+    });
 
-      return {
-        type: toolType!,
-        data,
-      } satisfies TArrayElement<TAddBlocksFirstParam>;
-    })
-    .filter((block) => block) as TAddBlocksFirstParam;
+    return res;
+  }, []);
 }

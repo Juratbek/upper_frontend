@@ -1,5 +1,6 @@
 export interface IQuoteData {
-  alignment: 'left';
+  alignment?: 'left';
   caption: string;
   text: string;
+  isCaptionHidden?: boolean;
 }

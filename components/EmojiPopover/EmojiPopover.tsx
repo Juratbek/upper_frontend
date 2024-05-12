@@ -20,7 +20,7 @@ interface IEmojiPopoverProps {
   emojiQuery: string;
   onEmojiClick: (emoji: string) => void;
   targetTextCoords: DOMRect;
-  cleanUp: () => void;
+  cleanUp: VoidFunction;
 }
 
 const COLUMN_COUNT = 10;

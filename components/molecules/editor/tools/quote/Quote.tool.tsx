@@ -40,8 +40,10 @@ export const Quote = memo(
     };
 
     return (
-      <div>
-        <QuoteUp />
+      <figure>
+        <div className={cls['quote-icon']}>
+          <QuoteUp />
+        </div>
         <blockquote
           onInput={quoteChangeHandler}
           ref={quoteRef}
@@ -49,20 +51,30 @@ export const Quote = memo(
           contentEditable={isEditable}
           dangerouslySetInnerHTML={{ __html: data.text }}
         />
-        <div className={cls['quote-down']}>
+        <div className={`${cls['down']} ${cls['quote-icon']}`}>
           <QuoteDown />
         </div>
-        <div className={cls.author} onInput={captionChangeHandler} contentEditable={isEditable}>
-          {data.caption}
-        </div>
-      </div>
+        {!Boolean(data.isCaptionHidden) && (
+          <figcaption
+            className={cls.author}
+            onInput={captionChangeHandler}
+            contentEditable={isEditable}
+          >
+            {data.caption}
+          </figcaption>
+        )}
+      </figure>
     );
   },
   (prevProps, currentProps) => {
     const prevData = prevProps.data;
     const currentData = currentProps.data;
 
-    if (prevData.alignment !== currentData.alignment) return false;
+    if (
+      prevData.alignment !== currentData.alignment ||
+      prevData.isCaptionHidden !== currentData.isCaptionHidden
+    )
+      return false;
 
     return true;
   },

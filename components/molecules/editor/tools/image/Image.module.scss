@@ -1,7 +1,7 @@
 .image {
     max-width: 100%;
     height: auto;
-    border-radius: 12px;
+    border-radius: 6px;
 }
 
 .stretched {
@@ -21,4 +21,22 @@
 .center {
     margin: 0 auto;
     display: block;
+}
+
+.caption {
+    padding-top: 10px;
+    text-align: center;
+    color: #6B6B6B;
+    outline: none;
+    position: relative;
+    font-size: 14px;
+
+    &:is(:empty):before {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        color: #8c8c8c;
+        content: 'Rasm haqida izoh';
+        transform: translateX(-50%);
+    }
 }

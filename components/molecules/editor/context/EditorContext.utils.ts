@@ -10,6 +10,7 @@ import {
   TAddBlock,
   TAddBlocks,
   TFocusPreviousText,
+  TMergeWithPrevBlock,
   TMoveBlockDown,
   TMoveBlockUp,
   TRemoveBlock,
@@ -21,7 +22,7 @@ function generateBlockId() {
   return uuid(8);
 }
 
-function createBlock(
+export function createBlock(
   type: IBlockData['type'],
   data?: IBlockData['data'],
   tool?: ITool,
@@ -161,6 +162,37 @@ export const bindEditorDataState = (
 
   const hideInlineToolbar = () => setInlineToolbar({});
 
+  const mergeWithPrevBlock: TMergeWithPrevBlock = (currentBlockId, mergeCallback) => {
+    setData((blocks) => {
+      const updatedBlocks = [];
+
+      for (let index = 0; index < blocks.length; index++) {
+        const block = blocks[index];
+
+        // if block is not current block or is first block -> push it into updated blocks
+        if (block.id !== currentBlockId || index === 0) {
+          updatedBlocks.push(block);
+          continue;
+        }
+
+        const currentBlock = block;
+        const prevBlock = blocks[index - 1];
+
+        // if current block type and previous block type are different ->
+        // blocks are not mergeable and no need to update the state
+        if (prevBlock.type !== currentBlock.type) return blocks;
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const mergedData = mergeCallback(prevBlock, currentBlock);
+        const newBlock = createBlock(prevBlock.type, mergedData);
+        updatedBlocks[index - 1] = newBlock;
+      }
+
+      return updatedBlocks;
+    });
+  };
+
   return {
     addBlock,
     moveBlockDown,
@@ -171,6 +203,7 @@ export const bindEditorDataState = (
     showInlineToolbar,
     hideInlineToolbar,
     addBlocks,
+    mergeWithPrevBlock,
   };
 };
 
@@ -180,7 +213,8 @@ export function generateToolsTagsMap(tools: TToolsMapper) {
     if (!tags || !Array.isArray(tags)) return tagsMap;
 
     tags.forEach((tag) => {
-      tagsMap[tag] = toolType as TToolType;
+      const toolTags = tagsMap[tag] ?? [];
+      tagsMap[tag] = [...toolTags, toolType as TToolType];
     });
 
     return tagsMap;

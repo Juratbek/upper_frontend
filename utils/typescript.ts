@@ -1,2 +1,3 @@
-export type TArrayElement<TArrayType extends readonly unknown[]> =
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export type ArrayElement<TArrayType extends readonly unknown[]> =
   TArrayType extends readonly (infer ElementType)[] ? ElementType : never;

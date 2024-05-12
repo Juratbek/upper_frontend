@@ -8,14 +8,22 @@
     line-height: 156%;
     color: var(--black-500);
 
+    p {
+        margin: 0;
+    }
+
     &:empty::before {
         content: 'Iqtibosni bu yerga yozing';
-        color: gray;
+        color: #8c8c8c;
     }
 }
 
-.quote-down {
-    text-align: end;
+.quote-icon {
+    height: 24px;
+
+    &.down {
+        text-align: end;
+    }
 }
 
 .author {
@@ -30,6 +38,6 @@
 
     &:empty::after {
         content: 'Iqtibos aftori';
-        color: gray;
+        color: #8c8c8c;
     }
 }

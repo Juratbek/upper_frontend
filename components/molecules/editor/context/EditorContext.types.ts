@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { IBlockData, IBlockNode, IEditorProps } from '../instance/Editor.types';
+import { IBlockData, IBlockNode, IEditorProps, TInitialBlockData } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
 import { TToolType } from '../tools/tool.types';
 
@@ -27,6 +27,11 @@ export type TMoveBlockUp = (id: IBlockData['id']) => void;
 
 export type TMoveBlockDown = (id: IBlockData['id']) => void;
 
+export type TMergeWithPrevBlock = <T extends TInitialBlockData = TInitialBlockData>(
+  id: IBlockData['id'],
+  mergeCallback: (prevBlock: IBlockData<T>, currentBlock: IBlockData<T>) => IBlockData<T>['data'],
+) => void;
+
 export type TSetBlock = <T extends Record<string, any> = Record<string, any>>(
   block: IBlockData<T>,
 ) => void;
@@ -40,10 +45,11 @@ export interface IEditorAPI {
   moveBlockUp: TMoveBlockUp;
   moveBlockDown: TMoveBlockDown;
   showInlineToolbar: (data: IInlineToolbar) => void;
-  hideInlineToolbar: () => void;
+  hideInlineToolbar: VoidFunction;
+  mergeWithPrevBlock: TMergeWithPrevBlock;
 }
 
-export type TToolsTagsMap = Partial<Record<keyof HTMLElementTagNameMap, TToolType>>;
+export type TToolsTagsMap = Partial<Record<keyof HTMLElementTagNameMap, TToolType[]>>;
 
 export interface IEditorContext<T = any>
   extends IEditorAPI,

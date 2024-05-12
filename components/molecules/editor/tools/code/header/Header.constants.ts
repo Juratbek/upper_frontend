@@ -26,7 +26,7 @@ export const LANGUAGES: Record<string, ILanguage> = {
     label: 'CSS',
     extension: css,
   },
-  'c++': {
+  cpp: {
     label: 'C++',
     extension: cpp,
   },

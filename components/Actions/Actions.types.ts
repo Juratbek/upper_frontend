@@ -4,7 +4,7 @@ type TColor = 'red';
 export interface IAction {
   label: ReactNode;
   color?: TColor;
-  onClick?: () => void;
+  onClick?: VoidFunction;
 }
 
 export interface IActinosProps {

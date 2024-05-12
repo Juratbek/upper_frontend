@@ -20,7 +20,9 @@ export const Paragraph = memo(
       (event) => {
         if (!ref.current) return;
 
-        textBlockKeydownHandler(event, api, ref.current, id);
+        textBlockKeydownHandler(event, api, ref.current, id, {
+          shouldMergeOnBackspace: true,
+        });
       },
       [data, id],
     );
@@ -37,6 +39,7 @@ export const Paragraph = memo(
 
     return (
       <p
+        id={id}
         onKeyDown={keydownHandler}
         className={classes.paragraph}
         onPaste={pasteHandler}

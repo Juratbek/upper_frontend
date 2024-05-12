@@ -5,7 +5,7 @@ type TColor = 'outline-red';
 export interface IModalProps extends HTMLAttributes<HTMLElement> {
   className?: string;
   isOpen: boolean;
-  close: () => void;
+  close: VoidFunction;
   bodyClassName?: string;
   color?: TColor;
   footer?: ReactNode;

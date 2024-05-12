@@ -1,5 +1,14 @@
 import HTMLJanitor from 'html-janitor';
 
+interface IHtmlJanitor {
+  clean: (str: string) => string;
+}
+
+type TTags = Record<
+  string,
+  Record<string, boolean> | ((el: HTMLElement) => boolean | Record<string, boolean>)
+>;
+
 const allowedInlineTags = {
   a: { href: true, target: true },
   code: {},
@@ -7,6 +16,7 @@ const allowedInlineTags = {
   b: {},
   i: {},
   em: {},
+  mark: {},
 };
 
 const headingTags = {
@@ -18,21 +28,30 @@ const headingTags = {
   h6: {},
 };
 
-const allAllowedTags = {
+const allAllowedTags: TTags = {
   p: {},
   ul: {},
   ol: {},
   li: {},
   figure: {},
+  figcaption: {},
+  blockquote: {},
+  picture: {},
+  br: {},
+  img: { width: true, height: true, src: true, alt: true },
+  iframe: { width: true, height: true, src: true },
+  pre: {},
+  div: function (el: HTMLElement) {
+    const role = el.getAttribute('role');
+    const hasRoleAttribute = Boolean(role);
+
+    if (!hasRoleAttribute) return false;
+
+    return { role: true };
+  },
   ...headingTags,
   ...allowedInlineTags,
 };
-
-interface IHtmlJanitor {
-  clean: (str: string) => string;
-}
-
-type TTags = Record<string, Record<string, boolean>>;
 
 class Janitor {
   #instance: IHtmlJanitor = new HTMLJanitor({ tags: allAllowedTags });

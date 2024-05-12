@@ -62,7 +62,7 @@ export const Code = memo(
 
     return (
       <div className={cls.container}>
-        {editorView && <Header editor={editorView} />}
+        {editorView && <Header isEditable={isEditable} editor={editorView} />}
         <div ref={textareaRef} className={cls.textarea}></div>
       </div>
     );
