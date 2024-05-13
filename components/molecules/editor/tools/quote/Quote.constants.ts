@@ -13,7 +13,7 @@ export const QuoteTool: ITool = {
   },
   block: Quote,
   settings: QuoteSettings,
-  tags: ['blockquote'],
+  tags: ['blockquote', 'aside'],
   onPaste: (node) => {
     const quote = node as HTMLQuoteElement;
     return {

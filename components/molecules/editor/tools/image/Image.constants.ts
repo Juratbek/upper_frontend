@@ -26,8 +26,7 @@ export const ImageTool: ITool = {
   tags: ['figure'],
   onPaste: (node) => {
     const figure = node as HTMLElement;
-    const picture = figure.querySelector('picture');
-    const img = picture?.querySelector('img');
+    const img = figure?.querySelector('img');
 
     if (!img) return null;
     const figcaption = figure.querySelector('figcaption');

@@ -2,6 +2,7 @@ import { AlertTool } from './alert/Alert.constants';
 import { CodeTool } from './code/Code.constants';
 import { DelimiterTool } from './delimiter/Delimiter.constants';
 import { FigureTool } from './figure/Figure.constants';
+import { FrameTool } from './frame/Frame.constants';
 import { HeaderTool } from './header/Header.constants';
 import { ImageTool } from './image/Image.constants';
 import { ListTool } from './list/List.constants';
@@ -18,6 +19,7 @@ export const EDITOR_TOOLS: TToolsMapper = {
   unsplash: {
     block: Unsplash,
   },
+  frame: FrameTool,
   code: CodeTool,
   delimiter: DelimiterTool,
   list: ListTool,

@@ -14,6 +14,7 @@ export type TToolType =
   | 'delimiter'
   | 'unsplash'
   | 'figure'
+  | 'frame'
   | 'table';
 
 export interface IToolbar {
@@ -35,7 +36,7 @@ export interface ITool {
   initialData?: Record<string, any>;
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
   inlineToolEnabled?: boolean;
-  tags?: Array<keyof HTMLElementTagNameMap>;
+  tags?: Array<keyof HTMLElementTagNameMap | '#text'>;
   onPaste?: (node: Node) => IBlockData['data'] | null;
 }
 

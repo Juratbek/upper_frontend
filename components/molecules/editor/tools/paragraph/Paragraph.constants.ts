@@ -15,9 +15,20 @@ export const ParagraphTool: ITool = {
   },
   block: Paragraph,
   inlineToolEnabled: true,
-  tags: ['p'],
+  tags: ['p', '#text', 'address'],
   onPaste: (node) => {
-    const paragraph = node as HTMLParagraphElement;
-    return { text: paragraph.innerHTML } satisfies IBlockData<IParagraphData>['data'];
+    let text;
+
+    if (node.nodeName === '#text') {
+      const textNode = node as Text;
+      text = textNode.textContent;
+    } else if (['ADDRESS', 'P'].includes(node.nodeName)) {
+      const element = node as HTMLElement;
+      text = element.innerHTML;
+    }
+
+    if (!text) return null;
+
+    return { text } satisfies IBlockData<IParagraphData>['data'];
   },
 };

@@ -17,6 +17,7 @@ const allowedInlineTags = {
   i: {},
   em: {},
   mark: {},
+  time: { datetime: true },
 };
 
 const headingTags = {
@@ -30,6 +31,7 @@ const headingTags = {
 
 const allAllowedTags: TTags = {
   p: {},
+  address: {},
   ul: {},
   ol: {},
   li: {},
@@ -38,6 +40,7 @@ const allAllowedTags: TTags = {
   blockquote: {},
   picture: {},
   br: {},
+  aside: {},
   img: { width: true, height: true, src: true, alt: true },
   iframe: { width: true, height: true, src: true },
   pre: {},

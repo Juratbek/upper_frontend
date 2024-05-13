@@ -39,4 +39,8 @@
         content: 'Rasm haqida izoh';
         transform: translateX(-50%);
     }
+
+    &:focus::before {
+        content: '';
+    }
 }
