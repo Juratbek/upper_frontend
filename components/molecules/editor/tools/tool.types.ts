@@ -28,6 +28,8 @@ export interface IToolbarSetting<T = any> extends IToolbar {
   className?: string;
 }
 
+export type TToolTag = keyof HTMLElementTagNameMap | '#text';
+
 export interface ITool {
   toolbar?: IToolbar;
   block: FC<IToolProps<any>>;
@@ -36,7 +38,7 @@ export interface ITool {
   initialData?: Record<string, any>;
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
   inlineToolEnabled?: boolean;
-  tags?: Array<keyof HTMLElementTagNameMap | '#text'>;
+  tags?: Array<TToolTag>;
   onPaste?: (node: Node) => IBlockData['data'] | null;
 }
 

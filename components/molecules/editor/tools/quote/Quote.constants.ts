@@ -12,6 +12,7 @@ export const QuoteTool: ITool = {
     icon: IconQuote,
   },
   block: Quote,
+  inlineToolEnabled: true,
   settings: QuoteSettings,
   tags: ['blockquote', 'aside'],
   onPaste: (node) => {

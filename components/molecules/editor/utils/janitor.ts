@@ -40,6 +40,7 @@ const allAllowedTags: TTags = {
   blockquote: {},
   picture: {},
   br: {},
+  hr: {},
   aside: {},
   img: { width: true, height: true, src: true, alt: true },
   iframe: { width: true, height: true, src: true },

@@ -10,12 +10,15 @@ export const DelimiterTool: ITool = {
     icon: IconDelimiter,
   },
   block: Delimiter,
-  tags: ['div'],
+  tags: ['div', 'hr'],
   onPaste: (node) => {
-    const div = node as HTMLDivElement;
-    const role = div.getAttribute('role');
+    const element = node as HTMLElement;
 
-    if (role !== 'separator') return null;
+    const role = element.getAttribute('role');
+    // if element is a div but role is not 'separator' -> do not add a delimiter block
+    if (element.nodeName === 'DIV' && role !== 'separator') {
+      return null;
+    }
 
     return {} satisfies IBlockData<unknown>['data'];
   },

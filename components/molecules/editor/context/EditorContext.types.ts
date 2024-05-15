@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 import { IBlockData, IBlockNode, IEditorProps, TInitialBlockData } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
-import { TToolType } from '../tools/tool.types';
+import { TToolTag, TToolType } from '../tools/tool.types';
 
 export interface IEditorProviderProps extends IEditorProps {
   children: ReactNode;
@@ -49,7 +49,7 @@ export interface IEditorAPI {
   mergeWithPrevBlock: TMergeWithPrevBlock;
 }
 
-export type TToolsTagsMap = Partial<Record<keyof HTMLElementTagNameMap, TToolType[]>>;
+export type TToolsTagsMap = Partial<Record<TToolTag, TToolType[]>>;
 
 export interface IEditorContext<T = any>
   extends IEditorAPI,

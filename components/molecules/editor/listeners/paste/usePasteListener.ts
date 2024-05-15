@@ -2,13 +2,14 @@ import { useCallback, useEffect } from 'react';
 import { ArrayElement } from 'utils/typescript';
 
 import { IEditorContext, TAddBlocks, useEditorContext } from '../../context';
+import { TToolTag } from '../../tools/tool.types';
 import { getNodes } from '../../utils/html';
 import janitor from '../../utils/janitor';
 
 type TAddBlocksFirstParam = Parameters<TAddBlocks>[0];
 
 export const usePasteListener = () => {
-  const { addBlocks, toolsTagsMap, focusedBlock, tools } = useEditorContext();
+  const { addBlocks, toolsTagsMap, focusedBlock, tools, removeBlock } = useEditorContext();
 
   const pasteHandler = useCallback(
     (event: ClipboardEvent) => {
@@ -31,12 +32,19 @@ export const usePasteListener = () => {
         return;
       }
 
+      // get nodes from cleaned html
       const nodes = getNodes(htmlWithAllAllowedTags);
+      // generating editor blocks from html nodes
       const blocks = generateBlocks(nodes, toolsTagsMap, tools);
 
+      // adding blocks into editor state
       addBlocks(blocks, focusedBlock.id);
+
+      // if focused block content is empty -> remove this block
+      const focusedBlockContent = focusedBlock.data.text?.trim();
+      if (!focusedBlockContent) removeBlock(focusedBlock.id);
     },
-    [addBlocks, toolsTagsMap, focusedBlock, tools],
+    [addBlocks, removeBlock, toolsTagsMap, focusedBlock, tools],
   );
 
   useEffect(() => {
@@ -52,7 +60,7 @@ function generateBlocks(
   tools: IEditorContext['tools'],
 ): TAddBlocksFirstParam {
   return nodes.reduce<TAddBlocksFirstParam>((res, node) => {
-    const nodeName = node.nodeName.toLowerCase() as keyof HTMLElementTagNameMap;
+    const nodeName = node.nodeName.toLowerCase() as TToolTag;
 
     if (!Object.hasOwn(toolsTagsMap, nodeName)) return res;
 

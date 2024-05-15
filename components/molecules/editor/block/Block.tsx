@@ -15,7 +15,12 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
   }, [props]);
 
   const clickHandler = useCallback(
-    () => props.onClick({ data: props.data, id: props.id, type: props.type }),
+    () => props.onClick?.({ data: props.data, id: props.id, type: props.type }),
+    [props],
+  );
+
+  const focusHandler = useCallback(
+    () => props.onFocus({ data: props.data, id: props.id, type: props.type }),
     [props],
   );
 
@@ -25,6 +30,7 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
       ref={blockRef}
       onMouseEnter={mouseEnterHandler}
       onClick={clickHandler}
+      onFocus={focusHandler}
     >
       {children}
     </div>

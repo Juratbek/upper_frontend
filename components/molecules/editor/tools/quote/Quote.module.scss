@@ -1,28 +1,29 @@
+.container {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        top: 0;
+        left: -12px;
+        content: ' ';
+        bottom: 0;
+        width: 3px;
+        background-color: black;
+    }
+}
+
 .blockquote {
     outline: none;
     margin: 8px 0;
     font-family: var(--third-family);
     font-style: italic;
-    font-weight: 700;
     font-size: 18px;
     line-height: 156%;
     color: var(--black-500);
 
-    p {
-        margin: 0;
-    }
-
     &:empty::before {
         content: 'Iqtibosni bu yerga yozing';
         color: #8c8c8c;
-    }
-}
-
-.quote-icon {
-    height: 24px;
-
-    &.down {
-        text-align: end;
     }
 }
 
@@ -31,7 +32,6 @@
     outline: none;
     margin-top: 8px;
     font-family: var(--font-family);
-    font-weight: 600;
     font-size: 20px;
     line-height: 120%;
     color: var(--black-700);

@@ -24,6 +24,10 @@ export const ParagraphTool: ITool = {
       text = textNode.textContent;
     } else if (['ADDRESS', 'P'].includes(node.nodeName)) {
       const element = node as HTMLElement;
+
+      // if the element has img children -> do not render a paragraph block, it will be handled by the image tool
+      if (element.querySelector('img')) return null;
+
       text = element.innerHTML;
     }
 

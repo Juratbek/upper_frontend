@@ -5,10 +5,16 @@ import { IFrameData } from './Frame.types';
 
 export const FrameTool: ITool = {
   block: Frame,
-  tags: ['figure'],
+  tags: ['figure', 'iframe'],
   onPaste: (node) => {
-    const figure = node as HTMLElement;
-    const frame = figure.querySelector('iframe');
+    const element = node as HTMLElement;
+    let frame: HTMLIFrameElement | null;
+
+    if (element.nodeName === 'IFRAME') {
+      frame = element as HTMLIFrameElement;
+    } else {
+      frame = element.querySelector('iframe');
+    }
 
     if (!frame) return null;
 

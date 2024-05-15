@@ -23,19 +23,35 @@ export const ImageTool: ITool = {
     };
   },
   block: Image,
-  tags: ['figure'],
+  tags: ['figure', 'img', 'p'],
   onPaste: (node) => {
-    const figure = node as HTMLElement;
-    const img = figure?.querySelector('img');
+    const element = node as HTMLElement;
+    let caption: string | undefined;
+    let src: string | undefined;
+    let isStretched = true;
 
-    if (!img) return null;
-    const figcaption = figure.querySelector('figcaption');
+    if (element.nodeName === 'IMG') {
+      src = (element as HTMLImageElement).src;
+    } else {
+      const img = element.querySelector('img');
+      if (!img) return null;
+      src = img.src;
+
+      if (element.nodeName === 'P') isStretched = false;
+    }
+
+    if (element.nodeName === 'FIGURE') {
+      const figcaption = element.querySelector('figcaption');
+      caption = figcaption?.innerHTML;
+    }
+
+    if (!src) return null;
 
     return {
-      file: { url: img.src },
+      file: { url: src },
       alignment: 'center',
-      stretched: true,
-      caption: figcaption?.innerHTML,
+      stretched: isStretched,
+      caption: caption,
     } satisfies IBlockData<IImageData>['data'];
   },
 };

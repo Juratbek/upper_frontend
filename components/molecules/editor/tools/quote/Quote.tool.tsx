@@ -1,13 +1,9 @@
 import { ChangeEvent, memo, useEffect, useRef } from 'react';
 import { debouncer } from 'utils/debouncer';
-import { ICONS } from 'variables/icons';
 
 import { IToolProps } from '../tool.types';
 import cls from './Quote.module.scss';
 import { IQuoteData } from './Quote.types';
-
-const QuoteUp = ICONS.quoteUp;
-const QuoteDown = ICONS.quoteDown;
 
 const debounce = debouncer<string>();
 
@@ -24,7 +20,12 @@ export const Quote = memo(
         api.setBlock<IQuoteData>({
           id,
           type,
-          data: { alignment: data.alignment, caption: data.caption, text: value },
+          data: {
+            alignment: data.alignment,
+            caption: data.caption,
+            text: value,
+            isCaptionHidden: data.isCaptionHidden,
+          },
         }),
       );
     };
@@ -34,16 +35,18 @@ export const Quote = memo(
         api.setBlock<IQuoteData>({
           id,
           type,
-          data: { alignment: data.alignment, caption: value, text: data.text },
+          data: {
+            alignment: data.alignment,
+            caption: value,
+            text: data.text,
+            isCaptionHidden: data.isCaptionHidden,
+          },
         }),
       );
     };
 
     return (
-      <figure>
-        <div className={cls['quote-icon']}>
-          <QuoteUp />
-        </div>
+      <figure className={cls.container}>
         <blockquote
           onInput={quoteChangeHandler}
           ref={quoteRef}
@@ -51,17 +54,13 @@ export const Quote = memo(
           contentEditable={isEditable}
           dangerouslySetInnerHTML={{ __html: data.text }}
         />
-        <div className={`${cls['down']} ${cls['quote-icon']}`}>
-          <QuoteDown />
-        </div>
         {!Boolean(data.isCaptionHidden) && (
           <figcaption
             className={cls.author}
             onInput={captionChangeHandler}
             contentEditable={isEditable}
-          >
-            {data.caption}
-          </figcaption>
+            dangerouslySetInnerHTML={{ __html: data.caption }}
+          />
         )}
       </figure>
     );

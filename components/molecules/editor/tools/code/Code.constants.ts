@@ -14,9 +14,20 @@ export const CodeTool: ITool = {
   tags: ['pre'],
   onPaste: (node) => {
     const codeElement = node as HTMLPreElement;
+    let code;
+
+    const firstChild = codeElement.children[0];
+    if (firstChild?.nodeName === 'CODE' && codeElement.children.length === 1) {
+      code = replaceHtmlCharacters(firstChild.innerHTML);
+      if (code.endsWith('\n')) {
+        code = code.slice(0, -1);
+      }
+    } else {
+      code = replaceHtmlCharacters(codeElement.innerHTML);
+    }
 
     return {
-      code: replaceHtmlCharacters(codeElement.innerHTML),
+      code,
       language: 'javascript',
     } satisfies IBlockData<ICodeData>['data'];
 
