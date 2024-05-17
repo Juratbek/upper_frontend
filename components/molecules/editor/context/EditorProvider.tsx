@@ -6,6 +6,7 @@ import { EDITOR_TOOLS } from '../tools/mapper';
 import { EditorContext } from './EditorContext';
 import { IEditorContext, IEditorProviderProps, IInlineToolbar } from './EditorContext.types';
 import { bindEditorDataState, generateToolsTagsMap } from './EditorContext.utils';
+import { getEditorNavigationCallbacks } from './EditorNavigation.utils';
 
 const mapper = EDITOR_TOOLS;
 
@@ -24,6 +25,8 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
     () => bindEditorDataState({ setData, setInlineToolbar }, mapper, { onChange }),
     [onChange, setInlineToolbar],
   );
+
+  const navigation = useMemo(() => getEditorNavigationCallbacks({ data }), [data]);
 
   const renderBlocks = useCallback(() => {
     return data.map((block) => {
@@ -50,6 +53,7 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
         data,
         tools: mapper,
         ...api,
+        ...navigation,
         renderBlocks,
         hoveredBlock,
         focusedBlock,
@@ -57,7 +61,7 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
         inlineToolbar,
         toolsTagsMap,
       }) satisfies IEditorContext,
-    [data, api, hoveredBlock, focusedBlock, isEditable, inlineToolbar, toolsTagsMap],
+    [data, api, hoveredBlock, focusedBlock, isEditable, inlineToolbar, toolsTagsMap, navigation],
   );
 
   return <EditorContext.Provider value={store}>{children}</EditorContext.Provider>;

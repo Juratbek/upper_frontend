@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 import { IBlockData, IBlockNode, IEditorProps, TInitialBlockData } from '../instance/Editor.types';
 import { EDITOR_TOOLS } from '../tools/mapper';
@@ -21,7 +21,10 @@ export type TAddBlocks = (
 
 export type TRemoveBlock = (id: IBlockData['id']) => void;
 
-export type TFocusPreviousText = (id: IBlockData['id']) => void;
+export type TFocusPreviousBlock = (
+  id: IBlockData['id'],
+  options?: { leftOffsetPx?: number },
+) => void;
 
 export type TMoveBlockUp = (id: IBlockData['id']) => void;
 
@@ -36,12 +39,17 @@ export type TSetBlock = <T extends Record<string, any> = Record<string, any>>(
   block: IBlockData<T>,
 ) => void;
 
+export type TSetEditorBlocks = Dispatch<SetStateAction<IBlockData[]>>;
+
+export interface INavigationCallbacks {
+  focusPreviousBlock: TFocusPreviousBlock;
+}
+
 export interface IEditorAPI {
   addBlock: TAddBlock;
   addBlocks: TAddBlocks;
   setBlock: TSetBlock;
   removeBlock: TRemoveBlock;
-  focusPreviousText: TFocusPreviousText;
   moveBlockUp: TMoveBlockUp;
   moveBlockDown: TMoveBlockDown;
   showInlineToolbar: (data: IInlineToolbar) => void;
@@ -53,6 +61,7 @@ export type TToolsTagsMap = Partial<Record<TToolTag, TToolType[]>>;
 
 export interface IEditorContext<T = any>
   extends IEditorAPI,
+    INavigationCallbacks,
     Required<Pick<IEditorProps, 'isEditable'>> {
   data: IBlockData<T>[];
   hoveredBlock?: IBlockNode<T>;

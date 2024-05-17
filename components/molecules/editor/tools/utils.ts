@@ -69,10 +69,6 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
       return;
     }
   }
-
-  if (code === 'ArrowUp') {
-    api.focusPreviousText(blockId);
-  }
 };
 
 export function getCurrentBlock<T>({ data, hoveredBlock }: IEditorContext<T>) {

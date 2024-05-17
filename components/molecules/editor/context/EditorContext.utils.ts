@@ -9,12 +9,12 @@ import {
   IInlineToolbar,
   TAddBlock,
   TAddBlocks,
-  TFocusPreviousText,
   TMergeWithPrevBlock,
   TMoveBlockDown,
   TMoveBlockUp,
   TRemoveBlock,
   TSetBlock,
+  TSetEditorBlocks,
   TToolsTagsMap,
 } from './EditorContext.types';
 
@@ -31,7 +31,7 @@ export function createBlock(
 }
 
 interface IStateHandlers {
-  setData: Dispatch<SetStateAction<IBlockData[]>>;
+  setData: TSetEditorBlocks;
   setInlineToolbar: Dispatch<SetStateAction<IInlineToolbar>>;
 }
 
@@ -102,10 +102,6 @@ export const bindEditorDataState = (
       callbacks.onChange?.(newData);
       return newData;
     });
-  };
-
-  const focusPreviousText: TFocusPreviousText = () => {
-    // TODO: implement previous focusable text
   };
 
   const removeBlock: TRemoveBlock = (removedBlockId) => {
@@ -197,7 +193,6 @@ export const bindEditorDataState = (
     addBlock,
     moveBlockDown,
     moveBlockUp,
-    focusPreviousText,
     removeBlock,
     setBlock,
     showInlineToolbar,
