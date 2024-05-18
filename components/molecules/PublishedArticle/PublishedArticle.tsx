@@ -26,9 +26,11 @@ export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props
         <p dangerouslySetInnerHTML={{ __html: content }} className={classes['article-content']}></p>
       )}
 
-      <div className={classes['article-footer']}>
-        {article.author && <Author {...article.author} />}
-      </div>
+      {article.author && (
+        <div className={classes['article-footer']}>
+          <Author {...article.author} />
+        </div>
+      )}
     </Link>
   );
 };
