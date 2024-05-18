@@ -67,7 +67,7 @@ export const useLikeCount = (articleId: number) =>
 
 export const useSearch = (value: string) =>
   useQuery<IPublishedArticleItem[]>({
-    queryKey: ['search-published-article'],
+    queryKey: ['search-published-article', value],
     queryFn: () => apiClient.get('published-article/open/search', { search: value, limit: '5' }),
     enabled: Boolean(value?.trim()),
   });

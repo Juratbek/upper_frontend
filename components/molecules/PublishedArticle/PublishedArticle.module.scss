@@ -8,10 +8,6 @@
 
   padding: 3rem 0;
 
-  &:last-child {
-    border-bottom: 0.5px solid;
-  }
-
   &.dark {
     border-color: hsl(0deg 0% 78.51% / 60%);
   }
