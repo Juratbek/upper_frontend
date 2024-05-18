@@ -1,5 +1,5 @@
 import { ApiErrorBoundary } from 'components';
-import { Divider, Spinner } from 'components/lib';
+import { Spinner } from 'components/lib';
 import {
   DefaultLabel,
   LABEL_ID_PARAM,
@@ -10,7 +10,7 @@ import {
 } from 'components/molecules';
 import { Advertisement } from 'components/organisms';
 import { useDevice, useUrlParams } from 'hooks';
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
@@ -18,7 +18,12 @@ export const HomePage: FC = () => {
   const { getParam } = useUrlParams();
   const { isDesktop } = useDevice();
   const label = (getParam(LABEL_ID_PARAM) ?? DefaultLabel) as string;
-  const { fetchNextPage, list: articles, ...articlesRes } = usePublishedArticlesList(label);
+  const {
+    fetchNextPage,
+    list: articles,
+    hasNextPage,
+    ...articlesRes
+  } = usePublishedArticlesList(label);
 
   return (
     <>
@@ -34,12 +39,9 @@ export const HomePage: FC = () => {
       >
         {articles.length === 0 && !articlesRes.isLoading && <NoArticle label={label} />}
         {articles.map(addAmazonBucketUrl).map((article) => (
-          <Fragment key={article.id}>
-            <Divider color='secondary' />
-            <PublishedArticle article={article} />
-          </Fragment>
+          <PublishedArticle article={article} key={article.id} />
         ))}
-        {articles.length !== 0 && (
+        {articles.length !== 0 && hasNextPage && (
           <LoadMoreButton
             onClick={() => fetchNextPage()}
             loading={articlesRes.isFetchingNextPage}

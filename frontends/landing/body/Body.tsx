@@ -1,5 +1,5 @@
 import { ApiErrorBoundary } from 'components';
-import { Divider, Spinner } from 'components/lib';
+import { Spinner } from 'components/lib';
 import {
   LABEL_ID_PARAM,
   Labels,
@@ -11,7 +11,6 @@ import {
 } from 'components/molecules';
 import { Advertisement, Sidebar } from 'components/organisms';
 import { useDevice, useUrlParams } from 'hooks';
-import { Fragment } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
 import { PopularLabels } from 'variables';
@@ -50,10 +49,7 @@ export const Body = (): JSX.Element => {
           }
         >
           {articles.map(addAmazonBucketUrl).map((article) => (
-            <Fragment key={article.id}>
-              <Divider color='secondary' />
-              <PublishedArticle article={article} />
-            </Fragment>
+            <PublishedArticle article={article} key={article.id} />
           ))}
           {articles.length === 0 && <NoArticle label={activeLabel} />}
           {articles.length !== 0 && articlesListRes.hasNextPage && (
