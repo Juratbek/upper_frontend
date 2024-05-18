@@ -1,9 +1,8 @@
-import EditorJS from '@editorjs/editorjs';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IArticle } from 'types';
 
 export interface IWriteArticleState {
-  editor: EditorJS | null;
+  editor: unknown | null;
   article: IArticle | null;
 }
 
@@ -16,7 +15,7 @@ const writeArticleSlice = createSlice({
   name: 'writeArticle',
   initialState,
   reducers: {
-    setEditor(state, { payload }: PayloadAction<EditorJS>) {
+    setEditor(state, { payload }: PayloadAction) {
       state.editor = payload;
     },
     setArticle(state, { payload }: PayloadAction<IArticle | null>) {

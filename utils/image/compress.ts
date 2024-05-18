@@ -1,4 +1,4 @@
-import { OutputBlockData } from '@editorjs/editorjs';
+import { IBlockData } from 'components/molecules';
 
 import { UNSPLASH_URL } from '../../store/apis';
 
@@ -87,7 +87,7 @@ export const updateQueryParam = (url: string, q: string, value: string): string 
   return decodeURIComponent(urlSearchParams.toString());
 };
 
-export const compressUnsplashImage = (block: OutputBlockData): OutputBlockData => {
+export const compressUnsplashImage = (block: IBlockData): IBlockData => {
   let url = block.data.url;
 
   if (url && url.startsWith(UNSPLASH_URL)) {

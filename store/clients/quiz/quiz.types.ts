@@ -1,6 +1,4 @@
-import { IQuizData } from 'components/Editor';
-
-export interface ISubmitQuizDto extends IQuizData {
+export interface ISubmitQuizDto {
   articleId: number;
 }
 

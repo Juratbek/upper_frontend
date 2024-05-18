@@ -1,5 +1,5 @@
-import { OutputBlockData } from '@editorjs/editorjs';
 import { UseMutationOptions, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
+import { IBlockData } from 'components/molecules';
 import { apiClient, IMutationConfig, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IArticle, IArticleResult, IPagingResponse, TArticleStatus } from 'types';
 
@@ -19,8 +19,8 @@ export const useArticleById = (id: number, config: Partial<UseQueryOptions<IArti
     queryFn: () => apiClient.get(`article/need-auth/${id}`),
   });
 
-export const useUpdateArticleBlocks = (id: number, config?: IMutationConfig<OutputBlockData[]>) =>
-  useMutation<OutputBlockData[], unknown, { id: number; blocks: OutputBlockData[] }>({
+export const useUpdateArticleBlocks = (id: number, config?: IMutationConfig<IBlockData[]>) =>
+  useMutation<IBlockData[], unknown, { id: number; blocks: IBlockData[] }>({
     mutationKey: ['update-article', id],
     mutationFn: (article) =>
       apiClient.post({ path: `article/update-blocks/${id}`, body: article.blocks }),

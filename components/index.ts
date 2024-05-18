@@ -6,7 +6,6 @@ export * from './ArticleImg/ArticleImg';
 export * from './SearchInput/SearchInput';
 export * from './SidebarBlog/SidebarBlog';
 export * from './ArticleStatus/ArticleStatus';
-export * from './Editor/editor';
 export * from './Dropdown/Dropdown';
 export * from './ApiError/ApiError';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
