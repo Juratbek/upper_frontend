@@ -1,4 +1,4 @@
-import { OutputBlockData } from '@editorjs/editorjs';
+import { IBlockData } from 'components/molecules';
 
 import { IBlogSmall } from './blog';
 
@@ -17,7 +17,7 @@ export interface IArticleResult extends IArticleSmall {
 }
 
 export interface IArticle extends IArticleSmall {
-  blocks: OutputBlockData[];
+  blocks: IBlockData[];
   imgUrl: string;
   author: IBlogSmall;
   tags: string[];

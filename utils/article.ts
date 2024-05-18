@@ -1,5 +1,5 @@
-import { OutputBlockData } from '@editorjs/editorjs';
 import { IHeadProps } from 'components/lib';
+import { IBlockData } from 'components/molecules';
 import { ARTICLE_BUCKET_URL } from 'store/apis';
 import { IArticle } from 'types';
 import { BLOCK_TYPES } from 'variables';
@@ -9,7 +9,7 @@ import { compressDataImage, compressUnsplashImage } from './image';
 export const validateArticle = ({
   blocks,
 }: {
-  blocks: OutputBlockData[];
+  blocks: IBlockData[];
 }): { message: string; reason?: 'image' | 'title' | 'labels'; isValid: boolean } => {
   // check if article has a title
   const title = blocks.find((block) => block.type === BLOCK_TYPES.header)?.data.text;
@@ -33,7 +33,7 @@ export const addAmazonBucketUriToArticle = <T extends { imgUrl: string }>(articl
 export const addUriToArticleImages = <T extends { imgUrl: string }>(articles: T[] = []): T[] =>
   articles.map(addAmazonBucketUriToArticle);
 
-export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[] =>
+export const addUriToImageBlocks = (blocks: IBlockData[]): IBlockData[] =>
   blocks.map((block) => {
     const blockType = block.type;
     const data = block.data;
@@ -52,11 +52,11 @@ export const addUriToImageBlocks = (blocks: OutputBlockData[]): OutputBlockData[
   });
 
 export const removeAmazonUriFromImgBlocks = async (
-  blocks: OutputBlockData[],
-): Promise<[OutputBlockData[], boolean]> => {
+  blocks: IBlockData[],
+): Promise<[IBlockData[], boolean]> => {
   let isReset = false;
 
-  const updatedBlocks = blocks.map(async (block): Promise<OutputBlockData> => {
+  const updatedBlocks = blocks.map(async (block): Promise<IBlockData> => {
     const blockType = block.type;
 
     if (blockType === BLOCK_TYPES.image) {
