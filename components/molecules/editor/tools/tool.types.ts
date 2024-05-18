@@ -26,6 +26,7 @@ export interface IToolbarSetting<T = any> extends IToolbar {
   onClick: (context: IEditorContext<T>) => void;
   active?: (context: IEditorContext<T>) => boolean;
   className?: string;
+  shouldBeConfirmed?: 'danger';
 }
 
 export type TToolTag = keyof HTMLElementTagNameMap | '#text';

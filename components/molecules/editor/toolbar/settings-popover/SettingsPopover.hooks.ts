@@ -17,6 +17,7 @@ export const useSettings = (): IToolbarSetting[] => {
       {
         text: "O'chirish",
         icon: IconCross,
+        shouldBeConfirmed: 'danger',
         onClick: () => removeBlock(hoveredBlock!.id),
       },
       {
