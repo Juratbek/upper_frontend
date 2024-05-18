@@ -13,7 +13,7 @@ export const EditorContext = createContext<IEditorContext>({
   data: [],
   renderBlocks: () => null,
   tools: EDITOR_TOOLS,
-  focusPreviousText: notImplementedFunction,
+  focusPreviousBlock: notImplementedFunction,
   moveBlockDown: notImplementedFunction,
   moveBlockUp: notImplementedFunction,
   removeBlock: notImplementedFunction,
