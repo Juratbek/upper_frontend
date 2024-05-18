@@ -31,6 +31,7 @@ export const SettingsPopover: FC<{ open: boolean; close: VoidFunction }> = ({ op
             icon={item.icon}
             className={item.className}
             onClick={() => itemClickHandler(item)}
+            shouldBeConfirmed={item.shouldBeConfirmed}
           >
             {item.text}
           </Item>

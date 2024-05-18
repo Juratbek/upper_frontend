@@ -1,6 +1,7 @@
 import { EditorSpinner } from 'components';
 import { Head } from 'components/lib';
 import { Editor, IBlockData } from 'components/molecules';
+import { createBlock } from 'components/molecules/editor/context/EditorContext.utils';
 import { GenericWrapper } from 'components/wrappers';
 import { PublishArticleModal, WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
@@ -45,10 +46,11 @@ export default function UserArticlePage(): JSX.Element {
             article.blocks.length > 0
               ? addUriToImageBlocks(article.blocks)
               : [
-                  {
-                    type: 'header',
-                    data: { text: '', level: 1, placeholder: 'Maqola sarlavhasini kiriting' },
-                  },
+                  createBlock('header', {
+                    text: '',
+                    level: 1,
+                    placeholder: 'Maqola sarlavhasini kiriting',
+                  }),
                 ],
         }}
         // handleInstance={getInstance}

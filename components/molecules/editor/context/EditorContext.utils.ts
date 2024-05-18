@@ -2,29 +2,36 @@ import { Dispatch, SetStateAction } from 'react';
 import { uuid } from 'utils';
 
 import { IBlockData, IEditorProps } from '../instance/Editor.types';
-import { ITool } from '../tools/tool.types';
+import { ITool, TToolsMapper, TToolType } from '../tools/tool.types';
 import {
   IEditorAPI,
   IEditorContext,
   IInlineToolbar,
   TAddBlock,
-  TFocusPreviousText,
+  TAddBlocks,
+  TMergeWithPrevBlock,
   TMoveBlockDown,
   TMoveBlockUp,
   TRemoveBlock,
   TSetBlock,
+  TSetEditorBlocks,
+  TToolsTagsMap,
 } from './EditorContext.types';
 
 function generateBlockId() {
   return uuid(8);
 }
 
-function createBlock(type: IBlockData['type'], tool: ITool): IBlockData {
-  return { data: tool.initialData ?? {}, id: generateBlockId(), type };
+export function createBlock(
+  type: IBlockData['type'],
+  data?: IBlockData['data'],
+  tool?: ITool,
+): IBlockData {
+  return { data: data ?? tool?.initialData ?? {}, id: generateBlockId(), type };
 }
 
 interface IStateHandlers {
-  setData: Dispatch<SetStateAction<IBlockData[]>>;
+  setData: TSetEditorBlocks;
   setInlineToolbar: Dispatch<SetStateAction<IInlineToolbar>>;
 }
 
@@ -35,10 +42,28 @@ export const bindEditorDataState = (
   tools: IEditorContext['tools'],
   callbacks: ICallbacks,
 ): IEditorAPI => {
-  const addBlock: TAddBlock = (type, currentBlockId) => {
+  const addBlocks: TAddBlocks = (blocks, currentBlockId) => {
+    const newBlocks = blocks.map((block) => createBlock(block.type, block.data));
+
     setData((prevData) => {
       const index = prevData.findIndex((block) => block.id === currentBlockId);
-      const newBlock = createBlock(type, tools[type]);
+
+      const updatedBlocks = [
+        ...prevData.slice(0, index + 1),
+        ...newBlocks,
+        ...prevData.slice(index + 1),
+      ];
+
+      callbacks.onChange?.(updatedBlocks);
+
+      return updatedBlocks;
+    });
+  };
+
+  const addBlock: TAddBlock = (type, currentBlockId, data) => {
+    setData((prevData) => {
+      const index = prevData.findIndex((block) => block.id === currentBlockId);
+      const newBlock = createBlock(type, data, tools[type]);
 
       const updatedBlocks = [
         ...prevData.slice(0, index + 1),
@@ -77,10 +102,6 @@ export const bindEditorDataState = (
       callbacks.onChange?.(newData);
       return newData;
     });
-  };
-
-  const focusPreviousText: TFocusPreviousText = () => {
-    // TODO: implement previous focusable text
   };
 
   const removeBlock: TRemoveBlock = (removedBlockId) => {
@@ -137,14 +158,60 @@ export const bindEditorDataState = (
 
   const hideInlineToolbar = () => setInlineToolbar({});
 
+  const mergeWithPrevBlock: TMergeWithPrevBlock = (currentBlockId, mergeCallback) => {
+    setData((blocks) => {
+      const updatedBlocks = [];
+
+      for (let index = 0; index < blocks.length; index++) {
+        const block = blocks[index];
+
+        // if block is not current block or is first block -> push it into updated blocks
+        if (block.id !== currentBlockId || index === 0) {
+          updatedBlocks.push(block);
+          continue;
+        }
+
+        const currentBlock = block;
+        const prevBlock = blocks[index - 1];
+
+        // if current block type and previous block type are different ->
+        // blocks are not mergeable and no need to update the state
+        if (prevBlock.type !== currentBlock.type) return blocks;
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const mergedData = mergeCallback(prevBlock, currentBlock);
+        const newBlock = createBlock(prevBlock.type, mergedData);
+        updatedBlocks[index - 1] = newBlock;
+      }
+
+      return updatedBlocks;
+    });
+  };
+
   return {
     addBlock,
     moveBlockDown,
     moveBlockUp,
-    focusPreviousText,
     removeBlock,
     setBlock,
     showInlineToolbar,
     hideInlineToolbar,
+    addBlocks,
+    mergeWithPrevBlock,
   };
 };
+
+export function generateToolsTagsMap(tools: TToolsMapper) {
+  return Object.entries(tools).reduce<TToolsTagsMap>((tagsMap, [toolType, tool]) => {
+    const { tags } = tool;
+    if (!tags || !Array.isArray(tags)) return tagsMap;
+
+    tags.forEach((tag) => {
+      const toolTags = tagsMap[tag] ?? [];
+      tagsMap[tag] = [...toolTags, toolType as TToolType];
+    });
+
+    return tagsMap;
+  }, {});
+}

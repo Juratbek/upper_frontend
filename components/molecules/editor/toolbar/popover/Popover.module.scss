@@ -24,6 +24,14 @@
     gap: 10px;
     border-radius: 6px;
 
+    &.danger {
+        background-color: var(--red) !important;
+
+        .text {
+            color: white;
+        }
+    }
+
     &:hover {
         background-color: #f1f4f8;
         cursor: pointer;
@@ -47,6 +55,7 @@
 
 .text {
     flex: 0 0 auto;
+    width: max-content;
 }
 
 .active {

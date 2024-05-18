@@ -13,6 +13,8 @@ export type TToolType =
   | 'quote'
   | 'delimiter'
   | 'unsplash'
+  | 'figure'
+  | 'frame'
   | 'table';
 
 export interface IToolbar {
@@ -24,7 +26,10 @@ export interface IToolbarSetting<T = any> extends IToolbar {
   onClick: (context: IEditorContext<T>) => void;
   active?: (context: IEditorContext<T>) => boolean;
   className?: string;
+  shouldBeConfirmed?: 'danger';
 }
+
+export type TToolTag = keyof HTMLElementTagNameMap | '#text';
 
 export interface ITool {
   toolbar?: IToolbar;
@@ -34,6 +39,8 @@ export interface ITool {
   initialData?: Record<string, any>;
   sanitize?: (data: IBlockData['data']) => IBlockData['data'];
   inlineToolEnabled?: boolean;
+  tags?: Array<TToolTag>;
+  onPaste?: (node: Node) => IBlockData['data'] | null;
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;

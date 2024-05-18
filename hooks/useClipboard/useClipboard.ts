@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 
 import { IUseClipboardProps } from './useClipboard.types';
 
-export const useClipboard = (): IUseClipboardProps => {
+interface ICOnfig {
+  onError?: VoidFunction;
+}
+
+export const useClipboard = (config?: ICOnfig): IUseClipboardProps => {
   const [isCopied, setIsCopied] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +19,7 @@ export const useClipboard = (): IUseClipboardProps => {
       setIsCopied(true);
     } catch (e) {
       setIsError(true);
+      config?.onError?.();
     } finally {
       setIsLoading(false);
     }

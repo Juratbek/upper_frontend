@@ -28,7 +28,7 @@ const Instance = () => {
           <InlineToolbar />
         </>
       )}
-      <div id='editor-blocks'>{blocks}</div>
+      <div id='editor-blocks-container'>{blocks}</div>
     </div>
   );
 };

@@ -1,9 +1,22 @@
 .editor-root {
     position: relative;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 28px;
+    color: var(--black-500);
 
     code {
         background-color: #eff2f5;
-        padding: 4px 8px;
-        border-radius: 4px;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 0.85em;
+    }
+
+    figure {
+        margin: 0;
+    }
+
+    mark {
+        background-color: rgb(227, 237, 250);
     }
 }

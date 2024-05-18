@@ -59,6 +59,7 @@
     "codemirror": "^6.0.1",
     "cookies-next": "^2.1.1",
     "editorjs-alert": "^1.0.3",
+    "html-janitor": "^2.0.4",
     "next": "14.0.1",
     "nextjs-progressbar": "^0.0.14",
     "nodemailer": "^6.7.7",

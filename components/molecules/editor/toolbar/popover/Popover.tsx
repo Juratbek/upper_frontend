@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, memo, ReactNode } from 'react';
+import { FC, HTMLAttributes, memo, MouseEvent, ReactNode, useState } from 'react';
 import { getClassName } from 'utils';
 
 import { IToolbarSetting } from '../../tools/tool.types';
@@ -12,10 +12,38 @@ export const Item = memo(function Component({
   icon,
   children,
   active,
+  shouldBeConfirmed,
   ...props
-}: HTMLAttributes<HTMLButtonElement> & Pick<IToolbarSetting, 'icon'> & { active?: boolean }) {
+}: HTMLAttributes<HTMLButtonElement> &
+  Pick<IToolbarSetting, 'icon' | 'shouldBeConfirmed'> & { active?: boolean }) {
+  const [clickCount, setClickCount] = useState(0);
+
+  const clickHandler = (event: MouseEvent<HTMLButtonElement>) => {
+    if (clickCount > 0) {
+      props.onClick?.(event);
+      setClickCount(0);
+      return;
+    }
+
+    if (shouldBeConfirmed) {
+      setClickCount((prev) => prev + 1);
+      return;
+    }
+
+    props.onClick?.(event);
+  };
+
   return (
-    <button {...props} className={getClassName(cls.btn, active && cls.active, props.className)}>
+    <button
+      {...props}
+      onClick={clickHandler}
+      className={getClassName(
+        cls.btn,
+        active && cls.active,
+        props.className,
+        clickCount > 0 && cls[shouldBeConfirmed!],
+      )}
+    >
       <span className={cls.icon} dangerouslySetInnerHTML={{ __html: icon }} />
       <div className={cls.text}>{children}</div>
     </button>

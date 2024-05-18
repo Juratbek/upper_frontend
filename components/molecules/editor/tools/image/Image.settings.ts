@@ -2,18 +2,25 @@ import { IconAddBackground, IconAddBorder, IconStretch } from '@codexteam/icons'
 
 import { IEditorContext } from '../../context';
 import { IToolbarSetting } from '../tool.types';
+import { getCurrentBlock } from '../utils';
 import { IImageData } from './Image.types';
 
 type TParam = 'stretched' | 'withBackground' | 'withBorder';
 
-function changeSetting({ setBlock, hoveredBlock }: IEditorContext<IImageData>, param: TParam) {
-  if (!hoveredBlock) return;
-  hoveredBlock.data[param] = !hoveredBlock.data[param] ?? true;
-  setBlock(hoveredBlock);
+function changeSetting(context: IEditorContext<IImageData>, param: TParam) {
+  const { setBlock } = context;
+  const block = getCurrentBlock<IImageData>(context);
+
+  if (!block) return;
+  const data = { ...block.data };
+
+  data[param] = !data[param] ?? true;
+  setBlock({ ...block, data });
 }
 
-function checkIsActive({ hoveredBlock }: IEditorContext<IImageData>, param: TParam) {
-  return hoveredBlock!.data[param] ?? false;
+function checkIsActive(context: IEditorContext<IImageData>, param: TParam) {
+  const block = getCurrentBlock<IImageData>(context);
+  return block?.data[param] ?? false;
 }
 
 export const ImageSettings: IToolbarSetting<IImageData>[] = [
@@ -38,15 +45,20 @@ export const ImageSettings: IToolbarSetting<IImageData>[] = [
   {
     icon: IconAddBackground,
     text: "O'rtaga joylashtirish",
-    active: ({ hoveredBlock }) => hoveredBlock?.data.alignment === 'center',
-    onClick: ({ hoveredBlock, setBlock }) => {
-      if (!hoveredBlock) return;
-      if (hoveredBlock.data.alignment === 'center') {
-        delete hoveredBlock.data.alignment;
+    active: (context) => getCurrentBlock<IImageData>(context)?.data.alignment === 'center',
+    onClick: (context) => {
+      const { setBlock } = context;
+      const block = getCurrentBlock<IImageData>(context);
+      if (!block) return;
+      const data = { ...block.data };
+
+      if (data.alignment === 'center') {
+        delete data.alignment;
       } else {
-        hoveredBlock.data.alignment = 'center';
+        data.alignment = 'center';
       }
-      setBlock(hoveredBlock);
+
+      setBlock({ ...block, data });
     },
   },
 ];
