@@ -54,6 +54,10 @@ $background: var(--gray, #f5f5f5);
   padding-left: 0;
   list-style: none;
 
+  li:last-child .item {
+    border-bottom: none;
+  }
+
   .item {
     display: flex;
     padding: 12px 20px 12px 24px;

@@ -18,8 +18,8 @@ export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(funct
   const [value, setValue] = useState<string>(props.defaultValue as string);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false);
-  const debauncedValue = useDebounce(value);
-  const { data, ...searchRes } = useSearch(debauncedValue);
+  const debouncedValue = useDebounce(value);
+  const { data, ...searchRes } = useSearch(debouncedValue);
   const { themeColors } = useTheme();
 
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
