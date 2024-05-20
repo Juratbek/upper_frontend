@@ -41,7 +41,6 @@ export default function UserArticlePage(): JSX.Element {
     return (
       <Editor
         content={{
-          // @ts-ignore
           blocks:
             article.blocks.length > 0
               ? addUriToImageBlocks(article.blocks)
@@ -53,7 +52,6 @@ export default function UserArticlePage(): JSX.Element {
                   }),
                 ],
         }}
-        // handleInstance={getInstance}
         onChange={editorChangeHandler}
       />
     );

@@ -7,6 +7,7 @@ import { HeaderTool } from './header/Header.constants';
 import { ImageTool } from './image/Image.constants';
 import { ListTool } from './list/List.constants';
 import { ParagraphTool } from './paragraph/Paragraph.constants';
+import { QuizTool } from './quiz/Quiz.constants';
 import { QuoteTool } from './quote/Quote.constants';
 import { TableTool } from './table/Table.constants';
 import { TToolsMapper } from './tool.types';
@@ -27,4 +28,5 @@ export const EDITOR_TOOLS: TToolsMapper = {
   quote: QuoteTool,
   table: TableTool,
   figure: FigureTool,
+  quiz: QuizTool,
 } as const;

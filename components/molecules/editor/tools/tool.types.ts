@@ -15,6 +15,7 @@ export type TToolType =
   | 'unsplash'
   | 'figure'
   | 'frame'
+  | 'quiz'
   | 'table';
 
 export interface IToolbar {

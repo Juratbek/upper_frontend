@@ -41,11 +41,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
       <Author {...article.author} />
       <div className='editor-container pb-2'>
         <article>
-          <Editor
-            // @ts-ignore
-            content={{ blocks: addUriToImageBlocks(blocks) }}
-            isEditable
-          />
+          <Editor content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
         </article>
         <ArticleFooter sharePopoverId='share-btn-in-article-page' />
         <CommentsModal />
