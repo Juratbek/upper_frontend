@@ -1,7 +1,9 @@
 .title {
+    $font-size: 20px;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 140%;
+    font-size: $font-size;
+    line-height: calc($font-size * 1.4);
+    min-height: calc($font-size * 1.4);
     color: var(--black-700);
     margin-block: 0 4px;
     outline: none;
@@ -23,6 +25,8 @@
 
 .option {
     display: flex;
+    margin-bottom: 4px;
+    border: 1px solid transparent;
 
     .input-container {
         width: 24px;
@@ -46,4 +50,21 @@
         font-size: 16px;
         line-height: 150%;
     }
+}
+
+.submit-btn {
+    margin-top: 4px;
+    width: 100%;
+}
+
+.SUCCESS {
+    border-color: var(--green);
+}
+
+.RIGHT_ANSWER {
+    border-color: var(--blue-300);
+}
+
+.ERROR {
+    border-color: var(--red);
 }

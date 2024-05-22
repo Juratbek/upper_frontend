@@ -1,4 +1,9 @@
-import { ChangeEvent, memo, useEffect, useRef } from 'react';
+import { Button } from 'components/lib';
+import { useRouter } from 'next/router';
+import { ChangeEvent, memo, useEffect, useRef, useState } from 'react';
+import { IQuizSubmission, useSubmitQuiz } from 'store/clients/quiz';
+import { IResponseError } from 'types';
+import { getClassName } from 'utils';
 import { debouncer } from 'utils/debouncer';
 
 import { IToolProps } from '../tool.types';
@@ -11,12 +16,40 @@ export const Quiz = memo(
   function Memoized({ data, isEditable, api, id, type }: IToolProps<IQuizData>) {
     const { variants, answers } = data;
     const questionParagraphRef = useRef<HTMLParagraphElement>(null);
+    const [selectedVariants, setSelectedVariants] = useState<number[]>([]);
+    const [submissionState, setSubmissionState] = useState<Record<number, IQuizSubmission>>({});
+    const { query } = useRouter();
+
+    const generateSubmissionState = (data: IQuizSubmission[]) => {
+      return data.reduce<Record<number, IQuizSubmission>>((result, answer) => {
+        result[answer.value] = answer;
+        return result;
+      }, {});
+    };
+
+    const submissionErrorHandler = (err: IResponseError<IQuizSubmission[]>) => {
+      const data = err.data?.data;
+      if (err.data?.code === 400 && Array.isArray(data)) {
+        const submission = generateSubmissionState(data);
+        setSubmissionState(submission);
+      }
+    };
+
+    const submissionSuccessHandler = (data: IQuizSubmission[]) => {
+      const submission = generateSubmissionState(data);
+      setSubmissionState(submission);
+    };
+
+    const { mutate: submit, isPending } = useSubmitQuiz({
+      onError: submissionErrorHandler,
+      onSuccess: submissionSuccessHandler,
+    });
 
     useEffect(() => {
       questionParagraphRef.current?.focus();
     }, []);
 
-    const inputChangeHandler = (value: IVariant['value']) => {
+    const updateBlockData = (value: IVariant['value']) => {
       if (data.type === 'singleSelect') {
         api.setBlock({ id, type, data: { ...data, answers: [value] } });
         return;
@@ -30,6 +63,23 @@ export const Quiz = memo(
       }
 
       api.setBlock({ id, type, data: { ...data, answers: [...answers, value] } });
+    };
+
+    const updateSelectedVariants = (value: IVariant['value']) => {
+      setSelectedVariants((variants) => {
+        if (variants.includes(value)) return variants.filter((v) => v !== value);
+
+        return [...variants, value];
+      });
+    };
+
+    const inputChangeHandler = (value: IVariant['value']) => {
+      if (isEditable) {
+        updateBlockData(value);
+      } else {
+        updateSelectedVariants(value);
+        setSubmissionState({});
+      }
     };
 
     const itemTextChangeHandler = (index: number) => (event: ChangeEvent<HTMLDivElement>) => {
@@ -48,6 +98,11 @@ export const Quiz = memo(
       });
     };
 
+    const submitHandler = () => {
+      if (!query.id || isNaN(+query.id)) return;
+      submit({ articleId: +query.id, id, selectedVariants: selectedVariants });
+    };
+
     return (
       <div className={cls.container}>
         <p
@@ -59,27 +114,43 @@ export const Quiz = memo(
         />
         <ul className={cls.list}>
           {Array.isArray(variants) &&
-            variants.map((variant, index) => (
-              <li className={cls.option} key={variant.value}>
-                <div className={cls['input-container']}>
-                  <input
-                    type={data.type === 'singleSelect' ? 'radio' : 'checkbox'}
-                    checked={answers.includes(variant.value)}
-                    // onClick={() => console.log('click')}
-                    onChange={() => inputChangeHandler(variant.value)}
-                    // onSelect={() => console.log('select')}
-                    // onChange={() => console.log('change')}
+            variants.map((variant, index) => {
+              const submission = submissionState[variant.value];
+
+              return (
+                <li
+                  className={getClassName(
+                    cls.option,
+                    submission !== undefined && cls[submission.color],
+                  )}
+                  key={variant.value}
+                >
+                  <div className={cls['input-container']}>
+                    <input
+                      type={data.type === 'singleSelect' ? 'radio' : 'checkbox'}
+                      checked={
+                        isEditable
+                          ? answers.includes(variant.value)
+                          : selectedVariants.includes(variant.value)
+                      }
+                      onChange={() => inputChangeHandler(variant.value)}
+                    />
+                  </div>
+                  <div
+                    className={cls.text}
+                    dangerouslySetInnerHTML={{ __html: variant.text ?? '' }}
+                    contentEditable={isEditable}
+                    onInput={itemTextChangeHandler(index)}
                   />
-                </div>
-                <div
-                  className={cls.text}
-                  dangerouslySetInnerHTML={{ __html: variant.text ?? '' }}
-                  contentEditable={isEditable}
-                  onInput={itemTextChangeHandler(index)}
-                />
-              </li>
-            ))}
+                </li>
+              );
+            })}
         </ul>
+        {selectedVariants.length > 0 && !isEditable && (
+          <Button loading={isPending} onClick={submitHandler} className={cls['submit-btn']}>
+            Tekshirish
+          </Button>
+        )}
       </div>
     );
   },

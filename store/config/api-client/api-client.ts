@@ -27,17 +27,21 @@ class Client {
       const searchParams = new URLSearchParams(params);
       fullPath = `${fullPath}?${searchParams.toString()}`;
     }
+
     const res = await this.fetch(fullPath, { ...config, method: 'get' });
+
     const isJson = checkContentType(res, 'application/json');
     if (isJson) {
       const data = await res.json();
       return data as TResponse;
     }
+
     const isText = checkContentType(res, 'text/plain');
     if (isText) {
       const data = await res.text;
       return data as TResponse;
     }
+
     const isResponseEmpty = !res.headers.get('Content-Type');
     if (isResponseEmpty) return undefined as TResponse;
     return res as TResponse;
@@ -68,23 +72,35 @@ class Client {
 
   async fetch(path: string, config: RequestInit): Promise<Response> {
     const fullUrl = `${this.#config.baseUrl}/api/${path}`;
+    const finalHeaders: RequestInit['headers'] & { Authorization?: string } = {
+      ...this.#config.headers,
+      ...config.headers,
+    };
+
     if (isClientSide()) {
       const token = localStorage.getItem(TOKEN);
       if (token) {
-        config.headers = { ...this.#config.headers, Authorization: token, ...config.headers };
+        finalHeaders.Authorization = token;
       }
     }
-    const res = await fetch(fullUrl, config);
+
+    const finalConfig: RequestInit = { ...this.#config, ...config, headers: finalHeaders };
+    const res = await fetch(fullUrl, finalConfig);
+
     if (res.status === 200) {
       return res;
     } else {
       let message = '';
+      let data;
+
       const isJson = checkContentType(res, 'application/json');
       if (isJson) {
         const json = await res.json();
         message = json.message ?? json.error ?? '';
+        data = json;
       }
-      throw new ApiError(message, res);
+
+      throw new ApiError(message, res, data);
     }
   }
 }
