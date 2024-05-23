@@ -34,6 +34,10 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
   const url = context.req.url;
 
   const articleId = get<number>(context, 'query.id');
+  console.log(
+    '🚀 ~ constgetServerSideProps:GetServerSideProps<IArticlePageProps>= ~ articleId:',
+    articleId,
+  );
   let article;
   let error;
   try {

@@ -12,7 +12,9 @@ export const ImageTool: ITool = {
     icon: IconPicture,
   },
   settings: ImageSettings,
-  sanitize: (data: IBlockData['data']): IBlockData<IImageData>['data'] => {
+  sanitize: (data: IBlockData['data']): IBlockData<IImageData>['data'] | undefined => {
+    if (!data.file?.url) return;
+
     return {
       file: data.file,
       caption: data.caption,

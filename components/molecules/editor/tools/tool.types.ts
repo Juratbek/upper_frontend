@@ -39,7 +39,7 @@ export interface ITool {
   settings?: IToolbarSetting[];
   config?: Record<string, any>;
   initialData?: Record<string, any>;
-  sanitize?: (data: IBlockData['data']) => IBlockData['data'];
+  sanitize?: (data: IBlockData['data']) => IBlockData['data'] | undefined;
   inlineToolEnabled?: boolean;
   tags?: Array<TToolTag>;
   onPaste?: (node: Node) => IBlockData['data'] | null;

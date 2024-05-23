@@ -42,6 +42,33 @@ export const bindEditorDataState = (
   tools: IEditorContext['tools'],
   callbacks: ICallbacks,
 ): IEditorAPI => {
+  const sanitizeBlocks = (blocks: IBlockData[]): IBlockData[] => {
+    const sanitizedBlocks = [];
+
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+
+      const { sanitize } = tools[block.type];
+      if (!sanitize) {
+        sanitizedBlocks.push(block);
+        continue;
+      }
+
+      const sanitizedBlockData = sanitize(block.data);
+      if (sanitizedBlockData) {
+        block.data = sanitizedBlockData;
+        sanitizedBlocks.push(block);
+      }
+    }
+
+    return sanitizedBlocks;
+  };
+
+  const onBlocksChange = (blocks: IBlockData[]) => {
+    const sanitizedBlocks = sanitizeBlocks(blocks);
+    callbacks.onChange?.(sanitizedBlocks);
+  };
+
   const addBlocks: TAddBlocks = (blocks, currentBlockId) => {
     const newBlocks = blocks.map((block) => createBlock(block.type, block.data));
 
@@ -54,7 +81,7 @@ export const bindEditorDataState = (
         ...prevData.slice(index + 1),
       ];
 
-      callbacks.onChange?.(updatedBlocks);
+      onBlocksChange(updatedBlocks);
 
       return updatedBlocks;
     });
@@ -71,7 +98,7 @@ export const bindEditorDataState = (
         ...prevData.slice(index + 1),
       ];
 
-      callbacks.onChange?.(updatedBlocks);
+      onBlocksChange(updatedBlocks);
 
       return updatedBlocks;
     });
@@ -94,12 +121,12 @@ export const bindEditorDataState = (
           newData[i] = nextBlock;
           newData[i + 1] = currentBlock;
 
-          callbacks.onChange?.(newData);
+          onBlocksChange(newData);
           return newData;
         }
       }
 
-      callbacks.onChange?.(newData);
+      onBlocksChange(newData);
       return newData;
     });
   };
@@ -108,7 +135,7 @@ export const bindEditorDataState = (
     setData((prevData) => {
       const updatedBlocks = prevData.filter((block) => block.id !== removedBlockId);
 
-      callbacks.onChange?.(updatedBlocks);
+      onBlocksChange(updatedBlocks);
 
       return updatedBlocks;
     });
@@ -131,12 +158,12 @@ export const bindEditorDataState = (
           newData[i] = prevBlock;
           newData[i - 1] = currentBlock;
 
-          callbacks.onChange?.(newData);
+          onBlocksChange(newData);
           return newData;
         }
       }
 
-      callbacks.onChange?.(newData);
+      onBlocksChange(newData);
       return newData;
     });
   };
@@ -148,7 +175,7 @@ export const bindEditorDataState = (
         return b;
       });
 
-      callbacks.onChange?.(updatedBlocks);
+      onBlocksChange(updatedBlocks);
 
       return updatedBlocks;
     });
