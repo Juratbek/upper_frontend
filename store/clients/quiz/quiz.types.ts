@@ -1,7 +1,7 @@
-import { IQuizData } from 'components/Editor';
-
-export interface ISubmitQuizDto extends IQuizData {
+export interface ISubmitQuizDto {
   articleId: number;
+  id: string;
+  selectedVariants: number[];
 }
 
 export type TQuizSubmissionColor = 'SUCCESS' | 'ERROR' | 'NORMAL' | 'RIGHT_ANSWER';

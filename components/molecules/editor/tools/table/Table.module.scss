@@ -1,0 +1,42 @@
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+.row {
+    border-bottom: 1px solid var(--black-50);
+
+    &:first-child {
+        border-top: 1px solid var(--black-50);
+    }
+}
+
+.cell {
+    border-right: 1px solid var(--black-50);
+    padding: 8px 20px;
+    min-width: 100px;
+    outline: none;
+
+    &:last-child {
+        border: none;
+        min-width: unset;
+        width: 40px;
+        cursor: pointer;
+    }
+}
+
+.add-row-btn {
+    margin-top: 16px;
+    height: 32px;
+    border-radius: 6px;
+    background-color: var(--blue-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    color: #007AFF;
+}

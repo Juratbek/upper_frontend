@@ -11,5 +11,6 @@ export interface IGenericWrapperProps {
   sidebar?: ReactNode;
   classes?: {
     main?: string;
+    root?: string;
   };
 }

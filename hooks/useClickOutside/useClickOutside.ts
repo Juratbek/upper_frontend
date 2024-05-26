@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { MouseEvent, MouseEventHandler, Ref, useEffect, useRef, useState } from 'react';
+import { Ref, useEffect, useRef, useState } from 'react';
 
 export const useClickOutside = (
   callBack?: () => void,
@@ -8,20 +7,19 @@ export const useClickOutside = (
   const [isClickedOutside, setIsClickedOutside] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const clickHandler: MouseEventHandler = (event: MouseEvent<HTMLElement>) => {
-    const clickedTarget = event.target;
+  const clickHandler = (event: MouseEvent) => {
+    const clickedTarget = event.target as Element;
     const currentTarget = ref.current;
 
     if (selector) {
       const exceptedElementsNodeList = document.querySelectorAll(selector);
       for (const i in exceptedElementsNodeList) {
         const element = exceptedElementsNodeList[i];
-        // @ts-ignore
         const isExceptElement = element?.contains?.(clickedTarget);
         if (isExceptElement) return;
       }
     }
-    // @ts-ignore
+
     const doesElementContain = currentTarget?.contains?.(clickedTarget);
     setIsClickedOutside(!doesElementContain);
     if (doesElementContain) return;
@@ -30,10 +28,8 @@ export const useClickOutside = (
   };
 
   useEffect(() => {
-    // @ts-ignore
     window.addEventListener('click', clickHandler);
 
-    // @ts-ignore
     return () => window.removeEventListener('click', clickHandler);
   }, []);
 

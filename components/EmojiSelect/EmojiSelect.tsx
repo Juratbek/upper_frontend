@@ -1,50 +1,13 @@
-import EditorJs from '@editorjs/editorjs';
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { EXCLUDED_PLUGINS_FROM_EMOJI } from 'variables';
+import { useCallback, useRef, useState } from 'react';
 
-import { EDITOR_HOLDER } from '../Editor';
 import { EmojiPopover } from '../EmojiPopover';
-import {
-  getCaretCharacterOffsetWithin,
-  getCaretCoordinates,
-  replaceRange,
-} from './EmojiSelect.utils';
+import { getCaretCharacterOffsetWithin, replaceRange } from './EmojiSelect.utils';
 
-interface IEmojiSelectProps {
-  editor: null | EditorJs;
-}
-export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
+export const EmojiSelect = () => {
   const positionsList = useRef<number[]>([]);
   const caretCoords = useRef<DOMRect | null>(null);
   const textTarget = useRef<HTMLElement>();
   const [emojiQuery, setEmojiQuery] = useState<string | null>(null);
-
-  const checkIfPluginExcluded = (el: HTMLElement): boolean => {
-    let isElementBlackListed = false;
-    EXCLUDED_PLUGINS_FROM_EMOJI.forEach((pluginSelector) => {
-      if (el.classList.contains(pluginSelector)) {
-        isElementBlackListed = true;
-      }
-    });
-    return isElementBlackListed;
-  };
-
-  const handleKeyPress = useCallback(
-    (e: InputEvent): void => {
-      const target = e.target as HTMLDivElement;
-
-      if (checkIfPluginExcluded(target)) return;
-      if (e.data === ':') {
-        const caretPosition = getCaretCharacterOffsetWithin(target);
-        positionsList.current = [caretPosition];
-        caretCoords.current = getCaretCoordinates(target, caretPosition);
-        textTarget.current = target;
-        // @ts-ignore
-        target.addEventListener('input', queryListener);
-      }
-    },
-    [editor],
-  );
 
   const checkCaretPosition = (currentCaretPosition: number, lastPosition: number): boolean => {
     return (
@@ -76,15 +39,6 @@ export const EmojiSelect: FC<IEmojiSelectProps> = ({ editor }) => {
     textTarget.current = undefined;
     setEmojiQuery(null);
   };
-
-  useEffect(() => {
-    if (editor) {
-      const editorContainer = document.querySelector('#' + EDITOR_HOLDER);
-      if (!editorContainer) return;
-      // @ts-ignore
-      editorContainer.addEventListener('input', handleKeyPress);
-    }
-  }, [editor]);
 
   const onEmojiClick = (emoji: string): void => {
     if (textTarget.current) {

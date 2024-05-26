@@ -5,3 +5,5 @@ import Client from './api-client';
 const apiClient = new Client({ baseUrl: BASE_URL });
 
 export default apiClient;
+
+export * from './api-client.utils';

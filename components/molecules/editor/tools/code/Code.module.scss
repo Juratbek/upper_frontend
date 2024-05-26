@@ -1,0 +1,15 @@
+.container {
+    border-radius: 6px;
+    background: #F9F9F9;
+    border: 1px solid rgb(229, 229, 229);
+    position: relative;
+}
+
+.textarea {
+    padding: 10px 12px;
+    font-size: 15px;
+
+    &>div {
+        outline: none !important;
+    }
+}

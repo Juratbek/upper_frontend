@@ -6,11 +6,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { usePublish, useUpdateArticleBlocks, useUpdateLabels } from 'store/clients/article';
+import { usePublish, useUpdateLabels } from 'store/clients/article';
 import { getEditor } from 'store/states';
 import { closePublishModal, getIsPublishModalOpen } from 'store/states/publishModal';
 import { IArticle } from 'types';
-import { removeAmazonUriFromImgBlocks, validateArticle } from 'utils';
 import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
 
 const OpenExternal = ICONS.openExternal;
@@ -24,8 +23,8 @@ export const PublishArticleModal: FC = () => {
   const { query } = useRouter();
   const articleId = Number(query.id);
   const article: IArticle | undefined = queryClient.getQueryData(['article', articleId]);
-  const { mutate: updateArticle } = useUpdateArticleBlocks(articleId);
-  const { mutate: publish, ...publishArticleRes } = usePublish(articleId, {
+  // const { mutate: updateArticle } = useUpdateArticleBlocks(articleId);
+  const { ...publishArticleRes } = usePublish(articleId, {
     onError: (error) => setAlert(error?.message),
     onSuccess: () => setAlert(''),
   });
@@ -52,15 +51,14 @@ export const PublishArticleModal: FC = () => {
     if (!editor) return;
 
     // validating article for publishing
-    const editorData = await editor.save();
-    const validationResult = validateArticle({ blocks: editorData.blocks });
-    if (!validationResult.isValid) {
-      return setAlert(validationResult.message);
-    }
+    // const validationResult = validateArticle({ blocks: editorData.blocks });
+    // if (!validationResult.isValid) {
+    //   return setAlert(validationResult.message);
+    // }
 
-    const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
-    updateArticle({ id: articleId, blocks });
-    publish();
+    // const [blocks] = await removeAmazonUriFromImgBlocks(editorData.blocks);
+    // updateArticle({ id: articleId, blocks });
+    // publish();
   };
 
   const closePublishModalHandler = (): void => {

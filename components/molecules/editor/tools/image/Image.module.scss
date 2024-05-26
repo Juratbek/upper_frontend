@@ -1,0 +1,46 @@
+.image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+.stretched {
+    width: 100%;
+}
+
+.with-border {
+    border: 1px solid #cdd1e0;
+    padding: 3px;
+}
+
+.with-background {
+    padding: 15px;
+    background-color: #cdd1e0;
+}
+
+.center {
+    margin: 0 auto;
+    display: block;
+}
+
+.caption {
+    padding-top: 10px;
+    text-align: center;
+    color: #6B6B6B;
+    outline: none;
+    position: relative;
+    font-size: 14px;
+
+    &:is(:empty):before {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        color: #8c8c8c;
+        content: 'Rasm haqida izoh';
+        transform: translateX(-50%);
+    }
+
+    &:focus::before {
+        content: '';
+    }
+}

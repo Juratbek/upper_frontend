@@ -1,0 +1,17 @@
+.heading {
+    outline: none;
+    line-height: 115%;
+
+    &:empty:before {
+        content: var(--placeholder, ' ');
+        color: var(--black-200);
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: end;
+}

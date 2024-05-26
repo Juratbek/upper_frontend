@@ -50,4 +50,5 @@ export const ICONS = {
   settings: icons.Settings,
   moon: icons.Moon,
   copy: icons.Copy,
+  down: icons.Down,
 } satisfies Record<string, FC<IIconProps>>;
