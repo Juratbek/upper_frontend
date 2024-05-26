@@ -10,6 +10,7 @@ export const AlertTool: ITool = {
     text: 'Ogohlantiruvchi',
     icon: IconWarning,
   },
+  shortcuts: ['o'],
   initialData: { message: '', type: 'info' } satisfies IAlertData,
   settings: AlertSettings,
   block: Alert,

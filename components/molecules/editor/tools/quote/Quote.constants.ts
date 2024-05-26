@@ -14,6 +14,7 @@ export const QuoteTool: ITool = {
   block: Quote,
   inlineToolEnabled: true,
   settings: QuoteSettings,
+  shortcuts: ['i'],
   tags: ['blockquote', 'aside'],
   onPaste: (node) => {
     const quote = node as HTMLQuoteElement;

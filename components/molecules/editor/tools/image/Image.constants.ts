@@ -12,6 +12,7 @@ export const ImageTool: ITool = {
     icon: IconPicture,
   },
   settings: ImageSettings,
+  shortcuts: ['r'],
   sanitize: (data: IBlockData['data']): IBlockData<IImageData>['data'] | undefined => {
     if (!data.file?.url) return;
 

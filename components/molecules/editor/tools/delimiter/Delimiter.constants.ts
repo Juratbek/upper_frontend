@@ -11,6 +11,7 @@ export const DelimiterTool: ITool = {
   },
   block: Delimiter,
   tags: ['div', 'hr'],
+  shortcuts: ['/'],
   onPaste: (node) => {
     const element = node as HTMLElement;
 

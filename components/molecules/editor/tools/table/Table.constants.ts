@@ -9,6 +9,7 @@ export const TableTool: ITool = {
     text: 'Jadval',
     icon: IconTable,
   },
+  shortcuts: ['j'],
   initialData: defaultTableData satisfies ITableData,
   block: Table,
   inlineToolEnabled: true,

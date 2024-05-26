@@ -2,7 +2,7 @@
 import { FC } from 'react';
 
 import { IEditorAPI, IEditorContext } from '../context/EditorContext.types';
-import { IBlockData, IEditorProps } from '../instance/Editor.types';
+import { IBlockData, IEditorProps, TInitialBlockData } from '../instance/Editor.types';
 
 export type TToolType =
   | 'paragraph'
@@ -33,6 +33,10 @@ export interface IToolbarSetting<T = any> extends IToolbar {
 
 export type TToolTag = keyof HTMLElementTagNameMap | '#text';
 
+export type TShortcuts<T = TInitialBlockData> = Array<
+  string | { key: string; data: IBlockData<T>['data'] }
+>;
+
 export interface ITool {
   toolbar?: IToolbar;
   block: FC<IToolProps<any>>;
@@ -43,6 +47,7 @@ export interface ITool {
   inlineToolEnabled?: boolean;
   tags?: Array<TToolTag>;
   onPaste?: (node: Node) => IBlockData['data'] | null;
+  shortcuts?: TShortcuts;
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;

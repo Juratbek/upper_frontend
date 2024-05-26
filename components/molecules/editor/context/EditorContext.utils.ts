@@ -88,6 +88,14 @@ export const bindEditorDataState = (
   };
 
   const addBlock: TAddBlock = (type, currentBlockId, data) => {
+    if (!currentBlockId) {
+      setData((prevData) => {
+        const newBlock = createBlock(type, data, tools[type]);
+        return [...prevData, newBlock];
+      });
+      return;
+    }
+
     setData((prevData) => {
       const index = prevData.findIndex((block) => block.id === currentBlockId);
       const newBlock = createBlock(type, data, tools[type]);

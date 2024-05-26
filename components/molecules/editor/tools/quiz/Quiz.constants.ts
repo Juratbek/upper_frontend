@@ -12,6 +12,7 @@ export const QuizTool: ITool = {
     text: "So'rovnoma",
   },
   settings: QuizSettings,
+  shortcuts: ['s'],
   initialData: {
     question: '',
     answers: [],

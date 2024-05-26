@@ -16,6 +16,7 @@ export const ListTool: ITool = {
   initialData: { items: [''], style: 'unordered' } satisfies IListData,
   inlineToolEnabled: true,
   tags: ['ol', 'ul'],
+  shortcuts: ['l'],
   onPaste: (node) => {
     const listElement = node as HTMLOListElement;
     const style: IListData['style'] = listElement.nodeName === 'OL' ? 'ordered' : 'unordered';
