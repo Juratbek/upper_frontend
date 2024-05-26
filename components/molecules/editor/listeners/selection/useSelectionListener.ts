@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 
 import { useEditorContext } from '../../context';
+import { getEditorBlocksContainer } from '../../utils';
 import { Selection } from '../../utils/selection';
 
 export const useSelectionListener = () => {
@@ -12,7 +13,7 @@ export const useSelectionListener = () => {
     if (isInlineToolbarEnabled !== true) return;
 
     const selection = Selection.selection;
-    const blocksContainer = document.getElementById('editor-blocks');
+    const blocksContainer = getEditorBlocksContainer();
     if (!selection || !blocksContainer) return;
 
     const selectedText = Selection.text;

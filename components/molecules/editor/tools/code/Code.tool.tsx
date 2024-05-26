@@ -1,4 +1,5 @@
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
+import { javascript } from '@codemirror/lang-javascript';
 import { defaultHighlightStyle, language, syntaxHighlighting } from '@codemirror/language';
 import { Compartment, EditorState } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
@@ -35,7 +36,7 @@ export const Code = memo(
     }, [id, type, api.setBlock]);
 
     const extensions = useMemo(() => {
-      const langExtension = LANGUAGES[data.language]?.extension?.();
+      const langExtension = LANGUAGES[data.language]?.extension?.() ?? javascript();
 
       return [
         updateListener,

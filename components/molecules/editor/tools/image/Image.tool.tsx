@@ -1,54 +1,48 @@
 import { memo } from 'react';
-import { getClassName } from 'utils';
+import { compressImage, getClassName, toBase64 } from 'utils';
 
 import { IToolProps } from '../tool.types';
+import { Caption } from './Caption';
 import classes from './Image.module.scss';
 import { IImageData } from './Image.types';
+import { UploadImage } from './upload/UploadImage';
 
 export const Image = memo(
-  function Memoized({ data, isEditable }: IToolProps<IImageData>) {
-    if (!data && isEditable) {
-      return (
-        <div>
-          <input type='file' />
-        </div>
-      );
-    }
-    const { file, caption } = data;
+  function Memoized({ data, isEditable, api, id, type }: IToolProps<IImageData>) {
+    const { file } = data;
 
-    const renderCaption = () => {
-      if (isEditable) {
-        return (
-          <figcaption
-            className={classes.caption}
-            contentEditable
-            dangerouslySetInnerHTML={{ __html: caption ?? '' }}
-          />
-        );
-      }
+    const uploadImageHandler = async (file: File) => {
+      const compressedFile = await compressImage(file);
+      const imageUrl = await toBase64(compressedFile);
 
-      if (!caption) return;
+      const f: IImageData['file'] = {
+        url: imageUrl?.toString() ?? '',
+      };
 
-      return (
-        <figcaption className={classes.caption} dangerouslySetInnerHTML={{ __html: caption }} />
-      );
+      api.setBlock({ id, type, data: { ...data, file: f } });
     };
 
     return (
       <figure>
-        <div className={getClassName(data.withBackground && classes['with-background'])}>
-          <img
-            src={file.url}
-            alt=''
-            className={getClassName(
-              classes.image,
-              data.stretched && classes.stretched,
-              data.withBorder && classes['with-border'],
-              data.alignment && classes[data.alignment],
-            )}
-          />
-        </div>
-        {renderCaption()}
+        {file?.url ? (
+          <>
+            <div className={getClassName(data.withBackground && classes['with-background'])}>
+              <img
+                src={file.url}
+                alt=''
+                className={getClassName(
+                  classes.image,
+                  data.stretched && classes.stretched,
+                  data.withBorder && classes['with-border'],
+                  data.alignment && classes[data.alignment],
+                )}
+              />
+            </div>
+            <Caption data={data} isEditable={isEditable} />
+          </>
+        ) : (
+          <UploadImage onUpload={uploadImageHandler} />
+        )}
       </figure>
     );
   },

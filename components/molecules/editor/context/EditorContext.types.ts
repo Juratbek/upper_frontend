@@ -10,7 +10,7 @@ export interface IEditorProviderProps extends IEditorProps {
 
 export type TAddBlock = (
   type: IBlockData['type'],
-  currentBlockId: IBlockNode['id'],
+  currentBlockId?: IBlockNode['id'],
   data?: IBlockData['data'],
 ) => void;
 

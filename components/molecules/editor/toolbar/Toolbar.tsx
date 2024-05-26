@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { EditorContext } from '../context/EditorContext';
 import { ActionButtons } from './action-buttons/ActionButtons';
@@ -21,6 +21,13 @@ export const Toolbar = () => {
     if (isToolsPopoverOpen) setIsToolsPopoverOpen(false);
     setIsSettingsPopoverOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    return () => {
+      setIsSettingsPopoverOpen(false);
+      setIsToolsPopoverOpen(false);
+    };
+  }, [hoveredBlock]);
 
   return (
     <div

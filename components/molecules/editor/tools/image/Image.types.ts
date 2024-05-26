@@ -1,6 +1,6 @@
 export interface IImageData {
   caption?: string;
-  file: {
+  file?: {
     url: string;
   };
   stretched?: boolean;

@@ -8,6 +8,8 @@ import { Toolbar } from '../toolbar/Toolbar';
 import classes from './Editor.module.scss';
 import { IEditorProps } from './Editor.types';
 
+export const EDITOR_BLOCKS_CONTAINER_ID = 'editor-blocks-container';
+
 export const Editor: FC<IEditorProps> = (props) => (
   <EditorProvider {...props}>
     <Instance />
@@ -28,7 +30,7 @@ const Instance = () => {
           <InlineToolbar />
         </>
       )}
-      <div id='editor-blocks-container'>{blocks}</div>
+      <div id={EDITOR_BLOCKS_CONTAINER_ID}>{blocks}</div>
     </div>
   );
 };

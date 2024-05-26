@@ -37,7 +37,7 @@ export const addUriToImageBlocks = (blocks: IBlockData[]): IBlockData[] =>
   blocks.map((block) => {
     const blockType = block.type;
     const data = block.data;
-    if (blockType === BLOCK_TYPES.image && !data.file.url.startsWith('http')) {
+    if (blockType === BLOCK_TYPES.image && data.file?.url && !data.file.url.startsWith('http')) {
       return {
         ...block,
         data: { ...data, file: { url: `${ARTICLE_BUCKET_URL}${data.file.url}` } },
@@ -59,8 +59,8 @@ export const removeAmazonUriFromImgBlocks = async (
   const updatedBlocks = blocks.map(async (block): Promise<IBlockData> => {
     const blockType = block.type;
 
-    if (blockType === BLOCK_TYPES.image) {
-      const img = block.data.file;
+    const img = block.data?.file;
+    if (blockType === BLOCK_TYPES.image && img) {
       const imgUrl = img.url as string;
 
       if (imgUrl.startsWith('data:')) {

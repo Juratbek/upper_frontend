@@ -12,6 +12,11 @@ export const CodeTool: ITool = {
   },
   block: Code,
   tags: ['pre'],
+  shortcuts: ['k'],
+  initialData: {
+    language: 'javascript',
+    code: '// Assalamu aleykum, upper.uz saytiga xush kelibsiz',
+  } as ICodeData,
   onPaste: (node) => {
     const codeElement = node as HTMLPreElement;
     let code;

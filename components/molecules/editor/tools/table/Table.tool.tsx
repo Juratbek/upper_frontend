@@ -5,7 +5,13 @@ import { IToolProps } from '../tool.types';
 import cls from './Table.module.scss';
 import { ITableData } from './Table.types';
 
-export const defaultTableData: ITableData = { content: [['']], withHeadings: false };
+export const defaultTableData: ITableData = {
+  content: [
+    ['', ''],
+    ['', ''],
+  ],
+  withHeadings: false,
+};
 
 const debounce = debouncer<string>();
 

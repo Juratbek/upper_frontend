@@ -40,7 +40,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
     article = await apiClient.get<IArticle>(`published-article/open/${articleId}`);
   } catch (e) {
     const apiError = e as ApiError;
-    error = { status: apiError.status } satisfies Partial<IResponseError>;
+    error = { status: apiError.status ?? '' } satisfies Partial<IResponseError>;
   }
   return {
     props: {

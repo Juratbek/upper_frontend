@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from 'react';
 
 import { IEditorAPI, IEditorContext } from '../context/EditorContext.types';
-import { IBlockData, IEditorProps } from '../instance/Editor.types';
+import { IBlockData, IEditorProps, TInitialBlockData } from '../instance/Editor.types';
 
 export type TToolType =
   | 'paragraph'
@@ -15,6 +16,7 @@ export type TToolType =
   | 'unsplash'
   | 'figure'
   | 'frame'
+  | 'quiz'
   | 'table';
 
 export interface IToolbar {
@@ -31,16 +33,21 @@ export interface IToolbarSetting<T = any> extends IToolbar {
 
 export type TToolTag = keyof HTMLElementTagNameMap | '#text';
 
+export type TShortcuts<T = TInitialBlockData> = Array<
+  string | { key: string; data: IBlockData<T>['data'] }
+>;
+
 export interface ITool {
   toolbar?: IToolbar;
   block: FC<IToolProps<any>>;
   settings?: IToolbarSetting[];
   config?: Record<string, any>;
   initialData?: Record<string, any>;
-  sanitize?: (data: IBlockData['data']) => IBlockData['data'];
+  sanitize?: (data: IBlockData['data']) => IBlockData['data'] | undefined;
   inlineToolEnabled?: boolean;
   tags?: Array<TToolTag>;
   onPaste?: (node: Node) => IBlockData['data'] | null;
+  shortcuts?: TShortcuts;
 }
 
 export type TToolsMapper = Record<TToolType, ITool>;

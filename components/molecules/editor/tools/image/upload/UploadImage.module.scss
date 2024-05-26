@@ -1,0 +1,12 @@
+.btn {
+    border-radius: 8px;
+    background-color: var(--gray);
+    height: 80px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+
+    &:active {
+        background-color: var(--gray-100);
+    }
+}
