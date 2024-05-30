@@ -8,15 +8,13 @@ import {
   PublishedArticle,
   UserLabels,
 } from 'components/molecules';
-import { Advertisement } from 'components/organisms';
-import { useDevice, useUrlParams } from 'hooks';
+import { useUrlParams } from 'hooks';
 import { FC } from 'react';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
 export const HomePage: FC = () => {
   const { getParam } = useUrlParams();
-  const { isDesktop } = useDevice();
   const label = (getParam(LABEL_ID_PARAM) ?? DefaultLabel) as string;
   const {
     fetchNextPage,
@@ -28,7 +26,6 @@ export const HomePage: FC = () => {
   return (
     <>
       <UserLabels />
-      {!isDesktop && <Advertisement />}
       <ApiErrorBoundary
         res={articlesRes}
         fallback={

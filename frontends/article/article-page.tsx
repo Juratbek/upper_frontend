@@ -1,4 +1,4 @@
-import { BackButton, Head } from 'components/lib';
+import { Head } from 'components/lib';
 import { Editor } from 'components/molecules';
 import { CommentsModal } from 'components/organisms';
 import { FC, useEffect } from 'react';
@@ -7,7 +7,6 @@ import { IArticle } from 'types';
 import { addAmazonBucketUriToArticle, addUriToImageBlocks, convertToHeadProp } from 'utils';
 
 import { IArticlePageMainProps } from './article.types';
-import classes from './article-page.module.scss';
 import { Author } from './components';
 import { ErrorUI } from './components/Error/Error';
 import { ArticleFooter } from './components/Footer/ArticleFooter';
@@ -35,17 +34,12 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
         title={title}
         url={fullUrl}
       />
-      <div className={classes['back-btn-container']}>
-        <BackButton />
-      </div>
       <Author {...article.author} />
-      <div className='editor-container pb-2'>
-        <article>
-          <Editor content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
-        </article>
-        <ArticleFooter sharePopoverId='share-btn-in-article-page' />
-        <CommentsModal />
-      </div>
+      <article>
+        <Editor content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
+      </article>
+      <ArticleFooter sharePopoverId='share-btn-in-article-page' />
+      <CommentsModal />
     </>
   );
 };

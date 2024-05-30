@@ -94,7 +94,7 @@ function MyApp(props: AppProps): JSX.Element {
           <MobileApp {...props} />
         )}
       </div>
-      <NextNProgress color={themeColors.progressbar} height={3} />
+      <NextNProgress color={themeColors.progressbar} height={3} options={{ showSpinner: false }} />
     </div>
   );
 }

@@ -59,11 +59,9 @@ export default function UserArticlePage(): JSX.Element {
 
   return (
     <GenericWrapper sidebar={null} isNavigationHidden header={<WriteArticleHeader />}>
-      <div className='editor-container container pb-4' style={{ marginTop: '-3.2rem' }}>
-        <PublishArticleModal />
-        <Head title='Blog maqolasi' url='/user/articles' />
-        {renderEditor()}
-      </div>
+      <PublishArticleModal />
+      <Head title='Blog maqolasi' url='/user/articles' />
+      {renderEditor()}
     </GenericWrapper>
   );
 }

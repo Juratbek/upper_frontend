@@ -5,7 +5,7 @@ import { IBlockData } from '../../instance/Editor.types';
 import { TToolsMapper } from '../../tools/tool.types';
 
 export const useShortcutsListener = () => {
-  const { tools, addBlock, focusedBlock } = useEditorContext();
+  const { tools, addBlock, focusedBlock, isEditable } = useEditorContext();
 
   const shortcuts = useMemo(() => {
     return Object.keys(tools).reduce<Record<string, Pick<IBlockData, 'type' | 'data'>>>(
@@ -47,8 +47,10 @@ export const useShortcutsListener = () => {
   );
 
   useEffect(() => {
+    if (!isEditable) return;
+
     document.addEventListener('keydown', keydownListener);
 
     return () => document.removeEventListener('keydown', keydownListener);
-  }, [keydownListener]);
+  }, [keydownListener, isEditable]);
 };

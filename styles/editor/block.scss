@@ -1,9 +1,0 @@
-@import '../breakpoints.scss';
-
-.ce-block {
-    margin-bottom: 32px;
-
-    @include media-max(small) {
-        margin-bottom: 24px;
-    }
-}

@@ -37,17 +37,17 @@
     position: absolute;
     right: 0;
     left: 0;
-    bottom: -1px;
+    bottom: 0;
     transform: translateY(100%);
     background-color: white;
     z-index: 2;
     height: 100vh;
     margin: 0;
     list-style: none;
-    padding: 14px 0;
+    padding: 8px 0;
 
     .item {
-        padding: 10px 20px;
+        padding: 16px 20px;
         display: block;
     }
 }

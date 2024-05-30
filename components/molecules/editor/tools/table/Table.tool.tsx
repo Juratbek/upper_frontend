@@ -92,9 +92,11 @@ export const Table = memo(
             })}
           </tbody>
         </table>
-        <button onClick={addRow} className={cls['add-row-btn']}>
-          +
-        </button>
+        {isEditable && (
+          <button onClick={addRow} className={cls['add-row-btn']}>
+            +
+          </button>
+        )}
       </div>
     );
   },

@@ -9,7 +9,8 @@ import janitor from '../../utils/janitor';
 type TAddBlocksFirstParam = Parameters<TAddBlocks>[0];
 
 export const usePasteListener = () => {
-  const { addBlocks, toolsTagsMap, focusedBlock, tools, removeBlock } = useEditorContext();
+  const { addBlocks, toolsTagsMap, focusedBlock, tools, removeBlock, isEditable } =
+    useEditorContext();
 
   const pasteHandler = useCallback(
     (event: ClipboardEvent) => {
@@ -48,10 +49,12 @@ export const usePasteListener = () => {
   );
 
   useEffect(() => {
+    if (!isEditable) return;
+
     document.addEventListener('paste', pasteHandler, true);
 
     return () => document.removeEventListener('paste', pasteHandler, true);
-  }, [pasteHandler]);
+  }, [pasteHandler, isEditable]);
 };
 
 function generateBlocks(

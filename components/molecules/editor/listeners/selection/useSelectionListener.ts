@@ -5,7 +5,8 @@ import { getEditorBlocksContainer } from '../../utils';
 import { Selection } from '../../utils/selection';
 
 export const useSelectionListener = () => {
-  const { showInlineToolbar, hideInlineToolbar, focusedBlock, tools } = useEditorContext();
+  const { showInlineToolbar, hideInlineToolbar, focusedBlock, tools, isEditable } =
+    useEditorContext();
 
   const selectionChangeHandler = useCallback(() => {
     if (!focusedBlock) return;
@@ -48,8 +49,10 @@ export const useSelectionListener = () => {
   }, [showInlineToolbar, hideInlineToolbar, focusedBlock, tools]);
 
   useEffect(() => {
+    if (!isEditable) return;
+
     document.addEventListener('selectionchange', selectionChangeHandler);
 
     return () => document.removeEventListener('selectionchange', selectionChangeHandler);
-  }, [selectionChangeHandler]);
+  }, [selectionChangeHandler, isEditable]);
 };
