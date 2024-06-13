@@ -1,4 +1,5 @@
 import { Clickable, TabButton } from 'components/lib';
+import { COMMON_SPACE_FROM_TOP } from 'components/wrappers';
 import { FC, useRef } from 'react';
 import { getClassName } from 'utils';
 import { ICONS } from 'variables/icons';
@@ -29,7 +30,14 @@ export const Labels: FC<ILabelsProps> = (props) => {
     : false;
 
   return (
-    <div className={getClassName(classes.root, props.className)} style={props.style}>
+    <div
+      className={getClassName(classes.root, props.className)}
+      style={{
+        paddingTop: COMMON_SPACE_FROM_TOP,
+        marginTop: '-' + COMMON_SPACE_FROM_TOP,
+        ...(props.style ?? {}),
+      }}
+    >
       {isContentOverflowed && (
         <Clickable
           data-testid='prev-btn'

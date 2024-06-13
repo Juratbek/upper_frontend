@@ -1,6 +1,6 @@
 import { Link } from 'components/lib';
 import { FC, useCallback } from 'react';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { MENU_LIST_ITEMS } from './MenuList.constants';
 import classes from './MenuList.module.scss';

@@ -1,4 +1,4 @@
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { IMenuListItem } from './MenuList.types';
 
@@ -15,7 +15,7 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
   // },
   {
     icon: ICONS.notification,
-    text: 'Bildirishnomalar',
+    text: 'Xabarlar',
     href: '/notifications',
   },
   {

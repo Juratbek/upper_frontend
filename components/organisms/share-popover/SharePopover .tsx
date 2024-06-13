@@ -2,7 +2,7 @@ import { Clickable } from 'components/lib';
 import Link from 'next/link';
 import { forwardRef, useEffect, useState } from 'react';
 import { TNoop } from 'types';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { MEDIA_ICONS } from './SharePopover.constants';
 import classes from './SharePopover.module.scss';

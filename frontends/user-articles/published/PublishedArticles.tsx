@@ -1,10 +1,9 @@
-import { ApiErrorBoundary, ArticleSkeleton } from 'components';
-import { Button, StorysetImage } from 'components/lib';
+import { ApiErrorBoundary } from 'components';
+import { Button, Spinner, StorysetImage } from 'components/lib';
 import { Article, LoadMoreButton } from 'components/molecules';
 import { useAppRouter } from 'hooks';
 import { FC, useCallback } from 'react';
 import { useBlogArticles, useCreateArticle } from 'store/clients/article';
-import { ARTICLES_SKELETON_COUNT } from 'variables';
 
 export const PublishedArticles: FC = () => {
   const { push } = useAppRouter();
@@ -15,13 +14,16 @@ export const PublishedArticles: FC = () => {
 
   const writeArticleHandler = useCallback(() => createArticle(), []);
 
-  const { list, fetchNextPage, hasNextPage } = blogArticlesRes;
+  const { list, fetchNextPage, hasNextPage, isFetchingNextPage } = blogArticlesRes;
 
   return (
     <ApiErrorBoundary
       res={blogArticlesRes}
-      fallback={<ArticleSkeleton className='px-2 py-2' />}
-      fallbackItemCount={ARTICLES_SKELETON_COUNT}
+      fallback={
+        <div style={{ height: 300, display: 'grid', placeItems: 'center' }}>
+          <Spinner />
+        </div>
+      }
       className='tab'
       memoizationDependencies={[createArticleRes.isPending]}
     >
@@ -42,7 +44,7 @@ export const PublishedArticles: FC = () => {
       {list.map((article) => {
         return <Article key={article.id} article={article} />;
       })}
-      {hasNextPage && <LoadMoreButton onClick={fetchNextPage} />}
+      {hasNextPage && <LoadMoreButton loading={isFetchingNextPage} onClick={fetchNextPage} />}
     </ApiErrorBoundary>
   );
 };

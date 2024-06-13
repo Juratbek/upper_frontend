@@ -22,7 +22,7 @@ export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props
         dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
         className={classes['article-title']}
       ></h2>
-      {!Boolean(imgUrl) && (
+      {!Boolean(imgUrl) && typeof content === 'string' && (
         <p dangerouslySetInnerHTML={{ __html: content }} className={classes['article-content']}></p>
       )}
 

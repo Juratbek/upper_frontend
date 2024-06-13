@@ -12,8 +12,8 @@ import {
   useLikeCount,
 } from 'store/clients/published-article';
 import { toggleCommentsModal } from 'store/states';
-import { ICONS } from 'variables';
 import { UPPER_BLUE_COLOR } from 'variables/colors';
+import { ICONS } from 'variables/icons';
 
 import classes from './ArticleFooter.module.scss';
 

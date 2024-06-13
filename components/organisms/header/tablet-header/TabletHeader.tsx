@@ -2,7 +2,7 @@ import { Link } from 'components/lib';
 import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useTheme } from 'hooks';
 import { FC, useRef } from 'react';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './TabletHeader.module.scss';
 

@@ -2,7 +2,7 @@ import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
 import { useGetCurrentBlog } from 'store/clients/blog';
 import { TNoop } from 'types';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './Profile.module.scss';
 

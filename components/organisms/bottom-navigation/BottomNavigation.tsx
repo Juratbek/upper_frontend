@@ -2,7 +2,7 @@ import { Link, Spinner } from 'components/lib';
 import { useAppRouter } from 'hooks';
 import { FC, useCallback, useMemo } from 'react';
 import { useCreateArticle } from 'store/clients/article';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { leftButtons, rightButtons } from './BottomNavigation.constants';
 import classes from './BottomNavigation.module.scss';

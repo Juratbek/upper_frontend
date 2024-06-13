@@ -1,5 +1,4 @@
-import { EditorSpinner } from 'components';
-import { Head } from 'components/lib';
+import { Head, Spinner } from 'components/lib';
 import { Editor, IBlockData } from 'components/molecules';
 import { createBlock } from 'components/molecules/editor/context/EditorContext.utils';
 import { GenericWrapper } from 'components/wrappers';
@@ -36,7 +35,21 @@ export default function UserArticlePage(): JSX.Element {
   );
 
   const renderEditor = (): JSX.Element => {
-    if (!isIdPresent || !article?.blocks) return <EditorSpinner />;
+    if (!isIdPresent || !article?.blocks)
+      return (
+        <div
+          style={{
+            height: '60vh',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <Spinner />
+          <p>Matn muharriri yuklanmoqda</p>
+        </div>
+      );
 
     return (
       <Editor
@@ -58,7 +71,12 @@ export default function UserArticlePage(): JSX.Element {
   };
 
   return (
-    <GenericWrapper sidebar={null} isNavigationHidden header={<WriteArticleHeader />}>
+    <GenericWrapper
+      areNavigationAndSidebarEqual
+      isSidebarHidden
+      isNavigationHidden
+      header={<WriteArticleHeader />}
+    >
       <PublishArticleModal />
       <Head title='Blog maqolasi' url='/user/articles' />
       {renderEditor()}

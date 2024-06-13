@@ -4,8 +4,8 @@ import { Link, Spinner } from 'components/lib';
 import { useTheme } from 'hooks';
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { useSearch } from 'store/clients/published-article';
-import { debouncer } from 'utils';
-import { ICONS } from 'variables';
+import { debouncer } from 'utils/debouncer';
+import { ICONS } from 'variables/icons';
 
 import classes from './MobileHeader.module.scss';
 

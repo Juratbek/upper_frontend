@@ -14,12 +14,16 @@ export const DraftArticles: FC = () => {
 
   const writeArticleHandler = useCallback(async () => createArticle(), []);
 
-  const { list, fetchNextPage, hasNextPage } = blogArticlesRes;
+  const { list, fetchNextPage, hasNextPage, isFetchingNextPage } = blogArticlesRes;
 
   return (
     <ApiErrorBoundary
       res={blogArticlesRes}
-      fallback={<Spinner />}
+      fallback={
+        <div style={{ height: 300, display: 'grid', placeItems: 'center' }}>
+          <Spinner />
+        </div>
+      }
       className='tab'
       memoizationDependencies={[createArticleRes.isPending]}
     >
@@ -44,7 +48,7 @@ export const DraftArticles: FC = () => {
       {list.map((article) => {
         return <Article key={article.id} article={article} />;
       })}
-      {hasNextPage && <LoadMoreButton onClick={fetchNextPage} />}
+      {hasNextPage && <LoadMoreButton loading={isFetchingNextPage} onClick={fetchNextPage} />}
     </ApiErrorBoundary>
   );
 };

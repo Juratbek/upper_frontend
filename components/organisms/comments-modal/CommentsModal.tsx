@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
 import { useCommentsList, useCreateComment } from 'store/clients/comments';
 import { closeCommentsModal, getIsCommentsModalOpen } from 'store/states';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './CommentsModal.module.scss';
 import { NoComments } from './no-comments/NoComments';

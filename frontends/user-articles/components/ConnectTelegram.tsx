@@ -3,7 +3,7 @@ import { useTheme } from 'hooks';
 import { FC, useCallback } from 'react';
 import { useGetAuthCode } from 'store/clients/blog';
 import { useGetTelegramChannelConnectionStatus } from 'store/clients/telegram';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 const TelegramIcon = ICONS.telegramColored;
 
