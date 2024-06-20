@@ -7,14 +7,12 @@
   border-top: 0.5px solid;
 
   padding: 3rem 0;
+  border-color: var(--published-article-border);
 
   &.dark {
     border-color: hsl(0deg 0% 78.51% / 60%);
   }
 
-  &.light {
-    border-color: rgba(166, 166, 166, 0.6);
-  }
 }
 
 .article-footer {

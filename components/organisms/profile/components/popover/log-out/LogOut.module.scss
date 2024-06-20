@@ -1,29 +1,27 @@
-.log-out {
+.log-out:hover {
+  background-color: var(--profile-popover-item-hover-bg);
+}
+
+.body {
   border-top: 1px solid var(--black-50);
   display: flex;
-  padding-top: 2rem;
-  padding-bottom: 2.4rem;
-  margin-top: 1rem;
   align-items: center;
   gap: 1.2rem;
+  padding-block: 20px 24px;
+}
 
-  &:hover {
-    background-color: var(--black-50);
-  }
+.icon {
+  display: flex;
+  width: 3.2rem;
+  height: 3.2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.6rem;
+  background: rgba(255, 62, 51, 0.2);
+}
 
-  .icon {
-    display: flex;
-    width: 3.2rem;
-    height: 3.2rem;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0.6rem;
-    background: rgba(255, 62, 51, 0.2);
-  }
-
-  .text {
-    color: var(--red);
-    font-weight: 500;
-    margin: 0;
-  }
+.text {
+  color: var(--red);
+  font-weight: 500;
+  margin: 0;
 }

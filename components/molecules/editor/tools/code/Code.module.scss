@@ -1,7 +1,7 @@
 .container {
     border-radius: 6px;
-    background: #F9F9F9;
-    border: 1px solid rgb(229, 229, 229);
+    background: var(--editor-code-bg);
+    border: 1px solid var(--editor-code-border);
     position: relative;
 }
 

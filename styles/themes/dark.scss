@@ -1,0 +1,79 @@
+.theme-dark {
+    --main-bg: #22272e;
+    --main-text: #c5d1de;
+    --hover-bg: #b1bac41f;
+
+    background-color: var(--main-bg);
+    color: var(--main-text);
+
+    --secondary-color: #373e47;
+    --card-bg: var(--secondary-color);
+
+    // Header
+    --header-border: var(--secondary-color);
+    --search-result-item-border: var(--black-400);
+    --search-result-item-hover-bg: var(--hover-bg);
+    --search-input-bg: var(--secondary-color);
+
+    // Navigation
+    --nav-active-bg: var(--secondary-color);
+
+    // Divider component
+    --divider-primary-background: var(--black-300);
+    --divider-secondary-background: var(--secondary-color);
+
+    // TabButton component
+    --tab-btn-primary-bg: transparent;
+    --tab-btn-primary-text: var(--blue-300);
+    --tab-btn-primary-border: var(--blue-500);
+    --tab-btn-outlined-text: var(--black-100);
+    --tab-btn-outlined-border: var(--black-200);
+
+    // Spinner
+    --spinner-primary-color: var(--main-text);
+    --spinner-secondary-color: black;
+
+    // Profile
+    --header-profile-bg: var(--secondary-color);
+    --header-profile-icon: var(--black-200);
+    --profile-popover-bg: var(--secondary-color);
+    --profile-popover-item-hover-bg: var(--hover-bg);
+
+    // Notification
+    --notification-text: var(--main-text);
+    --notification-border: var(--black-300);
+
+    // Author
+    --author-name-text: var(--black-100);
+
+    // PublishedArticle
+    --published-article-border: #3b3b3b99;
+
+    // Article
+    --article-border: var(--black-400);
+
+    // Editor
+    --editor-text: var(--main-text);
+    --editor-heading-text: #ced6df;
+    --editor-figure-caption: #a7a7a7;
+    --editor-code-bg: #171a1d;
+    --editor-code-border: transparent;
+    --editor-inline-code-bg: var(--secondary-color);
+
+    // Comments
+    --comments-modal-bg: var(--main-bg);
+    --comments-modal-border: var(--secondary-color);
+    --comments-input-bg: var(--secondary-color);
+    --comments-input-text: white;
+
+    --comment-author-name: var(--black-50);
+    --comment-text: var(--main-text);
+    --comment-border-bottom: var(--secondary-color);
+
+    --share-popover-bg: var(--secondary-color);
+    --share-popover-border: var(--black-300);
+
+    // Footer
+    --footer-border: var(--secondary-color);
+    --footer-text: var(--black-100);
+}

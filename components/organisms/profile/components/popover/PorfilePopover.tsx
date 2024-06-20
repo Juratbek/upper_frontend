@@ -22,13 +22,13 @@ export const ProfilePopover = forwardRef<HTMLDivElement, { close: TNoop; isOpen:
       <div className={`${classes.root} ${!isOpen && 'h-0'}`} ref={ref}>
         <Submenu onBack={backHandler} className={submenu.isShown ? 'h-auto' : 'h-0 border-none'} />
         <div className={`${classes['main-menu']} ${Boolean(submenu.isShown) && 'h-0 border-none'}`}>
-          <Profile closePopover={close} className={classes['vertical-padding']} />
+          <Profile closePopover={close} className={classes['menu-section']} />
           <MenuList
             closePopover={close}
             setSubmenu={setSubmenu}
-            itemClassName={classes['vertical-padding']}
+            itemClassName={classes['menu-section']}
           />
-          <LogOutBtn className={classes['vertical-padding']} />
+          <LogOutBtn className={classes['menu-section']} />
         </div>
       </div>
     );

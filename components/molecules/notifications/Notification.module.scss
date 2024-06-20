@@ -2,14 +2,14 @@
 
 .root {
     padding: 2.4rem 0;
-    border-bottom: 1px solid var(--black-50, #E8E9E9);
+    border-bottom: 1px solid var(--notification-border);
     display: block;
 }
 
 .title {
     margin-top: 0;
     margin-bottom: 20px;
-    color: var(--black-900, #020303);
+    color: var(--notification-text);
     font-size: 24px;
     font-weight: 600;
     line-height: 28px;

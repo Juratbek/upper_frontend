@@ -1,6 +1,6 @@
 import { Link } from 'components/lib';
 import { FC } from 'react';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { menu } from './Menu.constants';
 import classes from './Menu.module.scss';

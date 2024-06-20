@@ -3,7 +3,7 @@ import { Clickable } from 'components/lib';
 import { useTheme } from 'hooks';
 import { ChangeEvent, FC, useCallback } from 'react';
 import { TSelectedThemeOption } from 'types';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { ISubmenuProps } from '../ProfilePopover.types';
 import { THEME_VARIANTS } from './ThemeMenu.constants';

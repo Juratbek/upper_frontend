@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   padding-block: 2.4rem;
-  border-bottom: 1px solid var(--black-50, #E8E9E9);
+  border-bottom: 1px solid var(--divider-secondary-background, #E8E9E9);
 }
 
 .text-block {
@@ -10,7 +10,6 @@
 }
 
 .name {
-  color: var(--black-700, #0B0E0F);
   font-size: 1.8rem;
   font-weight: 600;
   line-height: 2.4rem;

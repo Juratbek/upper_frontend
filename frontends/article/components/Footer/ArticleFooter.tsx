@@ -1,6 +1,6 @@
 import { Clickable, Divider } from 'components/lib';
 import { SharePopover } from 'components/organisms';
-import { useAuth, useClickOutside } from 'hooks';
+import { useAuth, useClickOutside, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,6 +12,7 @@ import {
   useLikeCount,
 } from 'store/clients/published-article';
 import { toggleCommentsModal } from 'store/states';
+import { getClassName } from 'utils';
 import { UPPER_BLUE_COLOR } from 'variables/colors';
 import { ICONS } from 'variables/icons';
 
@@ -34,6 +35,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const { data: likeCount } = useLikeCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
   const { data: isLikedOrDisliked } = useIsLikedOrDisliked(articleId);
+  const { themeColors } = useTheme();
 
   const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());
   const shareClickHandler = (): unknown => setIsOpen((prev) => !prev);
@@ -61,16 +63,18 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
     <div className={classes.root}>
       <div className={classes['reactions-container']}>
         <Clickable disabled={!!isLikedOrDisliked || isLikePending} onClick={likeHandler}>
-          <Like color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : undefined} />
+          <Like color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
-        {Boolean(likeCount) && <span className={classes['like-count']}>{likeCount}</span>}
+        {Boolean(likeCount) && (
+          <span className={getClassName(classes['like-count'], classes.count)}>{likeCount}</span>
+        )}
         <Divider color='secondary' className={classes.divider} type='vertical' />
         <Clickable disabled={!isLikedOrDisliked || isDisLikePending} onClick={dislikeHandler}>
-          <Dislike color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : undefined} />
+          <Dislike color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>
       <Clickable onClick={commentClickHandler} className={classes['comment-container']}>
-        <CommentIcon />
+        <CommentIcon color={themeColors.icon} />
         {Boolean(commentsCount) && <span className={classes['count']}>{commentsCount}</span>}
       </Clickable>
       <div className={classes['actions-container']}>
@@ -78,7 +82,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
           <SaveIcon />
         </Clickable> */}
         <Clickable className={classes.share} onClick={shareClickHandler} id={sharePopoverId}>
-          <ShareIcon />
+          <ShareIcon color={themeColors.icon} />
         </Clickable>
         <SharePopover ref={rootRef} isOpen={isOpen} closeSharePopover={closeSharePopover} />
       </div>

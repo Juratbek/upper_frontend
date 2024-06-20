@@ -1,4 +1,5 @@
 import { Badge, Link } from 'components/lib';
+import { useTheme } from 'hooks';
 import { FC } from 'react';
 import { getClassName } from 'utils';
 import { BLUE } from 'variables/colors';
@@ -15,9 +16,11 @@ export const NavItem: FC<INavItemProps> = ({
   ...props
 }) => {
   const rootClassName = getClassName(classes.root, active && classes.active, className);
+  const { themeColors } = useTheme();
+
   return (
     <Link {...props} className={rootClassName}>
-      {Icon && <Icon width={20} height={20} color={active ? BLUE[500] : 'black'} />}
+      {Icon && <Icon width={20} height={20} color={active ? BLUE[500] : themeColors.icon} />}
       <p className='m-0 flex-1'>{text}</p>
       {Boolean(badge) && (
         <Badge color='red' className={classes.badge}>

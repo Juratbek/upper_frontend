@@ -1,12 +1,10 @@
-$background: var(--gray, #f5f5f5);
-
 .root {
   border-radius: 8px;
   padding: 6px 12px;
   display: flex;
   align-items: center;
   gap: 10px;
-  background: $background;
+  background-color: var(--search-input-bg, #f5f5f5);
   width: 723px;
   z-index: 3;
   position: relative;
@@ -26,6 +24,7 @@ $background: var(--gray, #f5f5f5);
   flex: 1 1 auto;
   border: none;
   background-color: transparent;
+  color: inherit;
 
   &:focus {
     outline: none;
@@ -44,12 +43,12 @@ $background: var(--gray, #f5f5f5);
   padding-block: 12px;
   border-radius: 8px;
   position: absolute;
-  bottom: -4px;
+  bottom: -6px;
   left: 0;
   right: 0;
   transform: translateY(100%);
   z-index: 3;
-  background-color: white;
+  background-color: var(--card-bg);
   margin: 0;
   padding-left: 0;
   list-style: none;
@@ -63,10 +62,10 @@ $background: var(--gray, #f5f5f5);
     padding: 12px 20px 12px 24px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--gray, #F5F5F5);
+    border-bottom: 1px solid var(--search-result-item-border);
 
     &:hover {
-      background: var(--gray, #F5F5F5);
+      background: var(--search-result-item-hover-bg);
     }
   }
 }

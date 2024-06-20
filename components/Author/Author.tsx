@@ -1,7 +1,7 @@
 import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
 
-import classes from './Author.module.css';
+import classes from './Author.module.scss';
 import { IAuthorProps } from './Author.types';
 
 export const Author: FC<IAuthorProps> = ({ name, imgUrl, id }) => {

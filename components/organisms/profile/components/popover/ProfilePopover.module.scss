@@ -6,7 +6,7 @@
   transform: translateY(100%);
   width: 31.8rem;
   border-radius: 1.2rem;
-  background-color: var(--gray);
+  background-color: var(--profile-popover-bg);
   overflow: hidden;
   transition: all 1000ms linear;
 }
@@ -15,9 +15,8 @@
   transition: all 1000ms linear;
 }
 
-.vertical-padding {
+.menu-section {
   $padding: 2rem;
   padding-right: $padding;
   padding-left: $padding;
 }
-

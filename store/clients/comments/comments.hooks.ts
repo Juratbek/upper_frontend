@@ -1,4 +1,4 @@
-import { UseMutationResult, useQueryClient, UseQueryResult } from '@tanstack/react-query';
+import { UseMutationResult, UseQueryResult } from '@tanstack/react-query';
 import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IComment } from 'types';
 
@@ -12,16 +12,12 @@ export const useCommentsList = (articleId: number) =>
     },
   });
 
-export const useCreateComment = (): UseMutationResult<
-  IComment,
-  unknown,
-  { articleId: number; text: string }
-> => {
-  const client = useQueryClient();
-
+export const useCreateComment = (
+  onSuccess: VoidFunction,
+): UseMutationResult<unknown, unknown, { articleId: number; text: string }> => {
   return useMutation({
     mutationFn: (body) => apiClient.post({ path: 'comment/create', body }),
-    onSuccess: () => client.invalidateQueries({ queryKey: ['comments-list'] }),
+    onSuccess,
   });
 };
 

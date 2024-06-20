@@ -17,6 +17,7 @@ import { store } from 'store';
 import { queryClientDefaultOptions } from 'store/config/query-client';
 import { IResponseError, IServerSideContext, TTheme } from 'types';
 import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
+import { UPPER_BLUE_COLOR } from 'variables/colors';
 
 const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal'), { ssr: false });
 
@@ -42,7 +43,7 @@ function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
 function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate, syncTokens } = useAuth();
-  const { themeColors } = useTheme();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const token = getToken();
@@ -56,7 +57,7 @@ function MyApp(props: AppProps): JSX.Element {
   }, []);
 
   return (
-    <div style={{ backgroundColor: themeColors.bg, color: themeColors.font }}>
+    <div className={`theme-${theme}`}>
       <Head>
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>
@@ -82,10 +83,7 @@ function MyApp(props: AppProps): JSX.Element {
           />
         </>
       )}
-      {/* TODO: change to <div className={`theme-${theme}`} style={{ height: '100vh', overflow: 'scroll' }}>
-      when dark theme is ready */}
       <div
-        className={`theme-light`}
         style={{ height: '100vh', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
       >
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
@@ -94,7 +92,7 @@ function MyApp(props: AppProps): JSX.Element {
           <MobileApp {...props} />
         )}
       </div>
-      <NextNProgress color={themeColors.progressbar} height={3} options={{ showSpinner: false }} />
+      <NextNProgress color={UPPER_BLUE_COLOR} height={3} options={{ showSpinner: false }} />
     </div>
   );
 }

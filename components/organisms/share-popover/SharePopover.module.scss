@@ -7,15 +7,13 @@
   transform: translateY(-105%);
   width: 36rem;
   border-radius: 1.2rem;
-  background: var(--gray, #f5f5f5);
-  color: #161b1d;
+  background: var(--share-popover-bg);
   overflow: hidden;
   transition: all 1000ms linear;
 
   @include media-max(small) {
     width: 100%;
     left: 0;
-    right: 0;
   }
 
   &-header {
@@ -23,7 +21,7 @@
     padding: 12px 12px 8px 20px;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--black-50, #e8e9e9);
+    border-bottom: 1px solid var(--share-popover-border);
   }
 
   &-body {
@@ -33,7 +31,7 @@
   &-footer {
     padding: 16px 0 20px;
     margin: auto 20px;
-    border-top: 1px solid var(--black-50, #e8e9e9);
+    border-top: 1px solid var(--share-popover-border);
     display: flex;
     align-items: center;
   }

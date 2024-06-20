@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 
-export type TSpinnerColor = 'dark' | 'light' | 'red';
+export type TSpinnerVariant = 'primary' | 'secondary' | 'danger';
 
 export interface ISpinnerProps extends HTMLAttributes<HTMLDivElement> {
-  color?: TSpinnerColor;
+  variant?: TSpinnerVariant;
 }

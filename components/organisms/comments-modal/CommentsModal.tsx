@@ -18,8 +18,14 @@ const SendIcon = ICONS.send;
 export const CommentsModal: FC = () => {
   const { query } = useRouter();
   const articleId = +(query?.id as string);
-  const { list: comments, hasNextPage, fetchNextPage, isLoading } = useCommentsList(articleId);
-  const { mutate: createComment, isPending: isCommentBeingCreated } = useCreateComment();
+  const {
+    list: comments,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    refetch,
+  } = useCommentsList(articleId);
+  const { mutate: createComment, isPending: isCommentBeingCreated } = useCreateComment(refetch);
   const inputRef = useRef<HTMLInputElement>(null);
   const isOpen = useAppSelector(getIsCommentsModalOpen);
   const dispatch = useDispatch();

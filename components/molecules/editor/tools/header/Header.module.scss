@@ -2,6 +2,7 @@
     outline: none;
     line-height: 115%;
     margin-top: 0;
+    color: var(--editor-heading-text);
 
     &:empty:before {
         content: var(--placeholder, ' ');

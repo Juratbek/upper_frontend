@@ -6,7 +6,6 @@
   --mediumGray: rgba(196, 196, 196, 0.8);
   --lightGray: rgb(199 199 199 / 20%);
   --brightGray: rgb(199 199 199 / 10%);
-  --gray: gray;
   --red: hsl(0, 76%, 47%);
   --lightRed: hsl(0, 28%, 67%);
   --smallBorderRadius: 0.3rem;
@@ -173,40 +172,6 @@
     & path {
       fill: var(--blue);
     }
-  }
-}
-
-// light theme
-.theme-light {
-  .skeleton {
-    background: linear-gradient(100deg,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(255, 255, 255, 0.5) 60%,
-        rgba(255, 255, 255, 0) 70%) #ededed;
-    background-size: 200% 100%;
-    background-position-x: 180%;
-    animation: 800ms loading ease-in-out infinite;
-  }
-}
-
-// dark theme
-.theme-dark {
-  --popover-bg: #343a42;
-  --scrollbar-thumb-color: #3b4048;
-  --gray: #c2c2c2;
-  --selected-text-bg: #454954;
-
-  // library colors
-  --light: #343a42;
-
-  .skeleton {
-    background: linear-gradient(100deg,
-        rgba(255, 255, 255, 0) 50%,
-        rgba(255, 255, 255, 0.1) 60%,
-        rgba(255, 255, 255, 0) 70%) #3b4048;
-    background-size: 200% 100%;
-    background-position-x: 180%;
-    animation: 800ms loading ease-in-out infinite;
   }
 }
 
