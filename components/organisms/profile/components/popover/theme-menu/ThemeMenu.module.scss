@@ -1,6 +1,7 @@
 .root {
-    border: 1px solid var(--black-50, #E8E9E9);
+    border: 1px solid var(--theme-menu-border);
     overflow: hidden;
+    border-radius: inherit;
 }
 
 .title {
@@ -10,6 +11,7 @@
         gap: 1.2rem;
         align-items: center;
     }
+
     &-text {
         font-size: 1.8rem;
         font-weight: 500;
@@ -22,7 +24,7 @@
     padding-bottom: 2rem;
     list-style: none;
     padding-left: 0;
-    background-color: white;
+    background-color: var(--theme-menu-bg);
     margin: 0;
 }
 
@@ -35,7 +37,7 @@
     cursor: pointer;
 
     &:hover {
-        background: rgba(245, 245, 245, 0.60);
+        background: var(--theme-menu-item-hover);
     }
 
     &-radio {
@@ -44,9 +46,10 @@
         height: $size;
         padding: 0.3rem;
     }
+
     &-text {
         margin: 0;
-        color: var(--black-400, #45494A);
+        color: var(--theme-menu-item-text);
         font-size: 1.4rem;
         font-weight: 400;
     }

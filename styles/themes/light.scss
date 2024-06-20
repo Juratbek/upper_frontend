@@ -37,6 +37,12 @@
     --profile-popover-bg: var(--gray);
     --profile-popover-item-hover-bg: rgba(232, 233, 233, 0.40);
 
+    // Theme menu
+    --theme-menu-border: var(--black-50, #E8E9E9);
+    --theme-menu-bg: white;
+    --theme-menu-item-text: var(--black-400, #45494A);
+    --theme-menu-item-hover: rgba(245, 245, 245, 0.60);
+
     // Notification
     --notification-text: var(--black-400);
     --notification-border: var(--black-50);

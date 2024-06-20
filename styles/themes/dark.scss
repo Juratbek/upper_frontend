@@ -72,6 +72,12 @@
     --profile-popover-bg: var(--secondary-color);
     --profile-popover-item-hover-bg: var(--hover-bg);
 
+    // Theme menu
+    --theme-menu-border: var(--black-400);
+    --theme-menu-bg: var(--main-bg);
+    --theme-menu-item-text: inherit;
+    --theme-menu-item-hover: var(--hover-bg);
+
     // Notification
     --notification-text: var(--main-text);
     --notification-border: var(--black-300);

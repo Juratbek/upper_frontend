@@ -35,11 +35,11 @@ export const MenuList: FC<IMenuListProps> = ({ closePopover, itemClassName, setS
           onClick={(): void => setSubmenu({ Component: menu, isShown: true })}
         >
           <span>
-            <item.icon width={24} height={24} />
+            <item.icon color={themeColors.icon} width={24} height={24} />
           </span>
           <p className={classes.text}>{item.text}</p>
           <span className={classes['next-icon']}>
-            <NextIcon />
+            <NextIcon color={themeColors.icon} />
           </span>
         </span>
       );

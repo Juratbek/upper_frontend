@@ -21,7 +21,7 @@ export const ProfilePopover = forwardRef<HTMLDivElement, { close: TNoop; isOpen:
     return (
       <div className={`${classes.root} ${!isOpen && 'h-0'}`} ref={ref}>
         <Submenu onBack={backHandler} className={submenu.isShown ? 'h-auto' : 'h-0 border-none'} />
-        <div className={`${classes['main-menu']} ${Boolean(submenu.isShown) && 'h-0 border-none'}`}>
+        <div className={`${classes['main-menu']} ${submenu.isShown && 'h-0 border-none'}`}>
           <Profile closePopover={close} className={classes['menu-section']} />
           <MenuList
             closePopover={close}

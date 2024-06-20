@@ -12,7 +12,7 @@ import classes from './ThemeMenu.module.scss';
 const PrevIcon = ICONS.prev;
 
 export const ThemeMenu: FC<ISubmenuProps> = ({ onBack, className }) => {
-  const { selectedThemeOption, changeTheme } = useTheme();
+  const { selectedThemeOption, changeTheme, themeColors } = useTheme();
 
   const themeChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.target.value as TSelectedThemeOption;
@@ -28,7 +28,7 @@ export const ThemeMenu: FC<ISubmenuProps> = ({ onBack, className }) => {
     <div className={`${classes.root} ${className}`}>
       <div className={classes['title-container']}>
         <Clickable className='pointer' onClick={onBack}>
-          <PrevIcon />
+          <PrevIcon color={themeColors.icon} />
         </Clickable>
         <p className={classes['title-text']}>Qiyofani tanlash</p>
       </div>
