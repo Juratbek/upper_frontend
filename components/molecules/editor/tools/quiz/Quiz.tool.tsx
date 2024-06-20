@@ -104,7 +104,7 @@ export const Quiz = memo(
     };
 
     return (
-      <div className={cls.container}>
+      <>
         <p
           ref={questionParagraphRef}
           className={cls.title}
@@ -151,7 +151,7 @@ export const Quiz = memo(
             Tekshirish
           </Button>
         )}
-      </div>
+      </>
     );
   },
   (prevProps, currentProps) => {

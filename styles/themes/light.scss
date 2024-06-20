@@ -54,9 +54,29 @@
     --editor-text: var(--black-500);
     --editor-heading-text: var(--black-500);
     --editor-figure-caption: #6B6B6B;
-    --editor-code-bg: #F9F9F9;
     --editor-code-border: rgb(229, 229, 229);
     --editor-inline-code-bg: #eff2f5;
+    --editor-alert-danger-bg: #ffd9d6;
+    --editor-table-border: var(--black-50);
+
+    --editor-quote-content-text: var(--black-500);
+    --editor-quote-author-text: var(--black-700);
+
+    --editor-quiz-title-text: var(--black-700);
+    --editor-quiz-option-border: #f0f0f0;
+
+    // Code tool
+    --editor-code-bg: #F9F9F9;
+    --editor-code-language-btn-bg: #F9F9F9;
+    --editor-code-language-btn-hover: rgb(235, 235, 235);
+    --editor-code-language-popover-bg: #F9F9F9;
+    --editor-code-language-popover-item-hover: rgb(235, 235, 235);
+
+    --editor-toolbar-icon-hover: #eff2f5;
+    --editor-toolbar-popover-bg: white;
+    --editor-toolbar-popover-border: #e8e8eb;
+    --editor-toolbar-popover-item-hover: #f1f4f8;
+    --editor-toolbar-popover-item-icon-bg: white;
 
     // Comments
     --comments-modal-bg: var(--gray);

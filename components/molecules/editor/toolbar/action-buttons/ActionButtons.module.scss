@@ -10,9 +10,10 @@
     place-items: center;
     background-color: transparent;
     border: none;
+    color: inherit;
 
     &:hover {
-        background-color: #eff2f5;
+        background-color: var(--editor-toolbar-icon-hover);
         border-radius: 4px;
     }
 }

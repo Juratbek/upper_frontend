@@ -1,3 +1,36 @@
+@mixin code-tool {
+    .ͼ2 .cm-content {
+        caret-color: white;
+    }
+
+    .ͼ3 .cm-content {
+        caret-color: black;
+    }
+
+    .ͼg,
+    .ͼj {
+        color: var(--main-text);
+    }
+
+    .ͼb {
+        color: #b437c6;
+    }
+
+    .ͼe,
+    .ͼf {
+        color: #bf651d;
+    }
+
+    .ͼm {
+        color: #8a8a8a;
+    }
+
+    .ͼc,
+    .ͼl {
+        color: hsl(195deg 90% 50%);
+    }
+}
+
 .theme-dark {
     --main-bg: #22272e;
     --main-text: #c5d1de;
@@ -56,9 +89,30 @@
     --editor-text: var(--main-text);
     --editor-heading-text: #ced6df;
     --editor-figure-caption: #a7a7a7;
-    --editor-code-bg: #171a1d;
     --editor-code-border: transparent;
     --editor-inline-code-bg: var(--secondary-color);
+    --editor-alert-danger-bg: #7d2d27;
+    --editor-table-border: var(--black-300);
+
+    --editor-quote-content-text: inherit;
+    --editor-quote-author-text: inherit;
+
+    --editor-quiz-title-text: inherit;
+    --editor-quiz-option-border: var(--black-400);
+
+    // Code tool
+    --editor-code-bg: #171a1d;
+    --editor-code-language-btn-bg: var(--secondary-color);
+    --editor-code-language-btn-hover: var(--secondary-color);
+    --editor-code-language-popover-bg: var(--secondary-color);
+    --editor-code-language-popover-item-hover: var(--hover-bg);
+
+    // Editor Toolbar
+    --editor-toolbar-icon-hover: var(--secondary-color);
+    --editor-toolbar-popover-bg: var(--secondary-color);
+    --editor-toolbar-popover-border: var(--black-400);
+    --editor-toolbar-popover-item-hover: var(--hover-bg);
+    --editor-toolbar-popover-item-icon-bg: var(--secondary-color);
 
     // Comments
     --comments-modal-bg: var(--main-bg);
@@ -76,4 +130,6 @@
     // Footer
     --footer-border: var(--secondary-color);
     --footer-text: var(--black-100);
+
+    @include code-tool();
 }

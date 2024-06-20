@@ -6,15 +6,15 @@
 }
 
 .row {
-    border-bottom: 1px solid var(--black-50);
+    border-bottom: 1px solid var(--editor-table-border);
 
     &:first-child {
-        border-top: 1px solid var(--black-50);
+        border-top: 1px solid var(--editor-table-border);
     }
 }
 
 .cell {
-    border-right: 1px solid var(--black-50);
+    border-right: 1px solid var(--editor-table-border);
     padding: 8px 20px;
     min-width: 100px;
     outline: none;
