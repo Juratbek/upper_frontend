@@ -6,13 +6,15 @@
   animation: rotation 1s linear infinite;
   border: 2px solid transparent;
 
-  &--dark {
-    border-color: black;
+  &--primary {
+    border-color: var(--spinner-primary-color);
   }
-  &--light {
-    border-color: white;
+
+  &--secondary {
+    border-color: var(--spinner-secondary-color);
   }
-  &--red {
+
+  &--danger {
     border-color: var(--red);
   }
 
@@ -23,6 +25,7 @@
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

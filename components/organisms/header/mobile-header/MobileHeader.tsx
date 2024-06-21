@@ -40,7 +40,7 @@ export const MobileHeader = (): JSX.Element => {
     return (
       <div className={`${classes['search-container']} ${!isSearchUiVisible && classes.hidden}`}>
         <span onClick={searchUiVisibleHandler(false)}>
-          <Prev />
+          <Prev color={themeColors.icon} />
         </span>
         <Input
           className={classes['search-input']}
@@ -50,7 +50,13 @@ export const MobileHeader = (): JSX.Element => {
         />
       </div>
     );
-  }, [searchUiVisibleHandler, searchInputRef, isSearchUiVisible, inputChangeHandler]);
+  }, [
+    searchUiVisibleHandler,
+    searchInputRef,
+    isSearchUiVisible,
+    inputChangeHandler,
+    themeColors.icon,
+  ]);
 
   return (
     <header className={`${classes.header} container`}>
@@ -61,7 +67,7 @@ export const MobileHeader = (): JSX.Element => {
             <Logo color={themeColors.icon} />
           </Link>
           <span onClick={searchIconClickHandler} className={classes['search-icon']}>
-            <Search width={24} height={24} />
+            <Search width={24} height={24} color={themeColors.icon} />
           </span>
         </>
       )}

@@ -1,6 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { FC } from 'react';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 export interface ITabHeader {
   name: string;

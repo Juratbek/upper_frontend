@@ -2,7 +2,7 @@ import { Input } from 'components/form';
 import { useTheme } from 'hooks';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { ITelegramChannel } from 'types';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 const TelegramChannelIcon = ICONS.telegramChannel;
 

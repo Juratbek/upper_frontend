@@ -39,24 +39,24 @@ export const dateInterval = (date: Date | string | undefined): string => {
 
   const diffInMin: number = Math.floor(diffInSec / 60);
   if (diffInMin < 60) {
-    return `${diffInMin} minut avval`;
+    return `${diffInMin} min.`;
   }
 
   const diffInHour: number = Math.floor(diffInMin / 60);
   if (diffInHour < 24) {
-    return `${diffInHour} soat avval`;
+    return `${diffInHour} soat`;
   }
 
   const diffInDay: number = Math.floor(diffInHour / 24);
   if (diffInDay < 30) {
-    return `${diffInDay} kun avval`;
+    return `${diffInDay} kun`;
   }
 
   const diffInMon: number = Math.floor(diffInDay / 30);
   if (diffInMon < 12) {
-    return `${diffInMon} oy avval`;
+    return `${diffInMon} oy`;
   }
 
   const diffInYear: number = Math.floor(diffInDay / 365);
-  return `${diffInYear} yil avval`;
+  return `${diffInYear} yil`;
 };

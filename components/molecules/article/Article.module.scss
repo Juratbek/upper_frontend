@@ -1,12 +1,11 @@
 .root {
   padding-block: 32px;
-  border-bottom: 1px solid var(--black-50, #e8e9e9);
+  border-bottom: 1px solid var(--article-border);
   display: block;
 }
 
 .title {
   text-decoration: none;
-  color: var(--black-800, #060707);
   font-size: 24px;
   font-weight: 700;
   line-height: 28px;

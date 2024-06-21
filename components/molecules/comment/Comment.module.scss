@@ -19,7 +19,7 @@ $padding: 12px;
   margin-right: -$padding;
   padding-right: $padding;
   padding-bottom: $padding;
-  border-bottom: 1px solid var(--black-50, #e8e9e9);
+  border-bottom: 1px solid var(--comment-border-bottom);
 
   &-header {
     display: flex;
@@ -37,18 +37,18 @@ $padding: 12px;
   }
 
   .text {
-    color: var(--black-400, #45494a);
+    color: var(--comment-text);
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 00;
     line-height: 20px;
     margin: 0;
   }
 }
 
 .author-name {
-  color: var(--black-700, #0b0e0f);
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 21.6px;
+  color: var(--comment-author-name);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 21px;
   margin: 0;
 }

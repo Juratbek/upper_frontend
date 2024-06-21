@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
+import { useClickOutside, useTheme } from 'hooks';
+import { useContext, useState } from 'react';
 
 import { EditorContext } from '../context/EditorContext';
 import { ActionButtons } from './action-buttons/ActionButtons';
@@ -11,6 +12,14 @@ export const Toolbar = () => {
   const [isToolsPopoverOpen, setIsToolsPopoverOpen] = useState(false);
   const [isSettingsPopoverOpen, setIsSettingsPopoverOpen] = useState(false);
   const toolbarPosition = hoveredBlock?.offsetTop;
+  const { themeColors } = useTheme();
+
+  const closeAllPopovers = () => {
+    setIsSettingsPopoverOpen(false);
+    setIsToolsPopoverOpen(false);
+  };
+
+  useClickOutside(closeAllPopovers, '.action-button');
 
   const toggleToolsPopover = () => {
     if (isSettingsPopoverOpen) setIsSettingsPopoverOpen(false);
@@ -22,13 +31,6 @@ export const Toolbar = () => {
     setIsSettingsPopoverOpen((prev) => !prev);
   };
 
-  useEffect(() => {
-    return () => {
-      setIsSettingsPopoverOpen(false);
-      setIsToolsPopoverOpen(false);
-    };
-  }, [hoveredBlock]);
-
   return (
     <div
       className={classes.toolbar}
@@ -38,7 +40,11 @@ export const Toolbar = () => {
       }}
     >
       <div className={classes['toolbar-content']}>
-        <ActionButtons onPlus={toggleToolsPopover} onSettings={toggleSettingsPopover} />
+        <ActionButtons
+          color={themeColors.icon}
+          onPlus={toggleToolsPopover}
+          onSettings={toggleSettingsPopover}
+        />
         <ToolsPopover open={isToolsPopoverOpen} close={toggleToolsPopover} />
         <SettingsPopover open={isSettingsPopoverOpen} close={toggleSettingsPopover} />
       </div>

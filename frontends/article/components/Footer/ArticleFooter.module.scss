@@ -7,13 +7,9 @@
   align-items: center;
   padding: 1rem 2rem;
   border-radius: 10rem;
-  background: var(--gray, #f5f5f5);
+  background: var(--card-bg);
 
   .like-count {
-    color: var(--black-400, #45494a);
-    font-size: 1.4rem;
-    font-weight: 500;
-    line-height: 1.4rem;
     margin-left: 1.2rem;
   }
 
@@ -25,30 +21,28 @@
   }
 }
 
+.count {
+  color: var(--comments-count);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.4rem;
+}
+
 .comment-container {
   display: flex;
   padding: 10px 16px;
   align-items: center;
   gap: 12px;
   border-radius: 300px;
-  background: var(--Sery-Fon, #f5f5f5);
+  background: var(--card-bg);
   margin-left: 12px;
   border: none;
   cursor: pointer;
-
-  .count {
-    color: var(--black-400, #45494a);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 14px;
-  }
 }
 
 .actions-container {
   margin-left: auto;
   display: flex;
   gap: 12px;
-  .share {
-    position: relative;
-  }
+  position: relative;
 }

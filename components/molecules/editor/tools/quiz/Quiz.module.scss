@@ -3,11 +3,12 @@
     font-weight: 600;
     font-size: $font-size;
     line-height: calc($font-size * 1.4);
-    min-height: calc($font-size * 1.4);
-    color: var(--black-700);
+    min-height: 28px;
+    color: var(--editor-quiz-title-text);
     margin-block: 0 4px;
     outline: none;
     position: relative;
+    display: flex;
 
     &:is(:empty)::before {
         content: 'Savolingizni kiriting';
@@ -46,7 +47,7 @@
         flex: 1;
         outline: 0;
         padding-block: 8px;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: 1px solid var(--editor-quiz-option-border);
         font-weight: 500;
         font-size: 16px;
         line-height: 150%;

@@ -21,10 +21,12 @@ export const LogOutBtn: FC<{ className?: string }> = ({ className }) => {
 
   return (
     <div className={`${classes['log-out']} ${className}`} onClick={logOutHandler}>
-      <span className={classes.icon}>
-        <LogOut />
-      </span>
-      <p className={classes.text}>Profildan chiqish</p>
+      <div className={classes.body}>
+        <span className={classes.icon}>
+          <LogOut />
+        </span>
+        <p className={classes.text}>Profildan chiqish</p>
+      </div>
     </div>
   );
 };

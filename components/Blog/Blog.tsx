@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { ILink } from 'types';
 import { addLinkPrefix, getClassName } from 'utils';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { WEB_APP_ROOT_DIR } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';

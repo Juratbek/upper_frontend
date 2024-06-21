@@ -1,7 +1,9 @@
 import { IButtonProps } from 'components/lib';
-import { ReactNode } from 'react';
+import { Override } from 'utils';
 
-export interface IWithPopoverProps extends IButtonProps {
-  children: ReactNode;
-  popover: ReactNode;
-}
+export type TWithPopoverProps = Override<
+  IButtonProps,
+  {
+    popover: JSX.Element;
+  }
+>;

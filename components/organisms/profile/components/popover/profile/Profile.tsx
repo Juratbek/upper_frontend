@@ -2,11 +2,8 @@ import { Avatar, Link } from 'components/lib';
 import { FC } from 'react';
 import { useGetCurrentBlog } from 'store/clients/blog';
 import { TNoop } from 'types';
-import { ICONS } from 'variables/icons';
 
 import classes from './Profile.module.scss';
-
-const PenIcon = ICONS.pen;
 
 export const Profile: FC<{ closePopover: TNoop; className?: string }> = ({
   closePopover,
@@ -16,7 +13,7 @@ export const Profile: FC<{ closePopover: TNoop; className?: string }> = ({
 
   return (
     <div className={className}>
-      <div className={classes.profile}>
+      <Link href='/settings/profile' className={classes.profile} onClick={closePopover}>
         <Avatar
           size='extra-large'
           imgUrl={currentBlog?.imgUrl}
@@ -26,10 +23,7 @@ export const Profile: FC<{ closePopover: TNoop; className?: string }> = ({
           <h3 className={classes['profile--name']}>{currentBlog?.name}</h3>
           <p className={classes['profile--bio']}>{currentBlog?.bio}</p>
         </div>
-        <Link href='/settings/profile' className={classes['pen-icon']} onClick={closePopover}>
-          <PenIcon />
-        </Link>
-      </div>
+      </Link>
     </div>
   );
 };

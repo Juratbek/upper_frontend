@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid var(--black-50);
+  border-top: 1px solid var(--footer-border);
   padding: 40px 66px 40px 0;
 
   @include media-max(large) {
@@ -67,7 +67,7 @@
 }
 
 .text {
-  color: var(--black-400);
+  color: var(--footer-text);
   font-style: normal;
   font-weight: 400;
   margin: 0;

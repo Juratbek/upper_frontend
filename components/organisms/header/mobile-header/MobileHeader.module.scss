@@ -1,7 +1,7 @@
 .header {
     display: flex;
     height: 6.8rem;
-    border-bottom: 1px solid var(--black-50, #E8E9E9);
+    border-bottom: 1px solid var(--header-border);
     padding: 0 2rem;
     align-items: center;
     width: 100%;
@@ -27,7 +27,7 @@
 
     &-input {
         border-radius: 8px;
-        background: var(--Sery-Fon, #F5F5F5);
+        background: var(--search-input-bg);
         border: none;
         padding: 6px 12px;
     }
@@ -39,9 +39,9 @@
     left: 0;
     bottom: 0;
     transform: translateY(100%);
-    background-color: white;
-    z-index: 2;
-    height: 100vh;
+    background-color: var(--search-results-bg);
+    z-index: 5;
+    height: 101vh;
     margin: 0;
     list-style: none;
     padding: 8px 0;

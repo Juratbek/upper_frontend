@@ -20,7 +20,7 @@ export const Profile = (): JSX.Element => {
   const profileBtnClickHandler = (): void => setIsPopoverOpen((prev) => !prev);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id='header-profile'>
       <button className={classes.profile} onClick={profileBtnClickHandler} id='profile-btn'>
         <Avatar imgUrl={currentBlog?.imgUrl} size='micro' />
         <span className={classes.icon}>

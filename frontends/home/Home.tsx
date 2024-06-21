@@ -24,7 +24,7 @@ export const HomePage: FC = () => {
   } = usePublishedArticlesList(label);
 
   return (
-    <>
+    <div>
       <UserLabels />
       <ApiErrorBoundary
         res={articlesRes}
@@ -45,6 +45,6 @@ export const HomePage: FC = () => {
           />
         )}
       </ApiErrorBoundary>
-    </>
+    </div>
   );
 };
