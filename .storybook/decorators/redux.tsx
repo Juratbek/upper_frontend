@@ -1,11 +1,12 @@
 import React from 'react';
 import { QueryClient } from '@tanstack/react-query';
-import { wrapper } from '../../store';
+import { store } from '../../store';
+import { Provider } from 'react-redux';
 
 export const queryClient = new QueryClient();
 
-export const ReduxDecorator = (Story) => {
-  const StoryWithRedux = wrapper.withRedux(Story);
-
-  return <StoryWithRedux />;
-};
+export const ReduxDecorator = (Story) => (
+  <Provider store={store}>
+    <Story />
+  </Provider>
+);
