@@ -44,11 +44,7 @@ export const Notifications: FC = () => {
 
       if (!Notification) return <></>;
       return (
-        <div
-          key={notification.id}
-          className='container'
-          onClick={() => readNotification(notification.id)}
-        >
+        <div key={notification.id} onClick={() => readNotification(notification.id)}>
           <Notification {...notification} />
         </div>
       );

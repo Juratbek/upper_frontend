@@ -1,5 +1,5 @@
 import { Link, Spinner } from 'components/lib';
-import { useAppRouter } from 'hooks';
+import { useAppRouter, useTheme } from 'hooks';
 import { FC, useCallback, useMemo } from 'react';
 import { useCreateArticle } from 'store/clients/article';
 import { ICONS } from 'variables/icons';
@@ -12,6 +12,7 @@ const Plus = ICONS.plus;
 
 export const BottomNavigation: FC = () => {
   const { push } = useAppRouter();
+  const { themeColors } = useTheme();
   const { mutate: createArticle, isPending: isArticleBeingCreated } = useCreateArticle({
     onSuccess: (id) => push(`/user/articles/${id}`),
   });
@@ -29,7 +30,7 @@ export const BottomNavigation: FC = () => {
     return (
       <button className={classes['add-btn']} onClick={createArticleHandler}>
         <span className={classes.circle}>
-          <Plus width={44} height={44} />
+          <Plus width={44} height={44} color={themeColors.icon} />
         </span>
       </button>
     );
@@ -39,21 +40,21 @@ export const BottomNavigation: FC = () => {
     <div className={classes.root}>
       <div className={classes.content}>
         {leftButtons.map((button, index) => (
-          <NavigationButton key={index} {...button} />
+          <NavigationButton key={index} {...button} color={themeColors.icon} />
         ))}
         {createButton}
         {rightButtons.map((button, index) => (
-          <NavigationButton key={index} {...button} />
+          <NavigationButton key={index} {...button} color={themeColors.icon} />
         ))}
       </div>
     </div>
   );
 };
 
-const NavigationButton: FC<IButton> = (button) => (
+const NavigationButton: FC<IButton & { color: string }> = (button) => (
   <Link href={button.path} className={classes['navigation-button']}>
     <span className={classes.icon}>
-      <button.icon width={24} height={24} />
+      <button.icon width={24} height={24} color={button.color} />
     </span>
     {Boolean(button.label) && <span className={classes.label}>{button.label}</span>}
   </Link>

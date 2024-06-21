@@ -48,8 +48,17 @@
     --search-result-item-hover-bg: var(--hover-bg);
     --search-input-bg: var(--secondary-color);
 
+    // Mobile header
+    --search-results-bg: var(--secondary-color);
+
     // Navigation
     --nav-active-bg: var(--secondary-color);
+
+    // Bottom Navigation
+    --bottom-navigation-bg: var(--secondary-color);
+    --bottom-navigation-border: var(--black-300);
+    --bottom-navigation-text: var(--main-text);
+    --bottom-navigation-add-btn-border: var(--black-300);
 
     // Divider component
     --divider-primary-background: var(--black-300);
@@ -132,6 +141,9 @@
 
     --share-popover-bg: var(--secondary-color);
     --share-popover-border: var(--black-300);
+
+    --article-bottom-bar-bg: var(--secondary-color);
+    --article-bottom-bar-border: var(--black-300);
 
     // Footer
     --footer-border: var(--secondary-color);

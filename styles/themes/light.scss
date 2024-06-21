@@ -14,8 +14,17 @@
     --search-result-item-hover-bg: var(--gray);
     --search-input-bg: var(--gray);
 
+    // Mobile header
+    --search-results-bg: white;
+
     // Navigation
     --nav-active-bg: var(--gray);
+
+    // Bottom Navigation
+    --bottom-navigation-bg: white;
+    --bottom-navigation-border: var(--black-50, #e8e9e9);
+    --bottom-navigation-text: var(--black-400, #45494a);
+    --bottom-navigation-add-btn-border: #45494a;
 
     // Divider
     --divider-primary-background: var(--black-100, #d0d1d2);
@@ -96,6 +105,9 @@
     --comment-border-bottom: var(--black-50, #e8e9e9);
 
     --share-popover-bg: var(--gray);
+
+    --article-bottom-bar-bg: var(--white, #FFF);
+    --article-bottom-bar-border: var(--black-50, #E8E9E9);
 
     // Footer
     --footer-border: var(--black-50);

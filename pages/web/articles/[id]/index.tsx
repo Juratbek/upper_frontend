@@ -21,7 +21,7 @@ const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
       areNavigationAndSidebarEqual
       isSidebarHidden
       desktopNavigation={<BackButton />}
-      header={<></>}
+      isHeaderHidden
       tabletNavigation={<ReadArticleBottomBar />}
       mobileNavigation={<ReadArticleBottomBar />}
     >

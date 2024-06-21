@@ -30,7 +30,9 @@ export const GenericWrapper: FC<IGenericWrapperProps> = ({
         >
           <NavigationComponent {...props} />
         </nav>
-        <main className={getClassName(classes.main, props.classes?.main)}>{children}</main>
+        <main className={getClassName(classes.main, props.classes?.main, 'container')}>
+          {children}
+        </main>
         <aside
           className={getClassName(
             classes.sidebar,
