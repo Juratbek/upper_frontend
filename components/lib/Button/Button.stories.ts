@@ -31,6 +31,20 @@ export const Secondary: TStory = {
   },
 };
 
+export const Tertiary: TStory = {
+  args: {
+    children: 'Click me',
+    color: 'tertiary',
+  },
+};
+
+export const Outlined: TStory = {
+  args: {
+    children: 'Click me',
+    color: 'outlined',
+  },
+};
+
 export const Loading: TStory = {
   args: {
     loading: true,
