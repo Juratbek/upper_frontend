@@ -5,12 +5,14 @@
   --btn-primary-bg: var(--blue-500, #007aff);
   --btn-primary-text: var(--white, #fff);
   --btn-primary-spinner: var(--white, #fff);
+
   // secondary
   --btn-secondary-bg: var(--blue-100, #CCE4FF);
   --btn-secondary-text: var(--blue, #007AFF);
-  // outlined
-  --btn-tertiary-bg: var(--blue-100, #CCE4FF);
-  --btn-tertiary-text: var(--blue, #007AFF);
+
+  // tertiary
+  --btn-tertiary-bg: var(--secondary-color);
+  --btn-tertiary-text: var(--main-text);
 }
 
 .button {

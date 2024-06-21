@@ -2,6 +2,7 @@ import type { Preview } from '@storybook/react';
 import { ReactQueryDecorator } from './decorators/react-query';
 import '../styles/index.scss';
 import { ReduxDecorator } from './decorators/redux';
+import { ThemeDecorator } from './decorators/theme';
 
 const preview: Preview = {
   parameters: {
@@ -13,7 +14,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [ReactQueryDecorator, ReduxDecorator],
+  decorators: [ReactQueryDecorator, ReduxDecorator, ThemeDecorator],
 };
 
 export default preview;

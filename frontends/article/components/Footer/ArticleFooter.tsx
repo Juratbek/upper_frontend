@@ -34,7 +34,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const { data: commentsCount } = useCommentsCount(articleId);
   const { data: likeCount } = useLikeCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
-  const { data: isLikedOrDisliked } = useIsLikedOrDisliked(articleId);
+  const { data: isLikedOrDisliked } = useIsLikedOrDisliked(articleId, isAuthenticated);
   const { themeColors } = useTheme();
 
   const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());

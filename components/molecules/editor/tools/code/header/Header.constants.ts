@@ -2,6 +2,7 @@ import { cpp } from '@codemirror/lang-cpp';
 import { css } from '@codemirror/lang-css';
 import { go } from '@codemirror/lang-go';
 import { html } from '@codemirror/lang-html';
+import { java } from '@codemirror/lang-java';
 import { javascript } from '@codemirror/lang-javascript';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
@@ -16,7 +17,7 @@ export const LANGUAGES: Record<string, ILanguage> = {
   },
   java: {
     label: 'Java',
-    extension: javascript,
+    extension: java,
   },
   python: {
     label: 'Python',
