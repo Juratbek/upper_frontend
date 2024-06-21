@@ -1,3 +1,5 @@
+@import 'styles/breakpoints';
+
 .root {
   display: flex;
   align-items: center;
@@ -5,8 +7,11 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  padding-top: 3rem;
-  background-color: white;
+  background-color: var(--main-bg);
+
+  @include media-max(small) {
+    margin-top: 0 !important;
+  }
 }
 
 .labels-container {

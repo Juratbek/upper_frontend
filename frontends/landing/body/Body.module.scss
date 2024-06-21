@@ -4,9 +4,10 @@
     display: flex;
     gap: 30px;
     padding-inline: 110px;
+    padding-top: 34px;
 
     @include media-max(large) {
-        padding: unset;
+        padding-inline: unset;
     }
 }
 
@@ -24,12 +25,19 @@
 }
 
 .sidebar {
-    padding-top: 3rem;
     height: 300px;
     position: sticky;
     top: 0;
 
     @include media-max(large) {
         display: none;
+    }
+}
+
+.loading {
+    height: 35rem;
+
+    @include media-max(large) {
+        height: 15rem;
     }
 }

@@ -4,8 +4,8 @@ import { Link, Spinner } from 'components/lib';
 import { useTheme } from 'hooks';
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { useSearch } from 'store/clients/published-article';
-import { debouncer } from 'utils';
-import { ICONS } from 'variables';
+import { debouncer } from 'utils/debouncer';
+import { ICONS } from 'variables/icons';
 
 import classes from './MobileHeader.module.scss';
 
@@ -40,7 +40,7 @@ export const MobileHeader = (): JSX.Element => {
     return (
       <div className={`${classes['search-container']} ${!isSearchUiVisible && classes.hidden}`}>
         <span onClick={searchUiVisibleHandler(false)}>
-          <Prev />
+          <Prev color={themeColors.icon} />
         </span>
         <Input
           className={classes['search-input']}
@@ -50,7 +50,13 @@ export const MobileHeader = (): JSX.Element => {
         />
       </div>
     );
-  }, [searchUiVisibleHandler, searchInputRef, isSearchUiVisible, inputChangeHandler]);
+  }, [
+    searchUiVisibleHandler,
+    searchInputRef,
+    isSearchUiVisible,
+    inputChangeHandler,
+    themeColors.icon,
+  ]);
 
   return (
     <header className={`${classes.header} container`}>
@@ -61,7 +67,7 @@ export const MobileHeader = (): JSX.Element => {
             <Logo color={themeColors.icon} />
           </Link>
           <span onClick={searchIconClickHandler} className={classes['search-icon']}>
-            <Search width={24} height={24} />
+            <Search width={24} height={24} color={themeColors.icon} />
           </span>
         </>
       )}

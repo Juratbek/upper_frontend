@@ -1,5 +1,5 @@
 import { TIconComponent } from 'types';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 export const menu: Array<{ icon: TIconComponent; text: string; path: string }> = [
   {
@@ -9,7 +9,7 @@ export const menu: Array<{ icon: TIconComponent; text: string; path: string }> =
   },
   {
     icon: ICONS.notification,
-    text: 'Bildirishnomalar',
+    text: 'Xabarlar',
     path: '/notifications',
   },
   {

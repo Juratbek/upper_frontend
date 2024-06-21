@@ -1,5 +1,6 @@
-import { ApiErrorBoundary, NotificationSkeleton } from 'components';
-import { StorysetImage } from 'components/lib';
+import { ApiErrorBoundary } from 'components';
+import { Spinner, StorysetImage } from 'components/lib';
+import { LoadMoreButton } from 'components/molecules';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useMemo } from 'react';
 import {
@@ -43,11 +44,7 @@ export const Notifications: FC = () => {
 
       if (!Notification) return <></>;
       return (
-        <div
-          key={notification.id}
-          className='container'
-          onClick={() => readNotification(notification.id)}
-        >
+        <div key={notification.id} onClick={() => readNotification(notification.id)}>
           <Notification {...notification} />
         </div>
       );
@@ -57,11 +54,21 @@ export const Notifications: FC = () => {
   return (
     <ApiErrorBoundary
       res={fetchNotificationsRes}
-      fallback={<NotificationSkeleton className='px-3 py-2' />}
-      fallbackItemCount={3}
+      fallback={
+        <div style={{ height: '15rem' }} className='content-center'>
+          <Spinner />
+        </div>
+      }
       className='tab'
     >
       {notifications}
+      {fetchNotificationsRes.hasNextPage && (
+        <LoadMoreButton
+          className='mt-2'
+          onClick={fetchNotificationsRes.fetchNextPage}
+          loading={fetchNotificationsRes.isFetchingNextPage}
+        />
+      )}
     </ApiErrorBoundary>
   );
 };

@@ -1,37 +1,28 @@
 @import 'styles/breakpoints';
 @import 'styles/mixins';
 
-$sticky-top: 3rem;
-
 .root {
   display: flex;
-  padding-top: 4.8rem;
-
-  @include media-max(large) {
-    padding-top: 0;
-    justify-content: center;
-  }
+  width: min(var(--grid-container-width), 100vw);
+  margin: 0 auto;
+  padding-top: 34px;
+  gap: 60px;
 
   @include media-max(small) {
     display: block;
+    padding-top: 0;
   }
 }
 
 .navigation {
   @include media-min(large) {
-    border-right: 1px solid var(--divider-secondary-background);
-    padding-right: 1.5rem;
     position: sticky;
-    top: $sticky-top;
-    flex: 1 1 var(--navigation-container-width);
+    min-width: var(--navigation-container-width);
     align-self: flex-start;
   }
 }
 
 .main {
-  margin-right: 4rem;
-  margin-left: 4rem;
-  flex: 1 0 var(--main-container-width);
   min-width: var(--main-container-width);
 
   @include media-max(large) {
@@ -45,12 +36,15 @@ $sticky-top: 3rem;
 }
 
 .sidebar {
-  flex: 1 1 var(--sidebar-container-width);
+  min-width: var(--sidebar-container-width);
   align-self: flex-start;
   position: sticky;
-  top: $sticky-top;
 
   @include media-max(large) {
     display: none;
   }
+}
+
+.normal-column {
+  min-width: calc((var(--navigation-container-width) + var(--sidebar-container-width)) / 2);
 }

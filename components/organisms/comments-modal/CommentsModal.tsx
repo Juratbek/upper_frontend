@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
 import { useCommentsList, useCreateComment } from 'store/clients/comments';
 import { closeCommentsModal, getIsCommentsModalOpen } from 'store/states';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './CommentsModal.module.scss';
 import { NoComments } from './no-comments/NoComments';
@@ -18,8 +18,14 @@ const SendIcon = ICONS.send;
 export const CommentsModal: FC = () => {
   const { query } = useRouter();
   const articleId = +(query?.id as string);
-  const { list: comments, hasNextPage, fetchNextPage, isLoading } = useCommentsList(articleId);
-  const { mutate: createComment, isPending: isCommentBeingCreated } = useCreateComment();
+  const {
+    list: comments,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    refetch,
+  } = useCommentsList(articleId);
+  const { mutate: createComment, isPending: isCommentBeingCreated } = useCreateComment(refetch);
   const inputRef = useRef<HTMLInputElement>(null);
   const isOpen = useAppSelector(getIsCommentsModalOpen);
   const dispatch = useDispatch();

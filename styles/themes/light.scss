@@ -1,0 +1,126 @@
+.theme-light {
+    --main-bg: white;
+    --main-text: black;
+
+    background-color: var(--main-bg);
+    color: var(--main-text);
+
+    --secondary-color: var(--gray);
+    --card-bg: var(--gray);
+
+    // Header
+    --header-border: var(--black-50);
+    --search-result-item-border: var(--gray);
+    --search-result-item-hover-bg: var(--gray);
+    --search-input-bg: var(--gray);
+
+    // Mobile header
+    --search-results-bg: white;
+
+    // Navigation
+    --nav-active-bg: var(--gray);
+
+    // Bottom Navigation
+    --bottom-navigation-bg: white;
+    --bottom-navigation-border: var(--black-50, #e8e9e9);
+    --bottom-navigation-text: var(--black-400, #45494a);
+    --bottom-navigation-add-btn-border: #45494a;
+
+    // Divider
+    --divider-primary-background: var(--black-100, #d0d1d2);
+    --divider-secondary-background: var(--black-50);
+
+    // TabButton component
+    --tab-btn-primary-bg: var(--blue-100, #cce4ff);
+    --tab-btn-primary-text: var(--blue-500, #fff);
+    --tab-btn-outlined-text: var(--black-300, #737677);
+    --tab-btn-outlined-border: var(--black-50);
+
+    // Spinner
+    --spinner-primary-color: black;
+    --spinner-secondary-color: white;
+
+    // Profile
+    --header-profile-bg: var(--black-50);
+    --header-profile-icon: var(--black-400);
+    --profile-popover-bg: var(--gray);
+    --profile-popover-item-hover-bg: rgba(232, 233, 233, 0.40);
+
+    // Theme menu
+    --theme-menu-border: var(--black-50, #E8E9E9);
+    --theme-menu-bg: white;
+    --theme-menu-item-text: var(--black-400, #45494A);
+    --theme-menu-item-hover: rgba(245, 245, 245, 0.60);
+
+    // Notification
+    --notification-text: var(--black-400);
+    --notification-border: var(--black-50);
+
+    // Author
+    --author-name-text: var(--black-400);
+
+    // PublishedArticle
+    --published-article-border: rgba(166, 166, 166, 0.6);
+
+    // Article
+    --article-border: var(--black-50, #e8e9e9);
+
+    // Editor
+    --editor-text: var(--black-500);
+    --editor-heading-text: var(--black-500);
+    --editor-figure-caption: #6B6B6B;
+    --editor-code-border: rgb(229, 229, 229);
+    --editor-inline-code-bg: #eff2f5;
+    --editor-alert-danger-bg: #ffd9d6;
+    --editor-table-border: var(--black-50);
+
+    --editor-quote-content-text: var(--black-500);
+    --editor-quote-author-text: var(--black-700);
+
+    --editor-quiz-title-text: var(--black-700);
+    --editor-quiz-option-border: #f0f0f0;
+
+    // Code tool
+    --editor-code-bg: #F9F9F9;
+    --editor-code-language-btn-bg: #F9F9F9;
+    --editor-code-language-btn-hover: rgb(235, 235, 235);
+    --editor-code-language-popover-bg: #F9F9F9;
+    --editor-code-language-popover-item-hover: rgb(235, 235, 235);
+
+    --editor-toolbar-icon-hover: #eff2f5;
+    --editor-toolbar-popover-bg: white;
+    --editor-toolbar-popover-border: #e8e8eb;
+    --editor-toolbar-popover-item-hover: #f1f4f8;
+    --editor-toolbar-popover-item-icon-bg: white;
+
+    // Comments
+    --comments-modal-bg: var(--gray);
+    --comments-modal-border: var(--black-50);
+    --comments-input-bg: var(--black-50);
+    --comments-input-text: var(--black-400, #45494A);
+    --comments-count: var(--black-400, #45494a);
+
+    --comment-author-name: var(--black-700, #0b0e0f);
+    --comment-text: var(--black-400, #45494a);
+    --comment-border-bottom: var(--black-50, #e8e9e9);
+
+    --share-popover-bg: var(--gray);
+
+    --article-bottom-bar-bg: var(--white, #FFF);
+    --article-bottom-bar-border: var(--black-50, #E8E9E9);
+
+    // Footer
+    --footer-border: var(--black-50);
+    --footer-text: var(--black-400);
+    --share-popover-border: var(--black-50);
+
+    .skeleton {
+        background: linear-gradient(100deg,
+                rgba(255, 255, 255, 0) 50%,
+                rgba(255, 255, 255, 0.5) 60%,
+                rgba(255, 255, 255, 0) 70%) #ededed;
+        background-size: 200% 100%;
+        background-position-x: 180%;
+        animation: 800ms loading ease-in-out infinite;
+    }
+}

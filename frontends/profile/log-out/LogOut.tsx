@@ -1,6 +1,6 @@
 import { useAppRouter, useAuth } from 'hooks';
 import { FC } from 'react';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import classes from './LogOut.module.scss';
 

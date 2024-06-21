@@ -2,7 +2,7 @@ import { Avatar } from 'components/lib';
 import { useClickOutside } from 'hooks';
 import { useCallback, useState } from 'react';
 import { useGetCurrentBlog } from 'store/clients/blog';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { ProfilePopover } from './components/popover/PorfilePopover';
 import classes from './Profile.module.scss';
@@ -20,7 +20,7 @@ export const Profile = (): JSX.Element => {
   const profileBtnClickHandler = (): void => setIsPopoverOpen((prev) => !prev);
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} id='header-profile'>
       <button className={classes.profile} onClick={profileBtnClickHandler} id='profile-btn'>
         <Avatar imgUrl={currentBlog?.imgUrl} size='micro' />
         <span className={classes.icon}>

@@ -18,8 +18,7 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ children, defaultTheme 
   const { location } = useUrlParams();
 
   const changeTheme = useCallback((theme: TTheme): void => {
-    // TODO: change to setTheme(theme); when dark theme is ready
-    setTheme('light');
+    setTheme(theme);
     setServerSideTheme(location.origin, theme);
   }, []);
 

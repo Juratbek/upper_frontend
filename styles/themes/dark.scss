@@ -1,0 +1,153 @@
+@mixin code-tool {
+    .ͼ2 .cm-content {
+        caret-color: white;
+    }
+
+    .ͼ3 .cm-content {
+        caret-color: black;
+    }
+
+    .ͼg,
+    .ͼj {
+        color: var(--main-text);
+    }
+
+    .ͼb {
+        color: #b437c6;
+    }
+
+    .ͼe,
+    .ͼf {
+        color: #bf651d;
+    }
+
+    .ͼm {
+        color: #8a8a8a;
+    }
+
+    .ͼc,
+    .ͼl {
+        color: hsl(195deg 90% 50%);
+    }
+}
+
+.theme-dark {
+    --main-bg: #22272e;
+    --main-text: #c5d1de;
+    --hover-bg: #b1bac41f;
+
+    background-color: var(--main-bg);
+    color: var(--main-text);
+
+    --secondary-color: #373e47;
+    --card-bg: var(--secondary-color);
+
+    // Header
+    --header-border: var(--secondary-color);
+    --search-result-item-border: var(--black-400);
+    --search-result-item-hover-bg: var(--hover-bg);
+    --search-input-bg: var(--secondary-color);
+
+    // Mobile header
+    --search-results-bg: var(--secondary-color);
+
+    // Navigation
+    --nav-active-bg: var(--secondary-color);
+
+    // Bottom Navigation
+    --bottom-navigation-bg: var(--secondary-color);
+    --bottom-navigation-border: var(--black-300);
+    --bottom-navigation-text: var(--main-text);
+    --bottom-navigation-add-btn-border: var(--black-300);
+
+    // Divider component
+    --divider-primary-background: var(--black-300);
+    --divider-secondary-background: var(--secondary-color);
+
+    // TabButton component
+    --tab-btn-primary-bg: transparent;
+    --tab-btn-primary-text: var(--blue-300);
+    --tab-btn-primary-border: var(--blue-500);
+    --tab-btn-outlined-text: var(--black-100);
+    --tab-btn-outlined-border: var(--black-200);
+
+    // Spinner
+    --spinner-primary-color: var(--main-text);
+    --spinner-secondary-color: black;
+
+    // Profile
+    --header-profile-bg: var(--secondary-color);
+    --header-profile-icon: var(--black-200);
+    --profile-popover-bg: var(--secondary-color);
+    --profile-popover-item-hover-bg: var(--hover-bg);
+
+    // Theme menu
+    --theme-menu-border: var(--black-400);
+    --theme-menu-bg: var(--main-bg);
+    --theme-menu-item-text: inherit;
+    --theme-menu-item-hover: var(--hover-bg);
+
+    // Notification
+    --notification-text: var(--main-text);
+    --notification-border: var(--black-300);
+
+    // Author
+    --author-name-text: var(--black-100);
+
+    // PublishedArticle
+    --published-article-border: #3b3b3b99;
+
+    // Article
+    --article-border: var(--black-400);
+
+    // Editor
+    --editor-text: var(--main-text);
+    --editor-heading-text: #ced6df;
+    --editor-figure-caption: #a7a7a7;
+    --editor-code-border: transparent;
+    --editor-inline-code-bg: var(--secondary-color);
+    --editor-alert-danger-bg: #7d2d27;
+    --editor-table-border: var(--black-300);
+
+    --editor-quote-content-text: inherit;
+    --editor-quote-author-text: inherit;
+
+    --editor-quiz-title-text: inherit;
+    --editor-quiz-option-border: var(--black-400);
+
+    // Code tool
+    --editor-code-bg: #171a1d;
+    --editor-code-language-btn-bg: var(--secondary-color);
+    --editor-code-language-btn-hover: var(--secondary-color);
+    --editor-code-language-popover-bg: var(--secondary-color);
+    --editor-code-language-popover-item-hover: var(--hover-bg);
+
+    // Editor Toolbar
+    --editor-toolbar-icon-hover: var(--secondary-color);
+    --editor-toolbar-popover-bg: var(--secondary-color);
+    --editor-toolbar-popover-border: var(--black-400);
+    --editor-toolbar-popover-item-hover: var(--hover-bg);
+    --editor-toolbar-popover-item-icon-bg: var(--secondary-color);
+
+    // Comments
+    --comments-modal-bg: var(--main-bg);
+    --comments-modal-border: var(--secondary-color);
+    --comments-input-bg: var(--secondary-color);
+    --comments-input-text: white;
+
+    --comment-author-name: var(--black-50);
+    --comment-text: var(--main-text);
+    --comment-border-bottom: var(--secondary-color);
+
+    --share-popover-bg: var(--secondary-color);
+    --share-popover-border: var(--black-300);
+
+    --article-bottom-bar-bg: var(--secondary-color);
+    --article-bottom-bar-border: var(--black-300);
+
+    // Footer
+    --footer-border: var(--secondary-color);
+    --footer-text: var(--black-100);
+
+    @include code-tool();
+}

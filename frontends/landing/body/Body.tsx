@@ -10,8 +10,10 @@ import {
   TopLabel,
 } from 'components/molecules';
 import { Sidebar } from 'components/organisms';
+import { COMMON_SPACE_FROM_TOP } from 'components/wrappers';
 import { useUrlParams } from 'hooks';
 import { usePublishedArticlesList } from 'store/clients/published-article';
+import { getClassName } from 'utils';
 import { addAmazonBucketUrl } from 'utils/published-article';
 import { PopularLabels } from 'variables';
 
@@ -41,7 +43,7 @@ export const Body = (): JSX.Element => {
         <ApiErrorBoundary
           res={articlesListRes}
           fallback={
-            <div style={{ height: '15rem' }} className='content-center'>
+            <div className={getClassName('content-center', classes.loading)}>
               <Spinner />
             </div>
           }
@@ -51,11 +53,11 @@ export const Body = (): JSX.Element => {
           ))}
           {articles.length === 0 && <NoArticle label={activeLabel} />}
           {articles.length !== 0 && articlesListRes.hasNextPage && (
-            <LoadMoreButton loading={articlesListRes.isLoading} onClick={fetchNextPage} />
+            <LoadMoreButton loading={articlesListRes.isFetchingNextPage} onClick={fetchNextPage} />
           )}
         </ApiErrorBoundary>
       </section>
-      <div className={classes.sidebar}>
+      <div className={classes.sidebar} style={{ top: COMMON_SPACE_FROM_TOP }}>
         <Sidebar />
       </div>
     </div>

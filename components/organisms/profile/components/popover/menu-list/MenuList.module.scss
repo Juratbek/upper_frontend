@@ -12,13 +12,13 @@
   padding-bottom: 1.2rem;
 
   &:hover {
-    background: rgba(232, 233, 233, 0.40);
+    background: var(--profile-popover-item-hover-bg);
   }
 
   .text {
     flex: 1;
     margin: 0;
-    color: var(--black-600);
+    color: inherit;
     line-height: 120%;
   }
 

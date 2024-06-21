@@ -28,7 +28,7 @@ export const Alert = memo(
     }, []);
 
     return (
-      <div className={getClassName(cls.alert, cls[data.type])}>
+      <div className={getClassName(cls.alert, cls[data.type] ?? cls.info)}>
         <span className={cls.icon} dangerouslySetInnerHTML={{ __html: Warning(data.type) }} />
         <p
           ref={ref}

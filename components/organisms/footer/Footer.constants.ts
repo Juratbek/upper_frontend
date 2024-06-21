@@ -1,4 +1,4 @@
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { IFooterLink, IMediaIcon } from './Footer.types';
 

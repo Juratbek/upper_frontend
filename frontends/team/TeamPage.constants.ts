@@ -1,4 +1,4 @@
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 import { ITeamMember } from './TeamPage.types';
 

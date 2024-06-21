@@ -1,5 +1,3 @@
-$hover-color: rgb(235, 235, 235);
-
 .language {
     &-container {
         position: absolute;
@@ -12,16 +10,16 @@ $hover-color: rgb(235, 235, 235);
     &-btn {
         padding: 6px 4px 6px 12px;
         border: none;
-        background-color: #F9F9F9;
+        background-color: var(--editor-code-language-btn-bg);
         cursor: pointer;
         border-radius: 5px;
         display: flex;
         gap: 2px;
         align-items: center;
-        color: rgba(69, 73, 74, 0.8);
+        color: inherit;
 
         &:hover {
-            background-color: $hover-color;
+            background-color: var(--editor-code-language-btn-hover);
             color: inherit;
         }
     }
@@ -32,7 +30,7 @@ $hover-color: rgb(235, 235, 235);
     bottom: -4px;
     left: 4px;
     transform: translateY(100%);
-    background-color: #F9F9F9;
+    background-color: var(--editor-code-language-popover-bg);
     z-index: 1;
     min-width: 180px;
     border: 1px solid rgba(69, 73, 74, 0.4);
@@ -44,7 +42,7 @@ $hover-color: rgb(235, 235, 235);
         cursor: pointer;
 
         &:hover {
-            background-color: $hover-color;
+            background-color: var(--editor-code-language-popover-item-hover);
         }
 
         &:not(:last-child) {
@@ -67,6 +65,6 @@ $hover-color: rgb(235, 235, 235);
     cursor: pointer;
 
     &:hover {
-        background-color: $hover-color;
+        background-color: var(--editor-code-language-btn-hover);
     }
 }

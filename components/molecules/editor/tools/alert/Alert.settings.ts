@@ -29,7 +29,7 @@ const AlertColors: Record<TAlertType, { path: string; color: string }> = {
 };
 
 export const Warning = (type: TAlertType) => {
-  const { color, path } = AlertColors[type ?? 'info'];
+  const { color, path } = AlertColors[type] ?? AlertColors.info;
 
   return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <path d="M9.86674 5.25C10.8149 3.58333 13.1851 3.58333 14.1333 5.25L22.6663 20.25C23.6144 21.9167 22.4293 24 20.533 24H3.46695C1.57072 24 0.385575 21.9167 1.33369 20.25L9.86674 5.25Z" fill=${path} />

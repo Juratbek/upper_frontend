@@ -3,11 +3,11 @@
     bottom: -4px;
     left: 0;
     transform: translateY(100%);
-    border: 1px solid #e8e8eb;
+    border: 1px solid var(--editor-toolbar-popover-border);
     padding: 6px;
     display: none;
     border-radius: 4px;
-    background-color: white;
+    background-color: var(--editor-toolbar-popover-bg);
     min-width: 200px;
 }
 
@@ -23,6 +23,7 @@
     align-items: center;
     gap: 10px;
     border-radius: 6px;
+    color: inherit;
 
     &.danger {
         background-color: var(--red) !important;
@@ -33,7 +34,7 @@
     }
 
     &:hover {
-        background-color: #f1f4f8;
+        background-color: var(--editor-toolbar-popover-item-hover);
         cursor: pointer;
 
         .icon {
@@ -47,7 +48,7 @@
     width: 26px;
     height: 26px;
     border-radius: 4px;
-    background-color: white;
+    background-color: var(--editor-toolbar-popover-item-icon-bg);
     box-shadow: 0 0 0 1px rgba(201, 201, 204, .48);
     display: grid;
     place-items: center;

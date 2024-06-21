@@ -14,14 +14,14 @@ describe('components/molecules/LoadMoreButton', () => {
 
   it('renders loading state', () => {
     render(<LoadMoreButton loading onClick={vi.fn()} />);
-    const btn = screen.getByRole('button', { name: 'Yuklanmoqda...' });
+    const btn = screen.getByRole('spinner');
     expect(btn).toBeVisible();
   });
 
   it('disabled on loading', () => {
     const mockFn = vi.fn();
     render(<LoadMoreButton loading onClick={mockFn} />);
-    const btn = screen.getByRole('button', { name: 'Yuklanmoqda...' });
+    const btn = screen.getByRole('button');
     fireEvent.click(btn);
     expect(mockFn).not.toHaveBeenCalled();
   });

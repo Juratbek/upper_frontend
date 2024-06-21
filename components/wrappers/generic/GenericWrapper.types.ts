@@ -4,6 +4,8 @@ export interface IGenericWrapperProps {
   header?: ReactNode;
   isHeaderHidden?: boolean;
   isNavigationHidden?: boolean;
+  isSidebarHidden?: boolean;
+  areNavigationAndSidebarEqual?: boolean;
   desktopNavigation?: ReactNode;
   tabletNavigation?: ReactNode;
   mobileNavigation?: ReactNode;

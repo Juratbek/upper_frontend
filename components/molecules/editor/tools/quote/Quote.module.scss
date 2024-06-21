@@ -2,19 +2,16 @@
 
 .container {
     position: relative;
+    padding-left: 12px;
 
     &::before {
         position: absolute;
         top: 0;
-        left: -12px;
+        left: 0;
         content: ' ';
         bottom: 0;
         width: 3px;
-        background-color: black;
-
-        @include media-max(small) {
-            left: 0;
-        }
+        background-color: var(--main-text);
     }
 }
 
@@ -25,11 +22,7 @@
     font-style: italic;
     font-size: 18px;
     line-height: 156%;
-    color: var(--black-500);
-
-    @include media-max(small) {
-        padding-left: 12px;
-    }
+    color: var(--editor-quote-content-text);
 
     &:empty::before {
         content: 'Iqtibosni bu yerga yozing';
@@ -44,7 +37,7 @@
     font-family: var(--font-family);
     font-size: 20px;
     line-height: 120%;
-    color: var(--black-700);
+    color: var(--editor-quote-author-text);
 
     &:empty::after {
         content: 'Iqtibos aftori';

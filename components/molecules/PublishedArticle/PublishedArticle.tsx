@@ -1,6 +1,5 @@
 import { ArticleImg, Author } from 'components';
 import { Link } from 'components/lib';
-import { useTheme } from 'hooks';
 import { FC } from 'react';
 import { getClassName } from 'utils';
 
@@ -9,12 +8,12 @@ import { IPublishedArticleProps } from './PublishedArticle.types';
 
 export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props }) => {
   const { title, content, id, imgUrl } = article;
-  const { theme } = useTheme();
+
   return (
     <Link
       key={id}
       href={`/articles/${id}`}
-      className={getClassName(classes.article, classes[theme], props.className)}
+      className={getClassName(classes.article, props.className)}
     >
       {imgUrl && <ArticleImg imgUrl={imgUrl} size={'full'} className={classes['article-img']} />}
 
@@ -22,7 +21,7 @@ export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props
         dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
         className={classes['article-title']}
       ></h2>
-      {!Boolean(imgUrl) && (
+      {!Boolean(imgUrl) && typeof content === 'string' && (
         <p dangerouslySetInnerHTML={{ __html: content }} className={classes['article-content']}></p>
       )}
 

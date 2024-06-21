@@ -1,6 +1,5 @@
 export * from './notification';
 export * from './common';
-export * from './icons';
 export * from './Blog.constants';
 export * from './auth';
 export * from './images';

@@ -1,5 +1,5 @@
 import { INavigation } from 'components/organisms';
-import { ICONS } from 'variables';
+import { ICONS } from 'variables/icons';
 
 export const SETTINGS_NAVIGATION: INavigation[] = [
   {
@@ -17,8 +17,8 @@ export const SETTINGS_NAVIGATION: INavigation[] = [
     icon: ICONS.telegram,
     text: 'Telegram Kanallari',
   },
-  {
-    href: '/settings/social-media',
-    text: 'Ijtimoiy tarmoqlar',
-  },
+  // {
+  //   href: '/settings/social-media',
+  //   text: 'Ijtimoiy tarmoqlar',
+  // },
 ];

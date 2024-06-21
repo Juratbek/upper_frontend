@@ -33,7 +33,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
   },
   dark: {
     font: '#ffffffd9',
-    icon: '#ffffffd9',
+    icon: '#c5d1de',
     bg: '#252a31',
     border: '#4b535d',
     modal: {

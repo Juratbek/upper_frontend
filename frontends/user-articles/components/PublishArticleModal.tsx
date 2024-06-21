@@ -10,7 +10,8 @@ import { usePublish, useUpdateLabels } from 'store/clients/article';
 import { getEditor } from 'store/states';
 import { closePublishModal, getIsPublishModalOpen } from 'store/states/publishModal';
 import { IArticle } from 'types';
-import { ICONS, WEB_APP_ROOT_DIR } from 'variables';
+import { WEB_APP_ROOT_DIR } from 'variables';
+import { ICONS } from 'variables/icons';
 
 const OpenExternal = ICONS.openExternal;
 

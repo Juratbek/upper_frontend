@@ -1,5 +1,8 @@
+$navigation-container-proportion: 0.45;
+
 :root {
+  --grid-container-width: 1320px;
   --main-container-width: 720px;
-  --navigation-container-width: 22rem;
-  --sidebar-container-width: 29.4rem;
+  --navigation-container-width: 206px;
+  --sidebar-container-width: 274px;
 }

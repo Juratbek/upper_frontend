@@ -18,9 +18,10 @@ export interface IArticlePageProps {
 const ArticlePage: NextPage<IArticlePageProps> = (props: IArticlePageProps) => {
   return (
     <GenericWrapper
-      sidebar={null}
+      areNavigationAndSidebarEqual
+      isSidebarHidden
       desktopNavigation={<BackButton />}
-      header={<></>}
+      isHeaderHidden
       tabletNavigation={<ReadArticleBottomBar />}
       mobileNavigation={<ReadArticleBottomBar />}
     >

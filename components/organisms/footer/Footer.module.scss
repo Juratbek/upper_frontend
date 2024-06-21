@@ -2,7 +2,6 @@
 @import 'styles/breakpoints';
 
 .root {
-  min-height: 12rem;
   width: 100%;
   margin-top: 2rem;
 }
@@ -11,16 +10,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
-  border-top: 1px solid var(--black-50);
+  border-top: 1px solid var(--footer-border);
+  padding: 40px 66px 40px 0;
 
   @include media-max(large) {
-    padding-block: 20px 40px;
+    padding: 20px 0 40px 0;
   }
 
   @include media-max(small) {
     flex-direction: column;
     align-items: flex-start;
+    padding: 40px 20px;
   }
 }
 
@@ -28,11 +28,6 @@
   display: flex;
   gap: 4rem;
   padding: 0;
-
-  @include screenMax576 {
-    flex-wrap: wrap;
-    gap: 5%;
-  }
 
   &>li {
     list-style: none;
@@ -72,7 +67,7 @@
 }
 
 .text {
-  color: var(--black-400);
+  color: var(--footer-text);
   font-style: normal;
   font-weight: 400;
   margin: 0;

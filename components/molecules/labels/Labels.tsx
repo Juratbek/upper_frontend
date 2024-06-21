@@ -1,4 +1,6 @@
 import { Clickable, TabButton } from 'components/lib';
+import { COMMON_SPACE_FROM_TOP } from 'components/wrappers';
+import { useTheme } from 'hooks';
 import { FC, useRef } from 'react';
 import { getClassName } from 'utils';
 import { ICONS } from 'variables/icons';
@@ -12,6 +14,7 @@ const PrevIcon = ICONS.prev;
 export const Labels: FC<ILabelsProps> = (props) => {
   const { labels = [], activeLabel } = props;
   const labelsContainerRef = useRef<HTMLDivElement>(null);
+  const { themeColors } = useTheme();
 
   const labelSelectHandler = (id: string) => (): unknown => props.onSelect(id);
 
@@ -29,14 +32,21 @@ export const Labels: FC<ILabelsProps> = (props) => {
     : false;
 
   return (
-    <div className={getClassName(classes.root, props.className)} style={props.style}>
+    <div
+      className={getClassName(classes.root, props.className)}
+      style={{
+        paddingTop: COMMON_SPACE_FROM_TOP,
+        marginTop: '-' + COMMON_SPACE_FROM_TOP,
+        ...(props.style ?? {}),
+      }}
+    >
       {isContentOverflowed && (
         <Clickable
           data-testid='prev-btn'
           className={classes['next-btn']}
           onClick={moveLabels(-300)}
         >
-          <PrevIcon />
+          <PrevIcon color={themeColors.icon} />
         </Clickable>
       )}
       <div className={classes['labels-container']} id='labels' ref={labelsContainerRef}>
@@ -54,7 +64,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
       </div>
       {isContentOverflowed && (
         <Clickable data-testid='next-btn' className={classes['next-btn']} onClick={moveLabels(300)}>
-          <NextIcon />
+          <NextIcon color={themeColors.icon} />
         </Clickable>
       )}
     </div>

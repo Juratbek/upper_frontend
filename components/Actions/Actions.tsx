@@ -19,7 +19,7 @@ export const Actions: FC<IActinosProps> = ({
   const [ref] = useClickOutside(closePopup);
 
   const actionsContent = useMemo(() => {
-    if (loading) return <Spinner color='light' />;
+    if (loading) return <Spinner variant='secondary' />;
     return actions.map(({ label, color = 'black', onClick }, index) => {
       const labelColorClassName = classes[`popup__item--${color}`];
       return (

@@ -12,7 +12,6 @@ import {
   LastPublished,
   TopLabel,
 } from './UserLabels.constants';
-import classes from './UserLabels.module.scss';
 
 export const UserLabels = (): JSX.Element => {
   const { isAuthenticated } = useAuth();
@@ -50,7 +49,6 @@ export const UserLabels = (): JSX.Element => {
       labels={labels}
       activeLabel={(query[LABEL_ID_PARAM] ?? DefaultLabel) as string}
       onSelect={labelSelectHandler}
-      className={classes.container}
     />
   );
 };

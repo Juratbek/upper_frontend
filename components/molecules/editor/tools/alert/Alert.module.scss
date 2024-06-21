@@ -21,7 +21,7 @@
     }
 
     &.danger {
-        background: #ffd9d6;
+        background: var(--editor-alert-danger-bg);
     }
 
     &.warning {
@@ -35,6 +35,5 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 144%;
-    color: var(--black-500);
     flex: 1;
 }

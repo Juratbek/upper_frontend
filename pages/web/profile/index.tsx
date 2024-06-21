@@ -4,7 +4,7 @@ import { checkAuthInServer } from 'utils';
 
 const ProfilePage = (): JSX.Element => {
   return (
-    <GenericWrapper classes={{ main: 'pt-l-2' }}>
+    <GenericWrapper>
       <Profile />
     </GenericWrapper>
   );
