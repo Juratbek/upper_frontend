@@ -51,11 +51,11 @@ export const useDislike = (articleId: number) => {
   return mutation;
 };
 
-export const useIsLikedOrDisliked = (articleId: number) =>
+export const useIsLikedOrDisliked = (articleId: number, isAuthenticated: boolean | null) =>
   useQuery({
     queryKey: ['liked-disliked', articleId],
     queryFn: () => apiClient.get(`published-article/v2/check-like-dislike/${articleId}`),
-    enabled: Boolean(articleId),
+    enabled: Boolean(articleId) && Boolean(isAuthenticated),
   });
 
 export const useLikeCount = (articleId: number) =>
