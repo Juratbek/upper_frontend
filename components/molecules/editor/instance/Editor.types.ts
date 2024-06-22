@@ -14,6 +14,7 @@ export interface IEditorProps {
   content: {
     blocks: IBlockData[];
   };
+  classes?: { root?: string };
   isEditable?: boolean;
   onChange?: (blocks: IBlockData[]) => void;
 }

@@ -1,5 +1,5 @@
 import { useClickOutside, useTheme } from 'hooks';
-import { useContext, useState } from 'react';
+import { CSSProperties, useContext, useRef, useState } from 'react';
 
 import { EditorContext } from '../context/EditorContext';
 import { ActionButtons } from './action-buttons/ActionButtons';
@@ -13,6 +13,8 @@ export const Toolbar = () => {
   const [isSettingsPopoverOpen, setIsSettingsPopoverOpen] = useState(false);
   const toolbarPosition = hoveredBlock?.offsetTop;
   const { themeColors } = useTheme();
+  const toolsPopoverRef = useRef<HTMLDivElement>(null);
+  const actionButtonsRef = useRef<HTMLDivElement>(null);
 
   const closeAllPopovers = () => {
     setIsSettingsPopoverOpen(false);
@@ -31,6 +33,31 @@ export const Toolbar = () => {
     setIsSettingsPopoverOpen((prev) => !prev);
   };
 
+  const getToolsPopoverStyles = (): CSSProperties => {
+    const actionButtons = actionButtonsRef.current;
+    const toolsPopoverElement = toolsPopoverRef.current;
+
+    if (!actionButtons || !toolsPopoverElement)
+      return {
+        transform: 'translateY(-13%)',
+      };
+
+    const actionButtonsRect = actionButtons.getBoundingClientRect();
+    const toolsPopoverRect = toolsPopoverElement.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const toolsPopoverHeight = toolsPopoverRect.height || 360;
+
+    // Check if there is enough space below the parent element
+    if (actionButtonsRect.bottom + toolsPopoverHeight > viewportHeight) {
+      // Not enough space, position it above the parent element
+      return {
+        transform: 'translateY(-13%)',
+      };
+    } else {
+      return {};
+    }
+  };
+
   return (
     <div
       className={classes.toolbar}
@@ -41,11 +68,17 @@ export const Toolbar = () => {
     >
       <div className={classes['toolbar-content']}>
         <ActionButtons
+          ref={actionButtonsRef}
           color={themeColors.icon}
           onPlus={toggleToolsPopover}
           onSettings={toggleSettingsPopover}
         />
-        <ToolsPopover open={isToolsPopoverOpen} close={toggleToolsPopover} />
+        <ToolsPopover
+          ref={toolsPopoverRef}
+          open={isToolsPopoverOpen}
+          style={getToolsPopoverStyles()}
+          close={toggleToolsPopover}
+        />
         <SettingsPopover open={isSettingsPopoverOpen} close={toggleSettingsPopover} />
       </div>
     </div>

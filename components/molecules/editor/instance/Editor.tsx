@@ -1,4 +1,5 @@
 import { FC, useMemo } from 'react';
+import { getClassName } from 'utils';
 
 import { useEditorContext } from '../context';
 import { EditorProvider } from '../context/EditorProvider';
@@ -10,20 +11,22 @@ import { IEditorProps } from './Editor.types';
 
 export const EDITOR_BLOCKS_CONTAINER_ID = 'editor-blocks-container';
 
+export const EDITOR_ROOT_ID = 'editor-root';
+
 export const Editor: FC<IEditorProps> = (props) => (
   <EditorProvider {...props}>
-    <Instance />
+    <Instance classes={props.classes} />
   </EditorProvider>
 );
 
-const Instance = () => {
+const Instance = (props: Pick<IEditorProps, 'classes'>) => {
   const { renderBlocks, isEditable } = useEditorContext();
   useListeners();
 
   const blocks = useMemo(renderBlocks, [renderBlocks]);
 
   return (
-    <div className={classes['editor-root']} id='editor-root'>
+    <div className={getClassName(classes['editor-root'], props.classes?.root)} id={EDITOR_ROOT_ID}>
       {isEditable && (
         <>
           <Toolbar />
