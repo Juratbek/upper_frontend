@@ -1,12 +1,27 @@
-import { FC, HTMLAttributes, memo, MouseEvent, ReactNode, useState } from 'react';
+import {
+  CSSProperties,
+  forwardRef,
+  HTMLAttributes,
+  memo,
+  MouseEvent,
+  ReactNode,
+  useState,
+} from 'react';
 import { getClassName } from 'utils';
 
 import { IToolbarSetting } from '../../tools/tool.types';
 import cls from './Popover.module.scss';
 
-export const Popover: FC<{ open: boolean; children?: ReactNode }> = ({ open, children }) => {
-  return <div className={getClassName(cls.popover, open && cls.open)}>{children}</div>;
-};
+export const Popover = forwardRef<
+  HTMLDivElement,
+  { open: boolean; children?: ReactNode; style?: CSSProperties }
+>(function Component({ open, children, style }, ref) {
+  return (
+    <div ref={ref} className={getClassName(cls.popover, open && cls.open)} style={style}>
+      {children}
+    </div>
+  );
+});
 
 export const Item = memo(function Component({
   icon,
