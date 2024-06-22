@@ -111,7 +111,7 @@ export const PublishArticleModal: FC = () => {
             max={5}
             defaultValues={article?.tags}
             onChange={labelsChangeHandler}
-            inputPlacegolder='Qidirish uchun yozing'
+            inputPlaceholder='Qidirish uchun yozing'
           />
         )}
         <div className='d-flex mt-2'>

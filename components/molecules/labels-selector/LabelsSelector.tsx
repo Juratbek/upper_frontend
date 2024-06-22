@@ -1,5 +1,5 @@
 import { Input } from 'components/form';
-import { Spinner } from 'components/lib';
+import { Spinner, TabButton } from 'components/lib';
 import {
   ChangeEvent,
   FC,
@@ -12,15 +12,15 @@ import {
 } from 'react';
 import { useSearchLabels } from 'store/clients/label';
 import { debouncer } from 'utils/debouncer';
+import { PopularLabels } from 'variables';
 
-import { DEFAULT_LABELS } from './LabelsSelector.constants';
 import classes from './LabelsSelector.module.scss';
 import { ILabelSelectorOptions } from './LabelsSelector.types';
 
 const inputDebouncer = debouncer<string>();
 
 export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], ...props }) => {
-  const [search, setSeach] = useState('');
+  const [search, setSearch] = useState('');
   const searchLabelsRes = useSearchLabels(search);
   const [selectedValues, setSelectedValues] = useState<string[]>(defaultValues ?? []);
   const [inputValue, setInputValue] = useState<string>();
@@ -63,7 +63,7 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
     setInputValue(value);
     const trimmedValue = value.trim();
     if (trimmedValue) {
-      inputDebouncer(value, setSeach);
+      inputDebouncer(value, setSearch);
     }
   };
 
@@ -84,7 +84,7 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
   }, []);
 
   const optionsContent = useMemo(() => {
-    const { data: labels, isLoading, isError, isStale } = searchLabelsRes;
+    const { data: labels, isLoading, isError, isPending } = searchLabelsRes;
 
     if (isLoading) {
       return <Spinner color='light' className='mx-auto' />;
@@ -95,23 +95,34 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
     if (labels?.length === 0) {
       return <p>Teglar topilmadi</p>;
     }
-    if (isStale) {
+
+    if (isPending) {
       return (
-        <ul className={classes['options-list']}>
-          {DEFAULT_LABELS.map((label) => (
-            <li key={label} className={classes['options-item']}>
-              <button onClick={(): void => selectOption(label)}>{label}</button>
-            </li>
+        <div className={classes['options-list']}>
+          {PopularLabels.map((label) => (
+            <TabButton
+              key={label}
+              className={classes['options-item']}
+              onClick={(): void => selectOption(label)}
+              color='outlined'
+            >
+              {label}
+            </TabButton>
           ))}
-        </ul>
+        </div>
       );
     }
+
     return (
       <ul className={classes['options-list']}>
         {labels?.map((label) => (
-          <li key={label.id} className={classes['options-item']}>
-            <button onClick={(): void => selectOption(label.name)}>{label.name}</button>
-          </li>
+          <TabButton
+            key={label.id}
+            className={classes['options-item']}
+            onClick={(): void => selectOption(label.name)}
+          >
+            {label.name}
+          </TabButton>
         ))}
       </ul>
     );
@@ -119,16 +130,18 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
 
   return (
     <div className={classes.root} ref={ref}>
-      <ul className={`${classes['selected-labels']} ${selectedValues.length ? 'my-1' : 'm-0'}`}>
+      <div className={`${classes['selected-labels']} ${selectedValues.length ? 'my-1' : 'm-0'}`}>
         {selectedValues.map((value) => (
-          <li key={value} className={classes['selected-label']}>
-            <span className={classes.text}>{value}</span>
-            <span className={classes.icon} onClick={(): void => removeSelectedLabel(value)}>
-              x
-            </span>
-          </li>
+          <TabButton
+            key={value}
+            color='outlined'
+            className={classes['selected-label']}
+            onClick={(): void => removeSelectedLabel(value)}
+          >
+            {value}
+          </TabButton>
         ))}
-      </ul>
+      </div>
       <div className={classes['form-container']}>
         <Input
           rootClassName={classes.input}
@@ -138,11 +151,11 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
           value={inputValue}
           className={classes.input}
           onChange={onInputChange}
-          placeholder={props.inputPlacegolder}
+          placeholder={props.inputPlaceholder}
           onKeyDown={keydownHandler}
         />
         <button className={classes['add-btn']} onClick={(): void => selectOption(inputValue ?? '')}>
-          ✓
+          Qo&apos;shish
         </button>
       </div>
       <div

@@ -1,30 +1,22 @@
-import { Button } from 'components/lib';
+import { Button, Link } from 'components/lib';
 import { Logo } from 'components/molecules';
 import { Profile } from 'components/organisms';
 import { useAppRouter } from 'hooks';
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 
 import classes from './WriteArticleHeader.module.scss';
 
 export const WriteArticleHeader: FC = () => {
-  const { push, query } = useAppRouter();
-
-  const publishHandler = useCallback(() => {
-    const { id } = query;
-
-    if (!id || isNaN(+id)) {
-      console.error('Article id is not provided');
-      return;
-    }
-
-    push(`/user/articles/publish/${id}`);
-  }, [query.id]);
+  const { query } = useAppRouter();
+  const { id } = query;
 
   return (
     <header className={`${classes.container} container`}>
       <Logo />
       <div className={classes['right-block']}>
-        <Button onClick={publishHandler}>Nashr qilish</Button>
+        <Link href={`/user/articles/publish/${id}`}>
+          <Button>Nashr qilish</Button>
+        </Link>
         <Profile />
       </div>
     </header>

@@ -1,6 +1,6 @@
 export interface ILabelSelectorOptions {
   defaultValues?: string[];
   onChange?: (values: string[]) => void;
-  inputPlacegolder?: string;
+  inputPlaceholder?: string;
   max?: number;
 }
