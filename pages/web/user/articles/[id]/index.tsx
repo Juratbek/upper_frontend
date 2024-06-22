@@ -53,6 +53,7 @@ export default function UserArticlePage(): JSX.Element {
 
     return (
       <Editor
+        classes={{ root: 'mb-5' }}
         content={{
           blocks:
             article.blocks.length > 0
