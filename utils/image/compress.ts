@@ -36,7 +36,10 @@ const resizeImageElement = (img: HTMLImageElement, options?: TCompressImageOptio
   return canvas.toDataURL('image/jpeg', quality);
 };
 
-export const compressImage = (img: File, options?: TCompressImageOptions): Promise<File> => {
+export const compressImage = (
+  img: File,
+  options?: TCompressImageOptions,
+): Promise<{ file: File; width: number; height: number }> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(img);
@@ -51,7 +54,13 @@ export const compressImage = (img: File, options?: TCompressImageOptions): Promi
         const compressed = resizeImageElement(newImg, options);
         const res = await fetch(compressed);
         const blob = await res.blob();
-        resolve(new File([blob], img.name, { type: img.type }));
+
+        const width = newImg.width;
+        const height = newImg.height;
+
+        const compressedImage = new File([blob], img.name, { type: img.type });
+
+        resolve({ file: compressedImage, width, height });
       };
 
       newImg.onerror = reject;

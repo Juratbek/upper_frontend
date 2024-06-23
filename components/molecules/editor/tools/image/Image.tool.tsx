@@ -12,11 +12,13 @@ export const Image = memo(
     const { file } = data;
 
     const uploadImageHandler = async (file: File) => {
-      const compressedFile = await compressImage(file);
-      const imageUrl = await toBase64(compressedFile);
+      const compressedImage = await compressImage(file);
+      const imageUrl = await toBase64(compressedImage.file);
 
       const f: IImageData['file'] = {
         url: imageUrl?.toString() ?? '',
+        width: compressedImage.width,
+        height: compressedImage.height,
       };
 
       api.setBlock({ id, type, data: { ...data, file: f } });
