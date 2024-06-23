@@ -41,6 +41,7 @@ export const Code = memo(
       return [
         updateListener,
         EditorState.readOnly.of(!isEditable),
+        EditorView.editable.of(isEditable),
         languageConf.of(langExtension),
         history(),
         keymap.of([...defaultKeymap, ...historyKeymap]),

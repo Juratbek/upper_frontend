@@ -66,5 +66,9 @@
 
     &:hover {
         background-color: var(--editor-code-language-btn-hover);
+
+        &>svg path {
+            fill-opacity: 1 !important;
+        }
     }
 }

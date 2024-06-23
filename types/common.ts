@@ -19,6 +19,7 @@ export interface IIconProps {
   width?: number;
   height?: number;
   strokeWidth?: number;
+  opacity?: number;
 }
 
 export type TIconComponent = FC<IIconProps>;

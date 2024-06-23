@@ -1,7 +1,7 @@
 import { language as CodemirrorLanguage } from '@codemirror/language';
 import { EditorView } from 'codemirror';
 import { DoneIcon } from 'components/icons';
-import { useClickOutside, useClipboard } from 'hooks';
+import { useClickOutside, useClipboard, useTheme } from 'hooks';
 import { useId, useState } from 'react';
 import { ICONS } from 'variables/icons';
 
@@ -20,6 +20,8 @@ export const Header = ({ editor, isEditable }: { editor: EditorView; isEditable:
 };
 
 const CopyButton = ({ editor }: { editor: EditorView }) => {
+  const { themeColors } = useTheme();
+
   const { writeText, isCopied } = useClipboard({
     onError: () => alert('Kodni nusxalashda xatolik yuz berdi'),
   });
@@ -28,7 +30,11 @@ const CopyButton = ({ editor }: { editor: EditorView }) => {
 
   return (
     <button className={cls.copy} onClick={copyHandler}>
-      {isCopied ? <DoneIcon width={20} height={20} /> : <CopyButtonIcon width={20} height={20} />}
+      {isCopied ? (
+        <DoneIcon width={20} height={20} color={themeColors.icon} />
+      ) : (
+        <CopyButtonIcon color={themeColors.icon} width={20} height={20} opacity={0.4} />
+      )}
     </button>
   );
 };
