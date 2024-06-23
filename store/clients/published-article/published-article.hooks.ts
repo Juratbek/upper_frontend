@@ -1,6 +1,5 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { apiClient, useInfiniteQuery, useMutation, useQuery } from 'store/config';
-import { IBlog, IPublishedArticleItem } from 'types';
+import { IArticle, IBlog, IPublishedArticleItem } from 'types';
 
 export const usePublishedArticlesList = (label: string) => {
   return useInfiniteQuery<IPublishedArticleItem>({
@@ -20,36 +19,29 @@ export const useBlogPublishedArticles = (id: IBlog['id']) =>
     queryFn: () => apiClient.get(`blog/open/published-articles/${id}`),
   });
 
-export const useIncrementViewCount = () =>
-  useMutation<void, unknown, { id: number; token: string }>({
-    mutationFn: ({ id, token }) =>
-      apiClient.post({ path: `published-article/v2/open/has-updates/${id}`, body: { token } }),
+export const useIncrementViewCount = (article: Pick<IArticle, 'id' | 'token'> | null) =>
+  useQuery<void, unknown, { id: number; token: string }>({
+    queryKey: ['increment-view-count', article?.id],
+    enabled: Boolean(article?.token),
+    queryFn: () =>
+      apiClient.post({
+        path: `published-article/v2/open/has-updates/${article?.id}`,
+        body: { token: article?.token },
+      }),
   });
 
-export const useLike = (articleId: number) => {
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
+// query client from tanstack query is not working after refreshing. Yes sometimes it sucks
+export const useLike = (articleId: number, onSuccess: VoidFunction) =>
+  useMutation({
     mutationFn: () => apiClient.post({ path: `published-article/v2/like/${articleId}` }),
-    onSuccess: () => {
-      queryClient.setQueryData(['like-count', articleId], (likeCount: number) => likeCount + 1);
-      queryClient.setQueryData(['liked-disliked', articleId], true);
-    },
+    onSuccess,
   });
-  return mutation;
-};
 
-export const useDislike = (articleId: number) => {
-  const queryClient = useQueryClient();
-
-  const mutation = useMutation({
+export const useDislike = (articleId: number, onSuccess: VoidFunction) =>
+  useMutation({
     mutationFn: () => apiClient.post({ path: `published-article/v2/dislike/${articleId}` }),
-    onSuccess: () => {
-      queryClient.setQueryData(['like-count', articleId], (likeCount: number) => likeCount - 1);
-      queryClient.setQueryData(['liked-disliked', articleId], false);
-    },
+    onSuccess,
   });
-  return mutation;
-};
 
 export const useIsLikedOrDisliked = (articleId: number, isAuthenticated: boolean | null) =>
   useQuery({
