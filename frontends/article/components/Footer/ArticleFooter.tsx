@@ -29,12 +29,26 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const articleId = Number(query.id);
   const dispatch = useDispatch();
   const { isAuthenticated, openLoginPage } = useAuth();
-  const { mutate: like, isPending: isLikePending } = useLike(articleId);
-  const { mutate: dislike, isPending: isDisLikePending } = useDislike(articleId);
+  const { data: likeCount, refetch: refetchLikeCount } = useLikeCount(articleId);
+
+  const { data: isLikedOrDisliked, refetch: refetchIsLikedOrDisliked } = useIsLikedOrDisliked(
+    articleId,
+    isAuthenticated,
+  );
+
+  const refetchLikeDislikeQueries = () => {
+    refetchLikeCount();
+    refetchIsLikedOrDisliked();
+  };
+
+  const { mutate: like, isPending: isLikePending } = useLike(articleId, refetchLikeDislikeQueries);
+  const { mutate: dislike, isPending: isDisLikePending } = useDislike(
+    articleId,
+    refetchLikeDislikeQueries,
+  );
+
   const { data: commentsCount } = useCommentsCount(articleId);
-  const { data: likeCount } = useLikeCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
-  const { data: isLikedOrDisliked } = useIsLikedOrDisliked(articleId, isAuthenticated);
   const { themeColors } = useTheme();
 
   const commentClickHandler = (): unknown => dispatch(toggleCommentsModal());
@@ -59,17 +73,27 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
     }
   };
 
+  // const isLoading = isLikePending || isDisLikePending ||
+
   return (
     <div className={classes.root}>
       <div className={classes['reactions-container']}>
-        <Clickable disabled={!!isLikedOrDisliked || isLikePending} onClick={likeHandler}>
+        <Clickable
+          loading={isLikePending}
+          disabled={!!isLikedOrDisliked || isLikePending}
+          onClick={likeHandler}
+        >
           <Like color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
         {Boolean(likeCount) && (
           <span className={getClassName(classes['like-count'], classes.count)}>{likeCount}</span>
         )}
         <Divider color='secondary' className={classes.divider} type='vertical' />
-        <Clickable disabled={!isLikedOrDisliked || isDisLikePending} onClick={dislikeHandler}>
+        <Clickable
+          loading={isDisLikePending}
+          disabled={!isLikedOrDisliked || isDisLikePending}
+          onClick={dislikeHandler}
+        >
           <Dislike color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>

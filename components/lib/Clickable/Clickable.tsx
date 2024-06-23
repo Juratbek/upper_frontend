@@ -1,13 +1,14 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 
+import { Spinner } from '../Spinner';
 import classes from './Clickable.module.scss';
 
-export const Clickable: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
-  children,
-  className,
-  ...props
-}) => (
+interface IProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  loading?: boolean;
+}
+
+export const Clickable: FC<IProps> = ({ children, className, loading, ...props }) => (
   <button className={`${classes.root} ${className}`} {...props}>
-    {children}
+    {loading ? <Spinner /> : children}
   </button>
 );

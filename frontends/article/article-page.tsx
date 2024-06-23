@@ -1,7 +1,7 @@
 import { Head } from 'components/lib';
 import { Editor } from 'components/molecules';
 import { CommentsModal } from 'components/organisms';
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useIncrementViewCount } from 'store/clients/published-article';
 import { IArticle } from 'types';
 import { addAmazonBucketUriToArticle, addUriToImageBlocks, convertToHeadProp } from 'utils';
@@ -13,15 +13,7 @@ import { ArticleFooter } from './components/Footer/ArticleFooter';
 
 export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl, title }) => {
   const { blocks = [] } = article ?? {};
-  const { mutate: incrementViewCountRequest } = useIncrementViewCount();
-
-  useEffect(() => {
-    if (!article) return;
-    if (article.token) {
-      const { id, token } = article;
-      incrementViewCountRequest({ id, token });
-    }
-  }, [article?.id]);
+  useIncrementViewCount(article);
 
   if (!article) {
     return <ErrorUI error={error} />;
