@@ -18,6 +18,7 @@ export const TeamPage = (): JSX.Element => {
           <div key={index} className={`card text-center position-relative ${classes.member}`}>
             <div className={classes['avatar-container']}>
               <Avatar
+                isLocal
                 size='extra-large'
                 className={classes.avatar}
                 imgUrl={member.imgUrl}

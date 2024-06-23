@@ -5,4 +5,5 @@ export interface IAvatarProps {
   size?: TAvatarSize;
   className?: string;
   zoomable?: boolean;
+  isLocal?: boolean;
 }

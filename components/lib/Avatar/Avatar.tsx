@@ -13,6 +13,7 @@ export const Avatar: FC<IAvatarProps> = ({
   size = 'small',
   imgUrl,
   zoomable = false,
+  isLocal = false,
   ...props
 }) => {
   const [error, setError] = useState<string>();
@@ -23,7 +24,7 @@ export const Avatar: FC<IAvatarProps> = ({
     if (!imgUrl || error) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
     const imageType = getImageType(imgUrl);
     const isRemote = isRemoteUrl(imgUrl);
-    const finalUrl = isRemote ? imgUrl : addBlogAmazonUrl<string>(imgUrl);
+    const finalUrl = isRemote || isLocal ? imgUrl : addBlogAmazonUrl<string>(imgUrl);
 
     if (!zoomable || !imageType.zoomable)
       return (
