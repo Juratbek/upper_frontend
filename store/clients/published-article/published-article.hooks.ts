@@ -22,8 +22,7 @@ export const useBlogPublishedArticles = (id: IBlog['id']) =>
 export const useIncrementViewCount = (article: Pick<IArticle, 'id' | 'token'> | null) =>
   useQuery<void, unknown, { id: number; token: string }>({
     queryKey: ['increment-view-count', article?.id],
-    // enabled: Boolean(article?.token),
-    enabled: false,
+    enabled: Boolean(article?.token),
     queryFn: () =>
       apiClient.post({
         path: `published-article/v2/open/has-updates/${article?.id}`,

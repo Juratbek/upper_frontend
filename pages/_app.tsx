@@ -1,7 +1,6 @@
 import 'styles/index.scss';
 
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
@@ -130,7 +129,6 @@ const AppWithThemeAndQueryProvider = ({ theme, ...props }: IAppWithProviderProps
     <ThemeProvider defaultTheme={theme}>
       <QueryClientProvider client={queryClient}>
         <MyApp {...props} />
-        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ThemeProvider>
   );
