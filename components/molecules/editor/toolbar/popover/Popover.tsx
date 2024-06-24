@@ -42,6 +42,7 @@ export const Item = memo(function Component({
 
     if (shouldBeConfirmed) {
       setClickCount((prev) => prev + 1);
+      event.stopPropagation();
       return;
     }
 
