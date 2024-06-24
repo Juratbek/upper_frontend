@@ -1,24 +1,24 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import { getClassName } from 'utils';
+import { isDomainRegistered } from 'utils/image/is-domain-registered';
 
 import classes from './ArticleImg.module.scss';
 import { IArticleImgProps } from './ArticleImg.types';
 
-export const ArticleImg: FC<IArticleImgProps> = ({
-  className,
-  size = 'medium',
-  imgUrl = 'https://images.unsplash.com/photo-1612538498456-e861df91d4d0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
-}) => {
+export const ArticleImg: FC<IArticleImgProps> = ({ className, size = 'medium', imgUrl }) => {
   const rootClassName = getClassName(
     className,
     classes['article-img'],
     classes[`article-img--${size}`],
   );
 
-  return (
-    <div className={rootClassName}>
-      {imgUrl && (
+  if (!imgUrl) return;
+  const isAllowedDomain = isDomainRegistered(imgUrl);
+
+  if (isAllowedDomain)
+    return (
+      <div className={rootClassName}>
         <Image
           blurDataURL={`data:${imgUrl}`}
           placeholder='blur'
@@ -27,7 +27,12 @@ export const ArticleImg: FC<IArticleImgProps> = ({
           layout='fill'
           objectFit='cover'
         />
-      )}
+      </div>
+    );
+
+  return (
+    <div className={rootClassName}>
+      <img src={imgUrl} className={classes.img} />
     </div>
   );
 };
