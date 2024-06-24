@@ -4,6 +4,7 @@ export interface IImageData {
     url: string;
     width?: number;
     height?: number;
+    name: string;
   };
   stretched?: boolean;
   withBackground?: boolean;
