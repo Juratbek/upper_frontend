@@ -30,15 +30,14 @@ export const ImageTool: ITool = {
   onPaste: (node) => {
     const element = node as HTMLElement;
     let caption: string | undefined;
-    let src: string | undefined;
+    let image: HTMLImageElement | undefined | null;
     let isStretched = true;
 
     if (element.nodeName === 'IMG') {
-      src = (element as HTMLImageElement).src;
+      image = element as HTMLImageElement;
     } else {
-      const img = element.querySelector('img');
-      if (!img) return null;
-      src = img.src;
+      image = element.querySelector('img');
+      if (!image) return null;
 
       if (element.nodeName === 'P') isStretched = false;
     }
@@ -48,10 +47,10 @@ export const ImageTool: ITool = {
       caption = figcaption?.innerHTML;
     }
 
-    if (!src) return null;
+    if (!image) return null;
 
     return {
-      file: { url: src },
+      file: { url: image.src, name: image.alt },
       alignment: 'center',
       stretched: isStretched,
       caption: caption,
