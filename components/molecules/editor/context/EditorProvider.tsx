@@ -38,7 +38,11 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
       }
 
       return (
-        <Block {...block} key={block.id} onMouseEnter={setHoveredBlock} onFocus={setFocusedBlock}>
+        <Block
+          {...block}
+          key={block.id}
+          {...(isEditable ? { onMouseEnter: setHoveredBlock, onFocus: setFocusedBlock } : {})}
+        >
           <Component api={api} isEditable={isEditable} {...block} />
         </Block>
       );
