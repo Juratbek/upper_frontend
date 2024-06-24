@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useEffect, useRef } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useMemo, useRef } from 'react';
 import { debouncer } from 'utils/debouncer';
 
 import { IToolProps } from '../tool.types';
@@ -30,20 +30,37 @@ export const Quote = memo(
       );
     };
 
-    const captionChangeHandler = (event: ChangeEvent<HTMLDivElement>) => {
-      debounce(event.target.innerText, (value) =>
-        api.setBlock<IQuoteData>({
-          id,
-          type,
-          data: {
-            alignment: data.alignment,
-            caption: value,
-            text: data.text,
-            isCaptionHidden: data.isCaptionHidden,
-          },
-        }),
+    const captionChangeHandler = useCallback(
+      (event: ChangeEvent<HTMLDivElement>) => {
+        debounce(event.target.innerText, (value) =>
+          api.setBlock<IQuoteData>({
+            id,
+            type,
+            data: {
+              alignment: data.alignment,
+              caption: value,
+              text: data.text,
+              isCaptionHidden: data.isCaptionHidden,
+            },
+          }),
+        );
+      },
+      [api, data, id, type],
+    );
+
+    const caption = useMemo(() => {
+      if (data.isCaptionHidden) return;
+      if (!isEditable && !data.caption) return;
+
+      return (
+        <figcaption
+          className={cls.author}
+          onInput={captionChangeHandler}
+          contentEditable={isEditable}
+          dangerouslySetInnerHTML={{ __html: data.caption }}
+        />
       );
-    };
+    }, [data.isCaptionHidden, data.caption, isEditable, captionChangeHandler]);
 
     return (
       <figure className={cls.container}>
@@ -54,14 +71,7 @@ export const Quote = memo(
           contentEditable={isEditable}
           dangerouslySetInnerHTML={{ __html: data.text }}
         />
-        {!Boolean(data.isCaptionHidden) && (
-          <figcaption
-            className={cls.author}
-            onInput={captionChangeHandler}
-            contentEditable={isEditable}
-            dangerouslySetInnerHTML={{ __html: data.caption }}
-          />
-        )}
+        {caption}
       </figure>
     );
   },

@@ -48,8 +48,8 @@ export const ProfileSettingsUI: FC = () => {
     if (avatar && isAvatarChanged) {
       const compressedAvatarImage = await compressImage(avatar);
       const mediumCompressedImage = await compressImage(avatar, { medium: true });
-      formData.set('avatar', compressedAvatarImage);
-      formData.set('avatarWithMediumQuality', mediumCompressedImage);
+      formData.set('avatar', compressedAvatarImage.file);
+      formData.set('avatarWithMediumQuality', mediumCompressedImage.file);
     }
     formData.set('name', name);
     formData.set('bio', bio);
