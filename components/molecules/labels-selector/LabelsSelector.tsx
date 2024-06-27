@@ -30,6 +30,7 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
 
   const selectOption = (label: string): void => {
     if (!label || label.length < 1) return;
+
     setSelectedValues((prev) => {
       const set = new Set(prev);
       set.add(label);
@@ -37,6 +38,8 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
       props.onChange?.(newList);
       return newList;
     });
+
+    setInputValue('');
     setIsOptionsContainerOpen(false);
   };
 
@@ -87,13 +90,17 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
     const { data: labels, isLoading, isError, isPending } = searchLabelsRes;
 
     if (isLoading) {
-      return <Spinner color='light' className='mx-auto' />;
+      return (
+        <div className='my-2'>
+          <Spinner color='light' className='mx-auto' />
+        </div>
+      );
     }
     if (isError) {
-      return <p>Xatolik yuz berdi</p>;
+      return <p className='text-center'>Xatolik yuz berdi</p>;
     }
     if (labels?.length === 0) {
-      return <p>Teglar topilmadi</p>;
+      return <p className='text-center'>Teglar topilmadi</p>;
     }
 
     if (isPending) {
