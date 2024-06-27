@@ -143,6 +143,10 @@ export const bindEditorDataState = (
     setData((prevData) => {
       const updatedBlocks = prevData.filter((block) => block.id !== removedBlockId);
 
+      if (updatedBlocks.length === 0) {
+        updatedBlocks.push(createBlock('header'));
+      }
+
       onBlocksChange(updatedBlocks);
 
       return updatedBlocks;
