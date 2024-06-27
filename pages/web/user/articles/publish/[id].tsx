@@ -44,12 +44,11 @@ const Publish = ({ article }: { article: IArticle }) => {
     article.id,
   );
   const { mutate: publish, isPending: isBeingPublished } = usePublish(article.id, {
-    onSuccess: () => push('/user/articles/publish/success'),
+    onSuccess: (publishedArticleId) =>
+      push(`/user/articles/publish/success?published-article-id=${publishedArticleId}`),
   });
 
-  const publishHandler = () => {
-    updateLabels(selectedLabels).then(() => publish());
-  };
+  const publishHandler = () => updateLabels(selectedLabels).then(() => publish());
 
   return (
     <>
