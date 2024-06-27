@@ -1,3 +1,4 @@
+import { DoneIcon } from 'components/icons';
 import { Clickable } from 'components/lib';
 import Link from 'next/link';
 import { forwardRef, useEffect, useState } from 'react';
@@ -54,7 +55,11 @@ export const SharePopover = forwardRef<
       <div className={classes['popover-footer']}>
         <Clickable onClick={copyUrlHandler} className={classes['copy-container']}>
           <div className={classes['copy-icon']}>
-            {isUrlCopied ? <span className={classes['done-icon']}>&#10003;</span> : <CopyIcon />}
+            {isUrlCopied ? (
+              <DoneIcon width={24} height={24} />
+            ) : (
+              <CopyIcon width={24} height={24} />
+            )}
           </div>
           <p className={classes['copy-text']}>{isUrlCopied ? 'Havola nusxalandi' : 'Nusxalash'}</p>
         </Clickable>
