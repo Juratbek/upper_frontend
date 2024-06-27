@@ -38,7 +38,7 @@ export const useBlogArticles = (status: TArticleStatus) =>
   });
 
 export const usePublish = (id: number, config?: UseMutationOptions<number>) =>
-  useMutation({
+  useMutation<number>({
     mutationKey: ['publish', id],
     mutationFn: () => apiClient.post<void, number>({ path: `article/publish/${id}` }),
     ...config,
