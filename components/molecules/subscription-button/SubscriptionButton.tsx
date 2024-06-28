@@ -18,7 +18,7 @@ export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
 
   if (isSubscribed)
     return (
-      <Button className={className} onClick={unsubscribeHandler}>
+      <Button className={className} color='tertiary' onClick={unsubscribeHandler}>
         Obuna bo&apos;lingan
       </Button>
     );

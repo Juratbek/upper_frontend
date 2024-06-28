@@ -1,7 +1,10 @@
+@import 'styles/breakpoints';
+
 .root {
   display: flex;
   align-items: center;
   padding-block: 2.4rem;
+  gap: 4px;
   border-bottom: 1px solid var(--divider-secondary-background, #E8E9E9);
 }
 
@@ -25,6 +28,11 @@
 
 .subscribe {
   margin-left: auto;
+  flex-shrink: 0;
+
+  @include media-max(small) {
+    padding-inline: 12px;
+  }
 }
 
 .author {
