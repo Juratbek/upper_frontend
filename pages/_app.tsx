@@ -84,6 +84,7 @@ function MyApp(props: AppProps): JSX.Element {
         </>
       )}
       <div
+        id='scrollable-root'
         style={{ height: '100vh', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
       >
         {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
