@@ -2,7 +2,7 @@ import { Head, Spinner } from 'components/lib';
 import { Editor, IBlockData } from 'components/molecules';
 import { createBlock } from 'components/molecules/editor/context/EditorContext.utils';
 import { GenericWrapper } from 'components/wrappers';
-import { PublishArticleModal, WriteArticleHeader } from 'frontends/user-articles';
+import { WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -78,7 +78,6 @@ export default function UserArticlePage(): JSX.Element {
       isNavigationHidden
       header={<WriteArticleHeader />}
     >
-      <PublishArticleModal />
       <Head title='Blog maqolasi' url='/user/articles' />
       {renderEditor()}
     </GenericWrapper>
