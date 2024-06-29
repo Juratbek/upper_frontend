@@ -4,13 +4,6 @@ import { IIconProps } from 'types';
 
 export const ICONS = {
   telegramColored: icons.TelegramColoredIcon,
-  google: icons.GoogleIcon,
-  facebook: icons.FacebookIcon,
-  github: icons.GitHubIcon,
-  comment: icons.Comment,
-  like: icons.Like,
-  dislike: icons.Dislike,
-  share: icons.Share,
   next: icons.Next,
   prev: icons.Prev,
   instagram: icons.InstagramIcon,

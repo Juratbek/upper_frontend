@@ -1,3 +1,4 @@
+import { CommentIcon, DislikeIcon, LikeIcon, ShareIcon } from 'components/icons';
 import { Clickable, Divider } from 'components/lib';
 import { SharePopover } from 'components/organisms';
 import { useAuth, useClickOutside, useTheme } from 'hooks';
@@ -14,15 +15,8 @@ import {
 import { toggleCommentsModal } from 'store/states';
 import { getClassName } from 'utils';
 import { UPPER_BLUE_COLOR } from 'variables/colors';
-import { ICONS } from 'variables/icons';
 
 import classes from './ArticleFooter.module.scss';
-
-const Like = ICONS.like;
-const Dislike = ICONS.dislike;
-const CommentIcon = ICONS.comment;
-// const SaveIcon = ICONS.save;
-const ShareIcon = ICONS.share;
 
 export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }) => {
   const { query } = useRouter();
@@ -73,8 +67,6 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
     }
   };
 
-  // const isLoading = isLikePending || isDisLikePending ||
-
   return (
     <div className={classes.root}>
       <div className={classes['reactions-container']}>
@@ -83,7 +75,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
           disabled={!!isLikedOrDisliked || isLikePending}
           onClick={likeHandler}
         >
-          <Like color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <LikeIcon color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
         {Boolean(likeCount) && (
           <span className={getClassName(classes['like-count'], classes.count)}>{likeCount}</span>
@@ -94,7 +86,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
           disabled={!isLikedOrDisliked || isDisLikePending}
           onClick={dislikeHandler}
         >
-          <Dislike color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <DislikeIcon color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>
       <Clickable onClick={commentClickHandler} className={classes['comment-container']}>

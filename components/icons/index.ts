@@ -12,3 +12,8 @@ export * from './Search';
 export * from './Eye';
 export * from './EyeSlash';
 export * from './Telegram';
+export * from './Facebook';
+export * from './Like';
+export * from './Dislike';
+export * from './Comment';
+export * from './Share';
