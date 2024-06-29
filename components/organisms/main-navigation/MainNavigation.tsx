@@ -1,6 +1,6 @@
+import { HomeIcon, NotificationIcon, WriteIcon } from 'components/icons';
 import { FC, useMemo } from 'react';
 import { useNotificationsCount } from 'store/clients/notification';
-import { ICONS } from 'variables/icons';
 
 import { INavigation, Navigation } from '../navigation';
 
@@ -11,7 +11,7 @@ export const MainNavigation: FC = () => {
     (): INavigation[] => [
       {
         href: '',
-        icon: ICONS.home,
+        icon: HomeIcon,
         text: 'Bosh sahifa',
       },
       // {
@@ -21,13 +21,13 @@ export const MainNavigation: FC = () => {
       // },
       {
         href: '/notifications',
-        icon: ICONS.notification,
+        icon: NotificationIcon,
         text: 'Xabarlar',
         badge: Number(notificationsCount) > 9 ? '9+' : notificationsCount,
       },
       {
         href: '/user/articles/draft',
-        icon: ICONS.write,
+        icon: WriteIcon,
         text: 'Maqolalaringiz',
       },
     ],

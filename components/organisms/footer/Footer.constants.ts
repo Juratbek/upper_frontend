@@ -1,3 +1,4 @@
+import { TelegramIcon } from 'components/icons';
 import { ICONS } from 'variables/icons';
 
 import { IFooterLink, IMediaIcon } from './Footer.types';
@@ -23,7 +24,7 @@ export const LINKS: IFooterLink[] = [
 
 export const MEDIA_ICONS: IMediaIcon[] = [
   {
-    icon: ICONS.telegram,
+    icon: TelegramIcon,
     url: 'https://t.me/upperuz_bot',
   },
   {

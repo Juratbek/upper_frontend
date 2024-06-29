@@ -3,4 +3,5 @@ export interface IIconProps {
   variant?: 'outlined' | 'fulfilled';
   width?: number;
   height?: number;
+  opacity?: number;
 }

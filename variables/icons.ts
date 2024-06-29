@@ -3,15 +3,6 @@ import { FC } from 'react';
 import { IIconProps } from 'types';
 
 export const ICONS = {
-  delete: icons.DeleteIcon,
-  home: icons.Home,
-  user: icons.User,
-  notification: icons.Notification,
-  menuList: icons.MenuListIcon,
-  pen: icons.Pen,
-  search: icons.Search,
-  eye: icons.EyeIcon,
-  telegram: icons.Telegram,
   telegramColored: icons.TelegramColoredIcon,
   google: icons.GoogleIcon,
   facebook: icons.FacebookIcon,
@@ -28,7 +19,6 @@ export const ICONS = {
   triangle: icons.TringleIcon,
   logOut: icons.LogOut,
   logo: icons.Logo,
-  eyeSlash: icons.EyeSlashIcon,
   burger: icons.BurgerIcon,
   logoIcon: icons.LogoIcon,
   heart: icons.HeartIcon,
@@ -44,11 +34,4 @@ export const ICONS = {
   uploadError: icons.UploadError,
   uploadSuccess: icons.UploadSuccess,
   telegramChannel: icons.TelegramChannel,
-  books: icons.Books,
-  write: icons.Write,
-  save: icons.Save,
-  settings: icons.Settings,
-  moon: icons.Moon,
-  copy: icons.Copy,
-  down: icons.Down,
 } satisfies Record<string, FC<IIconProps>>;

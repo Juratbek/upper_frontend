@@ -1,13 +1,10 @@
+import { EyeIcon, EyeSlashIcon } from 'components/icons';
 import { useTheme } from 'hooks';
 import { forwardRef, useState } from 'react';
 import { getClassName } from 'utils';
-import { ICONS } from 'variables/icons';
 
 import classes from './Input.module.scss';
 import { TInputProps } from './Input.types';
-
-const EyeIcon = ICONS.eye;
-const EyeSlashIcon = ICONS.eyeSlash;
 
 export const Input = forwardRef<HTMLInputElement, TInputProps>(function Component(
   { className, rootClassName, ...props },

@@ -1,20 +1,20 @@
+import { NotificationIcon, TelegramIcon, UserIcon } from 'components/icons';
 import { INavigation } from 'components/organisms';
-import { ICONS } from 'variables/icons';
 
 export const SETTINGS_NAVIGATION: INavigation[] = [
   {
     href: '/settings/profile',
-    icon: ICONS.user,
+    icon: UserIcon,
     text: 'Profil',
   },
   {
     href: '/settings/notifications',
-    icon: ICONS.notification,
+    icon: NotificationIcon,
     text: 'Xabarlar',
   },
   {
     href: '/settings/telegram-channels',
-    icon: ICONS.telegram,
+    icon: TelegramIcon,
     text: 'Telegram Kanallari',
   },
   // {

@@ -1,17 +1,13 @@
 import { language as CodemirrorLanguage } from '@codemirror/language';
 import { EditorView } from 'codemirror';
-import { DoneIcon } from 'components/icons';
+import { CopyIcon, DoneIcon, DownIcon } from 'components/icons';
 import { useClickOutside, useClipboard, useTheme } from 'hooks';
 import { useId, useState } from 'react';
-import { ICONS } from 'variables/icons';
 
 import { defaultLanguage, languageConf } from '../Code.tool';
 import { ILanguage } from '../Code.types';
 import { LANGUAGES } from './Header.constants';
 import cls from './Header.module.scss';
-
-const CopyButtonIcon = ICONS.copy;
-const DownIcon = ICONS.down;
 
 export const Header = ({ editor, isEditable }: { editor: EditorView; isEditable: boolean }) => {
   if (!isEditable) return <CopyButton editor={editor} />;
@@ -33,7 +29,7 @@ const CopyButton = ({ editor }: { editor: EditorView }) => {
       {isCopied ? (
         <DoneIcon width={20} height={20} color={themeColors.icon} />
       ) : (
-        <CopyButtonIcon color={themeColors.icon} width={20} height={20} opacity={0.4} />
+        <CopyIcon color={themeColors.icon} width={20} height={20} opacity={0.4} />
       )}
     </button>
   );

@@ -1,10 +1,10 @@
 import { FC, RefObject, useEffect, useRef } from 'react';
 import { ICONS } from 'variables/icons';
 
-const TelegramIcon = ICONS.telegram;
 const FacebookIcon = ICONS.facebook;
 const LinkedInIcon = ICONS.linkedIn;
 
+import { TelegramIcon } from 'components/icons';
 import { Button } from 'components/lib';
 import { useClickOutside, useClipboard, useTheme } from 'hooks';
 import { addKeyboardListener } from 'utils';
