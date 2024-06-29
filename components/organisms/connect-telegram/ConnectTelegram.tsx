@@ -1,11 +1,9 @@
+import { TelegramIcon } from 'components/icons';
 import { Button } from 'components/lib';
 import { useAuth, useTheme } from 'hooks';
 import { FC, useCallback } from 'react';
 import { useGetAuthCode } from 'store/clients/blog';
 import { useGetTelegramConnectionStatus } from 'store/clients/telegram';
-import { ICONS } from 'variables/icons';
-
-const TelegramIcon = ICONS.telegramColored;
 
 export const ConnectTelegram: FC = () => {
   const { themeColors } = useTheme();

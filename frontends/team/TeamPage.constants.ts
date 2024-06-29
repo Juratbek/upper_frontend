@@ -1,5 +1,4 @@
-import { LinkedInIcon } from 'components/icons';
-import { ICONS } from 'variables/icons';
+import { LinkedInIcon, LogoIcon } from 'components/icons';
 
 import { ITeamMember } from './TeamPage.types';
 
@@ -15,7 +14,7 @@ export const team: ITeamMember[] = [
       },
       {
         url: '/blogs/1',
-        icon: ICONS.logoIcon,
+        icon: LogoIcon,
         target: '_self',
       },
     ],
@@ -31,7 +30,7 @@ export const team: ITeamMember[] = [
       },
       {
         url: '/blogs/5',
-        icon: ICONS.logoIcon,
+        icon: LogoIcon,
         target: '_self',
       },
     ],
@@ -47,7 +46,7 @@ export const team: ITeamMember[] = [
       },
       {
         url: '/blogs/207',
-        icon: ICONS.logoIcon,
+        icon: LogoIcon,
         target: '_self',
       },
     ],

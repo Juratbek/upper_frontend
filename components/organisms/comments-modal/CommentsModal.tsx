@@ -1,4 +1,5 @@
 import { Input } from 'components/form';
+import { SendIcon } from 'components/icons';
 import { Button, Clickable, Spinner } from 'components/lib';
 import { Comment } from 'components/molecules';
 import { useAuth } from 'hooks';
@@ -9,12 +10,9 @@ import { useDispatch } from 'react-redux';
 import { useAppSelector } from 'store';
 import { useCommentsList, useCreateComment } from 'store/clients/comments';
 import { closeCommentsModal, getIsCommentsModalOpen } from 'store/states';
-import { ICONS } from 'variables/icons';
 
 import classes from './CommentsModal.module.scss';
 import { NoComments } from './no-comments/NoComments';
-
-const SendIcon = ICONS.send;
 
 export const CommentsModal: FC = () => {
   const { query } = useRouter();

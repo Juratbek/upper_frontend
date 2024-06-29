@@ -1,10 +1,8 @@
 import { Input } from 'components/form';
+import { TelegramChannelIcon } from 'components/icons';
 import { useTheme } from 'hooks';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { ITelegramChannel } from 'types';
-import { ICONS } from 'variables/icons';
-
-const TelegramChannelIcon = ICONS.telegramChannel;
 
 export const ConnectedTelegramChannels: FC<{
   channels: ITelegramChannel[];
