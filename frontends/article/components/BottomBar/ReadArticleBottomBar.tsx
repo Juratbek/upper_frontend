@@ -20,10 +20,11 @@ export const ReadArticleBottomBar: FC = () => {
   }, []);
 
   useEffect(() => {
-    document.querySelector('.theme-light')?.addEventListener('scroll', detectScrollDirection);
+    const selector = '#scrollable-root';
+    document.querySelector(selector)?.addEventListener('scroll', detectScrollDirection);
 
     return () => {
-      document.querySelector('.theme-light')?.removeEventListener('scroll', detectScrollDirection);
+      document.querySelector(selector)?.removeEventListener('scroll', detectScrollDirection);
     };
   }, [detectScrollDirection]);
 
