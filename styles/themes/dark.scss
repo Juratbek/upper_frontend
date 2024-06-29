@@ -75,6 +75,9 @@
     --spinner-primary-color: var(--main-text);
     --spinner-secondary-color: black;
 
+    // Modal
+    --modal-dialog-bg: var(--secondary-color);
+
     // Profile
     --header-profile-bg: var(--secondary-color);
     --header-profile-icon: var(--black-200);
@@ -145,6 +148,9 @@
 
     --article-bottom-bar-bg: var(--main-bg);
     --article-bottom-bar-border: var(--black-300);
+
+    // Unsubscribe Modal
+    --unsubscribe-modal-btn-border: var(--black-300);
 
     // Footer
     --footer-border: var(--secondary-color);

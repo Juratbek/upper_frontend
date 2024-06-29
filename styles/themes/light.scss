@@ -40,6 +40,9 @@
     --spinner-primary-color: black;
     --spinner-secondary-color: white;
 
+    // Modal
+    --modal-dialog-bg: white;
+
     // Profile
     --header-profile-bg: var(--black-50);
     --header-profile-icon: var(--black-400);
@@ -109,6 +112,11 @@
 
     --article-bottom-bar-bg: var(--white, #FFF);
     --article-bottom-bar-border: var(--black-50, #E8E9E9);
+
+    // Unsubscribe Modal
+    --unsubscribe-modal-text: var(--black-400, #45494A);
+    --unsubscribe-modal-btn-text: var(--black-500, #161B1D);
+    --unsubscribe-modal-btn-border: var(--black-50, #E8E9E9);
 
     // Footer
     --footer-border: var(--black-50);
