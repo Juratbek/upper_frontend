@@ -1,13 +1,11 @@
+import { NextIcon } from 'components/icons';
 import { Link } from 'components/lib';
 import { useTheme } from 'hooks';
 import { FC, useCallback } from 'react';
-import { ICONS } from 'variables/icons';
 
 import { MENU_LIST_ITEMS } from './MenuList.constants';
 import classes from './MenuList.module.scss';
 import { IMenuListItem, IMenuListProps } from './MenuList.types';
-
-const NextIcon = ICONS.next;
 
 export const MenuList: FC<IMenuListProps> = ({ closePopover, itemClassName, setSubmenu }) => {
   const renderItem = useCallback((item: IMenuListItem, className: string) => {

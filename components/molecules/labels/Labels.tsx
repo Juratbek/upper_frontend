@@ -1,15 +1,12 @@
+import { NextIcon, PrevIcon } from 'components/icons';
 import { Clickable, TabButton } from 'components/lib';
 import { COMMON_SPACE_FROM_TOP } from 'components/wrappers';
 import { useTheme } from 'hooks';
 import { FC, useRef } from 'react';
 import { getClassName } from 'utils';
-import { ICONS } from 'variables/icons';
 
 import classes from './Labels.module.scss';
 import { ILabelsProps } from './Labels.types';
-
-const NextIcon = ICONS.next;
-const PrevIcon = ICONS.prev;
 
 export const Labels: FC<ILabelsProps> = (props) => {
   const { labels = [], activeLabel } = props;

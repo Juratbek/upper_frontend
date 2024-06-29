@@ -1,11 +1,9 @@
+import { LogOutIcon } from 'components/icons';
 import { useAppRouter, useAuth } from 'hooks';
 import { FC } from 'react';
 import { WEB_APP_ROOT_DIR } from 'variables';
-import { ICONS } from 'variables/icons';
 
 import classes from './LogOut.module.scss';
-
-const LogOut = ICONS.logOut;
 
 export const LogOutBtn: FC<{ className?: string }> = ({ className }) => {
   const { unauthenticate } = useAuth();
@@ -23,7 +21,7 @@ export const LogOutBtn: FC<{ className?: string }> = ({ className }) => {
     <div className={`${classes['log-out']} ${className}`} onClick={logOutHandler}>
       <div className={classes.body}>
         <span className={classes.icon}>
-          <LogOut />
+          <LogOutIcon />
         </span>
         <p className={classes.text}>Profildan chiqish</p>
       </div>

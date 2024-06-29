@@ -1,3 +1,4 @@
+import { LinkedInIcon } from 'components/icons';
 import { ICONS } from 'variables/icons';
 
 import { ITeamMember } from './TeamPage.types';
@@ -10,7 +11,7 @@ export const team: ITeamMember[] = [
     links: [
       {
         url: 'https://www.linkedin.com/in/jur-atbek-mahammadaliyev-b66396203',
-        icon: ICONS.linkedIn,
+        icon: LinkedInIcon,
       },
       {
         url: '/blogs/1',
@@ -26,7 +27,7 @@ export const team: ITeamMember[] = [
     links: [
       {
         url: 'https://www.linkedin.com/in/boymurodov-samandar',
-        icon: ICONS.linkedIn,
+        icon: LinkedInIcon,
       },
       {
         url: '/blogs/5',
@@ -42,7 +43,7 @@ export const team: ITeamMember[] = [
     links: [
       {
         url: 'https://www.linkedin.com/in/musojon-tursunov/',
-        icon: ICONS.linkedIn,
+        icon: LinkedInIcon,
       },
       {
         url: '/blogs/207',

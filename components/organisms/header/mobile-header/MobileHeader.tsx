@@ -1,17 +1,13 @@
 import { ApiErrorBoundary } from 'components/ApiErrorBoundary';
 import { Input } from 'components/form';
-import { SearchIcon } from 'components/icons';
+import { Logo, PrevIcon, SearchIcon } from 'components/icons';
 import { Link, Spinner } from 'components/lib';
 import { useTheme } from 'hooks';
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { useSearch } from 'store/clients/published-article';
 import { debouncer } from 'utils/debouncer';
-import { ICONS } from 'variables/icons';
 
 import classes from './MobileHeader.module.scss';
-
-const Logo = ICONS.logo;
-const Prev = ICONS.prev;
 
 const inputDebounce = debouncer<string>(400);
 
@@ -40,7 +36,7 @@ export const MobileHeader = (): JSX.Element => {
     return (
       <div className={`${classes['search-container']} ${!isSearchUiVisible && classes.hidden}`}>
         <span onClick={searchUiVisibleHandler(false)}>
-          <Prev color={themeColors.icon} />
+          <PrevIcon color={themeColors.icon} />
         </span>
         <Input
           className={classes['search-input']}

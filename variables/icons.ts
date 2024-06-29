@@ -4,14 +4,6 @@ import { IIconProps } from 'types';
 
 export const ICONS = {
   telegramColored: icons.TelegramColoredIcon,
-  next: icons.Next,
-  prev: icons.Prev,
-  instagram: icons.InstagramIcon,
-  linkedIn: icons.LinkedIn,
-  youtube: icons.YouTubeIcon,
-  triangle: icons.TringleIcon,
-  logOut: icons.LogOut,
-  logo: icons.Logo,
   burger: icons.BurgerIcon,
   logoIcon: icons.LogoIcon,
   heart: icons.HeartIcon,

@@ -1,11 +1,9 @@
+import { TriangleIcon } from 'components/icons';
 import { FC, useState } from 'react';
 import { getClassName } from 'utils';
-import { ICONS } from 'variables/icons';
 
 import classes from './Dropdown.module.scss';
 import { IDropdownProps } from './Dropdown.types';
-
-const Triangle = ICONS.triangle;
 
 export const Dropdown: FC<IDropdownProps> = (props) => {
   const [isOpen, setIsOpen] = useState<boolean>(props.isOpen || false);
@@ -30,7 +28,7 @@ export const Dropdown: FC<IDropdownProps> = (props) => {
             props.iconSize ? classes[`icon-${props.iconSize}`] : 'icon-large'
           }`}
         >
-          <Triangle />
+          <TriangleIcon />
         </span>
       </div>
       <div className={getClassName(isOpen ? classes.open : classes.closed)}>{children}</div>

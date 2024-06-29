@@ -1,11 +1,7 @@
-import { FC, RefObject, useEffect, useRef } from 'react';
-import { ICONS } from 'variables/icons';
-
-const LinkedInIcon = ICONS.linkedIn;
-
-import { FacebookIcon, TelegramIcon } from 'components/icons';
+import { FacebookIcon, LinkedInIcon, TelegramIcon } from 'components/icons';
 import { Button } from 'components/lib';
 import { useClickOutside, useClipboard, useTheme } from 'hooks';
+import { FC, RefObject, useEffect, useRef } from 'react';
 import { addKeyboardListener } from 'utils';
 
 import styles from './article-share-popup.module.scss';
