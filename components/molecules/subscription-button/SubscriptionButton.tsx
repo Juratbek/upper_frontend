@@ -1,4 +1,5 @@
 import { Button } from 'components/lib';
+import { useAuth } from 'hooks';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSubscribe, useSubscriptionStatus } from 'store/clients/subscription';
@@ -11,20 +12,26 @@ export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
   const { data: isSubscribed, isLoading } = useSubscriptionStatus(blogId);
   const { mutate: subscribe, isPending: isBeingSubscribed } = useSubscribe(blogId);
   const dispatch = useDispatch();
+  const { status: authStatus, openLoginPage } = useAuth();
 
   const unsubscribeHandler = (): unknown => dispatch(openUnsubscribeModal(blogId));
+
+  const subscribeHandler = () => {
+    if (authStatus === 'authenticated') subscribe();
+    if (authStatus === 'unauthenticated') openLoginPage("Obuna bo'lish uchun ro'yxatdan o'ting");
+  };
 
   if (isLoading) return <></>;
 
   if (isSubscribed)
     return (
-      <Button className={className} onClick={unsubscribeHandler}>
+      <Button className={className} color='tertiary' onClick={unsubscribeHandler}>
         Obuna bo&apos;lingan
       </Button>
     );
 
-  return (
-    <Button className={className} onClick={subscribe} loading={isBeingSubscribed}>
+  return authStatus === 'loading' ? null : (
+    <Button className={className} onClick={subscribeHandler} loading={isBeingSubscribed}>
       Obuna bo&apos;lish
     </Button>
   );

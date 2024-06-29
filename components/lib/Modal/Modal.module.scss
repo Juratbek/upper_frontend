@@ -22,7 +22,7 @@
 }
 
 .modal-dialog {
-  background-color: white;
+  background-color: var(--modal-dialog-bg);
   z-index: 1000;
   border-radius: 12px;
   min-width: 280px;
