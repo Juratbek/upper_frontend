@@ -12,10 +12,10 @@ export const useSubscriptionStatus = (blogId: number): UseQueryResult<boolean> =
   });
 };
 
-export const useSubscribe = (blogId: number): UseMutationResult => {
+export const useSubscribe = (blogId: number): UseMutationResult<unknown, unknown, void> => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  return useMutation<unknown, unknown, void>({
     mutationFn: () => apiClient.post({ path: `subscription/subscribe/${blogId}` }),
     mutationKey: ['subscribe', blogId],
     onSuccess: () => {
