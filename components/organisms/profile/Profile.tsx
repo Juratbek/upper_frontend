@@ -1,13 +1,11 @@
+import { NextIcon } from 'components/icons';
 import { Avatar } from 'components/lib';
 import { useClickOutside } from 'hooks';
 import { useCallback, useState } from 'react';
 import { useGetCurrentBlog } from 'store/clients/blog';
-import { ICONS } from 'variables/icons';
 
 import { ProfilePopover } from './components/popover/PorfilePopover';
 import classes from './Profile.module.scss';
-
-const NextIcon = ICONS.next;
 
 export const Profile = (): JSX.Element => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);

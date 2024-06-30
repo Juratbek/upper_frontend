@@ -1,12 +1,10 @@
+import { LikeIcon } from 'components/icons';
 import { Link } from 'components/lib';
 import { FC } from 'react';
 import { dateInterval, getClassName } from 'utils';
-import { ICONS } from 'variables/icons';
 
 import classes from '../Notification.module.scss';
 import { INotificationComponentProp } from '../Notification.types';
-
-const LikeIcon = ICONS.like;
 
 export const LikeNotification: FC<INotificationComponentProp> = (props) => {
   const { className, author, article, status, createdDate } = props;

@@ -1,11 +1,8 @@
 import { Avatar } from 'components/lib';
-import { useModal, useTheme } from 'hooks';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
-import { ILink } from 'types';
-import { addLinkPrefix, getClassName } from 'utils';
+import { getClassName } from 'utils';
 import { WEB_APP_ROOT_DIR } from 'variables';
-import { ICONS } from 'variables/icons';
 
 import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
@@ -17,7 +14,7 @@ export const Blog: FC<IBlogProps> = ({
   avatarSize = 'extra-large',
   ...props
 }) => {
-  const { className, isLink, id, links = [] } = props;
+  const { className, isLink, id } = props;
   const rootClassName = getClassName(classes.blog, className);
 
   const getBlog = useCallback(
@@ -31,13 +28,13 @@ export const Blog: FC<IBlogProps> = ({
         />
         <div className='position-relative flex-1'>
           <h2 className='m-0'>{name}</h2>
-          <div className={classes['social-media-links']}>
+          {/* <div className={classes['social-media-links']}>
             {links?.map((link) => (
               <a key={link.link} href={addLinkPrefix(link)} target='_blank' rel='noreferrer'>
                 <HoverableIcon {...link} />
               </a>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     ),
@@ -55,15 +52,3 @@ export const Blog: FC<IBlogProps> = ({
     </div>
   );
 };
-
-function HoverableIcon(link: ILink): JSX.Element {
-  const [isHovered, toggleIsHovered] = useModal(false);
-  const { themeColors } = useTheme();
-  const Icon = ICONS[link.type];
-
-  return (
-    <span className={classes.icon} onMouseEnter={toggleIsHovered} onMouseLeave={toggleIsHovered}>
-      <Icon color={isHovered ? themeColors.icon : 'gray'} />
-    </span>
-  );
-}

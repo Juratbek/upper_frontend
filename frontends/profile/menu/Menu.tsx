@@ -1,12 +1,10 @@
+import { NextIcon } from 'components/icons';
 import { Link } from 'components/lib';
 import { useTheme } from 'hooks';
 import { FC } from 'react';
-import { ICONS } from 'variables/icons';
 
 import { menu } from './Menu.constants';
 import classes from './Menu.module.scss';
-
-const NextIcon = ICONS.next;
 
 export const Menu: FC = () => {
   const { themeColors } = useTheme();

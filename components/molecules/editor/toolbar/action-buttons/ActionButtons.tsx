@@ -1,11 +1,9 @@
 import { IconMenu } from '@codexteam/icons';
+import { PlusIcon } from 'components/icons';
 import { forwardRef } from 'react';
 import { getClassName } from 'utils';
-import { ICONS } from 'variables/icons';
 
 import classes from './ActionButtons.module.scss';
-
-const PlusIcon = ICONS.plus;
 
 export const ActionButtons = forwardRef<
   HTMLDivElement,
@@ -18,7 +16,7 @@ export const ActionButtons = forwardRef<
   return (
     <div className={classes.container} ref={ref}>
       <button className={getClassName(classes.btn, 'action-button')} onClick={onPlus}>
-        <PlusIcon color={color} width={32} height={32} strokeWidth={3} />
+        <PlusIcon color={color} width={32} height={32} />
       </button>
       <button
         className={getClassName(classes.btn, 'action-button')}

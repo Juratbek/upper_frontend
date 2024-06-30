@@ -1,12 +1,12 @@
 import { IHeadProps } from 'components/lib';
-import { IBlog, ILink, TIcon } from 'types';
+import { IBlog, ILink } from 'types';
 
 const https = 'https://';
 const http = 'http://';
 
-const LINK_DOMAINS: Partial<{ [name in TIcon]: string }> = {
+const LINK_DOMAINS: Record<string, string> = {
   telegram: 't.me',
-};
+} as const;
 
 export const addLinkPrefix = (linkObject: ILink): string => {
   const { link, type } = linkObject;

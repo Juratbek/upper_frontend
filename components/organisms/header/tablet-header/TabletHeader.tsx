@@ -1,12 +1,10 @@
+import { Logo } from 'components/icons';
 import { Link } from 'components/lib';
 import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useTheme } from 'hooks';
 import { FC, useRef } from 'react';
-import { ICONS } from 'variables/icons';
 
 import classes from './TabletHeader.module.scss';
-
-const Logo = ICONS.logo;
 
 export const TabletHeader: FC = () => {
   const { themeColors } = useTheme();

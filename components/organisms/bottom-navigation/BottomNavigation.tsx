@@ -1,14 +1,12 @@
+import { PlusIcon } from 'components/icons';
 import { Link, Spinner } from 'components/lib';
 import { useAppRouter, useTheme } from 'hooks';
 import { FC, useCallback, useMemo } from 'react';
 import { useCreateArticle } from 'store/clients/article';
-import { ICONS } from 'variables/icons';
 
 import { leftButtons, rightButtons } from './BottomNavigation.constants';
 import classes from './BottomNavigation.module.scss';
 import { IButton } from './BottomNavigation.types';
-
-const Plus = ICONS.plus;
 
 export const BottomNavigation: FC = () => {
   const { push } = useAppRouter();
@@ -30,7 +28,7 @@ export const BottomNavigation: FC = () => {
     return (
       <button className={classes['add-btn']} onClick={createArticleHandler}>
         <span className={classes.circle}>
-          <Plus width={44} height={44} color={themeColors.icon} />
+          <PlusIcon width={44} height={44} color={themeColors.icon} />
         </span>
       </button>
     );
