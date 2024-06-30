@@ -1,6 +1,6 @@
 import { IIconProps } from './types';
 
-export const UploadErrorIcon = ({ color = 'black', width = 20, height = 20 }: IIconProps) => (
+export const UploadErrorIcon = ({ color = '#FF0000', width = 20, height = 20 }: IIconProps) => (
   <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
     <g>
       <path
