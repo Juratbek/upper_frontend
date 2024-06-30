@@ -31,3 +31,4 @@ export * from './LogoIcon';
 export * from './TelegramColored';
 export * from './TelegramChannel';
 export * from './Plus';
+export * from './types';

@@ -1,4 +1,4 @@
-import { TIconComponent } from 'types';
+import { TIconComponent } from 'components/icons';
 
 export interface IFooterLink {
   text: string;

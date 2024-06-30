@@ -5,3 +5,5 @@ export interface IIconProps {
   height?: number;
   opacity?: number;
 }
+
+export type TIconComponent = (props: IIconProps) => JSX.Element;

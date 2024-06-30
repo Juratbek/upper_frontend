@@ -1,4 +1,4 @@
-import { TIconComponent } from 'types';
+import { TIconComponent } from 'components/icons';
 
 export interface IButton {
   icon: TIconComponent;

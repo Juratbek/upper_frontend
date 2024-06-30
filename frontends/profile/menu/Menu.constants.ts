@@ -1,5 +1,5 @@
 import { MoonIcon, NotificationIcon, SettingsIcon, WriteIcon } from 'components/icons';
-import { TIconComponent } from 'types';
+import { TIconComponent } from 'components/icons';
 
 export const menu: Array<{ icon: TIconComponent; text: string; path: string }> = [
   {

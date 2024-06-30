@@ -1,6 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { FC } from 'react';
-import { ICONS } from 'variables/icons';
 
 export interface ITabHeader {
   name: string;
@@ -11,8 +10,6 @@ export interface ITabBody {
   [tabId: string]: FC;
 }
 
-export type TIcon = keyof typeof ICONS;
-
 export interface IIconProps {
   color?: string;
   variant?: 'outlined' | 'fulfilled';
@@ -21,8 +18,6 @@ export interface IIconProps {
   strokeWidth?: number;
   opacity?: number;
 }
-
-export type TIconComponent = FC<IIconProps>;
 
 export type TClassName = string | undefined | Record<string, string> | boolean;
 
