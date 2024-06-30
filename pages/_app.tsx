@@ -6,7 +6,7 @@ import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
-import { useAuth, useTheme } from 'hooks';
+import { useAuth, useConsoleAnalytics, useTheme } from 'hooks';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -46,6 +46,7 @@ function MyApp(props: AppProps): JSX.Element {
   const { router } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate, syncTokens } = useAuth();
   const { theme } = useTheme();
+  useConsoleAnalytics();
 
   useEffect(() => {
     const token = getToken();
