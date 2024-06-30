@@ -1,4 +1,3 @@
-export * from './Status';
 export * from './ChangeableText';
 export * from './Button';
 export * from './Alert';

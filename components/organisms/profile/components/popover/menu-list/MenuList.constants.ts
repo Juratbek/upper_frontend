@@ -1,11 +1,11 @@
-import { ICONS } from 'variables/icons';
+import { MoonIcon, NotificationIcon, SettingsIcon, WriteIcon } from 'components/icons';
 
 import { ThemeMenu } from '../theme-menu/ThemeMenu';
 import { IMenuListItem } from './MenuList.types';
 
 export const MENU_LIST_ITEMS: IMenuListItem[] = [
   {
-    icon: ICONS.write,
+    icon: WriteIcon,
     text: 'Maqolalaringiz',
     href: '/user/articles/draft',
   },
@@ -15,17 +15,17 @@ export const MENU_LIST_ITEMS: IMenuListItem[] = [
   //   href: '/saved-articles',
   // },
   {
-    icon: ICONS.notification,
+    icon: NotificationIcon,
     text: 'Xabarlar',
     href: '/notifications',
   },
   {
-    icon: ICONS.settings,
+    icon: SettingsIcon,
     text: 'Sozlamalar',
     href: '/settings/profile',
   },
   {
-    icon: ICONS.moon,
+    icon: MoonIcon,
     text: 'Qiyofa',
     menu: ThemeMenu,
   },

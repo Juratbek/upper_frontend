@@ -1,15 +1,15 @@
-import { ICONS } from 'variables/icons';
+import { HomeIcon, NotificationIcon, UserIcon, WriteIcon } from 'components/icons';
 
 import { IButton } from './BottomNavigation.types';
 
 export const leftButtons: IButton[] = [
   {
-    icon: ICONS.home,
+    icon: HomeIcon,
     path: '/',
     label: 'Asosiy',
   },
   {
-    icon: ICONS.write,
+    icon: WriteIcon,
     path: '/user/articles/draft',
     label: 'Maqolalaringiz',
   },
@@ -17,12 +17,12 @@ export const leftButtons: IButton[] = [
 
 export const rightButtons: IButton[] = [
   {
-    icon: ICONS.notification,
+    icon: NotificationIcon,
     path: '/notifications',
     label: 'Xabarlar',
   },
   {
-    icon: ICONS.user,
+    icon: UserIcon,
     path: '/profile',
     label: 'Profil',
   },

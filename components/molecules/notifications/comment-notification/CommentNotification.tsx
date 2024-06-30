@@ -1,14 +1,12 @@
+import { CommentIcon } from 'components/icons';
 import { Link } from 'components/lib';
 import { FC } from 'react';
 import { getClassName } from 'utils/common';
 import { dateInterval } from 'utils/date';
-import { ICONS } from 'variables/icons';
 
 import classes from '../Notification.module.scss';
 import { INotificationComponentProp } from '../Notification.types';
 import styles from './CommentNotification.module.scss';
-
-const CommentIcon = ICONS.comment;
 
 export const CommentNotification: FC<INotificationComponentProp> = (props) => {
   const { className, article, author, status, createdDate, message } = props;

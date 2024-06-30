@@ -11,3 +11,4 @@ export * from './useDevice/useDevice';
 export * from './useScrollToggler';
 export * from './useTheme/useTheme';
 export * from './useAppRouter';
+export * from './useConsoleAnalytics/useConsoleAnalytics';

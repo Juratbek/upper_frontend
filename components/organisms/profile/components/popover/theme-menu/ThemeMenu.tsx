@@ -1,15 +1,13 @@
 import { Input } from 'components/form';
+import { PrevIcon } from 'components/icons';
 import { Clickable } from 'components/lib';
 import { THEME_VARIANTS } from 'context';
 import { useTheme } from 'hooks';
 import { ChangeEvent, FC, useCallback } from 'react';
 import { TSelectedThemeOption } from 'types';
-import { ICONS } from 'variables/icons';
 
 import { ISubmenuProps } from '../ProfilePopover.types';
 import classes from './ThemeMenu.module.scss';
-
-const PrevIcon = ICONS.prev;
 
 export const ThemeMenu: FC<ISubmenuProps> = ({ onBack, className }) => {
   const { selectedThemeOption, changeTheme, themeColors } = useTheme();

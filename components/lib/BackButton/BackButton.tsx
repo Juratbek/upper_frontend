@@ -1,9 +1,7 @@
+import { PrevIcon } from 'components/icons';
 import { useAppRouter, useTheme } from 'hooks';
-import { ICONS } from 'variables/icons';
 
 import { Clickable } from '../Clickable';
-
-const PrevIcon = ICONS.prev;
 
 export const BackButton = (): JSX.Element => {
   const router = useAppRouter();

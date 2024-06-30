@@ -1,15 +1,13 @@
 import { ApiErrorBoundary } from 'components/ApiErrorBoundary';
+import { SearchIcon } from 'components/icons';
 import { Clickable, Divider, Link, Spinner } from 'components/lib';
 import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FocusEvent, forwardRef, useState } from 'react';
 import { useSearch } from 'store/clients/published-article';
 import { getClassName } from 'utils/common';
-import { ICONS } from 'variables/icons';
 
 import classes from './SearchInput.module.scss';
 import { ISearchInputProps } from './SearchInput.types';
-
-const SearchIcon = ICONS.search;
 
 export const SearchInput = forwardRef<HTMLInputElement, ISearchInputProps>(function Component(
   { inputContainerClassName, onChange, ...props },

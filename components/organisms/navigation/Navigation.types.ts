@@ -1,5 +1,5 @@
+import { TIconComponent } from 'components/icons';
 import { ReactNode } from 'react';
-import { TIconComponent } from 'types';
 
 export interface INavigation {
   href: string;

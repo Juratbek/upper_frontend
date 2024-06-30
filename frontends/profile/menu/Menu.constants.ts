@@ -1,24 +1,24 @@
-import { TIconComponent } from 'types';
-import { ICONS } from 'variables/icons';
+import { MoonIcon, NotificationIcon, SettingsIcon, WriteIcon } from 'components/icons';
+import { TIconComponent } from 'components/icons';
 
 export const menu: Array<{ icon: TIconComponent; text: string; path: string }> = [
   {
-    icon: ICONS.write,
+    icon: WriteIcon,
     text: 'Maqolalar',
     path: '/user/articles/draft',
   },
   {
-    icon: ICONS.notification,
+    icon: NotificationIcon,
     text: 'Xabarlar',
     path: '/notifications',
   },
   {
-    icon: ICONS.settings,
+    icon: SettingsIcon,
     text: 'Sozlamalar',
     path: '/settings',
   },
   {
-    icon: ICONS.moon,
+    icon: MoonIcon,
     text: 'Qiyofa',
     path: '/settings/theme',
   },

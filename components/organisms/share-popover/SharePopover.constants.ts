@@ -1,15 +1,15 @@
-import { ICONS } from 'variables/icons';
+import { LinkedInIcon, TelegramIcon } from 'components/icons';
 
 import { IMediaIcon } from './Footer.types';
 
 export const MEDIA_ICONS: IMediaIcon[] = [
   {
-    icon: ICONS.telegram,
+    icon: TelegramIcon,
     url: 'https://t.me/share/url?url=',
     name: 'Telegram',
   },
   {
-    icon: ICONS.linkedIn,
+    icon: LinkedInIcon,
     url: 'https://linkedin.com/sharing/share-offsite/?url=',
     name: 'LinkedIn',
   },

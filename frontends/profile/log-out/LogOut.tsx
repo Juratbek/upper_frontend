@@ -1,10 +1,8 @@
+import { LogOutIcon } from 'components/icons';
 import { useAppRouter, useAuth } from 'hooks';
 import { FC } from 'react';
-import { ICONS } from 'variables/icons';
 
 import classes from './LogOut.module.scss';
-
-const LogOutIcon = ICONS.logOut;
 
 export const LogOut: FC<{ className: string }> = ({ className }) => {
   const { unauthenticate } = useAuth();
