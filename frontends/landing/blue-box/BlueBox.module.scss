@@ -40,7 +40,7 @@
 .body {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: flex-end;
 
     @include media-max(large) {
         flex-direction: column-reverse;
