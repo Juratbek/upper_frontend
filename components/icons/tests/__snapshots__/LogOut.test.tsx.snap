@@ -31,4 +31,3 @@ exports[`LogOut icon > renders the icon 1`] = `
   />
 </svg>
 `;
-
