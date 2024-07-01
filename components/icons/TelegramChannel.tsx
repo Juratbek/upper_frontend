@@ -2,6 +2,7 @@ import { IIconProps } from './types';
 
 export const TelegramChannelIcon = ({ color = 'black', width = 20, height = 22 }: IIconProps) => (
   <svg
+    role='icon'
     width={width}
     height={height}
     viewBox='0 0 40 44'
