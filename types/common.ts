@@ -10,15 +10,6 @@ export interface ITabBody {
   [tabId: string]: FC;
 }
 
-export interface IIconProps {
-  color?: string;
-  variant?: 'outlined' | 'fulfilled';
-  width?: number;
-  height?: number;
-  strokeWidth?: number;
-  opacity?: number;
-}
-
 export type TClassName = string | undefined | Record<string, string> | boolean;
 
 export interface IGetServerSideProps<T = Record<string, never>> {
