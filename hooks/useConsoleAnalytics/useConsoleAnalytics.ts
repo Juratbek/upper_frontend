@@ -22,5 +22,5 @@ export const useConsoleAnalytics = () => {
         gtag('event', 'console_error', error);
       };
     };
-  });
+  }, []);
 };
