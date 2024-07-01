@@ -6,7 +6,7 @@ export const LikeIcon = ({
   color = 'black',
   variant = 'outlined',
 }: IIconProps) => (
-  <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
+  <svg role='icon' width={width} height={height} viewBox='0 0 24 24' fill='none'>
     {variant === 'fulfilled' && (
       <>
         <path
