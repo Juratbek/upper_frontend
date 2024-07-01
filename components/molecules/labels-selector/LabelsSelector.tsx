@@ -100,7 +100,11 @@ export const LabelsSelector: FC<ILabelSelectorOptions> = ({ defaultValues = [], 
       return <p className='text-center'>Xatolik yuz berdi</p>;
     }
     if (labels?.length === 0) {
-      return <p className='text-center'>Teglar topilmadi</p>;
+      return (
+        <p className='text-center'>
+          Teglar topilmadi, &quot;Qo&apos;shish&quot; tugmasi orqali qo&apos;shishingiz mumkin
+        </p>
+      );
     }
 
     if (isPending) {
