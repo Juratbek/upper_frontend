@@ -2,6 +2,7 @@ import { IIconProps } from './types';
 
 export const DownIcon = ({ width = 24, height = 24 }: IIconProps) => (
   <svg
+    role='icon'
     width={width}
     height={height}
     viewBox='0 0 24 24'
