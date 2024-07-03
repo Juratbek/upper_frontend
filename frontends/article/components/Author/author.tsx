@@ -11,7 +11,7 @@ export const Author: FC<IAuthorProps> = ({ name, bio, imgUrl, id }) => {
       <Link href={`/blogs/${id}`} className={classes.author}>
         <Avatar size='medium' imgUrl={imgUrl} />
         <div className={classes['text-block']}>
-          <h3 className={classes.name}>{name} sahna stend up</h3>
+          <h3 className={classes.name}>{name}</h3>
           <p className={classes.bio}>{bio}</p>
         </div>
       </Link>
