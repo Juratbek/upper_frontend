@@ -52,7 +52,6 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const [rootRef] = useClickOutside(closeSharePopover, `#${sharePopoverId}`);
 
   const likeHandler = (): void => {
-    console.log('liked', isAuthenticated);
     if (isAuthenticated) {
       like();
     } else {

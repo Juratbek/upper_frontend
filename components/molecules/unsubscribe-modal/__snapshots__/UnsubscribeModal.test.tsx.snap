@@ -1,0 +1,88 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Unsubscribe modal > shows spinner if unsubscribe is loading 1`] = `
+<body>
+  <div>
+    <div
+      class="modal"
+      data-testid="modal-root"
+    >
+      <button
+        class="root modal-bg"
+      />
+      <div
+        class="modal-dialog modal-dialog--undefined"
+      >
+        <div
+          class="modal-body"
+        >
+          <p
+            class="text"
+          >
+            Obunani bekor qilmoqchimisiz?
+          </p>
+        </div>
+        <div
+          class="d-flex"
+        >
+          <button
+            class="root unsubscribe-btn"
+          >
+            <div
+              class="spinner spinner--primary"
+              role="spinner"
+            />
+          </button>
+          <button
+            class="root no-btn"
+          >
+            yo'q
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Unsubscribe modal > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="modal"
+      data-testid="modal-root"
+    >
+      <button
+        class="root modal-bg"
+      />
+      <div
+        class="modal-dialog modal-dialog--undefined"
+      >
+        <div
+          class="modal-body"
+        >
+          <p
+            class="text"
+          >
+            Obunani bekor qilmoqchimisiz?
+          </p>
+        </div>
+        <div
+          class="d-flex"
+        >
+          <button
+            class="root unsubscribe-btn"
+          >
+            Bekor qilish
+          </button>
+          <button
+            class="root no-btn"
+          >
+            yo'q
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
