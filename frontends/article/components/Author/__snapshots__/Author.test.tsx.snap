@@ -32,13 +32,11 @@ exports[`Author component > snapshot 1`] = `
             class="name"
           >
             Jur'atbek
-             sahna stend up
           </h3>
           <p
             class="bio"
           >
             React developer
-             Lorem ipsum dolor sit.
           </p>
         </div>
       </a>
