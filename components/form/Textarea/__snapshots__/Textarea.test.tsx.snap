@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Textarea > snapshot 1`] = `
+<body>
+  <div>
+    <textarea
+      class="textarea textarea--undefined"
+      rows="3"
+      style="border-color: rgba(0, 0, 0, 0.25);"
+    />
+  </div>
+</body>
+`;
