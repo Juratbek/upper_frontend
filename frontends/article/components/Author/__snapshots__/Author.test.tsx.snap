@@ -1,0 +1,83 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Author component > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="root"
+    >
+      <a
+        class="author link"
+        href="/web/blogs/12"
+      >
+        <div
+          class="avatar avatar--medium"
+          style="border-color: rgba(245, 245, 245, 0.1);"
+        >
+          <img
+            alt="UPPER"
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="http://localhost:3000/_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=3840&q=75"
+            srcset="/_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fupper.uz%2Fimage&w=3840&q=75 3840w"
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+          />
+        </div>
+        <div
+          class="text-block"
+        >
+          <h3
+            class="name"
+          >
+            Jur'atbek
+             sahna stend up
+          </h3>
+          <p
+            class="bio"
+          >
+            React developer
+             Lorem ipsum dolor sit.
+          </p>
+        </div>
+      </a>
+      <div
+        class="modal"
+        data-testid="modal-root"
+      >
+        <button
+          class="root modal-bg"
+        />
+        <div
+          class="modal-dialog modal-dialog--undefined"
+        >
+          <div
+            class="modal-body"
+          >
+            <p
+              class="text"
+            >
+              Obunani bekor qilmoqchimisiz?
+            </p>
+          </div>
+          <div
+            class="d-flex"
+          >
+            <button
+              class="root unsubscribe-btn"
+            >
+              Bekor qilish
+            </button>
+            <button
+              class="root no-btn"
+            >
+              yo'q
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
