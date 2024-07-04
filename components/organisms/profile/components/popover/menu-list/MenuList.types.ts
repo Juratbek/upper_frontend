@@ -1,5 +1,6 @@
+import { IIconProps } from 'components/icons';
 import { FC } from 'react';
-import { IIconProps, TNoop } from 'types';
+import { TNoop } from 'types';
 
 import { ISubmenuProps, ISubmenuState } from '../ProfilePopover.types';
 

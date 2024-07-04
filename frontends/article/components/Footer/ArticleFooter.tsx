@@ -74,6 +74,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
           loading={isLikePending}
           disabled={!!isLikedOrDisliked || isLikePending}
           onClick={likeHandler}
+          data-testid='like-icon'
         >
           <LikeIcon color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
@@ -89,7 +90,11 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
           <DislikeIcon color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>
-      <Clickable onClick={commentClickHandler} className={classes['comment-container']}>
+      <Clickable
+        onClick={commentClickHandler}
+        data-testid='comment-icon'
+        className={classes['comment-container']}
+      >
         <CommentIcon color={themeColors.icon} />
         {Boolean(commentsCount) && <span className={classes['count']}>{commentsCount}</span>}
       </Clickable>
@@ -97,7 +102,12 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
         {/* <Clickable>
           <SaveIcon />
         </Clickable> */}
-        <Clickable className={classes.share} onClick={shareClickHandler} id={sharePopoverId}>
+        <Clickable
+          className={classes.share}
+          data-testid='share-icon'
+          onClick={shareClickHandler}
+          id={sharePopoverId}
+        >
           <ShareIcon color={themeColors.icon} />
         </Clickable>
         <SharePopover ref={rootRef} isOpen={isOpen} closeSharePopover={closeSharePopover} />

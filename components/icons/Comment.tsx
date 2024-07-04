@@ -6,7 +6,7 @@ export const CommentIcon = ({
   color = 'black',
   variant = 'outlined',
 }: IIconProps) => (
-  <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
+  <svg width={width} role='icon' height={height} viewBox='0 0 24 24' fill='none'>
     {variant === 'fulfilled' && (
       <path
         d='M2 19.7307V6.05541C2 4.82811 2.99492 3.83319 4.22222 3.83319H19.7778C21.0051 3.83319 22 4.82811 22 6.05541V15.51C22 16.7373 21.0051 17.7322 19.7778 17.7322H7.5125C6.83742 17.7322 5.77723 18.5662 5.77723 18.5662L3.5 19.9999C3.5 19.9999 2 20.5163 2 19.7307Z'

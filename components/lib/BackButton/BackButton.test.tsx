@@ -15,7 +15,7 @@ describe('components/lib/BackButton', () => {
     render(<BackButton />);
     const btn = screen.getByRole('button');
     expect(btn).toBeVisible();
-    const icon = screen.getByRole('svg');
+    const icon = screen.getByRole('icon');
     expect(icon).toBeVisible();
     expect(screen.getByText('Ortga')).toBeVisible();
   });

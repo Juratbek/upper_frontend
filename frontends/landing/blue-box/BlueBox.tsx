@@ -1,4 +1,4 @@
-import { UpRight } from 'components/icons/UpRight';
+import { UpRightIcon } from 'components/icons/UpRight';
 import { Clickable } from 'components/lib';
 import { useAuth } from 'hooks';
 import { FC } from 'react';
@@ -16,7 +16,7 @@ export const BlueBox: FC = () => {
         <Clickable className={classes.start} onClick={() => openLoginPage()}>
           <span className={classes['start-text']}>Boshladik</span>
           <span className={classes['up-right-icon']}>
-            <UpRight />
+            <UpRightIcon />
           </span>
         </Clickable>
         <LogosBox />

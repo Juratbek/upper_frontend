@@ -16,9 +16,11 @@ export const UnsubscribeModal: FC = () => {
   const blogId = useSelector(getBlogIdToUnsubscribe);
   const { mutate: unsubscribe, isPending: isUnsubscribeLoading } = useUnsubscribe(Number(blogId));
 
-  const closeHandler = useCallback(() => dispatch(closeUnsubscribeModal()), []);
+  const closeHandler = useCallback(() => {
+    dispatch(closeUnsubscribeModal());
+  }, []);
 
-  const unsibscribeHandler = useCallback(() => {
+  const unsubscribeHandler = useCallback(() => {
     unsubscribe('');
     closeHandler();
   }, [closeHandler]);
@@ -26,7 +28,7 @@ export const UnsubscribeModal: FC = () => {
   const footer = useMemo(
     () => (
       <div className='d-flex'>
-        <Clickable className={classes['unsubscribe-btn']} onClick={unsibscribeHandler}>
+        <Clickable className={classes['unsubscribe-btn']} onClick={unsubscribeHandler}>
           {isUnsubscribeLoading ? <Spinner /> : 'Bekor qilish'}
         </Clickable>
         <Clickable className={classes['no-btn']} onClick={closeHandler}>
@@ -34,7 +36,7 @@ export const UnsubscribeModal: FC = () => {
         </Clickable>
       </div>
     ),
-    [closeHandler, isUnsubscribeLoading, unsibscribeHandler],
+    [closeHandler, isUnsubscribeLoading, unsubscribeHandler],
   );
 
   return (

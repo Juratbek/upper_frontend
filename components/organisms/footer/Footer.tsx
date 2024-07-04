@@ -8,7 +8,7 @@ import styles from './Footer.module.scss';
 
 export const Footer: FC = () => {
   return (
-    <div className={styles.root}>
+    <footer className={styles.root}>
       <div className={`${styles.container} container`}>
         <div className={styles['main-block']}>
           <Logo />
@@ -35,6 +35,6 @@ export const Footer: FC = () => {
           </ul>
         </div>
       </div>
-    </div>
+    </footer>
   );
 };

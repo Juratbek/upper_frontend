@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Next icon > renders the icon 1`] = `
+<svg
+  fill="none"
+  height="24"
+  role="icon"
+  viewBox="0 0 24 24"
+  width="24"
+>
+  <path
+    d="M9 18L15 12L9 6"
+    stroke="black"
+    stroke-width="1.6"
+  />
+</svg>
+`;

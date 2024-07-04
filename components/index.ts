@@ -13,7 +13,6 @@ export * from './Follower/Follower';
 export * from './skeletons';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
-export * from './EditorSpinner/EditorSpinner';
 export * from './WithPopover';
 export * from './GoogleAuthScript';
 export * from './EmojiPopover';

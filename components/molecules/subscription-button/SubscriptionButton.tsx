@@ -9,7 +9,7 @@ export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
   blogId,
   className,
 }) => {
-  const { data: isSubscribed, isLoading } = useSubscriptionStatus(blogId);
+  const { data: isSubscribed, isPending } = useSubscriptionStatus(blogId);
   const { mutate: subscribe, isPending: isBeingSubscribed } = useSubscribe(blogId);
   const dispatch = useDispatch();
   const { status: authStatus, openLoginPage } = useAuth();
@@ -21,7 +21,7 @@ export const SubscriptionButton: FC<{ blogId: number; className?: string }> = ({
     if (authStatus === 'unauthenticated') openLoginPage("Obuna bo'lish uchun ro'yxatdan o'ting");
   };
 
-  if (isLoading) return <></>;
+  if (isPending) return <></>;
 
   if (isSubscribed)
     return (
