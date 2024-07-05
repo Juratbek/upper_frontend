@@ -16,6 +16,16 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
     },
+    exclude: [
+      '*.stories.ts',
+      '*.stories.tsx',
+      '**/node_modules/**',
+      '.storybook',
+      '.next',
+      '.husky',
+      '.github',
+      'coverage',
+    ],
   },
   resolve: {
     alias: {

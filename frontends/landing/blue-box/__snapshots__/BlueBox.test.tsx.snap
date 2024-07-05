@@ -1,0 +1,99 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BlueBox > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="container"
+    >
+      <h1
+        class="heading"
+      >
+        upper bilan yanada yuqoriroq
+      </h1>
+      <div
+        class="body"
+      >
+        <button
+          class="root start"
+        >
+          <span
+            class="start-text"
+          >
+            Boshladik
+          </span>
+          <span
+            class="up-right-icon"
+          >
+            <svg
+              fill="none"
+              height="20"
+              role="icon"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <path
+                d="M1.5 2H17.5M17.5 2V18M17.5 2L1.5 18"
+                stroke="#000C1A"
+                stroke-width="4"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="container"
+        >
+          <img
+            alt="vs code"
+            class="image"
+            data-nimg="1"
+            decoding="async"
+            height="120"
+            loading="lazy"
+            src="/_next/image?url=%2Flogos%2Fvs_code.png&w=256&q=75"
+            srcset="/_next/image?url=%2Flogos%2Fvs_code.png&w=128&q=75 1x, /_next/image?url=%2Flogos%2Fvs_code.png&w=256&q=75 2x"
+            style="color: transparent; --i: 0;"
+            width="120"
+          />
+          <img
+            alt="vs code"
+            class="image"
+            data-nimg="1"
+            decoding="async"
+            height="120"
+            loading="lazy"
+            src="/_next/image?url=%2Flogos%2Fchat-gpt.png&w=256&q=75"
+            srcset="/_next/image?url=%2Flogos%2Fchat-gpt.png&w=128&q=75 1x, /_next/image?url=%2Flogos%2Fchat-gpt.png&w=256&q=75 2x"
+            style="color: transparent; --i: 1;"
+            width="120"
+          />
+          <img
+            alt="vs code"
+            class="image"
+            data-nimg="1"
+            decoding="async"
+            height="120"
+            loading="lazy"
+            src="/_next/image?url=%2Flogos%2Fjs.png&w=256&q=75"
+            srcset="/_next/image?url=%2Flogos%2Fjs.png&w=128&q=75 1x, /_next/image?url=%2Flogos%2Fjs.png&w=256&q=75 2x"
+            style="color: transparent; --i: 2;"
+            width="120"
+          />
+          <img
+            alt="vs code"
+            class="image"
+            data-nimg="1"
+            decoding="async"
+            height="120"
+            loading="lazy"
+            src="/_next/image?url=%2Flogos%2Fadobe.png&w=256&q=75"
+            srcset="/_next/image?url=%2Flogos%2Fadobe.png&w=128&q=75 1x, /_next/image?url=%2Flogos%2Fadobe.png&w=256&q=75 2x"
+            style="color: transparent; --i: 3;"
+            width="120"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -1,7 +1,7 @@
 import { IIconProps } from './types';
 
 export const NotificationIcon = ({ width = 24, height = 24, color = 'black' }: IIconProps) => (
-  <svg width={width} height={height} viewBox='0 0 24 24' fill='none'>
+  <svg role='icon' width={width} height={height} viewBox='0 0 24 24' fill='none'>
     <mask id='path-2-inside-1_630_4298' fill='white'>
       <path d='M4.5 10.5C4.5 6.35786 7.85786 3 12 3C16.1421 3 19.5 6.35786 19.5 10.5V17C19.5 17.5523 19.0523 18 18.5 18H5.5C4.94772 18 4.5 17.5523 4.5 17V10.5Z' />
     </mask>

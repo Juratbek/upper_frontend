@@ -1,4 +1,4 @@
-import { EditorSpinner } from 'components';
+import { Spinner } from 'components/lib';
 import { useAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
@@ -30,7 +30,7 @@ export const LoginPage: FC = () => {
   if (isLoading)
     return (
       <div className='position-relative'>
-        <EditorSpinner />
+        <Spinner />
       </div>
     );
 

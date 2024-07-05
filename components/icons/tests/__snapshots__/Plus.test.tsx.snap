@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Plus icon > renders the icon 1`] = `
+<div
+  role="icon"
+>
+  +
+</div>
+`;

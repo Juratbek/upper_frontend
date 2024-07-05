@@ -1,5 +1,5 @@
+import { IIconProps } from 'components/icons';
 import { FC, HTMLAttributeAnchorTarget } from 'react';
-import { IIconProps } from 'types';
 
 export interface ITeamMember {
   name: string;

@@ -12,6 +12,7 @@ export const LandingHeader: FC = () => {
   const content = useMemo(() => {
     if (isMobile) return <MobileHeader />;
     if (isTablet) return <TabletHeader />;
+
     return (
       <div className={`container ${classes.desktop}`}>
         <Logo />

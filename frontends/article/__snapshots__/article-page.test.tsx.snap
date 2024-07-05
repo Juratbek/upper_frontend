@@ -1,0 +1,409 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`article page > error UI snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="text-center mt-3"
+    >
+      <span>
+        <img
+          alt=""
+          data-nimg="1"
+          decoding="async"
+          height="400"
+          loading="lazy"
+          src="/storyset/hidden.svg"
+          style="color: transparent;"
+          width="400"
+        />
+        <br />
+        <a
+          class="storyset-link link"
+          href="https://storyset.com/data"
+          rel="noreferrer"
+          target="_blank"
+        >
+          Data illustrations by Storyset
+        </a>
+      </span>
+      <h2>
+        Maqola topilmadi
+      </h2>
+      <p>
+        Maqola o'chirilgan yoki bloklangan bo'lishi mumkin
+      </p>
+      <a
+        class="link"
+        href="/web"
+      >
+        <button
+          class="button"
+          style="opacity: 1;"
+        >
+          Asosiy sahifaga qaytish
+        </button>
+      </a>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`article page > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="root"
+    >
+      <a
+        class="author link"
+        href="/web/blogs/10"
+      >
+        <div
+          class="avatar avatar--medium"
+          style="border-color: rgba(245, 245, 245, 0.1);"
+        >
+          <img
+            alt="UPPER"
+            data-nimg="fill"
+            decoding="async"
+            loading="lazy"
+            sizes="100vw"
+            src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=3840&q=75"
+            srcset="/_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimages.upper.uz%2F19283&w=3840&q=75 3840w"
+            style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+          />
+        </div>
+        <div
+          class="text-block"
+        >
+          <h3
+            class="name"
+          >
+            Samandar
+          </h3>
+          <p
+            class="bio"
+          />
+        </div>
+      </a>
+      <div
+        class="modal"
+        data-testid="modal-root"
+      >
+        <button
+          class="root modal-bg"
+        />
+        <div
+          class="modal-dialog modal-dialog--undefined"
+        >
+          <div
+            class="modal-body"
+          >
+            <p
+              class="text"
+            >
+              Obunani bekor qilmoqchimisiz?
+            </p>
+          </div>
+          <div
+            class="d-flex"
+          >
+            <button
+              class="root unsubscribe-btn"
+            >
+              Bekor qilish
+            </button>
+            <button
+              class="root no-btn"
+            >
+              yo'q
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <article>
+      <div
+        class="editor-root"
+        id="editor-root"
+      >
+        <div
+          id="editor-blocks-container"
+        >
+          <div
+            class="block"
+          >
+            <h1
+              class="heading"
+              contenteditable="false"
+            >
+              Vitest configuration
+            </h1>
+          </div>
+        </div>
+      </div>
+    </article>
+    <div
+      class="root"
+    >
+      <div
+        class="reactions-container"
+      >
+        <button
+          class="root undefined"
+          data-testid="like-icon"
+        >
+          <svg
+            fill="none"
+            height="24"
+            role="icon"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path
+              d="M7 11L11 2C14 2 14 5 14 5V9H19.66C19.9499 8.99672 20.2371 9.0565 20.5016 9.17522C20.7661 9.29393 21.0016 9.46873 21.1919 9.68751C21.3821 9.90629 21.5225 10.1638 21.6033 10.4423C21.6842 10.7207 21.7035 11.0134 21.66 11.3L20.28 20.3C20.2077 20.7769 19.9654 21.2116 19.5979 21.524C19.2304 21.8364 18.7623 22.0055 18.28 22H7M7 11V22M7 11H4C3.46957 11 2.96086 11.2107 2.58579 11.5858C2.21071 11.9609 2 12.4696 2 13V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H7"
+              stroke="black"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.6"
+            />
+          </svg>
+        </button>
+        <div
+          class="divider divider divider--vertical"
+          role="divider"
+        />
+        <button
+          class="root undefined"
+          disabled=""
+        >
+          <svg
+            fill="none"
+            height="24"
+            role="icon"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path
+              d="M17 13L13 22C12.2044 22 11.4413 21.6839 10.8787 21.1213C10.3161 20.5587 10 19.7956 10 19V15H4.34003C4.05012 15.0033 3.76297 14.9435 3.49846 14.8248C3.23395 14.7061 2.99842 14.5313 2.80817 14.3125C2.61793 14.0937 2.47753 13.8362 2.39669 13.5577C2.31586 13.2793 2.29652 12.9866 2.34003 12.7L3.72003 3.7C3.79235 3.22309 4.0346 2.78839 4.40212 2.47599C4.76965 2.16359 5.2377 1.99454 5.72003 2H17M17 13V2M17 13H19.67C20.236 13.01 20.7859 12.8119 21.2154 12.4432C21.645 12.0745 21.9242 11.5609 22 11V4C21.9242 3.43905 21.645 2.9255 21.2154 2.55681C20.7859 2.18813 20.236 1.98999 19.67 2H17"
+              stroke="black"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.6"
+            />
+          </svg>
+        </button>
+      </div>
+      <button
+        class="root comment-container"
+        data-testid="comment-icon"
+      >
+        <svg
+          fill="none"
+          height="24"
+          role="icon"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          <path
+            d="M2 19.6392V5.96392C2 4.73662 2.99492 3.7417 4.22222 3.7417H19.7778C21.0051 3.7417 22 4.73662 22 5.96392V15.4185C22 16.6458 21.0051 17.6407 19.7778 17.6407H7.5125C6.83742 17.6407 5.77723 18.4747 5.77723 18.4747L3.18724 20.0556C3.18724 20.0556 2 20.7213 2 19.6392Z"
+            stroke="black"
+            stroke-width="1.4"
+          />
+          <path
+            d="M6.5 13.0915H17.5"
+            stroke="black"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M6.50101 9.09153L15.501 9.09149"
+            stroke="black"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      <div
+        class="actions-container"
+      >
+        <button
+          class="root share"
+          data-testid="share-icon"
+          id="share-btn-in-article-page"
+        >
+          <svg
+            fill="none"
+            height="24"
+            role="icon"
+            viewBox="0 0 24 24"
+            width="24"
+          >
+            <path
+              d="M10.5959 13.3974L22.5997 2.78917M10.5959 13.3974L2.55763 8.95484C2.40182 8.86873 2.4277 8.63727 2.59868 8.5877L22.5997 2.78917M10.5959 13.3974L13.8261 21.7852C13.8902 21.9516 14.1235 21.9572 14.1956 21.7942L22.5997 2.78917"
+              stroke="black"
+              stroke-width="1.6"
+            />
+          </svg>
+        </button>
+        <div
+          class="popover"
+          role="dialog"
+          style="display: none;"
+        >
+          <div
+            class="popover-header"
+          >
+            <p
+              class="headline"
+            >
+              Ulashish
+            </p>
+            <button
+              class="root close-icon"
+            >
+              ✕
+            </button>
+          </div>
+          <div
+            class="popover-body"
+          >
+            <ul
+              class="media-icons"
+            >
+              <li
+                class="media-icon"
+              >
+                <a
+                  class="media-icon-btn"
+                  href="https://t.me/share/url?url=http://localhost:3000/"
+                  target="_blank"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    role="icon"
+                    viewBox="0 0 24 24"
+                    width="20"
+                  >
+                    <path
+                      d="M4.80626 9.87148L16.7519 5.25521C18.1945 4.6977 18.9159 4.41895 19.3657 4.78324C19.8156 5.14754 19.6929 5.91106 19.4474 7.43812L17.9078 17.0181C17.6912 18.3656 17.583 19.0394 17.0937 19.2612C16.6044 19.4829 16.0264 19.1202 14.8702 18.3949L13.3248 17.4252C11.3333 16.1758 10.3375 15.551 10.2362 14.5825C10.1348 13.614 10.9797 12.7967 12.6694 11.162L15.9697 7.96934C16.1366 7.80791 16.0223 7.52542 15.7901 7.52542C15.7406 7.52542 15.6921 7.53965 15.6505 7.56641L7.70166 12.6736C7.18785 13.0037 6.93094 13.1688 6.64783 13.2498C6.48484 13.2964 6.31657 13.3221 6.14709 13.3263C5.85271 13.3336 5.55821 13.2529 4.96922 13.0914C3.30827 12.6359 2.4778 12.4082 2.28331 11.984C2.17665 11.7513 2.16325 11.4866 2.24587 11.2444C2.39654 10.8027 3.19978 10.4923 4.80626 9.87148Z"
+                      fill="white"
+                    />
+                  </svg>
+                </a>
+                <p
+                  class="media-icon-name"
+                >
+                  Telegram
+                </p>
+              </li>
+              <li
+                class="media-icon"
+              >
+                <a
+                  class="media-icon-btn"
+                  href="https://linkedin.com/sharing/share-offsite/?url=http://localhost:3000/"
+                  target="_blank"
+                >
+                  <svg
+                    fill="none"
+                    height="20"
+                    role="icon"
+                    viewBox="0 0 24 24"
+                    width="20"
+                  >
+                    <path
+                      d="M5.58789 7.22266C4.5918 7.22266 3.82031 6.44141 3.82031 5.51367C3.82031 4.58594 4.5918 3.81445 5.58789 3.81445C6.59375 3.81445 7.35547 4.58594 7.35547 5.51367C7.35547 6.44141 6.59375 7.22266 5.58789 7.22266ZM3.85938 19V8.36523H7.31641V19H3.85938ZM9.00586 19V8.36523H12.4727V10.2402H12.541C13.0684 8.90234 14.1621 8.14062 15.7734 8.14062C18.1074 8.14062 19.4258 9.63477 19.4258 12.1543V19H15.9688V12.8965C15.9688 11.6758 15.3926 10.9629 14.2598 10.9629C13.1562 10.9629 12.4727 11.7832 12.4727 12.9648V19H9.00586Z"
+                      fill="white"
+                    />
+                  </svg>
+                </a>
+                <p
+                  class="media-icon-name"
+                >
+                  LinkedIn
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div
+            class="popover-footer"
+          >
+            <button
+              class="root copy-container"
+            >
+              <div
+                class="copy-icon"
+              >
+                <svg
+                  fill="none"
+                  height="24"
+                  role="icon"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path
+                    d="M6.00044 6.12787L6 15.75C6 18.75 6.75 19.5 9.50344 19.492L9.75 19.5L16.3716 19.5011C16.0624 20.3744 15.2293 21 14.25 21H9C6 21 4.5 19.492 4.5 16.5V8.25C4.5 7.27017 5.12631 6.43663 6.00044 6.12787ZM17.25 3C18.4926 3 19.5 4.00736 19.5 5.25V15.75C19.5 16.9926 18.4926 18 17.25 18H9.75C8.25 18 7.5 17.25 7.5 15.75V5.25C7.5 4.00736 8.50736 3 9.75 3H17.25ZM17.25 4.5H9.75C9.33579 4.5 9 4.83579 9 5.25V15.75C9 16.1642 9.33579 16.5 9.75 16.5H17.25C17.6642 16.5 18 16.1642 18 15.75V5.25C18 4.83579 17.6642 4.5 17.25 4.5Z"
+                    fill="#003D80"
+                    fill-opacity="1"
+                  />
+                </svg>
+              </div>
+              <p
+                class="copy-text"
+              >
+                Nusxalash
+              </p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="root"
+      role="dialog"
+      style="display: none;"
+    >
+      <button
+        class="root background"
+      />
+      <div
+        class="modal"
+      >
+        <div
+          class="modal-header"
+        >
+          <p
+            class="headline"
+          >
+            Izohlar
+          </p>
+          <button
+            class="root close-icon"
+          >
+            ✕
+          </button>
+        </div>
+        <div
+          class="modal-body"
+          id="comments"
+        >
+          <div
+            class="infinite-scroll-component__outerdiv"
+          >
+            <div
+              class="infinite-scroll-component "
+              style="height: auto; overflow: auto;"
+            />
+          </div>
+        </div>
+        <div
+          class="modal-footer"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -30,7 +30,12 @@ export const SharePopover = forwardRef<
   }, []);
 
   return (
-    <div className={classes.popover} style={{ display: isOpen ? 'block' : 'none' }} ref={ref}>
+    <div
+      role='dialog'
+      className={classes.popover}
+      style={{ display: isOpen ? 'block' : 'none' }}
+      ref={ref}
+    >
       <div className={classes['popover-header']}>
         <p className={classes.headline}>Ulashish</p>
         <Clickable className={classes['close-icon']} onClick={closeSharePopover}>

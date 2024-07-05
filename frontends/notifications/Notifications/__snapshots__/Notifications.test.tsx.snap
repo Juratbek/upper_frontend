@@ -1,0 +1,482 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Notifications page > renders empty list UI 1`] = `
+<body>
+  <div>
+    <div
+      class="tab"
+    >
+      <div
+        class="text-center"
+      >
+        <span>
+          <img
+            alt=""
+            data-nimg="1"
+            decoding="async"
+            height="250"
+            loading="lazy"
+            src="/storyset/notifications.svg"
+            style="color: transparent;"
+            width="250"
+          />
+          <br />
+          <a
+            class="storyset-link link"
+            href="https://storyset.com/internet"
+            rel="noreferrer"
+            target="_blank"
+          >
+            Data illustrations by Storyset
+          </a>
+        </span>
+        <p>
+          Bloglarga obuna bo'ling va maqolalar haqida xabarlar oling
+        </p>
+        <p
+          class="fs-1"
+        >
+          Hozirda xabarlar mavjud emas
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Notifications page > renders nothing if Notification component for notification type is not found 1`] = `
+<body>
+  <div>
+    <div
+      class="tab"
+    />
+  </div>
+</body>
+`;
+
+exports[`Notifications page > renders notifications data from api 1`] = `
+<body>
+  <div>
+    <div
+      class="tab"
+    >
+      <div>
+        <a
+          class="root unread link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            Vitest mocking
+          </h3>
+          <div
+            class="footer align-items-center"
+          >
+            <div
+              class="author"
+            >
+              <div
+                class="avatar avatar--small"
+                style="border-color: rgba(245, 245, 245, 0.1);"
+              >
+                <img
+                  alt="UPPER"
+                  data-nimg="fill"
+                  decoding="async"
+                  loading="lazy"
+                  sizes="100vw"
+                  src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                  style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                />
+              </div>
+              <span
+                class="author-name"
+              >
+                Aziz
+              </span>
+            </div>
+            <span
+              class="date"
+            >
+              Hozirgina
+            </span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          class="root unread link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            Vitest mocking
+          </h3>
+          <div
+            class="footer align-items-center"
+          >
+            <div
+              class="author"
+            >
+              <div
+                class="avatar avatar--small"
+                style="border-color: rgba(245, 245, 245, 0.1);"
+              >
+                <img
+                  alt="UPPER"
+                  data-nimg="fill"
+                  decoding="async"
+                  loading="lazy"
+                  sizes="100vw"
+                  src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                  style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                />
+              </div>
+              <span
+                class="author-name"
+              >
+                Aziz
+              </span>
+            </div>
+            <span
+              class="date"
+            >
+              Hozirgina
+            </span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          class="root link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            Aziz "Vitest mocking" maqolangizga fikr bildirdi
+          </h3>
+          <div
+            class="footer"
+          >
+            <div
+              class="d-flex align-items-center"
+            >
+              <div
+                class="icon-box"
+              >
+                <svg
+                  fill="none"
+                  height="24"
+                  role="icon"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path
+                    d="M2 19.7307V6.05541C2 4.82811 2.99492 3.83319 4.22222 3.83319H19.7778C21.0051 3.83319 22 4.82811 22 6.05541V15.51C22 16.7373 21.0051 17.7322 19.7778 17.7322H7.5125C6.83742 17.7322 5.77723 18.5662 5.77723 18.5662L3.5 19.9999C3.5 19.9999 2 20.5163 2 19.7307Z"
+                    fill="#007AFF"
+                  />
+                  <path
+                    d="M6.5 13.0915H17.5"
+                    stroke="#E6F2FF"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M6.50101 9.09153L15.501 9.09149"
+                    stroke="#E6F2FF"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <p
+                class="comment-text"
+              />
+            </div>
+            <time
+              class="date mt-auto"
+            >
+              Hozirgina
+            </time>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          class="root unread link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            "Vitest mocking" maqolangiz Azizga yoqdi
+          </h3>
+          <div
+            class="footer"
+          >
+            <div
+              class="icon-box"
+            >
+              <svg
+                fill="none"
+                height="24"
+                role="icon"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path
+                  d="M14 9V5C14 5 14 2 11 2L7 11V22H18.28C18.7623 22.0055 19.2304 21.8364 19.5979 21.524C19.9654 21.2116 20.2077 20.7769 20.28 20.3L21.66 11.3C21.7035 11.0134 21.6842 10.7207 21.6033 10.4423C21.5225 10.1638 21.3821 9.90629 21.1919 9.68751C21.0016 9.46873 20.7661 9.29393 20.5016 9.17522C20.2371 9.0565 19.9499 8.99672 19.66 9H14ZM7 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V13C2 12.4696 2.21071 11.9609 2.58579 11.5858C2.96086 11.2107 3.46957 11 4 11H7"
+                  fill="#007AFF"
+                />
+                <path
+                  d="M7 11L11 2C14 2 14 5 14 5V9H19.66C19.9499 8.99672 20.2371 9.0565 20.5016 9.17522C20.7661 9.29393 21.0016 9.46873 21.1919 9.68751C21.3821 9.90629 21.5225 10.1638 21.6033 10.4423C21.6842 10.7207 21.7035 11.0134 21.66 11.3L20.28 20.3C20.2077 20.7769 19.9654 21.2116 19.5979 21.524C19.2304 21.8364 18.7623 22.0055 18.28 22H7M7 11V22M7 11H4C3.46957 11 2.96086 11.2107 2.58579 11.5858C2.21071 11.9609 2 12.4696 2 13V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H7"
+                  stroke="#E6F2FF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <time
+              class="date mt-auto"
+            >
+              Hozirgina
+            </time>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Notifications page > renders with Fetch Next Page button 1`] = `
+<body>
+  <div>
+    <div
+      class="tab"
+    >
+      <div>
+        <a
+          class="root unread link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            Vitest mocking
+          </h3>
+          <div
+            class="footer align-items-center"
+          >
+            <div
+              class="author"
+            >
+              <div
+                class="avatar avatar--small"
+                style="border-color: rgba(245, 245, 245, 0.1);"
+              >
+                <img
+                  alt="UPPER"
+                  data-nimg="fill"
+                  decoding="async"
+                  loading="lazy"
+                  sizes="100vw"
+                  src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                  style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                />
+              </div>
+              <span
+                class="author-name"
+              >
+                Aziz
+              </span>
+            </div>
+            <span
+              class="date"
+            >
+              Hozirgina
+            </span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          class="root unread link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            Vitest mocking
+          </h3>
+          <div
+            class="footer align-items-center"
+          >
+            <div
+              class="author"
+            >
+              <div
+                class="avatar avatar--small"
+                style="border-color: rgba(245, 245, 245, 0.1);"
+              >
+                <img
+                  alt="UPPER"
+                  data-nimg="fill"
+                  decoding="async"
+                  loading="lazy"
+                  sizes="100vw"
+                  src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                  srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                  style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                />
+              </div>
+              <span
+                class="author-name"
+              >
+                Aziz
+              </span>
+            </div>
+            <span
+              class="date"
+            >
+              Hozirgina
+            </span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          class="root link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            Aziz "Vitest mocking" maqolangizga fikr bildirdi
+          </h3>
+          <div
+            class="footer"
+          >
+            <div
+              class="d-flex align-items-center"
+            >
+              <div
+                class="icon-box"
+              >
+                <svg
+                  fill="none"
+                  height="24"
+                  role="icon"
+                  viewBox="0 0 24 24"
+                  width="24"
+                >
+                  <path
+                    d="M2 19.7307V6.05541C2 4.82811 2.99492 3.83319 4.22222 3.83319H19.7778C21.0051 3.83319 22 4.82811 22 6.05541V15.51C22 16.7373 21.0051 17.7322 19.7778 17.7322H7.5125C6.83742 17.7322 5.77723 18.5662 5.77723 18.5662L3.5 19.9999C3.5 19.9999 2 20.5163 2 19.7307Z"
+                    fill="#007AFF"
+                  />
+                  <path
+                    d="M6.5 13.0915H17.5"
+                    stroke="#E6F2FF"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M6.50101 9.09153L15.501 9.09149"
+                    stroke="#E6F2FF"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <p
+                class="comment-text"
+              />
+            </div>
+            <time
+              class="date mt-auto"
+            >
+              Hozirgina
+            </time>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a
+          class="root unread link"
+          href="/web/articles/1"
+        >
+          <h3
+            class="title"
+          >
+            "Vitest mocking" maqolangiz Azizga yoqdi
+          </h3>
+          <div
+            class="footer"
+          >
+            <div
+              class="icon-box"
+            >
+              <svg
+                fill="none"
+                height="24"
+                role="icon"
+                viewBox="0 0 24 24"
+                width="24"
+              >
+                <path
+                  d="M14 9V5C14 5 14 2 11 2L7 11V22H18.28C18.7623 22.0055 19.2304 21.8364 19.5979 21.524C19.9654 21.2116 20.2077 20.7769 20.28 20.3L21.66 11.3C21.7035 11.0134 21.6842 10.7207 21.6033 10.4423C21.5225 10.1638 21.3821 9.90629 21.1919 9.68751C21.0016 9.46873 20.7661 9.29393 20.5016 9.17522C20.2371 9.0565 19.9499 8.99672 19.66 9H14ZM7 22H4C3.46957 22 2.96086 21.7893 2.58579 21.4142C2.21071 21.0391 2 20.5304 2 20V13C2 12.4696 2.21071 11.9609 2.58579 11.5858C2.96086 11.2107 3.46957 11 4 11H7"
+                  fill="#007AFF"
+                />
+                <path
+                  d="M7 11L11 2C14 2 14 5 14 5V9H19.66C19.9499 8.99672 20.2371 9.0565 20.5016 9.17522C20.7661 9.29393 21.0016 9.46873 21.1919 9.68751C21.3821 9.90629 21.5225 10.1638 21.6033 10.4423C21.6842 10.7207 21.7035 11.0134 21.66 11.3L20.28 20.3C20.2077 20.7769 19.9654 21.2116 19.5979 21.524C19.2304 21.8364 18.7623 22.0055 18.28 22H7M7 11V22M7 11H4C3.46957 11 2.96086 11.2107 2.58579 11.5858C2.21071 11.9609 2 12.4696 2 13V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H7"
+                  stroke="#E6F2FF"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <time
+              class="date mt-auto"
+            >
+              Hozirgina
+            </time>
+          </div>
+        </a>
+      </div>
+      <button
+        class="button mt-2"
+        color="tertiary"
+        style="opacity: 1; font-size: 20px; width: 100%;"
+      >
+        Yana yuklash
+      </button>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Notifications page > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="tab"
+    >
+      <div
+        class="content-center"
+        style="height: 15rem;"
+      >
+        <div
+          class="spinner spinner--primary"
+          role="spinner"
+        />
+      </div>
+    </div>
+  </div>
+</body>
+`;

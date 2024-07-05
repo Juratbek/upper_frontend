@@ -19,7 +19,7 @@ export const useConsoleAnalytics = () => {
 
         originalConsoleError(...args);
 
-        gtag('event', 'console_error', error);
+        gtag?.('event', 'console_error', error);
       };
     };
   }, []);
