@@ -11,7 +11,7 @@ export const useSelectionListener = () => {
   const selectionChangeHandler = useCallback(() => {
     if (!focusedBlock) return;
     const isInlineToolbarEnabled = tools[focusedBlock.type].inlineToolEnabled;
-    if (isInlineToolbarEnabled !== true) return;
+    if (isInlineToolbarEnabled !== true) hideInlineToolbar();
 
     const selection = Selection.selection;
     const blocksContainer = getEditorBlocksContainer();
