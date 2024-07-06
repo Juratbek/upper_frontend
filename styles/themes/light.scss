@@ -91,11 +91,13 @@
     --editor-code-language-popover-bg: #F9F9F9;
     --editor-code-language-popover-item-hover: rgb(235, 235, 235);
 
+    // Editor Toolbar
     --editor-toolbar-icon-hover: #eff2f5;
     --editor-toolbar-popover-bg: white;
     --editor-toolbar-popover-border: #e8e8eb;
     --editor-toolbar-popover-item-hover: #f1f4f8;
     --editor-toolbar-popover-item-icon-bg: white;
+    --editor-toolbar-popover-item-shortcut: var(--black-200);
 
     // Comments
     --comments-modal-bg: var(--gray);

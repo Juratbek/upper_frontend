@@ -28,9 +28,10 @@ export const Item = memo(function Component({
   children,
   active,
   shouldBeConfirmed,
+  suffix,
   ...props
 }: HTMLAttributes<HTMLButtonElement> &
-  Pick<IToolbarSetting, 'icon' | 'shouldBeConfirmed'> & { active?: boolean }) {
+  Pick<IToolbarSetting, 'icon' | 'shouldBeConfirmed'> & { active?: boolean; suffix?: ReactNode }) {
   const [clickCount, setClickCount] = useState(0);
 
   const clickHandler = (event: MouseEvent<HTMLButtonElement>) => {
@@ -62,6 +63,7 @@ export const Item = memo(function Component({
     >
       <span className={cls.icon} dangerouslySetInnerHTML={{ __html: icon }} />
       <div className={cls.text}>{children}</div>
+      {Boolean(suffix) && <span className={cls.suffix}>{suffix}</span>}
     </button>
   );
 });
