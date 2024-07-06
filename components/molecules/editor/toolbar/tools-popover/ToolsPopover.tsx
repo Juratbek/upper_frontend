@@ -1,7 +1,8 @@
 import { CSSProperties, forwardRef } from 'react';
+import { detectPlatform } from 'utils';
 
 import { useEditorContext } from '../../context/useEditorContext';
-import { TToolType } from '../../tools/tool.types';
+import { TShortcut, TToolType } from '../../tools/tool.types';
 import { Item, Popover } from '../popover/Popover';
 import classes from './ToolsPopover.module.scss';
 
@@ -26,11 +27,16 @@ export const ToolsPopover = forwardRef<
     <Popover open={open} ref={ref} style={style}>
       <div className={classes.list}>
         {toolTypes.map((type) => {
-          const { toolbar } = tools[type];
+          const { toolbar, shortcuts } = tools[type];
           if (!toolbar) return null;
 
           return (
-            <Item onClick={() => itemClickHandler(type)} key={toolbar.text} icon={toolbar.icon}>
+            <Item
+              onClick={() => itemClickHandler(type)}
+              key={toolbar.text}
+              icon={toolbar.icon}
+              suffix={Array.isArray(shortcuts) ? shortcuts.map(getShortcutLabel).join(', ') : null}
+            >
               {toolbar.text}
             </Item>
           );
@@ -39,3 +45,16 @@ export const ToolsPopover = forwardRef<
     </Popover>
   );
 });
+
+function getShortcutLabel(shortcut: TShortcut): string {
+  let shortcutStr = shortcut;
+  if (typeof shortcut === 'object') {
+    shortcutStr = shortcut.key;
+  }
+
+  const platform = detectPlatform();
+  if (platform === 'MacOS') return `CMD+${shortcutStr}`;
+  if (platform === 'Linux' || platform === 'Windows') return `CTRL+${shortcutStr}`;
+
+  return '';
+}

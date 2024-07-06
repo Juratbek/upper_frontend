@@ -33,9 +33,11 @@ export interface IToolbarSetting<T = any> extends IToolbar {
 
 export type TToolTag = keyof HTMLElementTagNameMap | '#text';
 
-export type TShortcuts<T = TInitialBlockData> = Array<
-  string | { key: string; data: IBlockData<T>['data'] }
->;
+export type TShortcut<T = TInitialBlockData> =
+  | string
+  | { key: string; data: IBlockData<T>['data'] };
+
+export type TShortcuts<T = TInitialBlockData> = Array<TShortcut<T>>;
 
 export interface ITool {
   toolbar?: IToolbar;
