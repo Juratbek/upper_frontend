@@ -55,11 +55,22 @@
 }
 
 .text {
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     width: max-content;
+    text-align: start;
 }
 
 .active {
     background-color: rgba(56, 138, 229, .1);
     color: #388AE5;
+}
+
+.suffix {
+    font-size: 0.7em;
+    color: var(--editor-toolbar-popover-item-shortcut);
+    display: inline-block;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
