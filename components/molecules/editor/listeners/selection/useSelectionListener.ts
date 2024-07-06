@@ -33,7 +33,7 @@ export const useSelectionListener = () => {
 
     const selectedTextRect = Selection.rect;
 
-    const editorContainer = document.querySelector('.editor-container');
+    const editorContainer = getEditorBlocksContainer();
     if (!editorContainer) {
       console.error("Editor container shouldn't be undefined");
       return;
@@ -41,7 +41,7 @@ export const useSelectionListener = () => {
 
     const editorRect = editorContainer?.getBoundingClientRect();
 
-    const top = selectedTextRect!.y - editorRect.y + selectedTextRect!.height + 8;
+    const top = selectedTextRect!.y - editorRect.y + selectedTextRect!.height + 32;
 
     showInlineToolbar({
       position: { top, left: selectedTextRect!.x - editorRect.x },

@@ -21,7 +21,9 @@ export const useConsoleAnalytics = () => {
             path: location.pathname + location.search,
           };
 
-          gtag?.('event', 'console_error', error);
+          if (typeof gtag === 'function') {
+            gtag('event', 'console_error', error);
+          }
         }
 
         originalConsoleError(...args);
