@@ -35,7 +35,7 @@ export const InlineToolbar = () => {
         ))}
       </div>
       {activeTool?.renderPopover && (
-        <div className={cls.popover}>
+        <div role='dialog' className={cls.popover}>
           {activeTool.renderPopover({ close: closePopover, closeToolbar: hideInlineToolbar })}
         </div>
       )}
