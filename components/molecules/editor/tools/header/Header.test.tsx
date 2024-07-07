@@ -43,9 +43,8 @@ describe('Header tool', () => {
   });
 
   it('read only snapshot', () => {
-    mockProps.isEditable = false;
     mockProps.data.text = 'This is a heading';
-    render(<Header {...mockProps} />);
+    render(<Header {...mockProps} isEditable={false} />);
     expect(document.body).toMatchSnapshot();
   });
 
@@ -94,7 +93,7 @@ describe('Header tool', () => {
   });
 
   it('calls keydown handler on input', () => {
-    render(<Header {...mockProps} />);
+    render(<Header {...mockProps} isEditable />);
 
     const heading = screen.getByRole('heading');
     fireEvent.keyDown(heading, { key: 'Enter', code: 'Enter', charCode: 13 });
