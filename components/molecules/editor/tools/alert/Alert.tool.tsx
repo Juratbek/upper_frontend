@@ -31,6 +31,7 @@ export const Alert = memo(
       <div className={getClassName(cls.alert, cls[data.type] ?? cls.info)}>
         <span className={cls.icon} dangerouslySetInnerHTML={{ __html: Warning(data.type) }} />
         <p
+          role='paragraph'
           ref={ref}
           className={cls.text}
           onInput={changeHandler}
