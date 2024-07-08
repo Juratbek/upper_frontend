@@ -49,6 +49,8 @@ export interface ITool {
   inlineToolEnabled?: boolean;
   tags?: Array<TToolTag>;
   onPaste?: (node: Node) => IBlockData['data'] | null;
+  addBlocksOnPaste?: boolean;
+  ignoreGlobalPasteListener?: boolean;
   shortcuts?: TShortcuts;
 }
 

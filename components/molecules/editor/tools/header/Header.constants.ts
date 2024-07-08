@@ -12,6 +12,7 @@ export const HeaderTool: ITool = {
     icon: IconHeading,
   },
   settings: HeaderSettings,
+  addBlocksOnPaste: true,
   shortcuts: [
     {
       key: '1',

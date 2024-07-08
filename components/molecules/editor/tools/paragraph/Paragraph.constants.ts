@@ -15,6 +15,7 @@ export const ParagraphTool: ITool = {
   },
   block: Paragraph,
   inlineToolEnabled: true,
+  addBlocksOnPaste: true,
   tags: ['p', '#text', 'address'],
   shortcuts: ['m'],
   onPaste: (node) => {
