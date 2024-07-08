@@ -1,5 +1,4 @@
 import 'styles/index.scss';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -15,7 +14,6 @@ import Script from 'next/script';
 import NextNProgress from 'nextjs-progressbar';
 import { useCallback, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 import { store } from 'store';
 import { queryClientDefaultOptions } from 'store/config/query-client';
 import { IResponseError, IServerSideContext, TTheme } from 'types';
@@ -32,7 +30,6 @@ function WebApp({ Component, pageProps }: AppProps): JSX.Element {
       <Component {...pageProps} />
       <Footer />
       <ReactQueryDevtools initialIsOpen={false} />
-      <ToastContainer />
     </>
   );
 }
