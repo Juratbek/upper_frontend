@@ -14,12 +14,16 @@ export const usePasteListener = () => {
 
   const pasteHandler = useCallback(
     (event: ClipboardEvent) => {
-      event.stopPropagation();
-      event.preventDefault();
-
       const { clipboardData } = event;
       // if clipboard is empty -> do nothing
       if (!clipboardData || !focusedBlock) return;
+
+      // if focused block tool should ignore paste listener -> return
+      const tool = tools[focusedBlock.type];
+      if (tool.ignoreGlobalPasteListener) return;
+
+      event.stopPropagation();
+      event.preventDefault();
 
       const htmlData = clipboardData.getData('text/html');
 
@@ -36,7 +40,10 @@ export const usePasteListener = () => {
       const htmlWithInlineTextTags = janitor.clean(htmlData, {
         onlyInlineTags: true,
       });
-      if (htmlWithInlineTextTags === htmlWithAllAllowedTags) {
+
+      // if inline tags data and all tags data are equal
+      // or tool doesn't enable node generation on paste
+      if (htmlWithInlineTextTags === htmlWithAllAllowedTags || !tool.addBlocksOnPaste) {
         document.execCommand('insertHtml', false, htmlWithInlineTextTags);
         return;
       }
