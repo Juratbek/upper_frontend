@@ -17,6 +17,7 @@ export const CodeTool: ITool = {
     language: 'javascript',
     code: '// Assalamu aleykum, upper.uz saytiga xush kelibsiz',
   } as ICodeData,
+  ignoreGlobalPasteListener: true,
   onPaste: (node) => {
     const codeElement = node as HTMLPreElement;
     let code;
