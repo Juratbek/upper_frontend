@@ -17,7 +17,12 @@ export const Popover = forwardRef<
   { open: boolean; children?: ReactNode; style?: CSSProperties }
 >(function Component({ open, children, style }, ref) {
   return (
-    <div ref={ref} className={getClassName(cls.popover, open && cls.open)} style={style}>
+    <div
+      ref={ref}
+      role='dialog'
+      className={getClassName(cls.popover, open && cls.open)}
+      style={style}
+    >
       {children}
     </div>
   );
