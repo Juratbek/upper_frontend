@@ -7,11 +7,6 @@ export interface ITheme {
   icon: string;
   bg: string;
   border: string;
-  modal: {
-    bg: string;
-    dialogBg: string;
-    dialogBorder: string;
-  };
   popover: {
     bg: string;
     border: string;
@@ -22,11 +17,4 @@ export interface ITheme {
   avatar: {
     border: string;
   };
-  label: {
-    color: string;
-  };
-  pagination: {
-    border: string;
-  };
-  progressbar: string;
 }
