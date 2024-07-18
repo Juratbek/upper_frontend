@@ -19,6 +19,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [Styleguides](/STYLEGUIDES.md)
 - [Commit Messages](/COMMIT_MESSAGE.md)
 - [Branching](/BRANCHING.md)
+- [Contribute in backend, mobile or UI/UX](https://github.com/Juratbek/upper_frontend/discussions/1542)
 
 ## In order to contribute the repository follow these steps
 1. Create a fork from the repository
