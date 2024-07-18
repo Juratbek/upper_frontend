@@ -1,7 +1,6 @@
 export * from './Blog/Blog';
 export * from './ApiError/ApiError';
 export * from './ImageModal';
-export * from './Pagination/Pagination';
 export * from './GoogleAuthScript';
 export * from './EmojiPopover';
 export * from './EmojiSelect';
