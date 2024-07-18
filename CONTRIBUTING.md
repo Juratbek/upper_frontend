@@ -31,3 +31,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 
 5. After modifying your branch create a pull request to the base repository
 ![Screenshot 2024-07-18 at 17 34 54](https://github.com/user-attachments/assets/ad678791-a2b2-4cd7-bd36-0873b2e2b201)
+
+6. Request a revew from codeowners
+
+> ⚠️ The deployment checks for pull requests need authorization. So they will fail when you open a pull request. Don't worry, code owners will trigger them before reviewing.
