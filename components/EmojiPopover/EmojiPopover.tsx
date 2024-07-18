@@ -1,4 +1,5 @@
 import { ClientOnlyPortal } from 'components';
+import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'constants/emoji-select';
 import { useTheme } from 'hooks';
 import {
   CSSProperties,
@@ -11,7 +12,6 @@ import {
 } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { getClassName } from 'utils';
-import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'variables';
 
 import { emojis } from './emoji';
 import styles from './EmojiPopover.module.scss';

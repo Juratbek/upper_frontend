@@ -1,7 +1,7 @@
 import { Avatar } from 'components/lib';
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import Link from 'next/link';
 import { FC } from 'react';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Follower.module.scss';
 import { IFollowerProps } from './Follower.types';

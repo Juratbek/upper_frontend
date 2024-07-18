@@ -5,6 +5,8 @@ import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@ta
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
+import { UPPER_BLUE_COLOR } from 'constants/colors';
+import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'constants/common';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useConsoleAnalytics, useTheme } from 'hooks';
@@ -19,8 +21,6 @@ import { ToastContainer } from 'react-toastify';
 import { store } from 'store';
 import { queryClientDefaultOptions } from 'store/config/query-client';
 import { IResponseError, IServerSideContext, TTheme } from 'types';
-import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'variables';
-import { UPPER_BLUE_COLOR } from 'variables/colors';
 
 const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal'), { ssr: false });
 

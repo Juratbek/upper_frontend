@@ -1,7 +1,7 @@
 import { Logo } from 'components/molecules';
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import Link from 'next/link';
 import { FC } from 'react';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { LINKS, MEDIA_ICONS } from './Footer.constants';
 import styles from './Footer.module.scss';

@@ -1,6 +1,6 @@
 import { Button } from 'components/lib';
 import { Link } from 'components/lib';
-import { IMAGES } from 'variables';
+import { IMAGES } from 'constants/images';
 
 import classes from './NotFound.module.scss';
 

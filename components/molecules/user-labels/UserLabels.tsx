@@ -1,8 +1,8 @@
+import { PopularLabels } from 'constants/labels';
 import { useAuth, useUrlParams } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { useGetCurrentBlogTags } from 'store/clients/blog';
-import { PopularLabels } from 'variables';
 
 import { Labels } from '../labels';
 import {

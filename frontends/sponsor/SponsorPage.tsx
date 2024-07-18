@@ -1,8 +1,8 @@
 import { Alert, Button, Divider, Head, Modal } from 'components/lib';
+import { TELEGRAM_BOT } from 'constants/common';
 import { useAuth, useClipboard, useModal } from 'hooks';
 import { FC, useMemo } from 'react';
 import { convertToCardNumbers } from 'utils';
-import { TELEGRAM_BOT } from 'variables';
 
 const CARD_NUMBER = '8600490418761045';
 
