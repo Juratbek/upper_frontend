@@ -1,5 +1,5 @@
 import { Head } from 'components/lib';
-import { Editor } from 'components/molecules';
+import { Editor } from 'components/organisms';
 import { CommentsModal } from 'components/organisms';
 import { FC } from 'react';
 import { useIncrementViewCount } from 'store/clients/published-article';
