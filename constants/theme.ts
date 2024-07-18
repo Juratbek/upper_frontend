@@ -2,9 +2,7 @@ import { ITheme, TSelectedThemeOption, TTheme } from 'types';
 
 export const THEME_COLORS: Record<TTheme, ITheme> = {
   light: {
-    font: 'black',
     icon: 'black',
-    bg: 'white',
     border: 'rgba(0, 0, 0, 0.25)',
     popover: {
       bg: 'white',
@@ -18,9 +16,7 @@ export const THEME_COLORS: Record<TTheme, ITheme> = {
     },
   },
   dark: {
-    font: '#ffffffd9',
     icon: '#c5d1de',
-    bg: '#252a31',
     border: '#4b535d',
     popover: {
       bg: '#343a42',
