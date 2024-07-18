@@ -1,14 +1,14 @@
 import { useClickOutside, useTheme } from 'hooks';
-import { CSSProperties, useContext, useRef, useState } from 'react';
+import { CSSProperties, useRef, useState } from 'react';
 
-import { EditorContext } from '../context/EditorContext';
+import { useEditorContext } from '../context';
 import { ActionButtons } from './action-buttons/ActionButtons';
 import { SettingsPopover } from './settings-popover/SettingsPopover';
 import classes from './Toolbar.module.scss';
 import { ToolsPopover } from './tools-popover/ToolsPopover';
 
 export const Toolbar = () => {
-  const { hoveredBlock } = useContext(EditorContext);
+  const { hoveredBlock } = useEditorContext();
   const [isToolsPopoverOpen, setIsToolsPopoverOpen] = useState(false);
   const [isSettingsPopoverOpen, setIsSettingsPopoverOpen] = useState(false);
   const toolbarPosition = hoveredBlock?.offsetTop;
@@ -61,6 +61,7 @@ export const Toolbar = () => {
   return (
     <div
       className={classes.toolbar}
+      role='toolbar'
       style={{
         top: (toolbarPosition ?? 0) - 10,
         display: toolbarPosition === undefined ? 'none' : 'block',

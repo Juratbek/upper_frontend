@@ -1,6 +1,7 @@
 import { CommentIcon, DislikeIcon, LikeIcon, ShareIcon } from 'components/icons';
 import { Clickable, Divider } from 'components/lib';
 import { SharePopover } from 'components/organisms';
+import { UPPER_BLUE_COLOR } from 'constants/colors';
 import { useAuth, useClickOutside, useTheme } from 'hooks';
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
@@ -14,7 +15,6 @@ import {
 } from 'store/clients/published-article';
 import { toggleCommentsModal } from 'store/states';
 import { getClassName } from 'utils';
-import { UPPER_BLUE_COLOR } from 'variables/colors';
 
 import classes from './ArticleFooter.module.scss';
 

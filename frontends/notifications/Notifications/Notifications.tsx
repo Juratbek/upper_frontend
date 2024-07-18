@@ -1,13 +1,13 @@
 import { ApiErrorBoundary } from 'components';
 import { Spinner, StorysetImage } from 'components/lib';
 import { LoadMoreButton } from 'components/molecules';
+import { NOTIFICATIONS } from 'constants/notification';
 import { FC, useMemo } from 'react';
 import {
   useNotificationsList,
   useReadNotification,
   useResetNotificationsCount,
 } from 'store/clients/notification';
-import { NOTIFICATIONS } from 'variables/notification';
 
 export const Notifications: FC = () => {
   useResetNotificationsCount();

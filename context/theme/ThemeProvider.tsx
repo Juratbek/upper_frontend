@@ -1,8 +1,8 @@
+import { USER_THEME } from 'constants/common';
 import { useUrlParams } from 'hooks';
 import { FC, ReactNode, useCallback, useEffect, useState } from 'react';
 import { TSelectedThemeOption, TTheme } from 'types';
 import { getDeviceTheme, setServerSideTheme } from 'utils';
-import { USER_THEME } from 'variables';
 
 import { ThemeContext } from './ThemeContext';
 

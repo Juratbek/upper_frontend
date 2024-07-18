@@ -1,6 +1,6 @@
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import { getCookie } from 'cookies-next';
 import { GetServerSideProps } from 'next';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 export const checkAuthInServer: GetServerSideProps = async ({ req, res, resolvedUrl }) => {
   const token = getCookie('token', { req, res }) || null;
