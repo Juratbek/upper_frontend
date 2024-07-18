@@ -1,6 +1,6 @@
 import { Logo } from 'components/icons';
 import { Link } from 'components/lib';
-import { SearchInput } from 'components/SearchInput/SearchInput';
+import { SearchInput } from 'components/molecules';
 import { useTheme } from 'hooks';
 import { FC, useRef } from 'react';
 

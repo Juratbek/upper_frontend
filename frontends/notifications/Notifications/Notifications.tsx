@@ -1,6 +1,5 @@
-import { ApiErrorBoundary } from 'components';
 import { Spinner, StorysetImage } from 'components/lib';
-import { LoadMoreButton } from 'components/molecules';
+import { ApiErrorBoundary, LoadMoreButton } from 'components/molecules';
 import { NOTIFICATIONS } from 'constants/notification';
 import { FC, useMemo } from 'react';
 import {

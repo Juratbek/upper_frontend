@@ -4,8 +4,6 @@ export const SIDEBAR_BLOGS_SKELETON_COUNT = 3;
 
 export const TELEGRAM_BOT = { name: 'UDAS', link: 'https://t.me/udas_bot' };
 
-export const PAGINATION_SIZE = 10;
-
 export const MAX_LABELS = 5;
 
 export const TUTORIAL_MAX_LABELS = 3;

@@ -12,5 +12,6 @@ export * from './load-more-button/LoadMoreButton';
 export * from './no-article/NoArticle';
 export * from './auth-button/AuthButton';
 export * from './labels-selector/LabelsSelector';
-export * from './editor';
 export * from './upload-status/UploadStatus';
+export * from './ApiErrorBoundary/ApiErrorBoundary';
+export * from './SearchInput/SearchInput';

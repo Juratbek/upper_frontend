@@ -1,7 +1,7 @@
-import { ApiErrorBoundary } from 'components/ApiErrorBoundary';
 import { Input } from 'components/form';
 import { Logo, PrevIcon, SearchIcon } from 'components/icons';
 import { Link, Spinner } from 'components/lib';
+import { ApiErrorBoundary } from 'components/molecules';
 import { useTheme } from 'hooks';
 import { ChangeEvent, useCallback, useMemo, useRef, useState } from 'react';
 import { useSearch } from 'store/clients/published-article';

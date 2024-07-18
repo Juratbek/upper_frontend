@@ -34,7 +34,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   targetTextCoords,
   cleanUp,
 }) => {
-  const { theme, themeColors } = useTheme();
+  const { theme } = useTheme();
   const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0].name);
   const gridContainerClassName = useMemo(
     () => getClassName(styles.gridContainer, styles[theme]),
@@ -185,9 +185,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           </>
         ) : (
           <div className={gridContainerClassName}>
-            <p style={{ color: themeColors.font }} className='mx-2'>
-              Stikerlar topilmadi
-            </p>
+            <p className='mx-2'>Stikerlar topilmadi</p>
           </div>
         )}
       </div>

@@ -1,6 +1,6 @@
-import { ApiErrorBoundary } from 'components/ApiErrorBoundary';
 import { SearchIcon } from 'components/icons';
 import { Clickable, Divider, Link, Spinner } from 'components/lib';
+import { ApiErrorBoundary } from 'components/molecules';
 import { useDebounce, useTheme } from 'hooks';
 import { ChangeEvent, FocusEvent, forwardRef, useState } from 'react';
 import { useSearch } from 'store/clients/published-article';

@@ -1,5 +1,4 @@
-import { IOption } from 'components/form';
-import { ILabel, ITag, TClassName } from 'types';
+import { TClassName } from 'types';
 
 export const getClassName = (...classNames: TClassName[]): string =>
   classNames.filter((className) => !!className).join(' ');
@@ -15,29 +14,6 @@ export const get = <T>(
     return res ? res[field] : res;
   }, obj) as T;
 };
-
-export const convertToOptions = (
-  arr: any[] | undefined,
-  valueKey: string,
-  labelKey: string,
-): IOption[] => {
-  if (Array.isArray(arr)) {
-    return arr.map((item) => ({ ...item, value: item[valueKey], label: item[labelKey] }));
-  }
-  return [];
-};
-
-export const convertOptionsToLabels = (options: IOption[]): ILabel[] =>
-  options.map((option) => ({ id: +option.value, name: option.label }));
-
-export const convertLabelsToOptions = (labels: ILabel[] = []): IOption[] =>
-  convertToOptions(labels, 'id', 'name');
-
-export const convertTagsToOptions = (tags: ITag[] = []): IOption[] =>
-  convertToOptions(tags, 'id', 'name');
-
-export const convertOptionsToTags = <T extends ITag>(options: IOption[]): T[] =>
-  options.map((option) => ({ id: +option.value, name: option.label })) as T[];
 
 export const validatePassword = (value: string): boolean =>
   /[A-ZА-Я]/.test(value) && /[a-zа-я]/.test(value) && /[0-9]/.test(value);

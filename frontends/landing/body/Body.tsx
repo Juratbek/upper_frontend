@@ -1,5 +1,5 @@
-import { ApiErrorBoundary } from 'components';
 import { Spinner } from 'components/lib';
+import { ApiErrorBoundary } from 'components/molecules';
 import {
   LABEL_ID_PARAM,
   Labels,

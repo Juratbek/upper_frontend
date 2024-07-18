@@ -1,8 +1,9 @@
-import { ArticleImg, Author } from 'components';
 import { Link } from 'components/lib';
 import { FC } from 'react';
 import { getClassName } from 'utils';
 
+import { ArticleImg } from '../ArticleImg/ArticleImg';
+import { Author } from '../Author/Author';
 import classes from './PublishedArticle.module.scss';
 import { IPublishedArticleProps } from './PublishedArticle.types';
 

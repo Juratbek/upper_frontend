@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GoogleAuthScript } from 'components';
 import { Footer } from 'components/organisms';
 import { UPPER_BLUE_COLOR } from 'constants/colors';
-import { PRODUCTION_HOST, WEB_APP_ROOT_DIR } from 'constants/common';
+import { PRODUCTION_HOST } from 'constants/common';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
 import { useAuth, useConsoleAnalytics, useTheme } from 'hooks';
@@ -24,29 +24,8 @@ import { IResponseError, IServerSideContext, TTheme } from 'types';
 
 const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal'), { ssr: false });
 
-function WebApp({ Component, pageProps }: AppProps): JSX.Element {
-  return (
-    <>
-      <DynamicAuthModal />
-      <GoogleAuthScript />
-      <Component {...pageProps} />
-      <Footer />
-      <ReactQueryDevtools initialIsOpen={false} />
-      <ToastContainer />
-    </>
-  );
-}
-
-function MobileApp({ Component, pageProps }: AppProps): JSX.Element {
-  return (
-    <main className='main' id='main'>
-      <Component {...pageProps} />
-    </main>
-  );
-}
-
 function MyApp(props: AppProps): JSX.Element {
-  const { router } = props;
+  const { Component, pageProps } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate, syncTokens } = useAuth();
   const { theme } = useTheme();
   useConsoleAnalytics();
@@ -93,11 +72,12 @@ function MyApp(props: AppProps): JSX.Element {
         id='scrollable-root'
         style={{ height: '100vh', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
       >
-        {router.route.startsWith(WEB_APP_ROOT_DIR) ? (
-          <WebApp {...props} />
-        ) : (
-          <MobileApp {...props} />
-        )}
+        <DynamicAuthModal />
+        <GoogleAuthScript />
+        <Component {...pageProps} />
+        <Footer />
+        <ReactQueryDevtools initialIsOpen={false} />
+        <ToastContainer />
       </div>
       <NextNProgress color={UPPER_BLUE_COLOR} height={3} options={{ showSpinner: false }} />
     </div>
