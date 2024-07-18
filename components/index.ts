@@ -1,6 +1,5 @@
 export * from './Blog/Blog';
 export * from './SearchInput/SearchInput';
-export * from './Dropdown/Dropdown';
 export * from './ApiError/ApiError';
 export * from './ImageModal';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
