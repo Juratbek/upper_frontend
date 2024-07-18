@@ -9,6 +9,8 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 > - Tweet about it
 > - Refer this project in your project's readme
 > - Mention the project at local meetups and tell your friends/colleagues
+> - Write articles in this platform
+> - Share your articles with friends
 
 
 ## Links for guidlines
