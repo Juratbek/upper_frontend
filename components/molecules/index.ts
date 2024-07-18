@@ -14,3 +14,4 @@ export * from './auth-button/AuthButton';
 export * from './labels-selector/LabelsSelector';
 export * from './upload-status/UploadStatus';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
+export * from './SearchInput/SearchInput';

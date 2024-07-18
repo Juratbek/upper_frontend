@@ -1,7 +1,6 @@
 import { Button } from 'components/lib';
-import { Logo } from 'components/molecules';
+import { Logo, SearchInput } from 'components/molecules';
 import { Profile } from 'components/organisms';
-import { SearchInput } from 'components/SearchInput/SearchInput';
 import { useAuth } from 'hooks';
 import { useAppRouter } from 'hooks/useAppRouter/useAppRouter';
 import { FC, useCallback } from 'react';
