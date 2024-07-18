@@ -13,9 +13,15 @@ export const Footer: FC = () => {
         <div className={styles['main-block']}>
           <Logo />
           <ul className={styles.links}>
-            {LINKS.map((link) => (
-              <li key={link.text} className={styles.text}>
-                <Link href={WEB_APP_ROOT_DIR + link.url}>{link.text}</Link>
+            {LINKS.map(({ url, text, target }) => (
+              <li key={text} className={styles.text}>
+                {url.startsWith('http') ? (
+                  <a href={url} target={target}>
+                    {text}
+                  </a>
+                ) : (
+                  <Link href={WEB_APP_ROOT_DIR + url}>{text}</Link>
+                )}
               </li>
             ))}
           </ul>
