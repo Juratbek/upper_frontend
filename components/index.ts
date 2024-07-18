@@ -3,7 +3,6 @@ export * from './SearchInput/SearchInput';
 export * from './Dropdown/Dropdown';
 export * from './ApiError/ApiError';
 export * from './ImageModal';
-export * from './Follower/Follower';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
 export * from './GoogleAuthScript';
