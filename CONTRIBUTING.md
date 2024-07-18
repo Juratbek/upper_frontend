@@ -1,4 +1,4 @@
-# Contributing to CONTRIBUTING.md
+# Contributing
 
 First off, thanks for taking the time to contribute! ❤️
 
@@ -20,9 +20,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [Commit Messages](/COMMIT_MESSAGE.md)
 - [Branching](/BRANCHING.md)
 
-## Contribution
-
-### In order to contribute the repository follow these steps
+## In order to contribute the repository follow these steps
 1. Create a fork from the repository
 ![Screenshot 2024-07-18 at 17 33 28](https://github.com/user-attachments/assets/1fd8b626-7047-4e5e-bfc1-a1105f1d0685)
 
