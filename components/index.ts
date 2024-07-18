@@ -7,7 +7,6 @@ export * from './ApiError/ApiError';
 export * from './ApiErrorBoundary/ApiErrorBoundary';
 export * from './ImageModal';
 export * from './Follower/Follower';
-export * from './skeletons';
 export * from './PasswordValidityLevel/PasswordValidityLevel';
 export * from './Pagination/Pagination';
 export * from './GoogleAuthScript';
