@@ -35,3 +35,6 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 6. Request a revew from codeowners
 
 > ⚠️ The deployment checks for pull requests need authorization. So they will fail when you open a pull request. Don't worry, code owners will trigger them before reviewing.
+
+## If you have a question you can create a discussion
+
