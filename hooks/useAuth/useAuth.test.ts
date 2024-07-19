@@ -1,8 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
+import { REFRESH_TOKEN, TOKEN } from 'constants/auth';
+import { ACCESS_UPPER_UZ } from 'constants/common';
 import { IUseNextAuthProps } from 'hooks/useNextAuth/useNextAuth.types';
 import { ReduxWrapper } from 'tests';
 import { TAuthStatus } from 'types';
-import { ACCESS_UPPER_UZ, REFRESH_TOKEN, TOKEN } from 'variables';
 import { vi } from 'vitest';
 
 import { useAuth } from './useAuth';

@@ -54,10 +54,6 @@ export const ArticleSharePopup: FC<IArticleSharePopupProps> = ({
   return (
     <div
       className={`${styles.popupContainer}${visible ? ' ' + styles.show : ''} ${className}`}
-      style={{
-        backgroundColor: themeColors.bg,
-        borderColor: themeColors.popover.border,
-      }}
       ref={sharePopupRef}
     >
       <div className={styles.iconsContainer}>

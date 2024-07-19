@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { THEME_COLORS } from 'constants/theme';
 import { IComment } from 'types';
-import { THEME_COLORS } from 'variables';
 import { vi } from 'vitest';
 
 import { Comment } from './Comment';

@@ -1,8 +1,8 @@
 import { IHeadProps } from 'components/lib';
-import { IBlockData } from 'components/molecules';
+import { IBlockData } from 'components/organisms';
+import { BLOCK_TYPES } from 'constants/editor';
 import { ARTICLE_BUCKET_URL } from 'store/apis';
 import { IArticle } from 'types';
-import { BLOCK_TYPES } from 'variables';
 
 import { compressDataImage, compressUnsplashImage } from './image';
 

@@ -3,10 +3,11 @@ import { LinkedInIcon, TelegramIcon } from 'components/icons';
 import { IFooterLink, IMediaIcon } from './Footer.types';
 
 export const LINKS: IFooterLink[] = [
-  // {
-  //   text: "Qo'llab quvvatlash",
-  //   url: '/sponsor',
-  // },
+  {
+    text: "Sayt faoliyatiga hissa qo'shish",
+    url: 'https://github.com/Juratbek/upper_frontend/blob/beta/CONTRIBUTING.md',
+    target: '_blank',
+  },
   {
     text: 'Aloqa',
     url: '/contacts',

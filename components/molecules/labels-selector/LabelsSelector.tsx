@@ -1,5 +1,6 @@
 import { Input } from 'components/form';
 import { Spinner, TabButton } from 'components/lib';
+import { PopularLabels } from 'constants/labels';
 import {
   ChangeEvent,
   FC,
@@ -12,7 +13,6 @@ import {
 } from 'react';
 import { useSearchLabels } from 'store/clients/label';
 import { debouncer } from 'utils/debouncer';
-import { PopularLabels } from 'variables';
 
 import classes from './LabelsSelector.module.scss';
 import { ILabelSelectorOptions } from './LabelsSelector.types';

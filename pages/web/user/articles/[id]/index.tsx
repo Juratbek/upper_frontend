@@ -1,6 +1,5 @@
 import { Head, Spinner } from 'components/lib';
-import { Editor, IBlockData } from 'components/molecules';
-import { createBlock } from 'components/molecules/editor/context/EditorContext.utils';
+import { createBlock, Editor, IBlockData } from 'components/organisms';
 import { GenericWrapper } from 'components/wrappers';
 import { WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';

@@ -1,6 +1,6 @@
+import { THEME_COLORS } from 'constants/theme';
 import { ThemeContext } from 'context';
 import { useContext, useMemo } from 'react';
-import { THEME_COLORS } from 'variables/theme';
 
 import { IUseTheme } from './useTheme.types';
 

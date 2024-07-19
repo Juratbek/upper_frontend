@@ -1,6 +1,6 @@
+import { TOKEN } from 'constants/auth';
 import { isClientSide } from 'utils';
 import { ApiError } from 'utils/error';
-import { TOKEN } from 'variables';
 
 import { IConfig, IPostConfig } from './api-client.types';
 import { checkContentType } from './api-client.utils';

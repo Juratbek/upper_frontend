@@ -1,4 +1,4 @@
-import { ALLOWED_DOMAINS_FOR_IMAGES } from 'variables';
+import { ALLOWED_DOMAINS_FOR_IMAGES } from 'constants/images';
 
 export const isDomainRegistered = (imgUrl: string): boolean => {
   for (let i = 0; i < ALLOWED_DOMAINS_FOR_IMAGES.length; i++) {

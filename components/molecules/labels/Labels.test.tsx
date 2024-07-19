@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { PopularLabels } from 'variables';
+import { PopularLabels } from 'constants/labels';
 import { vi } from 'vitest';
 
 import { TopLabel } from '../user-labels';
