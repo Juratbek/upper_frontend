@@ -40,7 +40,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
       {isContentOverflowed && (
         <Clickable
           data-testid='prev-btn'
-          className={classes['next-btn']}
+          className={getClassName(classes['prev-btn'], classes['navigation-btn'])}
           onClick={moveLabels(-300)}
         >
           <PrevIcon color={themeColors.icon} />
@@ -60,7 +60,11 @@ export const Labels: FC<ILabelsProps> = (props) => {
         </div>
       </div>
       {isContentOverflowed && (
-        <Clickable data-testid='next-btn' className={classes['next-btn']} onClick={moveLabels(300)}>
+        <Clickable
+          data-testid='next-btn'
+          className={getClassName(classes['next-btn'], classes['navigation-btn'])}
+          onClick={moveLabels(300)}
+        >
           <NextIcon color={themeColors.icon} />
         </Clickable>
       )}

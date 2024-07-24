@@ -30,12 +30,19 @@
   gap: 1.2rem;
 }
 
-.next-btn {
+.navigation-btn {
   width: 3.2rem;
   height: 3.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.next-btn {
   border-left: 1px solid var(--black-50);
+}
+
+.prev-btn {
+  border-right: 1px solid var(--black-50);
 }
