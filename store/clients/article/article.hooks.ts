@@ -1,5 +1,5 @@
 import { UseMutationOptions, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
-import { IBlockData } from 'components/molecules';
+import { IBlockData } from 'components/organisms';
 import { apiClient, IMutationConfig, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IArticle, IArticleResult, IPagingResponse, TArticleStatus } from 'types';
 

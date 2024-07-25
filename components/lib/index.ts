@@ -11,7 +11,6 @@ export * from './Tooltip';
 export * from './Head';
 export * from './Badge';
 export * from './Avatar';
-export * from '../form/FileDragDrop';
 export * from './StorysetImage';
 export * from './Lordicon';
 export * from './Link';

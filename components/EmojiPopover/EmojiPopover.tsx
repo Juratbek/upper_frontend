@@ -1,4 +1,5 @@
 import { ClientOnlyPortal } from 'components';
+import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'constants/emoji-select';
 import { useTheme } from 'hooks';
 import {
   CSSProperties,
@@ -11,7 +12,6 @@ import {
 } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import { getClassName } from 'utils';
-import { EMOJI_CATEGORIES, PORTAL_SELECTOR } from 'variables';
 
 import { emojis } from './emoji';
 import styles from './EmojiPopover.module.scss';
@@ -34,7 +34,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
   targetTextCoords,
   cleanUp,
 }) => {
-  const { theme, themeColors } = useTheme();
+  const { theme } = useTheme();
   const [category, setCategory] = useState<string>(EMOJI_CATEGORIES[0].name);
   const gridContainerClassName = useMemo(
     () => getClassName(styles.gridContainer, styles[theme]),
@@ -185,9 +185,7 @@ export const EmojiPopover: FC<IEmojiPopoverProps> = ({
           </>
         ) : (
           <div className={gridContainerClassName}>
-            <p style={{ color: themeColors.font }} className='mx-2'>
-              Stikerlar topilmadi
-            </p>
+            <p className='mx-2'>Stikerlar topilmadi</p>
           </div>
         )}
       </div>

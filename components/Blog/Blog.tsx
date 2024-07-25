@@ -1,8 +1,8 @@
 import { Avatar } from 'components/lib';
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { getClassName } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';

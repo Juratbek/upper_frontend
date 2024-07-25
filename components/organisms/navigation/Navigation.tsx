@@ -1,6 +1,6 @@
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 import { NavItem } from './components/item';
 import { INavigation } from './Navigation.types';

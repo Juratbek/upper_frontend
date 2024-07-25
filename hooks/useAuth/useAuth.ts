@@ -1,3 +1,5 @@
+import { REFRESH_TOKEN, TOKEN } from 'constants/auth';
+import { ACCESS_UPPER_UZ } from 'constants/common';
 import { useNextAuth } from 'hooks';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -12,7 +14,6 @@ import {
   unauthenticate as storeUnauthenticate,
 } from 'store/states';
 import { removeLocalStorageTokens, setLocalStorageTokens } from 'utils';
-import { ACCESS_UPPER_UZ, REFRESH_TOKEN, TOKEN } from 'variables';
 
 import {
   IRegisterResponse,

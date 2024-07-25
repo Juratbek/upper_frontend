@@ -1,6 +1,6 @@
 import { Alert } from 'components/lib';
+import { TELEGRAM_BOT } from 'constants/common';
 import { FC } from 'react';
-import { TELEGRAM_BOT } from 'variables';
 
 import { IApiErrorProps } from './ApiError.types';
 

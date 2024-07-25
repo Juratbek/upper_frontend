@@ -1,5 +1,5 @@
+import { REFRESH_TOKEN, TOKEN } from 'constants/auth';
 import { ITokens } from 'hooks/useAuth';
-import { REFRESH_TOKEN, TOKEN } from 'variables';
 
 export const setLocalStorageTokens = (tokens: ITokens): void => {
   localStorage.setItem(TOKEN, tokens.token);
