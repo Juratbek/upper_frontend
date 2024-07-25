@@ -1,9 +1,8 @@
 import { FC, memo } from 'react';
 
-import { IToolProps } from '../tool.types';
 import cls from './Delimiter.module.scss';
 
-export const Delimiter: FC<IToolProps<unknown>> = memo(
+export const Delimiter: FC = memo(
   function Memoized() {
     return (
       <div className={cls.delimiter}>

@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Figure tool > frame element snapshot 1`] = `
+<body>
+  <div>
+    <figure>
+      <iframe
+        allowfullscreen=""
+        height="100"
+        src="https://github.com/gists/1232"
+        width="100"
+      />
+      <figcaption>
+        A gist from GitHub
+      </figcaption>
+    </figure>
+  </div>
+</body>
+`;
+
+exports[`Figure tool > snapshot 1`] = `
+<body>
+  <div>
+    <figure>
+      <img
+        alt=""
+        src="https://image.medium.com"
+      />
+      <figcaption>
+        Copied from medium.com
+      </figcaption>
+    </figure>
+  </div>
+</body>
+`;

@@ -3,7 +3,7 @@ import { getClassName } from 'utils';
 
 import { useEditorContext } from '../context';
 import { EditorProvider } from '../context/EditorProvider';
-import { InlineToolbar } from '../inline-toolbar/InlineToolbat';
+import { InlineToolbar } from '../inline-toolbar/InlineToolbar';
 import { useListeners } from '../listeners/useListeners';
 import { Toolbar } from '../toolbar/Toolbar';
 import classes from './Editor.module.scss';
