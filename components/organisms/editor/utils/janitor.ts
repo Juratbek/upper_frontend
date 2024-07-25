@@ -43,7 +43,14 @@ const allAllowedTags: TTags = {
   hr: {},
   aside: {},
   img: { width: true, height: true, src: true, alt: true },
-  iframe: { width: true, height: true, src: true },
+  iframe: {
+    width: true,
+    height: true,
+    src: true,
+    allowfullscreen: true,
+    title: true,
+    frameborder: true,
+  },
   pre: {},
   div: function (el: HTMLElement) {
     const role = el.getAttribute('role');

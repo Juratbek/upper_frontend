@@ -25,15 +25,7 @@ export const usePasteListener = () => {
       event.stopPropagation();
       event.preventDefault();
 
-      const htmlData = clipboardData.getData('text/html');
-
-      // if html data is empty check if text data is copied to the clipboard
-      if (!htmlData) {
-        const textData = clipboardData.getData('text/plain');
-        document.execCommand('insertHtml', false, textData);
-        return;
-      }
-
+      const htmlData = clipboardData.getData('text/html') || clipboardData.getData('text/plain');
       const htmlWithAllAllowedTags = janitor.clean(htmlData);
 
       // if html contains only inline text -> insert it into current block
