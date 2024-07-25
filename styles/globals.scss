@@ -29,7 +29,6 @@
   --color-modal-border-red: red;
 
   // sizes
-  --noticeboard-height: 0px;
   --sidebar-width: 25rem;
 
   // shadows
@@ -45,7 +44,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  min-height: calc(100vh - var(--noticeboard-height));
+  min-height: 100vh;
   // min-height: 100vh;
   overflow-x: hidden;
 
@@ -61,7 +60,7 @@
 
 .app>.main {
   flex: 1 1 auto;
-  height: calc(100vh - var(--noticeboard-height));
+  height: 100vh;
   overflow-y: auto;
 
   display: flex;

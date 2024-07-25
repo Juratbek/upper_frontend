@@ -1,6 +1,11 @@
-import { ApiErrorBoundary, Blog } from 'components';
+import { Blog } from 'components';
 import { Head } from 'components/lib';
-import { PublishedArticle, SubscriptionButton, UnsubscribeModal } from 'components/molecules';
+import {
+  ApiErrorBoundary,
+  PublishedArticle,
+  SubscriptionButton,
+  UnsubscribeModal,
+} from 'components/molecules';
 import { GenericWrapper } from 'components/wrappers';
 import { FC } from 'react';
 import { useBlogPublishedArticles } from 'store/clients/published-article';

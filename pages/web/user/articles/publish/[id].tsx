@@ -1,6 +1,5 @@
-import { ApiErrorBoundary } from 'components';
 import { Button, Divider } from 'components/lib';
-import { LabelsSelector, PublishedArticle } from 'components/molecules';
+import { ApiErrorBoundary, LabelsSelector, PublishedArticle } from 'components/molecules';
 import { GenericWrapper } from 'components/wrappers';
 import { useAppRouter } from 'hooks';
 import { useState } from 'react';

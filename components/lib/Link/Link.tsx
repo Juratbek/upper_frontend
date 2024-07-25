@@ -1,7 +1,7 @@
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import NextLink from 'next/link';
 import { forwardRef } from 'react';
 import { getClassName } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 import cls from './Link.module.scss';
 import { ILinkProps } from './Link.types';
