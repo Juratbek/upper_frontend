@@ -2,7 +2,7 @@ import { IconDelimiter } from '@codexteam/icons';
 
 import { IBlockData } from '../../instance/Editor.types';
 import { ITool } from '../tool.types';
-import { Delimiter } from './Delimiter.tools';
+import { Delimiter } from './Delimiter.tool';
 
 export const DelimiterTool: ITool = {
   toolbar: {
