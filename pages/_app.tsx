@@ -68,10 +68,7 @@ function MyApp(props: AppProps): JSX.Element {
           />
         </>
       )}
-      <div
-        id='scrollable-root'
-        style={{ height: '100vh', overflow: 'scroll', display: 'flex', flexDirection: 'column' }}
-      >
+      <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
         <DynamicAuthModal />
         <GoogleAuthScript />
         <Component {...pageProps} />
