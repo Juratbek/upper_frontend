@@ -3,6 +3,7 @@
     line-height: 115%;
     margin-top: 0;
     color: var(--editor-heading-text);
+    word-wrap: break-word;
 
     &:empty:before {
         content: var(--placeholder, ' ');
