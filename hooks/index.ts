@@ -12,3 +12,4 @@ export * from './useScrollToggler';
 export * from './useTheme/useTheme';
 export * from './useAppRouter';
 export * from './useConsoleAnalytics/useConsoleAnalytics';
+export * from './useDragScroll/useDragScroll';
