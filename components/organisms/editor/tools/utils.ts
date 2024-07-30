@@ -1,7 +1,7 @@
 import { KeyboardEvent } from 'react';
 
 import { IEditorAPI, IEditorContext } from '../context/EditorContext.types';
-import { IBlockData, IBlockNode } from '../instance/Editor.types';
+import { IBlockData, IBlockNode, TInitialBlockData } from '../instance/Editor.types';
 import { isEmpty } from '../utils/html';
 import { Selection } from '../utils/selection';
 
@@ -33,7 +33,9 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
 
   // if paragraph is empty when user presses Back key remove this paragraph
   if (code === 'Backspace' && isEmpty(element)) {
-    api.removeBlock(blockId);
+    api
+      .removeBlock(blockId)
+      .then(({ prevBlocks }) => focusPreviousBlock(prevBlocks, blockId, event));
     return;
   }
 
@@ -48,22 +50,6 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
       api.mergeWithPrevBlock<T>(blockId, (prevBlock, currentBlock) => {
         prevBlock.data.text += ` ${currentBlock.data.text}`;
 
-        // setTimeout(() => {
-        //   const prevBlockElement = document.getElementById(prevBlock.id) as HTMLParagraphElement;
-
-        //   const range = document.createRange();
-        //   const selection = window.getSelection();
-
-        //   if (!selection) return;
-
-        //   range.setStart(prevBlockElement.childNodes[0], 12);
-        //   range.collapse(true);
-
-        //   selection.removeAllRanges();
-        //   selection.addRange(range);
-        //   prevBlockElement.focus();
-        // }, 0);
-
         return prevBlock.data;
       });
       return;
@@ -73,4 +59,48 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
 
 export function getCurrentBlock<T>({ data, hoveredBlock }: IEditorContext<T>) {
   return data.find((b) => hoveredBlock?.id === b.id);
+}
+
+function focusPreviousBlock(
+  prevBlocks: IBlockData<TInitialBlockData>[],
+  blockId: IBlockData['id'],
+  event: KeyboardEvent,
+) {
+  const prevBlock = prevBlocks.find((_, index) => {
+    const nextBlock = prevBlocks[index + 1];
+    // if next block is the deleted block -> current block is previous block
+    if (nextBlock?.id === blockId) return true;
+
+    return false;
+  });
+
+  if (!prevBlock) return;
+
+  const prevBlockElement = document.getElementById(prevBlock?.id);
+  const textElements = prevBlockElement?.querySelectorAll(
+    'h1, h2, h3, h4, h5, h6, p',
+  ) as NodeListOf<HTMLParagraphElement | HTMLHeadingElement>;
+
+  if (!textElements || textElements.length < 1) return;
+
+  const lastTextElement = textElements[textElements.length - 1];
+  lastTextElement.focus();
+
+  // Create a range (a span of content) and a selection (current user selection)
+  const range = document.createRange();
+  const selection = window.getSelection();
+
+  if (!selection) return;
+
+  // Move the range to the end of the content inside the element
+  range.selectNodeContents(lastTextElement);
+  range.collapse(false);
+
+  // Remove any current selections
+  selection.removeAllRanges();
+
+  // Add the new range to the selection
+  selection.addRange(range);
+
+  event.preventDefault();
 }

@@ -16,7 +16,7 @@ export const EditorContext = createContext<IEditorContext>({
   focusPreviousBlock: notImplementedFunction,
   moveBlockDown: notImplementedFunction,
   moveBlockUp: notImplementedFunction,
-  removeBlock: notImplementedFunction,
+  removeBlock: Promise.reject,
   addBlock: notImplementedFunction,
   addBlocks: notImplementedFunction,
   setBlock: notImplementedFunction,

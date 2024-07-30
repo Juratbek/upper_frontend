@@ -26,6 +26,7 @@ export const Block = memo(function Component({ children, onMouseEnter, ...props 
 
   return (
     <div
+      id={props.id}
       data-testid='block'
       className={cls.block}
       ref={blockRef}
