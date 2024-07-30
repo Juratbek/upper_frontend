@@ -40,8 +40,7 @@ export function handleListItemKeydown(
 
   // if user pressed Enter a new list item will be added
   if (code === 'Enter') {
-    items.push('');
-    api.setBlock<IListData>({ id, type, data: { items, style } });
+    api.setBlock<IListData>({ id, type, data: { items: [...items, ''], style } });
     event.preventDefault();
     setTimeout(cb, 0);
   }
