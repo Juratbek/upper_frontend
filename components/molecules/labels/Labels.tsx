@@ -34,7 +34,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
 
     setIsPrevVisible(scrollLeft > 0);
     setIsNextVisible(scrollLeft + clientWidth < scrollWidth);
-  }, []);
+  }, [labels]);
 
   useEffect(() => {
     const labelsContainer = labelsContainerRef.current;
@@ -47,7 +47,7 @@ export const Labels: FC<ILabelsProps> = (props) => {
     return () => {
       labelsContainer.removeEventListener('scroll', checkScrollPosition);
     };
-  }, []);
+  }, [checkScrollPosition]);
 
   const isContentOverflowed = labelsContainerRef.current
     ? labelsContainerRef.current.scrollWidth > labelsContainerRef.current.clientWidth
