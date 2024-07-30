@@ -1,7 +1,7 @@
 import { NextIcon, PrevIcon } from 'components/icons';
 import { Clickable, TabButton } from 'components/lib';
 import { COMMON_SPACE_FROM_TOP } from 'components/wrappers';
-import { useTheme } from 'hooks';
+import { useDragScroll, useTheme } from 'hooks';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { getClassName } from 'utils';
 
@@ -14,6 +14,8 @@ export const Labels: FC<ILabelsProps> = (props) => {
   const { themeColors } = useTheme();
   const [isNextVisible, setIsNextVisible] = useState(true);
   const [isPrevVisible, setIsPrevVisible] = useState(false);
+
+  useDragScroll(labelsContainerRef);
 
   const labelSelectHandler = (id: string) => (): unknown => props.onSelect(id);
 
