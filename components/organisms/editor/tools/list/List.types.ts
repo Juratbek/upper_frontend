@@ -1,4 +1,4 @@
 export interface IListData {
-  items: string[];
-  style?: 'unordered' | 'ordered';
+  readonly items: string[];
+  readonly style?: 'unordered' | 'ordered';
 }
