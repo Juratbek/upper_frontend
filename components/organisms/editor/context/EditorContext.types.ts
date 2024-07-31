@@ -19,7 +19,10 @@ export type TAddBlocks = (
   currentBlockId: IBlockNode['id'],
 ) => void;
 
-export type TRemoveBlock = (id: IBlockData['id']) => void;
+export type TRemoveBlock = (id: IBlockData['id']) => Promise<{
+  blocks: IBlockData<TInitialBlockData>[];
+  prevBlocks: IBlockData<TInitialBlockData>[];
+}>;
 
 export type TFocusPreviousBlock = (
   id: IBlockData['id'],

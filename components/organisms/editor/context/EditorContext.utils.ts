@@ -139,19 +139,22 @@ export const bindEditorDataState = (
     });
   };
 
-  const removeBlock: TRemoveBlock = (removedBlockId) => {
-    setData((prevData) => {
-      const updatedBlocks = prevData.filter((block) => block.id !== removedBlockId);
+  const removeBlock: TRemoveBlock = (removedBlockId) =>
+    new Promise((resolve) => {
+      setData((prevData) => {
+        const updatedBlocks = prevData.filter((block) => block.id !== removedBlockId);
 
-      if (updatedBlocks.length === 0) {
-        updatedBlocks.push(createBlock('header'));
-      }
+        if (updatedBlocks.length === 0) {
+          updatedBlocks.push(createBlock('header'));
+        }
 
-      onBlocksChange(updatedBlocks);
+        onBlocksChange(updatedBlocks);
 
-      return updatedBlocks;
+        resolve({ blocks: updatedBlocks, prevBlocks: prevData });
+
+        return updatedBlocks;
+      });
     });
-  };
 
   const moveBlockUp: TMoveBlockUp = (id) => {
     setData((prevData) => {
