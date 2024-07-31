@@ -37,6 +37,7 @@ export const GoogleAuthScript: FC = () => {
     google.accounts.id.initialize({
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       callback,
+      cancel_on_tap_outside: false,
     });
     google.accounts.id.prompt();
   };
