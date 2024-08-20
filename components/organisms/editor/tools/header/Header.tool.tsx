@@ -1,14 +1,11 @@
 import { ChangeEvent, KeyboardEventHandler, memo, useCallback, useEffect, useRef } from 'react';
 import { getClassName } from 'utils';
-import { debouncer } from 'utils/debouncer';
 
 import { IToolProps } from '../tool.types';
 import { textBlockKeydownHandler } from '../utils';
 import { H } from './h/H';
 import classes from './Header.module.scss';
 import { IHeaderData } from './Header.types';
-
-const debounce = debouncer<IHeaderData>();
 
 export const Header = memo(
   function Memoized({ data, isEditable, api, ...props }: IToolProps<IHeaderData>) {
@@ -33,9 +30,11 @@ export const Header = memo(
     );
 
     const changeHandler = (event: ChangeEvent<HTMLHeadingElement>) => {
-      debounce({ text: event.target.innerHTML, level }, (d) =>
-        api.setBlock({ id: props.id, type: props.type, data: d }),
-      );
+      api.setBlock({
+        id: props.id,
+        type: props.type,
+        data: { text: event.target.innerHTML, level },
+      });
     };
 
     return (

@@ -1,12 +1,9 @@
 import { ChangeEvent, KeyboardEventHandler, memo, useCallback, useEffect, useRef } from 'react';
-import { debouncer } from 'utils/debouncer';
 
 import { IToolProps } from '../tool.types';
 import { textBlockKeydownHandler } from '../utils';
 import classes from './Paragraph.module.scss';
 import { IParagraphData } from './Paragraph.types';
-
-const debounce = debouncer<IParagraphData>();
 
 export const Paragraph = memo(
   function Memoized({ data, isEditable, api, id, type }: IToolProps<IParagraphData>) {
@@ -28,9 +25,7 @@ export const Paragraph = memo(
     );
 
     const changeHandler = (event: ChangeEvent<HTMLParagraphElement>) => {
-      debounce({ text: event.target.innerHTML }, (d) =>
-        api.setBlock<IParagraphData>({ id, type, data: d }),
-      );
+      api.setBlock<IParagraphData>({ id, type, data: { text: event.target.innerHTML } });
     };
 
     return (
