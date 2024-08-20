@@ -13,6 +13,7 @@ export const HeaderTool: ITool = {
   },
   settings: HeaderSettings,
   addBlocksOnPaste: true,
+  initialData: { text: '', level: 2 } satisfies IHeaderData,
   shortcuts: [
     {
       key: '1',
