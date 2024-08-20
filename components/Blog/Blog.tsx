@@ -22,6 +22,7 @@ export const Blog: FC<IBlogProps> = ({
       <div className={`d-flex align-items-center mb-1 ${className}`}>
         <Avatar
           imgUrl={imgUrl}
+          name={name}
           size={avatarSize}
           className={classes.avatar}
           zoomable={!isLink ?? true}

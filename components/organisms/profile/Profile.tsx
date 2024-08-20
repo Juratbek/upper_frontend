@@ -20,7 +20,7 @@ export const Profile = (): JSX.Element => {
   return (
     <div className={classes.root} id='header-profile'>
       <button className={classes.profile} onClick={profileBtnClickHandler} id='profile-btn'>
-        <Avatar imgUrl={currentBlog?.imgUrl} size='micro' />
+        {currentBlog && <Avatar imgUrl={currentBlog.imgUrl} name={currentBlog.name} size='micro' />}
         <span className={classes.icon}>
           <NextIcon width={24} height={24} />
         </span>
