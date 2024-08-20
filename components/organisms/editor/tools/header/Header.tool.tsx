@@ -12,7 +12,7 @@ const debounce = debouncer<IHeaderData>();
 
 export const Header = memo(
   function Memoized({ data, isEditable, api, ...props }: IToolProps<IHeaderData>) {
-    const { level, text, placeholder } = data ?? { level: 1, text: '' };
+    const { level, text, placeholder } = data ?? { level: 2, text: '' };
     const ref = useRef<HTMLHeadingElement>(null);
 
     useEffect(() => {
