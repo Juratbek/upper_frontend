@@ -66,7 +66,14 @@ export const ProfileSettingsUI: FC = () => {
       )}
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
         <div>
-          <Avatar imgUrl={imgUrl ?? ''} className='my-2' size='extra-large' />
+          {currentBlog && (
+            <Avatar
+              name={currentBlog.name}
+              imgUrl={imgUrl ?? ''}
+              className='my-2'
+              size='extra-large'
+            />
+          )}
           <FileInput
             {...register('avatar', {
               validate: {

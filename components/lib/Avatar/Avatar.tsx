@@ -11,6 +11,7 @@ import { IAvatarProps } from './Avatar.types';
 
 export const Avatar: FC<IAvatarProps> = ({
   size = 'small',
+  name,
   imgUrl,
   zoomable = false,
   isLocal = false,
@@ -21,7 +22,19 @@ export const Avatar: FC<IAvatarProps> = ({
   const className = getClassName(classes.avatar, classes[`avatar--${size}`], props.className);
 
   const image = useMemo(() => {
-    if (!imgUrl || error) return <Image src='/social_medi_logo.png' alt='UPPER' layout='fill' />;
+    if (!imgUrl || error) {
+      const firstWord = name.split(' ')[0];
+      const firstLetter = firstWord[0];
+
+      const cls = getClassName(
+        classes[`avatar--${size}`],
+        classes['letters-avatar'],
+        classes[firstLetter.toLowerCase()],
+      );
+
+      return <div className={cls}>{firstLetter.toUpperCase()}</div>;
+    }
+
     const imageType = getImageType(imgUrl);
     const isRemote = isRemoteUrl(imgUrl);
     const finalUrl = isRemote || isLocal ? imgUrl : addBlogAmazonUrl<string>(imgUrl);
