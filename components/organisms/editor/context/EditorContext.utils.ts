@@ -88,27 +88,32 @@ export const bindEditorDataState = (
   };
 
   const addBlock: TAddBlock = (type, currentBlockId, data) => {
-    if (!currentBlockId) {
+    return new Promise((resolve) => {
+      if (!currentBlockId) {
+        setData((prevData) => {
+          const newBlock = createBlock(type, data, tools[type]);
+
+          resolve(newBlock);
+          return [...prevData, newBlock];
+        });
+        return;
+      }
+
       setData((prevData) => {
+        const index = prevData.findIndex((block) => block.id === currentBlockId);
         const newBlock = createBlock(type, data, tools[type]);
-        return [...prevData, newBlock];
+
+        const updatedBlocks = [
+          ...prevData.slice(0, index + 1),
+          newBlock,
+          ...prevData.slice(index + 1),
+        ];
+
+        onBlocksChange(updatedBlocks);
+
+        resolve(newBlock);
+        return updatedBlocks;
       });
-      return;
-    }
-
-    setData((prevData) => {
-      const index = prevData.findIndex((block) => block.id === currentBlockId);
-      const newBlock = createBlock(type, data, tools[type]);
-
-      const updatedBlocks = [
-        ...prevData.slice(0, index + 1),
-        newBlock,
-        ...prevData.slice(index + 1),
-      ];
-
-      onBlocksChange(updatedBlocks);
-
-      return updatedBlocks;
     });
   };
 
