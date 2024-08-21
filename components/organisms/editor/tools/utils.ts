@@ -4,6 +4,7 @@ import { IEditorAPI, IEditorContext } from '../context/EditorContext.types';
 import { IBlockData, IBlockNode, TInitialBlockData } from '../instance/Editor.types';
 import { isEmpty } from '../utils/html';
 import { Selection } from '../utils/selection';
+import { IParagraphData } from './paragraph';
 
 export const generateBlockNode = (element: HTMLDivElement, block: IBlockData): IBlockNode => {
   // just creating new object from params will not work
@@ -14,6 +15,8 @@ export const generateBlockNode = (element: HTMLDivElement, block: IBlockData): I
     data: block.data,
   } satisfies IBlockData);
 };
+
+const textNodeNames = 'h1, h2, h3, h4, h5, h6, p';
 
 export const textBlockKeydownHandler = <T extends { text: string }>(
   event: KeyboardEvent,
@@ -26,9 +29,41 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
 
   // if user pressed Enter with ctrl or command add new paragraph
   if (code === 'Enter') {
-    api.addBlock('paragraph', blockId);
+    const range = Selection.range;
+
+    if (!range) {
+      api.addBlock('paragraph', blockId);
+      event.preventDefault();
+      return;
+    }
+
+    const cursorPosition = range.startOffset;
+    const currentText = element.innerText;
+
+    // Split the text at the cursor position
+    const beforeCursorText = currentText.slice(0, cursorPosition);
+    const afterCursorText = currentText.slice(cursorPosition);
+
+    // update current block state
+    api.setBlock<IParagraphData>({
+      id: blockId,
+      type: 'paragraph',
+      data: { text: beforeCursorText },
+    });
+
+    // update block content (block will not be rendered when text content is updated)
+    const currentBlockElement = document.getElementById(blockId)!;
+    const textElement = currentBlockElement.querySelector(textNodeNames)!;
+    textElement.innerHTML = beforeCursorText;
+
+    // add a new block
+    api.addBlock('paragraph', blockId, { text: afterCursorText }).then((newBlock) => {
+      const newBlockElement = document.getElementById(newBlock.id);
+      const paragraph = newBlockElement?.querySelector('p');
+      paragraph?.focus();
+    });
+
     event.preventDefault();
-    return;
   }
 
   // if paragraph is empty when user presses Back key remove this paragraph
@@ -61,6 +96,16 @@ export function getCurrentBlock<T>({ data, hoveredBlock }: IEditorContext<T>) {
   return data.find((b) => hoveredBlock?.id === b.id);
 }
 
+function getLastTextElement(element: HTMLElement) {
+  const textElements = element?.querySelectorAll(textNodeNames) as NodeListOf<
+    HTMLParagraphElement | HTMLHeadingElement
+  >;
+
+  if (!textElements || textElements.length < 1) return null;
+
+  return textElements[textElements.length - 1];
+}
+
 function focusPreviousBlock(
   prevBlocks: IBlockData<TInitialBlockData>[],
   blockId: IBlockData['id'],
@@ -77,13 +122,9 @@ function focusPreviousBlock(
   if (!prevBlock) return;
 
   const prevBlockElement = document.getElementById(prevBlock?.id);
-  const textElements = prevBlockElement?.querySelectorAll(
-    'h1, h2, h3, h4, h5, h6, p',
-  ) as NodeListOf<HTMLParagraphElement | HTMLHeadingElement>;
 
-  if (!textElements || textElements.length < 1) return;
-
-  const lastTextElement = textElements[textElements.length - 1];
+  const lastTextElement = getLastTextElement(prevBlockElement!);
+  if (!lastTextElement) return;
   lastTextElement.focus();
 
   // Create a range (a span of content) and a selection (current user selection)
