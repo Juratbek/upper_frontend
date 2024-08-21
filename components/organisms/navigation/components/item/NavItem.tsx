@@ -1,8 +1,8 @@
 import { Badge, Link } from 'components/lib';
+import { BLUE } from 'constants/colors';
 import { useTheme } from 'hooks';
 import { FC } from 'react';
 import { getClassName } from 'utils';
-import { BLUE } from 'variables/colors';
 
 import classes from './NavItem.module.scss';
 import { INavItemProps } from './NavItem.types';

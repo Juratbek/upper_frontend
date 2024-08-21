@@ -9,7 +9,7 @@ export const Logo: FC = () => {
   const { themeColors } = useTheme();
 
   return (
-    <Link href='/' className={classes.container}>
+    <Link href='/' data-testid='logo-link' className={classes.container}>
       <LogoImage color={themeColors.icon} />
     </Link>
   );

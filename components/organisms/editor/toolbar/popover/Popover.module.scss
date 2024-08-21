@@ -1,0 +1,76 @@
+.popover {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    transform: translateY(100%);
+    border: 1px solid var(--editor-toolbar-popover-border);
+    padding: 6px;
+    display: none;
+    border-radius: 4px;
+    background-color: var(--editor-toolbar-popover-bg);
+    min-width: 200px;
+}
+
+.open {
+    display: block;
+}
+
+.btn {
+    border: none;
+    background-color: transparent;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    color: inherit;
+
+    &.danger {
+        background-color: var(--red) !important;
+
+        .text {
+            color: white;
+        }
+    }
+
+    &:hover {
+        background-color: var(--editor-toolbar-popover-item-hover);
+        cursor: pointer;
+
+        .icon {
+            box-shadow: unset;
+        }
+    }
+
+}
+
+.icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: var(--editor-toolbar-popover-item-icon-bg);
+    box-shadow: 0 0 0 1px rgba(201, 201, 204, .48);
+    display: grid;
+    place-items: center;
+}
+
+.text {
+    flex: 1 0 auto;
+    width: max-content;
+    text-align: start;
+}
+
+.active {
+    background-color: rgba(56, 138, 229, .1);
+    color: #388AE5;
+}
+
+.suffix {
+    font-size: 0.7em;
+    color: var(--editor-toolbar-popover-item-shortcut);
+    display: inline-block;
+    max-width: 130px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

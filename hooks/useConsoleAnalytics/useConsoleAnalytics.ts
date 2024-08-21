@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 
+import { isIgnoredError } from './useConsoleAnalytics.utils';
+
 export const useConsoleAnalytics = () => {
   useEffect(() => {
     window.onload = function () {
@@ -9,17 +11,22 @@ export const useConsoleAnalytics = () => {
         const argsString = args.map((argument) => JSON.stringify(argument)).join(' ');
         const message = args[0];
 
-        const { location } = window;
+        const isIgnored = isIgnoredError(message);
+        if (!isIgnored) {
+          const { location } = window;
 
-        const error = {
-          message,
-          file: argsString,
-          path: location.pathname + location.search,
-        };
+          const error = {
+            message,
+            file: argsString,
+            path: location.pathname + location.search,
+          };
+
+          if (typeof gtag === 'function') {
+            gtag('event', 'console_error', error);
+          }
+        }
 
         originalConsoleError(...args);
-
-        gtag('event', 'console_error', error);
       };
     };
   }, []);

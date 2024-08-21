@@ -1,5 +1,4 @@
-import { SearchInput } from 'components';
-import { AuthButton, Logo } from 'components/molecules';
+import { AuthButton, Logo, SearchInput } from 'components/molecules';
 import { MobileHeader, TabletHeader } from 'components/organisms';
 import { useDevice } from 'hooks';
 import { FC, useMemo } from 'react';
@@ -12,6 +11,7 @@ export const LandingHeader: FC = () => {
   const content = useMemo(() => {
     if (isMobile) return <MobileHeader />;
     if (isTablet) return <TabletHeader />;
+
     return (
       <div className={`container ${classes.desktop}`}>
         <Logo />

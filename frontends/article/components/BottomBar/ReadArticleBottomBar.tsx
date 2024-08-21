@@ -8,9 +8,12 @@ export const ReadArticleBottomBar: FC = () => {
   const lastScrollTop = useRef(Number.MAX_VALUE);
 
   const detectScrollDirection = useCallback((event: Event): void => {
-    const currentTarget = event.currentTarget as HTMLElement;
+    const target = event.target as Document;
+    if (!target) return;
 
-    const { scrollTop } = currentTarget;
+    const scrollingElement = target.scrollingElement as HTMLElement;
+
+    const { scrollTop } = scrollingElement;
     if (scrollTop > lastScrollTop.current) {
       setIsScrollingUp(true);
     } else {
@@ -20,11 +23,10 @@ export const ReadArticleBottomBar: FC = () => {
   }, []);
 
   useEffect(() => {
-    const selector = '#scrollable-root';
-    document.querySelector(selector)?.addEventListener('scroll', detectScrollDirection);
+    document.addEventListener('scroll', detectScrollDirection);
 
     return () => {
-      document.querySelector(selector)?.removeEventListener('scroll', detectScrollDirection);
+      document.removeEventListener('scroll', detectScrollDirection);
     };
   }, [detectScrollDirection]);
 

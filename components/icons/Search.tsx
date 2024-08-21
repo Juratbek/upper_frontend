@@ -1,7 +1,7 @@
 import { IIconProps } from './types';
 
 export const SearchIcon = ({ color = 'black', width = 24, height = 24 }: IIconProps) => (
-  <svg width={width} height={height} viewBox='0 0 20 20' fill='none'>
+  <svg role='icon' width={width} height={height} viewBox='0 0 20 20' fill='none'>
     <path
       d='M17.4344 18.3334C17.204 18.3334 16.9736 18.2437 16.8072 18.0772L14.4262 15.6944C14.0806 15.3485 14.0806 14.7849 14.4262 14.4262C14.7718 14.0803 15.3351 14.0803 15.6935 14.4262L18.0744 16.8089C18.4201 17.1548 18.4201 17.7185 18.0744 18.0772C17.8952 18.2437 17.6648 18.3334 17.4344 18.3334Z'
       fill={color}

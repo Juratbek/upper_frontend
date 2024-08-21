@@ -14,8 +14,13 @@
   }
 }
 
+.container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
 .labels-container {
-  width: 200px;
   overflow: scroll;
   flex: 1;
   transition: all 500ms linear;
@@ -30,12 +35,24 @@
   gap: 1.2rem;
 }
 
-.next-btn {
+.navigation-btn {
   width: 3.2rem;
-  height: 3.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  background-color: var(--main-bg);
+}
+
+.next-btn {
+  right: 0;
   border-left: 1px solid var(--black-50);
+}
+
+.prev-btn {
+  left: 0;
+  border-right: 1px solid var(--black-50);
 }

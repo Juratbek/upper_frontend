@@ -1,5 +1,5 @@
-import { ApiErrorBoundary } from 'components';
 import { Spinner } from 'components/lib';
+import { ApiErrorBoundary } from 'components/molecules';
 import {
   LABEL_ID_PARAM,
   Labels,
@@ -11,11 +11,11 @@ import {
 } from 'components/molecules';
 import { Sidebar } from 'components/organisms';
 import { COMMON_SPACE_FROM_TOP } from 'components/wrappers';
+import { PopularLabels } from 'constants/labels';
 import { useUrlParams } from 'hooks';
 import { usePublishedArticlesList } from 'store/clients/published-article';
 import { getClassName } from 'utils';
 import { addAmazonBucketUrl } from 'utils/published-article';
-import { PopularLabels } from 'variables';
 
 import classes from './Body.module.scss';
 

@@ -1,30 +1,21 @@
-import { ApiErrorBoundary } from 'components';
 import { Spinner, StorysetImage } from 'components/lib';
-import { LoadMoreButton } from 'components/molecules';
-import { useRouter } from 'next/router';
-import { FC, useEffect, useMemo } from 'react';
+import { ApiErrorBoundary, LoadMoreButton } from 'components/molecules';
+import { NOTIFICATIONS } from 'constants/notification';
+import { FC, useMemo } from 'react';
 import {
   useNotificationsList,
   useReadNotification,
   useResetNotificationsCount,
 } from 'store/clients/notification';
-import { NOTIFICATIONS } from 'variables/notification';
 
 export const Notifications: FC = () => {
   useResetNotificationsCount();
-  const {
-    query: { page },
-  } = useRouter();
   const fetchNotificationsRes = useNotificationsList();
   const { mutate: readNotification } = useReadNotification();
 
-  useEffect(() => {
-    document.querySelector('#main')?.scrollTo({ top: 0 });
-  }, [page]);
-
   const notifications = useMemo(() => {
-    const { list } = fetchNotificationsRes;
-    const notifications = list;
+    const { list: notifications } = fetchNotificationsRes;
+
     if (!notifications || notifications.length === 0)
       return (
         <div className='text-center'>
@@ -43,6 +34,7 @@ export const Notifications: FC = () => {
       const Notification = NOTIFICATIONS[notification.type];
 
       if (!Notification) return <></>;
+
       return (
         <div key={notification.id} onClick={() => readNotification(notification.id)}>
           <Notification {...notification} />

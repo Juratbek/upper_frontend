@@ -35,3 +35,25 @@ export const getDevice = (): IDevice => {
     isDesktop: type === 'desktop',
   };
 };
+
+export function detectPlatform() {
+  const userAgent = navigator.userAgent.toLowerCase();
+
+  if (userAgent.includes('windows')) {
+    return 'Windows';
+  } else if (userAgent.includes('macintosh') || userAgent.includes('mac os')) {
+    return 'MacOS';
+  } else if (userAgent.includes('linux')) {
+    return 'Linux';
+  } else if (userAgent.includes('android')) {
+    return 'Android';
+  } else if (
+    userAgent.includes('iphone') ||
+    userAgent.includes('ipad') ||
+    userAgent.includes('ipod')
+  ) {
+    return 'iOS';
+  } else {
+    return 'Unknown';
+  }
+}

@@ -9,10 +9,10 @@ export const Author: FC<IAuthorProps> = ({ name, bio, imgUrl, id }) => {
   return (
     <div className={classes.root}>
       <Link href={`/blogs/${id}`} className={classes.author}>
-        <Avatar size='medium' imgUrl={imgUrl} />
+        <Avatar name={name} size='medium' imgUrl={imgUrl} />
         <div className={classes['text-block']}>
-          <h3 className={classes.name}>{name} sahna stend up</h3>
-          <p className={classes.bio}>{bio} Lorem ipsum dolor sit.</p>
+          <h3 className={classes.name}>{name}</h3>
+          <p className={classes.bio}>{bio}</p>
         </div>
       </Link>
       <SubscriptionButton className={classes.subscribe} blogId={id} />

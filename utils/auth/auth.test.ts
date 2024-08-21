@@ -1,5 +1,5 @@
+import { REFRESH_TOKEN, TOKEN } from 'constants/auth';
 import { ITokens } from 'hooks';
-import { REFRESH_TOKEN, TOKEN } from 'variables';
 import { vi } from 'vitest';
 
 import { removeLocalStorageTokens, setLocalStorageTokens } from './auth';

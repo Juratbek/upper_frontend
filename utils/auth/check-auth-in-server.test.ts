@@ -1,6 +1,6 @@
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import { getCookie } from 'cookies-next';
 import { GetServerSidePropsContext } from 'next';
-import { WEB_APP_ROOT_DIR } from 'variables';
 import { vi } from 'vitest';
 
 import { checkAuthInServer } from './checkAuthInServer';

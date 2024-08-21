@@ -2,6 +2,7 @@ import { IIconProps } from './types';
 
 export const UserIcon = ({ width = 24, height = 24, color = 'black' }: IIconProps) => (
   <svg
+    role='icon'
     width={width}
     height={height}
     viewBox='0 0 29 29'

@@ -1,4 +1,4 @@
-import { IBlockData } from 'components/molecules';
+import { IBlockData } from 'components/organisms';
 
 import { IBlogSmall } from './blog';
 

@@ -1,0 +1,108 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Navigation > render 1`] = `
+<body>
+  <div>
+    <a
+      class="root link"
+      href="/web/home"
+    >
+      <svg
+        fill="none"
+        height="20"
+        role="icon"
+        viewBox="0 0 24 24"
+        width="20"
+      >
+        <path
+          d="M9 17V21.9997H5C3.89543 21.9997 3 21.1043 3 19.9997V10.0332C3 9.73801 3.13046 9.45786 3.35643 9.26786L10.7129 3.08228C11.4569 2.45664 12.5431 2.45665 13.2871 3.08228L20.6436 9.26786C20.8695 9.45786 21 9.73801 21 10.0332V20C21 21.1046 20.1046 22 19 22H15V17C15 13 9 13 9 17Z"
+          fill="black"
+        />
+      </svg>
+      <p
+        class="m-0 flex-1"
+      >
+        Home
+      </p>
+    </a>
+    <a
+      class="root link"
+      href="/web/notifications"
+    >
+      <svg
+        fill="none"
+        height="20"
+        role="icon"
+        viewBox="0 0 24 24"
+        width="20"
+      >
+        <mask
+          fill="white"
+          id="path-2-inside-1_630_4298"
+        >
+          <path
+            d="M4.5 10.5C4.5 6.35786 7.85786 3 12 3C16.1421 3 19.5 6.35786 19.5 10.5V17C19.5 17.5523 19.0523 18 18.5 18H5.5C4.94772 18 4.5 17.5523 4.5 17V10.5Z"
+          />
+        </mask>
+        <path
+          d="M4.5 10.5C4.5 6.35786 7.85786 3 12 3C16.1421 3 19.5 6.35786 19.5 10.5V17C19.5 17.5523 19.0523 18 18.5 18H5.5C4.94772 18 4.5 17.5523 4.5 17V10.5Z"
+          mask="url(#path-2-inside-1_630_4298)"
+          stroke="black"
+          stroke-width="2.8"
+        />
+        <path
+          d="M16 17C16 17.5253 15.8965 18.0454 15.6955 18.5307C15.4945 19.016 15.1999 19.457 14.8284 19.8284C14.457 20.1999 14.016 20.4945 13.5307 20.6955C13.0454 20.8965 12.5253 21 12 21C11.4747 21 10.9546 20.8965 10.4693 20.6955C9.98396 20.4945 9.54301 20.1999 9.17157 19.8284C8.80014 19.457 8.5055 19.016 8.30448 18.5307C8.10346 18.0454 8 17.5253 8 17L12 17H16Z"
+          fill="black"
+        />
+        <path
+          d="M7 18H17V19H7V18Z"
+          fill="white"
+        />
+      </svg>
+      <p
+        class="m-0 flex-1"
+      >
+        Notifications
+      </p>
+      <div
+        class="badge badge--red badge"
+        role="badge"
+      >
+        +9
+      </div>
+    </a>
+    <a
+      class="root link"
+      href="/web/articles"
+    >
+      <svg
+        fill="none"
+        height="20"
+        role="icon"
+        viewBox="0 0 24 24"
+        width="20"
+      >
+        <path
+          d="M12 4H5.77778C5.30628 4 4.8541 4.1873 4.5207 4.5207C4.1873 4.8541 4 5.30628 4 5.77778V18.2222C4 18.6937 4.1873 19.1459 4.5207 19.4793C4.8541 19.8127 5.30628 20 5.77778 20H18.2222C18.6937 20 19.1459 19.8127 19.4793 19.4793C19.8127 19.1459 20 18.6937 20 18.2222V12"
+          stroke="black"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.6"
+        />
+        <path
+          d="M17.9227 3.52798C18.2607 3.18992 18.7193 3 19.1973 3C19.6754 3 20.134 3.18992 20.472 3.52798C20.8101 3.86605 21 4.32456 21 4.80265C21 5.28075 20.8101 5.73926 20.472 6.07732L12.3991 14.1502L9 15L9.84978 11.6009L17.9227 3.52798Z"
+          stroke="black"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.6"
+        />
+      </svg>
+      <p
+        class="m-0 flex-1"
+      >
+        Articles
+      </p>
+    </a>
+  </div>
+</body>
+`;

@@ -1,8 +1,8 @@
 import { Avatar } from 'components/lib';
+import { WEB_APP_ROOT_DIR } from 'constants/common';
 import Link from 'next/link';
 import { FC, useCallback } from 'react';
 import { getClassName } from 'utils';
-import { WEB_APP_ROOT_DIR } from 'variables';
 
 import classes from './Blog.module.scss';
 import { IBlogProps } from './Blog.types';
@@ -22,6 +22,7 @@ export const Blog: FC<IBlogProps> = ({
       <div className={`d-flex align-items-center mb-1 ${className}`}>
         <Avatar
           imgUrl={imgUrl}
+          name={name}
           size={avatarSize}
           className={classes.avatar}
           zoomable={!isLink ?? true}

@@ -1,0 +1,36 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header tool > read only snapshot 1`] = `
+<body>
+  <div>
+    <h1
+      class="heading"
+      contenteditable="false"
+    >
+      This is a heading
+    </h1>
+  </div>
+</body>
+`;
+
+exports[`Header tool > renders heading level based on data level 1`] = `
+<body>
+  <div>
+    <h2
+      class="heading"
+      contenteditable="true"
+    />
+  </div>
+</body>
+`;
+
+exports[`Header tool > snapshot 1`] = `
+<body>
+  <div>
+    <h1
+      class="heading"
+      contenteditable="true"
+    />
+  </div>
+</body>
+`;

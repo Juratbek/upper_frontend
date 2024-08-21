@@ -1,0 +1,660 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Landing page Body > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="root"
+    >
+      <section
+        class="container"
+      >
+        <div
+          class="root"
+          style="padding-top: 2rem; margin-top: -2rem;"
+        >
+          <div
+            class="labels-container"
+            id="labels"
+          >
+            <div
+              class="lebels-list"
+            >
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Eng so'nggi
+              </button>
+              <button
+                class="button primary"
+                color="primary"
+              >
+                Top
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Java
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                JavaScript
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                TypeScript
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                HTML
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                SQL
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Python
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C++
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Go
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C#
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                PHP
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Swift
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Kotlin
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Rust
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            class="content-center loading"
+          >
+            <div
+              class="spinner spinner--primary"
+              role="spinner"
+            />
+          </div>
+        </div>
+      </section>
+      <div
+        class="sidebar"
+        style="top: 2rem;"
+      >
+        <div
+          class="add-container"
+        >
+          <h4
+            class="sale"
+          >
+            Chegirma
+          </h4>
+          <h3
+            class="percent"
+          >
+            15%
+          </h3>
+          <p
+            class="text"
+          >
+            UPPER promokodi bilan Frontint.uz kurslariga chegirma oling
+          </p>
+        </div>
+        <a
+          href="https://frontint.uz/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <button
+            class="button mt-1 w-100 btn"
+            style="opacity: 1;"
+          >
+            Chegirma olish
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Landing page Body > snapshot with articles returned by backend 1`] = `
+<body>
+  <div>
+    <div
+      class="root"
+    >
+      <section
+        class="container"
+      >
+        <div
+          class="root"
+          style="padding-top: 2rem; margin-top: -2rem;"
+        >
+          <div
+            class="labels-container"
+            id="labels"
+          >
+            <div
+              class="lebels-list"
+            >
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Eng so'nggi
+              </button>
+              <button
+                class="button primary"
+                color="primary"
+              >
+                Top
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Java
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                JavaScript
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                TypeScript
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                HTML
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                SQL
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Python
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C++
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Go
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C#
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                PHP
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Swift
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Kotlin
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Rust
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <a
+            class="article link"
+            href="/web/articles/1"
+          >
+            <div
+              class="article-img article-img article-img--full"
+            >
+              <img
+                class="img"
+                src="https://image.upper.uz/1"
+              />
+            </div>
+            <h2
+              class="article-title"
+            >
+              Published article
+            </h2>
+            <div
+              class="article-footer"
+            >
+              <a
+                class="link link"
+                href="/web/blogs/12"
+              >
+                <div
+                  class="blog"
+                >
+                  <div
+                    class="avatar avatar--micro avatar"
+                    style="border-color: rgba(245, 245, 245, 0.1);"
+                  >
+                    <img
+                      alt="UPPER"
+                      data-nimg="fill"
+                      decoding="async"
+                      loading="lazy"
+                      sizes="100vw"
+                      src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                      srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                      style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                    />
+                  </div>
+                  <h5
+                    class="name"
+                  >
+                    Jur'atbek
+                  </h5>
+                </div>
+              </a>
+            </div>
+          </a>
+          <a
+            class="article link"
+            href="/web/articles/2"
+          >
+            <div
+              class="article-img article-img article-img--full"
+            >
+              <img
+                class="img"
+                src="https://image.upper.uz/2"
+              />
+            </div>
+            <h2
+              class="article-title"
+            >
+              Second published article
+            </h2>
+            <div
+              class="article-footer"
+            >
+              <a
+                class="link link"
+                href="/web/blogs/12"
+              >
+                <div
+                  class="blog"
+                >
+                  <div
+                    class="avatar avatar--micro avatar"
+                    style="border-color: rgba(245, 245, 245, 0.1);"
+                  >
+                    <img
+                      alt="UPPER"
+                      data-nimg="fill"
+                      decoding="async"
+                      loading="lazy"
+                      sizes="100vw"
+                      src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                      srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                      style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                    />
+                  </div>
+                  <h5
+                    class="name"
+                  >
+                    Jur'atbek
+                  </h5>
+                </div>
+              </a>
+            </div>
+          </a>
+          <a
+            class="article link"
+            href="/web/articles/3"
+          >
+            <h2
+              class="article-title"
+            >
+              Third published article
+            </h2>
+            <div
+              class="article-footer"
+            >
+              <a
+                class="link link"
+                href="/web/blogs/12"
+              >
+                <div
+                  class="blog"
+                >
+                  <div
+                    class="avatar avatar--micro avatar"
+                    style="border-color: rgba(245, 245, 245, 0.1);"
+                  >
+                    <img
+                      alt="UPPER"
+                      data-nimg="fill"
+                      decoding="async"
+                      loading="lazy"
+                      sizes="100vw"
+                      src="http://localhost:3000/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75"
+                      srcset="/_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=640&q=75 640w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=750&q=75 750w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=828&q=75 828w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1080&q=75 1080w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1200&q=75 1200w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=1920&q=75 1920w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=2048&q=75 2048w, /_next/image?url=https%3A%2F%2Fimage.upper.uz%2F12&w=3840&q=75 3840w"
+                      style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; object-fit: cover; color: transparent;"
+                    />
+                  </div>
+                  <h5
+                    class="name"
+                  >
+                    Jur'atbek
+                  </h5>
+                </div>
+              </a>
+            </div>
+          </a>
+          <button
+            class="button"
+            color="tertiary"
+            style="opacity: 1; font-size: 20px; width: 100%;"
+          >
+            Yana yuklash
+          </button>
+        </div>
+      </section>
+      <div
+        class="sidebar"
+        style="top: 2rem;"
+      >
+        <div
+          class="add-container"
+        >
+          <h4
+            class="sale"
+          >
+            Chegirma
+          </h4>
+          <h3
+            class="percent"
+          >
+            15%
+          </h3>
+          <p
+            class="text"
+          >
+            UPPER promokodi bilan Frontint.uz kurslariga chegirma oling
+          </p>
+        </div>
+        <a
+          href="https://frontint.uz/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <button
+            class="button mt-1 w-100 btn"
+            style="opacity: 1;"
+          >
+            Chegirma olish
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Landing page Body > snapshot with empty articles returned by backend 1`] = `
+<body>
+  <div>
+    <div
+      class="root"
+    >
+      <section
+        class="container"
+      >
+        <div
+          class="root"
+          style="padding-top: 2rem; margin-top: -2rem;"
+        >
+          <div
+            class="labels-container"
+            id="labels"
+          >
+            <div
+              class="lebels-list"
+            >
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Eng so'nggi
+              </button>
+              <button
+                class="button primary"
+                color="primary"
+              >
+                Top
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Java
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                JavaScript
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                TypeScript
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                HTML
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                SQL
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Python
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C++
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Go
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                C#
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                PHP
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Swift
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Kotlin
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Rust
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>
+            <h3>
+              Top
+               uchun maqolalar topilmadi
+            </h3>
+            <p>
+              Top
+               mavzusida maqolalar yozing va bilim ulashing
+            </p>
+          </div>
+        </div>
+      </section>
+      <div
+        class="sidebar"
+        style="top: 2rem;"
+      >
+        <div
+          class="add-container"
+        >
+          <h4
+            class="sale"
+          >
+            Chegirma
+          </h4>
+          <h3
+            class="percent"
+          >
+            15%
+          </h3>
+          <p
+            class="text"
+          >
+            UPPER promokodi bilan Frontint.uz kurslariga chegirma oling
+          </p>
+        </div>
+        <a
+          href="https://frontint.uz/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <button
+            class="button mt-1 w-100 btn"
+            style="opacity: 1;"
+          >
+            Chegirma olish
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+`;

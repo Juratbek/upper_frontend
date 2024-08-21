@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import { useContinueWithGoogle } from 'store/clients/blog';
 import { closeAuthModal } from 'store/states';
 
@@ -12,9 +13,15 @@ export const GoogleAuthScript: FC = () => {
   const dispatch = useDispatch();
   const { authenticate, isAuthenticated } = useAuth();
   const { mutate: continueWithGoogle } = useContinueWithGoogle({
+    onMutate: () => toast.loading('Yuklanmoqda...'),
     onSuccess: (res) => {
       authenticate(res);
       dispatch(closeAuthModal());
+      toast.dismiss();
+    },
+    onError: () => {
+      toast.dismiss();
+      toast.error("Xaotlik tuz berdi, birozdan keyin urinib ko'ring");
     },
   });
   const {
@@ -30,6 +37,7 @@ export const GoogleAuthScript: FC = () => {
     google.accounts.id.initialize({
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
       callback,
+      cancel_on_tap_outside: false,
     });
     google.accounts.id.prompt();
   };

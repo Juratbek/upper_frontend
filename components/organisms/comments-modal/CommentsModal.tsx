@@ -30,7 +30,7 @@ export const CommentsModal: FC = () => {
   const closeModal = useCallback(() => dispatch(closeCommentsModal()), []);
 
   return (
-    <div className={classes.root} style={{ display: isOpen ? 'block' : 'none' }}>
+    <div role='dialog' className={classes.root} style={{ display: isOpen ? 'block' : 'none' }}>
       <Clickable className={classes.background} onClick={closeModal} />
       <div className={classes.modal}>
         <div className={classes['modal-header']}>

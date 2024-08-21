@@ -1,13 +1,19 @@
 import { Head, Spinner } from 'components/lib';
-import { Editor, IBlockData } from 'components/molecules';
-import { createBlock } from 'components/molecules/editor/context/EditorContext.utils';
+import { createBlock, Editor, IBlockData } from 'components/organisms';
 import { GenericWrapper } from 'components/wrappers';
 import { WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { useArticleById, useUpdateArticleBlocks } from 'store/clients/article';
-import { addUriToImageBlocks, checkAuthInServer, removeAmazonUriFromImgBlocks } from 'utils';
+import {
+  addUriToImageBlocks,
+  checkAuthInServer,
+  debouncer,
+  removeAmazonUriFromImgBlocks,
+} from 'utils';
+
+const debounce = debouncer<{ id: number; blocks: IBlockData[] }>();
 
 export default function UserArticlePage(): JSX.Element {
   const { query } = useRouter();
@@ -29,7 +35,7 @@ export default function UserArticlePage(): JSX.Element {
   const editorChangeHandler = useCallback(
     async (b: IBlockData[]) => {
       const [blocks] = await removeAmazonUriFromImgBlocks(b);
-      updateArticle({ id, blocks });
+      debounce({ id, blocks }, updateArticle);
     },
     [updateArticle, article],
   );

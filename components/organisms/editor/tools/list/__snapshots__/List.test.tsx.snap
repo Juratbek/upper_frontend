@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`List tool > ordered list snapshot 1`] = `
+<body>
+  <div>
+    <ol>
+      <li
+        class="item"
+        contenteditable="true"
+      />
+    </ol>
+  </div>
+</body>
+`;
+
+exports[`List tool > read only mode snapshot 1`] = `
+<body>
+  <div>
+    <ol>
+      <li
+        class="item"
+        contenteditable="false"
+      >
+        Birinchi element
+      </li>
+      <li
+        class="item"
+        contenteditable="false"
+      >
+        Ikkinchi element
+      </li>
+      <li
+        class="item"
+        contenteditable="false"
+      >
+        Uchinchi element
+      </li>
+    </ol>
+  </div>
+</body>
+`;
+
+exports[`List tool > snapshot 1`] = `
+<body>
+  <div>
+    <ul>
+      <li
+        class="item"
+        contenteditable="true"
+      />
+    </ul>
+  </div>
+</body>
+`;

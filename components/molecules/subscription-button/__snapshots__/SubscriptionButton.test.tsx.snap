@@ -1,0 +1,74 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SubscriptionButton > renders subscribed button if user is subscribed 1`] = `
+<body>
+  <div>
+    <button
+      class="button"
+      color="tertiary"
+      style="opacity: 1;"
+    >
+      Obuna bo'lingan
+    </button>
+  </div>
+</body>
+`;
+
+exports[`SubscriptionButton > snapshot 1`] = `
+<body>
+  <div />
+</body>
+`;
+
+exports[`SubscriptionButton > snapshot for authorized and not subscribed users 1`] = `
+<body>
+  <div>
+    <button
+      class="button"
+      style="opacity: 1;"
+    >
+      Obuna bo'lish
+    </button>
+  </div>
+</body>
+`;
+
+exports[`SubscriptionButton > snapshot for authorized and subscribed users 1`] = `
+<body>
+  <div>
+    <button
+      class="button"
+      color="tertiary"
+      style="opacity: 1;"
+    >
+      Obuna bo'lingan
+    </button>
+  </div>
+</body>
+`;
+
+exports[`SubscriptionButton > snapshot for authorized users 1`] = `
+<body>
+  <div>
+    <button
+      class="button"
+      style="opacity: 1;"
+    >
+      Obuna bo'lish
+    </button>
+  </div>
+</body>
+`;
+
+exports[`SubscriptionButton > snapshot for unauthorized users 1`] = `
+<body>
+  <div>
+    <button
+      class="button"
+      style="opacity: 1;"
+    >
+      Obuna bo'lish
+    </button>
+  </div>
+</body>
+`;

@@ -1,0 +1,109 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Alert tool > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="alert info"
+    >
+      <span
+        class="icon"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          
+            
+          <path
+            d="M9.86674 5.25C10.8149 3.58333 13.1851 3.58333 14.1333 5.25L22.6663 20.25C23.6144 21.9167 22.4293 24 20.533 24H3.46695C1.57072 24 0.385575 21.9167 1.33369 20.25L9.86674 5.25Z"
+            fill="#007AFF"
+          />
+          
+            
+          <rect
+            fill="white"
+            height="10"
+            width="2"
+            x="11"
+            y="8"
+          />
+          
+            
+          <rect
+            fill="white"
+            height="2"
+            transform="matrix(1 0 0 -1 11 22)"
+            width="2"
+          />
+          
+          
+        </svg>
+      </span>
+      <p
+        class="text"
+        contenteditable="true"
+        role="paragraph"
+      >
+        This is an info message
+      </p>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`Alert tool > snapshot for not editable mode 1`] = `
+<body>
+  <div>
+    <div
+      class="alert info"
+    >
+      <span
+        class="icon"
+      >
+        <svg
+          fill="none"
+          height="24"
+          viewBox="0 0 24 24"
+          width="24"
+        >
+          
+            
+          <path
+            d="M9.86674 5.25C10.8149 3.58333 13.1851 3.58333 14.1333 5.25L22.6663 20.25C23.6144 21.9167 22.4293 24 20.533 24H3.46695C1.57072 24 0.385575 21.9167 1.33369 20.25L9.86674 5.25Z"
+            fill="#007AFF"
+          />
+          
+            
+          <rect
+            fill="white"
+            height="10"
+            width="2"
+            x="11"
+            y="8"
+          />
+          
+            
+          <rect
+            fill="white"
+            height="2"
+            transform="matrix(1 0 0 -1 11 22)"
+            width="2"
+          />
+          
+          
+        </svg>
+      </span>
+      <p
+        class="text"
+        contenteditable="false"
+        role="paragraph"
+      >
+        This is an info message
+      </p>
+    </div>
+  </div>
+</body>
+`;

@@ -10,7 +10,7 @@ export const Comment: FC<ICommentProps> = (props) => {
 
   return (
     <div className={classes.root}>
-      <Avatar imgUrl={author.imgUrl} size='small' />
+      <Avatar name={author.name} imgUrl={author.imgUrl} size='small' />
       <div className={classes.body}>
         <div className={classes['body-header']}>
           <Link href={`/blogs/${author.id}`} className={classes.link}>

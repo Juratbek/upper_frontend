@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Delimiter tool > snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="delimiter"
+    >
+      *
+         
+      *
+         
+      *
+    </div>
+  </div>
+</body>
+`;

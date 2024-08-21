@@ -1,0 +1,18 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Down icon > renders the icon 1`] = `
+<svg
+  fill="none"
+  height="24"
+  role="icon"
+  viewBox="0 0 24 24"
+  width="24"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M6 9L12 15L18 9"
+    stroke="#A2A4A5"
+    stroke-width="1.6"
+  />
+</svg>
+`;

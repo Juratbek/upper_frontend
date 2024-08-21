@@ -25,7 +25,7 @@ describe('components/molecules/AuthButton', () => {
         useTheme: () => ({
           theme: {},
         }),
-        useUrlParams: () => jest.fn(),
+        useUrlParams: () => vi.fn(),
       };
     });
   });

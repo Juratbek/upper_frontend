@@ -1,0 +1,20 @@
+.heading {
+    outline: none;
+    line-height: 115%;
+    margin-top: 0;
+    color: var(--editor-heading-text);
+    word-wrap: break-word;
+
+    &:empty:before {
+        content: var(--placeholder, ' ');
+        color: var(--black-200);
+    }
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: end;
+}

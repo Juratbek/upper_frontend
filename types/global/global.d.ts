@@ -1,4 +1,5 @@
 declare module 'html-janitor';
+declare module '@codexteam/icons';
 
 type TCommand = 'config' | 'get' | 'set' | 'event' | 'consent';
 

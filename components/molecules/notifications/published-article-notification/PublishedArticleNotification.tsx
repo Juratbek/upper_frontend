@@ -17,7 +17,7 @@ export const PublishedArticleNotification: FC<INotificationComponentProp> = (pro
       <h3 className={classes.title} dangerouslySetInnerHTML={{ __html: article.title }} />
       <div className={`${classes.footer} align-items-center`}>
         <div className={styles.author}>
-          <Avatar imgUrl={author.imgUrl} />
+          <Avatar name={author.name} imgUrl={author.imgUrl} />
           <span className={styles['author-name']}>{author.name}</span>
         </div>
         <span className={classes.date}>{dateInterval(createdDate)}</span>
