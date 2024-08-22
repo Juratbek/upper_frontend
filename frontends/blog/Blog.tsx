@@ -40,11 +40,11 @@ export const BlogPage: FC<IBlogPageProps> = ({ blog, error, fullUrl }) => {
 
 const PublishedArticles: FC<{ id: IBlog['id'] }> = ({ id }) => {
   const articlesRes = useBlogPublishedArticles(id);
-  const { data } = articlesRes;
+  const { list } = articlesRes;
 
   return (
     <ApiErrorBoundary res={articlesRes}>
-      {data
+      {list
         ?.map(addAmazonBucketUrl)
         .map((article) => <PublishedArticle key={article.id} article={article} />)}
     </ApiErrorBoundary>
