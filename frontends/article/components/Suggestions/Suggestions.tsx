@@ -2,6 +2,7 @@ import { PublishedArticle } from 'components/molecules';
 import { FC } from 'react';
 import { useBlogPublishedArticles } from 'store/clients/published-article';
 import { IBlog } from 'types';
+import { addAmazonBucketUrl } from 'utils/published-article';
 
 import cls from './Suggestions.module.scss';
 
@@ -13,7 +14,7 @@ export const Suggestions: FC<{ blogId: IBlog['id'] }> = ({ blogId }) => {
   return (
     <div className={cls.container}>
       {articles.map((article) => (
-        <PublishedArticle key={article.id} article={article} />
+        <PublishedArticle key={article.id} article={addAmazonBucketUrl(article)} />
       ))}
     </div>
   );
