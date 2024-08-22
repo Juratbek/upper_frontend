@@ -6,7 +6,7 @@ import { IBlog } from 'types';
 import cls from './Suggestions.module.scss';
 
 export const Suggestions: FC<{ blogId: IBlog['id'] }> = ({ blogId }) => {
-  const { list: articles, isSuccess } = useBlogPublishedArticles(blogId, { size: '10' });
+  const { list: articles, isSuccess } = useBlogPublishedArticles(blogId);
 
   if (!isSuccess) return null;
 
