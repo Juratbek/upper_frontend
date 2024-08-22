@@ -14,9 +14,10 @@ export const usePublishedArticlesList = (label: string) => {
 };
 
 export const useBlogPublishedArticles = (id: IBlog['id']) =>
-  useQuery<IPublishedArticleItem[]>({
+  useInfiniteQuery<IPublishedArticleItem>({
     queryKey: ['blog-published-articles', id],
-    queryFn: () => apiClient.get(`blog/open/published-articles/${id}`),
+    queryFn: ({ pageParam }) =>
+      apiClient.get(`blog/open/published-articles/${id}`, { page: pageParam.toString() }),
   });
 
 export const useIncrementViewCount = (article: Pick<IArticle, 'id' | 'token'> | null) =>

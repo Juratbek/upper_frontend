@@ -10,6 +10,7 @@ import { IArticlePageMainProps } from './article.types';
 import { Author } from './components';
 import { ErrorUI } from './components/Error/Error';
 import { ArticleFooter } from './components/Footer/ArticleFooter';
+import { Suggestions } from './components/Suggestions/Suggestions';
 
 export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl, title }) => {
   const { blocks = [] } = article ?? {};
@@ -31,6 +32,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
         <Editor content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
       </article>
       <ArticleFooter sharePopoverId='share-btn-in-article-page' />
+      {article.author && <Suggestions blogId={article.author.id} />}
       <CommentsModal />
     </>
   );
