@@ -32,7 +32,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
         <Editor content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
       </article>
       <ArticleFooter sharePopoverId='share-btn-in-article-page' />
-      <Suggestions />
+      {article.author && <Suggestions blogId={article.author.id} />}
       <CommentsModal />
     </>
   );

@@ -13,10 +13,10 @@ export const usePublishedArticlesList = (label: string) => {
   });
 };
 
-export const useBlogPublishedArticles = (id: IBlog['id']) =>
-  useQuery<IPublishedArticleItem[]>({
+export const useBlogPublishedArticles = (id: IBlog['id'], params?: Record<string, string>) =>
+  useInfiniteQuery<IPublishedArticleItem>({
     queryKey: ['blog-published-articles', id],
-    queryFn: () => apiClient.get(`blog/open/published-articles/${id}`),
+    queryFn: () => apiClient.get(`blog/open/published-articles/${id}`, params),
   });
 
 export const useIncrementViewCount = (article: Pick<IArticle, 'id' | 'token'> | null) =>
