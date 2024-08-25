@@ -1,4 +1,5 @@
-import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
+import { closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
+import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
 import { defaultHighlightStyle, language, syntaxHighlighting } from '@codemirror/language';
 import { Compartment, EditorState } from '@codemirror/state';
@@ -44,8 +45,9 @@ export const Code = memo(
         EditorView.editable.of(isEditable),
         languageConf.of(langExtension),
         history(),
-        keymap.of([...defaultKeymap, ...historyKeymap]),
+        keymap.of([...defaultKeymap, indentWithTab, ...historyKeymap, ...closeBracketsKeymap]),
         syntaxHighlighting(defaultHighlightStyle),
+        closeBrackets(),
       ];
     }, [updateListener, isEditable]);
 
