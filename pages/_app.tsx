@@ -9,7 +9,7 @@ import { UPPER_BLUE_COLOR } from 'constants/colors';
 import { PRODUCTION_HOST } from 'constants/common';
 import { ThemeProvider } from 'context';
 import { getCookie } from 'cookies-next';
-import { useAuth, useConsoleAnalytics, useTheme } from 'hooks';
+import { useAuth, useConsoleAnalytics } from 'hooks';
 import { AppProps } from 'next/app';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
@@ -27,7 +27,6 @@ const DynamicAuthModal = dynamic(() => import('components/organisms/auth-modal')
 function MyApp(props: AppProps): JSX.Element {
   const { Component, pageProps } = props;
   const { getToken, getRefreshToken, authenticateTokens, unauthenticate, syncTokens } = useAuth();
-  const { theme } = useTheme();
   useConsoleAnalytics();
 
   useEffect(() => {
@@ -42,7 +41,7 @@ function MyApp(props: AppProps): JSX.Element {
   }, []);
 
   return (
-    <div className={`theme-${theme}`}>
+    <div>
       <Head>
         <meta property='og:title' content='UPPER' key='og-title' />
         <title key='title'>UPPER</title>

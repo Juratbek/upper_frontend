@@ -18,7 +18,11 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ children, defaultTheme 
   const { location } = useUrlParams();
 
   const changeTheme = useCallback((theme: TTheme): void => {
-    setTheme(theme);
+    setTheme((currentTheme) => {
+      updateBodyClassName(currentTheme, theme);
+
+      return theme;
+    });
     setServerSideTheme(location.origin, theme);
   }, []);
 
@@ -50,3 +54,9 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ children, defaultTheme 
     </ThemeContext.Provider>
   );
 };
+
+function updateBodyClassName(currentTheme: TTheme, newTheme: TTheme) {
+  const { body } = document;
+  body.classList.remove(`theme-${currentTheme}`);
+  body.classList.add(`theme-${newTheme}`);
+}
