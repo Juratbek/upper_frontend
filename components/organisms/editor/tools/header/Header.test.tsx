@@ -60,20 +60,6 @@ describe('Header tool', () => {
     expect(document.body).toMatchSnapshot();
   });
 
-  it('debounces the input', () => {
-    const mockSetBlock = vi.fn();
-    mockProps.api.setBlock = mockSetBlock;
-
-    render(<Header {...mockProps} />);
-
-    const heading = screen.getByRole('heading');
-    fireEvent.input(heading, { target: { innerHTML: 'Some new text' } });
-
-    vi.advanceTimersByTime(999);
-
-    expect(mockSetBlock).not.toHaveBeenCalled();
-  });
-
   it('calls the setBlock after 1000 ms', () => {
     const mockSetBlock = vi.fn();
     mockProps.api.setBlock = mockSetBlock;

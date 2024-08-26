@@ -18,7 +18,7 @@ const mockProps: IBlockProps = {
 
 describe('Editor block', () => {
   it('snapshot', () => {
-    render(<Block {...mockProps} />);
+    render(<Block {...mockProps} id='9e02c085' />);
     expect(document.body).toMatchSnapshot();
   });
 

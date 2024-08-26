@@ -9,24 +9,28 @@ exports[`Home > snapshot 1`] = `
         style="padding-top: 2rem; margin-top: -2rem;"
       >
         <div
-          class="labels-container"
-          id="labels"
+          class="container"
         >
           <div
-            class="lebels-list"
+            class="labels-container"
+            id="labels"
           >
-            <button
-              class="button primary"
-              color="primary"
+            <div
+              class="lebels-list"
             >
-              Eng so'nggi
-            </button>
-            <button
-              class="button outlined"
-              color="outlined"
-            >
-              Top
-            </button>
+              <button
+                class="button primary"
+                color="primary"
+              >
+                Eng so'nggi
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Top
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -55,24 +59,28 @@ exports[`Home > snapshot with articles returned by backend 1`] = `
         style="padding-top: 2rem; margin-top: -2rem;"
       >
         <div
-          class="labels-container"
-          id="labels"
+          class="container"
         >
           <div
-            class="lebels-list"
+            class="labels-container"
+            id="labels"
           >
-            <button
-              class="button primary"
-              color="primary"
+            <div
+              class="lebels-list"
             >
-              Eng so'nggi
-            </button>
-            <button
-              class="button outlined"
-              color="outlined"
-            >
-              Top
-            </button>
+              <button
+                class="button primary"
+                color="primary"
+              >
+                Eng so'nggi
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Top
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -244,24 +252,28 @@ exports[`Home > snapshot with empty articles returned by backend 1`] = `
         style="padding-top: 2rem; margin-top: -2rem;"
       >
         <div
-          class="labels-container"
-          id="labels"
+          class="container"
         >
           <div
-            class="lebels-list"
+            class="labels-container"
+            id="labels"
           >
-            <button
-              class="button primary"
-              color="primary"
+            <div
+              class="lebels-list"
             >
-              Eng so'nggi
-            </button>
-            <button
-              class="button outlined"
-              color="outlined"
-            >
-              Top
-            </button>
+              <button
+                class="button primary"
+                color="primary"
+              >
+                Eng so'nggi
+              </button>
+              <button
+                class="button outlined"
+                color="outlined"
+              >
+                Top
+              </button>
+            </div>
           </div>
         </div>
       </div>
