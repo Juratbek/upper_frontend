@@ -36,6 +36,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Matn
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+m
+          </span>
         </button>
         <button
           class="btn"
@@ -66,7 +71,7 @@ exports[`ToolsPopover > snapshot 1`] = `
           <span
             class="suffix"
           >
-            , , , , , 
+            CTRL+1, CTRL+2, CTRL+3, CTRL+4, CTRL+5, CTRL+6
           </span>
         </button>
         <button
@@ -112,6 +117,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Rasm
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+r
+          </span>
         </button>
         <button
           class="btn"
@@ -147,6 +157,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Kod
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+k
+          </span>
         </button>
         <button
           class="btn"
@@ -186,6 +201,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Ajratuvchi
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+/
+          </span>
         </button>
         <button
           class="btn"
@@ -252,6 +272,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Ro'yxat
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+l
+          </span>
         </button>
         <button
           class="btn"
@@ -297,6 +322,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Ogohlantiruvchi
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+o
+          </span>
         </button>
         <button
           class="btn"
@@ -332,6 +362,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Iqtibos
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+i
+          </span>
         </button>
         <button
           class="btn"
@@ -372,6 +407,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             Jadval
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+j
+          </span>
         </button>
         <button
           class="btn"
@@ -414,6 +454,11 @@ exports[`ToolsPopover > snapshot 1`] = `
           >
             So'rovnoma
           </div>
+          <span
+            class="suffix"
+          >
+            CTRL+s
+          </span>
         </button>
       </div>
     </div>

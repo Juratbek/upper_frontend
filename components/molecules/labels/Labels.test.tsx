@@ -27,11 +27,6 @@ describe('components/molecules/Labels', () => {
   it('render', () => {
     render(component);
 
-    const prevBtn = screen.getByTestId('prev-btn');
-    expect(prevBtn).toBeVisible();
-    const nextBtn = screen.getByTestId('prev-btn');
-    expect(nextBtn).toBeVisible();
-
     labels.forEach((label) => {
       expect(screen.getByRole('button', { name: label })).toBeVisible();
     });
@@ -48,23 +43,5 @@ describe('components/molecules/Labels', () => {
       fireEvent.click(btn);
       expect(mockSelect).toHaveBeenCalledTimes(index + 1);
     });
-  });
-
-  it('scrolls labels container when next/prev button is clicked', async () => {
-    render(component);
-
-    const mockScrollTo = vi.fn();
-    Object.defineProperty(HTMLDivElement.prototype, 'scrollTo', {
-      writable: true,
-      value: mockScrollTo,
-    });
-
-    const prevBtn = screen.getByTestId('prev-btn');
-    fireEvent.click(prevBtn);
-    expect(mockScrollTo).toHaveBeenCalled();
-
-    const nextBtn = screen.getByTestId('prev-btn');
-    fireEvent.click(nextBtn);
-    expect(mockScrollTo).toHaveBeenCalled();
   });
 });

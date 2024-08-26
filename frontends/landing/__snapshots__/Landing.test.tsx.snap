@@ -217,108 +217,112 @@ exports[`Landing page content > snapshot 1`] = `
             style="padding-top: 2rem; margin-top: -2rem;"
           >
             <div
-              class="labels-container"
-              id="labels"
+              class="container"
             >
               <div
-                class="lebels-list"
+                class="labels-container"
+                id="labels"
               >
-                <button
-                  class="button outlined"
-                  color="outlined"
+                <div
+                  class="lebels-list"
                 >
-                  Eng so'nggi
-                </button>
-                <button
-                  class="button primary"
-                  color="primary"
-                >
-                  Top
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  Java
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  JavaScript
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  TypeScript
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  HTML
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  C
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  SQL
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  Python
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  C++
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  Go
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  C#
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  PHP
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  Swift
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  Kotlin
-                </button>
-                <button
-                  class="button outlined"
-                  color="outlined"
-                >
-                  Rust
-                </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Eng so'nggi
+                  </button>
+                  <button
+                    class="button primary"
+                    color="primary"
+                  >
+                    Top
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Java
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    JavaScript
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    TypeScript
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    HTML
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    C
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    SQL
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Python
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    C++
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Go
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    C#
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    PHP
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Swift
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Kotlin
+                  </button>
+                  <button
+                    class="button outlined"
+                    color="outlined"
+                  >
+                    Rust
+                  </button>
+                </div>
               </div>
             </div>
           </div>

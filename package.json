@@ -25,7 +25,7 @@
   },
   "engines": {
     "npm": ">=8.15.0",
-    "node": ">=16.17.0"
+    "node": ">=20.16.0"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.0",
@@ -96,7 +96,7 @@
     "prettier": "^3.0.3",
     "sass": "^1.53.0",
     "storybook": "^7.6.5",
-    "typescript": "^5",
+    "typescript": "^5.5.3",
     "vitest": "^1.6.0"
   }
 }
