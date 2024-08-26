@@ -23,6 +23,14 @@ vi.mock('../../context/useEditorContext', async (importOriginal) => {
   };
 });
 
+vi.mock('utils', async (importOriginal) => {
+  const original = await importOriginal<typeof import('utils')>();
+  return {
+    ...original,
+    detectPlatform: vi.fn().mockReturnValue('Linux'),
+  };
+});
+
 const mockProps: { open: boolean; close: VoidFunction; style: CSSProperties } = {
   open: true,
   close: vi.fn(),
