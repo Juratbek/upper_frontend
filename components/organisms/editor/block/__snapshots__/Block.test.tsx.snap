@@ -6,6 +6,7 @@ exports[`Editor block > snapshot 1`] = `
     <div
       class="block"
       data-testid="block"
+      id="9e02c085"
     >
       block content
     </div>

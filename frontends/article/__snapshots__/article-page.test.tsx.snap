@@ -134,6 +134,7 @@ exports[`article page > snapshot 1`] = `
           <div
             class="block"
             data-testid="block"
+            id="aoiwf"
           >
             <h1
               class="heading"

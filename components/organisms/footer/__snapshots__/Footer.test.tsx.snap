@@ -68,6 +68,16 @@ exports[`Footer > renders the Footer component 1`] = `
           class="text"
         >
           <a
+            href="https://github.com/Juratbek/upper_frontend/blob/beta/CONTRIBUTING.md"
+            target="_blank"
+          >
+            Sayt faoliyatiga hissa qo'shish
+          </a>
+        </li>
+        <li
+          class="text"
+        >
+          <a
             href="/web/contacts"
           >
             Aloqa
