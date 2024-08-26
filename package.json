@@ -25,7 +25,7 @@
   },
   "engines": {
     "npm": ">=8.15.0",
-    "node": ">=16.17.0"
+    "node": ">=20.16.0"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.0",
