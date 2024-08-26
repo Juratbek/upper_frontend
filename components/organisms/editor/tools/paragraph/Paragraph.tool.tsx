@@ -17,9 +17,15 @@ export const Paragraph = memo(
       (event) => {
         if (!ref.current) return;
 
-        textBlockKeydownHandler(event, api, ref.current, id, {
-          shouldMergeOnBackspace: true,
-        });
+        textBlockKeydownHandler(
+          event,
+          api,
+          ref.current,
+          { id, type },
+          {
+            shouldMergeOnBackspace: true,
+          },
+        );
       },
       [data, id],
     );
