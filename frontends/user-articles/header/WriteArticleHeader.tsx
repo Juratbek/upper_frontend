@@ -10,11 +10,11 @@ import classes from './WriteArticleHeader.module.scss';
 export const WriteArticleHeader: FC = () => {
   const { query } = useAppRouter();
   const { id } = query;
-  const mutationStatuses = useMutationState({
+  const mutations = useMutationState({
     filters: { mutationKey: ['update-article', Number(id)] },
-    select: (mutation) => mutation.state.status,
+    select: (mutation) => mutation.state,
   });
-  const lastMutationStatus = mutationStatuses.at(-1);
+  const updateArticleMutation = mutations.at(-1);
 
   return (
     <header className={`${classes.container} container`}>
@@ -23,7 +23,9 @@ export const WriteArticleHeader: FC = () => {
         <Link href={`/user/articles/publish/${id}`}>
           <Button>Nashr qilish</Button>
         </Link>
-        {Boolean(lastMutationStatus) && <UploadStatus status={lastMutationStatus!} />}
+        {updateArticleMutation && (
+          <UploadStatus status={updateArticleMutation.status} error={updateArticleMutation.error} />
+        )}
         <Profile />
       </div>
     </header>
