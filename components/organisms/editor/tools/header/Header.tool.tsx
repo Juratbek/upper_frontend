@@ -24,7 +24,7 @@ export const Header = memo(
       (event) => {
         if (!ref.current) return;
 
-        textBlockKeydownHandler(event, api, ref.current, props.id);
+        textBlockKeydownHandler(event, api, ref.current, { id: props.id, type: props.type });
       },
       [props, data, api],
     );
