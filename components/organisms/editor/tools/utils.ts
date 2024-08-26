@@ -22,20 +22,16 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
   event: KeyboardEvent,
   api: IEditorAPI,
   element: HTMLElement,
-  blockId: IBlockData['id'],
+  block: Pick<IBlockData, 'id' | 'type'>,
   config?: { shouldMergeOnBackspace?: boolean },
 ) => {
   const { code } = event;
+  const { id: blockId, type: blockType } = block;
 
   // if user pressed Enter with ctrl or command add new paragraph
   if (code === 'Enter') {
     const range = Selection.range;
-
-    if (!range) {
-      api.addBlock('paragraph', blockId);
-      event.preventDefault();
-      return;
-    }
+    if (!range) return;
 
     const cursorPosition = range.startOffset;
     const currentText = element.innerText;
@@ -44,10 +40,17 @@ export const textBlockKeydownHandler = <T extends { text: string }>(
     const beforeCursorText = currentText.slice(0, cursorPosition);
     const afterCursorText = currentText.slice(cursorPosition);
 
+    // if there is no text after the cursor -> only add a paragraph
+    if (!afterCursorText.trim()) {
+      api.addBlock('paragraph', blockId);
+      event.preventDefault();
+      return;
+    }
+
     // update current block state
     api.setBlock<IParagraphData>({
       id: blockId,
-      type: 'paragraph',
+      type: blockType,
       data: { text: beforeCursorText },
     });
 
