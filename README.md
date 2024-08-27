@@ -4,16 +4,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### Installation
 
-Install packages using [pnpm](https://pnpm.io/installation#using-npm)
+Install packages using [yarn](https://yarnpkg.com)
 
 ```bash
-pnpm install
+yarn install
 ```
 
 ### Running dev server
 
 ```bash
-pnpm dev
+npm run dev
 # or
 yarn dev
 ```
