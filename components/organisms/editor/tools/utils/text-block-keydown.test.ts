@@ -11,12 +11,15 @@ const mocks = vi.hoisted(() => {
   return {
     Selection: mockSelection,
     element: mockElement,
+    isEmpty: vi.fn(),
   };
 });
 
 vi.mock('../../utils/selection', () => ({
   Selection: mocks.Selection,
 }));
+
+vi.mock('../../utils/html', () => ({ isEmpty: mocks.isEmpty }));
 
 const mockEvent = {
   preventDefault: vi.fn(),
@@ -29,6 +32,7 @@ const mockApi = {
     type: 'paragraph',
   } satisfies IBlockData),
   setBlock: vi.fn(),
+  removeBlock: vi.fn().mockResolvedValue({ prevBlocks: [] }),
 } as unknown as IEditorAPI;
 
 describe('textBlockKeydownHandler', () => {
@@ -87,5 +91,18 @@ describe('textBlockKeydownHandler', () => {
       type: block.type,
       data: { text: beforeCursorText },
     });
+  });
+
+  it('deletes current block on Backspace if text content is empty', () => {
+    mocks.isEmpty.mockReturnValue(true);
+    const block = {
+      id: 'unique_id',
+      type: 'header',
+    } satisfies Pick<IBlockData, 'id' | 'type'>;
+    const event = { ...mockEvent, code: 'Backspace' };
+
+    textBlockKeydownHandler(event, mockApi, mocks.element, block);
+
+    expect(mockApi.removeBlock).toHaveBeenCalledWith(block.id);
   });
 });
