@@ -2,7 +2,7 @@ import { ChangeEvent, KeyboardEventHandler, memo, useCallback, useEffect, useRef
 import { getClassName } from 'utils';
 
 import { IToolProps } from '../tool.types';
-import { textBlockKeydownHandler } from '../utils';
+import { textBlockKeydownHandler } from '../utils/text-block-keydown';
 import { H } from './h/H';
 import classes from './Header.module.scss';
 import { IHeaderData } from './Header.types';

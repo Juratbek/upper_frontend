@@ -1,7 +1,7 @@
 import { ChangeEvent, KeyboardEventHandler, memo, useCallback, useEffect, useRef } from 'react';
 
 import { IToolProps } from '../tool.types';
-import { textBlockKeydownHandler } from '../utils';
+import { textBlockKeydownHandler } from '../utils/text-block-keydown';
 import classes from './Paragraph.module.scss';
 import { IParagraphData } from './Paragraph.types';
 
