@@ -13,7 +13,7 @@ import { ArticleFooter } from './components/Footer/ArticleFooter';
 import { Suggestions } from './components/Suggestions/Suggestions';
 
 export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, fullUrl, title }) => {
-  const { blocks = [] } = article ?? {};
+  const { blocks = [], id } = article ?? {};
   useIncrementViewCount(article);
 
   if (!article) {
@@ -29,7 +29,7 @@ export const ArticlePageMain: FC<IArticlePageMainProps> = ({ article, error, ful
       />
       <Author {...article.author} />
       <article>
-        <Editor content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
+        <Editor key={id} content={{ blocks: addUriToImageBlocks(blocks) }} isEditable={false} />
       </article>
       <ArticleFooter sharePopoverId='share-btn-in-article-page' />
       {article.author && <Suggestions blogId={article.author.id} />}
