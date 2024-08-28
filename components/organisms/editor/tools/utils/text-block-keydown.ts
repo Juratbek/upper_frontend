@@ -54,19 +54,33 @@ function handleEnter(
   element: HTMLElement,
   block: Pick<IBlockData, 'id' | 'type'>,
 ) {
-  const range = Selection.range;
-  if (!range) return;
   const { id: blockId, type: blockType } = block;
 
-  const cursorPosition = range.startOffset;
-  const currentText = element.innerText;
+  const selection = Selection.selection;
+  if (!selection) return;
 
-  // Split the text at the cursor position
-  const beforeCursorText = currentText.slice(0, cursorPosition);
-  const afterCursorText = currentText.slice(cursorPosition);
+  const range = selection.getRangeAt(0);
+  const cursorPosition = range.startOffset;
+
+  // Clone the range so we can modify it without affecting the current selection
+  const cloneRange = range.cloneRange();
+
+  // Create a new range that starts from the cursor position to the end of the paragraph
+  cloneRange.setStart(range.startContainer, cursorPosition);
+  cloneRange.setEndAfter(element.lastChild!);
+
+  // Extract the contents of the range into a DocumentFragment
+  const fragment = cloneRange.extractContents();
+
+  // Convert the fragment to HTML
+  const temp = document.createElement('div');
+  temp.appendChild(fragment);
+  const afterCursorHtml = temp.innerHTML;
+  const beforeCursorHtml = element.innerHTML;
 
   // if there is no text after the cursor -> only add a paragraph
-  if (!afterCursorText.trim()) {
+  const textAfterCursor = (temp.textContent ?? '').trim();
+  if (!textAfterCursor) {
     api.addBlock('paragraph', blockId);
     event.preventDefault();
     return;
@@ -76,16 +90,16 @@ function handleEnter(
   api.setBlock<IParagraphData>({
     id: blockId,
     type: blockType,
-    data: { text: beforeCursorText },
+    data: { text: beforeCursorHtml },
   });
 
   // update block content (block will not be rendered when text content is updated)
   const currentBlockElement = document.getElementById(blockId)!;
   const textElement = currentBlockElement.querySelector(textNodeNames)!;
-  textElement.innerHTML = beforeCursorText;
+  textElement.innerHTML = beforeCursorHtml;
 
   // add a new block
-  api.addBlock('paragraph', blockId, { text: afterCursorText }).then((newBlock) => {
+  api.addBlock('paragraph', blockId, { text: afterCursorHtml }).then((newBlock) => {
     const newBlockElement = document.getElementById(newBlock.id);
     const paragraph = newBlockElement?.querySelector('p');
     paragraph?.focus();
