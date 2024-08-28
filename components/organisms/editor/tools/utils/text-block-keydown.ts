@@ -79,7 +79,8 @@ function handleEnter(
   const beforeCursorHtml = element.innerHTML;
 
   // if there is no text after the cursor -> only add a paragraph
-  if (!temp.innerText.trim()) {
+  const textAfterCursor = (temp.textContent ?? '').trim();
+  if (!textAfterCursor) {
     api.addBlock('paragraph', blockId);
     event.preventDefault();
     return;

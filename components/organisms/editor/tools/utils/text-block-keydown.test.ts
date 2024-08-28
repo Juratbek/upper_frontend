@@ -6,18 +6,12 @@ import { textBlockKeydownHandler } from './text-block-keydown';
 
 const mocks = vi.hoisted(() => {
   const mockElement = { innerText: 'Lorem ipsum dolor sit amet.' } as unknown as HTMLElement;
-  const mockSelection = { range: { startOffset: mockElement.innerText.length } };
 
   return {
-    Selection: mockSelection,
     element: mockElement,
     isEmpty: vi.fn(),
   };
 });
-
-vi.mock('../../utils/selection', () => ({
-  Selection: mocks.Selection,
-}));
 
 vi.mock('../../utils/html', () => ({ isEmpty: mocks.isEmpty }));
 
@@ -40,7 +34,29 @@ describe('textBlockKeydownHandler', () => {
     vi.clearAllMocks();
   });
 
-  it('Should create a new text block on Enter', () => {
+  it('Should create a new empty text block on Enter if there is no content after the cursor', () => {
+    vi.spyOn(document, 'getSelection').mockReturnValue({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      getRangeAt: () => {
+        const { innerText } = mocks.element;
+        const cursorPosition = innerText.length;
+
+        return {
+          startOffset: cursorPosition,
+          cloneRange: () => ({
+            setStart: vi.fn(),
+            setEndAfter: vi.fn(),
+            extractContents: () => {
+              const textNode = document.createTextNode('');
+              const fragment = document.createDocumentFragment();
+              fragment.append(textNode);
+              return fragment;
+            },
+          }),
+        };
+      },
+    });
     const event = { ...mockEvent, code: 'Enter' };
     const block = {
       id: 'unique_id',
@@ -56,6 +72,32 @@ describe('textBlockKeydownHandler', () => {
   });
 
   it('Should create a new text block with text after the cursor', () => {
+    const cursorPosition = 5;
+    vi.spyOn(document, 'getSelection').mockReturnValue({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      getRangeAt: () => {
+        return {
+          startOffset: cursorPosition,
+          cloneRange: () => ({
+            setStart: vi.fn(),
+            setEndAfter: vi.fn(),
+            extractContents: () => {
+              const { innerText } = mocks.element;
+              const textAfterTheCursor = innerText.slice(cursorPosition);
+              const textBeforeTheCursor = innerText.slice(0, cursorPosition);
+
+              mocks.element.innerHTML = textBeforeTheCursor;
+
+              const textNode = document.createTextNode(textAfterTheCursor);
+              const fragment = document.createDocumentFragment();
+              fragment.appendChild(textNode);
+              return fragment;
+            },
+          }),
+        };
+      },
+    });
     const event = { ...mockEvent, code: 'Enter' };
     const block = {
       id: 'unique_id',
@@ -73,8 +115,6 @@ describe('textBlockKeydownHandler', () => {
       return null;
     });
 
-    const cursorPosition = 5;
-    mocks.Selection.range.startOffset = cursorPosition;
     const { innerText } = mocks.element;
     const beforeCursorText = innerText.slice(0, cursorPosition);
     const afterCursorText = innerText.slice(cursorPosition);
