@@ -37,7 +37,8 @@ export const Code = memo(
     }, [id, type, api.setBlock]);
 
     const extensions = useMemo(() => {
-      const langExtension = LANGUAGES[data.language]?.extension?.() ?? javascript();
+      const langExtension =
+        LANGUAGES[data.language]?.extension?.({ jsx: true }) ?? javascript({ jsx: true });
 
       return [
         updateListener,
