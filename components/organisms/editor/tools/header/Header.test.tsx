@@ -11,7 +11,7 @@ const mocks = vi.hoisted(() => ({
   textBlockKeydownHandler: vi.fn(),
 }));
 
-vi.mock('../utils', () => ({
+vi.mock('../utils/text-block-keydown', () => ({
   textBlockKeydownHandler: mocks.textBlockKeydownHandler,
 }));
 
