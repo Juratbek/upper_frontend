@@ -21,7 +21,7 @@ export const useCreateComment = (
   });
 };
 
-export const useCommentsCount = (articleId: number): UseQueryResult<number> =>
+export const useCommentsCount = (articleId: number): UseQueryResult<{ count: number }> =>
   useQuery({
     queryKey: ['comments-count', articleId],
     queryFn: () => apiClient.get(`comment/count/${articleId}`),

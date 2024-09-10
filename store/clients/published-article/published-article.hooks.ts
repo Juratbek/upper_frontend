@@ -45,15 +45,22 @@ export const useDislike = (articleId: number, onSuccess: VoidFunction) =>
     onSuccess,
   });
 
-export const useIsLikedOrDisliked = (articleId: number, isAuthenticated: boolean | null) =>
+export const useIsLiked = (articleId: number, isAuthenticated: boolean | null) =>
   useQuery({
-    queryKey: ['liked-disliked', articleId],
-    queryFn: () => apiClient.get(`published-article/v2/check-like-dislike/${articleId}`),
+    queryKey: ['is-liked', articleId],
+    queryFn: () => apiClient.get(`like/is-liked/${articleId}`),
+    enabled: Boolean(articleId) && Boolean(isAuthenticated),
+  });
+
+export const useIsDisliked = (articleId: number, isAuthenticated: boolean | null) =>
+  useQuery({
+    queryKey: ['is-disliked', articleId],
+    queryFn: () => apiClient.get(`dislike/is-disliked/${articleId}`),
     enabled: Boolean(articleId) && Boolean(isAuthenticated),
   });
 
 export const useLikeCount = (articleId: number) =>
-  useQuery<number>({
+  useQuery<{ count: number }>({
     queryKey: ['like-count', articleId],
     queryFn: () => apiClient.get(`like/count/${articleId}`),
     enabled: Boolean(articleId),

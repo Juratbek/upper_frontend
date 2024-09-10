@@ -9,7 +9,8 @@ import { useDispatch } from 'react-redux';
 import { useCommentsCount } from 'store/clients/comments';
 import {
   useDislike,
-  useIsLikedOrDisliked,
+  useIsDisliked,
+  useIsLiked,
   useLike,
   useLikeCount,
 } from 'store/clients/published-article';
@@ -23,16 +24,18 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const articleId = Number(query.id);
   const dispatch = useDispatch();
   const { isAuthenticated, openLoginPage } = useAuth();
-  const { data: likeCount, refetch: refetchLikeCount } = useLikeCount(articleId);
+  const { data: likeCountData, refetch: refetchLikeCount } = useLikeCount(articleId);
 
-  const { data: isLikedOrDisliked, refetch: refetchIsLikedOrDisliked } = useIsLikedOrDisliked(
+  const { data: isLiked, refetch: refetchIsLiked } = useIsLiked(articleId, isAuthenticated);
+  const { data: isDisliked, refetch: refetchIsDisliked } = useIsDisliked(
     articleId,
     isAuthenticated,
   );
 
   const refetchLikeDislikeQueries = () => {
     refetchLikeCount();
-    refetchIsLikedOrDisliked();
+    refetchIsLiked();
+    refetchIsDisliked();
   };
 
   const { mutate: like, isPending: isLikePending } = useLike(articleId, refetchLikeDislikeQueries);
@@ -41,7 +44,7 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
     refetchLikeDislikeQueries,
   );
 
-  const { data: commentsCount } = useCommentsCount(articleId);
+  const { data: commentsCountData } = useCommentsCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
   const { themeColors } = useTheme();
 
@@ -72,22 +75,24 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
       <div className={classes['reactions-container']}>
         <Clickable
           loading={isLikePending}
-          disabled={!!isLikedOrDisliked || isLikePending}
+          disabled={!!isLiked || isLikePending}
           onClick={likeHandler}
           data-testid='like-icon'
         >
-          <LikeIcon color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <LikeIcon color={isLiked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
-        {Boolean(likeCount) && (
-          <span className={getClassName(classes['like-count'], classes.count)}>{likeCount}</span>
+        {Boolean(Number(likeCountData?.count)) && (
+          <span className={getClassName(classes['like-count'], classes.count)}>
+            {likeCountData!.count}
+          </span>
         )}
         <Divider color='secondary' className={classes.divider} type='vertical' />
         <Clickable
           loading={isDisLikePending}
-          disabled={!isLikedOrDisliked || isDisLikePending}
+          disabled={!isDisliked || isDisLikePending}
           onClick={dislikeHandler}
         >
-          <DislikeIcon color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <DislikeIcon color={isDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>
       <Clickable
@@ -96,7 +101,9 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
         className={classes['comment-container']}
       >
         <CommentIcon color={themeColors.icon} />
-        {Boolean(commentsCount) && <span className={classes['count']}>{commentsCount}</span>}
+        {Boolean(Number(commentsCountData?.count)) && (
+          <span className={classes['count']}>{commentsCountData!.count}</span>
+        )}
       </Clickable>
       <div className={classes['actions-container']}>
         {/* <Clickable>
