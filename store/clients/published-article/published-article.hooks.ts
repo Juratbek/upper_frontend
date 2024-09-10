@@ -5,8 +5,9 @@ export const usePublishedArticlesList = (label: string) => {
   return useInfiniteQuery<IPublishedArticleItem>({
     queryKey: ['published-articles', label],
     queryFn: (params) =>
-      apiClient.get('published-article/open/get-by-label', {
+      apiClient.get('published-article/get-by-label', {
         page: params.pageParam.toString(),
+        size: '10',
         tag: label,
       }),
     enabled: typeof label === 'string',

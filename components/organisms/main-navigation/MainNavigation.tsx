@@ -5,7 +5,8 @@ import { useNotificationsCount } from 'store/clients/notification';
 import { INavigation, Navigation } from '../navigation';
 
 export const MainNavigation: FC = () => {
-  const { data: notificationsCount } = useNotificationsCount();
+  const { data } = useNotificationsCount();
+  const { count: notificationsCount } = data ?? {};
 
   const items = useMemo(
     (): INavigation[] => [

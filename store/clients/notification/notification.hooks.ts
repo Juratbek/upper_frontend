@@ -17,9 +17,9 @@ export const useResetNotificationsCount = () =>
 
 export const useNotificationsCount = () => {
   const { isAuthenticated } = useAuth();
-  return useQuery<number>({
+  return useQuery<{ count: number }>({
     queryKey: ['notifications-count'],
-    queryFn: () => apiClient.get<number>('notification/blog-notifications-count'),
+    queryFn: () => apiClient.get('notification/blog-notifications-count'),
     enabled: isAuthenticated ?? false,
   });
 };

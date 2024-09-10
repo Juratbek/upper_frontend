@@ -89,7 +89,7 @@ export const useAuth = (): IUseAuth => {
     if (refreshToken) {
       try {
         const res = await apiClient.post<{ refreshToken: string }, IRegisterResponse>({
-          path: 'blog/open/get-token',
+          path: 'auth/token',
           body: { refreshToken },
           headers: {
             Authorization: '',

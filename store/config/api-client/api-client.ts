@@ -80,14 +80,14 @@ class Client {
     if (isClientSide()) {
       const token = localStorage.getItem(TOKEN);
       if (token) {
-        finalHeaders.Authorization = token;
+        finalHeaders.Authorization = `Bearer ${token}`;
       }
     }
 
     const finalConfig: RequestInit = { ...this.#config, ...config, headers: finalHeaders };
     const res = await fetch(fullUrl, finalConfig);
 
-    if (res.status === 200) {
+    if (res.ok) {
       return res;
     } else {
       let message = '';
