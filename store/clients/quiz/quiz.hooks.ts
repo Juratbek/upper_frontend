@@ -9,5 +9,5 @@ export const useSubmitQuiz = (
 ) =>
   useMutation<IQuizSubmission[], IResponseError<IQuizSubmission[]>, ISubmitQuizDto>({
     ...options,
-    mutationFn: (block) => apiClient.post({ path: 'quiz/open/submit', body: block }),
+    mutationFn: (block) => apiClient.post({ path: 'quiz/submit', body: block }),
   });

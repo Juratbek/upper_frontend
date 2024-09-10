@@ -18,7 +18,7 @@ export const useBlogPublishedArticles = (id: IBlog['id']) =>
   useInfiniteQuery<IPublishedArticleItem>({
     queryKey: ['blog-published-articles', id],
     queryFn: ({ pageParam }) =>
-      apiClient.get(`blog/open/published-articles/${id}`, { page: pageParam.toString() }),
+      apiClient.get(`blog/published-articles/${id}`, { page: pageParam.toString() }),
   });
 
 export const useIncrementViewCount = (article: Pick<IArticle, 'id' | 'token'> | null) =>
@@ -27,7 +27,7 @@ export const useIncrementViewCount = (article: Pick<IArticle, 'id' | 'token'> | 
     enabled: Boolean(article?.token),
     queryFn: () =>
       apiClient.post({
-        path: `published-article/v2/open/has-updates/${article?.id}`,
+        path: `published-article/v2/has-updates/${article?.id}`,
         body: { token: article?.token },
       }),
   });
@@ -55,13 +55,13 @@ export const useIsLikedOrDisliked = (articleId: number, isAuthenticated: boolean
 export const useLikeCount = (articleId: number) =>
   useQuery<number>({
     queryKey: ['like-count', articleId],
-    queryFn: () => apiClient.get(`published-article/v2/open/like-count/${articleId}`),
+    queryFn: () => apiClient.get(`like/count/${articleId}`),
     enabled: Boolean(articleId),
   });
 
 export const useSearch = (value: string) =>
   useQuery<IPublishedArticleItem[]>({
     queryKey: ['search-published-article', value],
-    queryFn: () => apiClient.get('published-article/open/search', { search: value, limit: '5' }),
+    queryFn: () => apiClient.get('published-article/search', { search: value, limit: '5' }),
     enabled: Boolean(value?.trim()),
   });

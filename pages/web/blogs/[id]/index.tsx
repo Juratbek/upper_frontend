@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps<IBlogPageProps> = async ({ r
   let blog: IBlogPageProps['blog'] = null;
   let error: IBlogPageProps['error'] = null;
   try {
-    blog = await apiClient.get(`blog/open/${blogId}`);
+    blog = await apiClient.get(`blog/${blogId}`);
   } catch (e) {
     const apiError = e as ApiError;
     error = {
