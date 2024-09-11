@@ -6,8 +6,9 @@ export const useCommentsList = (articleId: number) =>
   useInfiniteQuery<IComment>({
     queryKey: ['comments-list', articleId],
     queryFn: (params) => {
-      return apiClient.get(`comment/${articleId}`, {
+      return apiClient.get(`comment/list/${articleId}`, {
         page: params.pageParam.toString(),
+        size: '10',
       });
     },
   });
