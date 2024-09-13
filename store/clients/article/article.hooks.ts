@@ -19,6 +19,12 @@ export const useArticleById = (id: number, config: Partial<UseQueryOptions<IArti
     queryFn: () => apiClient.get(`article/${id}`),
   });
 
+export const usePreviewArticle = (id: IArticle['id']) =>
+  useQuery<IArticle>({
+    queryKey: ['preview-article', id],
+    queryFn: () => apiClient.get(`article/preview/${id}`),
+  });
+
 export const useUpdateArticleBlocks = (id: number, config?: IMutationConfig<IBlockData[]>) =>
   useMutation<IBlockData[], unknown, { id: number; blocks: IBlockData[] }>({
     mutationKey: ['update-article', id],

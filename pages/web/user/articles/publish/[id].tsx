@@ -3,14 +3,14 @@ import { ApiErrorBoundary, LabelsSelector, PublishedArticle } from 'components/m
 import { GenericWrapper } from 'components/wrappers';
 import { useAppRouter } from 'hooks';
 import { useState } from 'react';
-import { useArticleById, usePublish, useUpdateLabels } from 'store/clients/article';
+import { usePreviewArticle, usePublish, useUpdateLabels } from 'store/clients/article';
 import { IArticle } from 'types';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
 export default function PublishArticlePage() {
   const { query } = useAppRouter();
   const id = +(query?.id as string);
-  const articleByIdRes = useArticleById(id, { enabled: Boolean(id) });
+  const articleByIdRes = usePreviewArticle(id);
   const article = articleByIdRes.data;
 
   return (
@@ -19,7 +19,7 @@ export default function PublishArticlePage() {
       <ApiErrorBoundary res={articleByIdRes}>
         {article && (
           <>
-            <PublishedArticle article={addAmazonBucketUrl(article)} />
+            <PublishedArticle preview article={addAmazonBucketUrl(article)} />
             <Divider />
             <Suggestions article={article} />
             <Publish article={article} />
