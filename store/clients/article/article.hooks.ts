@@ -44,11 +44,14 @@ export const useBlogArticles = (status: TArticleStatus) =>
       }),
   });
 
-export const usePublish = (id: number, config?: UseMutationOptions<number>) =>
-  useMutation<number>({
-    mutationKey: ['publish', id],
-    mutationFn: () => apiClient.post<void, number>({ path: `article/publish/${id}` }),
+export const usePublish = (
+  id: number,
+  config?: UseMutationOptions<{ publishedArticleId: number }>,
+) =>
+  useMutation<{ publishedArticleId: number }>({
     ...config,
+    mutationKey: ['publish', id],
+    mutationFn: () => apiClient.post({ path: `article/publish/${id}` }),
   });
 
 export const useUpdateLabels = (articleId: number) => {

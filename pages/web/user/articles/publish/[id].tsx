@@ -43,7 +43,7 @@ const Publish = ({ article }: { article: IArticle }) => {
     article.id,
   );
   const { mutate: publish, isPending: isBeingPublished } = usePublish(article.id, {
-    onSuccess: (publishedArticleId) =>
+    onSuccess: ({ publishedArticleId }) =>
       push(`/user/articles/publish/success?published-article-id=${publishedArticleId}`),
   });
 
