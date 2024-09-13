@@ -7,13 +7,7 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useCommentsCount } from 'store/clients/comments';
-import {
-  useDislike,
-  useIsDisliked,
-  useIsLiked,
-  useLike,
-  useLikeCount,
-} from 'store/clients/published-article';
+import { ReactionType, useHasReaction, useReact, useReactionCount } from 'store/clients/reaction';
 import { toggleCommentsModal } from 'store/states';
 import { getClassName } from 'utils';
 
@@ -24,13 +18,21 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const articleId = Number(query.id);
   const dispatch = useDispatch();
   const { isAuthenticated, openLoginPage } = useAuth();
-  const { data: likeCountData, refetch: refetchLikeCount } = useLikeCount(articleId);
+  const { data: likeCountData, refetch: refetchLikeCount } = useReactionCount(
+    articleId,
+    ReactionType.LIKE,
+  );
 
-  const { data: isLiked, refetch: refetchIsLiked } = useIsLiked(articleId, isAuthenticated);
-  const { data: isDisliked, refetch: refetchIsDisliked } = useIsDisliked(
+  const { data: likeData, refetch: refetchIsLiked } = useHasReaction({
     articleId,
     isAuthenticated,
-  );
+    type: ReactionType.LIKE,
+  });
+  const { data: dislikeData, refetch: refetchIsDisliked } = useHasReaction({
+    articleId,
+    isAuthenticated,
+    type: ReactionType.DISLIKE,
+  });
 
   const refetchLikeDislikeQueries = () => {
     refetchLikeCount();
@@ -38,9 +40,14 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
     refetchIsDisliked();
   };
 
-  const { mutate: like, isPending: isLikePending } = useLike(articleId, refetchLikeDislikeQueries);
-  const { mutate: dislike, isPending: isDisLikePending } = useDislike(
+  const { mutate: like, isPending: isLikePending } = useReact(
     articleId,
+    ReactionType.LIKE,
+    refetchLikeDislikeQueries,
+  );
+  const { mutate: dislike, isPending: isDisLikePending } = useReact(
+    articleId,
+    ReactionType.DISLIKE,
     refetchLikeDislikeQueries,
   );
 
@@ -75,11 +82,11 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
       <div className={classes['reactions-container']}>
         <Clickable
           loading={isLikePending}
-          disabled={!!isLiked || isLikePending}
+          disabled={likeData?.hasReaction || isLikePending}
           onClick={likeHandler}
           data-testid='like-icon'
         >
-          <LikeIcon color={isLiked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <LikeIcon color={likeData?.hasReaction ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
         {Boolean(Number(likeCountData?.count)) && (
           <span className={getClassName(classes['like-count'], classes.count)}>
@@ -89,10 +96,10 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
         <Divider color='secondary' className={classes.divider} type='vertical' />
         <Clickable
           loading={isDisLikePending}
-          disabled={!isDisliked || isDisLikePending}
+          disabled={dislikeData?.hasReaction || isDisLikePending}
           onClick={dislikeHandler}
         >
-          <DislikeIcon color={isDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <DislikeIcon color={dislikeData?.hasReaction ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>
       <Clickable

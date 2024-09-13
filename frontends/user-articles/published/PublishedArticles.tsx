@@ -8,7 +8,7 @@ export const PublishedArticles: FC = () => {
   const { push } = useAppRouter();
   const blogArticlesRes = useBlogArticles('PUBLISHED');
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
-    onSuccess: (id) => push(`/user/articles/${id}`),
+    onSuccess: ({ id }) => push(`/user/articles/${id}`),
   });
 
   const writeArticleHandler = useCallback(() => createArticle(), []);

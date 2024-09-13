@@ -12,7 +12,7 @@ export const BottomNavigation: FC = () => {
   const { push } = useAppRouter();
   const { themeColors } = useTheme();
   const { mutate: createArticle, isPending: isArticleBeingCreated } = useCreateArticle({
-    onSuccess: (id) => push(`/user/articles/${id}`),
+    onSuccess: ({ id }) => push(`/user/articles/${id}`),
   });
 
   const createArticleHandler = useCallback(() => createArticle(), []);

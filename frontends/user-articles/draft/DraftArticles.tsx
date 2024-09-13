@@ -7,7 +7,7 @@ import { useBlogArticles, useCreateArticle } from 'store/clients/article';
 export const DraftArticles: FC = () => {
   const { push } = useAppRouter();
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
-    onSuccess: (id) => push(`/user/articles/${id}`),
+    onSuccess: ({ id }) => push(`/user/articles/${id}`),
   });
   const blogArticlesRes = useBlogArticles('SAVED');
 
