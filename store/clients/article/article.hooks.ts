@@ -33,6 +33,19 @@ export const useUpdateArticleBlocks = (id: number, config?: IMutationConfig<IBlo
     ...config,
   });
 
+export const useUploadImage = (id: number) =>
+  useMutation<{ url: string }, unknown, File>({
+    mutationFn: (file) => {
+      const formData = new FormData();
+      formData.set('file', file);
+
+      return apiClient.post({
+        path: `article/upload/${id}`,
+        body: formData,
+      });
+    },
+  });
+
 export const useBlogArticles = (status: TArticleStatus) =>
   useInfiniteQuery<IArticleResult>({
     queryKey: ['saved-articles', status],

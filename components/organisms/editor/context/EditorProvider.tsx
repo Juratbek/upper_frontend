@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Block } from '../block/Block';
 import { IBlockData, IBlockNode } from '../instance/Editor.types';
@@ -15,6 +15,8 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
   content,
   isEditable = true,
   onChange,
+  onReady,
+  upload,
 }) => {
   const [data, setData] = useState(content.blocks);
   const [hoveredBlock, setHoveredBlock] = useState<IBlockNode>();
@@ -23,7 +25,7 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
 
   const api = useMemo(
     () => bindEditorDataState({ setData, setInlineToolbar }, mapper, { onChange }),
-    [onChange, setInlineToolbar],
+    [onChange],
   );
 
   const navigation = useMemo(() => getEditorNavigationCallbacks({ data }), [data]);
@@ -43,13 +45,17 @@ export const EditorProvider: FC<IEditorProviderProps> = ({
           key={block.id}
           {...(isEditable ? { onMouseEnter: setHoveredBlock, onFocus: setFocusedBlock } : {})}
         >
-          <Component api={api} isEditable={isEditable} {...block} />
+          <Component api={api} isEditable={isEditable} {...block} config={{ upload }} />
         </Block>
       );
     });
-  }, [data, api]);
+  }, [data, api, upload]);
 
   const toolsTagsMap = useMemo(() => generateToolsTagsMap(mapper), [mapper]);
+
+  useEffect(() => {
+    onReady?.({ setBlocks: setData, setBlock: api.setBlock });
+  }, []);
 
   const store = useMemo(
     () =>

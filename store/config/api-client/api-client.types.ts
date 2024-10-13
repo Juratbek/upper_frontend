@@ -14,5 +14,5 @@ export interface IConfig {
 export interface IPostConfig<TBody> {
   body?: TBody;
   path: string;
-  headers?: HeadersInit;
+  headers?: Record<string, string>;
 }
