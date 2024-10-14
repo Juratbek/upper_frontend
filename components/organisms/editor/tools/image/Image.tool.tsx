@@ -1,6 +1,6 @@
 import NextJsImage from 'next/image';
 import { memo } from 'react';
-import { compressImage, getClassName, toBase64 } from 'utils';
+import { compressImage, getClassName } from 'utils';
 
 import { IToolProps } from '../tool.types';
 import { Caption } from './Caption';
@@ -9,28 +9,33 @@ import { IImageData } from './Image.types';
 import { UploadImage } from './upload/UploadImage';
 
 export const Image = memo(
-  function Memoized({ data, isEditable, api, id, type }: IToolProps<IImageData>) {
+  function Memoized({ data, isEditable, api, id, type, config }: IToolProps<IImageData>) {
     const { file } = data;
 
     const uploadImageHandler = async (file: File) => {
       const compressedImage = await compressImage(file);
-      const imageUrl = await toBase64(compressedImage.file);
-
-      const genericWrapperMainBlockWidth = 720;
-      const width = genericWrapperMainBlockWidth;
-      const height = Math.round(
-        (compressedImage.height * genericWrapperMainBlockWidth) / compressedImage.width,
-      );
+      if (!config.upload) {
+        console.error('upload callback is not provided for image block');
+        return;
+      }
+      const { url: uploadedFileUrl } = await config.upload(compressedImage.file);
 
       const f: IImageData['file'] = {
-        url: imageUrl?.toString() ?? '',
-        width,
-        height,
-        name: compressedImage.file.name,
+        url: uploadedFileUrl,
+        width: compressedImage.width,
+        height: compressedImage.height,
+        name: compressedImage.name ?? '',
       };
 
       api.setBlock({ id, type, data: { ...data, file: f } });
     };
+
+    const imgClassName = getClassName(
+      classes.image,
+      data.stretched && classes.stretched,
+      data.withBorder && classes['with-border'],
+      data.alignment && classes[data.alignment],
+    );
 
     return (
       <figure>
@@ -43,24 +48,10 @@ export const Image = memo(
                   width={file.width}
                   height={file.height}
                   alt={file.name}
-                  className={getClassName(
-                    classes.image,
-                    data.stretched && classes.stretched,
-                    data.withBorder && classes['with-border'],
-                    data.alignment && classes[data.alignment],
-                  )}
+                  className={imgClassName}
                 />
               ) : (
-                <img
-                  src={file.url}
-                  alt={file.name}
-                  className={getClassName(
-                    classes.image,
-                    data.stretched && classes.stretched,
-                    data.withBorder && classes['with-border'],
-                    data.alignment && classes[data.alignment],
-                  )}
-                />
+                <img src={file.url} alt={file.name} className={imgClassName} />
               )}
             </div>
             <Caption data={data} isEditable={isEditable} />

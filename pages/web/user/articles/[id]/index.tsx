@@ -1,13 +1,14 @@
 import { Head, Spinner } from 'components/lib';
-import { createBlock, Editor, IBlockData } from 'components/organisms';
+import { createBlock, Editor, IBlockData, IEditor } from 'components/organisms';
 import { GenericWrapper } from 'components/wrappers';
 import { WriteArticleHeader } from 'frontends/user-articles';
 import { useBeforeUnload } from 'hooks';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
-import { useArticleById, useUpdateArticleBlocks } from 'store/clients/article';
+import { useCallback, useRef } from 'react';
+import { useArticleById, useUpdateArticleBlocks, useUploadImage } from 'store/clients/article';
 import {
-  addUriToImageBlocks,
+  addBucketUrl,
+  addBucketUrlToBlocks,
   checkAuthInServer,
   debouncer,
   removeAmazonUriFromImgBlocks,
@@ -26,18 +27,36 @@ export default function UserArticlePage(): JSX.Element {
   } = useArticleById(id, {
     enabled: isIdPresent,
   });
-  const { mutate: updateArticle } = useUpdateArticleBlocks(id, { enabled: isIdPresent });
+  const editorRef = useRef<IEditor | null>(null);
+  const { mutate: updateArticle, isPending: isBeingSaved } = useUpdateArticleBlocks(id, {
+    enabled: isIdPresent,
+  });
+  const { mutateAsync: uploadImage } = useUploadImage(id);
 
   useBeforeUnload();
+
+  const uploadImageHandler = useCallback(
+    async (file: File) => {
+      const { url } = await uploadImage(file);
+      return { url: addBucketUrl(url) };
+    },
+    [uploadImage],
+  );
 
   if (isError) return <h1>{JSON.stringify(error)}</h1>;
 
   const editorChangeHandler = useCallback(
     async (b: IBlockData[]) => {
-      const [blocks] = await removeAmazonUriFromImgBlocks(b);
-      debounce({ id, blocks }, updateArticle);
+      if (isBeingSaved) {
+        return;
+      } else {
+        const [blocks] = await removeAmazonUriFromImgBlocks(b);
+        debounce({ id, blocks }, (article) => {
+          updateArticle(article);
+        });
+      }
     },
-    [updateArticle, article],
+    [updateArticle, article, isBeingSaved],
   );
 
   const renderEditor = (): JSX.Element => {
@@ -63,7 +82,7 @@ export default function UserArticlePage(): JSX.Element {
         content={{
           blocks:
             article.blocks.length > 0
-              ? addUriToImageBlocks(article.blocks)
+              ? addBucketUrlToBlocks(article.blocks)
               : [
                   createBlock('header', {
                     text: '',
@@ -72,7 +91,9 @@ export default function UserArticlePage(): JSX.Element {
                   }),
                 ],
         }}
+        onReady={(editor) => (editorRef.current = editor)}
         onChange={editorChangeHandler}
+        upload={uploadImageHandler}
       />
     );
   };

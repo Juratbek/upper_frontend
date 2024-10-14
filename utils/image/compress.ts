@@ -39,7 +39,7 @@ const resizeImageElement = (img: HTMLImageElement, options?: TCompressImageOptio
 export const compressImage = (
   img: File,
   options?: TCompressImageOptions,
-): Promise<{ file: File; width: number; height: number }> => {
+): Promise<{ file: File; width: number; height: number; name: string }> => {
   return new Promise((resolve, reject) => {
     const fileReader = new FileReader();
     fileReader.readAsDataURL(img);
@@ -60,7 +60,7 @@ export const compressImage = (
 
         const compressedImage = new File([blob], img.name, { type: img.type });
 
-        resolve({ file: compressedImage, width, height });
+        resolve({ file: compressedImage, width, height, name: img.name });
       };
 
       newImg.onerror = reject;

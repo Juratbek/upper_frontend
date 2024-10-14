@@ -34,7 +34,7 @@ export const getServerSideProps: GetServerSideProps<IArticlePageProps> = async (
   let article;
   let error;
   try {
-    article = await apiClient.get<IArticle>(`published-article/open/${articleId}`);
+    article = await apiClient.get<IArticle>(`published-article/${articleId}`);
   } catch (e) {
     error = e;
   }

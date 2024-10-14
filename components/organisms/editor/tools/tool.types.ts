@@ -58,4 +58,5 @@ export type TToolsMapper = Record<TToolType, ITool>;
 
 export interface IToolProps<T> extends IBlockData<T>, Required<Pick<IEditorProps, 'isEditable'>> {
   api: IEditorAPI;
+  config: Pick<IEditorProps, 'upload'>;
 }

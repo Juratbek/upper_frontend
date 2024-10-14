@@ -7,12 +7,7 @@ import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useCommentsCount } from 'store/clients/comments';
-import {
-  useDislike,
-  useIsLikedOrDisliked,
-  useLike,
-  useLikeCount,
-} from 'store/clients/published-article';
+import { ReactionType, useHasReaction, useReact, useReactionCount } from 'store/clients/reaction';
 import { toggleCommentsModal } from 'store/states';
 import { getClassName } from 'utils';
 
@@ -23,25 +18,40 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
   const articleId = Number(query.id);
   const dispatch = useDispatch();
   const { isAuthenticated, openLoginPage } = useAuth();
-  const { data: likeCount, refetch: refetchLikeCount } = useLikeCount(articleId);
+  const { data: likeCountData, refetch: refetchLikeCount } = useReactionCount(
+    articleId,
+    ReactionType.LIKE,
+  );
 
-  const { data: isLikedOrDisliked, refetch: refetchIsLikedOrDisliked } = useIsLikedOrDisliked(
+  const { data: likeData, refetch: refetchIsLiked } = useHasReaction({
     articleId,
     isAuthenticated,
-  );
+    type: ReactionType.LIKE,
+  });
+  const { data: dislikeData, refetch: refetchIsDisliked } = useHasReaction({
+    articleId,
+    isAuthenticated,
+    type: ReactionType.DISLIKE,
+  });
 
   const refetchLikeDislikeQueries = () => {
     refetchLikeCount();
-    refetchIsLikedOrDisliked();
+    refetchIsLiked();
+    refetchIsDisliked();
   };
 
-  const { mutate: like, isPending: isLikePending } = useLike(articleId, refetchLikeDislikeQueries);
-  const { mutate: dislike, isPending: isDisLikePending } = useDislike(
+  const { mutate: like, isPending: isLikePending } = useReact(
     articleId,
+    ReactionType.LIKE,
+    refetchLikeDislikeQueries,
+  );
+  const { mutate: dislike, isPending: isDisLikePending } = useReact(
+    articleId,
+    ReactionType.DISLIKE,
     refetchLikeDislikeQueries,
   );
 
-  const { data: commentsCount } = useCommentsCount(articleId);
+  const { data: commentsCountData } = useCommentsCount(articleId);
   const [isOpen, setIsOpen] = useState(false);
   const { themeColors } = useTheme();
 
@@ -72,22 +82,24 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
       <div className={classes['reactions-container']}>
         <Clickable
           loading={isLikePending}
-          disabled={!!isLikedOrDisliked || isLikePending}
+          disabled={likeData?.hasReaction || isLikePending}
           onClick={likeHandler}
           data-testid='like-icon'
         >
-          <LikeIcon color={isLikedOrDisliked === true ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <LikeIcon color={likeData?.hasReaction ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
-        {Boolean(likeCount) && (
-          <span className={getClassName(classes['like-count'], classes.count)}>{likeCount}</span>
+        {Boolean(Number(likeCountData?.count)) && (
+          <span className={getClassName(classes['like-count'], classes.count)}>
+            {likeCountData!.count}
+          </span>
         )}
         <Divider color='secondary' className={classes.divider} type='vertical' />
         <Clickable
           loading={isDisLikePending}
-          disabled={!isLikedOrDisliked || isDisLikePending}
+          disabled={dislikeData?.hasReaction || isDisLikePending}
           onClick={dislikeHandler}
         >
-          <DislikeIcon color={isLikedOrDisliked === false ? UPPER_BLUE_COLOR : themeColors.icon} />
+          <DislikeIcon color={dislikeData?.hasReaction ? UPPER_BLUE_COLOR : themeColors.icon} />
         </Clickable>
       </div>
       <Clickable
@@ -96,7 +108,9 @@ export const ArticleFooter: FC<{ sharePopoverId: string }> = ({ sharePopoverId }
         className={classes['comment-container']}
       >
         <CommentIcon color={themeColors.icon} />
-        {Boolean(commentsCount) && <span className={classes['count']}>{commentsCount}</span>}
+        {Boolean(Number(commentsCountData?.count)) && (
+          <span className={classes['count']}>{commentsCountData!.count}</span>
+        )}
       </Clickable>
       <div className={classes['actions-container']}>
         {/* <Clickable>

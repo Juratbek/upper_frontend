@@ -6,8 +6,9 @@ export const useCommentsList = (articleId: number) =>
   useInfiniteQuery<IComment>({
     queryKey: ['comments-list', articleId],
     queryFn: (params) => {
-      return apiClient.get(`comment/open/${articleId}`, {
+      return apiClient.get(`comment/list/${articleId}`, {
         page: params.pageParam.toString(),
+        size: '10',
       });
     },
   });
@@ -21,8 +22,8 @@ export const useCreateComment = (
   });
 };
 
-export const useCommentsCount = (articleId: number): UseQueryResult<number> =>
+export const useCommentsCount = (articleId: number): UseQueryResult<{ count: number }> =>
   useQuery({
     queryKey: ['comments-count', articleId],
-    queryFn: () => apiClient.get(`comment/open/count/${articleId}`),
+    queryFn: () => apiClient.get(`comment/count/${articleId}`),
   });

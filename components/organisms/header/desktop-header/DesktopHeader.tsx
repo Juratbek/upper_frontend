@@ -15,7 +15,7 @@ export const DesktopHeader: FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
   const { push } = useAppRouter();
   const { mutate: createArticle, ...createArticleRes } = useCreateArticle({
-    onSuccess: (id) => push(`/user/articles/${id}`),
+    onSuccess: ({ id }) => push(`/user/articles/${id}`),
   });
 
   const createArticleHandler = useCallback(() => {

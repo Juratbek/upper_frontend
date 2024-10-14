@@ -21,7 +21,7 @@ export const GoogleAuthScript: FC = () => {
     },
     onError: () => {
       toast.dismiss();
-      toast.error("Xaotlik tuz berdi, birozdan keyin urinib ko'ring");
+      toast.error("Xatolik tuz berdi, birozdan keyin urinib ko'ring");
     },
   });
   const {

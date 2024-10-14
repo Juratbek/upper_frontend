@@ -17,8 +17,8 @@ export const useContinueWithGoogle = (
   useMutation<IBlogRegisterResponse, unknown, string>({
     mutationFn: (data) =>
       apiClient.post({
-        path: 'blog/open/continue-with-google',
-        body: data,
+        path: 'auth/continue-with-google',
+        body: { token: data },
       }),
     ...options,
   });

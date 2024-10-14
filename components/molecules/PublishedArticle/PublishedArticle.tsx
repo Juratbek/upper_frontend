@@ -10,14 +10,9 @@ import { IPublishedArticleProps } from './PublishedArticle.types';
 export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props }) => {
   const { title, content, id, imgUrl } = article;
 
-  return (
-    <Link
-      key={id}
-      href={`/articles/${id}`}
-      className={getClassName(classes.article, props.className)}
-    >
+  const renderContent = () => (
+    <>
       {imgUrl && <ArticleImg imgUrl={imgUrl} size={'full'} className={classes['article-img']} />}
-
       <h2
         dangerouslySetInnerHTML={{ __html: title || 'Sarlavha kiritilmagan' }}
         className={classes['article-title']}
@@ -31,6 +26,18 @@ export const PublishedArticle: FC<IPublishedArticleProps> = ({ article, ...props
           <Author {...article.author} />
         </div>
       )}
+    </>
+  );
+
+  return props.preview ? (
+    <div className={getClassName(classes.article, props.className)}>{renderContent()}</div>
+  ) : (
+    <Link
+      key={id}
+      href={`/articles/${id}`}
+      className={getClassName(classes.article, props.className)}
+    >
+      {renderContent()}
     </Link>
   );
 };

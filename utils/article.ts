@@ -27,26 +27,30 @@ export const validateArticle = ({
 export const addAmazonBucketUriToArticle = <T extends { imgUrl: string }>(article: T): T => {
   const imgUrl = article.imgUrl;
   if (!imgUrl || imgUrl === 'null' || imgUrl.startsWith('http')) return article;
-  return { ...article, imgUrl: `${ARTICLE_BUCKET_URL}${imgUrl}` };
+  return { ...article, imgUrl: addBucketUrl(imgUrl) };
 };
+
+export function addBucketUrl(url: string) {
+  return `${ARTICLE_BUCKET_URL}${url}`;
+}
 
 export const addUriToArticleImages = <T extends { imgUrl: string }>(articles: T[] = []): T[] =>
   articles.map(addAmazonBucketUriToArticle);
 
-export const addUriToImageBlocks = (blocks: IBlockData[]): IBlockData[] =>
+export const addBucketUrlToBlocks = (blocks: IBlockData[]): IBlockData[] =>
   blocks.map((block) => {
     const blockType = block.type;
     const data = block.data;
     if (blockType === BLOCK_TYPES.image && data.file?.url && !data.file.url.startsWith('http')) {
       return {
         ...block,
-        data: { ...data, file: { url: `${ARTICLE_BUCKET_URL}${data.file.url}` } },
+        data: { ...data, file: { ...data.file, url: addBucketUrl(data.file.url) } },
       };
     }
 
     const url = block.data.url as string;
     if (blockType === BLOCK_TYPES.unsplash && !url.startsWith('http'))
-      return { ...block, data: { ...block.data, url: `${ARTICLE_BUCKET_URL}${block.data.url}` } };
+      return { ...block, data: { ...block.data, url: addBucketUrl(block.data.url) } };
 
     return block;
   });

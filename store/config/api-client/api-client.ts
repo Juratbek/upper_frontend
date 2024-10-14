@@ -38,7 +38,7 @@ class Client {
 
     const isText = checkContentType(res, 'text/plain');
     if (isText) {
-      const data = await res.text;
+      const data = await res.text();
       return data as TResponse;
     }
 
@@ -51,9 +51,15 @@ class Client {
     path,
     ...config
   }: IPostConfig<TBody>): Promise<TResponse> {
+    // by default body is a string object
+    let body: string | FormData = JSON.stringify(config.body);
+    if (config.body instanceof FormData) {
+      body = config.body;
+    }
+
     const res = await this.fetch(path, {
       method: 'post',
-      body: JSON.stringify(config.body),
+      body,
       headers: config.headers,
     });
     const isJson = checkContentType(res, 'application/json');
@@ -72,7 +78,10 @@ class Client {
 
   async fetch(path: string, config: RequestInit): Promise<Response> {
     const fullUrl = `${this.#config.baseUrl}/api/${path}`;
-    const finalHeaders: RequestInit['headers'] & { Authorization?: string } = {
+    const finalHeaders: RequestInit['headers'] & {
+      Authorization?: string;
+      'Content-Type'?: string;
+    } = {
       ...this.#config.headers,
       ...config.headers,
     };
@@ -80,14 +89,18 @@ class Client {
     if (isClientSide()) {
       const token = localStorage.getItem(TOKEN);
       if (token) {
-        finalHeaders.Authorization = token;
+        finalHeaders.Authorization = `Bearer ${token}`;
       }
+    }
+
+    if (config.body instanceof FormData) {
+      delete finalHeaders['Content-Type'];
     }
 
     const finalConfig: RequestInit = { ...this.#config, ...config, headers: finalHeaders };
     const res = await fetch(fullUrl, finalConfig);
 
-    if (res.status === 200) {
+    if (res.ok) {
       return res;
     } else {
       let message = '';
