@@ -44,7 +44,7 @@ export const addBucketUrlToBlocks = (blocks: IBlockData[]): IBlockData[] =>
     if (blockType === BLOCK_TYPES.image && data.file?.url && !data.file.url.startsWith('http')) {
       return {
         ...block,
-        data: { ...data, file: { url: addBucketUrl(data.file.url) } },
+        data: { ...data, file: { ...data.file, url: addBucketUrl(data.file.url) } },
       };
     }
 
