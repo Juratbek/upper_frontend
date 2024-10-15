@@ -3,7 +3,7 @@ import { ApiErrorBoundary, LabelsSelector, PublishedArticle } from 'components/m
 import { GenericWrapper } from 'components/wrappers';
 import { useAppRouter } from 'hooks';
 import { useState } from 'react';
-import { usePreviewArticle, usePublish, useUpdateLabels } from 'store/clients/article';
+import { usePreviewArticle, usePublish } from 'store/clients/article';
 import { IArticle } from 'types';
 import { addAmazonBucketUrl } from 'utils/published-article';
 
@@ -39,15 +39,12 @@ const Suggestions = ({ article }: { article: IArticle }) => {
 const Publish = ({ article }: { article: IArticle }) => {
   const { push } = useAppRouter();
   const [selectedLabels, setSelectedLabels] = useState<string[]>(article.tags ?? []);
-  const { mutateAsync: updateLabels, isPending: areLabelsBeingUpdated } = useUpdateLabels(
-    article.id,
-  );
   const { mutate: publish, isPending: isBeingPublished } = usePublish(article.id, {
     onSuccess: ({ publishedArticleId }) =>
       push(`/user/articles/publish/success?published-article-id=${publishedArticleId}`),
   });
 
-  const publishHandler = () => updateLabels(selectedLabels).then(() => publish());
+  const publishHandler = () => publish({ tags: selectedLabels });
 
   return (
     <>
@@ -59,11 +56,7 @@ const Publish = ({ article }: { article: IArticle }) => {
         inputPlaceholder='Qidirish uchun yozing'
       />
       {selectedLabels.length > 0 && (
-        <Button
-          className='w-100 mt-2'
-          onClick={publishHandler}
-          loading={areLabelsBeingUpdated || isBeingPublished}
-        >
+        <Button className='w-100 mt-2' onClick={publishHandler} loading={isBeingPublished}>
           Nashr uchun tasdiqlash
         </Button>
       )}

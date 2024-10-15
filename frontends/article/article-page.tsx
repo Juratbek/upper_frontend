@@ -4,7 +4,8 @@ import { CommentsModal } from 'components/organisms';
 import { FC } from 'react';
 import { useIncrementViewCount } from 'store/clients/published-article';
 import { IArticle } from 'types';
-import { addAmazonBucketUriToArticle, addBucketUrlToBlocks, convertToHeadProp } from 'utils';
+import { addAmazonBucketUriToArticle, convertToHeadProp } from 'utils';
+import { addBucketUrlToBlocks } from 'utils/published-article';
 
 import { IArticlePageMainProps } from './article.types';
 import { Author } from './components';
