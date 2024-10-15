@@ -1,7 +1,9 @@
-import { UseMutationOptions, useQueryClient, UseQueryOptions } from '@tanstack/react-query';
+import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { IBlockData } from 'components/organisms';
 import { apiClient, IMutationConfig, useInfiniteQuery, useMutation, useQuery } from 'store/config';
 import { IArticle, IArticleResult, IPagingResponse, TArticleStatus } from 'types';
+
+import { IPublishArticleDto, IPublishArticleResponse } from './article.types';
 
 export const useCreateArticle = (config: UseMutationOptions<{ id: IArticle['id'] }>) =>
   useMutation<{ id: IArticle['id'] }>({
@@ -59,23 +61,14 @@ export const useBlogArticles = (status: TArticleStatus) =>
 
 export const usePublish = (
   id: number,
-  config?: UseMutationOptions<{ publishedArticleId: number }>,
+  config?: UseMutationOptions<IPublishArticleResponse, unknown, IPublishArticleDto>,
 ) =>
-  useMutation<{ publishedArticleId: number }>({
+  useMutation<IPublishArticleResponse, unknown, IPublishArticleDto>({
     ...config,
     mutationKey: ['publish', id],
-    mutationFn: () => apiClient.post({ path: `article/publish/${id}` }),
+    mutationFn: (body) =>
+      apiClient.post<IPublishArticleDto, IPublishArticleResponse>({
+        path: `article/publish/${id}`,
+        body,
+      }),
   });
-
-export const useUpdateLabels = (articleId: number) => {
-  const queryClient = useQueryClient();
-
-  return useMutation<string[], unknown, string[]>({
-    mutationFn: (tags) => apiClient.post({ path: `article/update-tags/${articleId}`, body: tags }),
-    onSuccess: (newTags) =>
-      queryClient.setQueryData(['article', articleId], (article: IArticle) => ({
-        ...article,
-        tags: newTags,
-      })),
-  });
-};
